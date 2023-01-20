@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.market2.model.service.DiscountService;
-import com.today.bab.market2.model.vo.Item;
+import com.today.bab.market2.model.vo.SellItem;
 
 @Controller
 public class DiscountController {
@@ -22,7 +22,7 @@ public class DiscountController {
 	
 	@RequestMapping("/aaa.do")
 	public ModelAndView discountItemAll(ModelAndView mv) {
-		List<Item> list = service.discountItemAll();
+		List<SellItem> list = service.discountItemAll();
 		mv.addObject("disItems",list);
 		mv.setViewName("market2/disItems");
 		System.out.println(mv);
