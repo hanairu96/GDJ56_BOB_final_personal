@@ -1,4 +1,4 @@
-package com.today.bab.mypage;
+package com.today.bab.mypage.model.dao;
 
 import org.springframework.stereotype.Repository;
 

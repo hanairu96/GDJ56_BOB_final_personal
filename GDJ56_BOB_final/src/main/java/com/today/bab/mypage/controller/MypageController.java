@@ -1,4 +1,4 @@
-package com.today.bab.mypage;
+package com.today.bab.mypage.controller;
 
 import org.springframework.stereotype.Controller;
 
