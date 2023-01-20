@@ -1,4 +1,4 @@
-package com.today.bab.mypage;
+package com.today.bab.mypage.model.service;
 
 import org.springframework.stereotype.Service;
 
