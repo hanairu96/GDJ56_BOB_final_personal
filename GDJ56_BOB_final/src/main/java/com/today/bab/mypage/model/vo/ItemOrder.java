@@ -1,5 +1,5 @@
 package com.today.bab.mypage.model.vo;
 
-public class Mypage {
-
+public class ItemOrder {
+	
 }
