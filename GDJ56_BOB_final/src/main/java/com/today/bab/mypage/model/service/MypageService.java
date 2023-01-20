@@ -1,5 +1,9 @@
 package com.today.bab.mypage.model.service;
 
-public interface MypageService {
+import java.util.List;
 
+import com.today.bab.basket.model.vo.Basket;
+
+public interface MypageService {
+	List<Basket> selectBasketById(String userId);
 }

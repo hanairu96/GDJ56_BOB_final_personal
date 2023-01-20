@@ -1,4 +1,4 @@
-package com.today.bab.basket;
+package com.today.bab.basket.model.dao;
 
 import org.springframework.stereotype.Repository;
 
