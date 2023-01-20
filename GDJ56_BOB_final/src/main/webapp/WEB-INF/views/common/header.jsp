@@ -34,9 +34,9 @@
                 <p><a href="">SUBSCRIPTION</a></p>
                 <p><a href="">CUSTOMER-CENTER</a></p>
                 <p><a href="">MYPAGE</a></p> <!-- 로그인시 나옴 -->
-                <img src="${path}/resources/images/shopping-basket.png" onclick=""> <!-- 로그인시 나옴 -->
-                <img src="${path}/resources/images/logout.png" onclick=""> <!-- 로그인시 나옴 -->
-                <!-- <img src="images/login.png" onclick=""> --> <!-- 로그인 안 했을 시 나옴 -->
+                <%-- <img src="${path}/resources/images/shopping-basket.png" onclick=""> --%> <!-- 로그인시 나옴 -->
+                <%-- <img src="${path}/resources/images/logout.png" onclick=""> --%> <!-- 로그인시 나옴 -->
+                <img src="images/login.png" onclick="location.assign('{path}/loginout/login')"> <!-- 로그인 안 했을 시 나옴 -->
             </div>
         </header>
         <style>
