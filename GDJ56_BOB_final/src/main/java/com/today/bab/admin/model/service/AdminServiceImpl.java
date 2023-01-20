@@ -1,5 +1,8 @@
 package com.today.bab.admin.model.service;
 
-public class AdminServiceImpl {
+import org.springframework.stereotype.Service;
+
+@Service
+public class AdminServiceImpl implements AdminService{
 
 }
