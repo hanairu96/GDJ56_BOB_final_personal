@@ -1,5 +1,8 @@
 package com.today.bab.admin.model.dao;
 
-public class AdminDaoImpl {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class AdminDaoImpl implements AdminDao{
 
 }
