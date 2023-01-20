@@ -24,7 +24,7 @@ public class DiscountController {
 	public ModelAndView discountItemAll(ModelAndView mv) {
 		List<SellItem> list = service.discountItemAll();
 		mv.addObject("disItems",list);
-		mv.setViewName("market2/disItems");
+		mv.setViewName("market2/discountView");
 		System.out.println(mv);
 		return mv;
 	}
