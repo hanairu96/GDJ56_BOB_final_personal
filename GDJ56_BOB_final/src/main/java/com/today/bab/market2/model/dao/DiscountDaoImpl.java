@@ -13,7 +13,7 @@ public class DiscountDaoImpl implements DiscountDao {
 	@Override
 	public List<SellItem> discountItemAll(SqlSessionTemplate session) {
 		// TODO Auto-generated method stub
-		return null;
+		return session.selectList("market2.discountItemAll");
 	}
 	
 }
