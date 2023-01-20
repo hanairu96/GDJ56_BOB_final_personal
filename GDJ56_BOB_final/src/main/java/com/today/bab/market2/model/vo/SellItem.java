@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Item {
+public class SellItem {
 	private int itemNo;
 	private String itemBoard;
 	private String itemName;

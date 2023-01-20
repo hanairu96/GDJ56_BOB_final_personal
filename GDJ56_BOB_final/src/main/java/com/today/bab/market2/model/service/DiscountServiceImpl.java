@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.today.bab.market2.model.dao.DiscountDao;
-import com.today.bab.market2.model.vo.Item;
+import com.today.bab.market2.model.vo.SellItem;
 
 @Service
 public class DiscountServiceImpl implements DiscountService {
@@ -23,7 +23,7 @@ public class DiscountServiceImpl implements DiscountService {
 	}
 	
 	@Override
-	public List<Item> discountItemAll() {
+	public List<SellItem> discountItemAll() {
 		// TODO Auto-generated method stub
 		return dao.discountItemAll(session);
 	}
