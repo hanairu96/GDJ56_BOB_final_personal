@@ -1,0 +1,104 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>오늘의 밥</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section>
+        <div class="main-logo">
+            <h1 onclick="">오늘의 밥</h1>
+            <img src="${path}/resources/images/logo-icon.png" onclick="">
+        </div>
+        <header class="head-menu">
+            <div>
+                <p><a href="">MARKET</a></p>
+                <p><a href="">ONE-DAY-CLASS</a></p>
+                <p><a href="">SUBSCRIPTION</a></p>
+                <p><a href="">CUSTOMER-CENTER</a></p>
+                <p><a href="">MYPAGE</a></p> <!-- 로그인시 나옴 -->
+                <img src="${path}/resources/images/shopping-basket.png" onclick=""> <!-- 로그인시 나옴 -->
+                <img src="${path}/resources/images/logout.png" onclick=""> <!-- 로그인시 나옴 -->
+                <!-- <img src="images/login.png" onclick=""> --> <!-- 로그인 안 했을 시 나옴 -->
+            </div>
+        </header>
+        <style>
+			.main-logo{
+				height: 100px; 
+				display: flex; 
+				padding: 50px;
+			}
+			.main-logo>h1{
+				padding-top: 0px;
+				font-family: 'Gowun Dodum';
+				font-weight:bolder;
+				font-size: 45px;
+				cursor: pointer;
+			}
+			.main-logo>img{
+				width: 150px;
+				height: 120px;
+				cursor: pointer;
+			}
+            /* 헤더 부분 상단에 고정 */
+            .head-menu{
+                position: sticky;
+                top:0;
+                height: 80px; 
+                width: 100%;
+                background-color: white;
+                z-index: 1;
+                box-shadow: 0px 5px 5px -5px gray;
+				display: block;
+            }
+			.head-menu>div{
+				display: flex; 
+				margin: 25px
+			}
+			.head-menu>div>img{
+				width: 40px;
+				height: 40px;
+				margin-top: 20px;
+			}
+            .head-menu p{
+                padding-top: 10px;
+            }
+            .head-menu a{
+                font-size: 25px;
+                font-weight: bolder;
+                font-family: '휴먼옛체';
+            }
+            .head-menu>*{
+                justify-content: space-around;
+            }
+            .head-menu img{
+                cursor: pointer;
+            }
+            a{
+                text-decoration: none;
+            }
+            .head-menu a{
+                color: rgba(102,102,102);
+            }
+            .head-menu a:hover{
+                color: purple;
+                transition: 0.5s;
+            }
+        </style>

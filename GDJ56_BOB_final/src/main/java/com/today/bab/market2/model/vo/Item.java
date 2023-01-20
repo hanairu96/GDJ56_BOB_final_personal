@@ -1,0 +1,33 @@
+package com.today.bab.market2.model.vo;
+
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Item {
+	private int itemNo;
+	private String itemBoard;
+	private String itemName;
+	private int itemPrice;
+	private int delPrice;
+	private String madeIn;
+	private String weight;
+	private String mainPic;
+	private String mainContent;
+	private String itemContent;
+	private String itemPoint;
+	private String itemKeep;
+	private String itemTip;
+	private String itemLabel;
+	private String itemDiscount;
+	private String itemCategory;
+	private String itemStock;
+	private Date itemEnroll;
+}
