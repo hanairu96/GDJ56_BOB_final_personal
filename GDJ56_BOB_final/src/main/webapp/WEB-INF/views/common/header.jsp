@@ -22,12 +22,12 @@
 </head>
 
 <body>
-    <header>
+    <section>
         <div class="main-logo">
             <h1 onclick="">오늘의 밥</h1>
             <img src="${path}/resources/images/logo-icon.png" onclick="">
         </div>
-        <div class="head-menu">
+        <header class="head-menu">
             <div>
                 <p><a href="">MARKET</a></p>
                 <p><a href="">ONE-DAY-CLASS</a></p>
@@ -38,7 +38,7 @@
                 <img src="${path}/resources/images/logout.png" onclick=""> <!-- 로그인시 나옴 -->
                 <!-- <img src="images/login.png" onclick=""> --> <!-- 로그인 안 했을 시 나옴 -->
             </div>
-        </div>
+        </header>
         <style>
 			.main-logo{
 				height: 100px; 
@@ -102,4 +102,3 @@
                 transition: 0.5s;
             }
         </style>
-    </header>
