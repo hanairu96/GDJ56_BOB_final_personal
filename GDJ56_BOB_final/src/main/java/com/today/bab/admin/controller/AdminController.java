@@ -1,4 +1,4 @@
-package com.today.bab.admin;
+package com.today.bab.admin.controller;
 
 import org.springframework.stereotype.Controller;
 
