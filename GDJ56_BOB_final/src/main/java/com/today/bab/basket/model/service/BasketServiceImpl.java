@@ -1,4 +1,4 @@
-package com.today.bab.basket;
+package com.today.bab.basket.model.service;
 
 import org.springframework.stereotype.Service;
 
