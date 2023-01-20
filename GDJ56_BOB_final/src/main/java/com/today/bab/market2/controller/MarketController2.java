@@ -16,8 +16,5 @@ public class MarketController2 {
 		this.service = service;
 	}
 	
-	@RequestMapping("/aaa.do")
-	public 
-	
 
 }
