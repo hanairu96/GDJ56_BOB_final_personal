@@ -1,4 +1,4 @@
-package com.today.bab.member.vo;
+package com.today.bab.member.model.vo;
 
 import java.util.Date;
 
