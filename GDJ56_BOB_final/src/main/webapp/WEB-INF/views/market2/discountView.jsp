@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<button type="button" onclick="requestSend('aaa.do')">연결확인</button>
+	${disItems }
+	<h3>아</h3>
 </body>
 </html>

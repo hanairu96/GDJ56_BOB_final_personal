@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SellItem {
 	private int itemNo;
-	private String itemBoard;
+	private String itemBrand;
 	private String itemName;
 	private int itemPrice;
 	private int delPrice;
