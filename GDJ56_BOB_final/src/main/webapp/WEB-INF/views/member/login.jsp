@@ -11,9 +11,9 @@
             <div id="login">
                 <br>
                 <img src="images/logo-icon.png" style="width: 120px;height: 100px;">
-                <form id="loginForm" action="<%=request.getContextPath()%>/logIn/logInEnd.do"  method="post">
-                    <input class="loginform" name="loginId" type="text" id="logInId" placeholder="아이디를 입력해주세요." style="width: 200px;"><br>
-                    <input class="loginform" name="loginPwd" type="password" id="logInPwd" placeholder="비밀번호를 입력해주세요." style="width: 200px;"><br>
+                <form id="loginForm" action="${path}/member/loginEnd" method="post">
+                    <input class="loginform" name="id" type="text" id="logInId" placeholder="아이디를 입력해주세요." style="width: 200px;"><br>
+                    <input class="loginform" name="password" type="password" id="logInPwd" placeholder="비밀번호를 입력해주세요." style="width: 200px;"><br>
                     <span id="pwdCheck"><small></small></span>
                     <button type="button" id="loginBtn" class="customBtn btnStyle">로그인</button>
                 </form>
@@ -95,6 +95,11 @@
             transition:800ms ease all;
         }
     </style>
+    <script>
+    	$(".loginBtn").click(e=>{
+    		e.target.parent.submit;
+    	})
+    </script>
 
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
