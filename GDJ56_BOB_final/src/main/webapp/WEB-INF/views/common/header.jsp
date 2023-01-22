@@ -19,6 +19,24 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    
+    <!-- 마켓 부트스트랩 -->
+        <link rel="stylesheet" href="${path }/resources/market/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="${path }/resources/market/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="${path }/resources/market/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="${path }/resources/market/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="${path }/resources/market/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="${path }/resources/market/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="${path }/resources/market/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="${path }/resources/market/css/style.css" type="text/css">
+    <script src="${path }/resources/market/js/bootstrap.min.js"></script>
+    <script src="${path }/resources/market/js/jquery.nice-select.min.js"></script>
+    <script src="${path }/resources/market/js/jquery-ui.min.js"></script>
+    <script src="${path }/resources/market/js/mixitup.min.js"></script>
+    <script src="${path }/resources/market/js/jquery.slicknav.js"></script>
+    <script src="${path }/resources/market/js/owl.carousel.min.js"></script>
+    <script src="${path }/resources/market/js/main.js"></script>
+    
 </head>
 
 <body>
@@ -29,7 +47,7 @@
         </div>
         <header class="head-menu">
             <div>
-                <p><a href="">MARKET</a></p>
+                <p><a href="${path }/market1/matketmain.do">MARKET</a></p>
                 <p><a href="">ONE-DAY-CLASS</a></p>
                 <p><a href="">SUBSCRIPTION</a></p>
                 <p><a href="">CUSTOMER-CENTER</a></p>
