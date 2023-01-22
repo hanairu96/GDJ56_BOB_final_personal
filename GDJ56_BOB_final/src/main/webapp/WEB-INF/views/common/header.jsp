@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
     
     <!-- 마켓 부트스트랩 -->
-        <link rel="stylesheet" href="${path }/resources/market/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="${path }/resources/market/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="${path }/resources/market/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="${path }/resources/market/css/elegant-icons.css" type="text/css">
     <link rel="stylesheet" href="${path }/resources/market/css/nice-select.css" type="text/css">
@@ -35,8 +35,7 @@
     <script src="${path }/resources/market/js/mixitup.min.js"></script>
     <script src="${path }/resources/market/js/jquery.slicknav.js"></script>
     <script src="${path }/resources/market/js/owl.carousel.min.js"></script>
-    <script src="${path }/resources/market/js/main.js"></script>
-    
+    <script src="${path }/resources/market/js/main.js"></script> 
 </head>
 
 <body>
