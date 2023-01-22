@@ -25,4 +25,14 @@ public class MypageServiceImpl implements MypageService {
 	public List<Basket> selectBasketById(String userId) {
 		return mypageDao.selectBasketById(session,userId);
 	}
+	
+	@Override
+	public int updateBasketCount(Basket b) {
+		return mypageDao.updateBasketCount(session,b);
+	}
+	
+	@Override
+	public int deleteBasketCount(int dbasketNo) {
+		return mypageDao.deleteBasketCount(session,dbasketNo);
+	}
 }

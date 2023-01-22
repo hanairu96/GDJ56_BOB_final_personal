@@ -377,7 +377,7 @@
                     >
                       <th class="px-4 py-3">
                         <input type="checkbox" onclick="checkAll();" id="allCheck">
-                        전체선택(<span id="checkcount">0</span>/전체개수)
+                        전체선택(<span id="checkcount">0</span>/${basket.size()})
                       </th>
                       <th class="px-4 py-3">상품정보</th>
                       <th class="px-4 py-3">수량</th>
@@ -406,13 +406,13 @@
 			                        </div>
 			                      </td>
 			                      <td class="px-4 py-3 text-sm">
-			                        <button onclick='count("minus")' value='-'
+			                        <button onclick="count(event)" value='minus'
 			                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
 			                        >
 			                        -
 			                        </button>
 			                          <span id='result'>${b.itemCount}</span>개
-			                        <button onclick='count("plus")' value='+'
+			                        <button onclick="count(event)" value='plus'
 			                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
 			                        >
 			                        +
@@ -420,6 +420,7 @@
 			                        <button id="modifyNum" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
 			                          수정
 			                        </button>
+			                        <input type="text" value=${b.basketNo } hidden>
 			                      </td>
 			                      <td class="px-4 py-3 text-sm">	
 			                        <span id="priceResult"></span>원
@@ -446,7 +447,7 @@
                         <span id="totalPrice">0</span>원
                       </th>
                       <th>
-                        <button style="height: 30px; width: 80px; font-size: 16px;" class="leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                        <button id="order" style="height: 30px; width: 80px; font-size: 16px;" class="leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                           주문
                         </button>
                       </th>
@@ -469,33 +470,41 @@
 </html>
 <script>
 	
-	var count =	document.querySelectorAll("#result");
+	var itemcount =	document.querySelectorAll("#result");
 	var price =	document.querySelectorAll("#itemPrice");
 	var resultPrice = document.querySelectorAll("#priceResult");
-	//console.log(count[0].innerHTML);
+	//console.log(itemcount[0].innerHTML);
 	//console.log(price[0].value);
-	for(let i=0;i<count.length;i++){
-		let totalprice = parseInt(count[i].innerHTML)*parseInt(price[i].value);
+	for(let i=0;i<itemcount.length;i++){
+		let totalprice = parseInt(itemcount[i].innerHTML)*parseInt(price[i].value);
 		resultPrice[i].innerText=totalprice;
-	}
+	} 
 
   //증가,감소
-  function count(type)  {
-  const productCount = document.getElementById('result');
-  
-  let number = productCount.innerText;
-  
-  if(type === 'plus') {
-    number = parseInt(number) + 1;
-  }else if(type === 'minus')  {
-    if(number<=1){
-      number=1;
-    }else{
-      number = parseInt(number) - 1;
-    }
-  }
-  productCount.innerText = number;
-}
+  function count(e)  {
+	  
+	  let productCount;
+		  //document.getElementById('result');
+	  let number;
+	 /*  let number = productCount.innerText; */
+	  
+	  if(e.target.value === 'plus') {
+		productCount=e.target.previousElementSibling;
+		number=productCount.innerText;
+	    number = parseInt(number) + 1;
+	   
+	  }else if(e.target.value === 'minus')  {
+		  productCount=e.target.nextElementSibling;
+		  number=productCount.innerText;
+	    if(number<=1){
+	      number=1;
+	    }else{
+	      number = parseInt(number) - 1;
+	    }	    
+	    
+	  }
+	  productCount.innerText = number;
+	}
 
 //전체선택
 function checkAll() {
@@ -506,26 +515,52 @@ function checkAll() {
 	}
 }
 
-//수정,삭제버튼누르면
-const modifyNum = document.querySelectorAll("#modifyNum");
-const deleteBasket = document.querySelectorAll("#deleteBasket");
-for (let i=0; i<modifyNum.length; i++) {
-    modifyNum[i].addEventListener("click", click);
-  }
-for (let i=0; i<deleteBasket.length; i++) {
-  deleteBasket[i].addEventListener("click", click);
-}
+	//수정,삭제버튼누르면
+	const modifyNum = document.querySelectorAll("#modifyNum");
+	const deleteBasket = document.querySelectorAll("#deleteBasket");
+	for (let i=0; i<modifyNum.length; i++) {
+	    modifyNum[i].addEventListener("click", click);
+	  }
+	for (let i=0; i<deleteBasket.length; i++) {
+	  deleteBasket[i].addEventListener("click", click);
+	}
 
   function click(e) {
     if(e.target.id=="modifyNum"){
       let result=window.confirm("수정하시겠습니까?");
+      
       if(result){
+    	  let itemCount=e.target.previousElementSibling.previousElementSibling.innerHTML;
+    	  let basketNo=e.target.nextElementSibling.value;
+    	  //console.log(itemNum);
         //수정하면 장바구니 회원아이디,상품번호로 where, 개수update
+    	   $.ajax({
+				url:"${path}/mypage/updateBasketCount.do",
+				type:"get",
+				data:{itemCount:itemCount,basketNo:basketNo},
+				success:data=>{
+					if(data==1) alert("수정성공");
+					else alert("수정실패");
+					location.replace('${path}/mypage/basket.do');
+				}
+	    	}); 
       }
     }else if(e.target.id=="deleteBasket"){
       let dresult=window.confirm("삭제하시겠습니까?");
       if(dresult){
-        //true면 delete 회원아이디,상품번호로 where
+        //true면 delete 장바구니로 where
+        	//console.log(e.target.parentElement.previousElementSibling.previousElementSibling.children[4].value);
+    	  let dbasketNo=e.target.parentElement.previousElementSibling.previousElementSibling.children[4].value;
+    	  $.ajax({
+				url:"${path}/mypage/deleteBasketCount.do",
+				type:"get",
+				data:{dbasketNo:dbasketNo},
+				success:data=>{
+					if(data==1) alert("삭제성공");
+					else alert("삭제실패");
+					location.replace('${path}/mypage/basket.do');
+				}
+	    	});
       }
     }
   }

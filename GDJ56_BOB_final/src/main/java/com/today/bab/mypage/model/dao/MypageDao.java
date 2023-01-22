@@ -8,4 +8,8 @@ import com.today.bab.basket.model.vo.Basket;
 
 public interface MypageDao {
 	List<Basket> selectBasketById(SqlSessionTemplate session,String userId);
+	
+	int updateBasketCount(SqlSessionTemplate session,Basket b);
+	
+	int deleteBasketCount(SqlSessionTemplate session,int dbasketNo);
 }
