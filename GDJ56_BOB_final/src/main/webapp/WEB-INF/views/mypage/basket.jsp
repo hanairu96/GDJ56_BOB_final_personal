@@ -18,14 +18,6 @@
       defer
     ></script>
     <script src="${path}/resources/assets/js/init-alpine.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
-    />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
-      defer
-    ></script>
     <script src="${path}/resources/assets/js/jquery-3.6.1.min.js"></script>
   </head>
   <body>
@@ -396,123 +388,53 @@
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        <input type="checkbox" name="productCheck" id="productCheck_">
-                      </td>
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          </div>
-                          <div>
-                            <p class="font-semibold">고구마</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <button onclick='count("minus")' value='-'
-                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-                        >
-                        -
-                        </button>
-                          <span id='result'>1</span>개
-                        <button onclick='count("plus")' value='+'
-                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-                        >
-                        +
-                        </button>&nbsp;
-                        <button id="modifyNum" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                          수정
-                        </button>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <span id="priceResult">20000</span>원
-                      </td>
-                        <td>
-                          &nbsp;&nbsp;
-                          <button id="deleteBasket" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                            삭제
-                          </button>
-                        </td>
-                    </tr>
-
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        <input type="checkbox" name="productCheck" id="productCheck_">
-                      </td>
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          </div>
-                          <div>
-                            <p class="font-semibold">고구마</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <button onclick='count("minus")' value='-'
-                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-                        >
-                        -
-                        </button>
-                          <span id='result'>1</span>개
-                        <button onclick='count("plus")' value='+'
-                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-                        >
-                        +
-                        </button>&nbsp;
-                        <button id="modifyNum" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                          수정
-                        </button>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <span id="priceResult">20000</span>원
-                      </td>
-                      <td>
-                        &nbsp;&nbsp;
-                        <button id="deleteBasket" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                          삭제
-                        </button>
-                      </td>
-                    </tr> 
-
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        <input type="checkbox" name="productCheck" id="productCheck_">
-                      </td>
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          </div>
-                          <div>
-                            <p class="font-semibold">감자</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <button onclick='count("minus")' value='-'
-                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-                        >
-                        -
-                        </button>
-                          <span id='result'>1</span>개
-                        <button onclick='count("plus")' value='+'
-                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-                        >
-                        +
-                        </button>&nbsp;
-                        <button id="modifyNum" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                          수정
-                        </button>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <span id="priceResult">4000</span>원
-                      </td>
-                      <td>
-                        &nbsp;&nbsp;
-                        <button id="deleteBasket" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                          삭제
-                        </button>
-                      </td>
-                    </tr> 
-
+                  		<c:if test="${not empty basket}">
+                  			<c:forEach var="b" items="${basket}"> 
+                  			<c:forEach var="bi" items="${b.item}"> 
+                  				<tr class="text-gray-700 dark:text-gray-400">
+			                      <td class="px-4 py-3 text-sm">
+			                      		<div style="display:flex;">
+					                        <input type="checkbox" name="productCheck" id="productCheck_">
+					                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					                        <img style="border:solid 1px; width:28px;height:28px" alt="" src="">
+			                        	</div>
+			                      </td>
+			                      <td class="px-4 py-3">
+			                        <div class="flex items-center text-sm">
+				                        <c:if test="${empty bi.itemBrand}">${bi.itemName}</c:if>
+			    						<c:if test="${not empty bi.itemBrand}">[${bi.itemBrand}]${bi.itemName}</c:if>
+			                        </div>
+			                      </td>
+			                      <td class="px-4 py-3 text-sm">
+			                        <button onclick='count("minus")' value='-'
+			                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+			                        >
+			                        -
+			                        </button>
+			                          <span id='result'>${b.itemCount}</span>개
+			                        <button onclick='count("plus")' value='+'
+			                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+			                        >
+			                        +
+			                        </button>&nbsp;
+			                        <button id="modifyNum" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
+			                          수정
+			                        </button>
+			                      </td>
+			                      <td class="px-4 py-3 text-sm">	
+			                        <span id="priceResult"></span>원
+			                        <input type="text" value="${bi.itemPrice }" id="itemPrice" hidden>
+			                      </td>
+			                      <td>
+			                        &nbsp;&nbsp;
+			                        <button id="deleteBasket" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
+			                          삭제
+			                        </button>
+			                      </td>
+                    		</tr>
+                    		</c:forEach>
+                  			</c:forEach>
+                  		</c:if>
                     <tr
                       class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
@@ -546,6 +468,16 @@
   </body>
 </html>
 <script>
+	
+	var count =	document.querySelectorAll("#result");
+	var price =	document.querySelectorAll("#itemPrice");
+	var resultPrice = document.querySelectorAll("#priceResult");
+	//console.log(count[0].innerHTML);
+	//console.log(price[0].value);
+	for(let i=0;i<count.length;i++){
+		let totalprice = parseInt(count[i].innerHTML)*parseInt(price[i].value);
+		resultPrice[i].innerText=totalprice;
+	}
 
   //증가,감소
   function count(type)  {
@@ -605,7 +537,7 @@ for (let i=0; i<deleteBasket.length; i++) {
               //console.log(ckdata);
               for(let i=0;i<ckdata.length;i++){
                 //console.log(ckdata[i].parentElement.parentElement);
-                let par=ckdata[i].parentElement.parentElement;
+                let par=ckdata[i].parentElement.parentElement.parentElement;
                 let ckprice=par.children[3].children[0].innerHTML;
                 //console.log(parseInt(ckprice)); 
                 totalP=parseInt(ckprice)+parseInt(totalP);
