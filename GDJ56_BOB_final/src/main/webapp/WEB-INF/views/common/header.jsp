@@ -53,12 +53,12 @@
                 <p><a href="">MYPAGE</a></p> <!-- 로그인시 나옴 -->
                 <%-- <img src="${path}/resources/images/shopping-basket.png" onclick=""> --%> <!-- 로그인시 나옴 -->
                 <%-- <img src="${path}/resources/images/logout.png" onclick=""> --%> <!-- 로그인시 나옴 -->
-                <img src="images/login.png" onclick="location.assign('{path}/loginout/login')"> <!-- 로그인 안 했을 시 나옴 -->
+                <img src="${path}/resources/images/login.png" onclick="location.assign('{path}/loginout/login')"> <!-- 로그인 안 했을 시 나옴 -->
             </div>
         </header>
         <style>
 			.main-logo{
-				height: 100px; 
+				height: 150px; 
 				display: flex; 
 				padding: 50px;
 			}
@@ -86,13 +86,16 @@
 				display: block;
             }
 			.head-menu>div{
-				display: flex; 
-				margin: 25px
+				display: flex;
+				margin: 25px;
+			}
+			.head-menu>div>*{
+				margin-top: 20px;
 			}
 			.head-menu>div>img{
 				width: 40px;
 				height: 40px;
-				margin-top: 20px;
+				/* margin-top: 10px; */
 			}
             .head-menu p{
                 padding-top: 10px;
