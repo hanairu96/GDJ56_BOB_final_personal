@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.today.bab.market2.model.vo.SellItem;
 
 @Repository
-public class DiscountDaoImpl implements DiscountDao {
+public class MarketDaoImpl implements MarketDao {
 	
 	@Override
 	public List<SellItem> discountItemAll(SqlSessionTemplate session) {
