@@ -7,16 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.today.bab.market2.model.service.DiscountService;
+import com.today.bab.market2.model.service.MarketService;
 import com.today.bab.market2.model.vo.SellItem;
 
 @Controller
-public class DiscountController {
+public class MarketController {
 	
-	private DiscountService service;
+	private MarketService service;
 
 	@Autowired
-	public DiscountController(DiscountService service) {
+	public MarketController(MarketService service) {
 		this.service = service;
 	}
 	

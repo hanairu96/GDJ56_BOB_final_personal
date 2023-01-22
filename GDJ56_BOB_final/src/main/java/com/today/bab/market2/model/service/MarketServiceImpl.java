@@ -6,17 +6,17 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.today.bab.market2.model.dao.DiscountDao;
+import com.today.bab.market2.model.dao.MarketDao;
 import com.today.bab.market2.model.vo.SellItem;
 
 @Service
-public class DiscountServiceImpl implements DiscountService {
+public class MarketServiceImpl implements MarketService {
 	
-	private DiscountDao dao;
+	private MarketDao dao;
 	private SqlSessionTemplate session;
 	
 	@Autowired
-	public DiscountServiceImpl(DiscountDao dao, SqlSessionTemplate session) {
+	public MarketServiceImpl(MarketDao dao, SqlSessionTemplate session) {
 		super();
 		this.dao = dao;
 		this.session = session;
