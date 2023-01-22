@@ -21,8 +21,20 @@ public class Market1Controller {
 	}
 	
 	@RequestMapping("/matketmain.do")
-	public ModelAndView Marketmain(ModelAndView mv) {
+	public ModelAndView marketmain(ModelAndView mv) {
 		mv.setViewName("market1/marketMain");
+		return mv;
+	}
+	
+	@RequestMapping("/marketgtg.do")
+	public ModelAndView marketCtg(ModelAndView mv) {
+		mv.setViewName("market1/marketGtg");
+		return mv;
+	}
+	
+	@RequestMapping("/marketdetail.do")
+	public ModelAndView marketdetail(ModelAndView mv) {
+		mv.setViewName("market1/detailMarketItem");
 		return mv;
 	}
 	

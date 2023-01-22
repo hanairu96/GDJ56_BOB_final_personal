@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg" style="height:300px">
+    <section class="breadcrumb-section set-bg" data-setbg="${path }/resources/market/img/breadcrumb.jpg" style="height:300px">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -18,6 +18,10 @@
     
     <section class="categories">
         <div class="container">
+
+			<a href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a> 
+			<a href="${path }/market1/marketdetail.do">마켓 상세페이지이동</a> 
+
 
             <br><br><br>
 
