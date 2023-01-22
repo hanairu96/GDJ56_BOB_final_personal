@@ -1,21 +1,23 @@
 package com.today.bab.mypage.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.mypage.model.service.MypageService;
 
 @Controller
 @RequestMapping("/mypage")
 public class MypageController {
 
-	private MypageService service;
+	private MypageService mypageService;
 	
 	//@Autowired
-	public MypageController(MypageService service) {
-		this.service=service;
+	public MypageController(MypageService mypageService) {
+		this.mypageService=mypageService;
 	}
 	
 	@RequestMapping("/orderlist.do")
@@ -35,10 +37,15 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/basket.do")
-	public ModelAndView selectBasket(ModelAndView mv) {
+	public ModelAndView selectBasketById(ModelAndView mv) {
 		
+		String userId="user02"; //임의로 저장 -> 동민이가 멤버 만들면 그때 값 넘어와서 고치기
+		List<Basket> b=mypageService.selectBasketById(userId);
 		
+		mv.addObject("basket",b);
 		mv.setViewName("mypage/basket");
+		
+		System.out.println(b);
 		
 		return mv;
 	}
