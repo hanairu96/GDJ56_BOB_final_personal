@@ -53,7 +53,12 @@
                 <p><a href="">SUBSCRIPTION</a></p>
                 <p><a href="">CUSTOMER-CENTER</a></p>
                 <c:if test="${loginMember!=null}">
-	                <p><a href="">MYPAGE</a></p>
+	                <c:if test="${loginMember.memberId eq 'admin' }">
+	                	<p><a href="${path }/admin/main.do">ADMINPAGE</a></p>
+	                </c:if>
+	                <c:if test="${loginMember.memberId ne 'admin' }">
+	                	<p><a href="">MYPAGE</a></p>
+	                </c:if>
 	                <img src="${path}/resources/images/shopping-basket.png" onclick="">
 	                <img src="${path}/resources/images/logout.png" onclick="logout();">
                 </c:if>
