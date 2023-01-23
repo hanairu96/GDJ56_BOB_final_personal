@@ -52,7 +52,6 @@
                 <p><a href="">ONE-DAY-CLASS</a></p>
                 <p><a href="">SUBSCRIPTION</a></p>
                 <p><a href="">CUSTOMER-CENTER</a></p>
-                <c:out value="아이디:${loginMember.memberId}"/>
                 <c:if test="${loginMember!=null}">
 	                <c:if test="${loginMember.memberId eq 'admin'}">
 	                	<p><a href="${path}/admin/main.do">ADMINPAGE</a></p>
