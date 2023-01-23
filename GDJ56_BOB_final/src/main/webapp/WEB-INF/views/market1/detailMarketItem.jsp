@@ -26,21 +26,21 @@
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"
-                                src="img/product/details/product-details-1.jpg" alt="">
+                                src="${path }/resources/market/img/product/details/product-details-1.jpg" alt="">
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
-                            <img data-imgbigurl="img/product/details/product-details-2.jpg"
-                                src="img/product/details/thumb-1.jpg" alt="">
-                            <img data-imgbigurl="img/product/details/product-details-3.jpg"
-                                src="img/product/details/thumb-2.jpg" alt="">
-                            <img data-imgbigurl="img/product/details/product-details-5.jpg"
-                                src="img/product/details/thumb-3.jpg" alt="">
-                            <img data-imgbigurl="img/product/details/product-details-4.jpg"
-                                src="img/product/details/thumb-4.jpg" alt="">
-                                <img data-imgbigurl="img/product/details/product-details-4.jpg"
-                                src="img/product/details/thumb-4.jpg" alt="">
-                                <img data-imgbigurl="img/product/details/product-details-4.jpg"
-                                src="img/product/details/thumb-4.jpg" alt="">
+                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-2.jpg" 
+                                src="${path }/resources/market/img/product/details/thumb-1.jpg" alt="">
+                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-3.jpg" 
+                                src="${path }/resources/market/img/product/details/thumb-2.jpg" alt="">
+                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-5.jpg"
+                                src="${path }/resources/market/img/product/details/thumb-3.jpg" alt="">
+                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
+                                src="${path }/resources/market/img/product/details/thumb-4.jpg" alt="">
+                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
+                                src="${path }/resources/market/img/product/details/thumb-4.jpg" alt="">
+                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
+                                src="${path }/resources/market/img/product/details/thumb-4.jpg" alt="">
                         </div>
                     </div>
                 </div>
@@ -108,6 +108,21 @@
 
     <script>
 	    (function ($) {  
+	    	//상품 슬라이드
+		    /*---------------------------------
+		        Product Details Pic Slider
+		    ----------------------------------*/
+		    $(".product__details__pic__slider").owlCarousel({
+		        loop: true,
+		        margin: 20,
+		        items: 4,
+		        dots: true,
+		        smartSpeed: 1200,
+		        autoHeight: false,
+		        autoplay: true
+		    });
+	    	
+	    	//상품 갯수
 	        var proQty = $('.pro-qty');
 	        proQty.prepend('<span class="dec qtybtn">-</span>');
 	        proQty.append('<span class="inc qtybtn">+</span>');
