@@ -2,11 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value="MainPage"/>
 </jsp:include>
-
         <div class="wrapper">
             <div id="login">
                 <br>
@@ -17,7 +15,7 @@
                     <span id="pwdCheck"><small></small></span>
                     <button type="submit" id="loginBtn" class="customBtn btnStyle">로그인</button>
                 </form>
-                <a href="">회원가입</a>&nbsp;
+                <a href="${path}/member/enrollMember">회원가입</a>&nbsp;
                 <a href="">아이디/비밀번호 찾기</a>
             </div>
         </div>
@@ -95,13 +93,4 @@
             transition:800ms ease all;
         }
     </style>
-    <script>
-/*     	$("#loginBtn").click(e=>{
-    		console.log($("[name=id]").val());
-    		console.log($("[name=password]").val());
-    		$("#loginForm").submit();
-    	}) */
-    </script>
-
-</section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
