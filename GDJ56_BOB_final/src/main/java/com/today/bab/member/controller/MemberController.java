@@ -36,16 +36,21 @@ public class MemberController {
 		System.out.println(id);
 		System.out.println(password);
 		Member m=Member.builder().memberId(id).password(password).build();
+		System.out.println(m);
 		
 		Member loginMember=service.selectMemberById(m);
+		System.out.println(loginMember);
 		
-		if(loginMember!=null) {
+		if(loginMember!=null&&loginMember.getPassword().equals(m.getPassword())) {
 			model.addAttribute("loginMember", loginMember);
 			System.out.println("성공");
+			return "redirect:/";
 		}else {
 			System.out.println("실패");
+			model.addAttribute("msg","입력이 잘못됐습니다.");
+			model.addAttribute("loc","/member/login");
+			return "common/msg";
 		}
-		return "redirect:/";
 	}
 	
 	@RequestMapping("/logout")

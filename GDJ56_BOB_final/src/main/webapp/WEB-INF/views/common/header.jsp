@@ -52,11 +52,12 @@
                 <p><a href="">ONE-DAY-CLASS</a></p>
                 <p><a href="">SUBSCRIPTION</a></p>
                 <p><a href="">CUSTOMER-CENTER</a></p>
+                <c:out value="아이디:${loginMember.memberId}"/>
                 <c:if test="${loginMember!=null}">
-	                <c:if test="${loginMember.memberId eq admin}">
+	                <c:if test="${loginMember.memberId eq 'admin'}">
 	                	<p><a href="${path}/admin/main.do">ADMINPAGE</a></p>
 	                </c:if>
-	                <c:if test="${loginMember.memberId ne admin}">
+	                <c:if test="${loginMember.memberId ne 'admin'}">
 	                	<p><a href="">MYPAGE</a></p>
 	                </c:if>
 	                <img src="${path}/resources/images/shopping-basket.png" onclick="">
