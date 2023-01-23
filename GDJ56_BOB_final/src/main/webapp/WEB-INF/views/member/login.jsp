@@ -10,12 +10,12 @@
         <div class="wrapper">
             <div id="login">
                 <br>
-                <img src="images/logo-icon.png" style="width: 120px;height: 100px;">
+                <img src="${path}/resources/images/logo-icon.png" style="width: 120px;height: 100px;">
                 <form id="loginForm" action="${path}/member/loginEnd" method="post">
                     <input class="loginform" name="id" type="text" id="logInId" placeholder="아이디를 입력해주세요." style="width: 200px;"><br>
                     <input class="loginform" name="password" type="password" id="logInPwd" placeholder="비밀번호를 입력해주세요." style="width: 200px;"><br>
                     <span id="pwdCheck"><small></small></span>
-                    <button type="button" id="loginBtn" class="customBtn btnStyle">로그인</button>
+                    <button type="submit" id="loginBtn" class="customBtn btnStyle">로그인</button>
                 </form>
                 <a href="">회원가입</a>&nbsp;
                 <a href="">아이디/비밀번호 찾기</a>
@@ -96,9 +96,11 @@
         }
     </style>
     <script>
-    	$(".loginBtn").click(e=>{
-    		e.target.parent.submit;
-    	})
+/*     	$("#loginBtn").click(e=>{
+    		console.log($("[name=id]").val());
+    		console.log($("[name=password]").val());
+    		$("#loginForm").submit();
+    	}) */
     </script>
 
 </section>

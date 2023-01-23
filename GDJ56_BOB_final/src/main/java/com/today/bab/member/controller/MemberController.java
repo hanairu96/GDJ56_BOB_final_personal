@@ -1,10 +1,9 @@
 package com.today.bab.member.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.today.bab.member.model.service.MemberService;
@@ -25,19 +24,22 @@ public class MemberController {
 	
 	@RequestMapping("/login")
 	public String login() {
-		return "/login";
+		return "member/login";
 	}
 	
 	
 	@RequestMapping("/loginEnd")
-	public String loginEnd(Member m, HttpSession session) {
+	public String loginEnd(String id, String password, Model model) {
 		
-		//Member m=Member.builder().memberId(id).password(password).build();
-
+		System.out.println(id);
+		System.out.println(password);
+		Member m=Member.builder().memberId(id).password(password).build();
+		
 		Member loginMember=service.selectMemberById(m);
 		
 		if(loginMember!=null) {
-			session.setAttribute("loginMember", loginMember);
+			model.addAttribute("loginMember", loginMember);
+			System.out.println("¼º°ø");
 		}
 		
 		return "redirect:/";
