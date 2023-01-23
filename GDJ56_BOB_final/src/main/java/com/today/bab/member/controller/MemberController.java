@@ -5,11 +5,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.today.bab.member.model.service.MemberService;
 import com.today.bab.member.model.vo.Member;
 
 @Controller
+@SessionAttributes({"loginMember"})
 @RequestMapping("/member/")
 public class MemberController {
 
@@ -27,7 +30,6 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	
 	@RequestMapping("/loginEnd")
 	public String loginEnd(String id, String password, Model model) {
 		
@@ -40,13 +42,19 @@ public class MemberController {
 		if(loginMember!=null) {
 			model.addAttribute("loginMember", loginMember);
 			System.out.println("성공");
+		}else {
+			System.out.println("실패");
 		}
-		
 		return "redirect:/";
 	}
 	
-	
-	
+	@RequestMapping("/logout")
+	public String logout(SessionStatus session) {
+		if(!session.isComplete()) {
+			session.setComplete();
+		}
+		return "redirect:/";
+	}
 	
 	
 

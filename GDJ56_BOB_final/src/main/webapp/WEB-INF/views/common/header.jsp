@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -50,10 +52,14 @@
                 <p><a href="">ONE-DAY-CLASS</a></p>
                 <p><a href="">SUBSCRIPTION</a></p>
                 <p><a href="">CUSTOMER-CENTER</a></p>
-                <p><a href="">MYPAGE</a></p> <!-- 로그인시 나옴 -->
-                <%-- <img src="${path}/resources/images/shopping-basket.png" onclick=""> --%> <!-- 로그인시 나옴 -->
-                <%-- <img src="${path}/resources/images/logout.png" onclick=""> --%> <!-- 로그인시 나옴 -->
-                <img src="${path}/resources/images/login.png" onclick="location.assign('${path}/member/login')"> <!-- 로그인 안 했을 시 나옴 -->
+                <c:if test="${loginMember!=null}">
+	                <p><a href="">MYPAGE</a></p>
+	                <img src="${path}/resources/images/shopping-basket.png" onclick="">
+	                <img src="${path}/resources/images/logout.png" onclick="logout();">
+                </c:if>
+                <c:if test="${loginMember==null}">
+                	<img src="${path}/resources/images/login.png" onclick="location.assign('${path}/member/login')">
+                </c:if>
             </div>
         </header>
         <style>
@@ -122,3 +128,12 @@
                 transition: 0.5s;
             }
         </style>
+        <script>
+        	const logout=()=>{
+        		let result=confirm("정말로 로그아웃하시겠습니까?");
+        		if(result){
+	        		location.replace('${path}/member/logout');
+	        		alert("로그아웃이 완료되었습니다.");
+        		}
+        	}
+        </script>
