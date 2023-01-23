@@ -20,22 +20,30 @@ public class Market1Controller {
 		this.service = service;
 	}
 	
-	@RequestMapping("/matketmain.do")
-	public ModelAndView marketmain(ModelAndView mv) {
-		mv.setViewName("market1/marketMain");
-		return mv;
-	}
-	
-	@RequestMapping("/marketgtg.do")
-	public ModelAndView marketCtg(ModelAndView mv) {
-		mv.setViewName("market1/marketGtg");
-		return mv;
-	}
-	
-	@RequestMapping("/marketdetail.do")
-	public ModelAndView marketdetail(ModelAndView mv) {
-		mv.setViewName("market1/detailMarketItem");
-		return mv;
-	}
+	//헤더에서 마켓 메인 이동 
+		@RequestMapping("/matketmain.do")
+		public ModelAndView marketmain(ModelAndView mv) {
+			mv.setViewName("market1/marketMain");
+			return mv;
+		}
+		
+		@RequestMapping("/marketgtg.do")
+		public ModelAndView marketCtg(ModelAndView mv) {
+			mv.setViewName("market1/marketGtg");
+			return mv;
+		}
+		
+		@RequestMapping("/marketdetail.do")
+		public ModelAndView marketdetail(ModelAndView mv) {
+			mv.setViewName("market1/detailMarketItem");
+			return mv;
+		}
+		
+		//마켓 상품 등록 페이지 이동
+		@RequestMapping("/insertmarket.do")
+		public ModelAndView insertgo(ModelAndView mv) {
+			mv.setViewName("market1/insertMarketItem");
+			return mv;
+		}
 	
 }

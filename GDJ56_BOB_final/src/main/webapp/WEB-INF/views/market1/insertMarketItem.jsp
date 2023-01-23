@@ -1,27 +1,85 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>리뷰 상세보기</title>
-</head>
-<body>
+<!--===============================================================================================-->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="${path }/resources/pato/images/icons/favicon.png"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/fonts/themify/themify-icons.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/slick/slick.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/lightbox2/css/lightbox.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/css/util.css">
+	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/css/main.css">
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+	<script type="text/javascript" src="${path }/resources/pato/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="${path }/resources/pato/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="${path }/resources/pato/vendor/bootstrap/js/popper.js"></script>
+	<script type="text/javascript" src="${path }/resources/pato/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="${path }/resources/pato/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="${path }/resources/pato/vendor/daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="${path }/resources/pato/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="${path }/resources/pato/vendor/slick/slick.min.js"></script>
+	<script type="text/javascript" src="${path }/resources/pato/js/slick-custom.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="${path }/resources/pato/vendor/parallax100/parallax100.js"></script>
+	<script type="text/javascript">
+        $('.parallax100').parallax100();
+	</script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="${path }/resources/pato/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="${path }/resources/pato/vendor/lightbox2/js/lightbox.min.js"></script>
+<!--===============================================================================================-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
+	<script src="${path }/resources/pato/js/map-custom.js"></script>
+<!--===============================================================================================-->
+	<script src="${path }/resources/pato/js/main.js"></script>
+	
+	
+	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>오늘의 밥 마켓 상품 등록</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 	<section>
 		<div class="container">
-			<div style="text-align: center;">
-				<img src="./images/오늘의 밥 메인로고.jpg" alt="" style="text-align:center;height: 250px;width:300px; margin: 50px;">
-			</div>
-
-			<h2 class="tit7 t-center">오늘의 밥 마켓 상품 등록</h2>
-			<br><br>
 			<form class="wrap-form-reservation size22 m-l-r-auto">
-				
+				<br>
 				<div class="row">
 					<div class="col-md-4">
-						<!-- Name -->
 						<span class="txt9" style="font-weight: bold;">
 							카테고리(필수)
 						</span>
