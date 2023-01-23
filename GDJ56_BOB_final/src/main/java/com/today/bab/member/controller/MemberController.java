@@ -41,9 +41,9 @@ public class MemberController {
 		
 		if(loginMember!=null) {
 			model.addAttribute("loginMember", loginMember);
-			System.out.println("����");
+			System.out.println("성공");
 		}else {
-			System.out.println("����");
+			System.out.println("실패");
 		}
 		return "redirect:/";
 	}

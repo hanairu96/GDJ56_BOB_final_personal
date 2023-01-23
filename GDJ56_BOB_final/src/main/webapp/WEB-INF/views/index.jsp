@@ -6,6 +6,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value="MainPage"/>
 </jsp:include>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
         <div class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15 banner">
             <div class="tit6">
@@ -49,8 +50,8 @@
             },3000)
         </script>
 
-        <div class="site-section">
-            <div class="container">
+        <div class="site-section-main">
+            <div class="container-main">
                 <div class="rows">
                     <div>
                         <img src="${path}/resources/images/food.jpg" class="img-fluid">
@@ -64,8 +65,8 @@
             </div>
         </div>
       
-        <div class="site-section">
-            <div class="container">
+        <div class="site-section-main">
+            <div class="container-main">
                 <div class="rows">
                     <div class="col-md-5">
                         <h3 class="text-black con">Bring joy for your table from Subscription</h3>
@@ -79,8 +80,8 @@
             </div>
         </div>
         
-        <div class="site-section">
-            <div class="container">
+        <div class="site-section-main">
+            <div class="container-main">
                 <div class="rows">
                     <div>
                         <img src="${path}/resources/images/food5.jpg" class="img-fluid">
@@ -95,8 +96,11 @@
         </div>
 
         <style>
-            .container{
+            .container-main{
              	text-align: center;
+            }
+            .col-md-5 *{
+             	justify-items: center;
             }
             .rows{
              	 display:inline-flex;
@@ -106,26 +110,29 @@
               	padding: 20px;
             }
             .btn-main{
-             	 border-radius: 10px;
-             	 border-color: wheat;
-              	width: 199px;
-              	height: 73px;
-              	cursor: pointer;
-              	background-color: #ffc107;
-              	font-size: 16px;
+            	border-radius: 10px;
+             	border-color: wheat;
+            	width: 199px;
+            	height: 73px;
+            	cursor: pointer;
+            	background-color: #ffc107;
+            	font-size: 16px;
             }
             .con{
-              	width: 412px;
+            	width: 412px;
             }
             .text-black{
-              	font-size: 28px;
-              	font-weight:500;
+            	font-size: 28px;
+            	font-weight:500;
             }
             .col-md-5>p>span{
-              	color: gray;
+            	color: gray;
             }
-            .site-section *{
+            .site-section-main h3, button{
               	font-family: 'Cairo';
+            }
+            .site-section-main p{
+              	font-family: 'Gowun Dodum';
             }
             .img-fluid{
               	width: 540px;
@@ -135,7 +142,7 @@
 
         <!-- Blog Section Begin -->
         <div class="members">
-            <h3>관리자들</h3>
+            <h3><strong>관리자들</strong></h3><br>
             <div>
                 <div>
                     <h4>최유리</h4>
@@ -170,6 +177,9 @@
             </div>
         </div>
         <style>
+            .members *{
+                font-family: 'Gowun Dodum';
+            }
             .members>*{
                 justify-content: space-evenly;
                 text-align: center;
