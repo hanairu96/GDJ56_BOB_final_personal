@@ -41,9 +41,9 @@ public class MemberController {
 		
 		if(loginMember!=null) {
 			model.addAttribute("loginMember", loginMember);
-			System.out.println("¼º°ø");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½");
 		}else {
-			System.out.println("½ÇÆÐ");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½");
 		}
 		return "redirect:/";
 	}
