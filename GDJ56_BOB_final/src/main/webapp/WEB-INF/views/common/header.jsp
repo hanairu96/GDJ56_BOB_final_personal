@@ -43,8 +43,8 @@
 <body>
     <section>
         <div class="main-logo">
-            <h1 onclick="">오늘의 밥</h1>
-            <img src="${path}/resources/images/logo-icon.png" onclick="">
+            <h1>오늘의 밥</h1>
+            <img src="${path}/resources/images/logo-icon.png">
         </div>
         <header class="head-menu">
             <div>
@@ -129,6 +129,10 @@
             }
         </style>
         <script>
+        	$(".main-logo>*").click(e=>{
+        		location.assign("${path}");
+        	});
+        
         	const logout=()=>{
         		let result=confirm("정말로 로그아웃하시겠습니까?");
         		if(result){
