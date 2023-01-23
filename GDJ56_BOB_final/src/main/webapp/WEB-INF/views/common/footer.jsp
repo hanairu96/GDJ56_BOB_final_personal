@@ -53,10 +53,12 @@
     <!-- Footer Section End -->
     <style>
         footer{
-            font-family: Gowun Dodum;
             background-color:whitesmoke;
             margin-top: 40px;
             padding-top: 10px;
+        }
+        footer *{
+            font-family: Gowun Dodum;
         }
         .rowss{
             display: flex;
