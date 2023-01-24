@@ -61,6 +61,11 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping("/enrollAgree")
+	public String enrollAgree() {
+		return "member/enrollAgree";
+	}
+
 	@RequestMapping("/enrollMember")
 	public String enrollMember() {
 		return "member/enrollMember";
