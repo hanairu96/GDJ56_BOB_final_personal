@@ -151,12 +151,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputPhone" class="form-label mt-4">핸드폰번호('-'없이 입력해주세요)</label>
+                    <label for="inputPhone" class="form-label mt-4">핸드폰번호('-'없이 입력해주세요)<span class="obli">(필수)</span></label>
                     <span class="check" id="checkPhone"><small></small></span>
                     <input type="text" class="form-control" name="inputPhone" id="inputPhone" >
                 </div>
                 <div class="form-group">
-                    <label class="form-label mt-4">성별</label>
+                    <label class="form-label mt-4">성별<span class="obli">(필수)</span></label>
                 </div>  
                 <div class="btn-group " data-toggle="buttons">
                     <label for="gender1" class="btn btn-outline-secondary">
@@ -188,7 +188,7 @@
                     </div>
                 </div>
                 <div class ="adddressContainer">
-                    <label class="form-label mt-4">주소</label>
+                    <label class="form-label mt-4">주소<span class="obli">(필수)</span></label>
                     <div class="bir_yy address">
                         <input type="text" class="form-control inputAddr"
                             name="inputAddress_postcode" id="inputAddress_postcode" placeholder="우편번호" readonly>
@@ -208,7 +208,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label mt-4">음식 취향</label>
+                    <label class="form-label mt-4">음식 취향<span class="obli">(선택)</span></label>
                 </div>  
                 <div class="btn-group like-food" data-toggle="buttons">
                     <label for="member-like1" class="btn btn-outline-secondary">
