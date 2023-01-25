@@ -42,11 +42,6 @@ public class Market1ServiceImpl implements Market1Service{
 				pic.setSellitem(s);
 				result+=dao.insertItemPic(session,pic);
 			}
-//			if(result!=s.getIPic().size()) {
-//				throw new RuntimeException("다시 확인해주세요");
-//			}
-		}else {
-			throw new RuntimeException("sellitem만 저장");
 		}
 		return result;
 	}

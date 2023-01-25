@@ -3,63 +3,173 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-<!--===============================================================================================-->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="${path }/resources/pato/images/icons/favicon.png"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/fonts/themify/themify-icons.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/animate/animate.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/daterangepicker/daterangepicker.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/slick/slick.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/lightbox2/css/lightbox.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/css/util.css">
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/css/main.css">
-<!--===============================================================================================-->
-<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/bootstrap/js/popper.js"></script>
-	<script type="text/javascript" src="${path }/resources/pato/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/daterangepicker/moment.min.js"></script>
-	<script type="text/javascript" src="${path }/resources/pato/vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/slick/slick.min.js"></script>
-	<script type="text/javascript" src="${path }/resources/pato/js/slick-custom.js"></script>
-<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/parallax100/parallax100.js"></script>
-	<script type="text/javascript">
-        $('.parallax100').parallax100();
-	</script>
-<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/lightbox2/js/lightbox.min.js"></script>
-<!--===============================================================================================-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-	<script src="${path }/resources/pato/js/map-custom.js"></script>
-<!--===============================================================================================-->
-	<script src="${path }/resources/pato/js/main.js"></script>
+<style>
+   /* 전체 배치 */
+   * {
+      margin: 0px; 
+      padding: 0px; 
+      box-sizing: border-box;
+   }
+   /* 전체 글씨체 */
+   *{
+      font-family: 'Gowun Dodum', sans-serif;
+   }
+   /* 버튼 속 글씨 정중앙 정렬 */
+   .flex-c-m {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+   }
+   /* 효과 천천히 */
+   .trans-0-4 {
+      -webkit-transition: all 0.4s;
+      -o-transition: all 0.4s;
+      -moz-transition: all 0.4s;
+      transition: all 0.4s;
+   }
+   
+   /* input 효과 */
+   .bo2 {border: 2px solid #d9d9d9;}
+   .bo-rad-10 {border-radius: 10px;} 
+   input {
+      outline: none;
+      border: none
+   }
+
+   .sizefull {
+      width: 100%;
+      height: 100%;
+   }
+
+   /* input 크기 및 정렬 */
+   .size22 {
+      max-width: 870px;
+   }
+   
+   .size12 {
+      width: 100%;
+      height: 50px;
+   }
+   .m-b-23 {
+         margin-bottom: 23px;
+      }
+   .m-t-3 {
+      margin-top: 3px;
+   }
+   .p-l-20 {padding-left: 20px;}
+   .m-l-r-auto {margin-left: auto;   margin-right: auto;}
+
+   /* (사진)확대 효과 */
+   .zoom {
+      display: block;
+      overflow: hidden;
+   }
+
+   .zoom img{
+      width: 100%;
+      -webkit-transition: all 0.6s;
+      -o-transition: all 0.6s;
+      -moz-transition: all 0.6s;
+      transition: all 0.6s;
+   }
+
+   .zoom:hover img {
+      -webkit-transform: scale(1.1);
+      -moz-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+      -o-transform: scale(1.1);
+      transform: scale(1.1);
+   }
+   
+
+   /* 버튼 효과 */
+   .btn3 {
+      background: #111111;
+      border-radius: 10px;
+      color: white;
+      width: 120px;
+      height: 40px;
+   }
+   .btn3:hover {
+      background-color: #6A0dad;
+      color: white;
+      width: 120px;
+      height: 40px;
+   }
+   textarea:focus, input:focus {
+      border-color: transparent !important;
+      box-shadow: 0 0 0px 2px #6A0dad;
+      -moz-box-shadow: 0 0 0px 2px #6A0dad;
+      -webkit-box-shadow: 0 0 0px 2px #6A0dad;
+      -o-box-shadow: 0 0 0px 2px #6A0dad;
+      -ms-box-shadow: 0 0 0px 2px #6A0dad;
+   }
+   .bg-title-page {
+      width: 100%;
+      min-height: 545px;
+      padding-left: 15px;
+      padding-right: 15px;
+      background-repeat: no-repeat;
+      background-position: center 0;
+      background-size: cover;
+   }
+
+   @media (max-width: 576px) {
+   .bg-title-page .tit6 {font-size: 30px;}
+   }
+   .tit6 {
+      font-family: Poppins;
+      font-weight: 700;
+      font-size: 50px;
+      line-height: 1.2;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      word-spacing: 6px;
+   }
+
+   .t-center{
+      text-align: center;
+   }
+   /* 배치 */
+   *, ::after, ::before {
+    box-sizing: inherit;
+   }
+   .bo5-b {
+    border-bottom: 1px solid #e6e6e6;
+   }
+   .p-b-17 {
+      padding-bottom: 17px;
+   }
+   .p-t-17 {
+      padding-top: 17px;
+   }
+   .container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100%;
+   }
+   /* 달력 */
+   .fix1{
+      position: fixed;   
+      z-index: 0;
+      right: -1;
+      -webkit-transform: translateY(-80%);
+      -ms-transform: translateY(-99%);
+      transform: translateY(-99%);
+   }
+   .fix2{      
+         position: sticky;
+         top:80px;
+         height: 80px; 
+         width: 100%;
+         background-color: white;
+         z-index: 0;
+         box-shadow: 0px 5px 5px -5px gray;
+   }
+</style>
 	
 	
 	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
@@ -146,7 +256,7 @@
 						<br>
 						<input class="" type="file" name="mainPic"  value=""> 
 					</div>
-					<br><br><br><br>
+					<br><br>
 					
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">상품 상세 사진</span><br>
@@ -154,24 +264,25 @@
 						<br>
 						<input class="" type="file" name="imgFile" id="imgFile1" value=""> 
 					</div>
-					<br><br><br><br>
+					<br>
 					<div class="col-md-12">
 						<span class="txt9" >상품사진 2</span>
 						<br>
 						<input class="" type="file" name="imgFile" id="imgFile2" value=""> 
 					</div>
-					<br><br><br>
+					<br>
 					<div class="col-md-12">
 						<span class="txt9">상품사진 3</span>
 						<br>
 						<input class="" type="file" name="imgFile" id="imgFile3" value=""> 
 					</div>
-					<br><br><br>
+					<br>
 
 					<div class="col-12" style="margin-top: 2%;">
-						<span class="txt9" style="font-weight: bold;">상품설명(필수)</span>
-						<textarea class="bo-rad-10 size35 bo2 txt10 p-l-20 p-t-15 m-b-10 m-t-3" name="mainContent" placeholder="상품에 대한 설명을 입력해주세요" required></textarea>
-					</div>
+						<span class="txt9" style="font-weight: bold;">상품설명(필수)</span><br>
+						<textarea class="bo-rad-10 size35 bo2 txt10 p-l-20 p-t-15 m-b-10 m-t-3" 
+						 rows="4" cols="120" name="mainContent"  placeholder="상품에 대한 설명을 입력해주세요" required></textarea>
+					</div><br>
 
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">상품한줄소개(필수)</span>
@@ -207,7 +318,7 @@
 						<br>
 						<input class="" type="file" name="itemLabel"  value=""> 
 					</div>
-					<br><br><br>
+					<br>
 
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">상품재고(필수)</span>

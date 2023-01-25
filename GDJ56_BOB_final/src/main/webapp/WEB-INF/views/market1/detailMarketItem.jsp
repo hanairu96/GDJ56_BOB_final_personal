@@ -26,8 +26,14 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
+                        <c:if test="${empty de.mainPic }">
                             <img class="product__details__pic__item--large"
                                 src="${path }/resources/market/img/product/details/product-details-1.jpg" alt="">
+                        </c:if>
+                        <c:if test="${not empty de.mainPic }">
+                            <img class="product__details__pic__item--large"
+                                src="${path }/resources/upload/market/mainlabel/${de.itemLabel}" alt="">
+                        </c:if>
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
                       	<c:if test="${not empty de.ipic }">
@@ -35,7 +41,7 @@
 									 <img src="${path }/resources/upload/market/detail/${file.picName}">
 							</c:forEach>                         
 	                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
-	                                src="${path }/resources/upload/market/mainlabel/${de.itemLabel}" alt="">
+	                                src="${path }/resources/upload/market/mainlabel/${de.mainPic}" alt="">
                         </c:if>
                         </div>
                     </div>
