@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>오늘의 밥 마켓 상품 등록</h2>
+                        <h2>채소</h2>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                         <div class="row">
                             <div class="col-lg-2 col-md-순">
                                 <div class="filter__found">
-                                    <h6><span>16</span>건</h6>
+                                    <h6><span>16(count...)</span>건</h6>
                                 </div>
                             </div>
 
@@ -80,7 +80,7 @@
                     </div>
                     <div class="row">
                         
-                        <div class="col-lg-4 col-md-6 col-sm-6">
+                        <%-- <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg hov-img-zoom"  data-setbg="${path }/img/product/product-2.jpg" style="filter: grayscale(100%);">
                                 </div>
@@ -90,8 +90,8 @@
                                     <h5 style="color: tomato;">재입고 준비중입니다</h5>
                                 </div>
                             </div>
-                        </div>
-
+                        </div> --%>
+					<c:forEach var="sell" items="${i }">
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" style="background-image: url('${path }/resources/market/img/product/product-2.jpg')">
@@ -100,74 +100,15 @@
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href="#">바나나</a></h6>
-                                    <p>맛있는 바나나</p>
-                                    <h5>30000원</h5>
+                                    <h6><a href=""><c:out value="${sell.itemName }"/></a></h6>
+                                    <p><c:out value="${sell.mainContent }"/></p>
+                                    <h5><c:out value="${sell.itemPrice }"/>원</h5>
                                 </div>
                             </div>
                         </div>
+					</c:forEach>
 
 
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
-                                    <ul class="product__item__pic__hover">
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">바나나</a></h6>
-                                    <p>맛있는 바나나</p>
-                                    <h5>30000원</h5>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
-                                    <ul class="product__item__pic__hover">
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">바나나</a></h6>
-                                    <p>맛있는 바나나</p>
-                                    <h5>30000원</h5>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
-                                    <ul class="product__item__pic__hover">
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">바나나</a></h6>
-                                    <p>맛있는 바나나</p>
-                                    <h5>30000원</h5>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
-                                    <ul class="product__item__pic__hover">
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">바나나</a></h6>
-                                    <p>맛있는 바나나</p>
-                                    <h5>30000원</h5>
-                                </div>
-                            </div>
-                        </div>
 
 
                     <!-- 페이징처리 -->
