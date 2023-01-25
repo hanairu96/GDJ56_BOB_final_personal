@@ -5,6 +5,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value="MainPage"/>
 </jsp:include>
+	<section>
         <div class="wrapper">
             <div id="login">
                 <br>
@@ -15,7 +16,7 @@
                     <span id="pwdCheck"><small></small></span>
                     <button type="submit" id="loginBtn" class="customBtn btnStyle">로그인</button>
                 </form>
-                <a href="${path}/member/enrollMember">회원가입</a>&nbsp;
+                <a href="${path}/member/enrollAgree">회원가입</a>&nbsp;
                 <a href="">아이디/비밀번호 찾기</a>
             </div>
         </div>
