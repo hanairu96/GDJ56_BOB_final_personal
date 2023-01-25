@@ -5,12 +5,12 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
-    <section class="breadcrumb-section set-bg" data-setbg="./img/wdasd.jpg" style="height: 350px;">
+	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>채소</h2>
+                        <h2>오늘의 밥 마켓 상품 등록</h2>
                         </div>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                         
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg hov-img-zoom"  data-setbg="img/product/product-2.jpg" style="filter: grayscale(100%);">
+                                <div class="product__item__pic set-bg hov-img-zoom"  data-setbg="${path }/img/product/product-2.jpg" style="filter: grayscale(100%);">
                                 </div>
                                 <div class="product__item__text">
                                     <h6><a href="#">바나나</a></h6>
@@ -94,9 +94,9 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
+                                <div class="product__item__pic set-bg" style="background-image: url('${path }/resources/market/img/product/product-2.jpg')">
                                     <ul class="product__item__pic__hover">
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-shopping-cart" ></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">

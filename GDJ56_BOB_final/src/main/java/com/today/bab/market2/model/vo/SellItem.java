@@ -1,6 +1,7 @@
 package com.today.bab.market2.model.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,4 +31,5 @@ public class SellItem {
 	private String itemCategory;
 	private String itemStock;
 	private Date itemEnroll;
+	private List<ItemPic> iPic;
 }
