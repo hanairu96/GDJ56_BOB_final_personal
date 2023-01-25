@@ -17,5 +17,10 @@ public class MemberDaoImpl implements MemberDao {
 	public Member idDuplicateCheck(SqlSessionTemplate session, String inputId) {
 		return session.selectOne("member.idDuplicateCheck", inputId);
 	}
+
+	@Override
+	public Member emailDuplicateCheck(SqlSessionTemplate session, String email) {
+		return session.selectOne("member.emailDuplicateCheck", email);
+	}
 	
 }

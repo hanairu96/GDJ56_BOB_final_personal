@@ -16,8 +16,8 @@ public class Market1DaoImpl implements Market1Dao {
 	}
 	
 	@Override
-	public SellItem marketdetail(SqlSessionTemplate session, String itemName){
-		return session.selectOne("ma.marketdetail",itemName);
+	public SellItem marketdetail(SqlSessionTemplate session, int itemNo){
+		return session.selectOne("ma.marketdetail",itemNo);
 	}
 	
 	@Override
@@ -28,5 +28,10 @@ public class Market1DaoImpl implements Market1Dao {
 	@Override
 	public int insertItemPic(SqlSessionTemplate session,ItemPic pic) {
 		return session.insert("ma.insertItemPic",pic);
+	}
+	
+	@Override
+	public int deleteItem(SqlSessionTemplate session,int itemNo) {
+		return session.delete("ma.deleteItem",itemNo);
 	}
 }
