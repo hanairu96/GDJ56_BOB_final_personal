@@ -5,42 +5,43 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value="MainPage"/>
 </jsp:include>
+	<section>
 		<div class="wrapper">
-            <div id="check">
-                <form action="${path}/member/enrollMember" onsubmit="return fn_agree();" method="post">
-                    <ul>
-                        <li>
-                            <input type="checkbox" name="joinMember" id="allcheck" value="selectAll">
-                            <label for="allcheck"><b>　모두 확인, 동의합니다.</b></label>
-                        </li>
-                        <li>
-                            <input type="checkbox" name="joinMember" id="join1" value='join1'>
-                            <label for="join1">　이용약관 동의(필수)</label><span class="join"><a class="agree" onclick="fn_agreeJoin1();">내용보기</a></span>
-                            <textarea readonly class="agreeJoin" id="agreeJoin1">제1조 (목적)
+			<div id="check">
+				<form action="${path}/member/enrollMember" onsubmit="return fn_agree();" method="post">
+					<ul>
+						<li>
+							<input type="checkbox" name="joinMember" id="allcheck" value="selectAll">
+							<label for="allcheck"><b>　모두 확인, 동의합니다.</b></label>
+						</li>
+						<li>
+							<input type="checkbox" name="joinMember" id="join1" value='join1'>
+							<label for="join1">　이용약관 동의(필수)</label><span class="join"><a class="agree" onclick="fn_agreeJoin1();">내용보기</a></span>
+							<textarea readonly class="agreeJoin" id="agreeJoin1">제1조 (목적)
     오늘의 밥 이용약관(이하 ‘본 약관’이라 함)은 오늘의 밥이 제공하는 오늘의 밥(이하 ‘홈페이지’라 함)의 이용조건 및 절차에 관한 사항과 기타 필요한 사항을 규정함을 목적으로 합니다.
     
 제2조 (서비스 이용시간)
     ① 서비스는 24시간 제공됩니다. 단, 부득이한 사유에 의해 서비스의 제공이 곤란한 사태가 발생한 경우는 예외로 합니다.
     ② 서비스 제공일 및 시간대의 변경은 시행 전에 홈페이지를 통하여 이용자에게 공지합니다. 다만, 피치못할 사정이 있는 경우 사전공고는 생략될 수 있습니다.
-                              </textarea>
-                        </li>
-                        <li>
-                            <input type="checkbox" name="joinMember" id="join2" value='join2'>
-                            <label for="join2">　개인정보 수집 및 이용 동의(필수)</label><span class="join"><a class="agree" onclick="fn_agreeJoin2();">내용보기</a></span>
-                            <textarea readonly class="agreeJoin" id="agreeJoin2">&nbsp;&nbsp;&nbsp; 개인정보의 처리목적은은 다음의 목적을 위하여 개인정보를 처리합니다. 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며, 이용 목적이 변경되는 경우에는 「개인정보 보호법」제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다.
+							</textarea>
+						</li>
+						<li>
+							<input type="checkbox" name="joinMember" id="join2" value='join2'>
+							<label for="join2">　개인정보 수집 및 이용 동의(필수)</label><span class="join"><a class="agree" onclick="fn_agreeJoin2();">내용보기</a></span>
+							<textarea readonly class="agreeJoin" id="agreeJoin2">&nbsp;&nbsp;&nbsp; 개인정보의 처리목적은은 다음의 목적을 위하여 개인정보를 처리합니다. 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며, 이용 목적이 변경되는 경우에는 「개인정보 보호법」제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다.
     - 회원 가입 및 관리
     회원 가입의사 확인, 회원제 서비스 제공에 따른 본인 식별·인증, 회원자격 유지·관리, 서비스 부정이용 방지, 각종 고지·통지, 고충처리 목적으로 개인정보를 처리합니다. 
-                            </textarea>
-                        </li>
-                    </ul>
-                    <div id="button">
-                        <button type="submit" class="agree customBtn btnStyle">동의하고 가입하기</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-    <style>
+							</textarea>
+						</li>
+					</ul>
+					<div id="button">
+						<button type="submit" class="agree customBtn btnStyle">동의하고 가입하기</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+	<style>
 		.wrapper {
             display: flex;
             justify-content: center;
@@ -140,8 +141,8 @@
             text-align: -webkit-match-parent;
             font-size: 15px;
         }
-    </style>
-    <script>
+	</style>
+	<script>
 		const fn_agreeJoin1=()=>{
 			$("#agreeJoin1").toggle();
 		};
@@ -181,5 +182,5 @@
 				return false;
 			}
 		}
-    </script>
+	</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
