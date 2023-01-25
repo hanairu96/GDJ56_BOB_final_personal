@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class OneDayController {
 	
+	@RequestMapping("/class/main.do")
+	public String oneDayClassMain() {
+		return "onedayclass/onedayMain";
+	}
 
 
 }
