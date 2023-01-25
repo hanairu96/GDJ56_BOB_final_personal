@@ -6,4 +6,5 @@ import com.today.bab.member.model.vo.Member;
 
 public interface MemberDao {
 	Member selectMemberById(SqlSessionTemplate session, Member m);
+	Member idDuplicateCheck(SqlSessionTemplate session, String inputId);
 }
