@@ -211,6 +211,21 @@ public class Market1Controller {
 		}
 		return "common/msg";
 	}
+	
+	@RequestMapping("/updateItemGo.do")
+	public ModelAndView updateItem(int itemNo, ModelAndView mv) {
+		SellItem list=service.marketdetail(itemNo);
+		mv.addObject("up",list);
+		String file="";
+		int count=0;
+		for(ItemPic i : list.getIpic()) {
+			if(count++!=0) file+=",";
+			file+=i.getPicName();
+		}
+		mv.addObject("file",file);
+		mv.setViewName("market1/updateItem");
+		return mv;
+	}
 		
 		
 }

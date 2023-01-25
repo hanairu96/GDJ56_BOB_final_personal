@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+itemPrice<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -19,7 +19,7 @@
     </section>
     <section class="product-details spad">
     <div>
-   		<button class="primary-btn" type="button" onclick="" style="background-color:blue;border: none;">수정</button>
+   		<button class="primary-btn" type="button" onclick="updateItem(${de.itemNo})" style="background-color:blue;border: none;">수정</button>
     	<button class="primary-btn" type="button" onclick="deleteItemFile(${de.itemNo},'${picpic}','${de.mainPic}','${de.itemLabel}')" style="background-color:red;border: none;" >삭제</button>
     </div>	
     <script>
@@ -29,9 +29,12 @@
     		for(let i=0;i<pp.length;i++){
     			addpath+="&picName="+pp[i];
     		}
-    		console.log(addpath);
 			location.assign("${path}/market1/deleteItem.do?itemNo="+no+"&mainPic="+main+"&itemLabel="+label+addpath);    	
     	}
+    	const updateItem=(no)=>{
+			location.assign("${path}/market1/updateItemGo.do?itemNo="+no); 
+    	}
+    	
     </script>
         <div class="container">
             <div class="row">

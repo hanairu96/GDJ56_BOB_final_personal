@@ -19,8 +19,7 @@
     
     <section class="categories">
         <div class="container">
-			<a href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a> 			<a href="${path }/market1/marketdetail.do">마켓 상세페이지이동</a> 
-			
+			<a href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a> 			
 			<a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:900px;margin-top:30px;background-color: #07d448;" >상품등록</a>
 
             <br><br><br>
