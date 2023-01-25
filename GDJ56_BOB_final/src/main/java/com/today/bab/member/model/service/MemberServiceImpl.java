@@ -27,4 +27,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectMemberById(session, m);
 	}
 
+	@Override
+	public Member idDuplicateCheck(String inputId) {
+		return dao.idDuplicateCheck(session, inputId);
+	}
+
 }

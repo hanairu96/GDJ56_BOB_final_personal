@@ -12,5 +12,10 @@ public class MemberDaoImpl implements MemberDao {
 	public Member selectMemberById(SqlSessionTemplate session, Member m) {
 		return session.selectOne("member.selectMemberById", m);
 	}
+
+	@Override
+	public Member idDuplicateCheck(SqlSessionTemplate session, String inputId) {
+		return session.selectOne("member.idDuplicateCheck", inputId);
+	}
 	
 }
