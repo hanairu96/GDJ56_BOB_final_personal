@@ -31,23 +31,22 @@
 
 		<!-- 분류 메뉴 -->
 		<div style="padding-left: 46%; margin-right: 3%; padding-top: 5%;">
-				<button class="menu txt26 trans-0-4" style="background-color:#bde28f; color:white;" onclick="location.assign('${path}/class/main.do')">
+				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/main.do')">
 					전체
 				</button>
 				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/menu.do?type=bob')">
 					🍚집밥
 				</button>
-				<button class="menu txt26 trans-0-4" name="vegan" onclick="location.assign('${path}/class/menu.do?type=vegan')">
+				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/menu.do?type=vegan')">
 					🥑비건
 				</button>
-				<button class="menu txt26 trans-0-4" name="healty" onclick="location.assign('${path}/class/menu.do?dotype=healthy')">
+				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/menu.do?type=healthy')">
 					💪건강식
 				</button>
-
-				<button class="menu txt26 trans-0-4" name="baking" onclick="location.assign('${path}/class/menu.do?type=baking')">
+				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/menu.do?type=baking')">
 					🍰베이킹
 				</button>
-				<button class="menu txt26 trans-0-4" name="etc" onclick="location.assign('${path}/class/menu.do?type=etc')">
+				<button class="menu txt26 trans-0-4" style="background-color:#bde28f; color:white;" onclick="location.assign('${path}/class/menu.do?type=etc')">
 					🍽️etc
 				</button>
 				<button class="menu txt26 trans-0-4" id="search">
@@ -57,18 +56,14 @@
 
 		<!-- 검색창 -->
 		<div id="searchbox" >
-				
-			<form action="${path }/class/search.do">
-				<select name='searchlist' style="padding: 0.3%; margin: 1%; margin-left:-6%;">
-					<option value='choice' >-- 선택 --</option>
-					<option value='cookname'>요리이름</option>
-					<option value='master'>강사</option>
-					<option value='place'>지역</option>
-					<input id="searchclass" type="text" name="search" placeholder="Search" onchange="change();"/>
-					<button class="search-btn">&nbsp; 검색 &nbsp;</button>
-				</select>
-			</form>
-			
+			<select name='searchlist' style="padding: 0.3%; margin: 1%; margin-left:-6%;">
+				<option value='choice' >-- 선택 --</option>
+				<option value='cookname'>요리이름</option>
+				<option value='master'>강사</option>
+				<option value='place'>지역</option>
+				<input class="" type="text" name="search" placeholder="Search">
+				<button class="search-btn">&nbsp; 검색 &nbsp;</button>
+			</select>
 		</div>
 
 		<script>
@@ -76,8 +71,7 @@
 				$("#search").on("click", function() {
 					$("#searchbox").slideToggle("fast"); // 2초에 걸쳐서 진행
 				})
-			});
-		
+			})
 		</script>
 
 		<!-- 원데이클래스 리스트 -->
