@@ -1,5 +1,6 @@
 package com.today.bab.onedayclass;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,11 @@ public class OneDayController {
 	public String selectSearchClass(String search, String searchlist) {
 		System.out.println(search);
 		System.out.println(searchlist);
-		List<OneDayClass> classlist = service.selectSearchClass(searchlist,search);
+		String[] arr = new String[2]; 
+		arr[0]=search;
+		arr[1]=searchlist;
+		List<OneDayClass> classlist = service.selectSearchClass(arr);
+		System.out.println(classlist);
 		return "oendaySearchResult";
 	}
 	

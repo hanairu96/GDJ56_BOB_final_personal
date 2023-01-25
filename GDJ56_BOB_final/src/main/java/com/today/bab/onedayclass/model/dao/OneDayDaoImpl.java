@@ -22,9 +22,9 @@ public class OneDayDaoImpl implements OneDayDao {
 	}
 
 	@Override
-	public List<OneDayClass> selectSearchClass(SqlSessionTemplate session, String searchList, String search) {
-		//return session.selectList("onedayclass.selectSearchClass",searchList,search);
-		return null;
+	public List<OneDayClass> selectSearchClass(SqlSessionTemplate session, String[] arr ) {
+		
+		return session.selectList("onedayclass.selectSearchClass",arr);
 	}
 	
 	
