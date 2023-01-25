@@ -72,11 +72,6 @@ private AdminService service;
 			memberlike.add("채소");
 		}
 		
-		for(int i=0;i<memberlike.size();i++) {
-			System.out.println(memberlike.get(i));
-		}
-//		System.out.println("선호음식 : "+memberlike);
-		
 		ArrayList asResult=new ArrayList();
 		
 		for(int i=0;i<as.size();i++) {
@@ -108,16 +103,6 @@ private AdminService service;
 		
 		return mv;
 	}
-	
-	
-//	public void duplicateId(String userId,HttpServletResponse response) throws IOException{
-//		Member m=service.selectMemberById(Member.builder().userId(userId).build());
-//		
-//		response.setContentType("application/json;charset=utf-8");
-////		response.setContentType("text/csv;charset=utf-8");
-////		response.getWriter().print((m==null?false:true));
-//		new Gson().toJson(m,response.getWriter());
-//	}
 	
 	//클래스 장인 관리
 	@RequestMapping("/master.do")
