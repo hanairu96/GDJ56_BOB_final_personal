@@ -70,8 +70,8 @@ public class Market1Controller {
 	}
 	//상품 상세페이지로 이동
 	@RequestMapping("/marketdetail.do")
-	public ModelAndView marketdetail(ModelAndView mv,String itemName) {
-		SellItem list=service.marketdetail(itemName);
+	public ModelAndView marketdetail(ModelAndView mv,int itemNo) {
+		SellItem list=service.marketdetail(itemNo);
 		mv.addObject("de",list);
 		mv.setViewName("market1/detailMarketItem");
 		return mv;
@@ -168,7 +168,7 @@ public class Market1Controller {
 		s.setIPic(files);
 		
 
-		int result=service.insertItem(s);
+		int result=service.insertItem( s);
 		if(result>0) {
 			mv.addObject("msg", "게시판 작성 완료");
 			mv.addObject("loc", "/market1/matketmain.do");

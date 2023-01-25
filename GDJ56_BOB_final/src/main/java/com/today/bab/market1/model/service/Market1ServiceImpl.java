@@ -30,8 +30,8 @@ public class Market1ServiceImpl implements Market1Service{
 	}
 	
 	@Override
-	public SellItem marketdetail(String itemName){
-		return dao.marketdetail(session, itemName);
+	public SellItem marketdetail(int itemNo){
+		return dao.marketdetail(session, itemNo);
 	}
 	
 	@Override

@@ -30,18 +30,22 @@
                                 src="${path }/resources/market/img/product/details/product-details-1.jpg" alt="">
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-2.jpg" 
-                                src="${path }/resources/market/img/product/details/thumb-1.jpg" alt="">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-3.jpg" 
+                        <c:out value="${de }"/>
+                        <c:out value="${de.iPic }"/>
+                        <%-- <c:forEach var="detail" items="${de.iPic }">
+                        	<c:out value="${detail.picName }"/>
+						</c:forEach>   --%>                       
+<%--                             <img src="${path }/resources/upload/market/detail/${detail.picName}" alt=""> --%>
+                            <%-- <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-3.jpg" 
                                 src="${path }/resources/market/img/product/details/thumb-2.jpg" alt="">
                             <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-5.jpg"
                                 src="${path }/resources/market/img/product/details/thumb-3.jpg" alt="">
                             <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
                                 src="${path }/resources/market/img/product/details/thumb-4.jpg" alt="">
                             <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
-                                src="${path }/resources/market/img/product/details/thumb-4.jpg" alt="">
+                                src="${path }/resources/market/img/product/details/thumb-4.jpg" alt=""> --%>
                             <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
-                                src="${path }/resources/market/img/product/details/thumb-4.jpg" alt="">
+                                src="${path }/resources/upload/market/mainlabel/${de.itemLabel}" alt="">
                         </div>
                     </div>
                 </div>
