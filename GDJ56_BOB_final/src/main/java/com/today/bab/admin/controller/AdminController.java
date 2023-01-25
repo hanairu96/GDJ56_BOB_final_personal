@@ -1,9 +1,9 @@
 package com.today.bab.admin.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.admin.model.service.AdminService;
+import com.today.bab.admin.model.vo.AdminMember;
+import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.common.AdminPageBar;
-import com.today.bab.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/admin")
@@ -51,9 +52,72 @@ private AdminService service;
 	
 	//회원관리-상세보기
 	@RequestMapping("/membersInfo.do")
-	public String adminMembersInfo() {
-		return "admin/adminMembersInfo";
+	public ModelAndView adminMembersInfo(ModelAndView mv,String id) {
+		AdminMember m=service.adminmemberInfo(id); //회원정보+선호식품
+		List<AdminSubscription> as=service.adminSubscription(id); //구독정보+구독식품
+		
+		mv.addObject("m",m); //회원정보
+		System.out.println(m);
+		
+		ArrayList memberlike=new ArrayList();
+		if(m.getMemberlike().getFruit()=='Y') {
+			memberlike.add("과일");
+		}if(m.getMemberlike().getMeat()=='Y') {
+			memberlike.add("육류");
+		}if(m.getMemberlike().getSea()=='Y') {
+			memberlike.add("수산물");
+		}if(m.getMemberlike().getSide()=='Y') {
+			memberlike.add("반찬");
+		}if(m.getMemberlike().getVege()=='Y') {
+			memberlike.add("채소");
+		}
+		
+		for(int i=0;i<memberlike.size();i++) {
+			System.out.println(memberlike.get(i));
+		}
+//		System.out.println("선호음식 : "+memberlike);
+		
+		ArrayList asResult=new ArrayList();
+		
+		for(int i=0;i<as.size();i++) {
+			asResult.add(as.get(i).getSubItem().getSubName());
+		}
+//		System.out.println("구독상품 : "+asResult);
+		
+		mv.addObject("memberlike",memberlike); //선호음식
+		mv.addObject("asResult",asResult); //구독상품
+		mv.setViewName("admin/adminMembersInfo");
+		
+		return mv;
 	}
+	
+	//회원 탈퇴
+	@RequestMapping("/adminDeleteMember.do")
+	public ModelAndView adminDeleteMember(String memberId,ModelAndView mv) {
+		int result=service.adminDeleteMember(memberId);
+		
+		System.out.println(result);
+		if(result>0) {
+			mv.addObject("msg","탈퇴 성공");
+			mv.addObject("loc","/admin/members.do");
+		}else {
+			mv.addObject("msg","탈퇴 실패");
+			mv.addObject("loc","/admin/membersInfo.do");
+		}
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
+	
+//	public void duplicateId(String userId,HttpServletResponse response) throws IOException{
+//		Member m=service.selectMemberById(Member.builder().userId(userId).build());
+//		
+//		response.setContentType("application/json;charset=utf-8");
+////		response.setContentType("text/csv;charset=utf-8");
+////		response.getWriter().print((m==null?false:true));
+//		new Gson().toJson(m,response.getWriter());
+//	}
 	
 	//클래스 장인 관리
 	@RequestMapping("/master.do")
