@@ -48,10 +48,8 @@
         </div>
         <header class="head-menu">
             <div>
-
-                <p><a href="${path }/market1/matketmain.do">MARKET</a></p>
-                <p><a href="${path }/class/main.do">ONE-DAY-CLASS</a></p>
                 <p><a href="${path}/market1/matketmain.do">MARKET</a></p>
+                <p><a href="${path}/class/main.do">ONE-DAY-CLASS</a></p>
                 <p><a href="">SUBSCRIPTION</a></p>
                 <p><a href="">CUSTOMER-CENTER</a></p>
                 <c:if test="${loginMember!=null}">
