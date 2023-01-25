@@ -30,22 +30,13 @@
                                 src="${path }/resources/market/img/product/details/product-details-1.jpg" alt="">
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
-                        <c:out value="${de }"/>
-                        <c:out value="${de.iPic }"/>
-                        <%-- <c:forEach var="detail" items="${de.iPic }">
-                        	<c:out value="${detail.picName }"/>
-						</c:forEach>   --%>                       
-<%--                             <img src="${path }/resources/upload/market/detail/${detail.picName}" alt=""> --%>
-                            <%-- <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-3.jpg" 
-                                src="${path }/resources/market/img/product/details/thumb-2.jpg" alt="">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-5.jpg"
-                                src="${path }/resources/market/img/product/details/thumb-3.jpg" alt="">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
-                                src="${path }/resources/market/img/product/details/thumb-4.jpg" alt="">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
-                                src="${path }/resources/market/img/product/details/thumb-4.jpg" alt=""> --%>
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
-                                src="${path }/resources/upload/market/mainlabel/${de.itemLabel}" alt="">
+                      	<c:if test="${not empty de.ipic }">
+	                        <c:forEach var="file" items="${de.ipic }">
+									 <img src="${path }/resources/upload/market/detail/${file.picName}">
+							</c:forEach>                         
+	                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
+	                                src="${path }/resources/upload/market/mainlabel/${de.itemLabel}" alt="">
+                        </c:if>
                         </div>
                     </div>
                 </div>

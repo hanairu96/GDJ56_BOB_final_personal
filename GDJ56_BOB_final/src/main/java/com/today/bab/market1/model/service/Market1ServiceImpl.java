@@ -38,7 +38,7 @@ public class Market1ServiceImpl implements Market1Service{
 	public int insertItem(SellItem s) {
 		int result=dao.insertItem(session,s);
 		if(result>0) {
-			for(ItemPic pic : s.getIPic()) {
+			for(ItemPic pic : s.getIpic()) {
 				pic.setSellitem(s);
 				result+=dao.insertItemPic(session,pic);
 			}

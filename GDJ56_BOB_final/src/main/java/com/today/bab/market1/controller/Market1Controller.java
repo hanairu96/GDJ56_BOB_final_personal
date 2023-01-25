@@ -165,7 +165,7 @@ public class Market1Controller {
 			}
 		}
 		
-		s.setIPic(files);
+		s.setIpic(files);
 		
 
 		int result=service.insertItem( s);
