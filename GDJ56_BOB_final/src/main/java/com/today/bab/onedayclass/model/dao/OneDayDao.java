@@ -10,5 +10,6 @@ public interface OneDayDao {
 	
 	List<OneDayClass> selectClassList(SqlSessionTemplate session);
 	List<OneDayClass> selectMenuClassList(SqlSessionTemplate session,String type);
+	List<OneDayClass> selectSearchClass(SqlSessionTemplate session,String searchlist,String search);
 	
 }

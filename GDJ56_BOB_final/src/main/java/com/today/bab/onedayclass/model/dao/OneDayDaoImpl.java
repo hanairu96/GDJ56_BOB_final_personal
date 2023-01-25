@@ -20,6 +20,14 @@ public class OneDayDaoImpl implements OneDayDao {
 	public List<OneDayClass> selectMenuClassList(SqlSessionTemplate session, String type) {
 		return session.selectList("onedayclass.selectMenuClassList",type);
 	}
+
+	@Override
+	public List<OneDayClass> selectSearchClass(SqlSessionTemplate session, String searchList, String search) {
+		//return session.selectList("onedayclass.selectSearchClass",searchList,search);
+		return null;
+	}
+	
+	
 	
 	
 

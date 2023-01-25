@@ -31,6 +31,13 @@ public class OneDayServiceImpl implements OneDayService {
 
 		return dao.selectMenuClassList(session,type);
 	}
+
+	@Override
+	public List<OneDayClass> selectSearchClass(String searchlist, String saerch) {
+		return dao.selectSearchClass(session,searchlist,saerch);
+	}
+	
+	
 	
 	
 	

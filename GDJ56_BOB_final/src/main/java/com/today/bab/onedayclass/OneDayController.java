@@ -41,10 +41,11 @@ public class OneDayController {
 	}
 	
 	@RequestMapping("/class/search.do")
-	public String classSearch(String search, String searchlist) {
+	public String selectSearchClass(String search, String searchlist) {
 		System.out.println(search);
 		System.out.println(searchlist);
-		return "one";
+		List<OneDayClass> classlist = service.selectSearchClass(searchlist,search);
+		return "oendaySearchResult";
 	}
 	
 	
