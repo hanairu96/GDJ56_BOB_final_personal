@@ -50,5 +50,10 @@ public class Market1ServiceImpl implements Market1Service{
 	public int deleteItem(int itemNo) {
 		return dao.deleteItem(session,itemNo);
 	}
+	
+	@Override
+	public List<SellItem> selectItemMarket(){
+		return dao.selectItemMarket(session);
+	}
 
 }

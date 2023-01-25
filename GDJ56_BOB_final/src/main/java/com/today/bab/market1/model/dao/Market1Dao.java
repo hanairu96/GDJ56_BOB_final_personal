@@ -19,4 +19,6 @@ public interface Market1Dao {
 	
 	int deleteItem(SqlSessionTemplate session,int itemNo);
 	
+	List<SellItem> selectItemMarket(SqlSessionTemplate session);
+	
 }

@@ -34,4 +34,9 @@ public class Market1DaoImpl implements Market1Dao {
 	public int deleteItem(SqlSessionTemplate session,int itemNo) {
 		return session.delete("ma.deleteItem",itemNo);
 	}
+	
+	@Override
+	public List<SellItem> selectItemMarket(SqlSessionTemplate session){
+		return session.selectList("ma.selectItemMarket");
+	}
 }

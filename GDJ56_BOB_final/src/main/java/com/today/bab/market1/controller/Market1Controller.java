@@ -52,11 +52,11 @@ public class Market1Controller {
 //	}
 	
 	
-	//헤더에서 마켓 메인 이동 
+	//INDEX에서 마켓 메인 이동 
 	@RequestMapping("/matketmain.do")
 	public ModelAndView marketmain(ModelAndView mv) {
-//		List<SellItem> list=service.selectItemMarket();
-//		mv.addObject("items",list);
+		List<SellItem> list=service.selectItemMarket();
+		mv.addObject("items",list);
 		mv.setViewName("market1/marketMain");
 		return mv;
 	}

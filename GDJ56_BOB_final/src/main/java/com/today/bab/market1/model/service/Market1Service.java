@@ -17,5 +17,8 @@ public interface Market1Service {
 
 	//상픔 삭제
 	int deleteItem(int itemNo);
+	
+	//마켓 메인
+	List<SellItem> selectItemMarket();
 
 }
