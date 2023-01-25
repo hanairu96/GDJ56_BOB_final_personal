@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath }"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="path" value="${pageContext.request.contextPath }"/>  
 
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
@@ -260,7 +262,8 @@
                   <span class="text-gray-700 dark:text-gray-400"><b>ID</b></span>
                   <input
                     class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                    placeholder=""
+                    value="${m.memberId }"
+                    readonly
                   />
                 </label>
 
@@ -270,7 +273,8 @@
                       <span class="text-gray-700 dark:text-gray-400"><b>이름</b></span>
                       <input
                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                        placeholder=""
+                        value="${m.mname }"
+                        readonly
                       />
                     </label>
                   </div>
@@ -282,7 +286,8 @@
                       <span class="text-gray-700 dark:text-gray-400"><b>닉네임</b></span>
                       <input
                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                        placeholder=""
+                        value="${m.nickname }"
+                        readonly
                       />
                     </label>
                   </div>
@@ -294,7 +299,8 @@
                       <span class="text-gray-700 dark:text-gray-400"><b>회원등급</b></span>
                       <input
                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                        placeholder=""
+                        value="${fn:contains(m.grade,'Y')?'장인':'일반'}"
+                        readonly
                       />
                     </label>
                   </div>
@@ -306,7 +312,8 @@
                       <span class="text-gray-700 dark:text-gray-400"><b>생년월일</b></span>
                       <input
                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                        placeholder=""
+                        value="${m.birthday }"
+                        readonly
                       />
                     </label>
                   </div>
@@ -318,7 +325,8 @@
                       <span class="text-gray-700 dark:text-gray-400"><b>전화번호</b></span>
                       <input
                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                        placeholder=""
+                       value="${m.phone }"
+                       readonly
                       />
                     </label>
                   </div>
@@ -330,7 +338,8 @@
                       <span class="text-gray-700 dark:text-gray-400"><b>성별</b></span>
                       <input
                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                        placeholder=""
+                        value="${m.gender}"
+                        readonly
                       />
                     </label>
                   </div>
@@ -342,7 +351,8 @@
                       <span class="text-gray-700 dark:text-gray-400"><b>이메일</b></span>
                       <input
                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                        placeholder=""
+                        value="${m.email }"
+                        readonly
                       />
                     </label>
                   </div>
@@ -354,7 +364,8 @@
                       <span class="text-gray-700 dark:text-gray-400"><b>주소</b></span>
                       <input
                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                        placeholder=""
+                        value="${m.address }"
+                        readonly
                       />
                     </label>
                   </div>
@@ -362,35 +373,59 @@
 
                 <div class="mt-4 text-sm">
                   <div class="mt-2">
-                    <label class="block text-sm">
-                      <span class="text-gray-700 dark:text-gray-400"><b>정기구독</b></span>
-                      <input
-                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                        placeholder=""
-                      />
+                    <label class="block text-sm" style="display:flex;flex-direction:row;">
+                    	<div style="display:flex;flex-direction:column;">
+	                      <span class="text-gray-700 dark:text-gray-400"><b>정기구독</b></span>
+	                      <c:if test="${not empty asResult }">
+		                      <c:forEach var="as" items="${asResult }" >
+			                      <input
+			                      	style="width:fit-content;text-align:center;"
+			                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+			                        value=" ${as}"
+			                        readonly
+			                      /> 
+		                      </c:forEach>
+		                  </c:if>
+		                  <c:if test="${empty asResult }">
+			                      <input
+			                      	style="width:fit-content;text-align:center;"
+			                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+			                        value="없음"
+			                        readonly
+			                      /> 
+		                  </c:if>
+                      </div>
+                     <div style="margin-left:50px;display:flex;flex-direction:column;">
+	                      <span class="text-gray-700 dark:text-gray-400"><b>선호식품</b></span>
+	                      	<c:if test="${not empty memberlike }">
+			                    <c:forEach var="ml" items="${memberlike }" >
+				                    <input
+				                      style="width:fit-content;text-align:center;"
+				                      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+				                      value=" ${ml}"
+				                      readonly
+				                    />
+			                    </c:forEach>
+		                    </c:if>
+		                     <c:if test="${empty memberlike }">
+			                      <input
+			                      	style="width:fit-content;text-align:center;"
+			                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+			                        value="없음"
+			                        readonly
+			                      /> 
+		                  </c:if>
+                    </div>
                     </label>
                   </div>
-                </div>
-  
-              <div class="mt-4 text-sm">
-                <div class="mt-2">
-                  <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400"><b>선호식품</b></span>
-                    <input
-                      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                      placeholder=""
-                    />
-                  </label>
-                </div>
+             
               </div>
             </div>
-            
-
-            
 
               <div style="text-align: center;">
                 <button
                 id="adminMemberDeleteBtn"
+                value="${m.memberId }"
                 style="background-color: white;color: red;border: 1.5px solid red; font-size: 15px;height:50px;"
                 class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
               >
@@ -416,7 +451,7 @@
 			     </button>
 			     <button
 			       style="display :inline-block;background-color: white; border: 1.5px solid purple; color: purple;"
-			       class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+			       class="modal_submit_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
 			     >
 			     확인
 			     </button>
@@ -432,58 +467,84 @@
      <!-- 회원 탈퇴 재확인 -->
     <script>
     
-    function modal(id) {
-    	   var zIndex = 9999;
-    	   var modal = document.getElementById(id);
-
-    	   // 모달 div 뒤에 희끄무레한 레이어
-    	   var bg = document.createElement('div');
-    	   bg.setStyle({
-    	       position: 'fixed',
-    	       zIndex: zIndex,
-    	       left: '0px',
-    	       top: '0px',
-    	       width: '100%',
-    	       height: '100%',
-    	       overflow: 'auto',
-    	       // 레이어 색깔은 여기서 바꾸면 됨
-    	       backgroundColor: 'rgba(0,0,0,0.4)'
-    	   });
-    	   document.body.append(bg);
-
-    	   // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
-    	   modal.querySelector('.modal_close_btn').addEventListener('click', function() {
-    	       bg.remove();
-    	       modal.style.display = 'none';
-    	   });
-
-    	   modal.setStyle({
-    	       position: 'fixed',
-    	       display: 'block',
-    	       boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-
-    	       // 시꺼먼 레이어 보다 한칸 위에 보이기
-    	       zIndex: zIndex + 1,
-
-    	       // div center 정렬
-    	       top: '50%',
-    	       left: '50%',
-    	       transform: 'translate(-50%, -50%)',
-    	       msTransform: 'translate(-50%, -50%)',
-    	       webkitTransform: 'translate(-50%, -50%)'
-    	   });
-    	}
-
-    	// Element 에 style 한번에 오브젝트로 설정하는 함수 추가
-    	Element.prototype.setStyle = function(styles) {
-    	   for (var k in styles) this.style[k] = styles[k];
-    	   return this;
-    	};
-    	
-    //탈퇴재확인
-       document.getElementById('adminMemberDeleteBtn').addEventListener('click', function() {
-        modal('modal_memberDelete');
-      });
+	    function modal(id,e) {
+	    	   var zIndex = 9999;
+	    	   var modal = document.getElementById(id);
+	
+	    	   // 모달 div 뒤에 희끄무레한 레이어
+	    	   var bg = document.createElement('div');
+	    	   bg.setStyle({
+	    	       position: 'fixed',
+	    	       zIndex: zIndex,
+	    	       left: '0px',
+	    	       top: '0px',
+	    	       width: '100%',
+	    	       height: '100%',
+	    	       overflow: 'auto',
+	    	       // 레이어 색깔은 여기서 바꾸면 됨
+	    	       backgroundColor: 'rgba(0,0,0,0.4)'
+	    	   });
+	    	   document.body.append(bg);
+	
+	    	   modal.setStyle({
+	    	       position: 'fixed',
+	    	       display: 'block',
+	    	       boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+	
+	    	       // 시꺼먼 레이어 보다 한칸 위에 보이기
+	    	       zIndex: zIndex + 1,
+	
+	    	       // div center 정렬
+	    	       top: '50%',
+	    	       left: '50%',
+	    	       transform: 'translate(-50%, -50%)',
+	    	       msTransform: 'translate(-50%, -50%)',
+	    	       webkitTransform: 'translate(-50%, -50%)'
+	    	   });
+	    	   
+	    	   // 취소 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+	    	   modal.querySelector('.modal_close_btn').addEventListener('click', function() {
+	    	       bg.remove();
+	    	       modal.style.display = 'none';
+	    	   });
+	    	   
+	    	   //확인 버튼 처리, 회원탈퇴, 레이어와 모달 div 지우기
+	    	   modal.querySelector('.modal_submit_btn').addEventListener('click',function(){
+	    		   bg.remove();
+	    		   modal.style.display = 'none';
+	    		   location.replace("${path}/admin/adminDeleteMember.do?memberId="+e);
+	    		  /* $.ajax({
+	                     url:"${path}/admin/adminDeleteMember.do",
+	                     data:{memberId:e},
+	                     success:data=>{
+	                    	 console.log(data);
+	                    	 if(data){
+	                    		 $("#enroll-container span.ok").hide();
+	                    		 $("#enroll-container span.error").show();
+	                    	 }else{
+	                    		 $("#enroll-container span.ok").show();
+	                    		 $("#enroll-container span.error").hide();
+	                    	 }
+	                    	 
+	                     }
+	                  }); */
+	    	   })
+	    	}
+	
+	    	// Element 에 style 한번에 오브젝트로 설정하는 함수 추가
+	    	Element.prototype.setStyle = function(styles) {
+	    	   for (var k in styles) this.style[k] = styles[k];
+	    	   return this;
+	    	};
+	    	
+	    //탈퇴재확인
+		    /* const adminMemberDeleteBtn=(e)=>{
+		    	 modal('modal_memberDelete',e);
+		    } */
+		    
+	      document.getElementById('adminMemberDeleteBtn').addEventListener('click', function(e) {
+	        modal('modal_memberDelete',e.target.value);
+	      }); 
     </script>
 
   </body>
