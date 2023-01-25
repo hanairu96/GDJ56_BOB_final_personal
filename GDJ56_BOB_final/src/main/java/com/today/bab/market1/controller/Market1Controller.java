@@ -60,7 +60,7 @@ public class Market1Controller {
 		mv.setViewName("market1/marketMain");
 		return mv;
 	}
-	//삼품 카테고리로 이동
+	//상품 카테고리로 이동
 	@RequestMapping("/marketgtg.do")
 	public ModelAndView marketCtg(ModelAndView mv) {
 		List<SellItem> list=service.selectItemCtg();

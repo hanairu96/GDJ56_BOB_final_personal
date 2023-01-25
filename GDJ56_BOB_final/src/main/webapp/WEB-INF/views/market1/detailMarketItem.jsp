@@ -122,6 +122,43 @@ itemPrice<%@ page language="java" contentType="text/html; charset=UTF-8"
                     </div>
                 </div>
                 
+             	<div class="tab-content">
+					<div class="tab-pane active" id="tabs-1" role="tabpanel">
+					    <div class="product__details__tab__desc">
+					        <br>
+					        <h3 style="text-align: center;">${de.itemBrand }</h3><br>
+					        <div style="text-align: center;"> 
+					            <p>
+									${de.itemContent }
+					            </p>
+					        </div>
+					        <br>
+					        <div  style="text-align: center;">
+					        <c:if test="${not empty de.ipic }">
+		                        <c:forEach var="file" items="${de.ipic }">
+										 <img src="${path }/resources/upload/market/detail/${file.picName}" style="width:500px;height: 500px;">
+								</c:forEach>                         
+                        	</c:if>
+					        </div>
+					        <br><br>
+					        <div >
+					            <span>용량 : ${de.weight }</span><br>
+					            <span>특징 : ${de.itemPoint }</span><br>
+					            <span>보관법 : ${de.itemKeep }</span><br>
+					            <span>활용팁 : ${de.itemTip }</span><br>
+					        </div>
+					        <br>
+					        <div  style="text-align: center;">
+					            <img src="${path }/resources/upload/market/mainlabel/${de.itemLabel }" alt="" style="width:500px;height: 500px;margin-left: 50px;">
+				            </div>
+				            <br><br><br>
+				        </div>
+				    </div>
+				</div>
+				<div>
+				    <span class="col-5" style="background-color: rgb(232, 247, 242);font-weight: bold;">판매자 정보 : </span>
+				    <span class="col-6" style="background-color: rgb(242, 253, 250);font-weight: bold;">오늘의 밥</span>
+				</div>
 
             </div>
         </div>
