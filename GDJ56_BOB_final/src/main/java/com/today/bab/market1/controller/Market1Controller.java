@@ -30,6 +30,14 @@ public class Market1Controller {
 		this.service = service;
 	}
 	
+	public String picrename() {
+		SimpleDateFormat sim=new SimpleDateFormat("yyyyMMdd_HHmmss");
+		int rnd=(int)(Math.random()*10000)+1;
+		String renameFile=sim.format(System.currentTimeMillis()+"_"+rnd);
+		return renameFile;
+	}
+	
+	
 	//헤더에서 마켓 메인 이동 
 	@RequestMapping("/matketmain.do")
 	public ModelAndView marketmain(ModelAndView mv) {
@@ -69,8 +77,13 @@ public class Market1Controller {
 			String weight,MultipartFile mainPic,String mainContent,String itemContent,String itemPoint,
 			String itemKeep,String itemTip,MultipartFile itemLabel,String itemCategory,String itemStock
 			,HttpSession session) {
-		//저장 경로 설정
-		String path=session.getServletContext().getRealPath("/resources/upload/matket/");
+		//상세사진 경로
+		String path=session.getServletContext().getRealPath("/resources/upload/matket/detail/");
+		
+		//메인 사진, 라벨 사진 경로
+		String path1=session.getServletContext().getRealPath("/resources/upload/matket/mainlabel/");
+		
+		
 		
 		File dir=new File(path);
 		if(!dir.exists()) dir.mkdir();
@@ -81,16 +94,18 @@ public class Market1Controller {
 			if(!f.isEmpty()) {
 				String picName=f.getOriginalFilename();
 				String ex=picName.substring(picName.lastIndexOf("."));
-				//이름 설정
-				SimpleDateFormat sim=new SimpleDateFormat("yyyyMMdd_HHmmss");
-				int rnd=(int)(Math.random()*10000)+1;
-				String renameFile=sim.format(System.currentTimeMillis()+"_"+rnd+ex);
+				
+				
+//				SimpleDateFormat sim=new SimpleDateFormat("yyyyMMdd_HHmmss");
+//				int rnd=(int)(Math.random()*10000)+1;
+//				String renameFile=sim.format(System.currentTimeMillis()+"_"+rnd+ex);
+				
 				
 				//파일 업로드하기
 				try {
-					f.transferTo(new File(path+renameFile));
+					f.transferTo(new File(path+picrename()+ex));
 					files.add(ItemPic.builder()
-							.picName(renameFile)
+							.picName(picrename()+ex)
 							.build());
 				}catch(IOException e) {
 					e.printStackTrace();
@@ -100,15 +115,15 @@ public class Market1Controller {
 		SellItem s=SellItem.builder()
 				.itemBrand(itemBrand)
 				.build();
-//			int result=service.insertItem(s);
-//			if(result>0) {
-//				mv.addObject("msg", "게시판 작성 완료");
-//				mv.addObject("loc", "/market1/matketmain.do");
-//			}else {
-//				mv.addObject("msg", "게시판 작성 실패");
-//				mv.addObject("loc", "/market1/insertmarket.do");
-//			}
-//			mv.setViewName("common/msg");
+//		int result=service.insertItem(s);
+//		if(result>0) {
+//			mv.addObject("msg", "게시판 작성 완료");
+//			mv.addObject("loc", "/market1/matketmain.do");
+//		}else {
+//			mv.addObject("msg", "게시판 작성 실패");
+//			mv.addObject("loc", "/market1/insertmarket.do");
+//		}
+//		mv.setViewName("common/msg");
 		return mv;
 	}
 	
