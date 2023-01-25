@@ -34,6 +34,11 @@
             color: black;
             text-decoration: none;
         }
+        a:hover{
+            color: gray;
+            font-style: italic;
+            transition: 0.3s;
+        }
         div#login{
             border: 1px solid lightgray;
             width: 450px;
