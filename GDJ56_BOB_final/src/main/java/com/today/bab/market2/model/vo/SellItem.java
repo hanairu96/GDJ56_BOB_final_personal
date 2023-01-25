@@ -33,5 +33,5 @@ public class SellItem {
 	private String itemCategory;
 	private String itemStock;
 	private Date itemEnroll;
-	private List<ItemPic> iPic;
+	private List<ItemPic> ipic;
 }

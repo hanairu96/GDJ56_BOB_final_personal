@@ -17,8 +17,22 @@
             </div>
         </div>
     </section>
-
     <section class="product-details spad">
+    <div>
+   		<button class="primary-btn" type="button" onclick="" style="background-color:blue;border: none;">수정</button>
+    	<button class="primary-btn" type="button" onclick="deleteItemFile(${de.itemNo},'${picpic}','${de.mainPic}','${de.itemLabel}')" style="background-color:red;border: none;" >삭제</button>
+    </div>	
+    <script>
+    	const deleteItemFile=(no,pic,main,label)=>{
+    		const pp=pic.split(",");
+    		var addpath="";
+    		for(let i=0;i<pp.length;i++){
+    			addpath+="&picName="+pp[i];
+    		}
+    		console.log(addpath);
+			location.assign("${path}/market1/deleteItem.do?itemNo="+no+"&mainPic="+main+"&itemLabel="+label+addpath);    	
+    	}
+    </script>
         <div class="container">
             <div class="row">
 
@@ -26,22 +40,22 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
+                        <c:if test="${empty de.mainPic }">
                             <img class="product__details__pic__item--large"
                                 src="${path }/resources/market/img/product/details/product-details-1.jpg" alt="">
+                        </c:if>
+                        <c:if test="${not empty de.mainPic }">
+                            <img class="product__details__pic__item--large"
+                                src="${path }/resources/upload/market/mainlabel/${de.itemLabel}" alt="">
+                        </c:if>
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-2.jpg" 
-                                src="${path }/resources/market/img/product/details/thumb-1.jpg" alt="">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-3.jpg" 
-                                src="${path }/resources/market/img/product/details/thumb-2.jpg" alt="">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-5.jpg"
-                                src="${path }/resources/market/img/product/details/thumb-3.jpg" alt="">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
-                                src="${path }/resources/market/img/product/details/thumb-4.jpg" alt="">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
-                                src="${path }/resources/market/img/product/details/thumb-4.jpg" alt="">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
-                                src="${path }/resources/market/img/product/details/thumb-4.jpg" alt="">
+                      	<c:if test="${not empty de.ipic }">
+	                        <c:forEach var="file" items="${de.ipic }">
+									 <img src="${path }/resources/upload/market/detail/${file.picName}">
+							</c:forEach>                         
+	                            <img src="${path }/resources/upload/market/mainlabel/${de.mainPic}" alt="">
+                        </c:if>
                         </div>
                     </div>
                 </div>
