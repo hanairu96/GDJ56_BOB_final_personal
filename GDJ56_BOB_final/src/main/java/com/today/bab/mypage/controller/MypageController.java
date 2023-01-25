@@ -1,6 +1,9 @@
 package com.today.bab.mypage.controller;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,5 +85,24 @@ public class MypageController {
 		return mv;
 	}
 	
+	@RequestMapping("/updateBasketCount.do")
+	public void updateBasketCount(int itemCount,int basketNo,HttpServletResponse response) throws IOException {
+		
+		
+		int result=mypageService.updateBasketCount(Basket.builder() 
+				.basketNo(basketNo).itemCount(itemCount).build());
+		
+		response.setContentType("text/csv;charset=utf-8");
+		response.getWriter().print(result);
+	}
 	
+	@RequestMapping("/deleteBasketCount.do")
+	public void deleteBasketCount(int dbasketNo,HttpServletResponse response) throws IOException {
+		
+		
+		int result=mypageService.deleteBasketCount(dbasketNo);
+		
+		response.setContentType("text/csv;charset=utf-8");
+		response.getWriter().print(result);
+	}
 }

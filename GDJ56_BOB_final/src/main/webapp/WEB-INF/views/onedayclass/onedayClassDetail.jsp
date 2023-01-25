@@ -10,7 +10,7 @@
 <head>
 	<title>원데이 클래스 상세</title>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="${path}/resources/pato/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="${path}/resources/pato/bootstrap/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 	<script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
 	<script src="${path }/resources/js/jquery-3.6.1.min.js"></script>

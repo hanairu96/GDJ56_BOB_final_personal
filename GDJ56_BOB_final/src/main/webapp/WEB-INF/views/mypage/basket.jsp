@@ -18,14 +18,6 @@
       defer
     ></script>
     <script src="${path}/resources/assets/js/init-alpine.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
-    />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
-      defer
-    ></script>
     <script src="${path}/resources/assets/js/jquery-3.6.1.min.js"></script>
   </head>
   <body>
@@ -385,7 +377,7 @@
                     >
                       <th class="px-4 py-3">
                         <input type="checkbox" onclick="checkAll();" id="allCheck">
-                        전체선택(<span id="checkcount">0</span>/전체개수)
+                        전체선택(<span id="checkcount">0</span>/${basket.size()})
                       </th>
                       <th class="px-4 py-3">상품정보</th>
                       <th class="px-4 py-3">수량</th>
@@ -396,123 +388,54 @@
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        <input type="checkbox" name="productCheck" id="productCheck_">
-                      </td>
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          </div>
-                          <div>
-                            <p class="font-semibold">고구마</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <button onclick='count("minus")' value='-'
-                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-                        >
-                        -
-                        </button>
-                          <span id='result'>1</span>개
-                        <button onclick='count("plus")' value='+'
-                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-                        >
-                        +
-                        </button>&nbsp;
-                        <button id="modifyNum" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                          수정
-                        </button>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <span id="priceResult">20000</span>원
-                      </td>
-                        <td>
-                          &nbsp;&nbsp;
-                          <button id="deleteBasket" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                            삭제
-                          </button>
-                        </td>
-                    </tr>
-
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        <input type="checkbox" name="productCheck" id="productCheck_">
-                      </td>
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          </div>
-                          <div>
-                            <p class="font-semibold">고구마</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <button onclick='count("minus")' value='-'
-                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-                        >
-                        -
-                        </button>
-                          <span id='result'>1</span>개
-                        <button onclick='count("plus")' value='+'
-                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-                        >
-                        +
-                        </button>&nbsp;
-                        <button id="modifyNum" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                          수정
-                        </button>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <span id="priceResult">20000</span>원
-                      </td>
-                      <td>
-                        &nbsp;&nbsp;
-                        <button id="deleteBasket" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                          삭제
-                        </button>
-                      </td>
-                    </tr> 
-
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        <input type="checkbox" name="productCheck" id="productCheck_">
-                      </td>
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          </div>
-                          <div>
-                            <p class="font-semibold">감자</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <button onclick='count("minus")' value='-'
-                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-                        >
-                        -
-                        </button>
-                          <span id='result'>1</span>개
-                        <button onclick='count("plus")' value='+'
-                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-                        >
-                        +
-                        </button>&nbsp;
-                        <button id="modifyNum" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                          수정
-                        </button>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <span id="priceResult">4000</span>원
-                      </td>
-                      <td>
-                        &nbsp;&nbsp;
-                        <button id="deleteBasket" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                          삭제
-                        </button>
-                      </td>
-                    </tr> 
-
+                  		<c:if test="${not empty basket}">
+                  			<c:forEach var="b" items="${basket}"> 
+                  			<c:forEach var="bi" items="${b.item}"> 
+                  				<tr class="text-gray-700 dark:text-gray-400">
+			                      <td class="px-4 py-3 text-sm">
+			                      		<div style="display:flex;">
+					                        <input type="checkbox" name="productCheck" id="productCheck_">
+					                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					                        <img style="border:solid 1px; width:28px;height:28px" alt="" src="">
+			                        	</div>
+			                      </td>
+			                      <td class="px-4 py-3">
+			                        <div class="flex items-center text-sm">
+				                        <c:if test="${empty bi.itemBrand}">${bi.itemName}</c:if>
+			    						<c:if test="${not empty bi.itemBrand}">[${bi.itemBrand}]${bi.itemName}</c:if>
+			                        </div>
+			                      </td>
+			                      <td class="px-4 py-3 text-sm">
+			                        <button onclick="count(event)" value='minus'
+			                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+			                        >
+			                        -
+			                        </button>
+			                          <span id='result'>${b.itemCount}</span>개
+			                        <button onclick="count(event)" value='plus'
+			                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+			                        >
+			                        +
+			                        </button>&nbsp;
+			                        <button id="modifyNum" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
+			                          수정
+			                        </button>
+			                        <input type="text" value=${b.basketNo } hidden>
+			                      </td>
+			                      <td class="px-4 py-3 text-sm">	
+			                        <span id="priceResult"></span>원
+			                        <input type="text" value="${bi.itemPrice }" id="itemPrice" hidden>
+			                      </td>
+			                      <td>
+			                        &nbsp;&nbsp;
+			                        <button id="deleteBasket" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
+			                          삭제
+			                        </button>
+			                      </td>
+                    		</tr>
+                    		</c:forEach>
+                  			</c:forEach>
+                  		</c:if>
                     <tr
                       class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
@@ -524,7 +447,7 @@
                         <span id="totalPrice">0</span>원
                       </th>
                       <th>
-                        <button style="height: 30px; width: 80px; font-size: 16px;" class="leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                        <button id="order" style="height: 30px; width: 80px; font-size: 16px;" class="leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                           주문
                         </button>
                       </th>
@@ -546,24 +469,42 @@
   </body>
 </html>
 <script>
+	
+	var itemcount =	document.querySelectorAll("#result");
+	var price =	document.querySelectorAll("#itemPrice");
+	var resultPrice = document.querySelectorAll("#priceResult");
+	//console.log(itemcount[0].innerHTML);
+	//console.log(price[0].value);
+	for(let i=0;i<itemcount.length;i++){
+		let totalprice = parseInt(itemcount[i].innerHTML)*parseInt(price[i].value);
+		resultPrice[i].innerText=totalprice;
+	} 
 
   //증가,감소
-  function count(type)  {
-  const productCount = document.getElementById('result');
-  
-  let number = productCount.innerText;
-  
-  if(type === 'plus') {
-    number = parseInt(number) + 1;
-  }else if(type === 'minus')  {
-    if(number<=1){
-      number=1;
-    }else{
-      number = parseInt(number) - 1;
-    }
-  }
-  productCount.innerText = number;
-}
+  function count(e)  {
+	  
+	  let productCount;
+		  //document.getElementById('result');
+	  let number;
+	 /*  let number = productCount.innerText; */
+	  
+	  if(e.target.value === 'plus') {
+		productCount=e.target.previousElementSibling;
+		number=productCount.innerText;
+	    number = parseInt(number) + 1;
+	   
+	  }else if(e.target.value === 'minus')  {
+		  productCount=e.target.nextElementSibling;
+		  number=productCount.innerText;
+	    if(number<=1){
+	      number=1;
+	    }else{
+	      number = parseInt(number) - 1;
+	    }	    
+	    
+	  }
+	  productCount.innerText = number;
+	}
 
 //전체선택
 function checkAll() {
@@ -574,26 +515,52 @@ function checkAll() {
 	}
 }
 
-//수정,삭제버튼누르면
-const modifyNum = document.querySelectorAll("#modifyNum");
-const deleteBasket = document.querySelectorAll("#deleteBasket");
-for (let i=0; i<modifyNum.length; i++) {
-    modifyNum[i].addEventListener("click", click);
-  }
-for (let i=0; i<deleteBasket.length; i++) {
-  deleteBasket[i].addEventListener("click", click);
-}
+	//수정,삭제버튼누르면
+	const modifyNum = document.querySelectorAll("#modifyNum");
+	const deleteBasket = document.querySelectorAll("#deleteBasket");
+	for (let i=0; i<modifyNum.length; i++) {
+	    modifyNum[i].addEventListener("click", click);
+	  }
+	for (let i=0; i<deleteBasket.length; i++) {
+	  deleteBasket[i].addEventListener("click", click);
+	}
 
   function click(e) {
     if(e.target.id=="modifyNum"){
       let result=window.confirm("수정하시겠습니까?");
+      
       if(result){
+    	  let itemCount=e.target.previousElementSibling.previousElementSibling.innerHTML;
+    	  let basketNo=e.target.nextElementSibling.value;
+    	  //console.log(itemNum);
         //수정하면 장바구니 회원아이디,상품번호로 where, 개수update
+    	   $.ajax({
+				url:"${path}/mypage/updateBasketCount.do",
+				type:"get",
+				data:{itemCount:itemCount,basketNo:basketNo},
+				success:data=>{
+					if(data==1) alert("수정성공");
+					else alert("수정실패");
+					location.replace('${path}/mypage/basket.do');
+				}
+	    	}); 
       }
     }else if(e.target.id=="deleteBasket"){
       let dresult=window.confirm("삭제하시겠습니까?");
       if(dresult){
-        //true면 delete 회원아이디,상품번호로 where
+        //true면 delete 장바구니로 where
+        	//console.log(e.target.parentElement.previousElementSibling.previousElementSibling.children[4].value);
+    	  let dbasketNo=e.target.parentElement.previousElementSibling.previousElementSibling.children[4].value;
+    	  $.ajax({
+				url:"${path}/mypage/deleteBasketCount.do",
+				type:"get",
+				data:{dbasketNo:dbasketNo},
+				success:data=>{
+					if(data==1) alert("삭제성공");
+					else alert("삭제실패");
+					location.replace('${path}/mypage/basket.do');
+				}
+	    	});
       }
     }
   }
@@ -605,7 +572,7 @@ for (let i=0; i<deleteBasket.length; i++) {
               //console.log(ckdata);
               for(let i=0;i<ckdata.length;i++){
                 //console.log(ckdata[i].parentElement.parentElement);
-                let par=ckdata[i].parentElement.parentElement;
+                let par=ckdata[i].parentElement.parentElement.parentElement;
                 let ckprice=par.children[3].children[0].innerHTML;
                 //console.log(parseInt(ckprice)); 
                 totalP=parseInt(ckprice)+parseInt(totalP);
