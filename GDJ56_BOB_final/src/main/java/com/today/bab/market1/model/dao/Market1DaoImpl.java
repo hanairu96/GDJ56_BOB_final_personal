@@ -29,4 +29,9 @@ public class Market1DaoImpl implements Market1Dao {
 	public int insertItemPic(SqlSessionTemplate session,ItemPic pic) {
 		return session.insert("ma.insertItemPic",pic);
 	}
+	
+	@Override
+	public int deleteItem(SqlSessionTemplate session,int itemNo) {
+		return session.delete("ma.deleteItem",itemNo);
+	}
 }

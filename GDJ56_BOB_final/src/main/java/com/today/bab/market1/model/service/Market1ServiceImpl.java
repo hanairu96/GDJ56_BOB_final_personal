@@ -45,5 +45,10 @@ public class Market1ServiceImpl implements Market1Service{
 		}
 		return result;
 	}
+	
+	@Override
+	public int deleteItem(int itemNo) {
+		return dao.deleteItem(session,itemNo);
+	}
 
 }

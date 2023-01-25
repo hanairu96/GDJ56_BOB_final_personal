@@ -15,6 +15,7 @@ public interface Market1Service {
 	//상품 등록
 	int insertItem(SellItem s);
 
-
+	//상픔 삭제
+	int deleteItem(int itemNo);
 
 }

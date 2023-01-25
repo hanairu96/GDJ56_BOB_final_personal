@@ -17,8 +17,22 @@
             </div>
         </div>
     </section>
-
     <section class="product-details spad">
+    <div>
+   		<button class="primary-btn" type="button" onclick="" style="background-color:blue;border: none;">수정</button>
+    	<button class="primary-btn" type="button" onclick="deleteItemFile(${de.itemNo},'${picpic}','${de.mainPic}','${de.itemLabel}')" style="background-color:red;border: none;" >삭제</button>
+    </div>	
+    <script>
+    	const deleteItemFile=(no,pic,main,label)=>{
+    		const pp=pic.split(",");
+    		var addpath="";
+    		for(let i=0;i<pp.length;i++){
+    			addpath+="&picName="+pp[i];
+    		}
+    		console.log(addpath);
+			location.assign("${path}/market1/deleteItem.do?itemNo="+no+"&mainPic="+main+"&itemLabel="+label+addpath);    	
+    	}
+    </script>
         <div class="container">
             <div class="row">
 
@@ -40,8 +54,7 @@
 	                        <c:forEach var="file" items="${de.ipic }">
 									 <img src="${path }/resources/upload/market/detail/${file.picName}">
 							</c:forEach>                         
-	                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
-	                                src="${path }/resources/upload/market/mainlabel/${de.mainPic}" alt="">
+	                            <img src="${path }/resources/upload/market/mainlabel/${de.mainPic}" alt="">
                         </c:if>
                         </div>
                     </div>

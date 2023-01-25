@@ -8,9 +8,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -73,6 +73,13 @@ public class Market1Controller {
 	public ModelAndView marketdetail(ModelAndView mv,int itemNo) {
 		SellItem list=service.marketdetail(itemNo);
 		mv.addObject("de",list);
+		String file="";
+		int count=0;
+		for(ItemPic i : list.getIpic()) {
+			if(count++!=0) file+=",";
+			file+=i.getPicName();
+		}
+		mv.addObject("picpic",file);
 		mv.setViewName("market1/detailMarketItem");
 		return mv;
 	}
@@ -180,6 +187,30 @@ public class Market1Controller {
 		return mv;
 	}
 	
+	@RequestMapping("/deleteItem.do")
+	public String deleteItem(int itemNo,String[] picName,String mainPic,String itemLabel,HttpSession session,Model m){ 
+		int result=service.deleteItem(itemNo);
+
+		if(result>0) { 
+			m.addAttribute("msg","삭제가 완료되었습니다.");
+			m.addAttribute("loc","/market1/marketgtg.do");
+			for(int i=0;i<picName.length;i++) {
+				String path=session.getServletContext().getRealPath("/resources/upload/market/detail/");
+				File del=new File(path+picName[i]);
+				if(del.exists()) del.delete();
+			}
+			String path1=session.getServletContext()
+					.getRealPath("/resources/upload/market/mainlabel/");
+			File delFile1=new File(path1+mainPic);
+			File delFile2=new File(path1+itemLabel);
+			if(delFile1.exists()) delFile1.delete();
+			if(delFile2.exists()) delFile2.delete();
+		}else {
+			m.addAttribute("msg","삭제 실패하였습니다.");
+			m.addAttribute("loc","/market1/marketdetail.do");
+		}
+		return "common/msg";
+	}
 		
 		
 }
