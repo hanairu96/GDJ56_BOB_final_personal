@@ -12,6 +12,8 @@ public interface Market1Service {
 	//상품 상세조회
 	SellItem marketdetail(String itemName);
 
+	//상품 등록
+	int insertItem(SellItem s);
 
 
 

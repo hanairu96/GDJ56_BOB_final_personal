@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class ItemPic {
 	
 	private int picNo;
-	private SellItem selItem;
+	private SellItem sellitem;
 	private String picName;
 }
