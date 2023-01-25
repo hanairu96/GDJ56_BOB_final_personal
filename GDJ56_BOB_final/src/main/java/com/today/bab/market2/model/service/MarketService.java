@@ -8,7 +8,7 @@ import com.today.bab.market2.model.vo.SellItem;
 public interface MarketService {
 	
 	List<SellItem> sellItemAll();
-	List<SellItem> sellItemAll(Map<String, Integer> page);
+//페이징처리List<SellItem> sellItemAll(Map<String, Integer> page);
 	
 	
 	int discountUpdate(Map<String, Object> param);
