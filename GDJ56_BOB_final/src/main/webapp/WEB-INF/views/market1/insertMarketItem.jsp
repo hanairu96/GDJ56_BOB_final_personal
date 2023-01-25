@@ -84,16 +84,17 @@
 						<span class="txt9" style="font-weight: bold;">
 							카테고리(필수)
 						</span>
-						<input  list="categorylist" placeholder="선택">
-						<datalist id="categorylist" name="itemCategory" readonly>
-							<option value="채소" selected></option>
-							<option value="과일 · 견과 · 쌀 "></option>
-							<option value="수산 · 해산 · 건어물"></option>
-							<option value="정육 · 계란"></option>
-							<option value="국 · 반찬 · 메인요리"></option>
-							<option value="샐러드 · 간편식"></option>
-							<option value="면 · 양념 · 오일"></option>
-						</datalist>
+						<!-- <input  list="itemCategory" placeholder="선택"> -->
+						<br>
+						<select id="itemCategory" name="itemCategory">
+							<option value="채소" selected>채소</option>
+							<option value="과일 · 견과 · 쌀 ">과일 · 견과 · 쌀</option>
+							<option value="수산 · 해산 · 건어물">수산 · 해산 · 건어물</option>
+							<option value="정육 · 계란">정육 · 계란</option>
+							<option value="국 · 반찬 · 메인요리">국 · 반찬 · 메인요리</option>
+							<option value="샐러드 · 간편식">샐러드 · 간편식</option>
+							<option value="면 · 양념 · 오일">면 · 양념 · 오일</option>
+						</select>
 					</div>
 					<br>
 					<br>

@@ -5,12 +5,13 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg" style="height:250px;">
+	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>채소</h2>
+                        <h2><c:out value="${de.itemCategory}"/></h2>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -47,8 +48,9 @@
 
 
                 <div class="col-lg-6 col-md-6">
-                    <div class="product__details__text">
-                        <h3>야채 튼튼 세트</h3>
+                    <div class="product__details__text" style="margin-left:30px;">
+                    	<br>
+                        <h3><c:out value="${de.itemName }"/></h3>
                         <div class="product__details__rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -57,8 +59,8 @@
                             <i class="fa fa-star-half-o"></i>
                             <span>(18 리뷰)</span>
                         </div>
-                        <div class="product__details__price">50000원</div>
-                        <p>야채를 드세요 건강해집니다.</p>
+                        <div class="product__details__price"><c:out value="${de.itemPrice }"/>원</div>
+                        <p><c:out value="${de.mainContent}"/></p>
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
@@ -69,6 +71,8 @@
                         <br>
                         <a href="#" class="primary-btn" style="background-color: #07d448;">장바구니 담기</a>
                         <a href="#" class="primary-btn" style="background-color: #07d448;">바로결제하기</a>
+                        <br><br><br>
+                        <b>원산지</b> <span><c:out value="${de.madeIn }"/></span>
                     </div>
                 </div>
 

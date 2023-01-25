@@ -13,30 +13,10 @@
 <head>
 <meta charset="UTF-8">
 <title>오늘의밥추천관리자등록</title>
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-	<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="${path }/resources/pato/images/icons/favicon.png" />
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/bootstrap/css/bootstrap.min.css">
-	<!--===============================================================================================-->
-	<!--===============================================================================================-->
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/animate/animate.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/css-hamburgers/hamburgers.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/animsition/css/animsition.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/select2/select2.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/daterangepicker/daterangepicker.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/slick/slick.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/vendor/lightbox2/css/lightbox.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/css/util.css">
-	<link rel="stylesheet" type="text/css" href="${path }/resources/pato/css/main.css">
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
 <body class="animsition">
 <div>
@@ -47,13 +27,13 @@
 		</h3>
 	</div>
 
-	<form class="wrap-form-booking flex-c-m todaybab"><!-- 가운데로옮기기전체에 flex-c-m~~~~~~~~~~~~~~~~~~~~~~ -->
+	<form class="flex-c-m todaybab">
 		<span class="tit2 t-center" style="margin-left: 300px;color: rgb(100, 20, 175);">
 			preview
 		</span>
-		<div class="col-sm-3 col-md-1 col-lg-4 p-t-30">
-			<div class="dis-flex m-l-40">
-				<div class="p-r-40 p-t-6">
+		<div class="col-lg-4">
+			<div class="dis-flex">
+				<div class="p-r-40">
 					<img src="images/icons/map-icon.png" alt="IMG-ICON">
 				</div>
 
@@ -135,7 +115,7 @@
 		<div style="width: 300px; display: flex;">
 			<div class="search-sidebar2 size12 bo2 pos-relative">
 				<input class="input-search-sidebar2 txt10 p-l-20 p-r-55" type="text" name="검색할항목ajax로바꿔야함" placeholder="Search">
-				<button class="btn-search-sidebar2 flex-c-m ti-search trans-0-4" onclick="searchItem();"></button>
+				<button class="btn-search-sidebar2" onclick="searchItem();"><img style="width: 30px; height: 30px;" src="https://img.icons8.com/ios-filled/512/search.png"></button>
 			</div>
 		</div>
 	</div>
@@ -258,12 +238,64 @@
 			console.log(cbArr);
 	}
 </script>
+
+
+
+
+
+
+</body>
 <style>
+	/* 전체 글씨체 */
+	*{
+		font-family: 'Gowun Dodum', sans-serif;
+	}
+	a {
+		font-family: Montserrat;
+		font-weight: 400;
+		font-size: 15px;
+		line-height: 1.7;
+		color: #666666;
+		margin: 0px;
+		transition: all 0.4s;
+		-webkit-transition: all 0.4s;
+		-o-transition: all 0.4s;
+		-moz-transition: all 0.4s;
+		text-decoration : none;
+	}
+
+	a:focus {
+		outline: none !important;
+	}
+
 	a:hover {
+		text-decoration: none;
 		color: yellowgreen;
+	}
+
+	/* ------------------------------------ */
+	h1,h2,h3,h4,h5,h6 {
+		margin: 0px;
+	}
+
+	p {
+		font-family: Montserrat;
+	font-weight: 400;
+		font-size: 15px;
+		line-height: 1.7;
+		color: #666666;
+		margin: 0px;
+	}
+
+	ul, li {
+		margin: 0px;
+		list-style-type: none;
 	}
 	button[type=submit] {
 	background: rgb(176, 206, 117);
+	border-radius: 10px;
+	outline: none !important;
+	border: none;
 	}
 	button[type=submit]:hover {
 		background: rgb(92, 121, 34);
@@ -364,39 +396,252 @@
 	.todaybab {
 		width: 90%;
 	}
+	/*추천타이틀*/
+	#item_banner {
+		border: 2px solid rgb(175, 175, 175);
+		border-radius: 13px;
+		background-image: 20%;
+		width: 60%;
+		background-size: 20% 20%;
+		margin-top: 40px;
+		margin-bottom: 40px;
+		margin-left: 20%;
+		min-height: 100px;
+		padding: 40px 50px 40px;
+		text-align: center;
+		font-size: 18px;
+		font-weight: bold;
+		justify-content: center;
+
+	}
+
+	#item_banner .todaybab_title {
+		display: flex;
+		align-items: center;
+		justify-content: space-evenly;
+		margin: 20px;
+		padding: 15px;
+	}
+
+	.todaybab {
+		width: 90%;
+	}
+	/* form영역 */
+	.size22 {max-width: 870px;	}
+	.m-l-r-auto {margin-left: auto;	margin-right: auto;}
+	.flex-c-m {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: flex;
+		justify-content: center;
+		-ms-align-items: center;
+		align-items: center;
+	}
+	.pos-relative {position: relative;}
+	.bo2 {border: 2px solid #d9d9d9;}
+	.size12 {
+		width: 100%;
+		height: 50px;
+	}
+	input {
+		outline: none;
+		border: none !important;
+	}
+	.btn-search-sidebar2 {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 46px;
+	height: 46px;
+	background-color: #333333;
+	color: white;
+	font-size: 18px;
+
+	box-shadow: 0 0 0px 1px #333333;
+	-moz-box-shadow: 0 0 0px 1px #333333;
+	-webkit-box-shadow: 0 0 0px 1px #333333;
+	-o-box-shadow: 0 0 0px 1px #333333;
+	-ms-box-shadow: 0 0 0px 1px #333333;
+
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+	-ms-transform: rotateY(180deg);
+	-o-transform: rotateY(180deg);
+	transform: rotateY(180deg);
+	}
+
+	.btn-search-sidebar2:hover {
+	color: #ec1d25;
+	}
+
+	.input-search-sidebar2 {
+	width: 100%;
+	height: 100%;
+	}
+	/* 페이지설명 */
+	.t-center {text-align: center;}
+	.m-b-35 {margin-bottom: 35px;}
+	.tit3 {
+		font-family: Poppins;
+		font-weight: 700;
+		font-size: 50px;
+		line-height: 1.2;
+		color: #222222;
+		text-transform: uppercase;
+		letter-spacing: 6px;
+	}
+	/* 버튼 */
+	.flex-c-m {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: flex;
+		justify-content: center;
+		-ms-align-items: center;
+		align-items: center;
+	}
+	.size36 {
+		width: 120px;
+		height: 40px;
+	}
+	.txt11 {
+		font-family: Montserrat;
+		font-weight: 400;
+		font-size: 12px;
+		line-height: 1.1;
+		color: white;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+	}
+	.trans-0-4 {
+		-webkit-transition: all 0.4s;
+		-o-transition: all 0.4s;
+		-moz-transition: all 0.4s;
+		transition: all 0.4s;
+	}
+	.p-l-20 {padding-left: 20px;}
+	/* 가운데로옮기기전체에 */
+	.flex-c-m {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: flex;
+		justify-content: center;
+		-ms-align-items: center;
+		align-items: center;
+	}
+	/* 프리뷰 */
+	@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+	@font-face {
+		font-family: 'Shilla_CultureB-Bold';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/Shilla_CultureB-Bold.woff2') format('woff2');
+		font-weight: 700;
+		font-style: normal;
+	}
+	.tit2 {
+		font-family: 'Shilla_CultureB-Bold';
+		font-size: 30px;
+		line-height: 1.2;
+	}
+	.txt5 {
+		font-family: Poppins;
+		font-weight: 500;
+		font-size: 22px;
+		color: #333333;
+		text-transform: uppercase;
+		letter-spacing: 3px;
+	}
+	.p-b-10 {padding-bottom: 10px;}
+	.txt23 {
+		font-family: Montserrat;
+		font-weight: 400;
+		font-size: 13px;
+		color: #666666;
+		line-height: 1.7;
+	}
+	.size38 {max-width: 190px;}
+		.flex-col-l {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-flex-direction: column;
+		-moz-flex-direction: column;
+		-ms-flex-direction: column;
+		-o-flex-direction: column;
+		flex-direction: column;
+		-ms-align-items: flex-start;
+		align-items: flex-start;
+	}
+
+	.col-lg-4{
+		flex: 0 0 33.333333%;
+		max-width: 33.333333%;
+	}
+	.dis-flex {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: flex;
+	}
+	.p-r-40 {padding-right: 40px;}
+	/* input 효과 */
+	.bo2 {border: 2px solid #d9d9d9;}
+	.bo-rad-10 {border-radius: 10px;} 
+	input {
+		outline: none;
+		border: none !important;
+	}
+	.sizefull {
+		width: 100%;
+		height: 100%;
+	}
+
+	/* input 크기 및 정렬 */
+	.size22 {
+		max-width: 870px;
+	}
+	
+	.size12 {
+		width: 100%;
+		height: 50px;
+	}
+	.m-b-23 {
+			margin-bottom: 23px;
+		}
+	.m-t-3 {
+		margin-top: 3px;
+	}
+	.m-l-r-auto {margin-left: auto;	margin-right: auto;}
+	/* 테이블크기 */
+	.col-lg-10{
+		flex: 0 0 83.333333%;
+		max-width: 83.333333%;
+	}
+	.col-lg-10, .col-sm-10{
+		position: relative;
+		min-height: 1px;
+		padding-right: 15px;
+		padding-left: 15px;
+	}
+	.table thead th {
+		vertical-align: bottom;
+		border-bottom: 2px solid #e9ecef;
+	}
+	.table td, .table th {
+		padding: .75rem;
+		border-top: solid #e9ecef;
+	}
+	.ti-search:before {
+		content: "\e610";
+	}
+
 </style>
 
-
-
-
-	<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/jquery/jquery-3.2.1.min.js"></script>
-	<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/animsition/js/animsition.min.js"></script>
-	<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/bootstrap/js/popper.js"></script>
-	<script type="text/javascript" src="${path }/resources/pato/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/select2/select2.min.js"></script>
-	<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/daterangepicker/moment.min.js"></script>
-	<script type="text/javascript" src="${path }/resources/pato/vendor/daterangepicker/daterangepicker.js"></script>
-	<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/slick/slick.min.js"></script>
-	<script type="text/javascript" src="${path }/resources/pato/js/slick-custom.js"></script>
-	<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/parallax100/parallax100.js"></script>
-	<script type="text/javascript">
-		$('.parallax100').parallax100();
-	</script>
-	<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/countdowntime/countdowntime.js"></script>
-	<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/lightbox2/js/lightbox.min.js"></script>
-	<!--===============================================================================================-->
-	<script type="text/javascript" src="${path }/resources/pato/vendor/isotope/isotope.pkgd.min.js"></script>
-	<!--===============================================================================================-->
-	<script src="${path }/resources/pato/js/main.js"></script>
-
-</body>
 </html>
