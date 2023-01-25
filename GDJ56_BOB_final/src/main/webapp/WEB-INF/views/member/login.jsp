@@ -5,6 +5,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value="MainPage"/>
 </jsp:include>
+	<section>
         <div class="wrapper">
             <div id="login">
                 <br>

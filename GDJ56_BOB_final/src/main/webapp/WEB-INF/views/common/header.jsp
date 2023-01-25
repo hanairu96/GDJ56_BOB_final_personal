@@ -41,7 +41,7 @@
 </head>
 
 <body>
-    <section>
+	<div>
         <div class="main-logo">
             <h1>오늘의 밥</h1>
             <img src="${path}/resources/images/logo-icon.png">
