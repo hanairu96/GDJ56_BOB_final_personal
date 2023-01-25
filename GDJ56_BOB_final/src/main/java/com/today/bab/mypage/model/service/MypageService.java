@@ -2,8 +2,8 @@ package com.today.bab.mypage.model.service;
 
 import java.util.List;
 
-import org.mybatis.spring.SqlSessionTemplate;
-
+import com.today.bab.admin.model.vo.AdminMember;
+import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 
 public interface MypageService {
@@ -12,4 +12,10 @@ public interface MypageService {
 	int updateBasketCount(Basket b);
 	
 	int deleteBasketCount(int dbasketNo);
+	
+	AdminMember selectMyInfo(AdminMember m);
+	
+	int updateMember(AdminMember am);
+	
+	int updateMemberLike(MemberLike ml);
 }
