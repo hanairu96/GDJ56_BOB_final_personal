@@ -34,21 +34,22 @@ public class MarketController {
 		System.out.println(mv);
 		return mv;
 	}
-	@RequestMapping("/market/discount.do")
-	public ModelAndView BoardList(ModelAndView mv
-			, @RequestParam(value="cPage", defaultValue="1") int cPage
-			, @RequestParam(value="numPerpage", defaultValue="5") int numPerpage		) {
-		List<SellItem> list = service.sellItemAll(Map.of("cPage",cPage,"numPerpage",numPerpage));
-		mv.addObject("lists", list);
-		//System.out.println(list);
-		
-		int totalData = service.sellItemAllCount();
-		mv.addObject("pageBar", Market2PageBar.getPage(cPage, numPerpage, totalData, "/market/discount.do"));
-		mv.addObject("totalContents",totalData);
-		mv.setViewName("market2/discount");
-		System.out.println(mv);
-		return mv;
-	}
+//페이징처리
+//	@RequestMapping("/market/discount.do")
+//	public ModelAndView BoardList(ModelAndView mv
+//			, @RequestParam(value="cPage", defaultValue="1") int cPage
+//			, @RequestParam(value="numPerpage", defaultValue="5") int numPerpage		) {
+//		List<SellItem> list = service.sellItemAll(Map.of("cPage",cPage,"numPerpage",numPerpage));
+//		mv.addObject("lists", list);
+//		//System.out.println(list);
+//		
+//		int totalData = service.sellItemAllCount();
+//		mv.addObject("pageBar", Market2PageBar.getPage(cPage, numPerpage, totalData, "/market/discount.do"));
+//		mv.addObject("totalContents",totalData);
+//		mv.setViewName("market2/discount");
+//		System.out.println(mv);
+//		return mv;
+//	}
 	@RequestMapping("/market/today.do")
 	public ModelAndView todayItemAll(ModelAndView mv) {
 
