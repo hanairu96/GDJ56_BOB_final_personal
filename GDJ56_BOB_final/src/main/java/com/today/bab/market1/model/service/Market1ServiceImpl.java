@@ -23,8 +23,14 @@ public class Market1ServiceImpl implements Market1Service{
 		this.session = session;
 	}
 	
+	@Override
 	public List<SellItem> selectItemCtg(){
 		return dao.selectItemCtg(session);
+	}
+	
+	@Override
+	public SellItem marketdetail(String itemName){
+		return dao.marketdetail(session, itemName);
 	}
 	
 	

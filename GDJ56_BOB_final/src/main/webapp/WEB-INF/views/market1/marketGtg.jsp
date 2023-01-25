@@ -100,15 +100,13 @@
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href=""><c:out value="${sell.itemName }"/></a></h6>
+                                    <h6><a href="${path }/market1/marketdetail.do?itemName=${sell.itemName }"><c:out value="${sell.itemName }"/></a></h6>
                                     <p><c:out value="${sell.mainContent }"/></p>
                                     <h5><c:out value="${sell.itemPrice }"/>원</h5>
                                 </div>
                             </div>
                         </div>
 					</c:forEach>
-
-
 
 
                     <!-- 페이징처리 -->
@@ -119,7 +117,6 @@
                         <a href="#">3</a>
                         <a href="#"><i class="fa fa-long-arrow-right"></i></a>
                     </div>
-
 
                 </div>
             </div>

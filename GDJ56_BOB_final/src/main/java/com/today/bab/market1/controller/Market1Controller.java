@@ -46,9 +46,11 @@ public class Market1Controller {
 		mv.setViewName("market1/marketGtg");
 		return mv;
 	}
-	
+	//상품 상세페이지로 이동
 	@RequestMapping("/marketdetail.do")
-	public ModelAndView marketdetail(ModelAndView mv) {
+	public ModelAndView marketdetail(ModelAndView mv,String itemName) {
+		SellItem list=service.marketdetail(itemName);
+		mv.addObject("de",list);
 		mv.setViewName("market1/detailMarketItem");
 		return mv;
 	}
@@ -60,6 +62,7 @@ public class Market1Controller {
 		return mv;
 	}
 	
+	//상품 등록
 	@RequestMapping("/insertMarketItem.do")
 	public ModelAndView insertItem(ModelAndView mv, MultipartFile[] imgFile,
 			String itemBrand,String itemName,int itemPrice,int delPrice,String madeIn,

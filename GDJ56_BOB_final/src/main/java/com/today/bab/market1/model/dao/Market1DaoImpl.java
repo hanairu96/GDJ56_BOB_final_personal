@@ -9,8 +9,13 @@ import com.today.bab.market2.model.vo.SellItem;
 
 @Repository
 public class Market1DaoImpl implements Market1Dao {
-	
+	@Override
 	public List<SellItem> selectItemCtg(SqlSessionTemplate session){
 		return session.selectList("ma.selectItemCtg");
+	}
+	
+	@Override
+	public SellItem marketdetail(SqlSessionTemplate session, String itemName){
+		return session.selectOne("ma.marketdetail",itemName);
 	}
 }

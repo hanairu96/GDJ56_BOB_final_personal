@@ -9,4 +9,7 @@ import com.today.bab.market2.model.vo.SellItem;
 public interface Market1Dao {
 	
 	List<SellItem> selectItemCtg(SqlSessionTemplate session);
+	
+	SellItem marketdetail(SqlSessionTemplate session, String itemName);
+	
 }
