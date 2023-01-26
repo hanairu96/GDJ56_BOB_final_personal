@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.member.model.vo.Member;
@@ -40,6 +41,18 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public int adminDeleteMember(SqlSessionTemplate session, String memberId) {
 		return session.delete("admin.adminDeleteMember",memberId);
+	}
+
+	@Override
+	public List<AdminMaster> adminMaster(SqlSessionTemplate session, Map<String, Integer> param) {
+		return session.selectList("admin.adminMaster",null, 
+	            new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+	                  param.get("numPerpage")));
+	}
+
+	@Override
+	public int selectMasterListCount(SqlSessionTemplate session) {
+		return session.selectOne("admin.selectMasterListCount");
 	}
 	
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.today.bab.admin.model.dao.AdminDao;
+import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.member.model.vo.Member;
@@ -47,6 +48,16 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int adminDeleteMember(String memberId) {
 		return dao.adminDeleteMember(session,memberId);
+	}
+
+	@Override
+	public List<AdminMaster> adminMaster(Map<String, Integer> param) {
+		return dao.adminMaster(session, param);
+	}
+
+	@Override
+	public int selectMasterListCount() {
+		return dao.selectMasterListCount(session);
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.member.model.vo.Member;
@@ -20,4 +21,8 @@ public interface AdminDao {
 	List<AdminSubscription> adminSubscription(SqlSessionTemplate session, String id);
 	
 	int adminDeleteMember(SqlSessionTemplate session, String memberId);
+	
+	List<AdminMaster> adminMaster(SqlSessionTemplate session,Map<String,Integer> param);
+	
+	int selectMasterListCount(SqlSessionTemplate session);
 }
