@@ -1,6 +1,7 @@
 package com.today.bab.market1.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.today.bab.market2.model.vo.SellItem;
 
@@ -20,5 +21,8 @@ public interface Market1Service {
 	
 	//마켓 메인
 	List<SellItem> selectItemMarket();
+	
+	//상품 수정
+	int updateMarketItem(SellItem s);
 
 }

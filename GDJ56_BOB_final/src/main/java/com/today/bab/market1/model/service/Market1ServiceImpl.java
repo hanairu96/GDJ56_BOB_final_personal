@@ -1,6 +1,7 @@
 package com.today.bab.market1.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,28 @@ public class Market1ServiceImpl implements Market1Service{
 	public List<SellItem> selectItemMarket(){
 		return dao.selectItemMarket(session);
 	}
-
+	
+	@Override
+	public int updateMarketItem(SellItem s) {
+	
+		int result=dao.updateMarketItem(session,s);
+		
+		if(result>0) {
+			for(ItemPic pic : s.getIpic()) {
+				pic.setSellitem(s);
+				result+=dao.insertItemPic(session,pic);
+			}
+		}
+//			if(result>0) {
+//				List<ItemPic> list=(List<ItemPic>)param.get("picName");
+//				for(ItemPic ip:list) {
+//					System.out.println(ip);
+//					result+=dao.updateItemPic(session, ip);
+//				}
+//			Iterator keys = param.keySet().iterator();
+//			while(keys.hasNext()){
+//				String key=(String)keys.next();
+//				result+=dao.updateItemPic(session,key);
+		return result;
+	}
 }

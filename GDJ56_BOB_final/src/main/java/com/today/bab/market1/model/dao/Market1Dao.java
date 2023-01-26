@@ -1,6 +1,7 @@
 package com.today.bab.market1.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -20,5 +21,9 @@ public interface Market1Dao {
 	int deleteItem(SqlSessionTemplate session,int itemNo);
 	
 	List<SellItem> selectItemMarket(SqlSessionTemplate session);
+	
+	int updateMarketItem(SqlSessionTemplate session,SellItem s);
+	
+	int updateItemPic(SqlSessionTemplate session,ItemPic keys);
 	
 }

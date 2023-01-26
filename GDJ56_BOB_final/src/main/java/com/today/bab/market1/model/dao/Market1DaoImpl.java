@@ -1,6 +1,7 @@
 package com.today.bab.market1.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -38,5 +39,15 @@ public class Market1DaoImpl implements Market1Dao {
 	@Override
 	public List<SellItem> selectItemMarket(SqlSessionTemplate session){
 		return session.selectList("ma.selectItemMarket");
+	}
+	
+	@Override
+	public int updateMarketItem(SqlSessionTemplate session,SellItem s) {
+		return session.update("ma.updateMarketItem",s);
+	}
+	
+	@Override
+	public 	int updateItemPic(SqlSessionTemplate session,ItemPic keys) {
+		return session.update("ma.updateItemPic",keys);
 	}
 }

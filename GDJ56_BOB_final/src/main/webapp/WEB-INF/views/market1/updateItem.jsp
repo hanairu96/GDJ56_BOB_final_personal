@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <style>
@@ -194,7 +195,16 @@
 						<span class="txt9" style="font-weight: bold;">
 							카테고리</span>
 						<br>
-						<input  list="itemCategory" name="itemCategory" value="${up.itemCategory }" readonly>
+						<input type="hidden" name="itemNo" value="${up.itemNo }"/>
+						<select id="itemCategory" name="itemCategory">
+							<option value="채소" ${fn:contains(up.itemCategory,"채소")?"selected":"" }>채소</option>
+							<option value="과일 · 견과 · 쌀 " ${fn:contains(up.itemCategory,"과일")?"selected":"" }>과일 · 견과 · 쌀</option>
+							<option value="수산 · 해산 · 건어물" ${fn:contains(up.itemCategory,"수산")?"selected":"" }>수산 · 해산 · 건어물</option>
+							<option value="정육 · 계란" ${fn:contains(up.itemCategory,"정육")?"selected":"" }>정육 · 계란</option>
+							<option value="국 · 반찬 · 메인요리" ${fn:contains(up.itemCategory,"국")?"selected":"" }>국 · 반찬 · 메인요리</option>
+							<option value="샐러드 · 간편식" ${fn:contains(up.itemCategory,"샐러드")?"selected":"" }>샐러드 · 간편식</option>
+							<option value="면 · 양념 · 오일" ${fn:contains(up.itemCategory,"면")?"selected":"" }>면 · 양념 · 오일</option>
+						</select>
 						<br>
 					</div>
 					<br>
@@ -246,7 +256,7 @@
 						<span class="txt9" style="font-weight: bold;">대표사진(필수)</span>
 						<br>
 						<input class="" type="file" name="mainPic"  value=""> 
-						<input class="" type="hidden" name="mainPic1"  value="${up.mainPic }"> 
+						<input class="" type="hidden" name="mainPic1"  value="${up.mainPic }">
 					</div>
 					<br><br>
 					
@@ -270,8 +280,8 @@
 					</div>
 					<c:if test="${not empty file }">
 						<c:forEach var="ff" items="${file }">
+							<input type="hidden" name="imgFiles" value="${ff}"/>
 							<c:out value="${ff}"/>
-							<input type="hidden" name="" value=""/>
 						</c:forEach>
 					</c:if>
 					<br>

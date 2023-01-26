@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -231,8 +230,15 @@ public class Market1Controller {
 	}
 	
 	@RequestMapping("/updateMarketItem.do")
-	public ModelAndView updateMarketItem(@RequestParam Map<String,Object> param,ModelAndView mv,MultipartFile[] file,MultipartFile mainPic,
-												MultipartFile itemLabel,HttpSession session) {
+	public ModelAndView updateMarketItem(//@RequestParam Map<String,Object> param,
+			MultipartFile[] imgFile,MultipartFile mainPic,MultipartFile itemLabel,
+		    String mainPic1,String itemLabel1,int itemNo,
+		    
+			String itemBrand,String itemName,int itemPrice,int delPrice,String madeIn,
+			String weight,String mainContent,String itemContent,String itemPoint,
+			String itemKeep,String itemTip,String itemCategory,String itemStock,
+			ModelAndView mv,HttpSession session,String[] imgFiles) {
+
 		String path=session.getServletContext().getRealPath("/resources/upload/market/detail/");
 		String path1=session.getServletContext().getRealPath("/resources/upload/market/mainlabel/");
 		
@@ -240,39 +246,59 @@ public class Market1Controller {
 		if(!dir.exists()) dir.mkdir();
 		List<ItemPic> files=new ArrayList();
 		
-		if(mainPic!=null) {
+		SellItem s=SellItem.builder()
+				.itemNo(itemNo)
+				.itemBrand(itemBrand).itemBrand(itemBrand)
+				.itemName(itemName).itemPrice(itemPrice).delPrice(delPrice).madeIn(madeIn)
+				.weight(weight)
+				.mainContent(mainContent)
+				.itemContent(itemContent).itemPoint(itemPoint).itemKeep(itemKeep).itemTip(itemTip)
+				.itemCategory(itemCategory).itemStock(itemStock)
+				.build();
+		
+		if(mainPic.getSize()==0) {
+//			param.put("mainPic",(String)param.get("mainPic1"));
+			s.setMainPic(mainPic1);
+		}else {	
 			String picName=mainPic.getOriginalFilename();
-			String ex=picName.substring(picName.lastIndexOf("."));
+			String ex=picName.substring(picName.lastIndexOf(".")); 
 			SimpleDateFormat sim=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
 			int rnd=(int)(Math.random()*10000)+1;
 			String renameFile=sim.format(System.currentTimeMillis())+"_"+rnd+ex;
 			try {
+				File delFile=new File(path1+mainPic1);
+				if(delFile.exists()) delFile.delete();
 				mainPic.transferTo(new File(path1+renameFile));
-				param.put("mainPic",renameFile);
+//				param.put("mainPic",renameFile);
+				s.setMainPic(renameFile);
 			}catch(IOException e) {
 				e.printStackTrace();
 			}
-		}else {
-//			param.put("", files)
 		}
 		
 		
-		if(itemLabel!=null) {
+		if(itemLabel.getSize()!=0) {
 			String picName=itemLabel.getOriginalFilename();
 			String ex=picName.substring(picName.lastIndexOf("."));
 			SimpleDateFormat sim=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
 			int rnd=(int)(Math.random()*10000)+1;
 			String renameFile=sim.format(System.currentTimeMillis())+"_"+rnd+ex;
 			try {
+//				File delFile=new File(path1+(String)param.get("itemLabel1"));
+				File delFile=new File(path1+itemLabel1);
+				if(delFile.exists()) delFile.delete();
 				itemLabel.transferTo(new File(path1+renameFile));
-				param.put("itemLabel",renameFile);
+//				param.put("itemLabel",renameFile);
+				s.setItemLabel(renameFile);
 			}catch(IOException e) {
 				e.printStackTrace();
 			}
+		}else {
+//			param.put("itemLabel",(String)param.get("itemLabel1"));
+			s.setItemLabel(itemLabel1);
 		}
 		
-		
-		for(MultipartFile f : file) {
+		for(MultipartFile f : imgFile) {
 			if(!f.isEmpty()) {
 				String picName=f.getOriginalFilename();
 				String ex=picName.substring(picName.lastIndexOf("."));
@@ -283,24 +309,43 @@ public class Market1Controller {
 					f.transferTo(new File(path+renameFile));
 					files.add(ItemPic.builder()
 							.picName(renameFile)
+							.itemNo(itemNo)
+//							.itemNo((int)param.get("itemNo"))
 							.build());
 				}catch(IOException e) {
 					e.printStackTrace();
 				}
 			}
 		}
-		param.put("ipic", files);
+		if(s.getIpic()==null) {
+			if(imgFiles!=null) {
+				for(String arr : imgFiles) {
+					files.add(ItemPic.builder()
+							.picName(arr)
+							.itemNo(itemNo)
+							.build());
+				}
+			}
+		}else {
+			if(imgFiles!=null) {
+				for(int i=0;i<imgFiles.length;i++) {
+					System.out.println(imgFiles[i]);
+					File del=new File(path+imgFiles[i]);
+					if(del.exists()) del.delete();
+				}
+			}
+		}
+		s.setIpic(files);
 		
-
-//		int result=service.updateMarketItem(param);
-//		if(result>0) {
-//			mv.addObject("msg", "게시판 작성 완료");
-//			mv.addObject("loc", "/market1/matketmain.do");
-//		}else {
-//			mv.addObject("msg", "게시판 작성 실패");
-//			mv.addObject("loc", "/market1/insertmarket.do");
-//		}
-//		mv.setViewName("common/msg");
+		int result=service.updateMarketItem(s);
+		if(result>0) {
+			mv.addObject("msg", "상품 수정 성공");
+			mv.addObject("loc", "/market1/marketgtg.do");
+		}else {
+			mv.addObject("msg", "상품 수정 실패");
+			mv.addObject("loc", "/market1/updateItemGo.do");
+		}
+		mv.setViewName("common/msg");
 		return mv;
 	}
 		

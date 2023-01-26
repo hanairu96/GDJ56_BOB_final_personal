@@ -194,7 +194,6 @@
 						<span class="txt9" style="font-weight: bold;">
 							카테고리(필수)
 						</span>
-						<!-- <input  list="itemCategory" placeholder="선택"> -->
 						<br>
 						<select id="itemCategory" name="itemCategory">
 							<option value="채소" selected>채소</option>
