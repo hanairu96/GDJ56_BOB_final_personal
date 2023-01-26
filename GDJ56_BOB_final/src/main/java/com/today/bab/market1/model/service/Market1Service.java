@@ -10,11 +10,15 @@ public interface Market1Service {
 	List<SellItem> selectItemCtg();
 
 	//상품 상세조회
-	SellItem marketdetail(String itemName);
+	SellItem marketdetail(int itemNo);
 
 	//상품 등록
 	int insertItem(SellItem s);
 
-
+	//상픔 삭제
+	int deleteItem(int itemNo);
+	
+	//마켓 메인
+	List<SellItem> selectItemMarket();
 
 }

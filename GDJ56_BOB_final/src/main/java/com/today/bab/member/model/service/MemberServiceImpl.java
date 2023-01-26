@@ -32,4 +32,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.idDuplicateCheck(session, inputId);
 	}
 
+	@Override
+	public Member emailDuplicateCheck(String email) {
+		return dao.emailDuplicateCheck(session, email);
+	}
+
 }

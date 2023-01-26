@@ -3,8 +3,10 @@
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
   <head>
-   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath }"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="path" value="${pageContext.request.contextPath }"/>  
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>오늘의 밥 마이페이지</title>
@@ -241,7 +243,7 @@
             <h2
               class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
             >
-              00님의, 마이페이지
+              ${m.memberId }님의, 마이페이지
             </h2>
             <!-- CTA -->
             <a
@@ -377,130 +379,210 @@
             <div style="width: 1000px; margin: auto;">
               <h2>회원정보</h2>
             </div>
-            </h4>
-            <div style="width: 1000px; margin: auto;"
-              class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
-            >
-              <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">아이디</span>
-                <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="아이디"
-                />
-              </label>
-              <br>
-              <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">이름</span>
-                <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="이름"
-                />
-              </label>
-              <br>
-              <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">닉네임</span>
-                <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="닉네임"
-                />
-              </label>
-              <br>
-              <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">생년월일</span>
-                <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="생년월일"
-                />
-              </label>
-             
-              <div class="mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">
-                  성별
-                </span>
-                <div class="mt-2">
-                  <label
-                    class="inline-flex items-center text-gray-600 dark:text-gray-400"
-                  >
-                    <input
-                      type="radio"
-                      class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                      name="accountType"
-                      value="personal"
-                    />
-                    <span class="ml-2">남</span>
-                  </label>
-                  <label
-                    class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400"
-                  >
-                    <input
-                      type="radio"
-                      class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                      name="accountType"
-                      value="busines"
-                    />
-                    <span class="ml-2">여</span>
-                  </label>
-                </div>
-              </div>
-              <br>
-              <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">이메일</span>
-                <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="이메일"
-                />
-              </label>
-              <br>
-              <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">전화번호</span>
-                <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="전화번호"
-                />
-              </label>
-              <br>
-              <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">주소</span>
-                <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="주소"
-                />
-              </label>
-              <br>
-              <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">회원등급</span>
-                <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="회원등급"
-                />
-              </label>
-              <br>
-              <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">정기구독</span>
-                <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="정기구독"
-                />
-              </label>
-              <br>
-              <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">선호식품</span>
-                <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="선호식품"
-                />
-              </label>
-            </div>
-            </div><br>
-            <div style="width: 150px; margin: auto;">
-              <button  class="px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                회원수정
-              </button>
-              <br><br><br>
-          </div>
+            <form action="${path }/mypage/updateMypage.do" method="post">
+	            <div style="width: 1000px; margin: auto;"
+	              class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
+	            >
+	              <label class="block text-sm">
+	                <span class="text-gray-700 dark:text-gray-400"><b>아이디</b></span>
+	                <input
+	                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+	                  value="${m.memberId }"
+	                  name="updateMemberId"
+	                  style="background-color:lightgray;width:fit-content;"
+	                  readonly
+	                />
+	              </label>
+	              <br>
+	              <label class="block text-sm">
+	                <span class="text-gray-700 dark:text-gray-400"><b>이름</b></span>
+	                <input
+	                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+	                  value="${m.mname }"
+	                  name="updateName"
+	                  style="width:fit-content;"
+	                />
+	              </label>
+	              <br>
+	              <label class="block text-sm">
+	                <span class="text-gray-700 dark:text-gray-400"><b>닉네임</b></span>
+	                <input
+	                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+	                  value="${m.nickname }"
+	                  style="background-color:lightgray;width:fit-content;"
+	                  readonly
+	                />
+	              </label>
+	              <br>
+	              <label class="block text-sm">
+	                <span class="text-gray-700 dark:text-gray-400"><b>생년월일</b></span>
+	                <input
+	                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+	                  value="${m.birthday }"
+	                  style="background-color:lightgray;width:fit-content;"
+	                  readonly
+	                />
+	              </label>
+	             
+	              <div class="mt-4 text-sm">
+	                <span class="text-gray-700 dark:text-gray-400">
+	                  <b>성별</b>
+	                </span>
+	                <div class="mt-2">
+	                  <label
+	                    class="inline-flex items-center text-gray-600 dark:text-gray-400"
+	                  >
+	                    <input
+	                      type="radio"
+	                      class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+	                      name="gender"
+	                      value="M"
+	                      ${fn:contains(m.gender,'M')?'checked':''}
+	                    />
+	                    <span class="ml-2">남</span>
+	                  </label>
+	                  <label
+	                    class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400"
+	                  >
+	                    <input
+	                      type="radio"
+	                      class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+	                      name="gender"
+	                      value="F"
+	                      ${fn:contains(m.gender,'F')?'checked':''}
+	                    />
+	                    <span class="ml-2">여</span>
+	                  </label>
+	                </div>
+	              </div>
+	              <br>
+	              <label class="block text-sm">
+	                <span class="text-gray-700 dark:text-gray-400"><b>이메일</b></span>
+	                <input
+	                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+	                  value="${m.email }"
+	                  name="updateEmail"
+	                  style="width:fit-content;"
+	                />
+	              </label>
+	              <br>
+	              <label class="block text-sm">
+	                <span class="text-gray-700 dark:text-gray-400"><b>전화번호</b></span>
+	                <input
+	                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+	                  value="${m.phone }"
+	                  name="updatePhone"
+	                  style="width:fit-content;"
+	                />
+	              </label>
+	              <br>
+	              
+	                <label class="block text-sm">
+	                  <span class="text-gray-700 dark:text-gray-400"><b>주소</b></span>
+	                  	<div style="display:flex;flex-direction:row;">
+		                	<div style="width:fit-content;">
+		                        <input type="text" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+		                            id="inputAddress_postcode"
+		                            style="background-color:lightgray;"
+		                            value="${address.get(0) }"
+		                            name="updateAdd1"
+		                            readonly>
+		                    </div>
+		                    <div style="width:fit-content;">
+		                        <input id="searchAddr" type="button" style="margin-left:15px;height:40px;"class="px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+		                        value="주소 검색" onclick="sample6_execDaumPostcode()">
+		                    </div>
+	                    </div>
+		                <div style="display:flex;flex-direction:row;">
+		                    <div style="margin-right:10px;">
+		                        <input type="text" style="width:300px;background-color:lightgray;" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+		                             id="inputAddress_address" 
+									value="${address.get(1) }"
+									name="updateAdd2"
+			                        readonly>
+		                    </div>
+		                   <div style="width:auto;">
+		                        <input type="text" style="width:300px;"class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" 
+		                            id="inputAddress_detailAddress"
+		                            value="${address.get(2) }"
+		                            name="updateAdd3">
+		                    </div>
+		                </div>
+	                
+	                </label>
+	             	 <br>
+	             	 
+	              <label class="block text-sm">
+	                <span class="text-gray-700 dark:text-gray-400"><b>회원등급</b></span>
+	                <input
+	                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+	                  value="${fn:contains(m.grade,'Y')?'장인':'일반'}"
+	                  style="background-color:lightgray;width:fit-content;"
+	                  readonly
+	                />
+	              </label>
+	              <br>
+	              
+	               <label class="block text-sm">
+	                <span class="text-gray-700 dark:text-gray-400"><b>선호식품</b></span>
+	               </label>
+	                <div style="margin-top:10px;">
+	                
+	                <c:if test="${not empty memberlike }">
+		                <c:forEach var="ml" items="${memberlike }" >
+	                        <input style="padding:5px;" type="checkbox" name="updateLike" value="${ml}"
+	                        	checked> ${ml}
+		                </c:forEach>
+		            </c:if>
+		            
+		            <c:if test="${not empty memberhate }">
+		                <c:forEach var="mh" items="${memberhate }" >
+		                        <input style="padding:5px;" type="checkbox" name="updateLike" value="${mh}"
+		                        > ${mh}
+		                </c:forEach>
+		            </c:if>
+		            
+	                </div><br>
+	                <p>추천 상품 목록이 나올 때 반영됩니다.</p>
+	            </div>
+	            <br>
+	            <div style="width: 150px; margin: auto;">
+	              <button type="submit" class="px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+	                회원수정
+	              </button>
+	              <br><br><br>
+	          </div>
+	         </form>
+          
           </div>
         </main>
       </div>
     </div>
+    
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+		function sample6_execDaumPostcode() {
+			new daum.Postcode({
+				oncomplete: function(data) {
+					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+					var addr = ''; // 주소 변수
+					//var extraAddr = ''; // 참고항목 변수
+					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+						addr = data.roadAddress;
+					}else { // 사용자가 지번 주소를 선택했을 경우(J)
+						addr = data.jibunAddress;
+					}
+					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					document.getElementById('inputAddress_postcode').value = data.zonecode;
+					document.getElementById("inputAddress_address").value = addr;
+					// 커서를 상세주소 필드로 이동한다.
+					document.getElementById("inputAddress_detailAddress").focus();
+				}
+			}).open();
+		}
+    </script>
   </body>
 </html>

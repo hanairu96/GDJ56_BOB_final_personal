@@ -30,25 +30,30 @@ public class Market1ServiceImpl implements Market1Service{
 	}
 	
 	@Override
-	public SellItem marketdetail(String itemName){
-		return dao.marketdetail(session, itemName);
+	public SellItem marketdetail(int itemNo){
+		return dao.marketdetail(session, itemNo);
 	}
 	
 	@Override
 	public int insertItem(SellItem s) {
 		int result=dao.insertItem(session,s);
 		if(result>0) {
-			for(ItemPic pic : s.getIPic()) {
+			for(ItemPic pic : s.getIpic()) {
 				pic.setSellitem(s);
 				result+=dao.insertItemPic(session,pic);
 			}
-//			if(result!=s.getIPic().size()) {
-//				throw new RuntimeException("다시 확인해주세요");
-//			}
-		}else {
-			throw new RuntimeException("sellitem만 저장");
 		}
 		return result;
+	}
+	
+	@Override
+	public int deleteItem(int itemNo) {
+		return dao.deleteItem(session,itemNo);
+	}
+	
+	@Override
+	public List<SellItem> selectItemMarket(){
+		return dao.selectItemMarket(session);
 	}
 
 }

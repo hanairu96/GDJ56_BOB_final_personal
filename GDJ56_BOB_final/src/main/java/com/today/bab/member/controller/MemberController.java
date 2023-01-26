@@ -100,6 +100,21 @@ public class MemberController {
 		
 		return data;
 	}
+
+	@ResponseBody
+	@RequestMapping(value="/emailDuplicateCheck", method=RequestMethod.POST)
+	public String emailDuplicateCheck(String email) {
+		
+		Member m=service.emailDuplicateCheck(email);
+		Gson gson=new Gson();
+		String data=gson.toJson(m);
+		
+		System.out.println(email);
+		System.out.println(m);		
+		System.out.println(data);
+		
+		return data;
+	}
 	
 	@RequestMapping(value="/emailCheck", method=RequestMethod.GET)
 	@ResponseBody

@@ -7,4 +7,5 @@ public interface MemberService {
 	int login(String id, String password);
 	Member selectMemberById(Member m);
 	Member idDuplicateCheck(String inputId);
+	Member emailDuplicateCheck(String email);
 }

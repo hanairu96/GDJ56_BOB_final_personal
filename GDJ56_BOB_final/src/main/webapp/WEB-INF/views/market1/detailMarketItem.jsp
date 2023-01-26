@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+itemPrice<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -17,8 +17,25 @@
             </div>
         </div>
     </section>
-
     <section class="product-details spad">
+    <div>
+   		<button class="primary-btn" type="button" onclick="updateItem(${de.itemNo})" style="background-color:blue;border: none;">수정</button>
+    	<button class="primary-btn" type="button" onclick="deleteItemFile(${de.itemNo},'${picpic}','${de.mainPic}','${de.itemLabel}')" style="background-color:red;border: none;" >삭제</button>
+    </div>	
+    <script>
+    	const deleteItemFile=(no,pic,main,label)=>{
+    		const pp=pic.split(",");
+    		var addpath="";
+    		for(let i=0;i<pp.length;i++){
+    			addpath+="&picName="+pp[i];
+    		}
+			location.assign("${path}/market1/deleteItem.do?itemNo="+no+"&mainPic="+main+"&itemLabel="+label+addpath);    	
+    	}
+    	const updateItem=(no)=>{
+			location.assign("${path}/market1/updateItemGo.do?itemNo="+no); 
+    	}
+    	
+    </script>
         <div class="container">
             <div class="row">
 
@@ -26,22 +43,22 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
+                        <c:if test="${empty de.mainPic }">
                             <img class="product__details__pic__item--large"
                                 src="${path }/resources/market/img/product/details/product-details-1.jpg" alt="">
+                        </c:if>
+                        <c:if test="${not empty de.mainPic }">
+                            <img class="product__details__pic__item--large"
+                                src="${path }/resources/upload/market/mainlabel/${de.itemLabel}" alt="">
+                        </c:if>
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-2.jpg" 
-                                src="${path }/resources/market/img/product/details/thumb-1.jpg" alt="">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-3.jpg" 
-                                src="${path }/resources/market/img/product/details/thumb-2.jpg" alt="">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-5.jpg"
-                                src="${path }/resources/market/img/product/details/thumb-3.jpg" alt="">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
-                                src="${path }/resources/market/img/product/details/thumb-4.jpg" alt="">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
-                                src="${path }/resources/market/img/product/details/thumb-4.jpg" alt="">
-                            <img data-imgbigurl="${path }/resources/market/img/product/details/product-details-4.jpg"
-                                src="${path }/resources/market/img/product/details/thumb-4.jpg" alt="">
+                      	<c:if test="${not empty de.ipic }">
+	                        <c:forEach var="file" items="${de.ipic }">
+									 <img src="${path }/resources/upload/market/detail/${file.picName}">
+							</c:forEach>                         
+	                            <img src="${path }/resources/upload/market/mainlabel/${de.mainPic}" alt="">
+                        </c:if>
                         </div>
                     </div>
                 </div>
@@ -105,6 +122,43 @@
                     </div>
                 </div>
                 
+             	<div class="tab-content">
+					<div class="tab-pane active" id="tabs-1" role="tabpanel">
+					    <div class="product__details__tab__desc">
+					        <br>
+					        <h3 style="text-align: center;">${de.itemBrand }</h3><br>
+					        <div style="text-align: center;"> 
+					            <p>
+									${de.itemContent }
+					            </p>
+					        </div>
+					        <br>
+					        <div  style="text-align: center;">
+					        <c:if test="${not empty de.ipic }">
+		                        <c:forEach var="file" items="${de.ipic }">
+										 <img src="${path }/resources/upload/market/detail/${file.picName}" style="width:500px;height: 500px;">
+								</c:forEach>                         
+                        	</c:if>
+					        </div>
+					        <br><br>
+					        <div >
+					            <span>용량 : ${de.weight }</span><br>
+					            <span>특징 : ${de.itemPoint }</span><br>
+					            <span>보관법 : ${de.itemKeep }</span><br>
+					            <span>활용팁 : ${de.itemTip }</span><br>
+					        </div>
+					        <br>
+					        <div  style="text-align: center;">
+					            <img src="${path }/resources/upload/market/mainlabel/${de.itemLabel }" alt="" style="width:500px;height: 500px;margin-left: 50px;">
+				            </div>
+				            <br><br><br>
+				        </div>
+				    </div>
+				</div>
+				<div>
+				    <span class="col-5" style="background-color: rgb(232, 247, 242);font-weight: bold;">판매자 정보 : </span>
+				    <span class="col-6" style="background-color: rgb(242, 253, 250);font-weight: bold;">오늘의 밥</span>
+				</div>
 
             </div>
         </div>

@@ -5,6 +5,8 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.today.bab.admin.model.vo.AdminMember;
+import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 
 @Repository
@@ -23,5 +25,20 @@ public class MypageDaoImpl implements MypageDao{
 	@Override
 	public int deleteBasketCount(SqlSessionTemplate session, int dbasketNo) {
 		return session.delete("mypage.deleteBasketCount",dbasketNo);
+	}
+
+	@Override
+	public AdminMember selectMyInfo(SqlSessionTemplate session, AdminMember m) {
+		return session.selectOne("mypage.selectMyInfo",m);
+	}
+
+	@Override
+	public int updateMember(SqlSessionTemplate session, AdminMember am) {
+		return session.update("mypage.updateMember",am);
+	}
+
+	@Override
+	public int updateMemberLike(SqlSessionTemplate session, MemberLike ml) {
+		return session.update("mypage.updateMemberLike",ml);
 	}
 }

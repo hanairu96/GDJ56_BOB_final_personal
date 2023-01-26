@@ -177,7 +177,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>오늘의 밥 마켓 상품 등록</h2>
+                        <h2>오늘의 밥 마켓 상품 수정</h2>
                         </div>
                     </div>
                 </div>
@@ -192,19 +192,10 @@
 				<div class="row">
 					<div class="col-md-4">
 						<span class="txt9" style="font-weight: bold;">
-							카테고리(필수)
-						</span>
-						<!-- <input  list="itemCategory" placeholder="선택"> -->
+							카테고리</span>
 						<br>
-						<select id="itemCategory" name="itemCategory">
-							<option value="채소" selected>채소</option>
-							<option value="과일 · 견과 · 쌀 ">과일 · 견과 · 쌀</option>
-							<option value="수산 · 해산 · 건어물">수산 · 해산 · 건어물</option>
-							<option value="정육 · 계란">정육 · 계란</option>
-							<option value="국 · 반찬 · 메인요리">국 · 반찬 · 메인요리</option>
-							<option value="샐러드 · 간편식">샐러드 · 간편식</option>
-							<option value="면 · 양념 · 오일">면 · 양념 · 오일</option>
-						</select>
+						<input  list="itemCategory" name="itemCategory" value="${up.itemCategory }" readonly>
+						<br>
 					</div>
 					<br>
 					<br>
@@ -212,42 +203,42 @@
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">브랜드명(선택)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="itemBrand" placeholder="브랜드 명을 등록해주세요. 없다면 생략해주세요">
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="itemBrand" value="${up.itemBrand}" placeholder="브랜드 명을 등록해주세요. 없다면 생략해주세요">
 						</div>
 					</div>
 
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">제품명(필수)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="itemName" placeholder="30자 이내로 입력해주세요" value="" required>
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="itemName" value="${up.itemName }" placeholder="30자 이내로 입력해주세요" value="" required>
 						</div>
 					</div>
 
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">가격(필수, 숫자만 입력)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="itemPrice" placeholder="50000" value="" required>
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="itemPrice" value="${up.itemPrice }" placeholder="50000" value="" required>
 						</div>
 					</div>
 
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">배송비(필수, 숫자만 입력)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="delPrice" placeholder="3000" value="" required>
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="delPrice" value="${up.delPrice }" placeholder="3000" value="" required>
 						</div>
 					</div>
 
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">원산지(필수)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="madeIn" placeholder="30자 이내로 입력해주세요" value="" required>
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="madeIn" value="${up.madeIn }" placeholder="30자 이내로 입력해주세요" value="" required>
 						</div>
 					</div>
 
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">중량(필수, 숫자만 입력)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="weight" placeholder="10" value="" required>
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="weight" value="${up.weight }" placeholder="10" value="" required>
 						</div>
 					</div>
 
@@ -255,6 +246,7 @@
 						<span class="txt9" style="font-weight: bold;">대표사진(필수)</span>
 						<br>
 						<input class="" type="file" name="mainPic"  value=""> 
+						<input class="" type="hidden" name="mainPic1"  value="${up.mainPic }"> 
 					</div>
 					<br><br>
 					
@@ -266,7 +258,7 @@
 					</div>
 					<br>
 					<div class="col-md-12">
-						<span class="txt9" >상품사진 2</span>
+						<span class="txt9">상품사진 2</span>
 						<br>
 						<input class="" type="file" name="imgFile" id="imgFile2" value=""> 
 					</div>
@@ -277,39 +269,40 @@
 						<input class="" type="file" name="imgFile" id="imgFile3" value=""> 
 					</div>
 					<br>
+
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">상품한줄소개(필수)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
 							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="itemContent" 
-							placeholder="상세페이지 및 썸내일(상품리스트)에서도 쓰입니다(15자이내)" maxlength="15" required>
+							placeholder="상세페이지 및 썸내일(상품리스트)에서도 쓰입니다(15자이내)" value="${up.mainContent }" maxlength="15" required>
 						</div>
 					</div>
-
+					
 					<div class="col-12" style="margin-top: 2%;">
 						<span class="txt9" style="font-weight: bold;">상품설명(필수)</span><br>
 						<textarea class="bo-rad-10 size35 bo2 txt10 p-l-20 p-t-15 m-b-10 m-t-3" 
-						 rows="4" cols="120" name="mainContent"  placeholder="상품에 대한 설명을 입력해주세요" required></textarea>
+						 rows="4" cols="120" name="mainContent"  placeholder="상품에 대한 설명을 입력해주세요" required>${up.itemContent }</textarea>
 					</div><br>
 
 
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">상품특징(필수)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="itemPoint" value="" required>
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="itemPoint" value="${up.itemPoint }" required>
 						</div>
 					</div>
 
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">보관법(필수)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="itemKeep" value="" required>
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="itemKeep" value="${up.itemKeep }" required>
 						</div>
 					</div>
 
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">활용팁(필수)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="itemTip" value="" required>
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="itemTip" value="${up.itemTip }" required>
 						</div>
 					</div>
 
@@ -317,13 +310,14 @@
 						<span class="txt9" style="font-weight: bold;">상품라벨(필수)</span>
 						<br>
 						<input class="" type="file" name="itemLabel"  value=""> 
+						<input class="" type="hidden" name="itemLabel1"  value="${up.itemLabel }"> 
 					</div>
 					<br>
 
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">상품재고(필수)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="itemStock" placeholder="3000" value="" required>
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="itemStock" placeholder="3000" value="${up.itemStock }" required>
 						</div>
 					</div>
 
@@ -331,7 +325,7 @@
 				
 				<div class="wrap-btn-booking flex-c-m m-t-13">
 					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4">
-						저장하기
+						수정하기
 					</button>
 				</div>
 			</form>

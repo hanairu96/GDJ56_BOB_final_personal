@@ -11,10 +11,14 @@ public interface Market1Dao {
 	
 	List<SellItem> selectItemCtg(SqlSessionTemplate session);
 	
-	SellItem marketdetail(SqlSessionTemplate session, String itemName);
+	SellItem marketdetail(SqlSessionTemplate session, int itemNo);
 	
 	int insertItem(SqlSessionTemplate session,SellItem s);
 	
 	int insertItemPic(SqlSessionTemplate session,ItemPic pic);
+	
+	int deleteItem(SqlSessionTemplate session,int itemNo);
+	
+	List<SellItem> selectItemMarket(SqlSessionTemplate session);
 	
 }
