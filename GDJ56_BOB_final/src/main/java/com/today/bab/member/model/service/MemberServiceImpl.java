@@ -22,11 +22,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int login(String id, String password) {
-		return 0;
-	}
-
-	@Override
 	public Member selectMemberById(Member m) {
 		return dao.selectMemberById(session, m);
 	}
