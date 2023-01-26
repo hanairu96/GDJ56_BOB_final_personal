@@ -100,7 +100,12 @@
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href="${path }/market1/marketdetail.do?itemNo=${sell.itemNo }"><c:out value="${sell.itemName }"/></a></h6>
+                                    <h6><a href="${path }/market1/marketdetail.do?itemNo=${sell.itemNo }">
+                            	    <c:if test="${sell.itemBrand!=null }">
+							        	[${sell.itemBrand }]
+							        </c:if>
+                                    <c:out value="${sell.itemName }"/>
+                                    </a></h6>
                                     <p><c:out value="${sell.mainContent }"/></p>
                                     <h5><c:out value="${sell.itemPrice }"/>원</h5>
                                 </div>
@@ -110,11 +115,11 @@
                 </div>
                     <!-- 페이징처리 -->
                     <div class="product__pagination">
-                        <a href="#"><i class="fa fa-long-arrow-left"></i></a>
+                        <a href="#"><i class="fa" style="font-weight:bold;"> &lt; </i></a>
                         <a href="#">1</a>
                         <a href="#">2</a>
                         <a href="#">3</a>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                        <a href="#"><i class="fa" style="font-weight:bold;"> > </i></a>
                     </div>
             </div>
         </div>

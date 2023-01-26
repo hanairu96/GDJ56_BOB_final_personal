@@ -187,7 +187,7 @@
 	<section>
 		<div class="container">
 			<form class="wrap-form-reservation size22 m-l-r-auto" method="post" enctype="multipart/form-data"
-			action="${path }/market1/insertMarketItem.do">
+			action="${path }/market1/updateMarketItem.do">
 				<br>
 				<div class="row">
 					<div class="col-md-4">
@@ -268,12 +268,18 @@
 						<br>
 						<input class="" type="file" name="imgFile" id="imgFile3" value=""> 
 					</div>
+					<c:if test="${not empty file }">
+						<c:forEach var="ff" items="${file }">
+							<c:out value="${ff}"/>
+							<input type="hidden" name="" value=""/>
+						</c:forEach>
+					</c:if>
 					<br>
 
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">상품한줄소개(필수)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="itemContent" 
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="mainContent" 
 							placeholder="상세페이지 및 썸내일(상품리스트)에서도 쓰입니다(15자이내)" value="${up.mainContent }" maxlength="15" required>
 						</div>
 					</div>
@@ -281,7 +287,7 @@
 					<div class="col-12" style="margin-top: 2%;">
 						<span class="txt9" style="font-weight: bold;">상품설명(필수)</span><br>
 						<textarea class="bo-rad-10 size35 bo2 txt10 p-l-20 p-t-15 m-b-10 m-t-3" 
-						 rows="4" cols="120" name="mainContent"  placeholder="상품에 대한 설명을 입력해주세요" required>${up.itemContent }</textarea>
+						 rows="4" cols="120" name="itemContent"  placeholder="상품에 대한 설명을 입력해주세요" required>${up.itemContent }</textarea>
 					</div><br>
 
 

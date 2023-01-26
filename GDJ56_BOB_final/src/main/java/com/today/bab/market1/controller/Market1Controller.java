@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -224,6 +225,14 @@ public class Market1Controller {
 		}
 		mv.addObject("file",file);
 		mv.setViewName("market1/updateItem");
+		return mv;
+	}
+	
+	@RequestMapping("/updateMarketItem.do")
+	public ModelAndView updateMarketItem(ModelAndView mv,Map<String,Object> param,MultipartFile[] file ) {
+		
+		
+		
 		return mv;
 	}
 		
