@@ -1,6 +1,7 @@
 package com.today.bab.onedayclass.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -22,9 +23,9 @@ public class OneDayDaoImpl implements OneDayDao {
 	}
 
 	@Override
-	public List<OneDayClass> selectSearchClass(SqlSessionTemplate session, String[] arr ) {
+	public List<OneDayClass> selectSearchClass(SqlSessionTemplate session, Map<String, Object> param ) {
 		
-		return session.selectList("onedayclass.selectSearchClass",arr);
+		return session.selectList("onedayclass.selectSearchClass",param);
 	}
 	
 	

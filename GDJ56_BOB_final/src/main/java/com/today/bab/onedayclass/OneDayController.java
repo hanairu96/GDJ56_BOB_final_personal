@@ -1,7 +1,9 @@
 package com.today.bab.onedayclass;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +29,6 @@ public class OneDayController {
 	public ModelAndView oneDayClassMain(ModelAndView mv) {
 		
 		List<OneDayClass> classlist = service.selectClassList();
-
 		mv.addObject("classlist",classlist);
 		mv.setViewName("onedayclass/onedayMain");
 		return mv;
@@ -35,23 +36,24 @@ public class OneDayController {
 	
 	@RequestMapping("/class/menu.do")
 	public String oneDayClassBob(Model m,String type) {
+		
 		List<OneDayClass> classlist = service.selectMenuClassList(type);
 		m.addAttribute("classlist",classlist);
-		System.out.println(classlist);
 		return "onedayclass/onedaymenu-"+type;
 	}
 	
 	@RequestMapping("/class/search.do")
-	public String selectSearchClass(String search, String searchlist) {
-		System.out.println(search);
-		System.out.println(searchlist);
-		String[] arr = new String[2]; 
-		arr[0]=search;
-		arr[1]=searchlist;
-		List<OneDayClass> classlist = service.selectSearchClass(arr);
-		System.out.println(classlist);
-		return "oendaySearchResult";
+	public String selectSearchClass(Model m, String search, String searchlist) {
+
+	   Map<String, Object> param = new HashMap();
+	   param.put("type", searchlist);
+	   param.put("keyword", search);
+	   List<OneDayClass> classlist = service.selectSearchClass(param);
+	   m.addAttribute("classlist",classlist);
+	   m.addAttribute("param", param);
+	   return "onedayclass/onedaySearchResult";
 	}
+
 	
 	
 	
