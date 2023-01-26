@@ -184,6 +184,13 @@ public class MemberController {
 		
 		int result=service.enrollMemberEnd(m, ml);
 		
+//		int result=0;
+//		try {
+//			result=service.enrollMemberEnd(m, ml);
+//		}catch (Exception e) {
+//			// TODO: handle exception
+//		}
+		
 		if(result>0) {
 			mv.addObject("msg","회원가입 되었습니다.");
 			mv.addObject("loc","/");

@@ -9,5 +9,5 @@ public interface MemberService {
 	Member selectMemberById(Member m);
 	Member idDuplicateCheck(String inputId);
 	Member emailDuplicateCheck(String email);
-	int enrollMemberEnd(Member m, MemberLike ml);
+	int enrollMemberEnd(Member m, MemberLike ml); //throws SQLException;
 }

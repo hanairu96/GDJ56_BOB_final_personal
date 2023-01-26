@@ -1,7 +1,10 @@
 package com.today.bab.member.model.service;
 
+import java.sql.SQLException;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.member.model.dao.MemberDao;
@@ -38,6 +41,19 @@ public class MemberServiceImpl implements MemberService {
 		return dao.emailDuplicateCheck(session, email);
 	}
 
+//	@Override
+//	@Transactional
+//	public int enrollMemberEnd(Member m, MemberLike ml) throws SQLException{
+//		int result=0;
+//		int memberResult=dao.enrollMember(session, m);
+//		int likeResult=dao.enrollMemberLike(session, ml);
+//		if(memberResult>0 && likeResult>0) {
+//			throw new SQLException();
+//		}else {
+//		}
+//		return result;
+//	}
+	
 	@Override
 	public int enrollMemberEnd(Member m, MemberLike ml) {
 		int result=0;
