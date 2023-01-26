@@ -2,10 +2,11 @@ package com.today.bab.mypage.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,6 @@ import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.member.model.vo.Member;
 import com.today.bab.mypage.model.service.MypageService;
-
-import lombok.Builder;
 
 @Controller
 @RequestMapping("/mypage")
@@ -31,8 +30,11 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/orderlist.do")
-	public ModelAndView selectItemOrderList(ModelAndView mv,String memberId) {
-		mv.addObject("memberId",memberId);
+	public ModelAndView selectItemOrderList(ModelAndView mv,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+	    Member m = (Member) session.getAttribute("loginMember");
+	    //System.out.println("dd"+m.getMemberId());
+		mv.addObject("memberId",m.getMemberId());
 		mv.setViewName("mypage/orderlist");
 		
 		return mv;
@@ -40,8 +42,12 @@ public class MypageController {
 	
 	//마이페이지-회원정보 비밀번호입력
 	@RequestMapping("/myinfoPassword.do")
-	public ModelAndView myinfoPassword(ModelAndView mv,String memberId) {
-		mv.addObject("memberId",memberId);
+	public ModelAndView myinfoPassword(ModelAndView mv,HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+	    Member m = (Member) session.getAttribute("loginMember");
+	    
+		mv.addObject("memberId",m.getMemberId());
 		mv.setViewName("mypage/myinfoPassword");
 		
 		return mv;
@@ -49,15 +55,18 @@ public class MypageController {
 	
 	//마이페이지-회원정보 내용출력
 	@RequestMapping("/myinfo.do")
-	public ModelAndView selectMyInfo(ModelAndView mv,String memberId,String myinfoPassword) {
+	public ModelAndView selectMyInfo(ModelAndView mv,HttpServletRequest request,String myinfoPassword) {
 		
-		AdminMember member=AdminMember.builder().memberId(memberId).password(myinfoPassword).build();
+		HttpSession session = request.getSession();
+	    Member loginMember = (Member) session.getAttribute("loginMember");
+	    
+		AdminMember member=AdminMember.builder().memberId(loginMember.getMemberId()).password(myinfoPassword).build();
 		
 		AdminMember m=mypageService.selectMyInfo(member);//비밀번호 맞는지 확인
 		
 		if(m==null) { //비밀번호가 틀린 경우
 			mv.addObject("msg", "비밀번호가 틀렸습니다.");
-			mv.addObject("loc","/mypage/myinfoPassword.do?memberId="+memberId);
+			mv.addObject("loc","/mypage/myinfoPassword.do");
 			mv.setViewName("common/msg");
 			
 			return mv;
@@ -115,13 +124,16 @@ public class MypageController {
 	}
 	//마이페이지-회원정보 수정
 	@RequestMapping("/updateMypage.do")
-	public ModelAndView updateMypage(ModelAndView mv,String updateMemberId,String updateName
+	public ModelAndView updateMypage(ModelAndView mv,HttpServletRequest request,String updateName
 			,char gender,String updateEmail,String updatePhone,String updateAdd1,
 			String updateAdd2,String updateAdd3,String updateLike) {
 		
+		HttpSession session = request.getSession();
+	    Member loginMember = (Member) session.getAttribute("loginMember");
+		
 		String updateAddress="("+updateAdd1+") "+updateAdd2+","+updateAdd3; //전체주소
 		
-		MemberLike ml=new MemberLike(updateMemberId,'N','N','N','N','N'); //선호식품 기본값 N으로 생성
+		MemberLike ml=new MemberLike(loginMember.getMemberId(),'N','N','N','N','N'); //선호식품 기본값 N으로 생성
 		if(updateLike!=null) { //선호식품 체크가 존재하면
 			String[] updateMemberLike=updateLike.split(","); //선호식품 배열로 저장
 			
@@ -136,7 +148,7 @@ public class MypageController {
 			}
 		}
 		
-		AdminMember am=AdminMember.builder().memberId(updateMemberId).mname(updateName).gender(gender)
+		AdminMember am=AdminMember.builder().memberId(loginMember.getMemberId()).mname(updateName).gender(gender)
 											.email(updateEmail).phone(updatePhone).address(updateAddress)
 											.build();
 		
@@ -148,7 +160,7 @@ public class MypageController {
 		}else {
 			mv.addObject("msg","수정 실패");
 		}
-		mv.addObject("loc","/mypage/myinfoPassword.do?memberId="+updateMemberId);
+		mv.addObject("loc","/mypage/myinfoPassword.do");
 		mv.setViewName("common/msg");
 		
 		return mv;
@@ -156,18 +168,23 @@ public class MypageController {
 	
 	
 	@RequestMapping("/basket.do")
-	public ModelAndView selectBasketById(ModelAndView mv) {
-		
-		String userId="user02"; //임의로 저장 -> 동민이가 멤버 만들면 그때 값 넘어와서 고치기
-		List<Basket> b=mypageService.selectBasketById(userId);
-		
-		mv.addObject("basket",b);
-		mv.setViewName("mypage/basket");
-		
-		System.out.println(b);
-		
-		return mv;
-	}
+	   public ModelAndView selectBasketById(ModelAndView mv,HttpServletRequest request) {
+	      
+		HttpSession session = request.getSession();
+	    Member m = (Member) session.getAttribute("loginMember");
+	      
+	      //System.out.println("아이디"+m.getMemberId());
+	      
+	      //String userId="user02"; //임의로 저장 -> 동민이가 멤버 만들면 그때 값 넘어와서 고치기
+	      List<Basket> b=mypageService.selectBasketById(m.getMemberId());
+	      
+	      mv.addObject("basket",b);
+	      mv.setViewName("mypage/basket");
+	      
+	      System.out.println(b);
+	      
+	      return mv;
+	   }
 	
 	@RequestMapping("/point.do")
 	public ModelAndView selectPoint(ModelAndView mv) {

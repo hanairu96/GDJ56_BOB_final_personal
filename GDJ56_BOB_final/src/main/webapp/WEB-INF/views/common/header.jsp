@@ -57,7 +57,7 @@
 	                	<p><a href="${path}/admin/main.do">ADMINPAGE</a></p>
 	                </c:if>
 	                <c:if test="${loginMember.memberId ne 'admin'}">
-	                	<p><a href="${path}/mypage/orderlist.do?memberId=${loginMember.memberId }">MYPAGE</a></p>
+	                	<p><a href="${path}/mypage/orderlist.do">MYPAGE</a></p>
 	                </c:if>
 	                <img src="${path}/resources/images/shopping-basket.png" onclick="">
 	                <img src="${path}/resources/images/logout.png" onclick="logout();">
