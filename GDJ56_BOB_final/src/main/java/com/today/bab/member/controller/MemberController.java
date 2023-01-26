@@ -165,16 +165,20 @@ public class MemberController {
 		System.out.println(inputAddressDetailAddress);
 		System.out.println(ml);
 		
+		//문자열로 받아온 생년월일을 Date 타입으로 변환
 		String dateStr=year+"/"+month+"/"+day;
 		SimpleDateFormat formatter=new SimpleDateFormat("yyyy/MM/dd");
 		Date date=formatter.parse(dateStr);
 		System.out.println(date);
 		
+		//주소를 하나로 합침
 		String address=inputAddressAddress+" "+inputAddressDetailAddress;
 		
+		//Member m에 생년월일과 주소를 set
 		m.setBirth(date);
 		m.setAddress(address);
 		
+		//체크하지 않은 음식 취향 값을 N으로 지정
 		if(ml.getFruit()!='Y') ml.setFruit('N');
 		if(ml.getSea()!='Y') ml.setSea('N');
 		if(ml.getMeat()!='Y') ml.setMeat('N');
