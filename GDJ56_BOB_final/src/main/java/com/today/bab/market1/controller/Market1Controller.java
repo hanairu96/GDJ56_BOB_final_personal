@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -229,10 +231,76 @@ public class Market1Controller {
 	}
 	
 	@RequestMapping("/updateMarketItem.do")
-	public ModelAndView updateMarketItem(ModelAndView mv,Map<String,Object> param,MultipartFile[] file ) {
+	public ModelAndView updateMarketItem(@RequestParam Map<String,Object> param,ModelAndView mv,MultipartFile[] file,MultipartFile mainPic,
+												MultipartFile itemLabel,HttpSession session) {
+		String path=session.getServletContext().getRealPath("/resources/upload/market/detail/");
+		String path1=session.getServletContext().getRealPath("/resources/upload/market/mainlabel/");
+		
+		File dir=new File(path);
+		if(!dir.exists()) dir.mkdir();
+		List<ItemPic> files=new ArrayList();
+		
+		if(mainPic!=null) {
+			String picName=mainPic.getOriginalFilename();
+			String ex=picName.substring(picName.lastIndexOf("."));
+			SimpleDateFormat sim=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+			int rnd=(int)(Math.random()*10000)+1;
+			String renameFile=sim.format(System.currentTimeMillis())+"_"+rnd+ex;
+			try {
+				mainPic.transferTo(new File(path1+renameFile));
+				param.put("mainPic",renameFile);
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}else {
+//			param.put("", files)
+		}
 		
 		
+		if(itemLabel!=null) {
+			String picName=itemLabel.getOriginalFilename();
+			String ex=picName.substring(picName.lastIndexOf("."));
+			SimpleDateFormat sim=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+			int rnd=(int)(Math.random()*10000)+1;
+			String renameFile=sim.format(System.currentTimeMillis())+"_"+rnd+ex;
+			try {
+				itemLabel.transferTo(new File(path1+renameFile));
+				param.put("itemLabel",renameFile);
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
+		
+		for(MultipartFile f : file) {
+			if(!f.isEmpty()) {
+				String picName=f.getOriginalFilename();
+				String ex=picName.substring(picName.lastIndexOf("."));
+				SimpleDateFormat sim=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+				int rnd=(int)(Math.random()*10000)+1;
+				String renameFile=sim.format(System.currentTimeMillis())+"_"+rnd+ex;
+				try {
+					f.transferTo(new File(path+renameFile));
+					files.add(ItemPic.builder()
+							.picName(renameFile)
+							.build());
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		param.put("ipic", files);
+		
+
+//		int result=service.updateMarketItem(param);
+//		if(result>0) {
+//			mv.addObject("msg", "게시판 작성 완료");
+//			mv.addObject("loc", "/market1/matketmain.do");
+//		}else {
+//			mv.addObject("msg", "게시판 작성 실패");
+//			mv.addObject("loc", "/market1/insertmarket.do");
+//		}
+//		mv.setViewName("common/msg");
 		return mv;
 	}
 		
