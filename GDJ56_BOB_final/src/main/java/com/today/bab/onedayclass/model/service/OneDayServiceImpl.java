@@ -1,6 +1,7 @@
 package com.today.bab.onedayclass.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,13 @@ public class OneDayServiceImpl implements OneDayService {
 
 		return dao.selectMenuClassList(session,type);
 	}
+
+	@Override
+	public List<OneDayClass> selectSearchClass(Map<String, Object> param) {
+		return dao.selectSearchClass(session,param);
+	}
+	
+	
 	
 	
 	

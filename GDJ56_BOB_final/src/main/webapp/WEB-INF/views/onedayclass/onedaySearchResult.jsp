@@ -31,59 +31,90 @@
 
 		<!-- 분류 메뉴 -->
 		<div style="padding-left: 46%; margin-right: 3%; padding-top: 5%;">
-				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/main.do')">
+				<button class="menu txt26 trans-0-4" style="background-color:#bde28f; color:white;" onclick="location.assign('${path}/class/main.do')">
 					전체
 				</button>
 				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/menu.do?type=bob')">
 					🍚집밥
 				</button>
-				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/menu.do?type=vegan')">
+				<button class="menu txt26 trans-0-4" name="vegan" onclick="location.assign('${path}/class/menu.do?type=vegan')">
 					🥑비건
 				</button>
-				<button class="menu txt26 trans-0-4" style="background-color:#bde28f; color:white;" onclick="location.assign('${path}/class/menu.do?type=healthy')">
+				<button class="menu txt26 trans-0-4" name="healty" onclick="location.assign('${path}/class/menu.do?dotype=healthy')">
 					💪건강식
 				</button>
-				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/menu.do?type=baking')">
+
+				<button class="menu txt26 trans-0-4" name="baking" onclick="location.assign('${path}/class/menu.do?type=baking')">
 					🍰베이킹
 				</button>
-				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/menu.do?type=etc')">
+				<button class="menu txt26 trans-0-4" name="etc" onclick="location.assign('${path}/class/menu.do?type=etc')">
 					🍽️etc
 				</button>
 				<button class="menu txt26 trans-0-4" id="search">
 					검색
 				</button>
 		</div>
+		
+		<c:forEach var="m" items="${param }" begin="1" end="1">
+			<c:forEach var="s" items="${m.value }" begin="0" end="0">
+			  <c:choose>
+			     <c:when test="${s=='ODC_COOKNAME'}">
+			     	<c:set var="select1" value="selected"/>
+			     </c:when>
+			     <c:when test="${s=='M_NAME'}">
+			     	<c:set var="select2" value="selected"/>
+			     </c:when>
+			     <c:when test="${s=='ODC_ADD'}">
+			     	<c:set var="select3" value="selected"/>
+			     </c:when>
+			  </c:choose>
+			</c:forEach>
+		</c:forEach>
 
-			<!-- 검색창 -->
+		<!-- 검색창 -->
 		<div id="searchbox" >
-				
 			<form action="${path }/class/search.do">
 				<select name='searchlist' style="padding: 0.3%; margin: 1%; margin-left:-6%;">
-					<option value='ODC_COOKNAME'>요리이름</option>
-					<option value='M_NAME'>강사</option>
-					<option value='ODC_ADD'>지역</option>
-					<input id="searchclass" type="text" name="search" placeholder="Search" onchange="change();"/>
+					<option value='ODC_COOKNAME' ${select1 }>요리이름</option>
+					<option value='M_NAME' ${select2 }>강사</option>
+					<option value='ODC_ADD' ${select3 }>지역</option>
+					<input id="searchclass" type="text" name="search" placeholder="Search" 
+					value="<c:forEach var='m' items='${param }' begin='0' end='0'><c:forEach var='s' items='${m.value }' begin='0' end='0'>${s }</c:forEach></c:forEach>"/>
 					<button class="search-btn">&nbsp; 검색 &nbsp;</button>
 				</select>
 			</form>
-			
 		</div>
-
+		
+<%-- 	<c:forEach var="m" items="${param }" begin="0" end="0">
+			<c:forEach var="s" items="${m.value }" begin="0" end="0">
+				<h2>${s }</h2>
+			</c:forEach>
+		</c:forEach> --%>
+		
+<!-- 
 		<script>
 			$(function () {
 				$("#search").on("click", function() {
 					$("#searchbox").slideToggle("fast"); // 2초에 걸쳐서 진행
 				})
-			})
+			});
 		</script>
-
+ -->
+ 
+ 
 		<!-- 원데이클래스 리스트 -->
+		
 		<div class="container">
+		 <c:forEach var="m" items="${param }" begin="0" end="0">
+			<c:forEach var="s" items="${m.value }" begin="0" end="0">
+				<h2>"${s }" 검색된 결과</h2>
+			</c:forEach>
+		</c:forEach>
 			<div class="row">
 			   <c:choose>
 	               <c:when test="${empty classlist }">
 		               <div class="col-lg-4" style="padding: 3%;">
-		               		<h3>아직 등록된 원데이클래스 강의가 없습니다 :(</h3>
+		               		<h3>검색된 원데이클래스 강의가 없습니다 :(</h3>
 		               </div>
 	               </c:when>
 	               <c:otherwise>
@@ -184,10 +215,9 @@
 	}
 
 	#searchbox{
-	display: none; 
-	position: relative; 
+	/* display:none; */
 	margin-top:2%; 
-	left: 70%; 
+	margin-left: 67%; 
 	font-family: 'Gowun Dodum', sans-serif;
 	font-weight: 600;
 	}
