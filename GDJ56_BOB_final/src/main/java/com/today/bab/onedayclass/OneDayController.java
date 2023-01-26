@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.onedayclass.model.service.OneDayService;
+import com.today.bab.onedayclass.model.vo.AdminMaster;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 @Controller
@@ -53,7 +54,17 @@ public class OneDayController {
 	   m.addAttribute("param", param);
 	   return "onedayclass/onedaySearchResult";
 	}
+	
+	@RequestMapping("/class/masterEnroll.do")
+	public String masterEnroll() {
+		return "onedayclass/onedayMasterSubmit";
+	}
 
+	@RequestMapping("/class/masterEndEnroll.do")
+	public String masterEndEnroll(AdminMaster m) {
+		System.out.println(m);
+		return "d";
+	}
 	
 	
 	
