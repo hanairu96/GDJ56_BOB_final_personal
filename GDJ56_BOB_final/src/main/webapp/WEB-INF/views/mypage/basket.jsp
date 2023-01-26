@@ -372,7 +372,7 @@
               <div class="w-full overflow-x-auto">
                 <table class="w-full whitespace-no-wrap">
                   <thead>
-                    <tr
+                    <tr id="pp"
                       class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
                       <th class="px-4 py-3">
@@ -394,15 +394,17 @@
                   				<tr class="text-gray-700 dark:text-gray-400">
 			                      <td class="px-4 py-3 text-sm">
 			                      		<div style="display:flex;">
-					                        <input type="checkbox" name="productCheck" id="productCheck_">
+					                        <input type="checkbox" name="productCheck" id="productCheck_" value="${b.basketNo }">
 					                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					                        <img style="border:solid 1px; width:28px;height:28px" alt="" src="">
+					                        <img style="border:solid 1px; width:28px;height:28px" alt="" src="">${bi.mainPic}
 			                        	</div>
 			                      </td>
 			                      <td class="px-4 py-3">
-			                        <div class="flex items-center text-sm">
+			                        <div class="flex items-center text-sm" id="stockinfo">
 				                        <c:if test="${empty bi.itemBrand}">${bi.itemName}</c:if>
 			    						<c:if test="${not empty bi.itemBrand}">[${bi.itemBrand}]${bi.itemName}</c:if>
+			    						&nbsp;
+			    						<span id=""></span>
 			                        </div>
 			                      </td>
 			                      <td class="px-4 py-3 text-sm">
@@ -411,7 +413,7 @@
 			                        >
 			                        -
 			                        </button>
-			                          <span id='result'>${b.itemCount}</span>개
+			                          <span id='result'>${b.itemCount} </span>개
 			                        <button onclick="count(event)" value='plus'
 			                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
 			                        >
@@ -431,6 +433,8 @@
 			                        <button id="deleteBasket" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
 			                          삭제
 			                        </button>
+			                        <input type="text" value="${bi.itemStock}" id="itemstock">
+			   
 			                      </td>
                     		</tr>
                     		</c:forEach>
@@ -444,10 +448,10 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         총가격
                         &nbsp;&nbsp;&nbsp;
-                        <span id="totalPrice">0</span>원
+                        <span id="totalPrice">0</span>원	
                       </th>
                       <th>
-                        <button id="order" style="height: 30px; width: 80px; font-size: 16px;" class="leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                        <button onclick="orderOrder();" id="order" style="height: 30px; width: 80px; font-size: 16px;" class="leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                           주문
                         </button>
                       </th>
@@ -470,6 +474,9 @@
 </html>
 <script>
 	
+	var ckckck=document.querySelectorAll("#productCheck_");
+	var stockinfo=document.querySelectorAll("#stockinfo");
+	var itemstock = document.querySelectorAll("#itemstock");
 	var itemcount =	document.querySelectorAll("#result");
 	var price =	document.querySelectorAll("#itemPrice");
 	var resultPrice = document.querySelectorAll("#priceResult");
@@ -479,6 +486,19 @@
 		let totalprice = parseInt(itemcount[i].innerHTML)*parseInt(price[i].value);
 		resultPrice[i].innerText=totalprice;
 	} 
+	
+	for(let i=0;i<ckckck.length;i++){
+		//console.log(parseInt(itemstock[i].value));
+		//console.log(parseInt(itemcount[i].innerHTML));
+		if(parseInt(itemstock[i].value)<parseInt(itemcount[i].innerHTML)){
+			ckckck[i].disabled="false";
+			//stockinfo[i].innerHTML="*재고량부족*";
+			stockinfo[i].style="text-decoration:line-through";
+		}
+	} 
+	
+	
+	
 
   //증가,감소
   function count(e)  {
@@ -507,9 +527,16 @@
 	}
 
 //전체선택
-function checkAll() {
+/* function checkAll() {
 	if($("#allCheck").is(':checked')) {
 		$("input[name=productCheck]").prop("checked", true);
+	} else {
+		$("input[name=productCheck]").prop("checked", false);
+	}
+} */
+function checkAll() {
+	if($("#allCheck").is(':checked')) {
+		$(":checkbox:not(:disabled)").prop("checked", "checked");
 	} else {
 		$("input[name=productCheck]").prop("checked", false);
 	}
@@ -567,6 +594,7 @@ function checkAll() {
 
   $(document).ready(function() {
       $("input[type=checkbox]").click(function(e) {
+    	  	
               let totalP=0;
               let ckdata=$("input:checkbox[id=productCheck_]:checked");
               //console.log(ckdata);
@@ -581,13 +609,19 @@ function checkAll() {
               document.querySelector("#totalPrice").innerText=parseInt(totalP);
 
               document.querySelector("#checkcount").innerText=ckdata.length;
-              
+      	
         }); 
 });
   
-
-// 체크가 true일때 가격을 가져와
-  // 총가격에 출력
-  // 체크된 상품정보 수량 저장 결제하기
-  
+  const orderOrder=()=>{
+	  
+	  let basketarray=new Array();
+	  let ckdata=$("input:checkbox[id=productCheck_]:checked");
+	  for(let i=0;i<ckdata.length;i++){
+		  basketarray.push(ckdata[i].value);
+	  }
+	  //console.log(basketarray);
+	  location.assign("${path}/mypage/basket/order.do?basketss="+basketarray);
+	  
+  }
 </script>

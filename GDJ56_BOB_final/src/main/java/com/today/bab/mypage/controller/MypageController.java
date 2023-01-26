@@ -2,6 +2,7 @@ package com.today.bab.mypage.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.member.model.vo.Member;
 import com.today.bab.mypage.model.service.MypageService;
+import com.today.bab.mypage.model.vo.ItemOrder;
 
 @Controller
 @RequestMapping("/mypage")
@@ -234,6 +236,43 @@ public class MypageController {
 		
 		
 		int result=mypageService.deleteBasketCount(dbasketNo);
+		
+		response.setContentType("text/csv;charset=utf-8");
+		response.getWriter().print(result);
+	}
+	
+	@RequestMapping("/basket/order.do")
+	public ModelAndView basketOrderList(String[] basketss,HttpServletRequest request,ModelAndView mv){
+		
+		HttpSession session = request.getSession();
+	    Member loginMember = (Member) session.getAttribute("loginMember");
+		
+	    System.out.println(Arrays.toString(basketss));
+	    
+	   List<Basket> orderitemlist= mypageService.basketOrderList(basketss);
+	   
+	   System.out.println(orderitemlist);
+	   
+	   
+	   mv.addObject("orderitemlist",orderitemlist);
+	    
+	    mv.setViewName("mypage/order");
+	    return mv;
+	}
+	
+	
+	@RequestMapping("/pay.do")
+	public void insertItemOrder(int price,String buyer_addr,String buyer_name,String buyer_tel, HttpServletRequest request,HttpServletResponse response) throws IOException {
+		
+		HttpSession session = request.getSession();
+	    Member loginMember = (Member) session.getAttribute("loginMember");
+		
+	    ItemOrder io=ItemOrder.builder().price(price)
+		.memberId(loginMember.getMemberId()).orderName(buyer_name)
+		.address(buyer_addr).orderPhone(buyer_tel).build();
+	    
+	    System.out.println(io);
+		int result=mypageService.insertItemOrder(io);
 		
 		response.setContentType("text/csv;charset=utf-8");
 		response.getWriter().print(result);

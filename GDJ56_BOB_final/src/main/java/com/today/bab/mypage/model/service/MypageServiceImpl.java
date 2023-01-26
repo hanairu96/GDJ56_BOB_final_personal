@@ -10,6 +10,7 @@ import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.mypage.model.dao.MypageDao;
+import com.today.bab.mypage.model.vo.ItemOrder;
 
 @Service
 public class MypageServiceImpl implements MypageService {
@@ -51,5 +52,15 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int updateMemberLike(MemberLike ml) {
 		return mypageDao.updateMemberLike(session,ml);
+	} 
+	
+	@Override
+	public List<Basket> basketOrderList(String[] basketno) {
+		return mypageDao.basketOrderList(session, basketno);
+	} 
+	
+	@Override
+	public int insertItemOrder(ItemOrder io) {
+		return mypageDao.insertItemOrder(session, io);
 	}
 }
