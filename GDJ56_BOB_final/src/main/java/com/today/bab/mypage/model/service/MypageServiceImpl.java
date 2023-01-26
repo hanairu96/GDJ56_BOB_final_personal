@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.today.bab.admin.model.vo.AdminMember;
+import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.mypage.model.dao.MypageDao;
 
@@ -34,5 +36,20 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int deleteBasketCount(int dbasketNo) {
 		return mypageDao.deleteBasketCount(session,dbasketNo);
+	}
+
+	@Override
+	public AdminMember selectMyInfo(AdminMember m) {
+		return mypageDao.selectMyInfo(session,m);
+	}
+
+	@Override
+	public int updateMember(AdminMember am) {
+		return mypageDao.updateMember(session,am);
+	}
+
+	@Override
+	public int updateMemberLike(MemberLike ml) {
+		return mypageDao.updateMemberLike(session,ml);
 	}
 }
