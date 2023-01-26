@@ -206,4 +206,22 @@ public class MemberController {
 		
 		return mv;
 	}
+	
+	@RequestMapping("/searchIdPwd")
+	public String searchIdPwd() {
+		return "member/searchIdPwd";
+	}
+
+	@RequestMapping("/searchIdPwdEnd")
+	public String searchIdPwdEnd(String choice, String searchEmail, Model m) {
+		//이메일로 아이디 찾기
+		String memberId="";
+		m.addAttribute("memberId", memberId);
+		
+		if(choice=="id") {
+			return "member/searchIdEnd";			
+		}else {
+			return "member/searchPwdEnd";			
+		}
+	}
 }

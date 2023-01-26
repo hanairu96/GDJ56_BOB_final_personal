@@ -5,51 +5,35 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value="MainPage"/>
 </jsp:include>
-	<section>
-        <div class="wrapper">
-            <div id="login">
-                <br>
-                <img src="${path}/resources/images/logo-icon.png" style="width: 120px;height: 100px;">
-                <form id="loginForm" action="${path}/member/loginEnd" method="post">
-                    <input class="loginform" name="id" type="text" id="logInId" placeholder="아이디를 입력해주세요." style="width: 200px;"><br>
-                    <input class="loginform" name="password" type="password" id="logInPwd" placeholder="비밀번호를 입력해주세요." style="width: 200px;"><br>
-                    <span id="pwdCheck"><small></small></span>
-                    <button type="submit" id="loginBtn" class="customBtn btnStyle">로그인</button>
-                </form>
-                <a href="${path}/member/enrollAgree">회원가입</a>&nbsp;
-                <a href="${path}/member/searchIdPwd">아이디/비밀번호 찾기</a>
+    <section>
+        <div class="container py-4">
+            <div class="row align-items-center justify-content-between" id="insert">
             </div>
+            <form>       
+                <small id="emailHelp" class="form-text text-muted" style="font-size: larger;">
+                    고객님의 아이디는<br><span id="idResult">''</span><br>입니다.
+                </small>
+                <div id="insert">
+                    <div class="d-grid">
+                        <button class="customBtn btnStyle" type="button" onclick="location.assign('<%=request.getContextPath()%>/logIn/logIn.do');">로그인페이지로 이동</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </section>
     <style>
-        .wrapper{
-            margin: 50px;
+        section{
+            margin-top: 100px;
         }
-        .loginform{
-            height: 20px;
-            width: 200px;
-            margin: 5px;
-        }
-        a{
-            color: black;
-            text-decoration: none;
-        }
-        a:hover{
-            color: gray;
-            font-style: italic;
-            transition: 0.3s;
-        }
-        div#login{
+        section>div{
             border: 1px solid lightgray;
-            width: 450px;
-            height: 350px;
-            text-align: center;
-            margin: 0 auto;
+            border-radius: 10px;
         }
         .customBtn {
             color: #fff;
             border-radius: 5px;
             padding: 10px 25px;
+            font-weight: 500;
             background: transparent;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -60,10 +44,10 @@
             4px 4px 5px 0px rgba(0,0,0,.1);
             outline: none;
             min-width: 80px;
-            margin: 20px;
+            font-family: "Hahmlet";
         }
         .btnStyle {
-            line-height: 30px;
+            line-height: 40px;
             padding: 0;
             border: none;
             background: #7e8cd2;
@@ -97,6 +81,27 @@
         .btnStyle:hover:before,.btnStyle:hover:after{
             width:100%;
             transition:800ms ease all;
+        }
+        .container.py-4{
+            margin: 0 auto;
+            width : 503px;
+        }
+        #insert{
+            display: flex;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        #emailHelp{
+            text-align: center;
+            padding: 40px;
+            margin-bottom: 20px;
+        }
+        .d-grid{
+            margin: 0 auto;
+        }
+        #idResult{
+            color:#7e8cd2;
+            font-weight: bold;
         }
     </style>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
