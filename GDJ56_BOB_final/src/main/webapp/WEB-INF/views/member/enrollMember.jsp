@@ -12,17 +12,16 @@
 			</div>
 			<form name="enrollMemberFrm" action="${path}/member/enrollMemberEnd" 
                 method="post" onsubmit="return fn_enrollFail();">
-                <input type="hidden" name="emailAgree" id="emailAgree" value=""/>
                 <div class="form-group">
                     <label for="inputId" class="form-label mt-4">아이디<span class="obli">(필수)</span></label>
                     <span class="check" id="checkId"><small></small></span>
-                    <input type="text" class="form-control" name="inputId" id="inputId" 
+                    <input type="text" class="form-control" name="memberId" id="inputId" 
                         aria-describedby="emailHelp" placeholder="아이디를 입력해주세요." required maxlength="12">
                     <small class="form-text text-muted">아이디는 5~12자리 사이로 입력하세요.</small>
                 </div>
                 <div class="form-group has-success">
                     <label class="form-label mt-4" for="inputPwd">비밀번호<span class="obli">(필수)</span></label>
-                    <input type="password" class="form-control" name="inputPwd" id="inputPwd" placeholder="비밀번호를 입력해주세요." required>
+                    <input type="password" class="form-control" name="password" id="inputPwd" placeholder="비밀번호를 입력해주세요." required>
                     <small id="emailHelp" class="form-text text-muted">비밀번호는 영문자와 숫자를 각각 하나 이상 포함하여 8자리 이상 입력하세요.<br>특수문자는 포함하지 않습니다.</small>
                 </div>
                 <div class="form-group has-danger">
@@ -34,13 +33,13 @@
                 <div class="form-group">
                     <label for="inputName" class="form-label mt-4">이름<span class="obli">(필수)</span></label>
                     <span class="check" id="checkName"><small></small></span>
-                    <input type="text" class="form-control" name="inputName" id="inputName"
+                    <input type="text" class="form-control" name="mname" id="inputName"
                         placeholder="이름을 입력해주세요." required>
                 </div>
                 <div class="form-group">
                     <label for="inputNickname" class="form-label mt-4">닉네임<span class="obli">(필수)</span></label>
                     <span class="check" id="checkNickname"><small></small></span>
-                    <input type="text" class="form-control" name="inputNickname" id="inputNickname"
+                    <input type="text" class="form-control" name="nickname" id="inputNickname"
                         placeholder="닉네임을 입력해주세요." required>
                     <small id="emailHelp" class="form-text text-muted">한글과 영문자, 숫자만 사용해 2~8자리로 입력해주세요.</small>
                 </div>
@@ -49,7 +48,7 @@
                     <span class="check" id="checkYear"><small></small></span>
                     <div class="bir_yy">
                         <span class="ps_box">
-                            <input type="text" class="form-control" name="yy" id="yy" 
+                            <input type="text" class="form-control" name="year" id="yy" 
                             placeholder="연도(4글자)" maxlength="4" required>
                         </span>
                     </div>
@@ -110,7 +109,7 @@
                 <div class="form-group">
                     <label for="inputPhone" class="form-label mt-4">핸드폰 번호<span class="obli">(필수)</span></label>
                     <span class="check" id="checkPhone"><small></small></span>
-                    <input type="text" class="form-control" name="inputPhone" id="inputPhone" 
+                    <input type="text" class="form-control" name="phone" id="inputPhone" 
                     	placeholder="번호를 입력해주세요." maxlength="11" required>
                     <small id="emailHelp" class="form-text text-muted">'-'없이 입력해주세요.</small>
                 </div>
@@ -129,7 +128,7 @@
                     <label for="inputEmail" class="form-label mt-4">이메일<span class="obli">(필수)</span></label>
                     <span class="check" id="checkEmail" style="color:gray;"><small>사용 가능한 이메일이면 인증 버튼이 나옵니다.</small></span>
                     <div class="email_ee address">
-                        <input type="email" class="form-control" name="inputEmail" id="inputEmail"
+                        <input type="email" class="form-control" name="email" id="inputEmail"
                             placeholder="이메일을 입력해주세요." required>
                     </div>
                     <div class="bir_yy address">
@@ -151,7 +150,7 @@
                     <span class="check" id="checkAddress"><small></small></span>
                     <div class="bir_yy address">
                         <input type="text" class="form-control inputAddr"
-                            name="inputAddress_postcode" id="inputAddress_postcode" placeholder="우편번호" readonly>
+                            name="inputAddressPostcode" id="inputAddress_postcode" placeholder="우편번호" readonly>
                     </div>
                     <div class="bir_yy address">
                         <input id="searchAddr" type="button" value="주소 검색" onclick="sample6_execDaumPostcode()">
@@ -160,11 +159,11 @@
                 <div class ="addressContainer">
                     <div class="bir_yy address">
                         <input type="text" class="form-control inputAddr"
-                            name="inputAddress_address" id="inputAddress_address" placeholder="주소" readonly>
+                            name="inputAddressAddress" id="inputAddress_address" placeholder="주소" readonly>
                     </div>
                     <div class="bir_yy address">
                         <input type="text" class="form-control inputAddr" 
-                            name="inputAddress_detailAddress" id="inputAddress_detailAddress" placeholder="상세주소">
+                            name="inputAddressDetailAddress" id="inputAddress_detailAddress" placeholder="상세주소">
                     </div>
                 </div>
                 <div class="form-group">
@@ -172,19 +171,19 @@
                 </div>  
                 <div class="btn-group like-food" data-toggle="buttons">
                     <label for="member-like1" class="btn btn-outline-secondary">
-                        <input type="checkbox" name="member_like" value="vegetable"> 채소
+                        <input type="checkbox" name="vege" value="Y"> 채소
                     </label>
                     <label for="member-like2" class="btn btn-outline-secondary">
-                        <input type="checkbox" name="member_like" value="fruit"> 과일
+                        <input type="checkbox" name="fruit" value="Y"> 과일
                     </label>
                     <label for="member-like3" class="btn btn-outline-secondary">
-                        <input type="checkbox" name="member_like" value="sea"> 수산물
+                        <input type="checkbox" name="sea" value="Y"> 수산물
                     </label>
                     <label for="member-like4" class="btn btn-outline-secondary">
-                        <input type="checkbox" name="member_like" value="meat"> 육류
+                        <input type="checkbox" name="meat" value="Y"> 육류
                     </label>
                     <label for="member-like5" class="btn btn-outline-secondary">
-                        <input type="checkbox" name="member_like" value="side"> 반찬
+                        <input type="checkbox" name="side" value="Y"> 반찬
                     </label>
                 </div><br>
                 <p><small>추천 상품 목록이 나올 때 반영됩니다.</small></p>
