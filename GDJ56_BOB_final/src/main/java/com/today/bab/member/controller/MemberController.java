@@ -218,10 +218,10 @@ public class MemberController {
 		String memberId="";
 		m.addAttribute("memberId", memberId);
 		
-		if(choice=="id") {
-			return "member/searchIdEnd";			
+		if(choice.equals("id")) {
+			return "member/searchIdEnd";
 		}else {
-			return "member/searchPwdEnd";			
+			return "member/searchPwdEnd";
 		}
 	}
 }

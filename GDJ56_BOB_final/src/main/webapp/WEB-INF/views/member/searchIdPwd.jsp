@@ -145,7 +145,7 @@
 			$("#searchIdtext").css("font-weight","bold");
 			$("#searchPwdtext").css("font-weight","normal");
 			
-			$("#choice").val()="id";
+	        document.getElementById("choice").value="id";
 		}
 		const fn_searchPwd=()=>{
 			$("#searchIdContainer").show();
@@ -153,7 +153,7 @@
 			$("#searchPwdtext").css("font-weight","bold");
 			$("#searchIdtext").css("font-weight","normal");
 
-			$("#choice").val()="pwd";
+	        document.getElementById("choice").value="pwd";
 		}
 		
 		const fn_searchIdPwd=()=>{
