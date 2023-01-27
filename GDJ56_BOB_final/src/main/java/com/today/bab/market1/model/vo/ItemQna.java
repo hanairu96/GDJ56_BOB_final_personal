@@ -21,6 +21,6 @@ public class ItemQna {
 	private Member memberId;
 //	private String memId;
 	private SellItem itemNo;
-	private char iqSecret;
+	private String iqSecret;
 
 }

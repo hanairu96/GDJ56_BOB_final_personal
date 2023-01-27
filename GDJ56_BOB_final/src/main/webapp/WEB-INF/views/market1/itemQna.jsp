@@ -24,14 +24,31 @@
 		    <span style="color:rgb(197, 195, 195)"> · 상품과 관계없는 글, 양도, 광고성, 욕설, 비방, 도배 등의 글은 예고없이 삭제됩니다.</span>
 		</div>
 		<br>
-		<div style="display: flex;">
-		    <div>
-		        <textarea name="" id="" cols="130%" rows="3"></textarea>
-		    </div>
-		    <div>
-		        <input class="primary-btn" type="button" value="등록하기" style="height: 80px; width: 130px; margin-left: 5%;background-color: #07d448; border: none;">
-		    </div>
-		</div>
+		<form class="wrap-form-reservation size22 m-l-r-auto" method="post"
+			action="${path }/itemQna/insertQna.do">
+			<input type="checkbox" name="iqSecret" value="Y">비밀글
+			<div style="display: flex;">
+			    <div>
+			        <textarea name="" id="" cols="130%" rows="3"></textarea>
+			    </div>
+			    <div>
+			        <input class="primary-btn" type="submit" value="등록하기"
+			        style="height: 80px; width: 130px; margin-left: 5%;background-color: #07d448; border: none;">
+			    </div>
+			    <input type="hidden" name="itemNo" value="${de.itemNo }"/>
+<!-- 
+
+
+수정수정수정수정수정
+mapper에서 문제있다!
+
+
+
+
+ -->
+			    <input type="hidden" name="memberId" value="user03"/>
+			</div>
+		</form>
 		<hr/> 
 		
 		
