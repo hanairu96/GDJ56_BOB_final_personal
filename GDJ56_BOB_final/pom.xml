@@ -180,7 +180,6 @@
 		    <groupId>org.aspectj</groupId>
 		    <artifactId>aspectjweaver</artifactId>
 		    <version>${org.aspectj-version}</version>
-		    <scope>runtime</scope>
 		</dependency>
 		
 		<!-- 파일업로드를 위한 라이브러리 등록
@@ -230,10 +229,9 @@
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-context-support</artifactId>
 		    <version>${org.springframework-version}</version>
-		</dependency>			
-		
-			
-	
+		</dependency>
+
+
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>

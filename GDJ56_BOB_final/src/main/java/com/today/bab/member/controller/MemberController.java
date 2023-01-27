@@ -165,16 +165,20 @@ public class MemberController {
 		System.out.println(inputAddressDetailAddress);
 		System.out.println(ml);
 		
+		//문자열로 받아온 생년월일을 Date 타입으로 변환
 		String dateStr=year+"/"+month+"/"+day;
 		SimpleDateFormat formatter=new SimpleDateFormat("yyyy/MM/dd");
 		Date date=formatter.parse(dateStr);
 		System.out.println(date);
 		
+		//주소를 하나로 합침
 		String address=inputAddressAddress+" "+inputAddressDetailAddress;
 		
+		//Member m에 생년월일과 주소를 set
 		m.setBirth(date);
 		m.setAddress(address);
 		
+		//체크하지 않은 음식 취향 값을 N으로 지정
 		if(ml.getFruit()!='Y') ml.setFruit('N');
 		if(ml.getSea()!='Y') ml.setSea('N');
 		if(ml.getMeat()!='Y') ml.setMeat('N');
@@ -183,6 +187,13 @@ public class MemberController {
 		System.out.println(ml);
 		
 		int result=service.enrollMemberEnd(m, ml);
+		
+//		int result=0;
+//		try {
+//			result=service.enrollMemberEnd(m, ml);
+//		}catch (Exception e) {
+//			// TODO: handle exception
+//		}
 		
 		if(result>0) {
 			mv.addObject("msg","회원가입 되었습니다.");
@@ -194,5 +205,23 @@ public class MemberController {
 		mv.setViewName("common/msg");
 		
 		return mv;
+	}
+	
+	@RequestMapping("/searchIdPwd")
+	public String searchIdPwd() {
+		return "member/searchIdPwd";
+	}
+
+	@RequestMapping("/searchIdPwdEnd")
+	public String searchIdPwdEnd(String choice, String searchEmail, Model m) {
+		//이메일로 아이디 찾기
+		String memberId="";
+		m.addAttribute("memberId", memberId);
+		
+		if(choice.equals("id")) {
+			return "member/searchIdEnd";
+		}else {
+			return "member/searchPwdEnd";
+		}
 	}
 }
