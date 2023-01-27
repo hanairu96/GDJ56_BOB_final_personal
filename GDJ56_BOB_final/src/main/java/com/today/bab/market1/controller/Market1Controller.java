@@ -344,6 +344,7 @@ public class Market1Controller {
 		}
 		System.out.println(s);
 		s.setIpic(files);
+		System.out.println(s.getIpic());
 		
 		int result=service.updateMarketItem(s,itemNo);
 		if(result>0) {
