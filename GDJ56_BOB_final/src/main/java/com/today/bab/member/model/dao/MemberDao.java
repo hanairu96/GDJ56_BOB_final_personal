@@ -11,4 +11,6 @@ public interface MemberDao {
 	Member emailDuplicateCheck(SqlSessionTemplate session, String email);
 	int enrollMember(SqlSessionTemplate session, Member m);
 	int enrollMemberLike(SqlSessionTemplate session, MemberLike ml);
+	Member selectMemberByEmail(SqlSessionTemplate session, String email);
+	int updatePwd(SqlSessionTemplate session, Member m);
 }

@@ -11,7 +11,7 @@
             </div>
             <form>       
                 <small id="emailHelp" class="form-text text-muted" style="font-size: larger;">
-                    회원님의 아이디는<br><span id="idResult">''</span><br>입니다.
+                    회원님의 아이디는<br><span id="idResult">'${memberId}'</span><br>입니다.
                 </small>
                 <div id="insert">
                     <div class="d-grid">
@@ -24,6 +24,7 @@
     <style>
         section{
             margin-top: 50px;
+            font-family: 'Gowun Dodum';
         }
         section>div{
             border: 1px solid lightgray;

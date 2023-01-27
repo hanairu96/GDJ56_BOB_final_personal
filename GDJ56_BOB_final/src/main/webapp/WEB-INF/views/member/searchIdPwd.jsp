@@ -51,6 +51,7 @@
     <style>
         section{
             margin-top: 50px;
+            font-family: 'Gowun Dodum';
         }
         section>div{
             border: 1px solid lightgray;
@@ -127,6 +128,7 @@
             text-align:center;
             display:block;
             margin: 0 auto;
+            font-family: 'Gowun Dodum';
         }
         .text-dark:hover{
             cursor: pointer;

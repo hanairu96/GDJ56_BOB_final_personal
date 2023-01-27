@@ -33,5 +33,15 @@ public class MemberDaoImpl implements MemberDao {
 	public int enrollMemberLike(SqlSessionTemplate session, MemberLike ml) {
 		return session.insert("member.enrollMemberLike", ml);
 	}
+
+	@Override
+	public Member selectMemberByEmail(SqlSessionTemplate session, String email) {
+		return session.selectOne("member.selectMemberByEmail", email);
+	}
+
+	@Override
+	public int updatePwd(SqlSessionTemplate session, Member m) {
+		return session.update("member.updatePwd", m);
+	}
 	
 }

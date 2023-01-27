@@ -10,14 +10,15 @@
             <div class="row align-items-center justify-content-between" id="insert">
                 <h2>비밀번호 재설정</h2>
             </div>
-            <form name="searchIdPwd" action="" method="post" onsubmit="return fn_changePwd();" style="text-align:center;display:flex;flex-direction:column;">    
+            <form name="searchIdPwd" action="${path}/member/updatePwd" method="post" onsubmit="return fn_changePwd();" style="text-align:center;display:flex;flex-direction:column;">    
                 <small id="emailHelp" class="form-text text-muted" style="padding-top:0px;padding-left:0px;padding-right:0px;width:100%;">
                     비밀번호를 재설정해주세요.
-                </small> 
+                </small>
+                <input type="hidden" name="memberId" id="memberId" value="${memberId}">
                 <div class="form-group has-success" style="text-align:center;" >
                     <div>
-	                    <label class="form-label" for="inputPwd">새 비밀번호</label>
-	                    <input type="password" class="form-control" name="inputPwd" id="inputPwd">
+	                    <label class="form-label" for="password">새 비밀번호</label>
+	                    <input type="password" class="form-control" name="password" id="password">
                     </div>
                     <small id="emailHelp" class="form-text text-muted" style="color:gray;padding:10px;">비밀번호는 영문자와 숫자를 각각 하나 이상 포함하여 8자리 이상 입력하세요.<br>특수문자는 포함하지 않습니다.</small>
                     <br><br><br>
@@ -41,6 +42,7 @@
     <style>
         section{
             margin-top: 50px;
+            font-family: 'Gowun Dodum';
         }
         section>div{
             border: 1px solid lightgray;
