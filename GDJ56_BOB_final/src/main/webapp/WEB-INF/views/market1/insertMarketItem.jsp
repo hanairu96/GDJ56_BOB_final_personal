@@ -194,7 +194,6 @@
 						<span class="txt9" style="font-weight: bold;">
 							카테고리(필수)
 						</span>
-						<!-- <input  list="itemCategory" placeholder="선택"> -->
 						<br>
 						<select id="itemCategory" name="itemCategory">
 							<option value="채소" selected>채소</option>
@@ -233,7 +232,7 @@
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">배송비(필수, 숫자만 입력)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="delPrice" placeholder="3000" value="" required>
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="delPrice" placeholder="3000" value="3000" required>
 						</div>
 					</div>
 
@@ -247,7 +246,7 @@
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">중량(필수, 숫자만 입력)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="weight" placeholder="10" value="" required>
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="weight" placeholder="10" value="" required>
 						</div>
 					</div>
 
@@ -280,7 +279,7 @@
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">상품한줄소개(필수)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="itemContent" 
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="mainContent" 
 							placeholder="상세페이지 및 썸내일(상품리스트)에서도 쓰입니다(15자이내)" maxlength="15" required>
 						</div>
 					</div>
@@ -288,7 +287,7 @@
 					<div class="col-12" style="margin-top: 2%;">
 						<span class="txt9" style="font-weight: bold;">상품설명(필수)</span><br>
 						<textarea class="bo-rad-10 size35 bo2 txt10 p-l-20 p-t-15 m-b-10 m-t-3" 
-						 rows="4" cols="120" name="mainContent"  placeholder="상품에 대한 설명을 입력해주세요" required></textarea>
+						 rows="4" cols="120" name="itemContent"  placeholder="상품에 대한 설명을 입력해주세요" required></textarea>
 					</div><br>
 
 
