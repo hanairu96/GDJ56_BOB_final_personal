@@ -26,7 +26,7 @@
 		<br>
 		<div style="display: flex;">
 		    <div>
-		        <textarea name="" id="" cols="100%" rows="3"></textarea>
+		        <textarea name="" id="" cols="130%" rows="3"></textarea>
 		    </div>
 		    <div>
 		        <input class="primary-btn" type="button" value="등록하기" style="height: 80px; width: 130px; margin-left: 5%;background-color: #07d448; border: none;">
@@ -72,17 +72,18 @@
 		    </div>
 		    <hr/>
 		</div>
+		<script>
+		    $("#togglereply").click(e=>{
+		        $("#recontainer").slideToggle(1000);
+		    });
+		</script>
+		<!-- 페이징처리 -->
+		<div class="product__pagination" style="text-align: center;">
+		    <a href="#"><i class="fa fa-long-arrow-left"></i></a>
+		    <a href="#">1</a>
+		    <a href="#">2</a>
+		    <a href="#">3</a>
+		    <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+		</div>
 	</div>
-	<script>
-	    $("#togglereply").click(e=>{
-	        $("#recontainer").slideToggle(1000);
-	    });
-	</script>
-	<!-- 페이징처리 -->
-	<div class="product__pagination" style="text-align: center;">
-	    <a href="#"><i class="fa fa-long-arrow-left"></i></a>
-	    <a href="#">1</a>
-	    <a href="#">2</a>
-	    <a href="#">3</a>
-	    <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-	</div>
+	
