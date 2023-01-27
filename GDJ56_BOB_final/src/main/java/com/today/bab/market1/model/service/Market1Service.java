@@ -23,6 +23,6 @@ public interface Market1Service {
 	List<SellItem> selectItemMarket();
 	
 	//상품 수정
-	int updateMarketItem(SellItem s);
+	int updateMarketItem(SellItem s,int itemNo);
 
 }

@@ -26,4 +26,5 @@ public interface Market1Dao {
 	
 	int updateItemPic(SqlSessionTemplate session,ItemPic keys);
 	
+	int deleteItemPic(SqlSessionTemplate session,int itemNo);
 }

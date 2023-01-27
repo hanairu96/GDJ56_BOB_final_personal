@@ -50,4 +50,9 @@ public class Market1DaoImpl implements Market1Dao {
 	public 	int updateItemPic(SqlSessionTemplate session,ItemPic keys) {
 		return session.update("ma.updateItemPic",keys);
 	}
+	
+	@Override
+	public int deleteItemPic(SqlSessionTemplate session,int itemNo) {
+		return session.delete("ma.deleteItemPic",itemNo);
+	}
 }

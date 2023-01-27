@@ -256,6 +256,8 @@ public class Market1Controller {
 				.itemCategory(itemCategory).itemStock(itemStock)
 				.build();
 		
+		
+		
 		if(mainPic.getSize()==0) {
 //			param.put("mainPic",(String)param.get("mainPic1"));
 			s.setMainPic(mainPic1);
@@ -317,7 +319,12 @@ public class Market1Controller {
 				}
 			}
 		}
-		if(s.getIpic()==null) {
+		
+		
+		
+		System.out.println(files.isEmpty());
+		
+		if(files.isEmpty()) {
 			if(imgFiles!=null) {
 				for(String arr : imgFiles) {
 					files.add(ItemPic.builder()
@@ -335,9 +342,10 @@ public class Market1Controller {
 				}
 			}
 		}
+		System.out.println(s);
 		s.setIpic(files);
 		
-		int result=service.updateMarketItem(s);
+		int result=service.updateMarketItem(s,itemNo);
 		if(result>0) {
 			mv.addObject("msg", "상품 수정 성공");
 			mv.addObject("loc", "/market1/marketgtg.do");

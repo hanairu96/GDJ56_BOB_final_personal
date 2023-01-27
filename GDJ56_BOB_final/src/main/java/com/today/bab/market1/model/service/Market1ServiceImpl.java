@@ -58,11 +58,12 @@ public class Market1ServiceImpl implements Market1Service{
 	}
 	
 	@Override
-	public int updateMarketItem(SellItem s) {
+	public int updateMarketItem(SellItem s,int itemNo) {
 	
 		int result=dao.updateMarketItem(session,s);
 		
 		if(result>0) {
+			result+=dao.deleteItemPic(session,itemNo);
 			for(ItemPic pic : s.getIpic()) {
 				pic.setSellitem(s);
 				result+=dao.insertItemPic(session,pic);
