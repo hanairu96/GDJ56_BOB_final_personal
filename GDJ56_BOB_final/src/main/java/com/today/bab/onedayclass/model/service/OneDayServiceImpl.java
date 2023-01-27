@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.onedayclass.model.dao.OneDayDao;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
@@ -36,6 +37,21 @@ public class OneDayServiceImpl implements OneDayService {
 	@Override
 	public List<OneDayClass> selectSearchClass(Map<String, Object> param) {
 		return dao.selectSearchClass(session,param);
+	}
+
+	@Override
+	public int masterEndEnroll(AdminMaster m) {
+		return dao.masterEndEnroll(session, m);
+	}
+
+	@Override
+	public AdminMaster selectMastserById(String memberId) {
+		return dao.selectMastserById(session, memberId);
+	}
+
+	@Override
+	public int endclassEnroll(OneDayClass odc) {
+		return dao.endclassEnroll(session, odc);
 	}
 	
 	

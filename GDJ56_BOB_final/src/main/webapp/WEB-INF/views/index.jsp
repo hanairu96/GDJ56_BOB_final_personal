@@ -59,7 +59,7 @@
                     <div class="col-md-5">
                         <h3 class="text-black con">Bring joy for your table from Market</h3>
                         <p class="con"><span>당신의 식탁 위에 즐거움을 선사합니다. 저희는 오로지 당신의 식탁을 체울 만한 상품들을 마켓에 가져왔습니다. 특가와 추천상품이 당신을 기다리고있어요!</span></p>
-                        <button class="btn-main">More About Market</button>
+                        <button class="btn-main" onclick="location.assign('${path}/market1/matketmain.do')">More About Market</button>
                     </div>
                 </div>
             </div>
@@ -151,7 +151,7 @@
                 </div>
                 <div>
                     <h4>구예지</h4>
-                    <p>DB 지배자</p>
+                    <p>구예지</p>
                     <img src="${path}/resources/images/구예지.png" style="width: 150px;height: 200px;">
                 </div>
                 <div>

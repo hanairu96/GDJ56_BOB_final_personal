@@ -11,7 +11,7 @@
 	<title>클래스 등록</title>
 	<meta charset="UTF-8">
 	<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-	<script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+
 	<script src="${path }/resources/js/jquery-3.6.1.min.js"></script>
 </head>
 <body>
@@ -22,186 +22,192 @@
 				One-Day Class
 			</h2>
 		</div>
-
 		<!-- 클래스 등록 입력 -->
 		<div>
 			<h3 class="tit7 t-center" style="margin: 3%;">
 				클래스 등록
 			</h3>
 
-			<form class="size22 m-l-r-auto">
+			<form class="size22 m-l-r-auto" action="${path}/class/EndclassEnroll.do" method="post" enctype="multipart/form-data">
+				<div style="margin-bottom: 3%;">
+					<b>
+						카테고리
+					</b>
+					<select  list="categorylist" placeholder="선택" width="100" name="odcCategoty">
+						<option value="choice">--선택--</option>
+						<option value="bab">🍚집밥</option>
+						<option value="vegan">🥑비건</option>
+						<option value="healty">💪건강식</option>
+						<option value="baking">🍰베이킹</option>
+						<option value="etc">🍽️etc</option>
+					</select>
+				</div>
 			
-					<div style="margin-bottom: 3%;">
-						<b>
-							카테고리
-						</b>
-						<select  list="categorylist" placeholder="선택" width="100">
-							<option value="choice">--선택--</option>
-							<option value="집밥">🍚집밥</option>
-							<option value="비건">🥑비건</option>
-							<option value="건강식">💪건강식</option>
-							<option value="베이킹">🍰베이킹</option>
-							<option value="기타">🍽️etc</option>
-						</select>
-					</div>
-				
-					<b>
-						클래스 제목
-					</b>
+				<b>
+					클래스 제목
+				</b>
 
-					<div class="size12 bo2 bo-rad-10 m-b-23">
-						<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="" placeholder="상세화면 상단에 등록됩니다">
-					</div>
+				<div class="size12 bo2 bo-rad-10 m-b-23">
+					<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="odcClassName" placeholder="상세화면 상단에 등록됩니다">
+				</div>
+				
+				<b>
+					요리 이름
+				</b>
+
+				<div class="size12 bo2 bo-rad-10 m-b-23">
+					<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="odcCookName" placeholder="상세화면 상단에 등록됩니다">
+				</div>
+					
+				<b>
+					강사명
+				</b>
+
+				<div class="size12 bo2 bo-rad-10 m-b-23">
+					<input type="hidden" name="memberId" value="${loginMember.memberId}">
+					<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="mastserName" placeholder="" value="${master.name}" readonly>
+				</div>
 			
-					<b>
-						강사명
-					</b>
-
+				<b>
+					클래스 기간
+				</b>
+				<div style="display: flex;">
 					<div class="size12 bo2 bo-rad-10 m-b-23">
-						<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="" placeholder="" value="김강사" readonly>
+						<input class="bo-rad-10 sizefull txt10 p-l-20" type="date" name="odcStartDate">
 					</div>
-				
-					<b>
-						클래스 기간
-					</b>
-					<div style="display: flex;">
-						<div class="size12 bo2 bo-rad-10 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="date" name="">
-						</div>
-						<h2> &nbsp;~&nbsp; </h2>
-						<div class="size12 bo2 bo-rad-10 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="date" name="">
-						</div>
-					</div>
-				
-					<b>
-						클래스 시작시간
-					</b>
+					<h2> &nbsp;~&nbsp; </h2>
 					<div class="size12 bo2 bo-rad-10 m-b-23">
-						<input class="bo-rad-10 sizefull txt10 p-l-20" type="time" name="" placeholder="" value="" >
+						<input class="bo-rad-10 sizefull txt10 p-l-20" type="date" name="odcEndDate">
 					</div>
-				
-
-					<b>
-						클래스 소요시간(분 단위)
-					</b>
-					<div class="size12 bo2 bo-rad-10 m-b-23">
-						<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="" placeholder="" value="" >
-					</div>
-				
-					<b>
-						클래스 수강인원
-					</b>
-					<div class="size12 bo2 bo-rad-10 m-b-23" style="display: flex;">
-						<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="" placeholder="1명이상 입력해주세요" value="" >
-						<h4>명</h4>
-					</div>
-
-					<b>
-						클래스 장소
-					</b>
+				</div>
 			
-					<div id="classaddress" style="margin-bottom: 3%; border:solid gray 1px; border-radius: 10px; padding: 2%;">
-						<div class=" bo-rad-10" style="display: flex; margin-bottom: 1%;">
-							<input  type="text" id="sample4_postcode" placeholder="우편번호" style="border-bottom:solid black 1px;">
-							<button type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">우편번호찾기</button>
-						</div>
-							
-							<input type="text" id="sample4_roadAddress" style="border-bottom:solid black 1px; width: 100% ;" placeholder="도로명주소">
-							<span>─────────────────────────────────────</span>
-							<input  type="text" id="sample4_jibunAddress" style="border-bottom:solid black 1px; width: 100%;" placeholder="지번주소">
-							<span>─────────────────────────────────────</span>
-							<input  type="text" id="sample4_detailAddress" style="border-bottom:solid black 1px; width: 100%;" placeholder="상세주소를 입력해주세요">
-							<span>─────────────────────────────────────</span>
+				<b>
+					클래스 시작시간
+				</b>
+				<div class="size12 bo2 bo-rad-10 m-b-23">
+					<input class="bo-rad-10 sizefull txt10 p-l-20" type="time" name="odcStartTime">
+				</div>
+			
+
+				<b>
+					클래스 소요시간(분 단위)
+				</b>
+				<div class="size12 bo2 bo-rad-10 m-b-23">
+					<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="odcTime" min="1" >
+				</div>
+			
+				<b>
+					클래스 수강인원
+				</b>
+				<div class="size12 bo2 bo-rad-10 m-b-23" style="display: flex;">
+					<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="odcPeople" placeholder="1명이상 입력해주세요" min="1" >
+					<h4>명</h4>
+				</div>
+
+				<b>
+					클래스 장소
+				</b>
+		
+				<div id="classaddress" style="margin-bottom: 3%; border:solid gray 1px; border-radius: 10px; padding: 2%;">
+					<div class=" bo-rad-10" style="display: flex; margin-bottom: 1%;">
+						<input  type="text" id="sample4_postcode" placeholder="우편번호" style="border-bottom:solid black 1px;">
+						<button type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">우편번호찾기</button>
 					</div>
-					
-					<!-- 다음주소 api 스크립트 -->
-					<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-					<script>
-					    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-					    function sample4_execDaumPostcode() {
-					        new daum.Postcode({
-					            oncomplete: function(data) {
-					                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-					
-					                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-					                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-					                var roadAddr = data.roadAddress; // 도로명 주소 변수
-					                var extraRoadAddr = ''; // 참고 항목 변수
-					
-					                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-					                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-					                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-					                    extraRoadAddr += data.bname;
-					                }
-					                // 건물명이 있고, 공동주택일 경우 추가한다.
-					                if(data.buildingName !== '' && data.apartment === 'Y'){
-					                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-					                }
-					                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-					                if(extraRoadAddr !== ''){
-					                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-					                }
-					
-					                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-					                document.getElementById('sample4_postcode').value = data.zonecode;
-					                document.getElementById("sample4_roadAddress").value = roadAddr;
-					                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-					                
-					                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-					                if(roadAddr !== ''){
-					                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-					                } else {
-					                    document.getElementById("sample4_extraAddress").value = '';
-					                }
-					
-					                var guideTextBox = document.getElementById("guide");
-					                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-					                if(data.autoRoadAddress) {
-					                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-					                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-					                    guideTextBox.style.display = 'block';
-					
-					                } else if(data.autoJibunAddress) {
-					                    var expJibunAddr = data.autoJibunAddress;
-					                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-					                    guideTextBox.style.display = 'block';
-					                } else {
-					                    guideTextBox.innerHTML = '';
-					                    guideTextBox.style.display = 'none';
-					                }
-					            }
-					        }).open();
-					    }
-					</script>
+						
+						<input type="text" id="sample4_roadAddress" style="border-bottom:solid black 1px; width: 100% ;" placeholder="도로명주소" name="address">
+						<span>─────────────────────────────────────</span>
+						<input  type="text" id="sample4_jibunAddress" style="border-bottom:solid black 1px; width: 100%;" placeholder="지번주소" name="address">
+						<span>─────────────────────────────────────</span>
+						<input  type="text" id="sample4_detailAddress" style="border-bottom:solid black 1px; width: 100%;" placeholder="상세주소를 입력해주세요" name="address">
+						<span>─────────────────────────────────────</span>
+				</div>
 				
-					
-					<b>
-						클래스 가격
-					</b>
-					<div class="size12 bo2 bo-rad-10 m-b-23" style="display: flex;">
-						<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="" placeholder="금액에 해당하는 숫자만 입력해주세요" value=""> 
-						<h4>원</h4>
-					</div>
+				<!-- 다음주소 api 스크립트 -->
+				<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+				<script>
+				    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+				    function sample4_execDaumPostcode() {
+				        new daum.Postcode({
+				            oncomplete: function(data) {
+				                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+				
+				                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+				                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+				                var roadAddr = data.roadAddress; // 도로명 주소 변수
+				                var extraRoadAddr = ''; // 참고 항목 변수
+				
+				                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+				                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+				                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+				                    extraRoadAddr += data.bname;
+				                }
+				                // 건물명이 있고, 공동주택일 경우 추가한다.
+				                if(data.buildingName !== '' && data.apartment === 'Y'){
+				                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				                }
+				                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+				                if(extraRoadAddr !== ''){
+				                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+				                }
+				
+				                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+				                document.getElementById('sample4_postcode').value = data.zonecode;
+				                document.getElementById("sample4_roadAddress").value = roadAddr;
+				                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+				                
+				                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+				                if(roadAddr !== ''){
+				                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+				                } else {
+				                    document.getElementById("sample4_extraAddress").value = '';
+				                }
+				
+				                var guideTextBox = document.getElementById("guide");
+				                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+				                if(data.autoRoadAddress) {
+				                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+				                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+				                    guideTextBox.style.display = 'block';
+				
+				                } else if(data.autoJibunAddress) {
+				                    var expJibunAddr = data.autoJibunAddress;
+				                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+				                    guideTextBox.style.display = 'block';
+				                } else {
+				                    guideTextBox.innerHTML = '';
+				                    guideTextBox.style.display = 'none';
+				                }
+				            }
+				        }).open();
+				    }
+				</script>
+			
+				
+				<b>
+					클래스 가격
+				</b>
+				<div class="size12 bo2 bo-rad-10 m-b-23" style="display: flex;">
+					<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="odcPrice" placeholder="금액에 해당하는 숫자값만 입력해주세요"> 
+					<h4>원</h4>
+				</div>
 
-					<b>
-						대표사진
-					</b>
-					<div style="margin-bottom:3%;">
-						<p>- 대표사진은 게시판 리스트와 상세화면 상단에 등록됩니다 </p>
-						<input class="" type="file" name=""  value=""> 
-					</div>
-					
-
-					<b>
-						클래스 소개
-					</b>
-					<textarea class="bo-rad-10 bo2 p-l-20 m-t-3" id="master-content" name="master-content" style="width: 100%;">
-						-클래스 소개<br>
-						<br><br><br><br>
-						-수업 진행<br>
-						<br><br><br><br>
-					</textarea>
+				<b>
+					대표사진
+				</b>
+				<div style="margin-bottom:3%;">
+					<p>- 대표사진은 게시판 리스트와 상세화면 상단에 등록됩니다 </p>
+					<input class="" type="file" name="odcpic"> 
+				</div>
+				
+				<b>
+					클래스 소개
+				</b>
+				<textarea rows="5" name="odcContent" id="editor">
+					-클래스 소개<br>
+					<br><br><br><br>
+					-수업 진행<br>
+					<br><br><br><br>
+				</textarea>
 			
 				<button type="submit" class="btn3 flex-c-m trans-0-4 m-l-r-auto" style="margin-top:10%">
 						클래스 등록
@@ -213,7 +219,73 @@
 <jsp:include page="/WEB-INF/views/common/footer.jsp">
 	<jsp:param name="title" value="MainPage"/>
 </jsp:include>
-<script src="${pageContext.request.contextPath}/resources/js/ckeditor.js"></script>
+<script src="${pageContext.request.contextPath}/resources/editor/ckeditor5-build-classic/ckeditor.js"></script>
+<script src="${pageContext.request.contextPath}/resources/editor/ckeditor5-build-classic/UploadAdapter.js"></script>
+<script>
+function MyCustomUploadAdapterPlugin(editor) {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+        return new UploadAdapter(loader)
+    }
+}
+
+
+ClassicEditor
+.create( document.querySelector( '#editor' ), {
+	extraPlugins: [MyCustomUploadAdapterPlugin],
+	toolbar: {
+		items: [
+			'heading',
+			'|',
+			'fontFamily',
+			'fontSize',
+			'fontColor',
+			'bold',
+			'underline',
+			'italic',
+			'blockQuote',
+			'specialCharacters',
+			'|',
+			'bulletedList',
+			'numberedList',
+			'indent',
+			'outdent',
+			'|',
+			'insertTable',
+			'link',
+			'imageUpload',
+			'undo',
+			'redo'
+		]
+	},
+	language: 'ko',
+	image: {
+		toolbar: [
+			'imageTextAlternative',
+			'imageStyle:full',
+			'imageStyle:side'
+		]
+	},
+	table: {
+		contentToolbar: [
+			'tableColumn',
+			'tableRow',
+			'mergeTableCells',
+			'tableCellProperties',
+			'tableProperties'
+		]
+	},
+	licenseKey: '',
+} )
+.then( editor => {
+	window.editor = editor;
+} )
+.catch( error => {
+	console.error( 'Oops, something went wrong!' );
+	console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+	
+	console.error( error );
+} );
+</script>
 <style>
 	/* 전체 배치 */
 	* {
