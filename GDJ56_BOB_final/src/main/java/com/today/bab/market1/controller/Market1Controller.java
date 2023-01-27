@@ -5,15 +5,17 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -256,8 +258,6 @@ public class Market1Controller {
 				.itemCategory(itemCategory).itemStock(itemStock)
 				.build();
 		
-		
-		
 		if(mainPic.getSize()==0) {
 //			param.put("mainPic",(String)param.get("mainPic1"));
 			s.setMainPic(mainPic1);
@@ -320,10 +320,6 @@ public class Market1Controller {
 			}
 		}
 		
-		
-		
-		System.out.println(files.isEmpty());
-		
 		if(files.isEmpty()) {
 			if(imgFiles!=null) {
 				for(String arr : imgFiles) {
@@ -357,6 +353,32 @@ public class Market1Controller {
 		mv.setViewName("common/msg");
 		return mv;
 	}
+	
+	
+	@RequestMapping("/choiceexplain.do")
+	public String choiceexplain(int itemNo,String check,Model m) {
+		String page="";
+		if(check.contains("a")) {
+			page="ItemDetailInfo";
+			m.addAttribute("de",service.marketdetail(itemNo));
+		}else if(check.contains("b")) {
+			page="itemReview";
+//			m.addAttribute("reviews");
+		}else if(check.contains("c")) {
+			page="itemExchange";
+		}else if(check.contains("d")) {
+			page="itemQna";
+//			m.addAttribute("qna");
+		}
+		m.addAttribute("itemNo", itemNo);
+		return "market1/"+page;
 		
-		
+//		request.setAttribute("itemNo", itemNo);
+//		RequestDispatcher dispatcher=request.getRequestDispatcher("/WEB-INF/views/market1/"+page);
+//		try {
+//			dispatcher.forward(request, response);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+	}
 }

@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 	<div style="width: 100%;">
 		<h3 style="color:purple; font-weight: bold; text-align: center;">교환 및 환불 안내</h3><br>
@@ -56,19 +55,3 @@
 	        </div>
 	    </div>
 	</div>
-	<br><br>
-	<hr />
-	<br>
-	
-	<div style="display: flex; justify-content: space-between; padding-left: 5%; font-size: 20px;">
-		<div class="col-2">
-		    <span style="background-color: rgb(196, 245, 228);font-weight: bold;">판매자 정보 </span>
-		</div>
-		<div class="col-10">
-		    <span style="background-color: rgb(220, 243, 236);">오늘의 밥</span>
-	    </div>
-	</div>
-
-
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

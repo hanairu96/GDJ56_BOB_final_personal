@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 	<div>
 		<div style="display: flex;">
@@ -87,6 +86,3 @@
 	    <a href="#">3</a>
 	    <a href="#"><i class="fa fa-long-arrow-right"></i></a>
 	</div>
-
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
