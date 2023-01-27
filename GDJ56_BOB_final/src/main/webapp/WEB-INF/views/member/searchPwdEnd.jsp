@@ -16,7 +16,7 @@
                 </small> 
                 <div class="form-group has-success" style="text-align:center;" >
                     <div>
-	                    <label class="form-label" for="inputPwd">새 비밀번호   </label>
+	                    <label class="form-label" for="inputPwd">새 비밀번호</label>
 	                    <input type="password" class="form-control" name="inputPwd" id="inputPwd">
                     </div>
                     <small id="emailHelp" class="form-text text-muted" style="color:gray;padding:10px;">비밀번호는 영문자와 숫자를 각각 하나 이상 포함하여 8자리 이상 입력하세요.<br>특수문자는 포함하지 않습니다.</small>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="form-group has-danger" style="text-align:center;">
                     <div>
-	                    <label class="form-label" for="pwdCheck">새 비밀번호 확인 </label>
+	                    <label class="form-label" for="pwdCheck">새 비밀번호 확인</label>
 	                    <input type="password" class="form-control" name="pwdCheck" id="pwdCheck"><br>
                     </div>
                     <span class="check" id="checkPwd"><small></small></span>
