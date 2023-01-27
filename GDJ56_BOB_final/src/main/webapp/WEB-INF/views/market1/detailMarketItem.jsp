@@ -1,4 +1,4 @@
-itemPrice<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -49,7 +49,7 @@ itemPrice<%@ page language="java" contentType="text/html; charset=UTF-8"
                         </c:if>
                         <c:if test="${not empty de.mainPic }">
                             <img class="product__details__pic__item--large"
-                                src="${path }/resources/upload/market/mainlabel/${de.itemLabel}" alt="">
+                                src="${path }/resources/upload/market/mainlabel/${de.mainPic}" alt="">
                         </c:if>
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
@@ -67,7 +67,11 @@ itemPrice<%@ page language="java" contentType="text/html; charset=UTF-8"
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text" style="margin-left:30px;">
                     	<br>
-                        <h3><c:out value="${de.itemName }"/></h3>
+                        <h3>
+                        <c:if test="${de.itemBrand!=null }">
+					        [${de.itemBrand }]
+					    </c:if>
+                        <c:out value="${de.itemName }"/></h3>
                         <div class="product__details__rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -89,7 +93,8 @@ itemPrice<%@ page language="java" contentType="text/html; charset=UTF-8"
                         <a href="#" class="primary-btn" style="background-color: #07d448;">장바구니 담기</a>
                         <a href="#" class="primary-btn" style="background-color: #07d448;">바로결제하기</a>
                         <br><br><br>
-                        <b>원산지</b> <span><c:out value="${de.madeIn }"/></span>
+                        <b>원산지</b> <span><c:out value="${de.madeIn }"/></span><br><br>
+                        <b>배송비</b> <span><c:out value="${de.delPrice }"/>원</span>
                     </div>
                 </div>
 
@@ -122,18 +127,24 @@ itemPrice<%@ page language="java" contentType="text/html; charset=UTF-8"
                     </div>
                 </div>
                 
-             	<div class="tab-content">
+             	<div class="tab-content" >
 					<div class="tab-pane active" id="tabs-1" role="tabpanel">
-					    <div class="product__details__tab__desc">
+					    <div class="product__details__tab__desc" >
 					        <br>
-					        <h3 style="text-align: center;">${de.itemBrand }</h3><br>
+					        <h3 style="text-align: center;font-weight:bold;" >
+					        <c:if test="${de.itemBrand!=null }">
+					        	[${de.itemBrand }]
+					        </c:if>
+					        ${de.itemName }
+					        </h3>
+					        <br>
 					        <div style="text-align: center;"> 
 					            <p>
 									${de.itemContent }
 					            </p>
 					        </div>
 					        <br>
-					        <div  style="text-align: center;">
+					        <div  style="text-align: center;flex-wrap: wrap;width:510px;margin:0 auto;">
 					        <c:if test="${not empty de.ipic }">
 		                        <c:forEach var="file" items="${de.ipic }">
 										 <img src="${path }/resources/upload/market/detail/${file.picName}" style="width:500px;height: 500px;">
@@ -141,23 +152,23 @@ itemPrice<%@ page language="java" contentType="text/html; charset=UTF-8"
                         	</c:if>
 					        </div>
 					        <br><br>
-					        <div >
-					            <span>용량 : ${de.weight }</span><br>
-					            <span>특징 : ${de.itemPoint }</span><br>
-					            <span>보관법 : ${de.itemKeep }</span><br>
-					            <span>활용팁 : ${de.itemTip }</span><br>
+					        <div>
+					            <span class="col-1" style="font-weight:bold;">용량 </span><span style="margin-left:2%">${de.weight }</span><br>
+					            <span class="col-1" style="font-weight:bold;">특징 </span><span style="margin-left:2%">${de.itemPoint }</span><br>
+					            <span class="col-1" style="font-weight:bold;">보관법</span><span class="col-3">${de.itemKeep }</span><br>
+					            <span class="col-1" style="font-weight:bold;">활용팁</span><span class="col-3">${de.itemTip }</span><br>
 					        </div>
 					        <br>
-					        <div  style="text-align: center;">
-					            <img src="${path }/resources/upload/market/mainlabel/${de.itemLabel }" alt="" style="width:500px;height: 500px;margin-left: 50px;">
+					        <div style="text-align: center;">
+					            <img src="${path }/resources/upload/market/mainlabel/${de.itemLabel }" alt="" style="width:500px;height: 500px;">
 				            </div>
 				            <br><br><br>
+							<div>
+							    <span class="col-5" style="background-color: rgb(232, 247, 242);font-weight: bold;">판매자 정보 : </span>
+							    <span class="col-6" style="background-color: rgb(242, 253, 250);font-weight: bold;">오늘의 밥</span>
+							</div>
 				        </div>
 				    </div>
-				</div>
-				<div>
-				    <span class="col-5" style="background-color: rgb(232, 247, 242);font-weight: bold;">판매자 정보 : </span>
-				    <span class="col-6" style="background-color: rgb(242, 253, 250);font-weight: bold;">오늘의 밥</span>
 				</div>
 
             </div>

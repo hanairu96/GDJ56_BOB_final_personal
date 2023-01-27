@@ -106,8 +106,19 @@ private AdminService service;
 	
 	//클래스 장인 관리
 	@RequestMapping("/master.do")
-	public String adminMaster() {
-		return "admin/adminMaster";
+	public ModelAndView adminMaster(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {
+		
+		mv.addObject("list",service.adminMaster(Map.of("cPage",cPage,"numPerpage",numPerpage)));
+		
+		//페이징처리하기
+		int totalData=service.selectMasterListCount();
+		mv.addObject("pageBar",AdminPageBar.getPage(cPage, numPerpage, totalData, "master.do"));
+		mv.addObject("totalData",totalData);
+		mv.setViewName("admin/adminMaster");
+		
+		return mv;
 	}
 	
 	//장인-상세보기

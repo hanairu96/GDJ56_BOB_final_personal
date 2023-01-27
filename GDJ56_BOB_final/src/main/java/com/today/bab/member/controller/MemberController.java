@@ -1,5 +1,8 @@
 package com.today.bab.member.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -15,17 +18,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.member.model.service.MemberService;
 import com.today.bab.member.model.vo.Member;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @SessionAttributes({"loginMember"})
 @RequestMapping("/member/")
-@Slf4j
 public class MemberController {
 
 	private MemberService service;
@@ -149,5 +151,77 @@ public class MemberController {
 		String num=Integer.toString(checkNum);
 		
 		return num;
+	}
+	
+	@RequestMapping("/enrollMemberEnd")
+	public ModelAndView enrollMemberEnd(Member m, String year, String month, String day, 
+			String inputAddressAddress, String inputAddressDetailAddress, 
+			MemberLike ml, ModelAndView mv) throws ParseException {
+		System.out.println(m);
+		System.out.println(year);
+		System.out.println(month);
+		System.out.println(day);
+		System.out.println(inputAddressAddress);
+		System.out.println(inputAddressDetailAddress);
+		System.out.println(ml);
+		
+		//문자열로 받아온 생년월일을 Date 타입으로 변환
+		String dateStr=year+"/"+month+"/"+day;
+		SimpleDateFormat formatter=new SimpleDateFormat("yyyy/MM/dd");
+		Date date=formatter.parse(dateStr);
+		System.out.println(date);
+		
+		//주소를 하나로 합침
+		String address=inputAddressAddress+" "+inputAddressDetailAddress;
+		
+		//Member m에 생년월일과 주소를 set
+		m.setBirth(date);
+		m.setAddress(address);
+		
+		//체크하지 않은 음식 취향 값을 N으로 지정
+		if(ml.getFruit()!='Y') ml.setFruit('N');
+		if(ml.getSea()!='Y') ml.setSea('N');
+		if(ml.getMeat()!='Y') ml.setMeat('N');
+		if(ml.getSide()!='Y') ml.setSide('N');
+		if(ml.getVege()!='Y') ml.setVege('N');
+		System.out.println(ml);
+		
+		int result=service.enrollMemberEnd(m, ml);
+		
+//		int result=0;
+//		try {
+//			result=service.enrollMemberEnd(m, ml);
+//		}catch (Exception e) {
+//			// TODO: handle exception
+//		}
+		
+		if(result>0) {
+			mv.addObject("msg","회원가입 되었습니다.");
+			mv.addObject("loc","/");
+		}else {
+			mv.addObject("msg","회원가입이 실패하였습니다.");
+			mv.addObject("loc","/member/enrollMember");
+		}
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/searchIdPwd")
+	public String searchIdPwd() {
+		return "member/searchIdPwd";
+	}
+
+	@RequestMapping("/searchIdPwdEnd")
+	public String searchIdPwdEnd(String choice, String searchEmail, Model m) {
+		//이메일로 아이디 찾기
+		String memberId="";
+		m.addAttribute("memberId", memberId);
+		
+		if(choice.equals("id")) {
+			return "member/searchIdEnd";
+		}else {
+			return "member/searchPwdEnd";
+		}
 	}
 }

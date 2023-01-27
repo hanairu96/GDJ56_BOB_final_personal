@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <style>
@@ -187,14 +188,23 @@
 	<section>
 		<div class="container">
 			<form class="wrap-form-reservation size22 m-l-r-auto" method="post" enctype="multipart/form-data"
-			action="${path }/market1/insertMarketItem.do">
+			action="${path }/market1/updateMarketItem.do">
 				<br>
 				<div class="row">
 					<div class="col-md-4">
 						<span class="txt9" style="font-weight: bold;">
 							카테고리</span>
 						<br>
-						<input  list="itemCategory" name="itemCategory" value="${up.itemCategory }" readonly>
+						<input type="hidden" name="itemNo" value="${up.itemNo }"/>
+						<select id="itemCategory" name="itemCategory">
+							<option value="채소" ${fn:contains(up.itemCategory,"채소")?"selected":"" }>채소</option>
+							<option value="과일 · 견과 · 쌀 " ${fn:contains(up.itemCategory,"과일")?"selected":"" }>과일 · 견과 · 쌀</option>
+							<option value="수산 · 해산 · 건어물" ${fn:contains(up.itemCategory,"수산")?"selected":"" }>수산 · 해산 · 건어물</option>
+							<option value="정육 · 계란" ${fn:contains(up.itemCategory,"정육")?"selected":"" }>정육 · 계란</option>
+							<option value="국 · 반찬 · 메인요리" ${fn:contains(up.itemCategory,"국")?"selected":"" }>국 · 반찬 · 메인요리</option>
+							<option value="샐러드 · 간편식" ${fn:contains(up.itemCategory,"샐러드")?"selected":"" }>샐러드 · 간편식</option>
+							<option value="면 · 양념 · 오일" ${fn:contains(up.itemCategory,"면")?"selected":"" }>면 · 양념 · 오일</option>
+						</select>
 						<br>
 					</div>
 					<br>
@@ -246,7 +256,7 @@
 						<span class="txt9" style="font-weight: bold;">대표사진(필수)</span>
 						<br>
 						<input class="" type="file" name="mainPic"  value=""> 
-						<input class="" type="hidden" name="mainPic1"  value="${up.mainPic }"> 
+						<input class="" type="hidden" name="mainPic1"  value="${up.mainPic }">
 					</div>
 					<br><br>
 					
@@ -268,12 +278,18 @@
 						<br>
 						<input class="" type="file" name="imgFile" id="imgFile3" value=""> 
 					</div>
+					<c:if test="${not empty file }">
+						<c:forEach var="ff" items="${file }">
+							<input type="hidden" name="imgFiles" value="${ff}"/>
+							<c:out value="${ff}"/>
+						</c:forEach>
+					</c:if>
 					<br>
 
 					<div class="col-md-12">
 						<span class="txt9" style="font-weight: bold;">상품한줄소개(필수)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="itemContent" 
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="mainContent" 
 							placeholder="상세페이지 및 썸내일(상품리스트)에서도 쓰입니다(15자이내)" value="${up.mainContent }" maxlength="15" required>
 						</div>
 					</div>
@@ -281,7 +297,7 @@
 					<div class="col-12" style="margin-top: 2%;">
 						<span class="txt9" style="font-weight: bold;">상품설명(필수)</span><br>
 						<textarea class="bo-rad-10 size35 bo2 txt10 p-l-20 p-t-15 m-b-10 m-t-3" 
-						 rows="4" cols="120" name="mainContent"  placeholder="상품에 대한 설명을 입력해주세요" required>${up.itemContent }</textarea>
+						 rows="4" cols="120" name="itemContent"  placeholder="상품에 대한 설명을 입력해주세요" required>${up.itemContent }</textarea>
 					</div><br>
 
 

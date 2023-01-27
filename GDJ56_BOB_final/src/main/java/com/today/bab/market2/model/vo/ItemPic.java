@@ -14,4 +14,5 @@ public class ItemPic {
 	private int picNo;
 	private SellItem sellitem;
 	private String picName;
+	private int itemNo;
 }
