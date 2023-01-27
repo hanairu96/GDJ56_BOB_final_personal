@@ -11,11 +11,11 @@
             </div>
             <form>       
                 <small id="emailHelp" class="form-text text-muted" style="font-size: larger;">
-                    고객님의 아이디는<br><span id="idResult">''</span><br>입니다.
+                    회원님의 아이디는<br><span id="idResult">'${memberId}'</span><br>입니다.
                 </small>
                 <div id="insert">
                     <div class="d-grid">
-                        <button class="customBtn btnStyle" type="button" onclick="location.assign('<%=request.getContextPath()%>/logIn/logIn.do');">로그인페이지로 이동</button>
+                        <button class="customBtn btnStyle" type="button" onclick="location.assign('${path}/member/login');">로그인 페이지로 이동</button>
                     </div>
                 </div>
             </form>
@@ -23,7 +23,8 @@
     </section>
     <style>
         section{
-            margin-top: 100px;
+            margin-top: 50px;
+            font-family: 'Gowun Dodum';
         }
         section>div{
             border: 1px solid lightgray;
@@ -98,6 +99,9 @@
         }
         .d-grid{
             margin: 0 auto;
+        }
+        .d-grid>button{
+        	width: 200px;
         }
         #idResult{
             color:#7e8cd2;

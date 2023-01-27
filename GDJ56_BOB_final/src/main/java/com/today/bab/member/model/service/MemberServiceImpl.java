@@ -63,4 +63,14 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public Member selectMemberByEmail(String email) {
+		return dao.selectMemberByEmail(session, email);
+	}
+
+	@Override
+	public int updatePwd(Member m) {
+		return dao.updatePwd(session, m);
+	}
+
 }

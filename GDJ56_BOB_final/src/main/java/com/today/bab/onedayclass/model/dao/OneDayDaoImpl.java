@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 @Repository
@@ -26,6 +27,21 @@ public class OneDayDaoImpl implements OneDayDao {
 	public List<OneDayClass> selectSearchClass(SqlSessionTemplate session, Map<String, Object> param ) {
 		
 		return session.selectList("onedayclass.selectSearchClass",param);
+	}
+
+	@Override
+	public int masterEndEnroll(SqlSessionTemplate session, AdminMaster m) {
+		return session.insert("onedayclass.masterEndEnroll", m);
+	}
+
+	@Override
+	public AdminMaster selectMastserById(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("onedayclass.selectMastserById", memberId);
+	}
+
+	@Override
+	public int endclassEnroll(SqlSessionTemplate session, OneDayClass odc) {
+		return session.insert("onedayclass.endclassEnroll", odc);
 	}
 	
 	

@@ -213,15 +213,29 @@ public class MemberController {
 	}
 
 	@RequestMapping("/searchIdPwdEnd")
-	public String searchIdPwdEnd(String choice, String searchEmail, Model m) {
-		//이메일로 아이디 찾기
-		String memberId="";
-		m.addAttribute("memberId", memberId);
+	public String searchIdPwdEnd(String choice, String searchEmail, Model model) {
+		//이메일로 회원 아이디 찾기
+		Member member=service.selectMemberByEmail(searchEmail);
+		model.addAttribute("memberId", member.getMemberId());
 		
 		if(choice.equals("id")) {
 			return "member/searchIdEnd";
 		}else {
 			return "member/searchPwdEnd";
 		}
+	}
+	
+	@RequestMapping("/updatePwd")
+	public String updatePwd(Member m, Model model) {
+		int result=service.updatePwd(m);
+		
+		if(result>0) {
+			model.addAttribute("msg","수정이 완료됐습니다.");
+			model.addAttribute("loc","/member/login");
+		}else {
+			model.addAttribute("msg","수정이 실패하였습니다.");
+			model.addAttribute("loc","/member/searchPwdEnd");
+		}
+		return "common/msg";
 	}
 }

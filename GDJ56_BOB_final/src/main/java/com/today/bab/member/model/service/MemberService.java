@@ -9,4 +9,6 @@ public interface MemberService {
 	Member idDuplicateCheck(String inputId);
 	Member emailDuplicateCheck(String email);
 	int enrollMemberEnd(Member m, MemberLike ml); //throws SQLException;
+	Member selectMemberByEmail(String email);
+	int updatePwd(Member m);
 }

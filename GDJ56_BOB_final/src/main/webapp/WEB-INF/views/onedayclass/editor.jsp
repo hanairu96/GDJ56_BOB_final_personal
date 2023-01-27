@@ -21,7 +21,6 @@
 				One-Day Class
 			</h2>
 		</div>
-	
 		<!-- 장인 신청 content -->
 		<div class="container">
 			<div class="t-center" style="margin: 5%;">
@@ -122,7 +121,7 @@
 						<h4>
 							자기소개
 						</h4>
-						<textarea class="bo-rad-10 bo2 p-l-20 m-t-3" id="master-content" name="info" style="width: 100%;">
+						<textarea rows="5" name="info" id="editor">
 						-원데이클래스 장인 신청한 동기 또는 자기소개를 간략히 적어주세요<br>
 						<br><br><br><br>
 						-향후 수업 계획을 간략히 적어주세요<br>
@@ -136,15 +135,10 @@
 					<button type="submit" class="btn3 flex-c-m trans-0-4 m-l-r-auto">
 						Submit
 					</button>
-					
-				</form>		
+				</form>	
 			</div>
 		</div>
 	</body>
-	
-
-	
-
 <style>
 	/* 전체 배치 */
 	* {
@@ -279,3 +273,70 @@
 <jsp:include page="/WEB-INF/views/common/footer.jsp">
 	<jsp:param name="title" value="MainPage"/>
 </jsp:include>
+<script src="${pageContext.request.contextPath}/resources/editor/ckeditor5-build-classic/ckeditor.js"></script>
+<script src="${pageContext.request.contextPath}/resources/editor/ckeditor5-build-classic/UploadAdapter.js"></script>
+<script>
+function MyCustomUploadAdapterPlugin(editor) {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+        return new UploadAdapter(loader)
+    }
+}
+
+ClassicEditor
+.create( document.querySelector( '#editor' ), {
+	extraPlugins: [MyCustomUploadAdapterPlugin],
+	toolbar: {
+		items: [
+			'heading',
+			'|',
+			'fontFamily',
+			'fontSize',
+			'fontColor',
+			'bold',
+			'underline',
+			'italic',
+			'blockQuote',
+			'specialCharacters',
+			'|',
+			'bulletedList',
+			'numberedList',
+			'indent',
+			'outdent',
+			'|',
+			'insertTable',
+			'link',
+			'imageUpload',
+			'undo',
+			'redo'
+		]
+	},
+	language: 'ko',
+	image: {
+		toolbar: [
+			'imageTextAlternative',
+			'imageStyle:full',
+			'imageStyle:side'
+		]
+	},
+	table: {
+		contentToolbar: [
+			'tableColumn',
+			'tableRow',
+			'mergeTableCells',
+			'tableCellProperties',
+			'tableProperties'
+		]
+	},
+	licenseKey: '',
+} )
+.then( editor => {
+	window.editor = editor;
+} )
+.catch( error => {
+	console.error( 'Oops, something went wrong!' );
+	console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+	
+	console.error( error );
+} );
+</script>
+</html>
