@@ -1,5 +1,7 @@
 package com.today.bab.market1.model.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,14 @@ public class QnaServiceImpl implements QnaService {
 		this.dao = dao;
 		this.session = session;
 	}
-
-	public 	int insertQna(ItemQna q) {
+	
+	@Override
+	public int insertQna(ItemQna q) {
 		return dao.insertQna(session,q);
+	}
+	
+	@Override
+	public List<ItemQna> selectQna(int itemNo){
+		return dao.selectQna(session,itemNo);
 	}
 }

@@ -278,12 +278,12 @@
 						<br>
 						<input class="" type="file" name="imgFile" id="imgFile3" value=""> 
 					</div>
-					<c:if test="${not empty file }">
+					<%-- <c:if test="${not empty file }">
 						<c:forEach var="ff" items="${file }">
 							<input type="hidden" name="imgFiles" value="${ff}"/>
 							<c:out value="${ff}"/>
 						</c:forEach>
-					</c:if>
+					</c:if> --%>
 					<br>
 
 					<div class="col-md-12">

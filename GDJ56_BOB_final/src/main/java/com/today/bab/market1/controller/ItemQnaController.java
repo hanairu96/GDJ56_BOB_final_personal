@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.today.bab.market1.model.service.QnaService;
 import com.today.bab.market1.model.vo.ItemQna;
+import com.today.bab.market2.model.vo.SellItem;
+import com.today.bab.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/itemQna")
@@ -23,8 +25,21 @@ public class ItemQnaController {
 	}
 	
 	@RequestMapping("/insertQna.do")
-	public String insertQna(Model m, ItemQna a,String iqSecret) {
-		System.out.println(a);
+	public String insertQna(Model m, ItemQna a,
+			String iqContent, String memberId, int itemNo,
+			String iqSecret) {
+
+		if(iqSecret==null) {
+			iqSecret="N";
+		}
+		ItemQna i=ItemQna.builder()
+				.iqContent(iqContent)
+				.memberId(Member.builder().memberId(memberId).build())
+				.itemNo(SellItem.builder().itemNo(itemNo).build())
+				.iqSecret(iqSecret)
+				.build();
+		System.out.println(i);
+		
 //		int result=service.insertQna(a);
 //		m.addAttribute("qna",result);
 		return "";

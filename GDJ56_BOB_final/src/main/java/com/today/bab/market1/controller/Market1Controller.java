@@ -6,10 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.market1.model.service.Market1Service;
+import com.today.bab.market1.model.service.QnaService;
+import com.today.bab.market1.model.vo.ItemQna;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
 
@@ -31,12 +29,17 @@ import lombok.extern.slf4j.Slf4j;
 public class Market1Controller {
 	
 	private Market1Service service;
+	private QnaService service1;
 
 	@Autowired
 	public Market1Controller(Market1Service service) {
 		super();
 		this.service = service;
+		this.service1 = service1;
 	}
+	
+	
+	
 	
 //	private String picrename(MultipartFile pic, String path) {
 //		String renameFile="";
@@ -76,6 +79,10 @@ public class Market1Controller {
 	@RequestMapping("/marketdetail.do")
 	public ModelAndView marketdetail(ModelAndView mv,int itemNo) {
 		SellItem list=service.marketdetail(itemNo);
+		
+//		List<ItemQna> qq=service1.selectQna(itemNo);
+//		System.out.println(qq);
+		
 		mv.addObject("de",list);
 		String file="";
 		int count=0;
@@ -338,9 +345,9 @@ public class Market1Controller {
 				}
 			}
 		}
-		System.out.println(s);
+//		System.out.println(s);
 		s.setIpic(files);
-		System.out.println(s.getIpic());
+//		System.out.println(s.getIpic());
 		
 		int result=service.updateMarketItem(s,itemNo);
 		if(result>0) {
@@ -368,7 +375,9 @@ public class Market1Controller {
 			page="itemExchange";
 		}else if(check.contains("d")) {
 			page="itemQna";
-//			m.addAttribute("qna");
+			System.out.println(itemNo);
+			System.out.println(service1.selectQna(itemNo));
+//			m.addAttribute("qna",service1.selectQna(itemNo));
 		}
 		m.addAttribute("itemNo", itemNo);
 		return "market1/"+page;
