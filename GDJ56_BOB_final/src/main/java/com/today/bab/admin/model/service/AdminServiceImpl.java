@@ -59,5 +59,26 @@ public class AdminServiceImpl implements AdminService{
 	public int selectMasterListCount() {
 		return dao.selectMasterListCount(session);
 	}
+
+	@Override
+	public AdminMaster adminMasterInfo(String teachername) {
+		return dao.adminMasterInfo(session, teachername);
+	}
+
+	@Override
+	public int masterDelete(AdminMaster m) {
+		return dao.masterDelete(session,m);
+	}
+	
+	@Override
+	public int masterDelete2(String memberId) {
+		return dao.masterDelete2(session,memberId);
+	}
+
+	@Override
+	public int masterTestEnd(AdminMaster m) {
+		// TODO Auto-generated method stub
+		return dao.masterTestEnd(session,m);
+	}
 	
 }

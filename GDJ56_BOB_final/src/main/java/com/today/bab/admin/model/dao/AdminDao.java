@@ -1,5 +1,6 @@
 package com.today.bab.admin.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,4 +26,12 @@ public interface AdminDao {
 	List<AdminMaster> adminMaster(SqlSessionTemplate session,Map<String,Integer> param);
 	
 	int selectMasterListCount(SqlSessionTemplate session);
+	
+	AdminMaster adminMasterInfo(SqlSessionTemplate session, String name);
+	
+	int masterDelete(SqlSessionTemplate session, AdminMaster m);
+	
+	int masterDelete2(SqlSessionTemplate session, String memberId);
+	
+	int masterTestEnd(SqlSessionTemplate session, AdminMaster m);
 }

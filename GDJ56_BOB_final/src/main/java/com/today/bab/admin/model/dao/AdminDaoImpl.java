@@ -34,7 +34,6 @@ public class AdminDaoImpl implements AdminDao{
 
 	@Override
 	public List<AdminSubscription> adminSubscription(SqlSessionTemplate session, String id) {
-		// TODO Auto-generated method stub
 		return session.selectList("admin.adminSubscription",id);
 	}
 
@@ -53,6 +52,26 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public int selectMasterListCount(SqlSessionTemplate session) {
 		return session.selectOne("admin.selectMasterListCount");
+	}
+
+	@Override
+	public AdminMaster adminMasterInfo(SqlSessionTemplate session, String name) {
+		return session.selectOne("admin.adminMasterInfo",name);		
+	}
+
+	@Override
+	public int masterDelete(SqlSessionTemplate session, AdminMaster m) {
+		return session.update("admin.masterDelete",m);
+	}
+	
+	@Override
+	public int masterDelete2(SqlSessionTemplate session, String memberId) {
+		return session.update("admin.masterDelete2",memberId);
+	}
+
+	@Override
+	public int masterTestEnd(SqlSessionTemplate session, AdminMaster m) {
+		return session.update("admin.masterTestEnd",m);
 	}
 	
 }
