@@ -262,14 +262,14 @@ public class MypageController {
 	
 	
 	@RequestMapping("/pay.do")
-	public void insertItemOrder(int price,String buyer_addr,String buyer_name,String buyer_tel, HttpServletRequest request,HttpServletResponse response) throws IOException {
+	public void insertItemOrder(String orderComment,int price,String buyer_addr,String buyer_name,String buyer_tel, HttpServletRequest request,HttpServletResponse response) throws IOException {
 		
 		HttpSession session = request.getSession();
 	    Member loginMember = (Member) session.getAttribute("loginMember");
 		
 	    ItemOrder io=ItemOrder.builder().price(price)
 		.memberId(loginMember.getMemberId()).orderName(buyer_name)
-		.address(buyer_addr).orderPhone(buyer_tel).build();
+		.address(buyer_addr).orderPhone(buyer_tel).orderComment(orderComment).build();
 	    
 	    System.out.println(io);
 		int result=mypageService.insertItemOrder(io);

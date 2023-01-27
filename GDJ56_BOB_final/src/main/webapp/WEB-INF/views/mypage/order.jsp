@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="UTF-8">
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
@@ -97,6 +97,10 @@
 		                        value="주소 검색" onclick="sample6_execDaumPostcode()">
                             <input type="text" placeholder="Apartment, suite, unite ect (optinal)"> -->
                         </div>
+                        <div class="checkout__input">
+                                    <p><b>요청사항</b><span></span></p>
+                                    <input type="text" id="orderComment">
+                                </div>
                         <h4>적립금</h4>
                         <div class="row">
                             <div class="col-lg-6">
@@ -272,7 +276,7 @@
     			buyer_addr: orderaddr
     		}, function(rsp){	
     				if(rsp.success){
-    					alert("결제가 완료되었습니다.");
+    					//alert("결제가 완료되었습니다.");
     					$.ajax({
     						url : "${path}/mypage/pay.do",
     						type : "post",
@@ -280,19 +284,18 @@
     								price : $("#totaltotal").html(),
     								buyer_addr: orderaddr,
     								buyer_name : $("#orderName").val(),
-    								buyer_tel : $("#orderPhone").val()
+    								buyer_tel : $("#orderPhone").val(),
+    								orderComment : $("#orderComment").val()
     								},
     						success:data=>{
-    							console.log(data);
-    							console.log("결제");
+    							alert("결제가 완료되었습니다.");
     							
     						},error : function(request, status, error) {
     						   	 alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
     					    }
     					});
     					
-    				}else{
-    					
+    				}else{	
     					alert(rsp.error_msg);
     				}
     			});		
