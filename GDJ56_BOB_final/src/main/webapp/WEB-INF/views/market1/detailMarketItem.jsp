@@ -38,67 +38,67 @@
     	
     </script>
         <div class="container">
-            <div class="row">
-
-                <!-- 슬라이더 사진 4개까지 넣을 수 있다 (사진을 4개 미만으로 넣으면 같은 사진 반복) -->
-                <div class="col-lg-6 col-md-6">
-                    <div class="product__details__pic">
-                        <div class="product__details__pic__item">
-                        <c:if test="${empty de.mainPic }">
-                            <img class="product__details__pic__item--large"
-                                src="${path }/resources/market/img/product/details/product-details-1.jpg" alt="">
-                        </c:if>
-                        <c:if test="${not empty de.mainPic }">
-                            <img class="product__details__pic__item--large"
-                                src="${path }/resources/upload/market/mainlabel/${de.mainPic}" alt="">
-                        </c:if>
-                        </div>
-                        <div class="product__details__pic__slider owl-carousel">
-                      	<c:if test="${not empty de.ipic }">
-	                        <c:forEach var="file" items="${de.ipic }">
-									 <img src="${path }/resources/upload/market/detail/${file.picName}">
-							</c:forEach>                         
-	                            <img src="${path }/resources/upload/market/mainlabel/${de.mainPic}" alt="">
-                        </c:if>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-lg-6 col-md-6">
-                    <div class="product__details__text" style="margin-left:30px;">
-                    	<br>
-                        <h3>
-                        <c:if test="${de.itemBrand!=null }">
-					        [${de.itemBrand }]
-					    </c:if>
-                        <c:out value="${de.itemName }"/></h3>
-                        <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <span>(18 리뷰)</span>
-                        </div>
-                        <div class="product__details__price"><c:out value="${de.itemPrice }"/>원</div>
-                        <p><c:out value="${de.mainContent}"/></p>
-                        <div class="product__details__quantity">
-                            <div class="quantity">
-                                <div class="pro-qty">
-                                    <input type="text" value="1">
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <a href="#" class="primary-btn" style="background-color: #07d448;">장바구니 담기</a>
-                        <a href="#" class="primary-btn" style="background-color: #07d448;">바로결제하기</a>
-                        <br><br><br>
-                        <b>원산지</b> <span><c:out value="${de.madeIn }"/></span><br><br>
-                        <b>배송비</b> <span><c:out value="${de.delPrice }"/>원</span>
-                    </div>
-                </div>
-
+			<div>            
+	            <div class="row">
+	                <!-- 슬라이더 사진 4개까지 넣을 수 있다 (사진을 4개 미만으로 넣으면 같은 사진 반복) -->
+	                <div class="col-lg-6 col-md-6">
+	                    <div class="product__details__pic">
+	                        <div class="product__details__pic__item">
+	                        <c:if test="${empty de.mainPic }">
+	                            <img class="product__details__pic__item--large"
+	                                src="${path }/resources/market/img/product/details/product-details-1.jpg" alt="">
+	                        </c:if>
+	                        <c:if test="${not empty de.mainPic }">
+	                            <img class="product__details__pic__item--large"
+	                                src="${path }/resources/upload/market/mainlabel/${de.mainPic}" alt="">
+	                        </c:if>
+	                        </div>
+	                        <div class="product__details__pic__slider owl-carousel">
+	                      	<c:if test="${not empty de.ipic }">
+		                        <c:forEach var="file" items="${de.ipic }">
+										 <img src="${path }/resources/upload/market/detail/${file.picName}">
+								</c:forEach>                         
+		                            <img src="${path }/resources/upload/market/mainlabel/${de.mainPic}" alt="">
+	                        </c:if>
+	                        </div>
+	                    </div>
+	                </div>
+	
+	
+	                <div class="col-lg-6 col-md-6">
+	                    <div class="product__details__text" style="margin-left:30px;">
+	                    	<br>
+	                        <h3>
+	                        <c:if test="${de.itemBrand!=null }">
+						        [${de.itemBrand }]
+						    </c:if>
+	                        <c:out value="${de.itemName }"/></h3>
+	                        <div class="product__details__rating">
+	                            <i class="fa fa-star"></i>
+	                            <i class="fa fa-star"></i>
+	                            <i class="fa fa-star"></i>
+	                            <i class="fa fa-star"></i>
+	                            <i class="fa fa-star-half-o"></i>
+	                            <span>(18 리뷰)</span>
+	                        </div>
+	                        <div class="product__details__price"><c:out value="${de.itemPrice }"/>원</div>
+	                        <p><c:out value="${de.mainContent}"/></p>
+	                        <div class="product__details__quantity">
+	                            <div class="quantity">
+	                                <div class="pro-qty">
+	                                    <input type="text" value="1">
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <br>
+	                        <a href="#" class="primary-btn" style="background-color: #07d448;">장바구니 담기</a>
+	                        <a href="#" class="primary-btn" style="background-color: #07d448;">바로결제하기</a>
+	                        <br><br><br>
+	                        <b>원산지</b> <span><c:out value="${de.madeIn }"/></span><br><br>
+	                        <b>배송비</b> <span><c:out value="${de.delPrice }"/>원</span>
+	                    </div>
+	                </div>
+				</div>
 
                 <!-- 상품설명, 리뷰, 교환 및 반품안내, 문의하기 -->
                 <div class="col-lg-12">
