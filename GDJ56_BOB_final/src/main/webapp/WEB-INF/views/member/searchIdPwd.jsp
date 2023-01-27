@@ -15,24 +15,22 @@
                 method="post" onsubmit="return fn_searchIdPwd();">
                 <input type="hidden" name="choice" id="choice" value="id">
                 <small id="emailHelp" class="form-text text-muted">
-                    가입 당시 입력한 <b>이메일인증</b>을 통해 이용할 수 있습니다.
+                    가입 당시 입력한 <b>이메일을 인증</b>해야 이용할 수 있습니다.
                 </small>
                 <div id="searchIdContainer" class="form-group"  style="display: none;">
-                    <label for="exampleInputId" class="form-label mt-4">아이디　　</label>
+                    <label for="exampleInputId" class="form-label mt-4">아이디</label>
                     <input type="text" name="searchId" id="exampleInputId" >
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputName" class="form-label mt-4">이름　　　</label>
+                    <label for="exampleInputName" class="form-label mt-4">이름</label>
                     <input type="text" name="searchName" id="exampleInputName" required>
                 </div>
                 <span class="check" id="checkEmail"><small></small></span>
-                <div class="form-group" style="display:inline-flex; align-items:center;">
-                    <label for="exampleInputEmail" class="form-label mt-4">이메일　　</label>
-                    <input type="email" name="searchEmail" id="exampleInputEmail" style="margin-right:10px;" required>
+                <div class="form-group" style="display:flex; align-items:center;">
+                    <label for="exampleInputEmail" class="form-label mt-4">이메일</label>
+                    <input type="email" name="searchEmail" id="exampleInputEmail" required>
                     <!-- 이메일인증 -->
-                    <div id="searchPwd" class="bir_yy address" >
-                        <input id="searchAddr" name="emailconfirm_btn" type="button" value="인증" style="width:60px;" onclick="emailcheck();"><br>
-                    </div>
+                    <button id="searchAddr" name="emailconfirm_btn" onclick="emailcheck();">인증</button><br>
                 </div>
                 <div class="bir_yy address crtfcNo" id="bir_yy" style="display: none;">
                     <span class="check" id="checkCrtfcNo"><small></small></span>
@@ -133,9 +131,33 @@
         .text-dark:hover{
             cursor: pointer;
 		}
+		#emailHelp{
+			text-align: center;
+		}
+		.form-label{
+			margin-left: 30px;
+			width: 100px;
+			text-align: center;
+		}
+		.container.py-4 input{
+			width: 200px;
+		}
+		#exampleInputEmail{
+			margin-left: 3px;
+			margin-right: 10px;
+		}
+		#searchAddr{
+			border: 1px solid gray;
+			border-radius: 5px;
+			width: 60px;
+		}
+		#exampleInputEmail, #searchAddr{
+			margin-top: 15px;
+		}
         /* 버튼 중앙 정렬 */
         .d-grid{
             margin: 0 auto;
+            margin-top: 20px;
         }
     </style>
     <script>

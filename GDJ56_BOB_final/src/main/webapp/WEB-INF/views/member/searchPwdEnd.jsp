@@ -7,7 +7,7 @@
 </jsp:include>
     <section>
         <div class="container py-4" style="text-align:center;margin:0 auto;">
-            <div class="row align-items-center justify-content-between" id="insert" style="text-align:center;margin:0 auto;width:200px;">
+            <div class="row align-items-center justify-content-between" id="insert">
                 <h2>비밀번호 재설정</h2>
             </div>
             <form name="searchIdPwd" action="" method="post" onsubmit="return fn_changePwd();" style="text-align:center;display:flex;flex-direction:column;">    
@@ -15,17 +15,21 @@
                     비밀번호를 재설정해주세요.
                 </small> 
                 <div class="form-group has-success" style="text-align:center;" >
-                    <label class="form-label mt-4" for="inputPwd">새 비밀번호   </label>
-                    <input type="password" class="form-control" name="inputPwd" id="inputPwd">
-                    <br><small id="emailHelp" class="form-text text-muted" style="color:gray;padding:0;">비밀번호는 영문자, 숫자를 포함하여 8자리 이상 입력하세요.</small>
+                    <div>
+	                    <label class="form-label" for="inputPwd">새 비밀번호   </label>
+	                    <input type="password" class="form-control" name="inputPwd" id="inputPwd">
+                    </div>
+                    <small id="emailHelp" class="form-text text-muted" style="color:gray;padding:10px;">비밀번호는 영문자와 숫자를 각각 하나 이상 포함하여 8자리 이상 입력하세요.<br>특수문자는 포함하지 않습니다.</small>
                     <br><br><br>
                 </div>
                 <div class="form-group has-danger" style="text-align:center;">
-                    <label class="form-label mt-4" for="pwdCheck">새 비밀번호 확인 </label>
-                    <input type="password" class="form-control" name="pwdCheck" id="pwdCheck"><br>
+                    <div>
+	                    <label class="form-label" for="pwdCheck">새 비밀번호 확인 </label>
+	                    <input type="password" class="form-control" name="pwdCheck" id="pwdCheck"><br>
+                    </div>
                     <span class="check" id="checkPwd"><small></small></span>
                 </div>
-                <div id="insert">
+                <div id="insert2">
                     <div class="d-grid">
                         <br>
                         <button class="customBtn btnStyle" type="submit" style="width:100px;height:40px;font-size:15px;">확인</button>
@@ -97,17 +101,49 @@
         }
         .container.py-4{
             margin: 0 auto;
-            width : 503px;
+            width : 600px;
+            height: 480px;
         }
         #insert{
             display: flex;
             margin-top: 20px;
             margin-bottom: 30px;
+            height: 30px;
+            text-align:center;
+        }
+        #insert>h2{
+        	width: fit-content;
+            margin:0 auto;
+        	font-size: 30px;
+        }
+        #insert2{
+            display: flex;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            height: 80px;
+            text-align:center;
+        }
+        .form-group>div{
+        	display: flex;
+        }
+        .form-label{
+        	width: 140px;
+        	margin: 0px;
+        	margin-left: 20px;
+        	margin-right: 20px;
+        	padding: 5px;
+        }
+        .form-group input{
+        	width: 350px;
+        }
+        .has-success{
+        	height: 100px;
         }
         #emailHelp{
             text-align: center;
             padding: 40px;
             margin-bottom: 20px;
+            height: 45px;
         }
         .d-grid{
             margin: 0 auto;
