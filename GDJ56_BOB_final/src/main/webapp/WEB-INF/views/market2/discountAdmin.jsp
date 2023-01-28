@@ -60,25 +60,71 @@
 			<!-- 검색 -->
 			
 			<div>
-				<!-- Select2 -->
 				<select id="selectOp"class="form-select" aria-label="Default select example">
-					<option>전체보기</option>
-					<option>브랜드</option>
-					<option>제품명</option>
+					<option value="ALL" selected>전체보기</option>
+					<option value="ITEM_CATEGORY">카테고리</option>
+					<option value="ITEM_BRAND">브랜드</option>
+					<option value="ITEM_NAME">제품명</option>
 				</select>
 			</div>
 		</div>
 		<div style="width: 300px; display: flex;">
 			<div class="search-sidebar2 size12 bo2 pos-relative">
-				<input class="input-search-sidebar2 p-l-20" type="text" name="검색할항목ajax로바꿔야함" placeholder="Search">
-				<button class="btn-search-sidebar2" onclick="searchItem();"><img style="width: 30px; height: 30px;" src="https://img.icons8.com/ios-filled/512/search.png"></button>
+				<input id="search" class="input-search-sidebar2 p-l-20" type="text" name="검색할항목ajax로바꿔야함" placeholder="Search">
+				<!-- <button class="btn-search-sidebar2" onclick="searchItem();"><img style="width: 30px; height: 30px;" src="https://img.icons8.com/ios-filled/512/search.png"></button> -->
 			</div>
 		</div>
 		
 	</div>
 </form>
-<button onclick="searchItem();">검색</button>
+<script>
+	$(function(){//레디함수
+		let selectOp = "ALL";
+		$("#selectOp").change(e=>{
+			//console.log($(e.target).val());
+			selectOp = $(e.target).val();
+		});
+		
+	    $("#search").keyup(e=>{
+	    	//console.log($(e.target).val());
+	    	
+	    	$.get("${path}/market/discountAdminAjax.do?value="+$(e.target).val()+"&selectOp="+selectOp
+	    			, data=>{
+	    				//console.log(data);
+	    				$("#itemTable tbody").html(''); //원래의 값 비워주기
+	    				
+	    				data.forEach(i=>{
+	    					let itemInfo = i.itemNo;
+	    					//console.log(itemInfo);
+	    					
+	    					let input = "";
+	    					if(i.itemDiscount=='Y') input = $("<input type='checkbox' name='chItems'>").val(itemInfo).prop("checked", true);
+	    					else input = $("<input type='checkbox' name='chItems'>").val(itemInfo).prop("checked", false);
+	    					
+		    				let tr = $("<tr>");
+	    					let itemNo = $("<td>").text(i.itemNo);
+	    					let checkbox = $("<td>").append(input);
+	    					let itemCategory = $("<td>").text(i.itemCategory);
+	    					let madeIn = $("<td>").text(i.madeIn);
+	    					let itemBrand = $("<td>").text(i.itemBrand);
+	    					let itemName = $("<td>").text(i.itemName);
+	    					let delPrice = $("<td>").text(i.delPrice);
+	    					let itemStock = $("<td>").text(i.itemStock);
+	    					
+	    					tr.append(itemNo).append(checkbox).append(itemCategory).append(madeIn).append(itemBrand).append(itemName).append(itemName).append(delPrice).append(itemStock);
+	    					$("#itemTable tbody").append(tr);
+	    				});
+	    			});
+	    			
+	    });
+	
+	});
+	
 
+	
+	
+	
+</script>
 
 
 <!-- todaybab create -->
@@ -87,8 +133,8 @@
 		<span style="margin-left: 100px;">할인 적용할 상품 선택</span>
 		<form name="disFrm" action="${path}/market/discountAdminEnd.do" method="post">
 		<div class="row flex-c-m">
-			<div class="col-lg-10 col-sm-10" id="items" style="margin-top: 30px; margin-bottom: 70px;">
-				<table class="table table-striped">
+			<div id="items"  class="col-lg-10 col-sm-10" style="margin-top: 30px; margin-bottom: 70px;">
+				<table id="itemTable" class="table table-striped">
 					<thead>
 						<tr>
 							<th scope="col">상품번호</th>

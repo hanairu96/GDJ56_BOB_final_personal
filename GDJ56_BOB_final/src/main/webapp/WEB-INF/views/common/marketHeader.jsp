@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<script src="${path}/resources/pato/js/jquery-3.6.1.min.js"></script>
+	<script src="${path}/resources/js/jquery-3.6.1.min.js"></script>
 </head>
 <body>
     <div class="col-lg-6">

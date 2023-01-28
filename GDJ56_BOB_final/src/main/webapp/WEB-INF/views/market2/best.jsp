@@ -8,7 +8,7 @@
 <script>console.log("${path }");</script>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<jsp:include page="/WEB-INF/views/common/marketHeader.jsp"/>
+<jsp:include page="/WEB-INF/views/common/marketHeader2.jsp"/>
 <html>
 <head>
 <meta charset="UTF-8">

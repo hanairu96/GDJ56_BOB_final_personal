@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.today.bab.market2.model.dao.MarketDao;
 import com.today.bab.market2.model.vo.SellItem;
+import com.today.bab.market2.model.vo.TodayBob;
 
 @Service
 public class MarketServiceImpl implements MarketService {
@@ -24,14 +25,17 @@ public class MarketServiceImpl implements MarketService {
 	}
 	
 	@Override
-	public List<SellItem> sellItemAll() {
-		// TODO Auto-generated method stub
-		return dao.sellItemAll(session);
+	public List<SellItem> sellItemAll(Map<String, Object> param) {
+		return dao.sellItemAll(session, param);
+	}
+	
+	@Override
+	public List<SellItem> bestItems() {
+		return dao.bestItems(session);
 	}
 	
 	@Override
 	public int discountUpdate(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		int result = dao.discountUpdateBefore(session, param);
 		if(result>0) {// ! update된 개수도 세야함
 			dao.discountUpdate(session, param);
@@ -40,8 +44,17 @@ public class MarketServiceImpl implements MarketService {
 	}
 	
 	@Override
+	public List<TodayBob> todayBobList() {
+		return dao.todayBobList(session);
+	}
+	
+	@Override
+	public int todayBobListCount() {
+		return dao.todayBobListCount(session);
+	}
+	
+	@Override
 	public List<SellItem> discountItemAll() {
-		// TODO Auto-generated method stub
 		return dao.discountItemAll(session);
 	}
 	

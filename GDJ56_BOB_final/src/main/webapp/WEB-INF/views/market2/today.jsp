@@ -21,41 +21,45 @@
 <body class="animsition">
 <section id="item_banner" style="margin-top: 150px;">
 	<!-- 개수별for문분기처리 -->
-	<!-- 3개까지
-	<div class="todaybab_title">
-		<h3>💳만원대 추천 상품</h3>
-		<h3>🚚무료 배송 상품</h3>
-		<h3>🐣냉장고 속 단골 재료</h3>
-	</div>
-	4개일경우
-	<div class="todaybab_title">
-		<h3>💳만원대 추천 상품</h3>
-		<h3>🚚무료 배송 상품</h3>
-	</div>
-	<div class="todaybab_title">
-		<h3>🌊바다의 맛</h3>
-		<h3>💪급진급빠 다이어터 식단</h3>
-	</div> -->
+	<!-- 3개까지 -->
+	<c:if test="${relistCnt <= 3}">
+		<div class="todaybab_title">
+			<h3>${relist.get(0).reIcon }${relist.get(0).reTitle }</h3>
+			<h3>${relist.get(1).reIcon }${relist.get(1).reTitle }</h3>
+			<h3>🐣냉장고 속 단골 재료</h3>
+		</div>
+	</c:if>
+	<!-- 4개일경우 -->
+	<c:if test="${relistCnt == 4}">
+		<div class="todaybab_title">
+			<h3>💳만원대 추천 상품</h3>
+			<h3>🚚무료 배송 상품</h3>
+		</div>
+		<div class="todaybab_title">
+			<h3>🌊바다의 맛</h3>
+			<h3>💪급진급빠 다이어터 식단</h3>
+		</div>
+	</c:if>
 	<!-- 5개일경우 -->
-	<div class="todaybab_title">
-		<a href="#"><h3>💳1만원대 추천 상품</h3></a>
-		<a href="#"><h3>🚚무료 배송 상품</h3></a>
-		<a href="#"><h3>🐣냉장고 속 단골 재료</h3></a>
-	</div>
-	<div class="todaybab_title">
-		<a href="#"><h3>🌊바다의 맛</h3></a>
-		<a href="#"><h3>💪급진급빠 다이어터 식단</h3></a>
-	</div>
+	<c:if test="${relistCnt == 5}">
+		<div class="todaybab_title">
+			<a href="#"><h3>💳1만원대 추천 상품</h3></a>
+			<a href="#"><h3>🚚무료 배송 상품</h3></a>
+			<a href="#"><h3>🐣냉장고 속 단골 재료</h3></a>
+		</div>
+		<div class="todaybab_title">
+			<a href="#"><h3>🌊바다의 맛</h3></a>
+			<a href="#"><h3>💪급진급빠 다이어터 식단</h3></a>
+		</div>
+	</c:if>
 </section>
 
 <div style="display: flex; margin-left: 65%; margin-bottom: 30px;">
-	<!-- btn(등록,수정) ->타이틀이 5개로 차면(max5) 등록하기는 안 보이고 수정하기만 보이게 -->
-	<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4">
-		등록하기
-	</button>
-	<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-left:2%">
-		수정하기
-	</button>
+	<c:if test="${relistCnt <= 5}"><!-- btn(등록,수정) ->타이틀이 5개로 차면(max5) 등록하기는 안 보이고 수정하기만 보이게 -->
+		<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" onclick="location.replace('${path}/market/todayAdmin.do')">등록하기</button>
+	</c:if>
+	<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-left:2%">수정하기</button>
+	
 </div>
 <!-- todaybab -->
 <section class="discount-section spad">

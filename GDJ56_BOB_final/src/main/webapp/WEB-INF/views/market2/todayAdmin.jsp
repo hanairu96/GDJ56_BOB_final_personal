@@ -34,7 +34,7 @@
 		<div class="col-lg-4">
 			<div class="dis-flex">
 				<div class="p-r-40">
-					<img src="images/icons/map-icon.png" alt="IMG-ICON">
+					<span id="reIconPrint"></span>
 				</div>
 
 				<div class="flex-col-l">
@@ -69,10 +69,31 @@
 				class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="reContent" placeholder="예시)놓치면 후회할 가격!">
 			</div>
 
-			<!-- 아이콘 -->
+			<!-- 아이콘이모지 -->
 			<span class="txt9">
-				아이콘넣는버튼으로바꾸기
+				<button class="btn btn-outline-success my-2 my-sm-0"
+						data-toggle="modal" data-target="#aa" type="button">이모지</button>
 			</span>
+			<div class="modal" tabindex="-1" id="aa">
+			  <div id="aaa" class="modal-dialog modal-dialog-scrollable">
+			    <div class="modal-content">
+			      <div class="modal-body">
+			        <p>
+						<c:forEach var="es" items="${emojis}">
+							<c:forEach var="e" items="${es }">
+								<button type="button" class="emojiselect" value="<c:out value="${e }"/>" onclick="fn_emoji(event);"><c:out value="${e }"/></button>
+							</c:forEach>
+						</c:forEach>
+					</p>
+			      </div>
+			      <div class="modal-footer">
+					<button type="submit" class="btn btn-outline-success">로그인</button>
+					<button type="button" class="btn btn-outline-success"
+					data-dismiss="modal">취소</button>
+				</div>
+			    </div>
+			  </div>
+			</div>
 
 			<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
 				<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="reIcon" placeholder="예시)">
@@ -224,18 +245,13 @@
 	const fn_eventKeyup2 = (str)=>{
 		$("#reContentPrint").html(str);
 	}
-	const fn_eventKeyup3 = (str)=>{
-		$("#reIconPrint").html(str);
-	}
-
-	var cbArr = new Array(); //체크한 상품번호를 저장할 배열
-	const fn_makeItemArr = (target)=>{
-			var checkVal = target.value;
-			var confirmCheck = target.checked;
-			if(confirmCheck == true){	cbArr.push(checkVal);	}
-			else{	cbArr.splice(cbArr.indexOf(checkVal), 1);	}
-			console.log("검색할 값 : "+cbArr);
-			console.log(cbArr);
+	const fn_emoji = (e)=>{
+		console.log($(e.target).val());
+		$("#reIconPrint").html($(e.target).val());
+		
+		
+		$('#aaa').modal('hide');
+		
 	}
 </script>
 
@@ -246,6 +262,11 @@
 
 </body>
 <style>
+	.modal-dialog{
+		width: 20%;
+		height: 20%;
+		position:[10,20];
+	}
 	/* 전체 글씨체 */
 	*{
 		font-family: 'Gowun Dodum', sans-serif;

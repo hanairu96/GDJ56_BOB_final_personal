@@ -4,15 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.today.bab.market2.controller.Emojis;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.today.bab.common.Market2PageBar;
 import com.today.bab.market2.model.service.MarketService;
 import com.today.bab.market2.model.vo.SellItem;
+import com.today.bab.market2.model.vo.TodayBob;
 
 @Controller
 public class MarketController {
@@ -29,8 +31,16 @@ public class MarketController {
 	//.tab 페이징처리, 100개만, 할인상품만, 매개변수로 값 받아서 동적쿼리만들기
 	@RequestMapping("/market/best.do")
 	public ModelAndView bestItemAll(ModelAndView mv) {
-
+		//List<SellItem> bests = service.bestItems();
+		
 		mv.setViewName("market2/best");
+		System.out.println(mv);
+		return mv;
+	}
+	@RequestMapping("/market/discount.do")
+	public ModelAndView discountItemAll(ModelAndView mv) {
+
+		mv.setViewName("market2/discount");
 		System.out.println(mv);
 		return mv;
 	}
@@ -52,20 +62,53 @@ public class MarketController {
 //	}
 	@RequestMapping("/market/today.do")
 	public ModelAndView todayItemAll(ModelAndView mv) {
-
+		List<TodayBob> list = service.todayBobList();
+		int listCnt = service.todayBobListCount();
+		mv.addObject("relist",list);
+		mv.addObject("relistCnt",listCnt);
 		mv.setViewName("market2/today");
 		System.out.println(mv);
 		return mv;
 	}
 	//tab./
 	
-	@RequestMapping("/market/discountAdmin.do")
+/*	@RequestMapping("/market/discountAdmin.do")
 	public ModelAndView discountAdmin(ModelAndView mv) {
 		List<SellItem> list = service.sellItemAll();
 		mv.addObject("allItems",list);
 		mv.setViewName("market2/discountAdmin");
 		System.out.println(mv);
 		return mv;
+	}*/
+	@RequestMapping("/market/discountAdmin.do")
+	public ModelAndView discountAdmin(ModelAndView mv, String value) {
+		
+		Map<String, Object> param = new HashMap();
+		param.put("value", value);
+		
+		List<SellItem> list = service.sellItemAll(param);
+		mv.addObject("allItems",list);
+		mv.setViewName("market2/discountAdmin");
+		System.out.println(mv);
+		return mv;
+	}
+//	@RequestMapping("/market/discountAdminAjax.do") //ajax로검색
+//	@ResponseBody
+//	public List<SellItem> discountAdmin(String value) {
+//		List<SellItem> list = service.sellItemAll(value);
+//		return list;
+//	}
+	@RequestMapping("/market/discountAdminAjax.do") //ajax로검색
+	@ResponseBody
+	public List<SellItem> discountAdmin(String value, String selectOp) {
+		
+		Map<String, Object> param = new HashMap();
+		param.put("value", value);
+		param.put("selectOp", selectOp);
+		System.out.println(selectOp);
+		
+		List<SellItem> list = service.sellItemAll(param);
+		return list;
 	}
 	@RequestMapping("/market/discountAdminEnd.do") //완료
 	public ModelAndView discountAdminEnd(ModelAndView mv, String yArr, String[] chItems) {
@@ -99,7 +142,8 @@ public class MarketController {
 	}
 	@RequestMapping("/market/todayAdmin.do")
 	public ModelAndView todayAdmin(ModelAndView mv) {
-
+		
+		mv.addObject("emojis", Emojis.getAllEmojisSortedByCategory());//이모지
 		mv.setViewName("market2/todayAdmin");
 
 		return mv;
