@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath }"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="path" value="${pageContext.request.contextPath }"/> 
 
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
@@ -250,7 +252,7 @@
           <div class="container px-6 mx-auto grid" style="text-align: center;">
             <h2
                 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
-              > OOO 님의 원데이클래스
+              >  '${master.name }' 님의 원데이클래스
             </h2>
           </div>
           
@@ -268,16 +270,25 @@
           
 
             <div 
-              style="margin-left: 10px;width:650px;height: 350px;overflow: scroll;"
+              style="margin-left: 10px;width:800px;height: 350px;overflow: scroll;"
               class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
               <label class="block text-sm">
                 <div style="text-align:center;">
                   <span style="font-size: 15px;  text-shadow:  1px 1px 1px lightgrey;" class="text-gray-700 dark:text-gray-400"><b>진행중 클래스</b></span>
                 </div>
                     <!-- New Table -->
+                    
                 <div  style="margin-top: 15px;" class="w-full overflow-hidden rounded-lg shadow-xs">
                   <div class="w-full overflow-x-auto">
                     <table class="w-full whitespace-no-wrap" style="text-align:center;">
+                    	<c:if test="${empty classIng }">
+		                  	 <thead>
+				            	<tr>
+				            		<td colspan="5">진행중인 클래스가 없습니다 :(</td>
+				            	</tr>
+				            </thead>
+			            </c:if>
+                      <c:if test="${not empty classIng }">
                       <thead>
                         <tr
                           class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
@@ -292,246 +303,45 @@
                       <tbody
                         class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                       >
-                        <tr class="text-gray-700 dark:text-gray-400">
-                          <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                              <!-- Avatar with inset shadow -->
-                              <div
-                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                              >
-                                <img
-                                  class="object-cover w-full h-full rounded-full"
-                                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                  alt=""
-                                  loading="lazy"
-                                />
-                                <div
-                                  class="absolute inset-0 rounded-full shadow-inner"
-                                  aria-hidden="true"
-                                ></div>
-                              </div>
-                              <div style="display: flex;flex-direction: row;">
-                                <p class="font-semibold"><a href="adminMasterInfo.html">저염식치즈만들기</a></p>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            베이킹
-                          </td>
-                          <td class="px-4 py-3 text-xs">
-                            2023/01/19 ~ 2023/01/30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            17:30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                          25,000
-                          </td>
-                        </tr>
-
-                        <tr class="text-gray-700 dark:text-gray-400">
-                          <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                              <!-- Avatar with inset shadow -->
-                              <div
-                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                              >
-                                <img
-                                  class="object-cover w-full h-full rounded-full"
-                                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                  alt=""
-                                  loading="lazy"
-                                />
-                                <div
-                                  class="absolute inset-0 rounded-full shadow-inner"
-                                  aria-hidden="true"
-                                ></div>
-                              </div>
-                              <div style="display: flex;flex-direction: row;">
-                                <p class="font-semibold"><a href="adminMasterInfo.html">저염식치즈만들기</a></p>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            베이킹
-                          </td>
-                          <td class="px-4 py-3 text-xs">
-                            2023/01/19 ~ 2023/01/30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            17:30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                          25,000
-                          </td>
-                        </tr>
-
-                        <tr class="text-gray-700 dark:text-gray-400">
-                          <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                              <!-- Avatar with inset shadow -->
-                              <div
-                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                              >
-                                <img
-                                  class="object-cover w-full h-full rounded-full"
-                                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                  alt=""
-                                  loading="lazy"
-                                />
-                                <div
-                                  class="absolute inset-0 rounded-full shadow-inner"
-                                  aria-hidden="true"
-                                ></div>
-                              </div>
-                              <div style="display: flex;flex-direction: row;">
-                                <p class="font-semibold"><a href="adminMasterInfo.html">저염식치즈만들기</a></p>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            베이킹
-                          </td>
-                          <td class="px-4 py-3 text-xs">
-                            2023/01/19 ~ 2023/01/30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            17:30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                          25,000
-                          </td>
-                        </tr>
-
-                        <tr class="text-gray-700 dark:text-gray-400">
-                          <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                              <!-- Avatar with inset shadow -->
-                              <div
-                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                              >
-                                <img
-                                  class="object-cover w-full h-full rounded-full"
-                                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                  alt=""
-                                  loading="lazy"
-                                />
-                                <div
-                                  class="absolute inset-0 rounded-full shadow-inner"
-                                  aria-hidden="true"
-                                ></div>
-                              </div>
-                              <div style="display: flex;flex-direction: row;">
-                                <p class="font-semibold"><a href="adminMasterInfo.html">저염식치즈만들기</a></p>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            베이킹
-                          </td>
-                          <td class="px-4 py-3 text-xs">
-                            2023/01/19 ~ 2023/01/30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            17:30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                          25,000
-                          </td>
-                        </tr>
-                        
-                        <tr class="text-gray-700 dark:text-gray-400">
-                          <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                              <!-- Avatar with inset shadow -->
-                              <div
-                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                              >
-                                <img
-                                  class="object-cover w-full h-full rounded-full"
-                                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                  alt=""
-                                  loading="lazy"
-                                />
-                                <div
-                                  class="absolute inset-0 rounded-full shadow-inner"
-                                  aria-hidden="true"
-                                ></div>
-                              </div>
-                              <div style="display: flex;flex-direction: row;">
-                                <p class="font-semibold"><a href="adminMasterInfo.html">저염식치즈만들기</a></p>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            베이킹
-                          </td>
-                          <td class="px-4 py-3 text-xs">
-                            2023/01/19 ~ 2023/01/30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            17:30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                          25,000
-                          </td>
-                        </tr>
-                        <tr class="text-gray-700 dark:text-gray-400">
-                          <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                              <!-- Avatar with inset shadow -->
-                              <div
-                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                              >
-                                <img
-                                  class="object-cover w-full h-full rounded-full"
-                                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                  alt=""
-                                  loading="lazy"
-                                />
-                                <div
-                                  class="absolute inset-0 rounded-full shadow-inner"
-                                  aria-hidden="true"
-                                ></div>
-                              </div>
-                              <div style="display: flex;flex-direction: row;">
-                                <p class="font-semibold"><a href="adminMasterInfo.html">저염식치즈만들기</a></p>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            베이킹
-                          </td>
-                          <td class="px-4 py-3 text-xs">
-                            2023/01/19 ~ 2023/01/30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            17:30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                          25,000
-                          </td>
-                        </tr>
-
-                      
-                      </tbody>
+                        <c:forEach var="ci" items="${classIng }" >
+	                        <tr class="text-gray-700 dark:text-gray-400">
+	                          <td class="px-4 py-3">
+	                            <div class="flex items-center text-sm">
+	                              <div style="display: flex;flex-direction: row;">
+	                                <p class="font-semibold"><a href=""><c:out value="${ci.odcClassName}"/></a></p>
+	                              </div>
+	                            </div>
+	                          </td>
+	                          <td class="px-4 py-3 text-sm">
+	                            <c:out value="${ci.odcCategoty}"/>
+	                          </td>
+	                          <td class="px-4 py-3 text-xs">
+	                            <c:out value="${ci.odcStartDate}"/> ~ <c:out value="${ci.odcEndDate}"/>
+	                          </td>
+	                          <td class="px-4 py-3 text-sm">
+	                            <c:out value="${ci.odcStartTime}"/>
+	                          </td>
+	                          <td class="px-4 py-3 text-sm">
+	                          	<c:out value="${ci.odcPrice}"/>
+	                          </td>
+	                        </tr>
+	                      </c:forEach>
+		                 </tbody>
+	                  </c:if>
                     </table>
                   </div>
                 </div>
-
-
-
               </label>
             </div>
 
           </div>
 
           <div 
-            style="display: flex; flex-direction: row;"
+            style="height:auto;display: flex; flex-direction: row;"
             class="container px-6 mx-auto grid">
             
               <div
-              style="width: 300px;height:350px;"
+              style="width: 300px;"
               class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
               >
               <label class="block text-sm">
@@ -539,22 +349,10 @@
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                   placeholder=""
-                  value="abcde"
+                  value="${master.memberId }"
+                  readonly
                 />
               </label>
-
-                <div class="mt-4 text-sm">
-                  <div class="mt-2">
-                    <label class="block text-sm">
-                      <span class="text-gray-700 dark:text-gray-400"><b>이름</b></span>
-                      <input
-                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                        placeholder=""
-                        value="김강사"
-                      />
-                    </label>
-                  </div>
-                </div>
 
                 <div class="mt-4 text-sm">
                   <div class="mt-2">
@@ -563,21 +361,56 @@
                       <input
                         class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                         placeholder=""
-                        value="요리킹조리킹"
+                        value="${master.name }"
+                  		readonly
                       />
                     </label>
                   </div>
                 </div>
 
+				<div class="mt-4 text-sm">
+                  <div class="mt-2">
+                    <label class="block text-sm">
+                      <span class="text-gray-700 dark:text-gray-400"><b>활동이력</b></span>
+                      <c:if test="${not empty history }">
+                      	<c:forEach var="mh" items="${history}">
+		                      <input
+		                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+		                        value="${mh}"
+		                 	 	readonly
+		                      />
+	                      </c:forEach>
+	                    </c:if>
+                      <c:if test="${empty history }">
+                      		<input
+		                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+		                        value="없음"
+		                 	 	readonly
+		                      />
+                      </c:if>
+                    </label>
+                  </div>
+                </div>
+                
                 <div class="mt-4 text-sm">
                   <div class="mt-2">
                     <label class="block text-sm">
                       <span class="text-gray-700 dark:text-gray-400"><b>장인시작</b></span>
-                      <input
-                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                        placeholder=""
-                        value="2023/01/19"
-                      />
+                        <c:if test="${fn:contains(master.ing,'B')}">
+	                      <input
+	                        style="background-color:lightgray;"
+	                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+	                        value="${master.testDate}~ 자격박탈" 
+	                 	 	readonly
+	                      />
+	                    </c:if>
+	                    <c:if test="${!fn:contains(master.ing,'B')}">
+	                      <input
+	                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+	                        value="${master.testDate}" 
+	                 	 	readonly
+	                      />
+	                    </c:if>
                     </label>
                   </div>
                 </div>
@@ -585,7 +418,7 @@
           
 
             <div 
-              style="margin-left: 10px;width:650px;height: 350px;overflow: scroll; "
+              style="margin-left: 10px;width:800px;overflow: scroll; "
               class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
               <label class="block text-sm">
                 <div style="text-align:center;">
@@ -595,243 +428,53 @@
                 <div style="margin-top: 15px;" class="w-full overflow-hidden rounded-lg shadow-xs">
                   <div class="w-full overflow-x-auto">
                     <table class="w-full whitespace-no-wrap" style="text-align:center;">
-                      <thead>
-                        <tr
-                          class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-                        >
-                          <th class="px-4 py-3">클래스</th>
-                          <th class="px-4 py-3">카테고리</th>
-                          <th class="px-4 py-3">기간</th>
-                          <th class="px-4 py-3">수업시간</th>
-                          <th class="px-4 py-3">가격</th>
-                        </tr>
-                      </thead>
-                      <tbody
-                        class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
-                      >
-                        <tr class="text-gray-700 dark:text-gray-400">
-                          <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                              <!-- Avatar with inset shadow -->
-                              <div
-                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                              >
-                                <img
-                                  class="object-cover w-full h-full rounded-full"
-                                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                  alt=""
-                                  loading="lazy"
-                                />
-                                <div
-                                  class="absolute inset-0 rounded-full shadow-inner"
-                                  aria-hidden="true"
-                                ></div>
-                              </div>
-                              <div style="display: flex;flex-direction: row;">
-                                <p class="font-semibold"><a href="adminMasterInfo.html">저염식치즈만들기</a></p>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            베이킹
-                          </td>
-                          <td class="px-4 py-3 text-xs">
-                            2023/01/19 ~ 2023/01/30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            17:30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                          25,000
-                          </td>
-                        </tr>
-                        
-                        <tr class="text-gray-700 dark:text-gray-400">
-                          <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                              <!-- Avatar with inset shadow -->
-                              <div
-                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                              >
-                                <img
-                                  class="object-cover w-full h-full rounded-full"
-                                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                  alt=""
-                                  loading="lazy"
-                                />
-                                <div
-                                  class="absolute inset-0 rounded-full shadow-inner"
-                                  aria-hidden="true"
-                                ></div>
-                              </div>
-                              <div style="display: flex;flex-direction: row;">
-                                <p class="font-semibold"><a href="adminMasterInfo.html">저염식치즈만들기</a></p>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            베이킹
-                          </td>
-                          <td class="px-4 py-3 text-xs">
-                            2023/01/19 ~ 2023/01/30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            17:30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                          25,000
-                          </td>
-                        </tr>
-                        <tr class="text-gray-700 dark:text-gray-400">
-                          <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                              <!-- Avatar with inset shadow -->
-                              <div
-                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                              >
-                                <img
-                                  class="object-cover w-full h-full rounded-full"
-                                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                  alt=""
-                                  loading="lazy"
-                                />
-                                <div
-                                  class="absolute inset-0 rounded-full shadow-inner"
-                                  aria-hidden="true"
-                                ></div>
-                              </div>
-                              <div style="display: flex;flex-direction: row;">
-                                <p class="font-semibold"><a href="adminMasterInfo.html">저염식치즈만들기</a></p>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            베이킹
-                          </td>
-                          <td class="px-4 py-3 text-xs">
-                            2023/01/19 ~ 2023/01/30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            17:30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                          25,000
-                          </td>
-                        </tr>
-
-                        <tr class="text-gray-700 dark:text-gray-400">
-                          <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                              <!-- Avatar with inset shadow -->
-                              <div
-                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                              >
-                                <img
-                                  class="object-cover w-full h-full rounded-full"
-                                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                  alt=""
-                                  loading="lazy"
-                                />
-                                <div
-                                  class="absolute inset-0 rounded-full shadow-inner"
-                                  aria-hidden="true"
-                                ></div>
-                              </div>
-                              <div style="display: flex;flex-direction: row;">
-                                <p class="font-semibold"><a href="adminMasterInfo.html">저염식치즈만들기</a></p>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            베이킹
-                          </td>
-                          <td class="px-4 py-3 text-xs">
-                            2023/01/19 ~ 2023/01/30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            17:30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                          25,000
-                          </td>
-                        </tr>
-
-                        <tr class="text-gray-700 dark:text-gray-400">
-                          <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                              <!-- Avatar with inset shadow -->
-                              <div
-                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                              >
-                                <img
-                                  class="object-cover w-full h-full rounded-full"
-                                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                  alt=""
-                                  loading="lazy"
-                                />
-                                <div
-                                  class="absolute inset-0 rounded-full shadow-inner"
-                                  aria-hidden="true"
-                                ></div>
-                              </div>
-                              <div style="display: flex;flex-direction: row;">
-                                <p class="font-semibold"><a href="adminMasterInfo.html">저염식치즈만들기</a></p>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            베이킹
-                          </td>
-                          <td class="px-4 py-3 text-xs">
-                            2023/01/19 ~ 2023/01/30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            17:30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                          25,000
-                          </td>
-                        </tr>
-
-                        <tr class="text-gray-700 dark:text-gray-400">
-                          <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                              <!-- Avatar with inset shadow -->
-                              <div
-                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                              >
-                                <img
-                                  class="object-cover w-full h-full rounded-full"
-                                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                  alt=""
-                                  loading="lazy"
-                                />
-                                <div
-                                  class="absolute inset-0 rounded-full shadow-inner"
-                                  aria-hidden="true"
-                                ></div>
-                              </div>
-                              <div style="display: flex;flex-direction: row;">
-                                <p class="font-semibold"><a href="adminMasterInfo.html">저염식치즈만들기</a></p>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            베이킹
-                          </td>
-                          <td class="px-4 py-3 text-xs">
-                            2023/01/19 ~ 2023/01/30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                            17:30
-                          </td>
-                          <td class="px-4 py-3 text-sm">
-                          25,000
-                          </td>
-                        </tr>
-
-                      
-                      </tbody>
+                    	<c:if test="${empty classEnd }">
+		                  	 <thead>
+				            	<tr>
+				            		<td colspan="5">종료된 클래스가 없습니다 :(</td>
+				            	</tr>
+				            </thead>
+			            </c:if>
+                      <c:if test="${not empty classEnd }">
+	                      <thead>
+	                        <tr
+	                          class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+	                        >
+	                          <th class="px-4 py-3">클래스</th>
+	                          <th class="px-4 py-3">카테고리</th>
+	                          <th class="px-4 py-3">기간</th>
+	                          <th class="px-4 py-3">수업시간</th>
+	                          <th class="px-4 py-3">가격</th>
+	                        </tr>
+	                      </thead>
+	                      <tbody
+	                        class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+	                      >
+	                      	<c:forEach var="ce" items="${classEnd }" >
+		                        <tr class="text-gray-700 dark:text-gray-400">
+		                          <td class="px-4 py-3">
+		                            <div class="flex items-center text-sm">
+		                              <div style="display: flex;flex-direction: row;">
+		                                <p class="font-semibold"><a href=""><c:out value="${ce.odcClassName}"/></a></p>
+		                              </div>
+		                            </div>
+		                          </td>
+		                          <td class="px-4 py-3 text-sm">
+		                            <c:out value="${ce.odcCategoty}"/>
+		                          </td>
+		                          <td class="px-4 py-3 text-xs">
+		                            <c:out value="${ce.odcStartDate}"/> ~ <c:out value="${ce.odcEndDate}"/>
+		                          </td>
+		                          <td class="px-4 py-3 text-sm">
+		                            <c:out value="${ce.odcStartTime}"/>
+		                          </td>
+		                          <td class="px-4 py-3 text-sm">
+		                          	<c:out value="${ce.odcPrice}"/>
+		                          </td>
+		                        </tr>
+							</c:forEach>
+                      	</tbody>
+                      </c:if>
                     </table>
                   </div>
                 </div>
@@ -845,47 +488,78 @@
            
           </div>
           <div style="text-align: center;">
-            <button
-            id="adminMemberDeleteBtn"
-            style="background-color: white;color: red;border: 1.5px solid red; font-size: 15px;height:50px;"
-            class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-          >
-            장인 자격 박탈
-          </button>
+          	<c:if test="${!fn:contains(master.ing,'B')}">
+	            <button
+	            id="adminMasterDeleteBtn"
+	            value="${master.memberId }"
+	            style="background-color: white;color: red;border: 1.5px solid red; font-size: 15px;height:50px;"
+	            class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+	          >
+	            장인 자격 박탈
+	          </button>
+          </c:if>
+          <c:if test="${fn:contains(master.ing,'B')}">
+	            <button
+	            style="background-color: red;color: white;border: 1.5px solid red; font-size: 15px;height:50px;"
+	            class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+	          >
+	          	이미 박탈된 회원입니다
+	          </button>
+          </c:if>
 
         </div>
         </main>
       </div>
     </div>
 
-<!-- 장인 자격 박탈 -->
-<div
-id="modal_adminMemberDelete" style="width:500px;height:auto; display: none;background-color: white;border-radius: 15px 15px;text-align: left;"
-  class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
- <h1 style="text-align: center;"><b>장인 자격 박탈 처리합니다. 확실하십니까?</b></h1>
-
- <label class="block mt-4 text-sm">
-  <span class="text-gray-700 dark:text-gray-400"><b>이유</b></span>
-  <textarea
-    class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-    rows="6"
-    placeholder=""
-  ></textarea>
-</label>
-
-  <div style="margin-top:16px;text-align: center;">
-    <button
-      style="display :inline-block;background-color: white; border: 1.5px solid purple; color: purple;"
-      class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-    >
-    확인
-    </button>
-    </div>
-</div>
-    
+	<!-- 장인 자격 박탈 -->
+	<form action="${path}/admin/masterDelete.do?memberId=${master.memberId}" method="post">
+		<div
+		id="modal_adminMasterDelete" style="width:500px;height:auto; display: none;background-color: white;border-radius: 15px 15px;text-align: left;"
+		  class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+		 <h1 style="text-align: center;"><b>장인 자격 박탈 처리합니다. 확실하십니까?</b></h1>
+		
+		 <label class="block mt-4 text-sm">
+		  <span class="text-gray-700 dark:text-gray-400"><b>이유</b></span>
+		  <textarea
+		    class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+		    name="masterDeleteText"
+		    rows="6"
+		    
+		  ></textarea>
+		</label>
+		
+		  <div style="margin-top:16px;text-align: center;">
+		    <button
+		       type="reset"
+		       style="display :inline-block;background-color: white; border: 1.5px solid red; color: red;"
+		       class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+		     >
+		     취소
+		     </button>
+		     <button
+		       type="submit"
+		       style="display :inline-block;background-color: white; border: 1.5px solid purple; color: purple;"
+		       class="modal_submit_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+		     >
+		     확인
+		     </button>
+		     </div>
+		</div>
+	</form>
 
 <script>
-  function modal(id) {
+	//바로 실행되는 메소드
+	$(document).ready(function(){
+		const url = new URL(window.location.href); //현재 url가져오기
+		const urlParams = url.searchParams; //특정 파라미터 값 읽기
+		if(urlParams.get('ing')=='B'){
+			alert("이미 박탈된 회원입니다.");
+		}
+	});
+
+  //모달창 스크립트
+  function modal(id,e) {
      var zIndex = 9999;
      var modal = document.getElementById(id);
   
@@ -925,6 +599,12 @@ id="modal_adminMemberDelete" style="width:500px;height:auto; display: none;backg
          msTransform: 'translate(-50%, -50%)',
          webkitTransform: 'translate(-50%, -50%)'
      });
+     
+     // 취소 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+	   modal.querySelector('.modal_close_btn').addEventListener('click', function() {
+	       bg.remove();
+	       modal.style.display = 'none';
+	   });
   }
   
   // Element 에 style 한번에 오브젝트로 설정하는 함수 추가
@@ -932,13 +612,9 @@ id="modal_adminMemberDelete" style="width:500px;height:auto; display: none;backg
      for (var k in styles) this.style[k] = styles[k];
      return this;
   };
-  
-  //자격박탈
-  document.getElementById('adminMemberDeleteBtn').addEventListener('click', function() {
-  
-     // 모달창 띄우기
-     modal('modal_adminMemberDelete');
-  });
+  document.getElementById('adminMasterDeleteBtn').addEventListener('click', function(e) {
+      modal('modal_adminMasterDelete',e.target.value);
+    }); 
   </script>
 
 

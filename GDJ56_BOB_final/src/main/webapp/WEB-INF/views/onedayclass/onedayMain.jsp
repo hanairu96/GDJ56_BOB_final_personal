@@ -11,10 +11,6 @@
 <head>
 	<title>원데이클래스</title>
 	<meta charset="UTF-8">
-	<!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
@@ -34,13 +30,13 @@
 				<button class="menu txt26 trans-0-4" style="background-color:#bde28f; color:white;" onclick="location.assign('${path}/class/main.do')">
 					전체
 				</button>
-				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/menu.do?type=bob')">
+				<button class="menu txt26 trans-0-4" name="bab" onclick="location.assign('${path}/class/menu.do?type=bob')">
 					🍚집밥
 				</button>
 				<button class="menu txt26 trans-0-4" name="vegan" onclick="location.assign('${path}/class/menu.do?type=vegan')">
 					🥑비건
 				</button>
-				<button class="menu txt26 trans-0-4" name="healty" onclick="location.assign('${path}/class/menu.do?dotype=healthy')">
+				<button class="menu txt26 trans-0-4" name="healty" onclick="location.assign('${path}/class/menu.do?type=healthy')">
 					💪건강식
 				</button>
 
@@ -60,10 +56,9 @@
 				
 			<form action="${path }/class/search.do">
 				<select name='searchlist' style="padding: 0.3%; margin: 1%; margin-left:-6%;">
-					<option value='choice' >-- 선택 --</option>
-					<option value='cookname'>요리이름</option>
-					<option value='master'>강사</option>
-					<option value='place'>지역</option>
+					<option value='ODC_COOKNAME'>요리이름</option>
+					<option value='M_NAME'>강사</option>
+					<option value='ODC_ADD'>지역</option>
 					<input id="searchclass" type="text" name="search" placeholder="Search" onchange="change();"/>
 					<button class="search-btn">&nbsp; 검색 &nbsp;</button>
 				</select>
@@ -93,7 +88,7 @@
 	               		<c:forEach var="c" items="${classlist}">
 							<div class="col-lg-4" style="padding: 3%;">
 								<div class="zoom">
-									<a href=""><img src="${path}/resources/pato/images/class/${c.odcMainPic}" width="350" height="300"></a>
+									<a href=""><img src="${path}/resources/images/onedayclass/${c.odcMainPic}" width="350" height="300"></a>
 								</div>
 									
 								<div class="category-name" >${c.odcCategoty}</div>
@@ -123,10 +118,14 @@
 				</div>
 				<!-- 글등록,장인등록 -->
 				<div style="display: flex; margin-left: 61%;">
-					<button type="submit" class="btn3 flex-c-m txt11 trans-0-4" style="margin-right: 3%;">
+					<form action="${path }/class/classEnroll.do">
+						<input type="text" name="memberId" value="${loginMember.memberId }">
+						<button type="submit" class="btn3 flex-c-m txt11 trans-0-4" style="margin-right: 3%;">
 						클래스 등록
-					</button>
-					<button type="submit" class="btn3 flex-c-m txt11 trans-0-4">
+						</button>
+					</form>
+				
+					<button type="submit" class="btn3 flex-c-m txt11 trans-0-4" onclick="location.assign('${path}/class/masterEnroll.do')">
 						장인 신청
 					</button>
 				</div>

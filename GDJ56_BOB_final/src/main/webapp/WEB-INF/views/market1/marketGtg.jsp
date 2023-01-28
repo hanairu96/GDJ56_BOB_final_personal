@@ -27,18 +27,30 @@
 
                         <div class="sidebar__item">
                             <h4>카테고리</h4>
-                            <ul>
-                                <li><a href="#">채소</a></li>
-                                <li><a href="#">과일 · 견과 · 쌀</a></li>
-                                <li><a href="#">수산 · 해산 · 건어물</a></li>
-                                <li><a href="#">정육 · 계란</a></li>
-                                <li><a href="#">국 · 반찬 · 메인요리</a></li>
-                                <li><a href="#">샐러드 · 간편식</a></li>
-                                <li><a href="#">면 · 양념 · 오일</a></li>
+                            <ul id="ctgcheck">
+                                <li><a href="">채소</a></li>
+                                <li><a href="">과일 · 견과 · 쌀</a></li>
+                                <li><a href="">수산 · 해산 · 건어물</a></li>
+                                <li><a href="">정육 · 계란</a></li>
+                                <li><a href="">국 · 반찬 · 메인요리</a></li>
+                                <li><a href="">샐러드 · 간편식</a></li>
+                                <li><a href="">면 · 양념 · 오일</a></li>
                             </ul>
                         </div>
+                        <script>
+                        	/* $("#ctgcheck>li>a").click(e=>{
+                        		$.ajax({
+                        			type:'get',
+                        			url:'${path}/market1/searchCtg.do?itemCategory='+${sell.itemCategory},
+                        			data:{
+                        				
+                        			}
+                        		})
+                        		
+                        	}) */
+                       	</script>
 
-                        <div class="sidebar__item">
+                        <div class="sidebar__item" >
                             <h4>가격</h4>
                             <div class="price-range-wrap">
 
@@ -78,7 +90,9 @@
 
                         </div>
                     </div>
-                    <div class="row">
+                    
+                    
+                    <div class="row" id="explain">
                         
                         <%-- <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
@@ -86,6 +100,7 @@
                                 </div>
                                 <div class="product__item__text">
                                     <h6><a href="#">바나나</a></h6>
+                                    
                                     <p>맛있는 바나나</p>
                                     <h5 style="color: tomato;">재입고 준비중입니다</h5>
                                 </div>
@@ -94,31 +109,35 @@
 					<c:forEach var="sell" items="${i }">
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" style="background-image: url('${path }/resources/market/img/product/product-2.jpg')">
+                                <div class="product__item__pic set-bg" style="background-image: url('${path }/resources/upload/market/mainlabel/${sell.mainPic }')">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-shopping-cart" ></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href="${path }/market1/marketdetail.do?itemName=${sell.itemName }"><c:out value="${sell.itemName }"/></a></h6>
+                                    <h6><a href="${path }/market1/marketdetail.do?itemNo=${sell.itemNo }">
+                            	    <c:if test="${sell.itemBrand!=null }">
+							        	[${sell.itemBrand }]
+							        </c:if>
+                                    <c:out value="${sell.itemName }"/>
+                                    </a></h6>
                                     <p><c:out value="${sell.mainContent }"/></p>
                                     <h5><c:out value="${sell.itemPrice }"/>원</h5>
                                 </div>
                             </div>
                         </div>
 					</c:forEach>
-
-
+                </div>
+                
+                
                     <!-- 페이징처리 -->
                     <div class="product__pagination">
-                        <a href="#"><i class="fa fa-long-arrow-left"></i></a>
+                        <a href="#"><i class="fa" style="font-weight:bold;"> &lt; </i></a>
                         <a href="#">1</a>
                         <a href="#">2</a>
                         <a href="#">3</a>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                        <a href="#"><i class="fa" style="font-weight:bold;"> > </i></a>
                     </div>
-
-                </div>
             </div>
         </div>
     </section>

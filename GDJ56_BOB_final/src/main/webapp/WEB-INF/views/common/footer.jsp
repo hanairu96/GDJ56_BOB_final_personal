@@ -21,7 +21,7 @@
 	                    <ul>
 	                        <li>Address: (08505) 서울특별시 금천구 가산디지털로 2로 115(가산동, 대륭테크노타운3차),811호</li>
 	                        <li>Phone: 02-2108-5900 </li>
-	                        <li>Email: todaysbob@naver.com </li>
+	                        <li>Email: todaysbab@naver.com </li>
 	                        <br>
 	                        <li>문의사항 있을 시 연락주세요.&nbsp&nbsp<button id="go-center">고객센터 바로가기</button></li>
 	                    </ul>
@@ -77,6 +77,10 @@
 			}
 	        footer li{
 	            list-style: none;
+	        }
+	        footer h4{
+	        	font-size: 18px;
+	        	font-weight: bolder;
 	        }
 	        .sns>img{
 	            width: 40px;

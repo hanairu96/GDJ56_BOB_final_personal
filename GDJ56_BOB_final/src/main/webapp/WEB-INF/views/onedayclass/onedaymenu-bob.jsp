@@ -57,14 +57,17 @@
 
 		<!-- 검색창 -->
 		<div id="searchbox" >
-			<select name='searchlist' style="padding: 0.3%; margin: 1%; margin-left:-6%;">
-				<option value='choice' >-- 선택 --</option>
-				<option value='cookname'>요리이름</option>
-				<option value='master'>강사</option>
-				<option value='place'>지역</option>
-				<input class="" type="text" name="search" placeholder="Search">
-				<button class="search-btn">&nbsp; 검색 &nbsp;</button>
-			</select>
+				
+			<form action="${path }/class/search.do">
+				<select name='searchlist' style="padding: 0.3%; margin: 1%; margin-left:-6%;">
+					<option value='ODC_COOKNAME'>요리이름</option>
+					<option value='M_NAME'>강사</option>
+					<option value='ODC_ADD'>지역</option>
+					<input id="searchclass" type="text" name="search" placeholder="Search" onchange="change();"/>
+					<button class="search-btn">&nbsp; 검색 &nbsp;</button>
+				</select>
+			</form>
+			
 		</div>
 
 		<script>

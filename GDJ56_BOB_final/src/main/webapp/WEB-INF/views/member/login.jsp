@@ -17,7 +17,7 @@
                     <button type="submit" id="loginBtn" class="customBtn btnStyle">로그인</button>
                 </form>
                 <a href="${path}/member/enrollAgree">회원가입</a>&nbsp;
-                <a href="">아이디/비밀번호 찾기</a>
+                <a href="${path}/member/searchIdPwd">아이디/비밀번호 찾기</a>
             </div>
         </div>
     </section>
@@ -33,6 +33,11 @@
         a{
             color: black;
             text-decoration: none;
+        }
+        a:hover{
+            color: gray;
+            font-style: italic;
+            transition: 0.3s;
         }
         div#login{
             border: 1px solid lightgray;

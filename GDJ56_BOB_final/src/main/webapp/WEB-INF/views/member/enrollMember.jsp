@@ -6,161 +6,119 @@
 	<jsp:param name="title" value="MainPage"/>
 </jsp:include>
 	<section>
-        <div class="container">
-            <div class="row align-items-center justify-content-between"> 
-                <span class="text-dark h4">회원정보 입력</span>                 
-            </div>
-            <form name="enrollMemberFrm" action="${path}/logIn/enrollMemberEnd.do" 
+		<div class="container">
+			<div class="row align-items-center justify-content-between"> 
+				<span class="text-dark h4">회원정보 입력</span>                 
+			</div>
+			<form name="enrollMemberFrm" action="${path}/member/enrollMemberEnd" 
                 method="post" onsubmit="return fn_enrollFail();">
-                <input type="hidden" name="emailAgree" id="emailAgree" value=""/>
                 <div class="form-group">
                     <label for="inputId" class="form-label mt-4">아이디<span class="obli">(필수)</span></label>
-                    <input id="idCheck" type="button" value="중복확인" onclick="idCheck();">
                     <span class="check" id="checkId"><small></small></span>
-                    <input type="text" class="form-control" name="inputId" id="inputId" 
-                        aria-describedby="emailHelp" placeholder="아이디를 입력해주세요" required maxlength="8">
-                    <small class="form-text text-muted">아이디는 5자리 이상 입력하세요</small>
+                    <input type="text" class="form-control" name="memberId" id="inputId" 
+                        aria-describedby="emailHelp" placeholder="아이디를 입력해주세요." required maxlength="12">
+                    <small class="form-text text-muted">아이디는 5~12자리 사이로 입력하세요.</small>
                 </div>
                 <div class="form-group has-success">
                     <label class="form-label mt-4" for="inputPwd">비밀번호<span class="obli">(필수)</span></label>
-                    <input type="password" class="form-control" name="inputPwd" id="inputPwd" placeholder="비밀번호를 입력해주세요" required>
-                    <small id="emailHelp" class="form-text text-muted">비밀번호는 숫자, 영문자를 포함하여 8자리 이상 입력하세요</small>
+                    <input type="password" class="form-control" name="password" id="inputPwd" placeholder="비밀번호를 입력해주세요." required>
+                    <small id="emailHelp" class="form-text text-muted">비밀번호는 영문자와 숫자를 각각 하나 이상 포함하여 8자리 이상 입력하세요.<br>특수문자는 포함하지 않습니다.</small>
                 </div>
                 <div class="form-group has-danger">
                     <label class="form-label mt-4" for="pwdCheck">비밀번호 재확인</label> 
                     <input type="password" class="form-control" name="pwdCheck" id="pwdCheck"
-                        placeholder="비밀번호를 다시한번 입력해주세요">
+                        placeholder="비밀번호를 다시 한번 입력해주세요.">
                     <span class="check" id="checkPwd"><small></small></span>
                 </div>
                 <div class="form-group">
                     <label for="inputName" class="form-label mt-4">이름<span class="obli">(필수)</span></label>
                     <span class="check" id="checkName"><small></small></span>
-                    <input type="text" class="form-control" name="inputName" id="inputName"
-                        placeholder="이름을 입력해주세요" required>
+                    <input type="text" class="form-control" name="mname" id="inputName"
+                        placeholder="이름을 입력해주세요." required>
                 </div>
                 <div class="form-group">
                     <label for="inputNickname" class="form-label mt-4">닉네임<span class="obli">(필수)</span></label>
                     <span class="check" id="checkNickname"><small></small></span>
-                    <input type="text" class="form-control" name="inputNickname" id="inputNickname"
-                        placeholder="닉네임을 입력해주세요" required>
+                    <input type="text" class="form-control" name="nickname" id="inputNickname"
+                        placeholder="닉네임을 입력해주세요." required>
+                    <small id="emailHelp" class="form-text text-muted">한글과 영문자, 숫자만 사용해 2~8자리로 입력해주세요.</small>
                 </div>
                 <div class ="bir_wrap">
                     <label class="form-label mt-4">생년월일<span class="obli">(필수)</span></label>
                     <span class="check" id="checkYear"><small></small></span>
                     <div class="bir_yy">
                         <span class="ps_box">
-                            <input type="text" class="form-control" name="yy" id="yy" 
-                            placeholder="년(4자)" maxlength="4" required>
+                            <input type="text" class="form-control" name="year" id="yy" 
+                            placeholder="연도(4글자)" maxlength="4" required>
                         </span>
                     </div>
                     <div class="bir_mm">
                         <span class="ps_box focus">
                             <select name="month" name="month" id="month" class="custom-select">
-                                <option value="01">1
-                                </option>
-                                <option value="02">2
-                                </option>
-                                <option value="03">3
-                                </option>
-                                <option value="04">4
-                                </option>
-                                <option value="05">5
-                                </option>
-                                <option value="06">6
-                                </option>
-                                <option value="07">7
-                                </option>
-                                <option value="08">8
-                                </option>
-                                <option value="09">9
-                                </option>
-                                <option value="10">10
-                                </option>
-                                <option value="11">11
-                                </option>
-                                <option value="12">12
-                                </option>
+                                <option value="01" selected="selected">1</option>
+                                <option value="02">2</option>
+                                <option value="03">3</option>
+                                <option value="04">4</option>
+                                <option value="05">5</option>
+                                <option value="06">6</option>
+                                <option value="07">7</option>
+                                <option value="08">8</option>
+                                <option value="09">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
                             </select>
                         </span>
                     </div>
                     <div class="bir_dd">
                         <select name="day" name="day" id="day" class="custom-select">
-                            <option value="01" selected="selected">1
-                            </option>
-                            <option value="02">2
-                            </option>
-                            <option value="03">3
-                            </option>
-                            <option value="04">4
-                            </option>
-                            <option value="05">5
-                            </option>
-                            <option value="06">6
-                            </option>
-                            <option value="07">7
-                            </option>
-                            <option value="08">8
-                            </option>
-                            <option value="09">9
-                            </option>
-                            <option value="10">10
-                            </option>
-                            <option value="11">11
-                            </option>
-                            <option value="12">12
-                            </option>
-                            <option value="13">13
-                            </option>
-                            <option value="14">14
-                            </option>
-                            <option value="15">15
-                            </option>
-                            <option value="16">16
-                            </option>
-                            <option value="17">17
-                            </option>
-                            <option value="18">18
-                            </option>
-                            <option value="19">19
-                            </option>
-                            <option value="20">20
-                            </option>
-                            <option value="21">21
-                            </option>
-                            <option value="22">22
-                            </option>
-                            <option value="23">23
-                            </option>
-                            <option value="24">24
-                            </option>
-                            <option value="25">25
-                            </option>
-                            <option value="26">26
-                            </option>
-                            <option value="27">27
-                            </option>
-                            <option value="28">28
-                            </option>
-                            <option value="29">29
-                            </option>
-                            <option value="30">30
-                            </option>
-                            <option value="31">31
-                            </option>
+                            <option value="01" selected="selected">1</option>
+                            <option value="02">2</option>
+                            <option value="03">3</option>
+                            <option value="04">4</option>
+                            <option value="05">5</option>
+                            <option value="06">6</option>
+                            <option value="07">7</option>
+                            <option value="08">8</option>
+                            <option value="09">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputPhone" class="form-label mt-4">핸드폰번호('-'없이 입력해주세요)<span class="obli">(필수)</span></label>
+                    <label for="inputPhone" class="form-label mt-4">핸드폰 번호<span class="obli">(필수)</span></label>
                     <span class="check" id="checkPhone"><small></small></span>
-                    <input type="text" class="form-control" name="inputPhone" id="inputPhone" >
+                    <input type="text" class="form-control" name="phone" id="inputPhone" 
+                    	placeholder="번호를 입력해주세요." maxlength="11" required>
+                    <small id="emailHelp" class="form-text text-muted">'-'없이 입력해주세요.</small>
                 </div>
                 <div class="form-group">
                     <label class="form-label mt-4">성별<span class="obli">(필수)</span></label>
                 </div>  
-                <div class="btn-group " data-toggle="buttons">
+                <div class="btn-group" data-toggle="buttons">
                     <label for="gender1" class="btn btn-outline-secondary">
-                        <input type="radio" class="radio " name="gender" id="gender1" value="M" checked> 남
+                        <input type="radio" class="radio" name="gender" id="gender1" value="M" checked> 남
                     </label>
                     <label for="gender2" class="btn btn-outline-secondary">
                         <input type="radio" class="radio" name="gender" id="gender2" value="F"> 여
@@ -168,14 +126,14 @@
                 </div>      
                 <div class="form-group">
                     <label for="inputEmail" class="form-label mt-4">이메일<span class="obli">(필수)</span></label>
-                    <span class="check" id="checkEmail"><small></small></span>
+                    <span class="check" id="checkEmail" style="color:gray;"><small>사용 가능한 이메일이면 인증 버튼이 나옵니다.</small></span>
                     <div class="email_ee address">
-                        <input type="email" class="form-control" name="inputEmail" id="inputEmail"
-                            placeholder="이메일을 입력해주세요" required>
+                        <input type="email" class="form-control" name="email" id="inputEmail"
+                            placeholder="이메일을 입력해주세요." required>
                     </div>
                     <div class="bir_yy address">
-                        <input id="searchAddr" name="emailconfirm_btn" type="button" value="인증"
-                            onclick="emailcheck();">
+                        <input id="searchAddr" name="emailconfirm_btn" type="button" value="인증" style="display:none;"
+                            onclick="emailCheck();">
                     </div>
                     <span class="check" id="checkCrtfcNo"style="display:none;"><small></small></span>
                     <div class="bir_yy address crtfcNo" style="display:none;" >
@@ -187,24 +145,25 @@
                             onclick="crtNoCheck();">
                     </div>
                 </div>
-                <div class ="adddressContainer">
+                <div class ="addressContainer">
                     <label class="form-label mt-4">주소<span class="obli">(필수)</span></label>
+                    <span class="check" id="checkAddress"><small></small></span>
                     <div class="bir_yy address">
                         <input type="text" class="form-control inputAddr"
-                            name="inputAddress_postcode" id="inputAddress_postcode" placeholder="우편번호" readonly>
+                            name="inputAddressPostcode" id="inputAddress_postcode" placeholder="우편번호" readonly>
                     </div>
                     <div class="bir_yy address">
                         <input id="searchAddr" type="button" value="주소 검색" onclick="sample6_execDaumPostcode()">
                     </div>
                 </div>
-                <div class ="adddressContainer">
+                <div class ="addressContainer">
                     <div class="bir_yy address">
                         <input type="text" class="form-control inputAddr"
-                            name="inputAddress_address" id="inputAddress_address" placeholder="주소" readonly>
+                            name="inputAddressAddress" id="inputAddress_address" placeholder="주소" readonly>
                     </div>
                     <div class="bir_yy address">
                         <input type="text" class="form-control inputAddr" 
-                            name="inputAddress_detailAddress"id="inputAddress_detailAddress" placeholder="상세주소">
+                            name="inputAddressDetailAddress" id="inputAddress_detailAddress" placeholder="상세주소">
                     </div>
                 </div>
                 <div class="form-group">
@@ -212,22 +171,22 @@
                 </div>  
                 <div class="btn-group like-food" data-toggle="buttons">
                     <label for="member-like1" class="btn btn-outline-secondary">
-                        <input type="checkbox" name="member_like" value="vegetable" checked> 채소
+                        <input type="checkbox" name="vege" value="Y"> 채소
                     </label>
                     <label for="member-like2" class="btn btn-outline-secondary">
-                        <input type="checkbox" name="member_like" value="fruit">과일
+                        <input type="checkbox" name="fruit" value="Y"> 과일
                     </label>
                     <label for="member-like3" class="btn btn-outline-secondary">
-                        <input type="checkbox" name="member_like" value="sea"> 수산물
+                        <input type="checkbox" name="sea" value="Y"> 수산물
                     </label>
                     <label for="member-like4" class="btn btn-outline-secondary">
-                        <input type="checkbox" name="member_like" value="meat"> 육류
+                        <input type="checkbox" name="meat" value="Y"> 육류
                     </label>
                     <label for="member-like5" class="btn btn-outline-secondary">
-                        <input type="checkbox" name="member_like" value="side"> 반찬
+                        <input type="checkbox" name="side" value="Y"> 반찬
                     </label>
                 </div><br>
-                <p>추천 상품 목록이 나올 때 반영됩니다.</p>
+                <p><small>추천 상품 목록이 나올 때 반영됩니다.</small></p>
                 <div id="insert">
                     <div class="d-grid">
                         <button class="customBtn btnStyle" type="submit">
@@ -235,16 +194,16 @@
                         </button>
                     </div>
                 </div>
-            </form>
-        </div>
-        <br>
-    </section>
-    <style>
-        #searchAddr, #crtfcNoCheck{
+			</form>
+		</div>
+		<br>
+	</section>
+	<style>
+		#searchAddr, #crtfcNoCheck{
             height: 36px;
             margin-left: 5px;
         }
-        .adddressContainer{
+        .addressContainer{
             margin: 5px;
         }
         .address{
@@ -352,26 +311,23 @@
             margin-top: 50px;
             padding-top: 20px;
         }
-    </style>
-    <script>
-    	const idCheck=()=>{
-    		$("#inputId")
-    	}
-    	////
-		
-		//아이디 중복확인
-		$("input#inputId").keyup(e=>{
+	</style>
+	<script>
+		//아이디 사용 가능 여부 확인
+		$("#inputId").keyup(e=>{
        		$.ajax({
-       			url:"<%=request.getContextPath()%>/logIn/idDuplicateCheck.do",
-       			data:{inputId:$("input#inputId").val().trim()},
-       			dataType:"json",
+       			url:"${path}/member/idDuplicateCheck?inputId="+$("#inputId").val().trim(),
+       			type: "post",
        			success:data=>{
-       				if(data!=null){
-       					$("span#checkId>small").text("사용 불가한 아이디입니다.").css("color","red");
+       				//console.log(data);
+       				if(data!="null"){ //중복된 아이디
+       					$("span#checkId>small").text("이미 존재하는 아이디입니다.").css("color","red");
        				}else if($("#inputId").val()==""){
        					$("span#checkId>small").text("아이디를 입력해주세요.").css("color","red");
        				}else if($("#inputId").val().length<5){
        					$("span#checkId>small").text("아이디는 5자리 이상 입력해주세요.").css("color","red");
+       				}else if(!$("#inputId").val().trim().match(/^[A-Za-z0-9]{5,12}$/)){
+       					$("span#checkId>small").text("아이디는 영문자와 숫자만 입력해주세요.").css("color","red");
        				}else{
        					$("span#checkId>small").text("사용 가능한 아이디입니다.").css("color","green");
        				}
@@ -385,61 +341,96 @@
 				const pw=$("#inputPwd").val();
 				const pwck=$(e.target).val();
 				if(pw==pwck){//비밀번호가 일치할 때
-					if(pwck!=""){//비밀번호재입력 칸이 비어있지 않으면
+					if(pwck!=""){//비밀번호 재확인 칸이 비어있지 않으면
 						$("span#checkPwd>small").css("color","green").text("비밀번호가 일치합니다.");                        		   
 					}else{
 						$("span#checkPwd>small").text(" ");
 					}
 				}else{//비밀번호가 불일치할 때
-					if(pwck==""){//비밀번호입력칸이 비어있으면
+					if(pwck==""){//비밀번호 재확인 칸이 비어있으면
 						$("span#checkPwd>small").text(" ");
-					}
-					$("span#checkPwd>small").css("color","red").text("비밀번호가 불일치합니다.");
-				}
-			});
-		})
-             
-		//정규식 확인
-		var crtfcNoData="";//변수에 인증번호를 저장하기 위함
-		//인증번호전송 눌렀을 때
-		const emailcheck=()=>{
-			$("span#checkEmail>small").text("");
-			const inputEmail=$("#inputEmail").val().trim();
-			var emailReg=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-			if(inputEmail==""){
-				$("span#checkEmail>small").text("이메일을 입력해주세요.").css("color","red");
-				$("#inputEmail").focus();
-				return false;
-			}
-			if(!emailReg.test(inputEmail)){
-				$("span#checkEmail>small").text("올바른 이메일을 입력해주세요.").css("color","red");
-				$("#inputEmail").focus();
-				return false;
-			}
-			$("span#checkCrtfcNo>small").text("인증번호를 발송했습니다. 인증번호를 입력해주세요.").css("color","#7e8cd2");
-			$("span#checkCrtfcNo").show();
-			$("div.crtfcNo").show();
-			//인증번호 확인하기 위한 ajax
-			$.ajax({
-				url:"<%=request.getContextPath()%>/gmailCheck.do",
-				data:{"email":inputEmail},//입력받은 이메일 넘기기
-				success:data=>{//ajax로 돌려받은 인증번호
-					// 인증번호 값이 없을 경우
-					if(data==null){
-						Swal.fire("인증에 실패하였습니다. \n다시 시도해주세요");
-						$("span#checkCrtfcNo>small").text(" ");//인증번호 발신메세지 지우기
-						return false;
-					// ajax가 돌아가서 제대로 값이 돌아온 경우
 					}else{
-						crtfcNoData=data;//인증번호를 변수에 저장
+						$("span#checkPwd>small").css("color","red").text("비밀번호가 불일치합니다.");
 					}
 				}
 			})
-		}
+		});
+		
+		$(()=>{
+			$("#inputEmail").keyup(e=>{
+				//입력한 이메일
+				let email=$("#inputEmail").val().trim();
+				//이메일 정규식
+				//영문자로 시작+영문자나 숫자가 0개 이상 반복@영문자가 1개 이상 반복.영문자 2~3개로 끝남, 대소문자 구분 안 함
+				let emailReg=/^[a-zA-Z][0-9a-zA-Z]*@[a-zA-Z]+.[a-zA-Z]{2,3}$/i;
+				if(email==""){
+					$("span#checkEmail>small").text("이메일을 입력해주세요.").css("color","red");
+					$("#inputEmail").focus();
+					$("#searchAddr").hide();
+					$("span#checkCrtfcNo").hide();
+					$("div.crtfcNo").hide();
+					return false;
+				}
+				if(!emailReg.test(email)){
+					$("span#checkEmail>small").text("올바른 이메일을 입력해주세요.").css("color","red");
+					$("#inputEmail").focus();
+					$("#searchAddr").hide();
+					$("span#checkCrtfcNo").hide();
+					$("div.crtfcNo").hide();
+					return false;
+				}
+				
+				//이메일 중복확인
+				$.ajax({
+					url:"${path}/member/emailDuplicateCheck",
+					data:{email:$("#inputEmail").val().trim()},
+					type:"POST",
+					success:data=>{
+						console.log(data);
+						if(data!="null"){
+							$("span#checkEmail>small").text("이미 가입된 이메일입니다.").css("color","red");
+							$("#searchAddr").hide();
+							$("span#checkCrtfcNo").hide();
+							$("div.crtfcNo").hide();
+						}else{
+							$("span#checkEmail>small").text("사용 가능한 이메일입니다.").css("color","green");
+							$("#searchAddr").show();
+						}
+					}
+				})
+			})
+		});
 
+		//인증번호 초기화
+		let crtfcNoData="";		
+		//이메일로 인증번호 보내기		
+		const emailCheck=()=>{
+			//입력한 이메일
+			let email=$("#inputEmail").val().trim();
+			//이메일로 인증번호 전송
+			$.ajax({
+				type:"GET",
+				url:"${path}/member/emailCheck?email="+email,
+				success: function(data){
+					if(data==null){
+						alert("인증번호 전송에 실패하였습니다.");
+						return false;
+					}else{
+						//인증번호를 변수에 저장
+						crtfcNoData=data;
+						$("span#checkCrtfcNo>small").text("인증번호를 발송했습니다. 인증번호를 입력해주세요.").css("color","#7e8cd2");
+						$("span#checkCrtfcNo").show();
+						$("div.crtfcNo").show();
+						console.log(crtfcNoData);
+					}
+				}
+			});
+		};
+
+		//이메일 인증 성공 여부
+		let emailSuccess=false;
 		//인증번호 입력 후 확인버튼 눌렀을 때
 		const crtNoCheck=()=>{
-			//console.log("인증번호 : "+crtfcNoData);
 			//인증번호 칸에 아무것도 입력하지 않았을 경우
 			if($("#crtfcNoCheck").val().trim()==""){
 				$("span#checkCrtfcNo>small").text("인증번호를 입력해주세요.").css("color","red");
@@ -447,35 +438,22 @@
 				console.log("인증번호 칸 비어있음");
 			//인증번호가 틀렸을 경우
 			}else if(crtfcNoData!=$("#crtfcNoCheck").val().trim()||$("#crtfcNoCheck").val().trim()==""){
-				$("span#checkCrtfcNo>small").text("인증에 실패하였습니다. 다시 시도해주세요.").css("color","red");//인증번호 실패메세지
+				$("span#checkCrtfcNo>small").text("인증에 실패하였습니다. 다시 시도해주세요.").css("color","red");
 				$("span#checkEmail>small").text("");
 				console.log("인증코드 틀림");
 				return false;
 			//올바른 인증번호 입력
 			}else if(crtfcNoData == $("#crtfcNoCheck").val().trim()){
-				//이메일 중복확인
-				$.ajax({
-					url:"<%=request.getContextPath()%>/logIn/emailDuplicateCheck.do",
-					data:{inputEmail:$("input#inputEmail").val().trim()},
-					dataType:"json",
-					success:data=>{
-						console.log(data);
-						if(data!=null){
-							$("span#checkEmail>small").text("이미 가입된 이메일 입니다.").css("color","red");
-							$("span#checkCrtfcNo>small").text("인증에 성공하였습니다.").css("color","green");
-						}else{
-							$("span#checkEmail>small").text("사용 가능한 이메일입니다.").css("color","green");
-							$("span#checkCrtfcNo>small").text("인증에 성공하였습니다.").css("color","green");
-						}
-					}
-				})
+				$("span#checkCrtfcNo>small").text("인증에 성공하였습니다.").css("color","green");
+				emailSuccess=true;
 			}
 		}
 
 		const fn_enrollFail=()=>{
 			//아이디 5자리 이상 필수입력
 			const inputId=$("#inputId").val().trim();
-			if(!($("span#checkId>small").text().includes("가능한"))){//아이디 사용 가능하다는 말이 없으면
+			if(!($("span#checkId>small").text().includes("가능한"))){ //아이디 사용 가능하다는 말이 없으면
+				alert("아이디를 확인해주세요.");
 				$("#inputId").focus();
 				return false;
 			}
@@ -483,33 +461,48 @@
 			const inputPwd=$("#inputPwd").val().trim();
 			//숫자,영문 1개 이상씩 사용하여 8자리 이상 입력조건
 			const pwdReg=/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-			if(inputPwd.match(pwdReg)==null){//비밀번호가 양식대로 입력되지 않았으면(==실패)
-				Swal.fire("비밀번호는 숫자, 영문자를 \n포함하여 8자리 이상 입력하세요");
+			if(inputPwd.match(pwdReg)==null){ //비밀번호가 양식대로 입력되지 않았으면
+				alert("비밀번호는 영문자와 숫자를 각각 하나 이상 포함하여 8자리 이상 입력하세요. 특수문자는 포함하지 않습니다.");
 				$("#inputPwd").focus();
 				return false;
 			}
-			if($("span#checkPwd>small").text().includes("불")){//비밀번호가 불일치하면 
-				$("#pwdCheck").focus();//다시 입력
+			if($("span#checkPwd>small").text().includes("불")){ //비밀번호가 불일치하면 
+				alert("비밀번호 재확인에 비밀번호를 정확히 적어주세요.");
+				$("#pwdCheck").focus(); //다시 입력
 				return false;
 			}
 			if($("#pwdCheck").val().trim()==""){
+				alert("비밀번호 재확인에 비밀번호를 적어주세요.");
 				$("#pwdCheck").focus();
 				return false;
 			}
 			//이름 정규식 표현
 			const inputName=$("#inputName").val().trim();
-			const nameReg=/^[가-힣]{2,5}$/;//한글이름2~5자
-			if(!nameReg.test(inputName)){//이름이 틀렸으면
+			const nameReg=/^[가-힣a-zA-Z][가-힣a-zA-Z]+$/;
+			if(!nameReg.test(inputName)){ //이름이 잘못됐으면
+				alert("이름을 확인해주세요.");
 				$("span#checkName>small").text("올바른 이름을 입력해주세요.").css("color","red");
 				$("#inputName").focus();
 				return false;
 			}else{
 				$("span#checkName>small").text(" ");
 			}
+			//닉네임 정규식 표현
+			const nickname=$("#inputNickname").val().trim();
+			const nicknameReg=/^[가-힣a-zA-Z0-9]{2,8}$/;
+			if(!nicknameReg.test(nickname)){ //닉네임이 잘못됐으면
+				alert("닉네임을 확인해주세요.");
+				$("span#checkNickname>small").text("올바른 닉네임을 입력해주세요.").css("color","red");
+				$("#inputNickname").focus();
+				return false;
+			}else{
+				$("span#checkNickame>small").text(" ");
+			}
 			//년도 입력
 			const yy=$("#yy").val().trim();
-			const pattern=/^(19|20)\d{2}$/;//1900~2099년도까지
-			if(!pattern.test(yy)){//연도입력이 잘못 되었으면
+			const pattern=/^(19|20)\d{2}$/; //1900~2099년만
+			if(!pattern.test(yy)){ //연도 입력이 잘못 되었으면
+				alert("연도를 확인해주세요.");
 				$("span#checkYear>small").text("올바른 연도를 입력해주세요.").css("color","red");
 				$("#yy").focus();
 				return false;
@@ -518,56 +511,81 @@
 			}
 			//핸드폰 번호 입력
 			const inputPhone=$("#inputPhone").val().trim();
-			const phoneReg=/^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;//핸드폰 번호(- 없음)
+			const phoneReg=/^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/; //핸드폰 번호(- 없음)
 			if(inputPhone==""||phoneReg.test(inputPhone)){
 				$("span#checkPhone>small").text(" ");
 			}else{
+				alert("핸드폰 번호를 확인해주세요.");
 				$("span#checkPhone>small").text("올바른 번호를 입력해주세요.").css("color","red");
 				$("#inputPhone").focus();		
 				return false;
 			}
 			//이메일 입력
 			const inputEmail=$("#inputEmail").val().trim();
-			var emailReg=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			let emailReg=/^[a-zA-Z][0-9a-zA-Z]*@[a-zA-Z]+.[a-zA-Z]{2,3}$/i;
 			if(inputEmail==""){
+				alert("이메일을 적어주세요.");
 				$("span#checkEmail>small").text("이메일을 입력해주세요.").css("color","red");
 				$("#inputEmail").focus();
 				return false;
 			}else{
 				if(!emailReg.test(inputEmail)){
+					alert("이메일을 확인해주세요.");
 					$("span#checkEmail>small").text("올바른 이메일을 입력해주세요.").css("color","red");
 					$("#inputEmail").focus();
 					return false;
 				}
 			}
-			//가입가능한 이메일
-			if(!($("span#checkEmail>small").text().includes("가능"))){//가능한 이메일이라는 말이 없으면 빠꾸
+			//가입 가능한 이메일
+			if(!($("span#checkEmail>small").text().includes("가능"))){ //가능한 이메일이라는 말이 없으면 실패
+				alert("이메일을 확인해주세요.");
 				$("#inputEmail").focus();
+				return false;
+			}
+			//이메일 인증 여부 확인
+			if(emailSuccess==false){
+				alert("이메일 인증을 해주세요.");
+				$("#inputEmail").focus();
+				return false;
+			}
+			//주소
+			if($("#inputAddress_address").val().trim()==""||$("#inputAddress_detailAddress").val().trim()==""){ //주소가 비어있으면
+				alert("주소를 적어주세요.");
+				$("span#checkAddress>small").text("주소를 입력해주세요.").css("color","red");
+				$("#inputAddress_detailAddress").focus();
+				return false;
+			}else{
+				$("span#checkAddress>small").text("");
+			}
+			//가입 여부 확인
+			let apply=confirm("회원가입하시겠습니까? 가입하신 정보는 수정 가능합니다.")
+			if(!apply){
 				return false;
 			}
 		}
 	</script>
 
+	<!-- 주소 API -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 		function sample6_execDaumPostcode() {
 			new daum.Postcode({
 				oncomplete: function(data) {
-					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+					//팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+					//각 주소의 노출 규칙에 따라 주소를 조합한다.
+					//내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 					var addr = ''; // 주소 변수
-					//var extraAddr = ''; // 참고항목 변수
+					//var extraAddr = ''; //참고항목 변수
 					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+					if (data.userSelectedType === 'R') { //사용자가 도로명 주소를 선택했을 경우
 						addr = data.roadAddress;
-					}else { // 사용자가 지번 주소를 선택했을 경우(J)
+					}else { //사용자가 지번 주소를 선택했을 경우(J)
 						addr = data.jibunAddress;
 					}
-					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					//우편번호와 주소 정보를 해당 필드에 넣는다.
 					document.getElementById('inputAddress_postcode').value = data.zonecode;
 					document.getElementById("inputAddress_address").value = addr;
-					// 커서를 상세주소 필드로 이동한다.
+					//커서를 상세주소 필드로 이동한다.
 					document.getElementById("inputAddress_detailAddress").focus();
 				}
 			}).open();

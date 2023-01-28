@@ -1,13 +1,29 @@
 package com.today.bab.member.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.member.model.service.MemberService;
 import com.today.bab.member.model.vo.Member;
 
@@ -18,6 +34,9 @@ public class MemberController {
 
 	private MemberService service;
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	@Autowired
 	public MemberController(MemberService service, BCryptPasswordEncoder passwordEncoder) {
@@ -70,5 +89,194 @@ public class MemberController {
 	public String enrollMember() {
 		return "member/enrollMember";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/idDuplicateCheck", method=RequestMethod.POST)
+	public String idDuplicateCheck(String inputId) {
 
+		Member m=service.idDuplicateCheck(inputId);
+		Gson gson=new Gson();
+		String data=gson.toJson(m);
+		
+		System.out.println(inputId);
+		System.out.println(m);		
+		System.out.println(data);
+		
+		return data;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/emailDuplicateCheck", method=RequestMethod.POST)
+	public String emailDuplicateCheck(String email) {
+		
+		Member m=service.emailDuplicateCheck(email);
+		Gson gson=new Gson();
+		String data=gson.toJson(m);
+		
+		System.out.println(email);
+		System.out.println(m);		
+		System.out.println(data);
+		
+		return data;
+	}
+	
+	@RequestMapping(value="/emailCheck", method=RequestMethod.GET)
+	@ResponseBody
+	public String emailCheck(String email) throws Exception {
+				
+		Random r=new Random();
+		int checkNum=r.nextInt(888888)+111111;
+		
+		System.out.println("받을 이메일: "+email);
+		System.out.println("인증번호: "+checkNum);
+		
+		String setFrom="todaysbab@naver.com";
+		String toMail=email;
+		String title="오늘의 밥 가입 인증번호입니다.";
+		String content="안녕하세요. 오늘의 밥 사이트입니다.<br>"
+				+"인증번호는 "+checkNum+"입니다.<br>"
+				+"인증번호 칸에 입력해주세요.";
+		
+		try {            
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setFrom(setFrom);
+            helper.setTo(toMail);
+            helper.setSubject(title);
+            helper.setText(content,true);
+            mailSender.send(message);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+		
+		//인증번호를 String으로 형변환
+		String num=Integer.toString(checkNum);
+		
+		return num;
+	}
+	
+	@RequestMapping("/enrollMemberEnd")
+	public ModelAndView enrollMemberEnd(Member m, String year, String month, String day, 
+			String inputAddressAddress, String inputAddressDetailAddress, 
+			MemberLike ml, ModelAndView mv) throws ParseException {
+		System.out.println(m);
+		System.out.println(year);
+		System.out.println(month);
+		System.out.println(day);
+		System.out.println(inputAddressAddress);
+		System.out.println(inputAddressDetailAddress);
+		System.out.println(ml);
+		
+		//문자열로 받아온 생년월일을 Date 타입으로 변환
+		String dateStr=year+"/"+month+"/"+day;
+		SimpleDateFormat formatter=new SimpleDateFormat("yyyy/MM/dd");
+		Date date=formatter.parse(dateStr);
+		System.out.println(date);
+		
+		//주소를 하나로 합침
+		String address=inputAddressAddress+" "+inputAddressDetailAddress;
+		
+		//Member m에 생년월일과 주소를 set
+		m.setBirth(date);
+		m.setAddress(address);
+		
+		//체크하지 않은 음식 취향 값을 N으로 지정
+		if(ml.getFruit()!='Y') ml.setFruit('N');
+		if(ml.getSea()!='Y') ml.setSea('N');
+		if(ml.getMeat()!='Y') ml.setMeat('N');
+		if(ml.getSide()!='Y') ml.setSide('N');
+		if(ml.getVege()!='Y') ml.setVege('N');
+		System.out.println(ml);
+		
+		int result=service.enrollMemberEnd(m, ml);
+		
+//		int result=0;
+//		try {
+//			result=service.enrollMemberEnd(m, ml);
+//		}catch (Exception e) {
+//			// TODO: handle exception
+//		}
+		
+		if(result>0) {
+			mv.addObject("msg","회원가입 되었습니다.");
+			mv.addObject("loc","/");
+		}else {
+			mv.addObject("msg","회원가입이 실패하였습니다.");
+			mv.addObject("loc","/member/enrollMember");
+		}
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/searchIdPwd")
+	public String searchIdPwd() {
+		return "member/searchIdPwd";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/emailExist", produces = "application/text; charset=UTF-8") //, method=RequestMethod.POST)
+	public String emailExist(@RequestParam(value="inputs[]") List<String> inputs) {
+		String choice=inputs.get(0);
+		String searchId=inputs.get(1);
+		String searchName=inputs.get(2);
+		String searchEmail=inputs.get(3);
+		
+		System.out.println(choice);
+		System.out.println(searchId);
+		System.out.println(searchName);
+		System.out.println(searchEmail);
+
+		//이메일로 회원 찾음
+		Member member=service.selectMemberByEmail(searchEmail);
+		System.out.println(member);
+		
+		String msg="";
+		
+		if(member==null) {
+			msg="등록되지 않은 이메일입니다.";
+		//비밀번호 찾기인 경우
+		}else if(choice.equals("pwd")&&!member.getMemberId().equals(searchId)) {
+			msg="아이디와 이메일이 일치하지 않습니다.";
+		}else if(!member.getMname().equals(searchName)) {
+			msg="이름과 이메일이 일치하지 않습니다.";
+		}else {
+			msg="성공";
+		}
+		
+		//Gson gson=new Gson();
+		//String data=gson.toJson(msg);
+		String data=msg;
+		
+		return data;
+	}
+	
+	
+
+	@RequestMapping("/searchIdPwdEnd")
+	public String searchIdPwdEnd(String choice, String searchEmail, Model model) {
+		//이메일로 회원 아이디 찾기
+		Member member=service.selectMemberByEmail(searchEmail);
+		model.addAttribute("memberId", member.getMemberId());
+		
+		if(choice.equals("id")) {
+			return "member/searchIdEnd";
+		}else {
+			return "member/searchPwdEnd";
+		}
+	}
+	
+	@RequestMapping("/updatePwd")
+	public String updatePwd(Member m, Model model) {
+		int result=service.updatePwd(m);
+		
+		if(result>0) {
+			model.addAttribute("msg","수정이 완료됐습니다.");
+			model.addAttribute("loc","/member/login");
+		}else {
+			model.addAttribute("msg","수정이 실패하였습니다.");
+			model.addAttribute("loc","/member/searchPwdEnd");
+		}
+		return "common/msg";
+	}
 }

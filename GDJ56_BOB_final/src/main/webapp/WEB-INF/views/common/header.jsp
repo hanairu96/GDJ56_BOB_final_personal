@@ -48,10 +48,8 @@
         </div>
         <header class="head-menu">
             <div>
-
-                <p><a href="${path }/market1/matketmain.do">MARKET</a></p>
-                <p><a href="${path }/class/main.do">ONE-DAY-CLASS</a></p>
                 <p><a href="${path}/market1/matketmain.do">MARKET</a></p>
+                <p><a href="${path}/class/main.do">ONE-DAY-CLASS</a></p>
                 <p><a href="">SUBSCRIPTION</a></p>
                 <p><a href="">CUSTOMER-CENTER</a></p>
                 <c:if test="${loginMember!=null}">
@@ -59,7 +57,7 @@
 	                	<p><a href="${path}/admin/main.do">ADMINPAGE</a></p>
 	                </c:if>
 	                <c:if test="${loginMember.memberId ne 'admin'}">
-	                	<p><a href="">MYPAGE</a></p>
+	                	<p><a href="${path}/mypage/orderlist.do">MYPAGE</a></p>
 	                </c:if>
 	                <img src="${path}/resources/images/shopping-basket.png" onclick="">
 	                <img src="${path}/resources/images/logout.png" onclick="logout();">

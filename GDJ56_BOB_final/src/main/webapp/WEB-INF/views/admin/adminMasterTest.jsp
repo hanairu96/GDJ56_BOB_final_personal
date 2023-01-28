@@ -264,20 +264,20 @@
               class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
               >
               <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400"><b>ID</b></span>
+                <span class="text-gray-700 dark:text-gray-400"><b>신청날짜</b></span>
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder=""
+                  value=${master.apply }
                 />
               </label>
 
               <div class="mt-4 text-sm">
                 <div class="mt-2">
                   <label class="block text-sm">
-                    <span class="text-gray-700 dark:text-gray-400"><b>이름</b></span>
+                    <span class="text-gray-700 dark:text-gray-400"><b>ID</b></span>
                     <input
                       class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                      placeholder=""
+                      value=${master.memberId }
                     />
                   </label>
                 </div>
@@ -289,21 +289,50 @@
                     <span class="text-gray-700 dark:text-gray-400"><b>강사명 (원데이클래스 활동명)</b></span>
                     <input
                       class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                      placeholder=""
+                      value=${master.name }
                     />
                   </label>
                 </div>
               </div>
+              
+              <div class="mt-4 text-sm">
+                  <div class="mt-2">
+                    <label class="block text-sm">
+                      <span class="text-gray-700 dark:text-gray-400"><b>활동이력</b></span>
+                      <c:if test="${not empty history }">
+                      	<div class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                    		<c:forEach var="mh" items="${history}">
+                    			- ${mh} <br>
+                    		</c:forEach>
+                    	</div>
+                      </c:if>
+                      <c:if test="${empty history }">
+                      	<div class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                    		<div class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                    		    없음
+                    		</div>
+                    	</div>
+                      </c:if>
+                      
+                      
+                    </label>
+                  </div>
+                </div>
+              
+              
+              
+              
 
-              <label class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400"><b>활동이력 / 첨부파일</b></span>
-                <textarea
-                  class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                  rows="15"
-                  placeholder=""
-                ></textarea>
-              </label>
-
+			<div class="mt-4 text-sm">
+                <div class="mt-2">
+                  <label class="block text-sm">
+                    <span class="text-gray-700 dark:text-gray-400"><b>신청글</b></span>
+                    	<div class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                    		${master.info }
+                    	</div>
+                    </label>
+                </div>
+              </div>
              
               </div>
 
@@ -329,137 +358,128 @@
       </div>
     </div>
 
-    <script>
-      document.getElementById('adminMasterYESBtn').addEventListener('click', function() {
-        // alert("장인신청 승인");
-      });
-      document.getElementById('adminMasterNOBtn').addEventListener('click', function() {
-        // prompt("장인신청 거절","승인거절 이유를 입력해주세요");
-      });
-    </script>
-
     <!-- 장인 탈락 모달창 -->
-   <div
-   id="modal_adminMasterNO" style="width:500px;height:auto; display: none;background-color: white;border-radius: 15px 15px;text-align: left;"
-     class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-    <h1 style="text-align: center;"><b>장인 탈락</b></h1>
-   
-    <label class="block text-sm">
-     <span class="text-gray-700 dark:text-gray-400"><b>ID</b></span>
-     <input
-       class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-       placeholder="" value="cookkkkk" readonly
-     />
-   </label>
-   <br>
-       <label class="block text-sm">
-         <span class="text-gray-700 dark:text-gray-400"><b>이름</b></span>
-         <input
-           class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-           placeholder="" value="김강사" readonly
-         />
-       </label>
-       <br>
-     <label class="block mt-4 text-sm">
-       <span class="text-gray-700 dark:text-gray-400"><b>강사명</b></span>
-       <input
-             class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-             placeholder="" value="요리킹조리킹" readonly
-           />
-     </label>
-     <br>
-     <label class="block mt-4 text-sm">
-       <span class="text-gray-700 dark:text-gray-400"><b>탈락 사유</b></span>
-       <textarea
-         class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-         rows="6"
-         placeholder=""
-       ></textarea>
-     </label>
-     
-     <div style="margin-top:16px;text-align: center;">
-       <button
-         onclick="reNoBtn();"
-         style="display :inline-block;background-color: white; border: 1.5px solid purple; color: purple;"
-         class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-       >
-       심사확정
-       </button>
-       </div>
-</div>
+	   <div
+	   id="modal_adminMasterNO" style="width:500px;height:auto; display: none;background-color: white;border-radius: 15px 15px;text-align: left;"
+	     class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+	    <h1 style="text-align: center;"><b>장인 탈락</b></h1>
+	   
+	    <label class="block text-sm">
+	     <span class="text-gray-700 dark:text-gray-400"><b>ID</b></span>
+	     <input
+	       class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+	       placeholder="" value=${master.memberId } readonly
+	     />
+	   </label>
+	       <br>
+	     <label class="block mt-4 text-sm">
+	       <span class="text-gray-700 dark:text-gray-400"><b>강사명</b></span>
+	       <input
+	             class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+	             placeholder="" value=${master.name } readonly
+	           />
+	     </label>
+	     <br>
+	     <label class="block mt-4 text-sm">
+	       <span class="text-gray-700 dark:text-gray-400"><b>탈락 사유</b></span>
+	        <input
+	             class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+	              id="masterTestText"
+	           />
+	     </label>
+	     
+	     <div style="margin-top:16px;text-align: center;">
+	     	<button
+		       type="reset"
+		       style="display :inline-block;background-color: white; border: 1.5px solid red; color: red;"
+		       class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+		     >
+		     취소
+		     </button>
+	       <button
+	         onclick="reNoBtn();"
+	         style="display :inline-block;background-color: white; border: 1.5px solid purple; color: purple;"
+	         class="modal_submit_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+	       >
+	       심사확정
+	       </button>
+	       </div>
+	</div>
 
  <!-- 장인 탈락 재확인 -->
- <div
- id="modal_REadminMasterNO" style="width:500px;height:auto; display: none;background-color: white;border-radius: 15px 15px;text-align: left;"
-   class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-  <h1 style="text-align: center;"><b>장인 탈락 처리 하셨습니다. 확실하십니까?</b></h1>
- 
-   
-   <div style="margin-top:16px;text-align: center;">
-    <button
-       style="display :inline-block;background-color: white; border: 1.5px solid red; color: red;"
-       class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-     >
-     취소
-     </button>
-     <button
-       style="display :inline-block;background-color: white; border: 1.5px solid purple; color: purple;"
-       class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-     >
-     최종 확정
-     </button>
-     </div>
-</div>
-
+		 <div
+		 id="modal_REadminMasterNO" style="width:500px;height:auto; display: none;background-color: white;border-radius: 15px 15px;text-align: left;"
+		   class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+		  <h1 style="text-align: center;"><b>장인 탈락 처리 하셨습니다. 확실하십니까?</b></h1>
+		 
+		   
+		   <div style="margin-top:16px;text-align: center;">
+		    <button
+		       type="reset"
+		       style="display :inline-block;background-color: white; border: 1.5px solid red; color: red;"
+		       class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+		     >
+		     취소
+		     </button>
+		     <button
+		       type="submit"
+		       style="display :inline-block;background-color: white; border: 1.5px solid purple; color: purple;"
+		       class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+		     >
+		     최종 확정
+		     </button>
+		     </div>
+		</div>
 <!-- 장인 승인 모달창 -->
-<div
-id="modal_adminMasterYES" style="width:500px;height:auto; display: none;background-color: white;border-radius: 15px 15px;text-align: left;"
-  class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
- <h1 style="text-align: center;"><b>장인 승인</b></h1>
-
- <label class="block text-sm">
-  <span class="text-gray-700 dark:text-gray-400"><b>ID</b></span>
-  <input
-    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-    placeholder="" value="cookkkkk" readonly
-  />
-</label>
-<br>
-    <label class="block text-sm">
-      <span class="text-gray-700 dark:text-gray-400"><b>이름</b></span>
-      <input
-        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-        placeholder="" value="김강사" readonly
-      />
-    </label>
-    <br>
-  <label class="block mt-4 text-sm">
-    <span class="text-gray-700 dark:text-gray-400"><b>강사명</b></span>
-    <input
-          class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-          placeholder="" value="요리킹조리킹" readonly
-        />
-  </label>
-  <br>
-  <label class="block mt-4 text-sm">
-    <span class="text-gray-700 dark:text-gray-400"><b>장인 승인 축하 메세지</b></span>
-    <textarea
-      class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-      rows="6"
-      placeholder=""
-    ></textarea>
-  </label>
-  
-  <div style="margin-top:16px;text-align: center;">
-    <button
-      style="display :inline-block;background-color: white; border: 1.5px solid purple; color: purple;"
-      class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-    >
-    심사확정
-    </button>
-    </div>
-</div>
-
+	<form action="${path }/admin/masterTestEnd.do?name=${master.name}&test='승인'" method="post">
+		<div
+		id="modal_adminMasterYES" style="width:500px;height:auto; display: none;background-color: white;border-radius: 15px 15px;text-align: left;"
+		  class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+		 <h1 style="text-align: center;"><b>장인 승인</b></h1>
+		
+		 <label class="block text-sm">
+		     <span class="text-gray-700 dark:text-gray-400"><b>ID</b></span>
+		     <input
+		       class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+		       placeholder="" value=${master.memberId } readonly
+		     />
+		   </label>
+		       <br>
+		     <label class="block mt-4 text-sm">
+		       <span class="text-gray-700 dark:text-gray-400"><b>강사명</b></span>
+		       <input
+		             class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+		             placeholder="" value=${master.name } readonly
+		           />
+		     </label>
+		     <br>
+		     <label class="block mt-4 text-sm">
+		       <span class="text-gray-700 dark:text-gray-400"><b>장인 승인 축하 메세지</b></span>
+		       <textarea
+		         class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+		         rows="6"
+		         name="masterTestText"
+		       ></textarea>
+		     </label>
+		     
+		     <div style="margin-top:16px;text-align: center;">
+		     	<button
+			       type="reset"
+			       style="display :inline-block;background-color: white; border: 1.5px solid red; color: red;"
+			       class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+			     >
+			     취소
+			     </button>
+		       <button
+		         type="submit"
+		         style="display :inline-block;background-color: white; border: 1.5px solid purple; color: purple;"
+		         class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+		       >
+		       심사확정
+		       </button>
+		       </div>
+		</div>
+	</form>
 
 <style>
 #adminQnATitle{
@@ -468,72 +488,83 @@ id="modal_adminMasterYES" style="width:500px;height:auto; display: none;backgrou
 
 </style>
 <script>
-function modal(id) {
-   var zIndex = 9999;
-   var modal = document.getElementById(id);
+	function modal(id,testText) {
+		console.log(testText);
+	   var zIndex = 9999;
+	   var modal = document.getElementById(id);
+	
+	   // 모달 div 뒤에 희끄무레한 레이어
+	   var bg = document.createElement('div');
+	   bg.setStyle({
+	       position: 'fixed',
+	       zIndex: zIndex,
+	       left: '0px',
+	       top: '0px',
+	       width: '100%',
+	       height: '100%',
+	       overflow: 'auto',
+	       // 레이어 색깔은 여기서 바꾸면 됨
+	       backgroundColor: 'rgba(0,0,0,0.4)'
+	   });
+	   document.body.append(bg);
+	
+	   // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+	   modal.querySelector('.modal_close_btn').addEventListener('click', function() {
+	       bg.remove();
+	       modal.style.display = 'none';
+	   });
+	
+	   modal.setStyle({
+	       position: 'fixed',
+	       display: 'block',
+	       boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+	
+	       // 시꺼먼 레이어 보다 한칸 위에 보이기
+	       zIndex: zIndex + 1,
+	
+	       // div center 정렬
+	       top: '50%',
+	       left: '50%',
+	       transform: 'translate(-50%, -50%)',
+	       msTransform: 'translate(-50%, -50%)',
+	       webkitTransform: 'translate(-50%, -50%)'
+	   });
+	   
+	   //확인 버튼 처리, 회원탈퇴, 레이어와 모달 div 지우기
+	   modal.querySelector('.modal_submit_btn').addEventListener('click',function(){
+		   bg.remove();
+		   modal.style.display = 'none';
+		   location.assign("${path }/admin/masterTestEnd.do?name=${master.name}&test='탈락'&text="+testText);
+	   })
+	   
+	}
 
-   // 모달 div 뒤에 희끄무레한 레이어
-   var bg = document.createElement('div');
-   bg.setStyle({
-       position: 'fixed',
-       zIndex: zIndex,
-       left: '0px',
-       top: '0px',
-       width: '100%',
-       height: '100%',
-       overflow: 'auto',
-       // 레이어 색깔은 여기서 바꾸면 됨
-       backgroundColor: 'rgba(0,0,0,0.4)'
-   });
-   document.body.append(bg);
-
-   // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
-   modal.querySelector('.modal_close_btn').addEventListener('click', function() {
-       bg.remove();
-       modal.style.display = 'none';
-   });
-
-   modal.setStyle({
-       position: 'fixed',
-       display: 'block',
-       boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-
-       // 시꺼먼 레이어 보다 한칸 위에 보이기
-       zIndex: zIndex + 1,
-
-       // div center 정렬
-       top: '50%',
-       left: '50%',
-       transform: 'translate(-50%, -50%)',
-       msTransform: 'translate(-50%, -50%)',
-       webkitTransform: 'translate(-50%, -50%)'
-   });
-}
-
-// Element 에 style 한번에 오브젝트로 설정하는 함수 추가
-Element.prototype.setStyle = function(styles) {
-   for (var k in styles) this.style[k] = styles[k];
-   return this;
-};
-
-//승인
-document.getElementById('adminMasterYESBtn').addEventListener('click', function() {
-
-   // 모달창 띄우기
-   modal('modal_adminMasterYES');
-});
-
-//거절
-document.getElementById('adminMasterNOBtn').addEventListener('click', function() {
-
-// 모달창 띄우기
-modal('modal_adminMasterNO');
-});
-
-//거절재확인
-const reNoBtn=()=>{
-  modal('modal_REadminMasterNO');
-}
+	// Element 에 style 한번에 오브젝트로 설정하는 함수 추가
+	Element.prototype.setStyle = function(styles) {
+	   for (var k in styles) this.style[k] = styles[k];
+	   return this;
+	};
+	
+	//승인
+	document.getElementById('adminMasterYESBtn').addEventListener('click', function() {
+	
+	   // 모달창 띄우기
+	   modal('modal_adminMasterYES');
+	});
+	
+	//거절
+	document.getElementById('adminMasterNOBtn').addEventListener('click', function() {
+	
+	// 모달창 띄우기
+	modal('modal_adminMasterNO');
+	});
+	
+	//거절재확인
+	const reNoBtn=()=>{
+		const notestText=document.querySelector('#masterTestText').value;
+	  	console.log(notestText);
+	  	modal('modal_REadminMasterNO',notestText);
+	}
 </script>
 
 

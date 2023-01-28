@@ -307,7 +307,7 @@
                   	<c:if test="${empty list }">
 	                  	 <thead>
 			            	<tr>
-			            		<td colspan="5">등록된 회원이 없습니다 :(</td>
+			            		<td colspan="4">등록된 회원이 없습니다 :(</td>
 			            	</tr>
 			            </thead>
 		            </c:if>
@@ -347,7 +347,7 @@
 		                            ></div>
 		                          </div>
 		                          <div style="display: flex;flex-direction: row;">
-		                            <p class="font-semibold"><a href="${path }/admin/membersInfo.do"><c:out value="${m.mname}"/></a></p>
+		                            <p class="font-semibold"><a href="${path }/admin/membersInfo.do?id=${m.memberId}"><c:out value="${m.mname}"/></a></p>
 		                            <p style="margin-left:10px;" class="text-xs text-gray-600 dark:text-gray-400">
 			                              <span
 			                                class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"

@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.today.bab.admin.model.dao.AdminDao;
+import com.today.bab.admin.model.vo.AdminMaster;
+import com.today.bab.admin.model.vo.AdminMember;
+import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.member.model.vo.Member;
 
 @Service
@@ -24,14 +27,58 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Override
 	public List<Member> adminMembers(Map<String, Integer> param) {
-		// TODO Auto-generated method stub
 		return dao.adminMembers(session, param);
 	}
 
 	@Override
 	public int selectMemberListCount() {
-		// TODO Auto-generated method stub
 		return dao.selectMemberListCount(session);
+	}
+
+	@Override
+	public AdminMember adminmemberInfo(String id) {
+		return dao.adminmemberInfo(session, id);
+	}
+
+	@Override
+	public List<AdminSubscription> adminSubscription(String id) {
+		return dao.adminSubscription(session,id);
+	}
+
+	@Override
+	public int adminDeleteMember(String memberId) {
+		return dao.adminDeleteMember(session,memberId);
+	}
+
+	@Override
+	public List<AdminMaster> adminMaster(Map<String, Integer> param) {
+		return dao.adminMaster(session, param);
+	}
+
+	@Override
+	public int selectMasterListCount() {
+		return dao.selectMasterListCount(session);
+	}
+
+	@Override
+	public AdminMaster adminMasterInfo(String teachername) {
+		return dao.adminMasterInfo(session, teachername);
+	}
+
+	@Override
+	public int masterDelete(AdminMaster m) {
+		return dao.masterDelete(session,m);
+	}
+	
+	@Override
+	public int masterDelete2(String memberId) {
+		return dao.masterDelete2(session,memberId);
+	}
+
+	@Override
+	public int masterTestEnd(AdminMaster m) {
+		// TODO Auto-generated method stub
+		return dao.masterTestEnd(session,m);
 	}
 	
 }

@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 	<div>
 		<div style="display: flex;">
@@ -25,14 +24,31 @@
 		    <span style="color:rgb(197, 195, 195)"> · 상품과 관계없는 글, 양도, 광고성, 욕설, 비방, 도배 등의 글은 예고없이 삭제됩니다.</span>
 		</div>
 		<br>
-		<div style="display: flex;">
-		    <div>
-		        <textarea name="" id="" cols="100%" rows="3"></textarea>
-		    </div>
-		    <div>
-		        <input class="primary-btn" type="button" value="등록하기" style="height: 80px; width: 130px; margin-left: 5%;background-color: #07d448; border: none;">
-		    </div>
-		</div>
+		<form class="wrap-form-reservation size22 m-l-r-auto" method="post"
+			action="${path }/itemQna/insertQna.do">
+			<input type="checkbox" name="iqSecret" value="Y">비밀글
+			<div style="display: flex;">
+			    <div>
+			        <textarea name="" id="" cols="130%" rows="3"></textarea>
+			    </div>
+			    <div>
+			        <input class="primary-btn" type="submit" value="등록하기"
+			        style="height: 80px; width: 130px; margin-left: 5%;background-color: #07d448; border: none;">
+			    </div>
+			    <input type="hidden" name="itemNo" value="${de.itemNo }"/>
+<!-- 
+
+
+수정수정수정수정수정
+mapper에서 문제있다!
+
+
+
+
+ -->
+			    <input type="hidden" name="memberId" value="user03"/>
+			</div>
+		</form>
 		<hr/> 
 		
 		
@@ -73,20 +89,18 @@
 		    </div>
 		    <hr/>
 		</div>
+		<script>
+		    $("#togglereply").click(e=>{
+		        $("#recontainer").slideToggle(1000);
+		    });
+		</script>
+		<!-- 페이징처리 -->
+		<div class="product__pagination" style="text-align: center;">
+		    <a href="#"><i class="fa fa-long-arrow-left"></i></a>
+		    <a href="#">1</a>
+		    <a href="#">2</a>
+		    <a href="#">3</a>
+		    <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+		</div>
 	</div>
-	<script>
-	    $("#togglereply").click(e=>{
-	        $("#recontainer").slideToggle(1000);
-	    });
-	</script>
-	<!-- 페이징처리 -->
-	<div class="product__pagination" style="text-align: center;">
-	    <a href="#"><i class="fa fa-long-arrow-left"></i></a>
-	    <a href="#">1</a>
-	    <a href="#">2</a>
-	    <a href="#">3</a>
-	    <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-	</div>
-
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	

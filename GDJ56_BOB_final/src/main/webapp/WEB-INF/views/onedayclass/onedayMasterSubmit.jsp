@@ -11,7 +11,6 @@
 	<title>장인 신청</title>
 	<meta charset="UTF-8">
 	<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-	<script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
 	<script src="${path }/resources/js/jquery-3.6.1.min.js"></script>
 </head>
 
@@ -69,13 +68,14 @@
 			
 			<!-- 장인신청 정보입력 -->
 			<div style="margin: 9%;">
-				<form class="size22 m-l-r-auto" method="post">
+				<form class="size22 m-l-r-auto" method="post" action="${path}/class/masterEndEnroll.do">
 					<div>
 						<h4>
 							이름
 						</h4>
 						<div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="name" value="최유리" readonly>
+							<input type="hidden" name="memberId" value="${loginMember.memberId}">
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" value="${loginMember.mname}" readonly>
 						</div>
 					</div>
 
@@ -84,7 +84,7 @@
 							강사명
 						</h4>
 						<div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull p-l-20" type="text" name="mName" placeholder="장인신청 승인 후 활동명으로 쓰입니다">
+							<input class="bo-rad-10 sizefull p-l-20" type="text" name="name" placeholder="장인신청 승인 후 활동명으로 쓰입니다">
 						</div>
 					</div>
 					
@@ -95,7 +95,7 @@
 	                      <div id="bobmaster">
 	                      	<div>
 			                     <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
-			                          <input class="bo-rad-10 sizefull p-l-20" type="text" name="mHistory" placeholder="예) 파리바게트 근무 10년">
+			                          <input class="bo-rad-10 sizefull p-l-20" type="text" name="history" placeholder="예) 파리바게트 근무 10년">
 			                     </div>
 		                  		<button onclick="plus();" type="button">추가</button>
                                 <button onclick="del(event);" type="button">삭제</button>
@@ -122,10 +122,10 @@
 						<h4>
 							자기소개
 						</h4>
-						<textarea class="bo-rad-10 bo2 p-l-20 m-t-3" id="master-content" name="master-content" style="width: 100%;">
-						-원데이클래스 장인 신청한 동기가 무엇인가요?<br>
+						<textarea class="bo-rad-10 bo2 p-l-20 m-t-3" id="master-content" name="info" style="width: 100%;">
+						-원데이클래스 장인 신청한 동기 또는 자기소개를 간략히 적어주세요<br>
 						<br><br><br><br>
-						-향후 수업 계획은 어떻것이 있으신가요?<br>
+						-향후 수업 계획을 간략히 적어주세요<br>
 						<br><br><br><br>
 						*자격증은 사진으로 첨부해주세요(필수x)
 						</textarea>
@@ -136,12 +136,15 @@
 					<button type="submit" class="btn3 flex-c-m trans-0-4 m-l-r-auto">
 						Submit
 					</button>
-				</form>
+					
+				</form>		
 			</div>
 		</div>
 	</body>
 	
-<script src="${pageContext.request.contextPath}/resources/js/ckeditor.js"></script>
+
+	
+
 <style>
 	/* 전체 배치 */
 	* {
