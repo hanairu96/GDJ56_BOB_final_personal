@@ -23,4 +23,12 @@ public interface AdminService {
 	List<AdminMaster> adminMaster(Map<String,Integer> param);
 	
 	int selectMasterListCount();
+	
+	AdminMaster adminMasterInfo(String teachername);
+	
+	int masterDelete(AdminMaster m);
+	
+	int masterDelete2(String memberId);
+	
+	int masterTestEnd(AdminMaster m);
 }

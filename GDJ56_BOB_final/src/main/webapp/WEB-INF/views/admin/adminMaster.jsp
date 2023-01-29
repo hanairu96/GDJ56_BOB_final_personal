@@ -362,6 +362,7 @@
 	                  >
 	                  	<c:forEach var="m" items="${list }" >
 	                    <tr class="text-gray-700 dark:text-gray-400">
+	                    
 	                      <td class="px-4 py-3">
 	                        <div class="flex items-center text-sm">
 	                          <!-- Avatar with inset shadow -->
@@ -380,7 +381,20 @@
 	                            ></div>
 	                          </div>
 	                          <div style="display: flex;flex-direction: row;">
-	                            <p class="font-semibold"><a href="${path }/admin/masterInfo.do?name=${m.name}"><c:out value="${m.name}"/></a></p>
+	                            <p class="font-semibold">
+	                            	<c:if test="${fn:contains(m.ing,'B')||fn:contains(m.ing,'Y')}">
+	                            		<a href="${path }/admin/masterInfo.do?name=${m.name}&ing=${m.ing}"><c:out value="${m.name}"/></a></p>
+	                            	</c:if>
+	                            	<c:if test="${fn:contains(m.ing,'I')}">
+	                            		<a href="javascript:alert('심사가 필요한 회원입니다');" onfocus="this.blur()">
+	                            			<c:out value="${m.name}"/>
+	                            		</a></p>
+	                            	</c:if>
+	                            	<c:if test="${fn:contains(m.ing,'N')}">
+	                            		<a href="javascript:alert('심사에서 탈락한 회원입니다');" onfocus="this.blur()">
+	                            			<c:out value="${m.name}"/>
+	                            		</a></p>
+	                            	</c:if>
 	                          </div>
 	                        </div>
 		                      </td>
@@ -421,11 +435,7 @@
 			                    </c:if>
 		                      </td>
 		                      <td class="px-4 py-3 text-sm">
-		                      	<c:if test="${not empty m.testDate }">
 		                        	<c:out value="${m.testDate}"/>
-		                        </c:if>
-		                        <c:if test="${empty m.testDate }">
-		                        </c:if>
 		                      </td>
 	                     </tr>
 	                    </c:forEach>
