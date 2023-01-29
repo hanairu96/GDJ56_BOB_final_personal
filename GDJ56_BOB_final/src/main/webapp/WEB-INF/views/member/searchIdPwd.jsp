@@ -335,15 +335,17 @@
 			}else if(crtfcNoData == $("#crtfcNoCheck").val().trim()){
 				$("span#checkCrtfcNo>small").text("인증에 성공하였습니다.").css("color","green");
 				emailSuccess=true;
+				console.log(emailSuccess);
 			}
 		}
 			
 		//다음 버튼 눌렀을 때
 		const fn_searchIdPwd=()=>{
 			//이메일 인증 확인이 돼야 다음 버튼 누를 수 있음
-			if(!emailSucess){
+			console.log(emailSuccess);
+			if(!emailSuccess){
 				return false;
-			}	
+			}
 		}
     </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
