@@ -40,6 +40,11 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
+	public int insertPoint(SqlSessionTemplate session, String id) {
+		return session.insert("member.insertPoint", id);
+	}
+
+	@Override
 	public Member selectMemberByEmail(SqlSessionTemplate session, String email) {
 		return session.selectOne("member.selectMemberByEmail", email);
 	}

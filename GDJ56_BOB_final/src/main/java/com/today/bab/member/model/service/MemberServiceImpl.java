@@ -59,7 +59,8 @@ public class MemberServiceImpl implements MemberService {
 		int result=0;
 		int memberResult=dao.enrollMember(session, m);
 		int likeResult=dao.enrollMemberLike(session, ml);
-		if(memberResult>0 && likeResult>0) {
+		int pointResult=dao.insertPoint(session, m.getMemberId());
+		if(memberResult>0 && likeResult>0 && pointResult>0) {
 			result=1;
 		}else {
 			session.rollback();

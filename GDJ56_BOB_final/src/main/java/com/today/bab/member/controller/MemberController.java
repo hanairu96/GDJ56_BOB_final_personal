@@ -219,7 +219,7 @@ public class MemberController {
 //		}
 		
 		if(result>0) {
-			mv.addObject("msg","회원가입 되었습니다.");
+			mv.addObject("msg","회원가입 되었습니다. 가입 선물로 적립급 3000원이 지급되었습니다.");
 			mv.addObject("loc","/");
 		}else {
 			mv.addObject("msg","회원가입이 실패하였습니다.");
