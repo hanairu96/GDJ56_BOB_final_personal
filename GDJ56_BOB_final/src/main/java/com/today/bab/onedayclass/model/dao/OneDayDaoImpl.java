@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.today.bab.admin.model.vo.AdminMaster;
+import com.today.bab.onedayclass.model.vo.OdcQa;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 @Repository
@@ -43,6 +44,27 @@ public class OneDayDaoImpl implements OneDayDao {
 	public int endclassEnroll(SqlSessionTemplate session, OneDayClass odc) {
 		return session.insert("onedayclass.endclassEnroll", odc);
 	}
+
+	@Override
+	public OneDayClass odcView(SqlSessionTemplate session, String no) {
+		return session.selectOne("onedayclass.odcView", no);
+	}
+
+	@Override
+	public void inputOdcQa(SqlSessionTemplate session, OdcQa oq) {
+		session.insert("onedayclass.inputOdcQa",oq);
+	}
+
+	@Override
+	public List<OdcQa> selectOdcQaAll(SqlSessionTemplate session, int odcNo) {
+		return session.selectList("onedayclass.selectOdcQaAll", odcNo);
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
