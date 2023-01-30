@@ -16,6 +16,8 @@ public class OneDayClass {
 	private String odcCookName;
 	private Date odcStartDate;
 	private Date odcEndDate;
+	private String odcStartDate1;
+	private String odcEndDate1;
 	private String odcTime;
 	private int odcPeople;
 	private String odcCity;
