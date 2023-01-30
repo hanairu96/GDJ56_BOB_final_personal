@@ -138,9 +138,9 @@ private AdminService service;
 					
 				}else {
 					java.util.Date utilDate = new java.util.Date(); //util현재날짜
-//				    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); //sql로 변환
+				    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); //sql로 변환
 				    
-				    if(utilDate.before(master.getOnedayclass1().get(j).getOdcEndDate())){ 
+				    if(sqlDate.before(master.getOnedayclass1().get(j).getOdcEndDate())){ 
 				    	//현재날짜가 종료날짜보다 전일때 (진행중 클래스)
 				    	classIng.add(master.getOnedayclass1().get(j));
 				    	
