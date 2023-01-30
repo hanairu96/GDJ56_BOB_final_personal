@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.today.bab.market1.model.service.Market1Service;
 import com.today.bab.market1.model.service.QnaService;
 import com.today.bab.market1.model.vo.ItemQna;
+import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
 import com.today.bab.member.model.vo.Member;
 
@@ -18,11 +20,13 @@ import com.today.bab.member.model.vo.Member;
 @RequestMapping("/itemQna")
 public class ItemQnaController {
 	private QnaService service;
+	private Market1Service ms;
 
 	@Autowired
-	public ItemQnaController(QnaService service) {
+	public ItemQnaController(QnaService service,Market1Service ms) {
 		super();
 		this.service = service;
+		this.ms=ms;
 	}
 	
 	@RequestMapping("/insertQna.do")
@@ -44,14 +48,24 @@ public class ItemQnaController {
 		System.out.println(i);
 		
 		int result=service.insertQna(a);
+		
+		SellItem list=ms.marketdetail(itemNo);
+		
+		m.addAttribute("de",list);
+		String file="";
+		int count=0;
+		for(ItemPic ii : list.getIpic()) {
+			if(count++!=0) file+=",";
+			file+=ii.getPicName();
+		}
+		m.addAttribute("picpic",file);
 		m.addAttribute("qna",result);
-		m.addAttribute("itemNo",itemNo);
 		return "market1/detailMarketItem";
 	}
 	
 	@RequestMapping("/selectQna.do")
-	public String selectQna(Model m) {
-		List<ItemQna> qq=service.selectQnaList();
+	public String selectQna(Model m,int itemNo) {
+		List<ItemQna> qq=service.selectQnaList(itemNo);
 		m.addAttribute("qna",qq);
 		return "market1/itemQna";
 	}
