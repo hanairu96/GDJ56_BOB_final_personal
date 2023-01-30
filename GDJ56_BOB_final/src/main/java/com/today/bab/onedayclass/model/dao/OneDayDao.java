@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.today.bab.admin.model.vo.AdminMaster;
+import com.today.bab.onedayclass.model.vo.OdcQa;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 public interface OneDayDao {
@@ -16,4 +17,7 @@ public interface OneDayDao {
 	int masterEndEnroll(SqlSessionTemplate session,AdminMaster m);
 	AdminMaster selectMastserById(SqlSessionTemplate session,String memberId);
 	int endclassEnroll(SqlSessionTemplate session,OneDayClass odc);
+	OneDayClass odcView(SqlSessionTemplate session, String no);
+	void inputOdcQa(SqlSessionTemplate session,OdcQa oq);
+	List<OdcQa> selectOdcQaAll(SqlSessionTemplate session, int odcNo);
 }
