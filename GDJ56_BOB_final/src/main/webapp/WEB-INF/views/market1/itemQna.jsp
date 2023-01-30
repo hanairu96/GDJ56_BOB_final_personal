@@ -29,11 +29,11 @@
 			action="${path }/itemQna/insertQna.do">
 		    <input type="hidden" name="itemNo" value="${itemNo }"/>
 			<label><input type="checkbox" name="iqSecret" value="Y">비밀글</label>
-					<input type="hidden" name="iqSecret1" value="N"/>
+				<input type="hidden" name="iqSecret1" value="N"/>
 		    <input type="hidden" name="memberId" value="user03"/>
 			<div style="display: flex;">
 			    <div>
-			        <textarea name="iqContent" id="" cols="130%" rows="3" ></textarea>
+			        <textarea name="iqContent" id="" cols="120%" rows="3" ></textarea>
 			    </div>
 			    <div>
 			        <input class="primary-btn" type="submit" value="등록하기"
@@ -64,7 +64,7 @@
 				        <button id="togglereply" class="primary-btn" type="button" name="reply" style="background-color:#07d448;border: none;color: white;">답글</button>
 				    </div>
 				    <div>
-				        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;" onclick="deleteQna(${q.iqNo},${q.itemNo });">삭제</button>
+				        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;" onclick="deleteQna(${q.iqNo},${itemNo });">삭제</button>
 				    </div>
 				</div>
 				<hr/>
@@ -80,7 +80,8 @@
 				            <textarea name="" id="" cols="100" rows="2" placeholder="답글을 입력해주세요"></textarea>
 				        </div>
 				        <div>
-				            <input class="primary-btn" type="button" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;">
+				            <input class="primary-btn" type="button" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;"
+				            onclick="iqanswer(${q.iqNo});">
 				        </div>
 				    </div>
 				    <hr/>
@@ -106,7 +107,7 @@
 				        <button id="togglereply" class="primary-btn" type="button" name="reply" style="background-color:#07d448;border: none;color: white;">답글</button>
 				    </div>
 				    <div>
-				        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;" onclick="deleteQna(${q.iqNo},${q.itemNo });">삭제</button>
+				        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;" onclick="deleteQna(${q.iqNo},${itemNo });">삭제</button>
 				    </div>
 				</div>
 				<hr/>
@@ -114,15 +115,16 @@
 				<div id="recontainer" style="margin-left: 50px;display:none;">
 				    <div style="display:flex;margin-bottom: 7px;">
 				        <img src="" alt="" style="width:40px; height: 40px;border-radius: 50%;">
-				        <h5 style="margin:10px;">오늘의 밥</h5><c:out value="${q.iqSecret }"/>
+				        <h5 style="margin:10px;">오늘의 밥</h5>
 				        <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;">${q.iqDate }</span>
 				    </div>
 				    <div style="display:flex">
-				        <div >
+				        <div id="answerAdnim">
 				            <textarea name="" id="" cols="100" rows="2" placeholder="답글을 입력해주세요"></textarea>
 				        </div>
 				        <div>
-				            <input class="primary-btn" type="button" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;">
+				            <input class="primary-btn" type="button" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;"
+				            onclick="iqanswer(${q.iqNo});">
 				        </div>
 				    </div>
 				    <hr/>
@@ -135,7 +137,15 @@
 		        $("#recontainer").slideToggle(1000);
 		    });
 		    const deleteQna=(no,itemNo)=>{
-		    	location.assign('${path}/itemQna/delectQna.do?iqNo='+no+'&itemNo'+itemNo);
+		    	location.assign('${path}/itemQna/delectQna.do?itemNo='+itemNo+'&iqNo='+no);
+		    }
+		    function iqanswer(no){
+		    	$.ajax({
+		    		type:'get',
+		    		url:'${path}/'
+		    		
+		    	})
+		    	
 		    }
 		    
 		</script>

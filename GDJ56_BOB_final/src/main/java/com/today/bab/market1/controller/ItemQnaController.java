@@ -33,7 +33,7 @@ public class ItemQnaController {
 	public String insertQna(Model m, ItemQna a,
 			String iqContent, String memberId, int itemNo,
 			String iqSecret, String iqSecret1) {
-
+		int result=0;
 		if(iqSecret==null) {
 			ItemQna i=ItemQna.builder()
 					.iqContent(iqContent)
@@ -41,37 +41,58 @@ public class ItemQnaController {
 					.itemNo(itemNo)
 					.iqSecret(iqSecret1)
 					.build();
+			result=service.insertQna(i);
 		}else {
 			ItemQna i=ItemQna.builder()
 					.iqContent(iqContent)
-//					.memberId(Member.builder().memberId(memberId).build())
 					.memberId(memberId)
-//					.itemNo(SellItem.builder().itemNo(itemNo).build())
 					.itemNo(itemNo)
 					.iqSecret(iqSecret)
 					.build();
+			result=service.insertQna(i);
 		}
-		
-		int result=service.insertQna(a);
-		
-		SellItem list=ms.marketdetail(itemNo);
-		
-		m.addAttribute("de",list);
-		String file="";
-		int count=0;
-		for(ItemPic ii : list.getIpic()) {
-			if(count++!=0) file+=",";
-			file+=ii.getPicName();
+		if(result>0) {
+			m.addAttribute("msg", "질문 등록 완료");
+			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
+			
+			SellItem list=ms.marketdetail(itemNo);
+			
+			m.addAttribute("de",list);
+			String file="";
+			int count=0;
+			for(ItemPic ii : list.getIpic()) {
+				if(count++!=0) file+=",";
+				file+=ii.getPicName();
+			}
+			m.addAttribute("picpic",file);
+			List<ItemQna> qq=service.selectQnaList(itemNo);
+			m.addAttribute("qna",qq);
+			
+		}else {
+			m.addAttribute("msg", "질문 등록 실패");
+			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
+			
+			SellItem list=ms.marketdetail(itemNo);
+			
+			m.addAttribute("de",list);
+			String file="";
+			int count=0;
+			for(ItemPic ii : list.getIpic()) {
+				if(count++!=0) file+=",";
+				file+=ii.getPicName();
+			}
+			m.addAttribute("picpic",file);
+			List<ItemQna> qq=service.selectQnaList(itemNo);
+			m.addAttribute("qna",qq);
 		}
-		m.addAttribute("picpic",file);
-		m.addAttribute("qna",result);
-		return "market1/detailMarketItem";
+		return "common/msg";
 	}
 	
 	@RequestMapping("/selectQna.do")
 	public String selectQna(Model m,int itemNo) {
 		List<ItemQna> qq=service.selectQnaList(itemNo);
 		m.addAttribute("qna",qq);
+		m.addAttribute("itemNo",itemNo);
 		return "market1/itemQna";
 	}
 	
@@ -79,19 +100,42 @@ public class ItemQnaController {
 	public String delectQna(int iqNo,int itemNo,Model m) {
 		int result=service.delectQna(iqNo);
 		
-		List<ItemQna> qq=service.selectQnaList(itemNo);
-		SellItem list=ms.marketdetail(itemNo);
-		m.addAttribute("de",list);
-		String file="";
-		int count=0;
-		for(ItemPic ii : list.getIpic()) {
-			if(count++!=0) file+=",";
-			file+=ii.getPicName();
+		if(result>0) {
+			m.addAttribute("msg", "질문 삭제 완료");
+			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
+			
+			SellItem list=ms.marketdetail(itemNo);
+			
+			m.addAttribute("de",list);
+			String file="";
+			int count=0;
+			for(ItemPic ii : list.getIpic()) {
+				if(count++!=0) file+=",";
+				file+=ii.getPicName();
+			}
+			List<ItemQna> qq=service.selectQnaList(itemNo);
+			m.addAttribute("picpic",file);
+			m.addAttribute("qna",qq);
+			m.addAttribute("itemNo",itemNo);
+			
+		}else {
+			m.addAttribute("msg", "질문 삭제 실패");
+			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
+			
+			SellItem list=ms.marketdetail(itemNo);
+			
+			m.addAttribute("de",list);
+			String file="";
+			int count=0;
+			for(ItemPic ii : list.getIpic()) {
+				if(count++!=0) file+=",";
+				file+=ii.getPicName();
+			}
+			m.addAttribute("picpic",file);
+			List<ItemQna> qq=service.selectQnaList(itemNo);
+			m.addAttribute("qna",qq);
 		}
-		m.addAttribute("picpic",file);
-		m.addAttribute("qna",qq);
-		
-		return "market1/detailMarketItem";
+		return "common/msg";
 	}
 	
 	
