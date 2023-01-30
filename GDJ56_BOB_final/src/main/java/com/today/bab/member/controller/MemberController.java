@@ -1,5 +1,6 @@
 package com.today.bab.member.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.member.model.service.MemberService;
 import com.today.bab.member.model.vo.Member;
@@ -60,7 +63,11 @@ public class MemberController {
 		Member loginMember=service.selectMemberById(m);
 		System.out.println(loginMember);
 		
-		if(loginMember!=null&&loginMember.getPassword().equals(m.getPassword())) {
+		if(loginMember!=null&&
+				//임시로 원래 비번과 암호화된 비번 확인 둘 다 하게 함
+				//입력한 비번과 암호화된 비번이 일치하는지 확인
+				(loginMember.getPassword().equals(m.getPassword())||
+				passwordEncoder.matches(m.getPassword(), loginMember.getPassword()))){
 			model.addAttribute("loginMember", loginMember);
 			System.out.println("성공");
 			return "redirect:/";
@@ -103,6 +110,16 @@ public class MemberController {
 		System.out.println(data);
 		
 		return data;
+	}
+
+	@RequestMapping("/nicknameDuplicateCheck")
+	public void nicknameDuplicateCheck(String nickname, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		Member m=service.nicknameDuplicateCheck(nickname);
+		
+		response.setContentType("application/json;charset=utf-8");
+		new Gson().toJson(m, response.getWriter());
+
 	}
 
 	@ResponseBody
@@ -187,6 +204,10 @@ public class MemberController {
 		if(ml.getSide()!='Y') ml.setSide('N');
 		if(ml.getVege()!='Y') ml.setVege('N');
 		System.out.println(ml);
+
+		//패스워드 암호화
+		String encodePassword=passwordEncoder.encode(m.getPassword());
+		m.setPassword(encodePassword);
 		
 		int result=service.enrollMemberEnd(m, ml);
 		

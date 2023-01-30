@@ -27,4 +27,6 @@ public interface Market1Dao {
 	int updateItemPic(SqlSessionTemplate session,ItemPic keys);
 	
 	int deleteItemPic(SqlSessionTemplate session,int itemNo);
+	
+	List<SellItem> selectCtgAjax(SqlSessionTemplate session,String itemCategory);
 }

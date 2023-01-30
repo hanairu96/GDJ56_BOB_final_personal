@@ -356,6 +356,29 @@
 			})
 		});
 		
+		//닉네임 중복확인
+		$("#inputNickname").keyup(e=>{
+       		let nicknameValue=$("#inputNickname").val().trim();
+			$.ajax({
+       			url:"${path}/member/nicknameDuplicateCheck",
+       			data:{nickname:nicknameValue},
+       			success:data=>{
+       				//console.log(data);
+       				if(data){ //닉네임이 존재하면
+       					$("span#checkNickname>small").text("이미 존재하는 닉네임입니다.").css("color","red");
+       				}else if(nicknameValue==""){
+       					$("span#checkNickname>small").text("닉네임을 입력해주세요.").css("color","red");
+       				}else if(nicknameValue.length<2){
+       					$("span#checkNickname>small").text("닉네임은 2자리 이상 입력해주세요.").css("color","red");
+       				}else if(!/^[가-힣a-zA-Z0-9]{2,8}$/.test(nicknameValue)){ //닉네임이 잘못됐으면
+       					$("span#checkNickname>small").text("닉네임은 한글이나 영문자, 숫자로만 작성해주세요.").css("color","red");
+       				}else{
+       					$("span#checkNickname>small").text("사용 가능한 닉네임입니다.").css("color","green");
+       				}
+       			}
+       		})
+		});
+		
 		$(()=>{
 			$("#inputEmail").keyup(e=>{
 				//입력한 이메일
@@ -450,8 +473,7 @@
 		}
 
 		const fn_enrollFail=()=>{
-			//아이디 5자리 이상 필수입력
-			const inputId=$("#inputId").val().trim();
+			//아이디 사용 가능 여부
 			if(!($("span#checkId>small").text().includes("가능한"))){ //아이디 사용 가능하다는 말이 없으면
 				alert("아이디를 확인해주세요.");
 				$("#inputId").focus();
@@ -487,16 +509,11 @@
 			}else{
 				$("span#checkName>small").text(" ");
 			}
-			//닉네임 정규식 표현
-			const nickname=$("#inputNickname").val().trim();
-			const nicknameReg=/^[가-힣a-zA-Z0-9]{2,8}$/;
-			if(!nicknameReg.test(nickname)){ //닉네임이 잘못됐으면
+			//닉네임 사용 가능 여부
+			if(!($("span#checkNickname>small").text().includes("가능한"))){
 				alert("닉네임을 확인해주세요.");
-				$("span#checkNickname>small").text("올바른 닉네임을 입력해주세요.").css("color","red");
 				$("#inputNickname").focus();
 				return false;
-			}else{
-				$("span#checkNickame>small").text(" ");
 			}
 			//년도 입력
 			const yy=$("#yy").val().trim();
