@@ -1,6 +1,7 @@
 package com.today.bab.member.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -175,7 +176,7 @@ public class MemberController {
 	@RequestMapping("/enrollMemberEnd")
 	public ModelAndView enrollMemberEnd(Member m, String year, String month, String day, 
 			String inputAddressAddress, String inputAddressDetailAddress, 
-			MemberLike ml, ModelAndView mv) throws ParseException {
+			MemberLike ml, ModelAndView mv) throws ParseException, RuntimeException {
 		System.out.println(m);
 		System.out.println(year);
 		System.out.println(month);
@@ -211,15 +212,8 @@ public class MemberController {
 		
 		int result=service.enrollMemberEnd(m, ml);
 		
-//		int result=0;
-//		try {
-//			result=service.enrollMemberEnd(m, ml);
-//		}catch (Exception e) {
-//			// TODO: handle exception
-//		}
-		
 		if(result>0) {
-			mv.addObject("msg","회원가입 되었습니다.");
+			mv.addObject("msg","회원가입 되었습니다. 가입 선물로 적립급 3000원이 지급되었습니다.");
 			mv.addObject("loc","/");
 		}else {
 			mv.addObject("msg","회원가입이 실패하였습니다.");
