@@ -8,6 +8,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <body>
+${sellItemNoCount}
 
 <section class="checkout spad">
     <div class="container">
@@ -257,35 +258,42 @@
     
     
     const basketpay=()=>{
-	    console.log($("#totaltotal").html());
-	    console.log($("#orderName").val());
-	    console.log($("#orderPhone").val());
+	    //console.log($("#totaltotal").html());
+	    //console.log($("#orderName").val());
+	    //console.log($("#orderPhone").val());
 	    /* console.log(${loginMember.memberId}); */
-	    let orderaddr=$("#inputAddress_postcode").val()+""+$("#inputAddress_address").val()+""+$("#inputAddress_detailAddress").val();
-	    console.log(orderaddr);
-     IMP.init("imp44501773");
+	    let orderaddr=$("#inputAddress_postcode").val()+""+$("#inputAddress_address").val()+","+$("#inputAddress_detailAddress").val();
+	    //console.log(orderaddr);
+	    let merchant = 'bob_'+Math.floor(Math.random() * 100000000)+1;
+	    console.log(merchant);
+  /*    IMP.init("imp44501773");
     		IMP.request_pay({
     			pg : "html5_inicis",
     			name : "장바구니 결제하기",
     			pay_method : "card",
     			amount : $("#totaltotal").html(),
-    			merchant_uid : 'bob_' + new Date().getTime(),
+    			merchant_uid : merchant,
     			buyer_name : $("#orderName").val(),
     			buyer_email : "email@email",
     			buyer_tel : $("#orderPhone").val(),
     			buyer_addr: orderaddr
     		}, function(rsp){	
     				if(rsp.success){
-    					//alert("결제가 완료되었습니다.");
+    					//alert("결제가 완료되었습니다."); */
     					$.ajax({
     						url : "${path}/mypage/pay.do",
     						type : "post",
+    						/* contentType:"application/json", */
     						data : {
-    								price : $("#totaltotal").html(),
+    								price : Number($("#totaltotal").html()),
     								buyer_addr: orderaddr,
     								buyer_name : $("#orderName").val(),
     								buyer_tel : $("#orderPhone").val(),
-    								orderComment : $("#orderComment").val()
+    								orderComment : $("#orderComment").val(),
+    								merchant : merchant,
+    								use_point : Number($("#finalpoint").html()),
+    								basketss : JSON.stringify(${basketss}),
+    								sellItemNoCount : JSON.stringify(${sellItemNoCount})
     								},
     						success:data=>{
     							alert("결제가 완료되었습니다.");
@@ -295,10 +303,10 @@
     					    }
     					});
     					
-    				}else{	
+    				/* }else{	
     					alert(rsp.error_msg);
     				}
-    			});		
+    			});		 */
     } 
 </script>
 

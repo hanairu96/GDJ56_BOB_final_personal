@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
+import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 
 public interface MypageDao {
@@ -25,4 +26,6 @@ public interface MypageDao {
 	List<Basket> basketOrderList(SqlSessionTemplate session,String[] basketno);
 	
 	int insertItemOrder(SqlSessionTemplate session,ItemOrder io);
+	
+	int insertItemDetail(SqlSessionTemplate session,List<ItemDetail> ids);
 }

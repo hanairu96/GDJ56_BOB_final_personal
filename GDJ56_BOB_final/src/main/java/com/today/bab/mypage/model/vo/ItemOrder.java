@@ -25,5 +25,6 @@ public class ItemOrder {
 	private String orderPhone;
 	private String refund_fix;
 	private String orderComment;
+	private String merchantUid;
 	
 }

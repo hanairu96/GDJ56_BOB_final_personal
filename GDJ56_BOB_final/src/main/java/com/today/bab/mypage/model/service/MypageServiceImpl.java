@@ -10,6 +10,7 @@ import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.mypage.model.dao.MypageDao;
+import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 
 @Service
@@ -60,7 +61,23 @@ public class MypageServiceImpl implements MypageService {
 	} 
 	
 	@Override
-	public int insertItemOrder(ItemOrder io) {
-		return mypageDao.insertItemOrder(session, io);
+	public int insertItemOrder(ItemOrder io, List<ItemDetail> ids, String[] basketss, int use_point) {
+		int result= mypageDao.insertItemOrder(session, io);
+		//System.out.println(io.getOrderNo());
+		//System.out.println(ids.size()+"ids");
+		
+		if(result>0) {
+			for(int i=0;i<ids.size();i++) {
+				ids.get(i).setOrderNo(io.getOrderNo());
+				System.out.println(ids.get(i).getOrderNo());
+			}
+			result=0;
+			result=mypageDao.insertItemDetail(session,ids);
+		}else {
+			result=0;
+		}
+		
+		
+		return result;
 	}
 }

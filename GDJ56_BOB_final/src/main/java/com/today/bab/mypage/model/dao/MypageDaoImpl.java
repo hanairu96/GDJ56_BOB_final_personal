@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
+import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 
 @Repository
@@ -51,5 +52,10 @@ public class MypageDaoImpl implements MypageDao{
 	@Override
 	public int insertItemOrder(SqlSessionTemplate session, ItemOrder io) {
 		return session.insert("mypage.insertItemOrder",io);
+	}
+	
+	@Override
+	public int insertItemDetail(SqlSessionTemplate session, List<ItemDetail> ids) {
+		return session.insert("mypage.insertItemDetail",ids);
 	}
 }
