@@ -9,7 +9,7 @@
                           <div class="product__item">
                               <div class="product__item__pic set-bg" style="background-image: url('${path }/resources/upload/market/mainlabel/${sell.mainPic }')">
                                   <ul class="product__item__pic__hover">
-                                      <li><a href="#"><i class="fa fa-shopping-cart" ></i></a></li>
+                                  	<li><a href="#"><i class="fa fa-shopping" ><img src="${path }/resources/market/img/market-cart.png" style="width:27px;"></i></a></li>
                                   </ul>
                               </div>
                               <div class="product__item__text">

@@ -44,13 +44,11 @@
 member- mapper에서 문제있다!!로그인 불가능!! 나중에input value값을 수정해야한다
 
 
-
-
  -->
 			</div>
 		</form>
 		<hr/> 
-<%-- 		<c:forEach var="q" items="${qna }">
+		<c:forEach var="q" items="${qna }">
 			<div style="display: flex; height:40px;margin-bottom: 7px;">
 			    <img src="./img/product/product-3.jpg" alt="" style="height:40px;width: 40px;border-radius: 50%;">
 			    <div>
@@ -76,7 +74,7 @@ member- mapper에서 문제있다!!로그인 불가능!! 나중에input value값
 			    <div style="display:flex;margin-bottom: 7px;">
 			        <img src="./img/cart/cart-3.jpg" alt="" style="width:40px; height: 40px;border-radius: 50%;">
 			        <h5 style="margin:10px;">오늘의 밥</h5>
-			        <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;">2023-01-01</span>
+			        <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;">${q.iqDate }</span>
 			    </div>
 			    <div style="display:flex">
 			        <div >
@@ -88,8 +86,7 @@ member- mapper에서 문제있다!!로그인 불가능!! 나중에input value값
 			    </div>
 			    <hr/>
 			</div>
-		</c:forEach> --%>
-		
+		</c:forEach>
 		
 		<script>
 		    $("#togglereply").click(e=>{

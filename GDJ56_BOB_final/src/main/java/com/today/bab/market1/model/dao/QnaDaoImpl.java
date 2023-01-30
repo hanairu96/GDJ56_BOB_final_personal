@@ -17,7 +17,7 @@ public class QnaDaoImpl implements QnaDao {
 	}
 	
 	@Override
-	public List<ItemQna> selectQnaList(SqlSessionTemplate session){
-		return session.selectList("iqna.selectQnaList");
+	public List<ItemQna> selectQnaList(SqlSessionTemplate session, int itemNo){
+		return session.selectList("iqna.selectQnaList",itemNo);
 	}
 }

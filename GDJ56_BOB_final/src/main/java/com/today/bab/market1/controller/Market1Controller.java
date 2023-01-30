@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,13 +29,13 @@ import lombok.extern.slf4j.Slf4j;
 public class Market1Controller {
 	
 	private Market1Service service;
-	private QnaService ser;
+	private QnaService qnaservice;
 
 	@Autowired
-	public Market1Controller(Market1Service service) {
+	public Market1Controller(Market1Service service,QnaService qnaservice) {
 		super();
 		this.service = service;
-		this.ser = ser;
+		this.qnaservice = qnaservice;
 	}
 	
 	
@@ -365,8 +364,7 @@ public class Market1Controller {
 			page="itemExchange";
 		}else if(check.contains("d")) {
 			page="itemQna";
-//			System.out.println(service1.selectQna(itemNo));
-//			m.addAttribute("qna",service1.selectQna(itemNo));
+			m.addAttribute("qna",qnaservice.selectQnaList(itemNo));
 		}
 		m.addAttribute("itemNo", itemNo);
 		return "market1/"+page;

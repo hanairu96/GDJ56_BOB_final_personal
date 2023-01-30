@@ -43,18 +43,17 @@ public class ItemQnaController {
 				.build();
 		System.out.println(i);
 		
-//		int result=service.insertQna(a);
-//		m.addAttribute("qna",result);
-		return "";
+		int result=service.insertQna(a);
+		m.addAttribute("qna",result);
+		m.addAttribute("itemNo",itemNo);
+		return "market1/detailMarketItem";
 	}
 	
 	@RequestMapping("/selectQna.do")
 	public String selectQna(Model m) {
 		List<ItemQna> qq=service.selectQnaList();
-		System.out.println(qq);
-//		m.addAttribute("ii",qq);
-//		return "market1/marketGtg";
-		return "";
+		m.addAttribute("qna",qq);
+		return "market1/itemQna";
 	}
 	
 	
