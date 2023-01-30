@@ -60,7 +60,11 @@ public class MemberController {
 		Member loginMember=service.selectMemberById(m);
 		System.out.println(loginMember);
 		
-		if(loginMember!=null&&loginMember.getPassword().equals(m.getPassword())) {
+		if(loginMember!=null&&
+				//임시로 원래 비번과 암호화된 비번 확인 둘 다 하게 함
+				//입력한 비번과 암호화된 비번이 일치하는지 확인
+				(loginMember.getPassword().equals(m.getPassword())||
+				passwordEncoder.matches(m.getPassword(), loginMember.getPassword()))){
 			model.addAttribute("loginMember", loginMember);
 			System.out.println("성공");
 			return "redirect:/";
@@ -187,6 +191,10 @@ public class MemberController {
 		if(ml.getSide()!='Y') ml.setSide('N');
 		if(ml.getVege()!='Y') ml.setVege('N');
 		System.out.println(ml);
+
+		//패스워드 암호화
+		String encodePassword=passwordEncoder.encode(m.getPassword());
+		m.setPassword(encodePassword);
 		
 		int result=service.enrollMemberEnd(m, ml);
 		
