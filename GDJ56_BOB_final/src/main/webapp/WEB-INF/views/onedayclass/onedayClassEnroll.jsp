@@ -73,11 +73,11 @@
 				</b>
 				<div style="display: flex;">
 					<div class="size12 bo2 bo-rad-10 m-b-23">
-						<input class="bo-rad-10 sizefull txt10 p-l-20" type="date" name="odcStartDate">
+						<input class="bo-rad-10 sizefull txt10 p-l-20" type="date" name="startDate">
 					</div>
 					<h2> &nbsp;~&nbsp; </h2>
 					<div class="size12 bo2 bo-rad-10 m-b-23">
-						<input class="bo-rad-10 sizefull txt10 p-l-20" type="date" name="odcEndDate">
+						<input class="bo-rad-10 sizefull txt10 p-l-20" type="date" name="endDate">
 					</div>
 				</div>
 			

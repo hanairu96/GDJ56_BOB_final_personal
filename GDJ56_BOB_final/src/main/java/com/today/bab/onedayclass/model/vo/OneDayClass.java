@@ -14,7 +14,7 @@ public class OneDayClass {
 	private int odcNo;
 	private String odcClassName;
 	private String odcCookName;
-	private String odcStartDate;
+	private Date odcStartDate;
 	private Date odcEndDate;
 	private String odcTime;
 	private int odcPeople;
@@ -23,7 +23,7 @@ public class OneDayClass {
 	private int odcPrice;
 	private String odcMainPic;
 	private String odcContent;
-	private String odcEnrollDate;
+	private Date odcEnrollDate;
 	private String odcCategoty;
 	private String memberId;
 	private String odcStartTime;

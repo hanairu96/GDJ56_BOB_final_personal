@@ -50,8 +50,8 @@ public class ItemQnaController {
 	}
 	
 	@RequestMapping("/selectQna.do")
-	public String selectQna(Model m) {
-		List<ItemQna> qq=service.selectQnaList();
+	public String selectQna(Model m,int itemNo) {
+		List<ItemQna> qq=service.selectQnaList(itemNo);
 		m.addAttribute("qna",qq);
 		return "market1/itemQna";
 	}
