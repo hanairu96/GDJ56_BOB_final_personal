@@ -125,7 +125,7 @@
 						</button>
 					</form>
 				
-					<button type="submit" class="btn3 flex-c-m txt11 trans-0-4" onclick="location.assign('${path}/class/masterEnroll.do')">
+					<button type="submit" class="btn3 flex-c-m txt11 trans-0-4" onclick="location.assign('${path}/class/editor.do')">
 						장인 신청
 					</button>
 				</div>

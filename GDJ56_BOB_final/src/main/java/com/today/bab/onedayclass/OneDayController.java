@@ -96,24 +96,24 @@ public class OneDayController {
       int result=service.masterEndEnroll(m);
       
       if(result<0) {
-         model.addAttribute("msg","ë“±ë¡ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤");
+         model.addAttribute("msg","µî·Ï¿¡ ½ÇÆĞÇß½À´Ï´Ù");
          model.addAttribute("loc","/class/masterEndEnroll.do");
          return "common/msg";
       }else {
-         model.addAttribute("msg","ì¥ì¸ì‹ ì²­ ë“±ë¡ì´ ì™„ë£ŒëìŠµë‹ˆë‹¤");
+         model.addAttribute("msg","ÀåÀÎ½ÅÃ» µî·ÏÀÌ ¿Ï·áµÆ½À´Ï´Ù");
          model.addAttribute("loc","/class/main.do");
          return "common/msg";
       }
    }
    
-   //ì¥ì¸ì‹ ì²­ í˜ì´ì§€ë¡œ ë„˜ì–´ê°€ëŠ” ë©”ì†Œë“œ
+   //ÀåÀÎ½ÅÃ» ÆäÀÌÁö·Î ³Ñ¾î°¡´Â ¸Ş¼Òµå
    @RequestMapping("/class/editor.do")
-   public String editor(AdminMaster m) {
-      System.out.println(m);
-      return "onedayclass/editor";
+   public ModelAndView editor(AdminMaster m, ModelAndView mv) {
+	  mv.setViewName("onedayclass/editor");
+      return mv;
    }
    
-   //ckEditor ì‚¬ì§„ ì—…ë¡œë“œì‹œ íŒŒì¼ì €ì¥ì‹œí‚¤ëŠ” ë©”ì†Œë“œ
+   //ckEditor »çÁø ¾÷·Îµå½Ã ÆÄÀÏÀúÀå½ÃÅ°´Â ¸Ş¼Òµå
    @RequestMapping("/class/imageUpload.do")
    @ResponseBody
    public void imageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) throws Exception {
@@ -137,7 +137,7 @@ public class OneDayController {
        PrintWriter out=response.getWriter();
        String fileUrl=request.getContextPath()+"/resources/images/onedayclass/"+fileName;
    
-       //out.println("<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'"+fileUrl+"','ì´ë¯¸ì§€ê°€ ì—…ë¡œë“œë˜ì—ˆìŠµë‹ˆë‹¤.')"+"</script>");
+       //out.println("<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'"+fileUrl+"','ÀÌ¹ÌÁö°¡ ¾÷·ÎµåµÇ¾ú½À´Ï´Ù.')"+"</script>");
        out.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
        
        out.flush();
@@ -151,7 +151,7 @@ public class OneDayController {
       mv.addObject("master",master);
       mv.setViewName("onedayclass/onedayClassEnroll");
       return mv;
-      
+ 
       
    }
    
@@ -164,61 +164,57 @@ public class OneDayController {
       System.out.println(startDate);
       System.out.println(endDate);
        
-//               SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-//               Date odcStartDate = format1.parse(startDate);
-//               System.out.println(odcStartDate);
-//               
-//               SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
-//               Date odcEndDate = format2.parse(endDate);
-//               System.out.println(odcEndDate);
-               
-               java.sql.Date odcStartDate = java.sql.Date.valueOf(startDate);
-               java.sql.Date odcEndDate = java.sql.Date.valueOf(endDate);
-        
+	   SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	   Date odcStartDate = format1.parse(startDate);
+	   System.out.println(odcStartDate);
+	   
+	   SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+	   Date odcEndDate = format2.parse(endDate);
+	   System.out.println(odcEndDate);
       
       response.setCharacterEncoding("utf-8");
        response.setContentType("text/html;charset=utf-8");
        String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/onedayclass/");
 
-      //ì „ì†¡ëœ íŒŒì¼ì´ ìˆë‹¤ë©´...
-      //íŒŒì¼ ë¦¬ë„¤ì„ ì²˜ë¦¬ ì§ì ‘ í•˜ê¸°
+      //Àü¼ÛµÈ ÆÄÀÏÀÌ ÀÖ´Ù¸é...
+      //ÆÄÀÏ ¸®³×ÀÓ Ã³¸® Á÷Á¢ ÇÏ±â
       String orignalFileName=odcpic.getOriginalFilename();
       String ext=orignalFileName.substring(orignalFileName.lastIndexOf("."));
-      //ì¤‘ë³µë˜ì§€ ì•ŠëŠ” ì´ë¦„ ì„¤ì •í•˜ëŠ” ê°’ ì§€ì •í•˜ê¸°
+      //Áßº¹µÇÁö ¾Ê´Â ÀÌ¸§ ¼³Á¤ÇÏ´Â °ª ÁöÁ¤ÇÏ±â
       SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
       int rnd=(int)(Math.random()*10000)+1;
       String renameFile = sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
       
-      //íŒŒì¼ ì—…ë¡œë“œí•˜ê¸°
+      //ÆÄÀÏ ¾÷·ÎµåÇÏ±â
       try {
-         //MultipartFile í´ë˜ìŠ¤ê°€ ì œê³µí•´ì£¼ëŠ” ë©”ì†Œë“œ ì´ìš©í•´ì„œ ì €ì¥ì²˜ë¦¬
+         //MultipartFile Å¬·¡½º°¡ Á¦°øÇØÁÖ´Â ¸Ş¼Òµå ÀÌ¿ëÇØ¼­ ÀúÀåÃ³¸®
          odcpic.transferTo(new File(uploadPath+renameFile));
       }catch(IOException e) {
          e.printStackTrace();
       }
       
-      //ì£¼ì†Œ ë¶„ê¸°ì²˜ë¦¬
+      //ÁÖ¼Ò ºĞ±âÃ³¸®
       String[] add=address.split(",");
       String odcAdd=address;
       String odcCity=(String)add[1];
       
-      //íŒŒì¼ëª…
+      //ÆÄÀÏ¸í
       String odcMainPic=renameFile;
       
-      //ë„˜ì–´ì˜¨ê°’ ê°ì²´ì— ë¹Œë“œ
+      //³Ñ¾î¿Â°ª °´Ã¼¿¡ ºôµå
       OneDayClass odc=OneDayClass.builder().odcClassName(odcClassName).odcCookName(odcCookName).odcStartDate(odcStartDate).odcEndDate(odcEndDate).odcTime(odcTime)
       .odcPeople(odcPeople).odcAdd(odcAdd).odcCity(odcCity).odcPrice(odcPrice).odcMainPic(odcMainPic).odcContent(odcContent).odcStartTime(odcStartTime).odcCategoty(odcCategoty)
       .memberId(memberId).build();
       
-      //ê°ì²´ ë³´ë‚´ì„œ insert
+      //°´Ã¼ º¸³»¼­ insert
       int result=service.endclassEnroll(odc);
       
       if(result<0) {
-         model.addAttribute("msg","í´ë˜ìŠ¤ ë“±ë¡ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤");
+         model.addAttribute("msg","Å¬·¡½º µî·Ï¿¡ ½ÇÆĞÇß½À´Ï´Ù");
          model.addAttribute("loc","/class/masterEndEnroll.do");
          return "common/msg";
       }else {
-         model.addAttribute("msg","í´ë˜ìŠ¤ ë“±ë¡ì´ ì™„ë£ŒëìŠµë‹ˆë‹¤");
+         model.addAttribute("msg","Å¬·¡½º µî·ÏÀÌ ¿Ï·áµÆ½À´Ï´Ù");
          model.addAttribute("loc","/class/main.do");
          return "common/msg";
       }
