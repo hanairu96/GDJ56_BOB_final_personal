@@ -1,5 +1,6 @@
 package com.today.bab.member.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.member.model.service.MemberService;
 import com.today.bab.member.model.vo.Member;
@@ -107,6 +110,16 @@ public class MemberController {
 		System.out.println(data);
 		
 		return data;
+	}
+
+	@RequestMapping("/nicknameDuplicateCheck")
+	public void nicknameDuplicateCheck(String nickname, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		Member m=service.nicknameDuplicateCheck(nickname);
+		
+		response.setContentType("application/json;charset=utf-8");
+		new Gson().toJson(m, response.getWriter());
+
 	}
 
 	@ResponseBody
