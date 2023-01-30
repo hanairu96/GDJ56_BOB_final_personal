@@ -55,4 +55,9 @@ public class Market1DaoImpl implements Market1Dao {
 	public int deleteItemPic(SqlSessionTemplate session,int itemNo) {
 		return session.delete("ma.deleteItemPic",itemNo);
 	}
+	
+	@Override
+	public List<SellItem> selectCtgAjax(SqlSessionTemplate session,String itemCategory){
+		return session.selectList("ma.selectCtgAjax",itemCategory);
+	}
 }

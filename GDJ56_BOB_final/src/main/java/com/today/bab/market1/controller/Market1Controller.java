@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,11 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.market1.model.service.Market1Service;
+import com.today.bab.market1.model.service.QnaService;
+import com.today.bab.market1.model.vo.ItemQna;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
 
@@ -29,12 +29,15 @@ import lombok.extern.slf4j.Slf4j;
 public class Market1Controller {
 	
 	private Market1Service service;
+	private QnaService qnaservice;
 
 	@Autowired
-	public Market1Controller(Market1Service service) {
+	public Market1Controller(Market1Service service,QnaService qnaservice) {
 		super();
 		this.service = service;
+		this.qnaservice = qnaservice;
 	}
+	
 	
 //	private String picrename(MultipartFile pic, String path) {
 //		String renameFile="";
@@ -53,7 +56,6 @@ public class Market1Controller {
 //		return renameFile;
 //	}
 	
-	
 	//INDEX에서 마켓 메인 이동 
 	@RequestMapping("/matketmain.do")
 	public ModelAndView marketmain(ModelAndView mv) {
@@ -62,6 +64,7 @@ public class Market1Controller {
 		mv.setViewName("market1/marketMain");
 		return mv;
 	}
+	
 	//상품 카테고리로 이동
 	@RequestMapping("/marketgtg.do")
 	public ModelAndView marketCtg(ModelAndView mv) {
@@ -70,10 +73,12 @@ public class Market1Controller {
 		mv.setViewName("market1/marketGtg");
 		return mv;
 	}
+	
 	//상품 상세페이지로 이동
 	@RequestMapping("/marketdetail.do")
 	public ModelAndView marketdetail(ModelAndView mv,int itemNo) {
 		SellItem list=service.marketdetail(itemNo);
+		
 		mv.addObject("de",list);
 		String file="";
 		int count=0;
@@ -106,7 +111,6 @@ public class Market1Controller {
 		
 		//메인 사진, 라벨 사진 경로
 		String path1=session.getServletContext().getRealPath("/resources/upload/market/mainlabel/");
-		
 		
 		File dir=new File(path);
 		if(!dir.exists()) dir.mkdir();
@@ -150,7 +154,6 @@ public class Market1Controller {
 			}
 		}
 		
-		
 		for(MultipartFile f : imgFile) {
 		//리네임 규칙생성
 			if(!f.isEmpty()) {
@@ -173,9 +176,7 @@ public class Market1Controller {
 				}
 			}
 		}
-		
 		s.setIpic(files);
-		
 
 		int result=service.insertItem( s);
 		if(result>0) {
@@ -256,8 +257,6 @@ public class Market1Controller {
 				.itemCategory(itemCategory).itemStock(itemStock)
 				.build();
 		
-		
-		
 		if(mainPic.getSize()==0) {
 //			param.put("mainPic",(String)param.get("mainPic1"));
 			s.setMainPic(mainPic1);
@@ -277,7 +276,6 @@ public class Market1Controller {
 				e.printStackTrace();
 			}
 		}
-		
 		
 		if(itemLabel.getSize()!=0) {
 			String picName=itemLabel.getOriginalFilename();
@@ -320,10 +318,6 @@ public class Market1Controller {
 			}
 		}
 		
-		
-		
-		System.out.println(files.isEmpty());
-		
 		if(files.isEmpty()) {
 			if(imgFiles!=null) {
 				for(String arr : imgFiles) {
@@ -342,9 +336,7 @@ public class Market1Controller {
 				}
 			}
 		}
-		System.out.println(s);
 		s.setIpic(files);
-		System.out.println(s.getIpic());
 		
 		int result=service.updateMarketItem(s,itemNo);
 		if(result>0) {
@@ -357,6 +349,57 @@ public class Market1Controller {
 		mv.setViewName("common/msg");
 		return mv;
 	}
+	
+	
+	@RequestMapping("/choiceexplain.do")
+	public String choiceexplain(int itemNo,String check,Model m) {
+		String page="";
+		if(check.contains("a")) {
+			page="ItemDetailInfo";
+			m.addAttribute("de",service.marketdetail(itemNo));
+		}else if(check.contains("b")) {
+			page="itemReview";
+//			m.addAttribute("reviews");
+		}else if(check.contains("c")) {
+			page="itemExchange";
+		}else if(check.contains("d")) {
+			page="itemQna";
+			m.addAttribute("qna",qnaservice.selectQnaList(itemNo));
+		}
+		m.addAttribute("itemNo", itemNo);
+		return "market1/"+page;
 		
-		
+//		request.setAttribute("itemNo", itemNo);
+//		RequestDispatcher dispatcher=request.getRequestDispatcher("/WEB-INF/views/market1/"+page);
+//		try {
+//			dispatcher.forward(request, response);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+	}
+	
+	//카테고리
+	@RequestMapping("/searchCtg.do")
+	public String searchCtg(String ct,Model m) {
+		String categ="";
+		if(ct.contains("vege")){
+			categ="채소";
+		}else if(ct.contains("fruit")){
+			categ="과일";
+		}else if(ct.contains("sea")){
+			categ="수산";
+		}else if(ct.contains("meat")){
+			categ="정육";
+		}else if(ct.contains("soup")){
+			categ="국";
+		}else if(ct.contains("salad")){
+			categ="샐러드";
+		}else if(ct.contains("noodle")){
+			categ="면";
+		}
+		List<SellItem> list=service.selectCtgAjax(categ);
+		m.addAttribute("ii", list);
+		return "market1/resultGtgselect";
+	}
+	
 }

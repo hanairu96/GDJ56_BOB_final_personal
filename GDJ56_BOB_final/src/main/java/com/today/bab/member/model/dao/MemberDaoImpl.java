@@ -18,6 +18,11 @@ public class MemberDaoImpl implements MemberDao {
 	public Member idDuplicateCheck(SqlSessionTemplate session, String inputId) {
 		return session.selectOne("member.idDuplicateCheck", inputId);
 	}
+	
+	@Override
+	public Member nicknameDuplicateCheck(SqlSessionTemplate session, String nickname) {
+		return session.selectOne("member.nicknameDuplicateCheck", nickname);
+	}
 
 	@Override
 	public Member emailDuplicateCheck(SqlSessionTemplate session, String email) {
@@ -32,6 +37,16 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int enrollMemberLike(SqlSessionTemplate session, MemberLike ml) {
 		return session.insert("member.enrollMemberLike", ml);
+	}
+
+	@Override
+	public Member selectMemberByEmail(SqlSessionTemplate session, String email) {
+		return session.selectOne("member.selectMemberByEmail", email);
+	}
+
+	@Override
+	public int updatePwd(SqlSessionTemplate session, Member m) {
+		return session.update("member.updatePwd", m);
 	}
 	
 }

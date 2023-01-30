@@ -30,6 +30,11 @@ public class MemberServiceImpl implements MemberService {
 	public Member idDuplicateCheck(String inputId) {
 		return dao.idDuplicateCheck(session, inputId);
 	}
+	
+	@Override
+	public Member nicknameDuplicateCheck(String nickname) {
+		return dao.nicknameDuplicateCheck(session, nickname);
+	}
 
 	@Override
 	public Member emailDuplicateCheck(String email) {
@@ -61,6 +66,16 @@ public class MemberServiceImpl implements MemberService {
 			result=0;
 		}
 		return result;
+	}
+
+	@Override
+	public Member selectMemberByEmail(String email) {
+		return dao.selectMemberByEmail(session, email);
+	}
+
+	@Override
+	public int updatePwd(Member m) {
+		return dao.updatePwd(session, m);
 	}
 
 }
