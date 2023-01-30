@@ -6,59 +6,100 @@
 	<jsp:param name="title" value="MainPage"/>
 </jsp:include>
     <section style="text-align: center;">
-        <h2>정기 구독</h2>
-        <p>정기 구독 서비스를 신청하시면 한 달에 2번씩 배송을 해드립니다.<br>현재 구독 서비스는 우유, 샐러드, 도시락을 대상으로 운영되고 있습니다.</p>
-        <div id="adList">
-            <p><b><sub>✓</sub> 최근 생산 상품을 바로 받을 수 있는 기회</b></p>
-            <p><b><sub>✓</sub> 배송비 없이 저렴하게 얻을 수 있는 기회</b></p>
-            <p><b><sub>✓</sub> 취향에 맞는 상품을 쉽게 받을 수 있는 기회</b></p>
-        </div>
-        <p style="color: red;"><b><u><i>이 기회를 얻고 싶다면 지금 바로 신청하세요!</i></u></b></p>
-        <br>
-        <div class="items">
-            <img src="${path}/resources/images/subscription/우유.PNG">
-            <img src="${path}/resources/images/subscription/images/계란.PNG">
-            <img src="${path}/resources/images/subscription/images/사과.PNG">
-        </div>
-        <br>
-        <div class="items names">
-            <p>우유</p>
-            <p>계란</p>
-            <p>과일</p>
-        </div>
-        <div class="items price">
-            <div><p>월 5000원</p></div>
-            <div><p>월 15000원</p></div>
-            <div><p>월 12000원</p></div>
-        </div>
-        <br>
-        <div class="items goods">
-            <div>
-                <ul>
-                    <li>일반 우유</li>
-                    <li>저지방 우유</li>
-                    <li>무유당 우유</li>
-                </ul>
-            </div>
-            <div>
-                <ul>
-                    <li>특란</li>
-                    <li>유정란</li>
-                    <li>흰색 계란</li>
-                </ul>
-            </div>
-            <div>
-                <ul>
-                    <li>사과</li>
-                    <li>포도</li>
-                    <li>바나나</li>
-                </ul>
+        <div class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15 banner">
+            <div class="tit6">
+                <p>S U B S C R I P T I O N</p>
             </div>
         </div>
-        <br>
-        <button id="apply" class="customBtn btnStyle" onclick="">신청하기</button>
+        <style>
+            .banner{
+                background-image: url(${path}/resources/images/banner-sub.jpg);
+                height: 545px;
+                width: 100%;
+            }
+            .tit6{
+                padding: 250px;
+            }
+            .tit6>p{
+                margin: 0 auto; 
+                width: fit-content;
+                font-family: 'Secular One';
+                font-weight: bolder;
+                color: black;
+                font-size: 50px;
+                cursor: pointer;
+            }
+        </style>
+        
+        <div class="sub-contents">
+	        <h2><b>정기 구독</b></h2><br>
+	        <p>
+	        	정기 구독 서비스를 신청하시면 한 달에 2번씩 배송을 해드립니다.
+	        	<br>현재 구독 서비스는 우유, 샐러드, 도시락을 대상으로 운영되고 있습니다.
+	        	<br>배송일은 <b>매월 첫째주와 셋째주 월요일</b>이며, 결제일은 <b>매월 25일</b>입니다.
+	        </p>
+	        <div id="adList">
+	            <p><b><sub>✓</sub> 최근 생산 상품을 바로 받을 수 있는 기회</b></p>
+	            <p><b><sub>✓</sub> 배송비 없이 저렴하게 얻을 수 있는 기회</b></p>
+	            <p><b><sub>✓</sub> 취향에 맞는 상품을 쉽게 받을 수 있는 기회</b></p>
+	        </div>
+	        <p id="red"><b><u><i>이 기회를 얻고 싶다면 지금 바로 신청하세요!</i></u></b></p>
+	        <br>
+	        <div class="items">
+	            <img src="${path}/resources/images/subscription/우유.png">
+	            <img src="${path}/resources/images/subscription/계란.png">
+	            <img src="${path}/resources/images/subscription/사과.png">
+	        </div>
+	        <br>
+	        <div class="items names">
+	            <p>우유</p>
+	            <p>계란</p>
+	            <p>과일</p>
+	        </div>
+	        <div class="items price">
+	            <div><p>월 5000원</p></div>
+	            <div><p>월 15000원</p></div>
+	            <div><p>월 12000원</p></div>
+	        </div>
+	        <br>
+	        <div class="items goods">
+	            <div>
+	                <ul>
+	                    <li>일반 우유</li>
+	                    <li>저지방 우유</li>
+	                    <li>무유당 우유</li>
+	                </ul>
+	            </div>
+	            <div>
+	                <ul>
+	                    <li>특란</li>
+	                    <li>유정란</li>
+	                    <li>흰색 계란</li>
+	                </ul>
+	            </div>
+	            <div>
+	                <ul>
+	                    <li>사과</li>
+	                    <li>포도</li>
+	                    <li>바나나</li>
+	                </ul>
+	            </div>
+	        </div>
+	        <br>
+	        <button id="apply" class="customBtn btnStyle" onclick="">신청하기</button>
+        </div>
     </section>
     <style>
+    	.sub-contents{
+    		margin-top:50px;
+    	}
+    	.sub-contents *{
+    		font-family: 'Gowun Dodum';
+    		color:black;
+    	}
+    	#red *{
+    		color:red !important;
+    	}
         #adList{
             text-align: center;
         }
@@ -68,7 +109,6 @@
         .items{
             justify-content: center;
             display: flex;
-            /* border: 1px solid; */
         }
         .items>*{
             margin-left: 20px;
@@ -88,17 +128,23 @@
             font-size: 20px;
         }
         .items ul{
-            margin-top: 30px;
+            margin-top: 20px;
         }
         .price>div{
         	border: 1px solid;
         	width: 200px;
         	height: 60px;
         }
+        .price p{
+			margin-top: 15px;
+        }
         .goods>div{
         	border: 1px solid;
         	width: 200px;
         	height: 115px;
+        }
+        .goods li{
+        	list-style: none;
         }
         #apply{
             width: 100px;
