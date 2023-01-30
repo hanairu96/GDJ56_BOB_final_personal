@@ -147,10 +147,6 @@
         	list-style: none;
         }
         #apply{
-            width: 100px;
-            height: 40px;
-            color: white;
-            background-color: dodgerblue;
             border-radius: 10px;
         }
         
@@ -174,11 +170,11 @@
             line-height: 40px;
             padding: 0;
             border: none;
-            background: #7e8cd2;
-            background: linear-gradient(0deg, #7e8cd2 0%, #7e8cd2 100%);
+            background: royalblue;
+            background: linear-gradient(0deg, royalblue 0%, royalblue 100%);
         }
         .btnStyle:hover {
-            color: #7e8cd2;
+            color: royalblue;
             background: transparent;
             box-shadow:none;
         }
@@ -189,7 +185,7 @@
             right:0;
             height:2px;
             width:0;
-            background: #7e8cd2;
+            background: royalblue;
             box-shadow:
             -1px -1px 5px 0px #fff,
             7px 7px 20px 0px #0003,
