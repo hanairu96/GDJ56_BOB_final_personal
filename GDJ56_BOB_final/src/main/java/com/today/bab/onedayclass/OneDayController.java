@@ -93,11 +93,11 @@ public class OneDayController {
 		int result=service.masterEndEnroll(m);
 		
 		if(result<0) {
-			model.addAttribute("msg","µî·Ï¿¡ ½ÇÆÐÇß½À´Ï´Ù");
+			model.addAttribute("msg","ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½");
 			model.addAttribute("loc","/class/masterEndEnroll.do");
 			return "common/msg";
 		}else {
-			model.addAttribute("msg","ÀåÀÎ½ÅÃ» µî·ÏÀÌ ¿Ï·áµÆ½À´Ï´Ù");
+			model.addAttribute("msg","ï¿½ï¿½ï¿½Î½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Æ½ï¿½ï¿½Ï´ï¿½");
 			model.addAttribute("loc","/class/main.do");
 			return "common/msg";
 		}
@@ -134,7 +134,7 @@ public class OneDayController {
     PrintWriter out=response.getWriter();
     String fileUrl=request.getContextPath()+"/resources/images/onedayclass/"+fileName;
 
-    //out.println("<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'"+fileUrl+"','ÀÌ¹ÌÁö°¡ ¾÷·ÎµåµÇ¾ú½À´Ï´Ù.')"+"</script>");
+    //out.println("<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'"+fileUrl+"','ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.')"+"</script>");
     out.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
     
     out.flush();
@@ -158,31 +158,31 @@ public class OneDayController {
 	    response.setContentType("text/html;charset=utf-8");
 	    String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/onedayclass/");
 
-		//Àü¼ÛµÈ ÆÄÀÏÀÌ ÀÖ´Ù¸é...
-		//ÆÄÀÏ ¸®³×ÀÓ Ã³¸® Á÷Á¢ ÇÏ±â
+		//ï¿½ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½...
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½
 		String orignalFileName=odcpic.getOriginalFilename();
 		String ext=orignalFileName.substring(orignalFileName.lastIndexOf("."));
-		//Áßº¹µÇÁö ¾Ê´Â ÀÌ¸§ ¼³Á¤ÇÏ´Â °ª ÁöÁ¤ÇÏ±â
+		//ï¿½ßºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
 		int rnd=(int)(Math.random()*10000)+1;
 		String renameFile = sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
 		
-		//ÆÄÀÏ ¾÷·ÎµåÇÏ±â
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ï¿½Ï±ï¿½
 		try {
-			//MultipartFile Å¬·¡½º°¡ Á¦°øÇØÁÖ´Â ¸Þ¼Òµå ÀÌ¿ëÇØ¼­ ÀúÀåÃ³¸®
+			//MultipartFile Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Þ¼Òµï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 			odcpic.transferTo(new File(uploadPath+renameFile));
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Å¬·¡½ºÀÌ¸§"+odcClassName);
-		System.out.println("¿ä¸®ÀÌ¸§"+odcCookName);
-		System.out.println("½ÃÀÛ³¯Â¥"+odcStartDate);
-		System.out.println("³¡³¯Â¥"+odcEndDate);
-		System.out.println("Å¬·¡½º½ÃÀÛ½Ã°£"+odcTime);
-		System.out.println("¼ö°­ÀÎ¿ø"+odcPeople);
+		System.out.println("Å¬ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½"+odcClassName);
+		System.out.println("ï¿½ä¸®ï¿½Ì¸ï¿½"+odcCookName);
+		System.out.println("ï¿½ï¿½ï¿½Û³ï¿½Â¥"+odcStartDate);
+		System.out.println("ï¿½ï¿½ï¿½ï¿½Â¥"+odcEndDate);
+		System.out.println("Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û½Ã°ï¿½"+odcTime);
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½"+odcPeople);
 		
-		System.out.println("ÁÖ¼Ò"+address);
+		System.out.println("ï¿½Ö¼ï¿½"+address);
 		String[] add=address.split(",");
 		String odcAdd=address;
 		String odcCity=(String)add[1];
@@ -190,9 +190,9 @@ public class OneDayController {
 		System.out.println(odcAdd);
 		System.out.println(odcCity);
 		
-		System.out.println("½ÃÀÛ½Ã°£"+odcStartTime);
-		System.out.println("°­»ç¸í"+mastserName);
-		System.out.println("ÆÄÀÏÀÌ¸§"+renameFile);
+		System.out.println("ï¿½ï¿½ï¿½Û½Ã°ï¿½"+odcStartTime);
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½"+mastserName);
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½"+renameFile);
 		String odcMainPic=renameFile;
 		System.out.println(odcMainPic);
 		
@@ -208,11 +208,11 @@ public class OneDayController {
 		
 	
 		if(result<0) {
-			model.addAttribute("msg","Å¬·¡½º µî·Ï¿¡ ½ÇÆÐÇß½À´Ï´Ù");
+			model.addAttribute("msg","Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½");
 			model.addAttribute("loc","/class/masterEndEnroll.do");
 			return "common/msg";
 		}else {
-			model.addAttribute("msg","Å¬·¡½º µî·ÏÀÌ ¿Ï·áµÆ½À´Ï´Ù");
+			model.addAttribute("msg","Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Æ½ï¿½ï¿½Ï´ï¿½");
 			model.addAttribute("loc","/class/main.do");
 			return "common/msg";
 		}
