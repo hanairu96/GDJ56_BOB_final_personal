@@ -419,25 +419,6 @@
 		                      </td>
 		                    </tr>                		
                   </c:forEach>
-                    <!-- <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          </div>
-                          <div>
-                            <p class="font">2023/01/17</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        +100
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        후기 작성
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                       누적적립금
-                      </td>
-                    </tr> -->
 
                   </tbody>
                 </table>
@@ -447,7 +428,7 @@
               >
                 <span class="col-span-1"></span>
                 <!-- Pagination -->
-                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                <span class="flex col-span-3 mt-2 sm:mt-auto sm:justify-end">
                   <nav aria-label="Table navigation" id="pagebbar">
                     ${pageBar}
                   </nav>
@@ -471,7 +452,7 @@ button.active-color { color:#000; }
 	  }
 	
 	function click(e) {
-		e.target.className='px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple';
+		(e.target).className='px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple';
 	    //e.target.toggleClass(".active-color");
 	  }
 </script>

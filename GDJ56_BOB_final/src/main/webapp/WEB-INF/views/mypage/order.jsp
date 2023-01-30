@@ -184,22 +184,55 @@
         let totaltotal=parseInt(totalresult)+
     	parseInt(document.querySelector("#delprice").innerText)-
     	parseInt(document.querySelector("#finalpoint").innerHTML); 
+        
+        if(totaltotal<100){
+        	alert("결제 최소금액은 100원입니다.");
+        	$("#point").val(0);
+        	document.querySelector("#finalpoint").innerHTML=0;
+        	totaltotal=parseInt(totalresult)+
+        	parseInt(document.querySelector("#delprice").innerText)-
+        	parseInt(document.querySelector("#finalpoint").innerHTML); 
+        }
     	
         document.querySelector("#totaltotal").innerHTML=totaltotal;
+        
+        
          
     }
 
     //포인트전액사용
     const fn_pointAll = ()=>{
-        //현재적립금
+        
         let mypointtext = $("#mypoint").text();
         let mypoint = mypointtext.substring(0, mypointtext.length -1);
         console.log(mypoint);
+        
+        
+        let pointover=parseInt(document.querySelector("#totalPrice").innerText)+30-100;
+        console.log(pointover);
+        console.log(mypoint);
+        
+        if(parseInt(mypoint)>parseInt(pointover)){
+        	alert("결제 최소금액은 100원입니다.");
+        	document.querySelector("#finalpoint").innerHTML=0;
+        	document.querySelector("#finalpoint").innerHTML=0;
+        }else{
+        	//사용할적립금변경
+            console.log($("#point").val(mypoint));
+            //최종사용적립금변경
+            console.log($("#finalpoint").text(mypoint));
+        }
+        
+        let totaltotal=parseInt(totalresult)+
+    	parseInt(document.querySelector("#delprice").innerText)-
+    	parseInt(document.querySelector("#finalpoint").innerHTML);
+        
+        document.querySelector("#totaltotal").innerHTML=totaltotal;
 
         //사용할적립금변경
-        console.log($("#point").val(mypoint));
+        //console.log($("#point").val(mypoint));
         //최종사용적립금변경
-        console.log($("#finalpoint").text(mypoint));
+        //console.log($("#finalpoint").text(mypoint));
 		
 
     }
