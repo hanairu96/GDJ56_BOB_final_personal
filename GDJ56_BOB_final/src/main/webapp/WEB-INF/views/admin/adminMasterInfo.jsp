@@ -316,7 +316,11 @@
 	                            <c:out value="${ci.odcCategoty}"/>
 	                          </td>
 	                          <td class="px-4 py-3 text-xs">
-	                            <c:out value="${ci.odcStartDate}"/> ~ <c:out value="${ci.odcEndDate}"/>
+	                          	<fmt:formatDate var="startDate" value="${ci.odcStartDate}" pattern="yyyy.MM.dd"/>
+	                            	<c:out value="${startDate}"/>
+	                            	~ 
+	                            <fmt:formatDate var="endDate" value="${ci.odcEndDate}" pattern="yyyy-MM-dd"/>
+	                            	<c:out value="${endDate}"/>
 	                          </td>
 	                          <td class="px-4 py-3 text-sm">
 	                            <c:out value="${ci.odcStartTime}"/>
@@ -463,7 +467,11 @@
 		                            <c:out value="${ce.odcCategoty}"/>
 		                          </td>
 		                          <td class="px-4 py-3 text-xs">
-		                            <c:out value="${ce.odcStartDate}"/> ~ <c:out value="${ce.odcEndDate}"/>
+	                          		<fmt:formatDate var="startDate" value="${ce.odcStartDate}" pattern="yyyy-MM-dd"/>
+	                            		<c:out value="${startDate}"/>
+	                            	~ 
+	                            	<fmt:formatDate var="endDate" value="${ce.odcEndDate}" pattern="yyyy-MM-dd"/>
+	                            		<c:out value="${endDate}"/>
 		                          </td>
 		                          <td class="px-4 py-3 text-sm">
 		                            <c:out value="${ce.odcStartTime}"/>
