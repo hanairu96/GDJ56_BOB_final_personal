@@ -382,10 +382,11 @@
 	     <br>
 	     <label class="block mt-4 text-sm">
 	       <span class="text-gray-700 dark:text-gray-400"><b>탈락 사유</b></span>
-	        <input
-	             class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-	              id="masterTestText"
-	           />
+            <textarea
+	         class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+	         rows="6"
+	         id="masterTestText"
+	       ></textarea>
 	     </label>
 	     
 	     <div style="margin-top:16px;text-align: center;">
@@ -424,7 +425,7 @@
 		     <button
 		       type="submit"
 		       style="display :inline-block;background-color: white; border: 1.5px solid purple; color: purple;"
-		       class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+		       class="modal_submit_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
 		     >
 		     최종 확정
 		     </button>
@@ -488,8 +489,7 @@
 
 </style>
 <script>
-	function modal(id,testText) {
-		console.log(testText);
+	function modal(id) {
 	   var zIndex = 9999;
 	   var modal = document.getElementById(id);
 	
@@ -534,7 +534,56 @@
 	   modal.querySelector('.modal_submit_btn').addEventListener('click',function(){
 		   bg.remove();
 		   modal.style.display = 'none';
-		   location.assign("${path }/admin/masterTestEnd.do?name=${master.name}&test='탈락'&text="+testText);
+	   })
+	}
+	
+	function modal2(id,notestText) {
+		console.log(notestText);
+	   var zIndex = 9999;
+	   var modal = document.getElementById(id);
+	
+	   // 모달 div 뒤에 희끄무레한 레이어
+	   var bg = document.createElement('div');
+	   bg.setStyle({
+	       position: 'fixed',
+	       zIndex: zIndex,
+	       left: '0px',
+	       top: '0px',
+	       width: '100%',
+	       height: '100%',
+	       overflow: 'auto',
+	       // 레이어 색깔은 여기서 바꾸면 됨
+	       backgroundColor: 'rgba(0,0,0,0.4)'
+	   });
+	   document.body.append(bg);
+	
+	   // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+	   modal.querySelector('.modal_close_btn').addEventListener('click', function() {
+	       bg.remove();
+	       modal.style.display = 'none';
+	   });
+	
+	   modal.setStyle({
+	       position: 'fixed',
+	       display: 'block',
+	       boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+	
+	       // 시꺼먼 레이어 보다 한칸 위에 보이기
+	       zIndex: zIndex + 1,
+	
+	       // div center 정렬
+	       top: '50%',
+	       left: '50%',
+	       transform: 'translate(-50%, -50%)',
+	       msTransform: 'translate(-50%, -50%)',
+	       webkitTransform: 'translate(-50%, -50%)'
+	   });
+	   
+	   //확인 버튼 처리, 회원탈퇴, 레이어와 모달 div 지우기
+	   modal.querySelector('.modal_submit_btn').addEventListener('click',function(){
+		   bg.remove();
+		   modal.style.display = 'none';
+		   location.assign("${path }/admin/masterTestEnd.do?name=${master.name}&test='탈락'&masterTestText="+notestText);
 	   })
 	   
 	}
@@ -563,7 +612,7 @@
 	const reNoBtn=()=>{
 		const notestText=document.querySelector('#masterTestText').value;
 	  	console.log(notestText);
-	  	modal('modal_REadminMasterNO',notestText);
+	  	modal2('modal_REadminMasterNO',notestText);
 	}
 </script>
 

@@ -371,11 +371,11 @@
 	                          >
 	                            <img
 	                              class="object-cover w-full h-full rounded-full"
-	                              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+	                              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAACwklEQVR4nOVVT0iUQRTfS1JR1jdr2paRaBQulc5sB885s3joZO2tdGYVL5bUuVOKpRYESSSkHQO7eUq95Kk8BRG4M6ug+81WUB001CjSiffZmuH+sdxZqB48mO+937zf7/vmzft8vr/RTrOLpSEmOgjjj8BxffMViBWEHId5FFP+CTM+j5kYXXM+j6lYICzKrZKHKG8lTKxixm/V1UV2peKwJpT3erkwj1ohPxPmRzATnzHlnZkwhIouzMTyqYbW8rwLwJT3EcbnQqG2HZkwkMNMJAgTPTYEvIbPnBPHxG3C+CsbApZq60VTLhw0IqFiMe8CCBWLW+lyTIWAW2LlCDDlfTlxjN+xcgSE8l5osGxNGIxEijAVLlxTW9dwGa5aJgxmoht6peZs02GfDatlogWGDXyNjYModK5t91r3i1XoASvkKQsx3gxjd835GKZi3Ft747j5kq8QVtsgDmDKLxMqhgjlg4SJdoj5/mkLRiJFlT1DwlG6E0k9gaTrOtJdAoc1xBylb1TefCgAm1dyFNMXykeeKRKOmsDoc4OU9vxY14DnqefA2AvjYUYmJIrr89sm9scSh5DSoymCYHuXORm9bvyxhKkYGDaERT1CWEMMcoBJ4ZHST0um5gJ/RL4vnsSOdPWGYqZs4qXBDS2muqN7nbjiwbC3hhjkALNxDxzPfqVrfou8OJ6oQtJ9/0uhH17VO2gIE6ay//F6rGLgiReDXLo9SLkfS6aSx7dEjuLxYiT1TPpC2vinEubg+OSmeGB80stl2udIPe2PfdibU4AjdX+mItt1R7l3s7+9mq1G0v1mSwDU9seSJ7II0Petkf88intpyY/Ozu50pF4ogIAF4NokoGT6DbFNnnK44psElM28K0VKfy2AgC974m/T/7iQ1NeQdFcsNuEKkvpq7iGkdCOSyUheXelGqJ2V3Pc/2ncMULTI3hg6NAAAAABJRU5ErkJggg=="
 	                              alt=""
 	                              loading="lazy"
 	                            />
-	                            <div
+	                             <div
 	                              class="absolute inset-0 rounded-full shadow-inner"
 	                              aria-hidden="true"
 	                            ></div>
@@ -416,21 +416,21 @@
 			                       <span
 			                       class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
 			                        >
-			                        <a href="${path }/admin/masterTest.do?name=${m.name}">거절</a>
+			                        <a href="javascript:alert('심사 탈락 사유 : ${m.fail }');" onfocus="this.blur()">거절</a>
 			                      </span>
 			                    </c:if>
 			                    <c:if test="${fn:contains(m.ing,'Y')}">
 			                       <span
 			                        class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
 			                        >
-			                        <a href="${path }/admin/masterTest.do?name=${m.name}">승인</a>
+			                       <a href="javascript:alert('이미 승인 된 회원입니다.');" onfocus="this.blur()">승인</a>
 			                      </span>
 			                    </c:if>
 			                    <c:if test="${fn:contains(m.ing,'B')}">
 			                       <span
 			                       class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
 			                        >
-			                        <a href="${path }/admin/masterTest.do?name=${m.name}">박탈</a>
+			                        <a href="javascript:alert('자격 박탈 사유 : ${m.fail }');" onfocus="this.blur()">박탈</a>
 			                      </span>
 			                    </c:if>
 		                      </td>

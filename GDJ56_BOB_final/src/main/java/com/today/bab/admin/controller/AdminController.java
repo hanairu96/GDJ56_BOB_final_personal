@@ -138,9 +138,9 @@ private AdminService service;
 					
 				}else {
 					java.util.Date utilDate = new java.util.Date(); //util현재날짜
-				    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); //sql로 변환
+//				    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); //sql로 변환
 				    
-				    if(sqlDate.before(master.getOnedayclass1().get(j).getOdcEndDate())){ 
+				    if(utilDate.before(master.getOnedayclass1().get(j).getOdcEndDate())){ 
 				    	//현재날짜가 종료날짜보다 전일때 (진행중 클래스)
 				    	classIng.add(master.getOnedayclass1().get(j));
 				    	
@@ -198,26 +198,24 @@ private AdminService service;
 	
 	//장인-심사 : 탈락/승인 처리
 	@RequestMapping("/masterTestEnd.do")
-	public ModelAndView masterTestEnd(ModelAndView mv,String name,String text,String test) {
-		System.out.println(test);
+	public ModelAndView masterTestEnd(ModelAndView mv,String name,String masterTestText,String test) {
+		
 		String ing="";
 		if(test.equals("'탈락'")) ing="N";
 		else ing="Y";
 		
-		System.out.println(text);
+		AdminMaster m=AdminMaster.builder().name(name).ing(ing).fail(masterTestText).build();
+		int result=service.masterTestEnd(m);
 		
-//		AdminMaster m=AdminMaster.builder().name(name).ing(ing).fail(text).build();
-//		int result=service.masterTestEnd(m);
-//		
-//		if(result>0) {
-//			mv.addObject("msg","심사 저장 완료");
-//			mv.addObject("loc","/admin/master.do");
-//		}else {
-//			mv.addObject("msg","심사 저장 실패");
-//			mv.addObject("loc","/admin/master.do");
-//		}
-//		mv.setViewName("common/msg");
-//		
+		if(result>0) {
+			mv.addObject("msg","심사 저장 완료");
+			mv.addObject("loc","/admin/master.do");
+		}else {
+			mv.addObject("msg","심사 저장 실패");
+			mv.addObject("loc","/admin/master.do");
+		}
+		mv.setViewName("common/msg");
+		
 		return mv;
 	}
 	
