@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.today.bab.market1.model.dao.QnaDao;
+import com.today.bab.market1.model.vo.IqAnswer;
 import com.today.bab.market1.model.vo.ItemQna;
 
 @Service
@@ -35,5 +36,10 @@ public class QnaServiceImpl implements QnaService {
 	@Override 
 	public int delectQna(int iqNo) {
 		return dao.delectQna(session,iqNo);
+	}
+	
+	@Override
+	public int qnaAnswerAdmin(IqAnswer iq) {
+		return dao.qnaAnswerAdmin(session,iq);
 	}
 }

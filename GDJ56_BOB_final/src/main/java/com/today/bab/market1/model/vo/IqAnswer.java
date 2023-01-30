@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class IqAnswer {
 	private int iqaNo;
-//	private ItemQna itemNo;
 	private int itemNo;
 	private String IqaContent;
 	private Date iqaDate;

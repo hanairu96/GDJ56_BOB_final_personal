@@ -75,6 +75,11 @@
     </div>
 </div>
 <script>
+
+$('.hero__categories__all').on('click', function(){
+    $('.hero__categories ul').slideToggle(400);
+});
+
 const fn_menu = ()=>{
     $("ul>li.menu").removeClass("active");
     $("ul>li.menu").addClass("active");

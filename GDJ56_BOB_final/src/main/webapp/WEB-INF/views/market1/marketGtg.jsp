@@ -45,7 +45,6 @@
                        			data:{"ct":ct},
                        			success:data=>{
                        				$("#explain").html(data);
-                       				
                        			}
                        		})
                        	}

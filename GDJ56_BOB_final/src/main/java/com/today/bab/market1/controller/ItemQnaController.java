@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.today.bab.market1.model.service.Market1Service;
 import com.today.bab.market1.model.service.QnaService;
+import com.today.bab.market1.model.vo.IqAnswer;
 import com.today.bab.market1.model.vo.ItemQna;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
@@ -138,6 +139,52 @@ public class ItemQnaController {
 		return "common/msg";
 	}
 	
+	@RequestMapping("/qnaAnswerAdmin.do")
+	public String qnaAnswerAdmin(int iqNo,int itemNo,String IqaContent,Model m) {
+		
+		IqAnswer iq=IqAnswer.builder()
+				.iqaNo(iqNo)
+				.IqaContent(IqaContent)
+				.build();
+		int result=service.qnaAnswerAdmin(iq);
+		if(result>0) {
+			m.addAttribute("msg", "질문 삭제 완료");
+			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
+			
+			SellItem list=ms.marketdetail(itemNo);
+			
+			m.addAttribute("de",list);
+			String file="";
+			int count=0;
+			for(ItemPic ii : list.getIpic()) {
+				if(count++!=0) file+=",";
+				file+=ii.getPicName();
+			}
+			List<ItemQna> qq=service.selectQnaList(itemNo);
+			m.addAttribute("picpic",file);
+			m.addAttribute("qna",qq);
+			m.addAttribute("itemNo",itemNo);
+			
+		}else {
+			m.addAttribute("msg", "질문 삭제 실패");
+			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
+			
+			SellItem list=ms.marketdetail(itemNo);
+			
+			m.addAttribute("de",list);
+			String file="";
+			int count=0;
+			for(ItemPic ii : list.getIpic()) {
+				if(count++!=0) file+=",";
+				file+=ii.getPicName();
+			}
+			m.addAttribute("picpic",file);
+			List<ItemQna> qq=service.selectQnaList(itemNo);
+			m.addAttribute("qna",qq);
+		}
+		return "common/msg";
+		
+	}
 	
 	
 }
