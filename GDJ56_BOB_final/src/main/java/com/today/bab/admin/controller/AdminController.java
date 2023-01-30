@@ -1,6 +1,8 @@
 package com.today.bab.admin.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.admin.model.service.AdminService;
+import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.common.AdminPageBar;
@@ -57,7 +60,6 @@ private AdminService service;
 		List<AdminSubscription> as=service.adminSubscription(id); //구독정보+구독식품
 		
 		mv.addObject("m",m); //회원정보
-		System.out.println(m);
 		
 		ArrayList memberlike=new ArrayList();
 		if(m.getMemberlike().getFruit()=='Y') {
@@ -91,7 +93,6 @@ private AdminService service;
 	public ModelAndView adminDeleteMember(String memberId,ModelAndView mv) {
 		int result=service.adminDeleteMember(memberId);
 		
-		System.out.println(result);
 		if(result>0) {
 			mv.addObject("msg","탈퇴 성공");
 			mv.addObject("loc","/admin/members.do");
@@ -123,14 +124,99 @@ private AdminService service;
 	
 	//장인-상세보기
 	@RequestMapping("/masterInfo.do")
-	public String adminMasterInfo() {
-		return "admin/adminMasterInfo";
+	public ModelAndView adminMasterInfo(ModelAndView mv,String name) {
+		AdminMaster master=service.adminMasterInfo(name); //장인+원데이클래스
+		
+		String[] history=master.getHistory().split(","); //활동이력 배열로 저장
+
+		ArrayList classIng=new ArrayList();
+		ArrayList classEnd=new ArrayList();
+		
+		if(master.getOnedayclass1().size()>0) { //개설한 원데이클래스가 있는경우
+			for(int j=0;j<master.getOnedayclass1().size();j++) { //원데이클래스
+				if(master.getOnedayclass1().get(j).getOdcClassName()==null) {
+					
+				}else {
+					java.util.Date utilDate = new java.util.Date(); //util현재날짜
+				    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); //sql로 변환
+				    
+				    if(sqlDate.before(master.getOnedayclass1().get(j).getOdcEndDate())){ 
+				    	//현재날짜가 종료날짜보다 전일때 (진행중 클래스)
+				    	classIng.add(master.getOnedayclass1().get(j));
+				    	
+		            } else { //현재날짜가 종료날짜보다 후 일때 (종료된 클래스)
+		            	classEnd.add(master.getOnedayclass1().get(j));
+		            }
+				}
+			}
+		}
+		
+		mv.addObject("history",history);
+		mv.addObject("classIng", classIng);
+		mv.addObject("classEnd", classEnd);
+		mv.addObject("master", master);
+		
+		mv.setViewName("admin/adminMasterInfo");
+		
+		return mv;
 	}
 	
+	//장인-박탈
+	@RequestMapping("/masterDelete.do")
+	public ModelAndView masterDelete(ModelAndView mv,String memberId,String masterDeleteText) {
+		
+		AdminMaster m=AdminMaster.builder().memberId(memberId).fail(masterDeleteText).build();
+		
+		int result1=service.masterDelete(m);
+		int result2=service.masterDelete2(memberId);
+		
+		if(result1>0&&result2>0) {
+			mv.addObject("msg","장인 박탈 완료");
+			mv.addObject("loc","/admin/master.do");
+		}else {
+			mv.addObject("msg","장인 박탈 실패");
+			mv.addObject("loc","/admin/master.do");
+		}
+		mv.setViewName("common/msg");
+		
+		return mv;
+		
+	}
 	//장인-심사
 	@RequestMapping("/masterTest.do")
-	public String adminMasterTest() {
-		return "admin/adminMasterTest";
+	public ModelAndView adminMasterTest(ModelAndView mv,String name) {
+		
+		AdminMaster master=service.adminMasterInfo(name); //장인+원데이클래스
+		String[] history=master.getHistory().split(","); //활동이력 배열로 저장
+		
+		mv.addObject("history",history);
+		mv.addObject("master",master);
+		mv.setViewName("admin/adminMasterTest");
+		
+		return mv;
+	}
+	
+	//장인-심사 : 탈락/승인 처리
+	@RequestMapping("/masterTestEnd.do")
+	public ModelAndView masterTestEnd(ModelAndView mv,String name,String masterTestText,String test) {
+		
+		String ing="";
+		if(test.equals("'탈락'")) ing="N";
+		else ing="Y";
+		
+		AdminMaster m=AdminMaster.builder().name(name).ing(ing).fail(masterTestText).build();
+		int result=service.masterTestEnd(m);
+		
+		if(result>0) {
+			mv.addObject("msg","심사 저장 완료");
+			mv.addObject("loc","/admin/master.do");
+		}else {
+			mv.addObject("msg","심사 저장 실패");
+			mv.addObject("loc","/admin/master.do");
+		}
+		mv.setViewName("common/msg");
+		
+		return mv;
 	}
 	
 	//상품관리

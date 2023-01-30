@@ -25,4 +25,5 @@ public interface Market1Service {
 	//상품 수정
 	int updateMarketItem(SellItem s,int itemNo);
 
+	List<SellItem> selectCtgAjax(String itemCategory);
 }

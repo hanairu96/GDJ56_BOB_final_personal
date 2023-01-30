@@ -513,21 +513,6 @@
 	    		   bg.remove();
 	    		   modal.style.display = 'none';
 	    		   location.replace("${path}/admin/adminDeleteMember.do?memberId="+e);
-	    		  /* $.ajax({
-	                     url:"${path}/admin/adminDeleteMember.do",
-	                     data:{memberId:e},
-	                     success:data=>{
-	                    	 console.log(data);
-	                    	 if(data){
-	                    		 $("#enroll-container span.ok").hide();
-	                    		 $("#enroll-container span.error").show();
-	                    	 }else{
-	                    		 $("#enroll-container span.ok").show();
-	                    		 $("#enroll-container span.error").hide();
-	                    	 }
-	                    	 
-	                     }
-	                  }); */
 	    	   })
 	    	}
 	

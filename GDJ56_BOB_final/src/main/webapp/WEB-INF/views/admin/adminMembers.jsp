@@ -307,7 +307,7 @@
                   	<c:if test="${empty list }">
 	                  	 <thead>
 			            	<tr>
-			            		<td colspan="5">등록된 회원이 없습니다 :(</td>
+			            		<td colspan="4">등록된 회원이 없습니다 :(</td>
 			            	</tr>
 			            </thead>
 		            </c:if>

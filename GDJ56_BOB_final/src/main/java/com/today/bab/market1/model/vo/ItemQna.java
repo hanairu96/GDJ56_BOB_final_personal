@@ -18,9 +18,10 @@ public class ItemQna {
 	private int iqNo;
 	private String iqContent;
 	private Date iqDate;
-	private Member memberId;
-//	private String memId;
-	private SellItem itemNo;
-	private char iqSecret;
+//	private Member memberId;
+	private String memberId;
+//	private SellItem itemNo;
+	private int itemNo;
+	private String iqSecret;
 
 }

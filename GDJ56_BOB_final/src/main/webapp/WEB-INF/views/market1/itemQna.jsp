@@ -24,54 +24,70 @@
 		    <span style="color:rgb(197, 195, 195)"> · 상품과 관계없는 글, 양도, 광고성, 욕설, 비방, 도배 등의 글은 예고없이 삭제됩니다.</span>
 		</div>
 		<br>
-		<div style="display: flex;">
-		    <div>
-		        <textarea name="" id="" cols="130%" rows="3"></textarea>
-		    </div>
-		    <div>
-		        <input class="primary-btn" type="button" value="등록하기" style="height: 80px; width: 130px; margin-left: 5%;background-color: #07d448; border: none;">
-		    </div>
-		</div>
+		<form class="wrap-form-reservation size22 m-l-r-auto" method="post"
+			action="${path }/itemQna/insertQna.do">
+		    <input type="hidden" name="itemNo" value="${itemNo }"/>
+			<label><input type="checkbox" name="iqSecret" value="Y">비밀글</label>
+		    <input type="hidden" name="memberId" value="user03"/>
+			<div style="display: flex;">
+			    <div>
+			        <textarea name="iqContent" id="" cols="130%" rows="3" ></textarea>
+			    </div>
+			    <div>
+			        <input class="primary-btn" type="submit" value="등록하기"
+			        style="height: 80px; width: 130px; margin-left: 5%;background-color: #07d448; border: none;">
+			    </div>
+<!-- 
+
+
+수정수정수정수정수정
+member- mapper에서 문제있다!!로그인 불가능!! 나중에input value값을 수정해야한다
+
+
+ -->
+			</div>
+		</form>
 		<hr/> 
+		<c:forEach var="q" items="${qna }">
+			<div style="display: flex; height:40px;margin-bottom: 7px;">
+			    <img src="./img/product/product-3.jpg" alt="" style="height:40px;width: 40px;border-radius: 50%;">
+			    <div>
+			        <h5 style="margin-left:10px; margin-top: 10px;">야채주스</h5>
+			    </div>
+			    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;">${q.iqDate }</span>
+			</div>
+			<div style="margin-left:20px;">
+			    <h5>${q.iqContent }</h5>
+			</div>
+			<br>
+			<div style="display: flex;">
+			    <div class="col-2">
+			        <span style="color:orange; font-weight: bold; font-size: 20px;">답글보기 0</span>
+			    </div>
+			    <div>
+			        <button id="togglereply" class="primary-btn" type="button" name="reply" style="background-color:#07d448;border: none;color: white;">답글</button>
+			    </div>
+			</div>
+			<hr/>
+			
+			<div id="recontainer" style="margin-left: 50px;display:none;">
+			    <div style="display:flex;margin-bottom: 7px;">
+			        <img src="./img/cart/cart-3.jpg" alt="" style="width:40px; height: 40px;border-radius: 50%;">
+			        <h5 style="margin:10px;">오늘의 밥</h5>
+			        <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;">${q.iqDate }</span>
+			    </div>
+			    <div style="display:flex">
+			        <div >
+			            <textarea name="" id="" cols="100" rows="2" placeholder="답글을 입력해주세요"></textarea>
+			        </div>
+			        <div>
+			            <input class="primary-btn" type="button" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;">
+			        </div>
+			    </div>
+			    <hr/>
+			</div>
+		</c:forEach>
 		
-		
-		<div style="display: flex; height:40px;margin-bottom: 7px;">
-		    <img src="./img/product/product-3.jpg" alt="" style="height:40px;width: 40px;border-radius: 50%;">
-		    <div>
-		        <h5 style="margin-left:10px; margin-top: 10px;">야채주스</h5>
-		    </div>
-		    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;">2023-01-01</span>
-		</div>
-		<div style="margin-left:20px;">
-		    <h5>최근일자로 보내주세요^^</h5>
-		</div>
-		<br>
-		<div style="display: flex;">
-		    <div class="col-2">
-		        <span style="color:orange; font-weight: bold; font-size: 20px;">답글보기 0</span>
-		    </div>
-		    <div>
-		        <button id="togglereply" class="primary-btn" type="button" name="reply" style="background-color:#07d448;border: none;color: white;">답글</button>
-		    </div>
-		</div>
-		<hr/>
-		
-		<div id="recontainer" style="margin-left: 50px;display:none;">
-		    <div style="display:flex;margin-bottom: 7px;">
-		        <img src="./img/cart/cart-3.jpg" alt="" style="width:40px; height: 40px;border-radius: 50%;">
-		        <h5 style="margin:10px;">오늘의 밥</h5>
-		        <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;">2023-01-01</span>
-		    </div>
-		    <div style="display:flex">
-		        <div >
-		            <textarea name="" id="" cols="100" rows="2" placeholder="답글을 입력해주세요"></textarea>
-		        </div>
-		        <div>
-		            <input class="primary-btn" type="button" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;">
-		        </div>
-		    </div>
-		    <hr/>
-		</div>
 		<script>
 		    $("#togglereply").click(e=>{
 		        $("#recontainer").slideToggle(1000);
