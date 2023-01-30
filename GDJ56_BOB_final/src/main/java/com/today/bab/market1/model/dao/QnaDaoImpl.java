@@ -20,4 +20,9 @@ public class QnaDaoImpl implements QnaDao {
 	public List<ItemQna> selectQnaList(SqlSessionTemplate session, int itemNo){
 		return session.selectList("iqna.selectQnaList",itemNo);
 	}
+	
+	@Override
+	public int delectQna(SqlSessionTemplate session,int iqNo) {
+		return session.delete("iqna.delectQna",iqNo);
+	}
 }

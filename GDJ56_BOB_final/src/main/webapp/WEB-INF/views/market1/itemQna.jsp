@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 	<div>
 		<div style="display: flex;">
@@ -28,6 +29,7 @@
 			action="${path }/itemQna/insertQna.do">
 		    <input type="hidden" name="itemNo" value="${itemNo }"/>
 			<label><input type="checkbox" name="iqSecret" value="Y">비밀글</label>
+					<input type="hidden" name="iqSecret1" value="N"/>
 		    <input type="hidden" name="memberId" value="user03"/>
 			<div style="display: flex;">
 			    <div>
@@ -37,25 +39,18 @@
 			        <input class="primary-btn" type="submit" value="등록하기"
 			        style="height: 80px; width: 130px; margin-left: 5%;background-color: #07d448; border: none;">
 			    </div>
-<!-- 
 
-
-수정수정수정수정수정
-member- mapper에서 문제있다!!로그인 불가능!! 나중에input value값을 수정해야한다
-
-
- -->
 			</div>
 		</form>
 		<hr/> 
 		<c:forEach var="q" items="${qna }">
-			<c:if test="${q.iqSecret == N }">
+			<c:if test="${q.iqSecret eq 'N' }">
 				<div style="display: flex; height:40px;margin-bottom: 7px;">
 				    <img src="" alt="" style="height:40px;width: 40px;border-radius: 50%;">
 				    <div>
 				        <h5 style="margin-left:10px; margin-top: 10px;">야채주스</h5>
 				    </div>
-				    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;">${q.iqDate }</span>
+				    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
 				</div>
 				<div style="margin-left:20px;">
 				    <h5>${q.iqContent }</h5>
@@ -69,7 +64,7 @@ member- mapper에서 문제있다!!로그인 불가능!! 나중에input value값
 				        <button id="togglereply" class="primary-btn" type="button" name="reply" style="background-color:#07d448;border: none;color: white;">답글</button>
 				    </div>
 				    <div>
-				        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;" onclick="deleteQna();">삭제</button>
+				        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;" onclick="deleteQna(${q.iqNo},${q.itemNo });">삭제</button>
 				    </div>
 				</div>
 				<hr/>
@@ -78,7 +73,7 @@ member- mapper에서 문제있다!!로그인 불가능!! 나중에input value값
 				    <div style="display:flex;margin-bottom: 7px;">
 				        <img src="" alt="" style="width:40px; height: 40px;border-radius: 50%;">
 				        <h5 style="margin:10px;">오늘의 밥</h5><c:out value="${q.iqSecret }"/>
-				        <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;">${q.iqDate }</span>
+				        <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
 				    </div>
 				    <div style="display:flex">
 				        <div >
@@ -91,7 +86,7 @@ member- mapper에서 문제있다!!로그인 불가능!! 나중에input value값
 				    <hr/>
 				</div>
 			</c:if>
-			<c:if test="${q.iqSecret == Y }">
+			<c:if test="${q.iqSecret eq 'Y' }">
 				<div style="display: flex; height:40px;margin-bottom: 7px;">
 				    <img src="" alt="" style="height:40px;width: 40px;border-radius: 50%;">
 				    <div>
@@ -100,7 +95,7 @@ member- mapper에서 문제있다!!로그인 불가능!! 나중에input value값
 				    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;">${q.iqDate }</span>
 				</div>
 				<div style="margin-left:20px;">
-				    <h5>비밀글입니다.</h5>
+				    <h5 style="color:gray;">비밀글입니다.</h5>
 				</div>
 				<br>
 				<div style="display: flex;">
@@ -111,7 +106,7 @@ member- mapper에서 문제있다!!로그인 불가능!! 나중에input value값
 				        <button id="togglereply" class="primary-btn" type="button" name="reply" style="background-color:#07d448;border: none;color: white;">답글</button>
 				    </div>
 				    <div>
-				        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;" onclick="deleteQna();">삭제</button>
+				        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;" onclick="deleteQna(${q.iqNo},${q.itemNo });">삭제</button>
 				    </div>
 				</div>
 				<hr/>
@@ -139,8 +134,8 @@ member- mapper에서 문제있다!!로그인 불가능!! 나중에input value값
 		    $("#togglereply").click(e=>{
 		        $("#recontainer").slideToggle(1000);
 		    });
-		    const deleteQna=()=>{
-		    	
+		    const deleteQna=(no,itemNo)=>{
+		    	location.assign('${path}/itemQna/delectQna.do?iqNo='+no+'&itemNo'+itemNo);
 		    }
 		    
 		</script>

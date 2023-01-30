@@ -9,4 +9,6 @@ public interface QnaService {
 	int insertQna(ItemQna q);
 	
 	List<ItemQna> selectQnaList(int itemNo);
+	
+	int delectQna(int iqNo);
 }

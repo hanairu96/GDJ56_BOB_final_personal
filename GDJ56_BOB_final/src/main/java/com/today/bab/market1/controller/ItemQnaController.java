@@ -32,20 +32,25 @@ public class ItemQnaController {
 	@RequestMapping("/insertQna.do")
 	public String insertQna(Model m, ItemQna a,
 			String iqContent, String memberId, int itemNo,
-			String iqSecret) {
+			String iqSecret, String iqSecret1) {
 
 		if(iqSecret==null) {
-			iqSecret="N";
+			ItemQna i=ItemQna.builder()
+					.iqContent(iqContent)
+					.memberId(memberId)
+					.itemNo(itemNo)
+					.iqSecret(iqSecret1)
+					.build();
+		}else {
+			ItemQna i=ItemQna.builder()
+					.iqContent(iqContent)
+//					.memberId(Member.builder().memberId(memberId).build())
+					.memberId(memberId)
+//					.itemNo(SellItem.builder().itemNo(itemNo).build())
+					.itemNo(itemNo)
+					.iqSecret(iqSecret)
+					.build();
 		}
-		ItemQna i=ItemQna.builder()
-				.iqContent(iqContent)
-//				.memberId(Member.builder().memberId(memberId).build())
-				.memberId(memberId)
-//				.itemNo(SellItem.builder().itemNo(itemNo).build())
-				.itemNo(itemNo)
-				.iqSecret(iqSecret)
-				.build();
-		System.out.println(i);
 		
 		int result=service.insertQna(a);
 		
@@ -68,6 +73,25 @@ public class ItemQnaController {
 		List<ItemQna> qq=service.selectQnaList(itemNo);
 		m.addAttribute("qna",qq);
 		return "market1/itemQna";
+	}
+	
+	@RequestMapping("/delectQna.do")
+	public String delectQna(int iqNo,int itemNo,Model m) {
+		int result=service.delectQna(iqNo);
+		
+		List<ItemQna> qq=service.selectQnaList(itemNo);
+		SellItem list=ms.marketdetail(itemNo);
+		m.addAttribute("de",list);
+		String file="";
+		int count=0;
+		for(ItemPic ii : list.getIpic()) {
+			if(count++!=0) file+=",";
+			file+=ii.getPicName();
+		}
+		m.addAttribute("picpic",file);
+		m.addAttribute("qna",qq);
+		
+		return "market1/detailMarketItem";
 	}
 	
 	
