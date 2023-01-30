@@ -28,7 +28,7 @@ public class QnaServiceImpl implements QnaService {
 	}
 	
 	@Override
-	public List<ItemQna> selectQna(int itemNo){
-		return dao.selectQna(session,itemNo);
+	public List<ItemQna> selectQnaList(){
+		return dao.selectQnaList(session);
 	}
 }

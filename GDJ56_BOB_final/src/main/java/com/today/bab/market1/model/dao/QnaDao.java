@@ -10,5 +10,5 @@ public interface QnaDao {
 	
 	int insertQna(SqlSessionTemplate session, ItemQna q);
 	
-	List<ItemQna> selectQna(SqlSessionTemplate session,int itemNo);
+	List<ItemQna> selectQnaList(SqlSessionTemplate session);
 }

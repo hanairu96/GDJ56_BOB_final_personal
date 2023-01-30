@@ -1,6 +1,7 @@
 package com.today.bab.market1.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,10 @@ public class ItemQnaController {
 		}
 		ItemQna i=ItemQna.builder()
 				.iqContent(iqContent)
-				.memberId(Member.builder().memberId(memberId).build())
-				.itemNo(SellItem.builder().itemNo(itemNo).build())
+//				.memberId(Member.builder().memberId(memberId).build())
+				.memberId(memberId)
+//				.itemNo(SellItem.builder().itemNo(itemNo).build())
+				.itemNo(itemNo)
 				.iqSecret(iqSecret)
 				.build();
 		System.out.println(i);
@@ -44,6 +47,16 @@ public class ItemQnaController {
 //		m.addAttribute("qna",result);
 		return "";
 	}
+	
+	@RequestMapping("/selectQna.do")
+	public String selectQna(Model m) {
+		List<ItemQna> qq=service.selectQnaList();
+		System.out.println(qq);
+//		m.addAttribute("ii",qq);
+//		return "market1/marketGtg";
+		return "";
+	}
+	
 	
 	
 }
