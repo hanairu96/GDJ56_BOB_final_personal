@@ -1,5 +1,8 @@
 package com.today.bab.admin.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -124,7 +127,7 @@ private AdminService service;
 	
 	//장인-상세보기
 	@RequestMapping("/masterInfo.do")
-	public ModelAndView adminMasterInfo(ModelAndView mv,String name) {
+	public ModelAndView adminMasterInfo(ModelAndView mv,String name) throws ParseException {
 		AdminMaster master=service.adminMasterInfo(name); //장인+원데이클래스
 		
 		String[] history=master.getHistory().split(","); //활동이력 배열로 저장
@@ -138,10 +141,15 @@ private AdminService service;
 					
 				}else {
 					java.util.Date utilDate = new java.util.Date(); //util현재날짜
-				    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); //sql로 변환
-				    
-				    if(sqlDate.before(master.getOnedayclass1().get(j).getOdcEndDate())){ 
+//				    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); //sql로 변환
+					
+				    if(utilDate.before(master.getOnedayclass1().get(j).getOdcEndDate())){ 
 				    	//현재날짜가 종료날짜보다 전일때 (진행중 클래스)
+//				    	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
+//			        	//원하는 데이터 포맷 지정
+//				    	String strNowDate = simpleDateFormat.format(master.getOnedayclass1().get(j).getOdcEndDate()); 
+//			        	//지정한 포맷으로 변환 
+				    	
 				    	classIng.add(master.getOnedayclass1().get(j));
 				    	
 		            } else { //현재날짜가 종료날짜보다 후 일때 (종료된 클래스)

@@ -369,12 +369,12 @@
 	                          <div
 	                            class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
 	                          >
-	                            <img
-	                              class="object-cover w-full h-full rounded-full"
-	                              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAACwklEQVR4nOVVT0iUQRTfS1JR1jdr2paRaBQulc5sB885s3joZO2tdGYVL5bUuVOKpRYESSSkHQO7eUq95Kk8BRG4M6ug+81WUB001CjSiffZmuH+sdxZqB48mO+937zf7/vmzft8vr/RTrOLpSEmOgjjj8BxffMViBWEHId5FFP+CTM+j5kYXXM+j6lYICzKrZKHKG8lTKxixm/V1UV2peKwJpT3erkwj1ohPxPmRzATnzHlnZkwhIouzMTyqYbW8rwLwJT3EcbnQqG2HZkwkMNMJAgTPTYEvIbPnBPHxG3C+CsbApZq60VTLhw0IqFiMe8CCBWLW+lyTIWAW2LlCDDlfTlxjN+xcgSE8l5osGxNGIxEijAVLlxTW9dwGa5aJgxmoht6peZs02GfDatlogWGDXyNjYModK5t91r3i1XoASvkKQsx3gxjd835GKZi3Ft747j5kq8QVtsgDmDKLxMqhgjlg4SJdoj5/mkLRiJFlT1DwlG6E0k9gaTrOtJdAoc1xBylb1TefCgAm1dyFNMXykeeKRKOmsDoc4OU9vxY14DnqefA2AvjYUYmJIrr89sm9scSh5DSoymCYHuXORm9bvyxhKkYGDaERT1CWEMMcoBJ4ZHST0um5gJ/RL4vnsSOdPWGYqZs4qXBDS2muqN7nbjiwbC3hhjkALNxDxzPfqVrfou8OJ6oQtJ9/0uhH17VO2gIE6ay//F6rGLgiReDXLo9SLkfS6aSx7dEjuLxYiT1TPpC2vinEubg+OSmeGB80stl2udIPe2PfdibU4AjdX+mItt1R7l3s7+9mq1G0v1mSwDU9seSJ7II0Petkf88intpyY/Ozu50pF4ogIAF4NokoGT6DbFNnnK44psElM28K0VKfy2AgC974m/T/7iQ1NeQdFcsNuEKkvpq7iGkdCOSyUheXelGqJ2V3Pc/2ncMULTI3hg6NAAAAABJRU5ErkJggg=="
-	                              alt=""
+	                            <img 
+	                            	class="object-cover w-full h-full rounded-full"
+	                            	src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAADBUlEQVR4nO1WW0hUQRg+PhQUeZlxV8EUkrxEkeuc7cGnijhHLISQsAtRnrHYIM3owW4QIWJWZtlDRmZvQflSPYhREJQWGKGbuq4zayI7s3QRKo3scSdmdTGls+7qMSj64Idh5jvzffP/w5xfUaKEzRvIgT5/YYKHwcTR0SRI+W1I+Dgk/CskrAWMjCTGewPJkiO5ipUAhNdCwoKQcgEp/wIJezs9ngnC3KG1qXEQUF5jibhNnnxGPPogLGgb5NmLPz3lO2IWnw757aINxHsDyYDwiZjFCZ+Q90WxAkk+tiVWA0mUbVasBIzRgKXiEv8NrK1v+Zzyqs8DCbsFCD8FKHcByvZOBXfJOfkgpXS5vVkXW8cVq6Fq+Luqlxvz8ZCGMdKMb5YbQJoxgDTj8rw83bii6kaf5QZUzbiEdOx3Ol3LzDjrS0uXIw0zpBv1lhvYVGhkIB3/UDVca8ZBOq5DmjHp2HZwtbIUyNfxIVXHQZmNgoLSFeF5Z7FrJdJxg1yTd2BJxMNw6kYZ0vDEVBhPkIafhsa6MY60sgPKn0B+EbYjzahUNXxH1YxWVccVck75tyFEXPIQ3woIuwAp74KE+QFhkzLk2P7a2523q2os51zTacm1VBtQtg9SPmD2P7C/IWKD67zI23NC2HuonOsHJLDbml6A8keRhDNv3BOOksqQeOrznrkNycMF9wRgOJABCPOGN0vp9oics00i92SjWF9RKzburxZqYblAxUdEVl2LsLt9Zo3JIPTx9JjEoc+XAAn3/LpRxv3HQtWxWFfdIHLPXBWZ1++K9AfPhK3/XRStGRtK7PeD6NSFiIOUdczdJGxgof0hJKw9utQTdvh3GyzagAwfi/xK2j2fVgHCP0ZjILO5Tay52TaLk9bxUmTXNAube9gsC2OyvOa1p7zKzP1cA46dR4WjpGIWR4pLTlp7Z4RMsGPm6afsWrQGUl/0itTO3lkcefKQOGGRStEYof58e7QGFhqAsKKI9wAO8eOA8g9WGwCUv5clVhbTkKgRmpG/Fj8BIGdLBiqo35wAAAAASUVORK5CYII="
+	                            	alt=""
 	                              loading="lazy"
-	                            />
+	                              >
 	                             <div
 	                              class="absolute inset-0 rounded-full shadow-inner"
 	                              aria-hidden="true"
