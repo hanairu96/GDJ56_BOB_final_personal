@@ -112,14 +112,15 @@
 					        <span style="color:orange; font-weight: bold; font-size: 20px;">답글보기 0</span>
 					    </div>
 					    <div>
-					        <button id="togglebtnddddd" class="primary-btn" type="button" name="reply" style="background-color:#07d448;border: none;color: white;"
-					        onclick="togglererere(event)">답글</button>
+				        <button id="togglereply" class="primary-btn" type="button" name="reply" style="background-color:#07d448;border: none;color: white;"
+				       	onclick="togglererere(event)">답글</button>
 					    </div>
 					    <div>
 					        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;" onclick="deleteQna(${q.iqNo},${itemNo });">삭제</button>
 					    </div>
+					</div>
+					<hr/>
 					
-					e.target.부모.부모.형재(아래).자식
 					<!-- 답변 -->
 					<div class="toggleadmin">
 						<div class="ttt" style="margin-left: 50px;display:none;">
@@ -142,20 +143,14 @@
 					</div> 
 					
 					</div>
-					<hr/>
 				</c:if>
 			</c:forEach>
 		</div>
 		
 		<script>
 		 	function togglererere(e){
-		 		 const cc=$(e.target).parent().parent().siblings().next().next().next().children("div.ttt").slideToggle(1000);
-		 		// console.log(cc);
-		 		// document.getElementById("ttt").Toggle(); 
+		 		$(e.target).parent().parent().next().next().find("div.ttt").slideToggle(1000);
 		 	} 
- 	/* 	    $("#togglereply").click(e=>{
-		        $(".toggleadmin").slideToggle(1000);
-		    }); */
 		     
 		    //문의글 삭제
 		    const deleteQna=(no,itemNo)=>{
@@ -163,7 +158,7 @@
 		    }
 		    
 		    //관리자 문의 답변
-		     /* function iqanswer(no){
+		    function iqanswer(no){
 		    	const content=$("IqaContent").val();
 		    	$.ajax({
 		    		type:'get',
@@ -182,8 +177,7 @@
 		    			${"#answerAdnim"}.html(html);
 		    		}
 		    	})
-		    	
-		    }  */
+		    }  
 		    
 		</script>
 		<!-- 페이징처리 -->
