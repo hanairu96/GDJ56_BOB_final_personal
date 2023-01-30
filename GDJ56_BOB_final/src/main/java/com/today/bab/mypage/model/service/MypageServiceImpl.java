@@ -1,10 +1,12 @@
 package com.today.bab.mypage.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
@@ -12,6 +14,7 @@ import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.mypage.model.dao.MypageDao;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
+import com.today.bab.mypage.model.vo.Point;
 
 @Service
 public class MypageServiceImpl implements MypageService {
@@ -61,7 +64,8 @@ public class MypageServiceImpl implements MypageService {
 	} 
 	
 	@Override
-	public int insertItemOrder(ItemOrder io, List<ItemDetail> ids, String[] basketss, int use_point) {
+	@Transactional
+	public int insertItemOrder(ItemOrder io, List<ItemDetail> ids, String[] basketss, Point up) {
 		int result= mypageDao.insertItemOrder(session, io);
 		//System.out.println(io.getOrderNo());
 		//System.out.println(ids.size()+"ids");
@@ -73,11 +77,41 @@ public class MypageServiceImpl implements MypageService {
 			}
 			result=0;
 			result=mypageDao.insertItemDetail(session,ids);
+			if(result>0) {
+				result=0;
+				result=mypageDao.deleteBasketOrder(session, basketss);  
+				if(result>0) {
+					result=0;
+					result=mypageDao.updateMinusStock(session, ids);  
+					if(up.getPointChange()>0) {
+						result=0;
+						result=mypageDao.insertPoint(session, up);
+					}
+				}else {
+					result=0;
+				}
+			}else {
+				result=0;
+			}
 		}else {
 			result=0;
 		}
 		
-		
 		return result;
+	}
+	
+	@Override
+	public int selectpointAll(String memberId) {
+		return mypageDao.selectpointAll(session,memberId);
+	}
+	
+	@Override
+	public List<Point> selectListPoint(Map<String,Integer> param,String memberId) {
+		return mypageDao.selectListPoint(session,memberId,param);
+	}
+	
+	@Override
+	public int selectListPointCount(String memberId) {
+		return mypageDao.selectListPointCount(session,memberId);
 	}
 }

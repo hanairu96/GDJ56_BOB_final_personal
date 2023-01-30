@@ -1,7 +1,9 @@
 package com.today.bab.mypage.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +12,7 @@ import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
+import com.today.bab.mypage.model.vo.Point;
 
 @Repository
 public class MypageDaoImpl implements MypageDao{
@@ -57,5 +60,37 @@ public class MypageDaoImpl implements MypageDao{
 	@Override
 	public int insertItemDetail(SqlSessionTemplate session, List<ItemDetail> ids) {
 		return session.insert("mypage.insertItemDetail",ids);
+	} 
+	
+	@Override
+	public int deleteBasketOrder(SqlSessionTemplate session, String[] deleteBasketNo) {
+		return session.delete("mypage.deleteBasketOrder",deleteBasketNo);
+	} 
+	
+	@Override
+	public int updateMinusStock(SqlSessionTemplate session, List<ItemDetail> ids) {
+		return session.update("mypage.updateMinusStock",ids);
+	}
+	
+	@Override
+	public int insertPoint(SqlSessionTemplate session, Point up) {
+		return session.insert("mypage.insertPoint",up);
+	}
+	
+	@Override
+	public int selectpointAll(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectpointAll",memberId);
+	}
+	
+	@Override
+	public List<Point> selectListPoint(SqlSessionTemplate session, String memberId,Map<String,Integer> param) {
+		return session.selectList("mypage.selectListPoint",memberId
+				,new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+				param.get("numPerpage")));
+	}
+	
+	@Override
+	public int selectListPointCount(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectListPointCount",memberId);
 	}
 }

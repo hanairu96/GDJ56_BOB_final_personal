@@ -3,7 +3,9 @@
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
   <head>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -385,12 +387,39 @@
                       <th class="px-4 py-3">적립일자</th>
                       <th class="px-4 py-3">변경된 금액</th>
                       <th class="px-4 py-3">내용</th>
+                      <th class="px-4 py-3">누적적립금</th>
                     </tr>
                   </thead>
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-                    <tr class="text-gray-700 dark:text-gray-400">
+                  <c:forEach var="p" items="${pointlist}" >
+						  <tr class="text-gray-700 dark:text-gray-400">
+		                      <td class="px-4 py-3">
+		                        <div class="flex items-center text-sm">
+		                          </div>
+		                          <div>
+		                            <p class="font"><fmt:formatDate value="${p.pointDate}" pattern="yyyy-MM-dd"/></p>
+		                          </div>
+		                        </div>
+		                      </td>
+		                      <td class="px-4 py-3 text-sm">
+		                      	<c:if test="${p.pointContent eq '결제시 사용'}">
+		                      		-${p.pointChange}원
+		                      	</c:if>
+		                        <c:if test="${p.pointContent eq '후기작성' or p.pointContent eq '주문완료' or p.pointContent eq '회원가입'}">
+		                      		+${p.pointChange}원
+		                      	</c:if> 
+		                      </td>
+		                      <td class="px-4 py-3 text-sm">
+		                        ${p.pointContent}
+		                      </td>
+		                      <td class="px-4 py-3 text-sm">
+		                       ${p.pointAdd}원
+		                      </td>
+		                    </tr>                		
+                  </c:forEach>
+                    <!-- <tr class="text-gray-700 dark:text-gray-400">
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
                           </div>
@@ -405,7 +434,10 @@
                       <td class="px-4 py-3 text-sm">
                         후기 작성
                       </td>
-                    </tr>
+                      <td class="px-4 py-3 text-sm">
+                       누적적립금
+                      </td>
+                    </tr> -->
 
                   </tbody>
                 </table>
@@ -416,90 +448,8 @@
                 <span class="col-span-1"></span>
                 <!-- Pagination -->
                 <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                  <nav aria-label="Table navigation">
-                    <ul class="inline-flex items-center">
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                          aria-label="Previous"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="w-4 h-4 fill-current"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                              clip-rule="evenodd"
-                              fill-rule="evenodd"
-                            ></path>
-                          </svg>
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          1
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          2
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          3
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          4
-                        </button>
-                      </li>
-                      <li>
-                        <span class="px-3 py-1">...</span>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          8
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          9
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-                          aria-label="Next"
-                        >
-                          <svg
-                            class="w-4 h-4 fill-current"
-                            aria-hidden="true"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                              clip-rule="evenodd"
-                              fill-rule="evenodd"
-                            ></path>
-                          </svg>
-                        </button>
-                      </li>
-                    </ul>
+                  <nav aria-label="Table navigation" id="pagebbar">
+                    ${pageBar}
                   </nav>
                 </span>
               </div>
@@ -510,3 +460,18 @@
     </div>
   </body>
 </html>
+<style>
+button.active-color { color:#000; }
+</style>
+<script>
+	const myButton = document.querySelectorAll("#pagebbar button");
+	
+	for (let i=0; i<myButton.length; i++) {
+		myButton[i].addEventListener("click", click);
+	  }
+	
+	function click(e) {
+		e.target.className='px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple';
+	    //e.target.toggleClass(".active-color");
+	  }
+</script>

@@ -8,8 +8,6 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <body>
-${sellItemNoCount}
-
 <section class="checkout spad">
     <div class="container">
         <div class="checkout__form">
@@ -115,7 +113,7 @@ ${sellItemNoCount}
                             </div>
                             <div class="col-lg-6">
                                 <p>사용 가능한 적립금<span>*</span></p>
-                                <p id="mypoint" style="vertical-align: middle;">5000원</p>
+                                <p id="mypoint" style="vertical-align: middle;">${pointAll}원</p>
                             </div>
                         </div>
                     </div>
@@ -266,7 +264,7 @@ ${sellItemNoCount}
 	    //console.log(orderaddr);
 	    let merchant = 'bob_'+Math.floor(Math.random() * 100000000)+1;
 	    console.log(merchant);
-  /*    IMP.init("imp44501773");
+      IMP.init("imp44501773");
     		IMP.request_pay({
     			pg : "html5_inicis",
     			name : "장바구니 결제하기",
@@ -296,17 +294,23 @@ ${sellItemNoCount}
     								sellItemNoCount : JSON.stringify(${sellItemNoCount})
     								},
     						success:data=>{
-    							alert("결제가 완료되었습니다.");
+    							if(data>0){
+    								alert("결제가 완료되었습니다.");
+    								location.replace('${path}/mypage/basket.do');
+    							}else{
+    								alert("결제가 실패하였습니다.");
+    							}
+    							
     							
     						},error : function(request, status, error) {
     						   	 alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
     					    }
     					});
     					
-    				/* }else{	
+    				 }else{	
     					alert(rsp.error_msg);
     				}
-    			});		 */
+    			});		 
     } 
 </script>
 

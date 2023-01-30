@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,10 +23,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
+import com.today.bab.common.AdminPageBar;
 import com.today.bab.member.model.vo.Member;
 import com.today.bab.mypage.model.service.MypageService;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
+import com.today.bab.mypage.model.vo.Point;
 
 @Controller
 @RequestMapping("/mypage")
@@ -196,8 +199,23 @@ public class MypageController {
 	   }
 	
 	@RequestMapping("/point.do")
-	public ModelAndView selectPoint(ModelAndView mv) {
+	public ModelAndView selectPoint(ModelAndView mv,HttpServletRequest request,
+			@RequestParam(value="cPage", defaultValue = "1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue = "5") int numPerpage) {
 		
+		HttpSession session = request.getSession();
+	    Member m = (Member) session.getAttribute("loginMember");
+		
+	    List<Point> pointlist = mypageService.selectListPoint(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
+	    //System.out.println(pointlist);
+	   
+	    int totalData=mypageService.selectListPointCount(m.getMemberId());
+	    //System.out.println(totalData);
+	    mv.addObject("pageBar",AdminPageBar.getPage(cPage, numPerpage, totalData, "point.do"));
+	    mv.addObject("pointlist",pointlist);
+	    
+	    
+	    
 		mv.setViewName("mypage/point");
 		
 		return mv;
@@ -273,7 +291,7 @@ public class MypageController {
 	   mv.addObject("orderitemlist",orderitemlist);
 	   mv.addObject("basketss",Arrays.toString(basketss));
 	   mv.addObject("sellItemNoCount",mapper.writeValueAsString(sellItemNoCount));
-	   
+	   mv.addObject("pointAll",mypageService.selectpointAll(loginMember.getMemberId()));
 	    mv.setViewName("mypage/order");
 	    return mv;
 	}
@@ -322,8 +340,10 @@ public class MypageController {
 	    }
 	    
 	    System.out.println(ids);
+	    System.out.println(use_point+"d");
+	    Point usepoint=Point.builder().memberId(loginMember.getMemberId()).pointChange(use_point).build();
 	    
-		int result=mypageService.insertItemOrder(io,ids,dbasket,use_point);
+		int result=mypageService.insertItemOrder(io,ids,dbasket,usepoint);
 		
 		response.setContentType("text/csv;charset=utf-8");
 		response.getWriter().print(result);
