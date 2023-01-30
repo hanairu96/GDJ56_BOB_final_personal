@@ -66,23 +66,25 @@ public class OneDayController {
    }
    
    @RequestMapping("/class/menu.do")
-   public String oneDayClassBob(Model m,String type) {
+   public ModelAndView oneDayClassBob(ModelAndView mv,String type) {
       
       List<OneDayClass> classlist = service.selectMenuClassList(type);
-      m.addAttribute("classlist",classlist);
-      return "onedayclass/onedaymenu-"+type;
+      mv.addObject("classlist",classlist);
+      mv.setViewName("onedayclass/onedaymenu-"+type);
+      return mv;
    }
    
    @RequestMapping("/class/search.do")
-   public String selectSearchClass(Model m, String search, String searchlist) {
+   public ModelAndView selectSearchClass(ModelAndView mv, String search, String searchlist) {
 
       Map<String, Object> param = new HashMap();
       param.put("type", searchlist);
       param.put("keyword", search);
       List<OneDayClass> classlist = service.selectSearchClass(param);
-      m.addAttribute("classlist",classlist);
-      m.addAttribute("param", param);
-      return "onedayclass/onedaySearchResult";
+      mv.addObject("classlist",classlist);
+      mv.addObject("param", param);
+      mv.setViewName("onedayclass/onedaySearchResult");
+      return mv;
    }
    
    @RequestMapping("/class/masterEnroll.do")
@@ -91,18 +93,20 @@ public class OneDayController {
    }
 
    @RequestMapping("/class/masterEndEnroll.do")
-   public String masterEndEnroll(AdminMaster m, Model model) {
+   public ModelAndView masterEndEnroll(AdminMaster m, ModelAndView model) {
       System.out.println(m);
       int result=service.masterEndEnroll(m);
       
       if(result<0) {
-         model.addAttribute("msg","등록에 실패했습니다");
-         model.addAttribute("loc","/class/masterEndEnroll.do");
-         return "common/msg";
+         model.addObject("msg","등록에 실패했습니다");
+         model.addObject("loc","/class/masterEndEnroll.do");
+         model.setViewName("common/msg");
+         return model;
       }else {
-         model.addAttribute("msg","장인신청 등록이 완료됐습니다");
-         model.addAttribute("loc","/class/main.do");
-         return "common/msg";
+         model.addObject("msg","장인신청 등록이 완료됐습니다");
+         model.addObject("loc","/class/main.do");
+         model.setViewName("common/msg");
+         return model;
       }
    }
    
@@ -223,11 +227,24 @@ public class OneDayController {
    
    @RequestMapping("/class/odcView.do")
    public ModelAndView odcView(ModelAndView mv, String no) {
-      
+	   
       OneDayClass odc = service.odcView(no);
+      
+      //날짜 포맷해주기
+      //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일"); 
+      
+  	  //원하는 데이터 포맷 지정
+      //String startDate = simpleDateFormat.format(odc.getOdcStartDate()); 
+      //String endDate = simpleDateFormat.format(odc.getOdcEndDate()); 
+      
+  	  //지정한 포맷으로 변환 
+      //System.out.println("포맷 지정 후 : " + startDate);
+     // System.out.println("포맷 지정 후 : " + endDate);
       AdminMaster am= service.selectMastserById(odc.getMemberId());
       mv.addObject("odc",odc);
       mv.addObject("am",am);
+      //mv.addObject("startDate", startDate);
+      //mv.addObject("endDate", endDate);
       mv.setViewName("onedayclass/onedayClassDetail");
       return mv;
    }

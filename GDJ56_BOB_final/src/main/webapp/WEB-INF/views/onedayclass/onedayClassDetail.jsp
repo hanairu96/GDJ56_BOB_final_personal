@@ -18,13 +18,12 @@
 	<script src="${path }/resources/js/jquery-3.6.1.min.js"></script>
 	
 	<!-- 다음 api 지도 -->
-	<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=63790162820e52da6fdb26e25b092596"></script>
 	
 	<!--datepicker -->
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
 	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 	<!-- datepicker 한국어로 -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"/>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
 </head>
 
 <script>
@@ -32,27 +31,29 @@
 	$(function () {
 		$("#search").on("click", function() {
 			$("#searchbox").slideDown("fast"); // 2초에 걸쳐서 진행
-	});
-
-	$(window).scroll(  
-		function(){  
-			//스크롤의 위치가 상단에서 450보다 크면  
-			if($(window).scrollTop() > 500){  
-				$('#calender').addClass("fix1");  
-				//위의 if문에 대한 조건 만족시 fix라는 class를 부여함  
-			}else{  
-				$('#calender').removeClass("fix1");  
-				//위의 if문에 대한 조건 아닌경우 fix라는 class를 삭제함  
-			}  
-	}); 
-		
-	$(window).scroll(  
-	function(){  
-		//스크롤의 위치가 상단에서 450보다 크면  
-		if($(window).scrollTop() > 1500){   
-			$('#datailmenubar').addClass("fix2");  
-			//위의 if문에 대한 조건 만족시 fix라는 class를 부여함  
-			}  
+		});
+		$(window).scroll(  
+			function(){  
+				console.log('test');
+				//스크롤의 위치가 상단에서 450보다 크면  
+				if($(window).scrollTop() > 500){  
+					$('#calender').addClass("fix1");  
+					//위의 if문에 대한 조건 만족시 fix라는 class를 부여함  
+				}else{  
+					$('#calender').removeClass("fix1");  
+					//위의 if문에 대한 조건 아닌경우 fix라는 class를 삭제함  
+				}
+			}
+		); 
+			
+		$(window).scroll(  
+			function(){  
+				//스크롤의 위치가 상단에서 450보다 크면  
+				if($(window).scrollTop() > 1500){   
+					$('#datailmenubar').addClass("fix2");  
+					//위의 if문에 대한 조건 만족시 fix라는 class를 부여함  
+				}
+			}
 		);
 	});
 </script>
@@ -123,8 +124,6 @@
 									<span>
 										<img src="${path}/resources/pato/images/class/time2.gif" width="30" height="30">
 										수업시작 : ${odc.odcStartTime }
-										수업시작날짜 : ${odc.odcStartDate }
-										수업끝날짜 : ${odc.odcEndDate }
 									</span>
 									</div>
 									&nbsp;&nbsp;
@@ -192,7 +191,7 @@
 									<div id="map" style="width:500px;height:300px;align-items: center;"></div>
 								</div>
 								<script>
-									var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+									/* var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 									mapOption = { 
 										center: new kakao.maps.LatLng(37.4780485, 126.8790079), // 지도의 중심좌표
 										level: 3 // 지도의 확대 레벨
@@ -209,7 +208,7 @@
 									});
 									
 									// 마커가 지도 위에 표시되도록 설정합니다
-									marker.setMap(map);
+									marker.setMap(map); */
 									
 									// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 									// marker.setMap(null);    
@@ -330,8 +329,8 @@
 		});
 		
 		$(function(){
-		    getCommentList();
-		});
+ 		    getCommentList();
+ 		});
 		
 		function getCommentList(){
 			const odcNo= $('#odcNo').val();
