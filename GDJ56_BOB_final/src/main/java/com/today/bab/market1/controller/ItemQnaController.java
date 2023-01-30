@@ -92,6 +92,7 @@ public class ItemQnaController {
 	@RequestMapping("/selectQna.do")
 	public String selectQna(Model m,int itemNo) {
 		List<ItemQna> qq=service.selectQnaList(itemNo);
+		
 		m.addAttribute("qna",qq);
 		m.addAttribute("itemNo",itemNo);
 		return "market1/itemQna";
@@ -143,12 +144,12 @@ public class ItemQnaController {
 	public String qnaAnswerAdmin(int iqNo,int itemNo,String IqaContent,Model m) {
 		
 		IqAnswer iq=IqAnswer.builder()
-				.iqaNo(iqNo)
+				.iqNo(iqNo)
 				.IqaContent(IqaContent)
 				.build();
 		int result=service.qnaAnswerAdmin(iq);
 		if(result>0) {
-			m.addAttribute("msg", "질문 삭제 완료");
+			m.addAttribute("msg", "답변 입력 완료");
 			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
 			
 			SellItem list=ms.marketdetail(itemNo);
@@ -166,7 +167,7 @@ public class ItemQnaController {
 			m.addAttribute("itemNo",itemNo);
 			
 		}else {
-			m.addAttribute("msg", "질문 삭제 실패");
+			m.addAttribute("msg", "답변 입력 실패");
 			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
 			
 			SellItem list=ms.marketdetail(itemNo);

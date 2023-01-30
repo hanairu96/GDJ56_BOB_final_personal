@@ -74,6 +74,7 @@
 				<hr/>
 				
 				<!-- 답변 -->
+				<form method="post" action="${path }/itemQna/qnaAnswerAdmin.do">
 				<div class="toggleadmin">
 					<div class="ttt" style="margin-left: 50px;display:none;">
 					    <div style="display:flex;margin-bottom: 7px;">
@@ -83,16 +84,20 @@
 					    </div>
 					    <div style="display:flex">
 					        <div id="answerAdnim">
+					        <c:if test=""
 					            <textarea name="IqaContent" id="IqaContent" cols="100" rows="2" placeholder="답글을 입력해주세요"></textarea>
+					        	<input type="hidden" name="itemNo" value="${itemNo }"/>
+					        	<input type="hidden" name="iqNo" value="${q.iqNo }"/>
 					        </div>
 					        <div>
-					            <input class="primary-btn" type="button" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;"
-					            onclick="iqanswer(${q.iqNo});">
+					            <input class="primary-btn" type="submit" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;"
+					            onclick="">
 					        </div>
 					    </div>
 						<hr/>
 					</div>
 				</div>
+				</form>
 				
 			</c:if>
 			<c:if test="${q.iqSecret eq 'Y' }">
@@ -122,32 +127,37 @@
 					<hr/>
 					
 					<!-- 답변 -->
+					<form method="post" action="${path }/itemQna/qnaAnswerAdmin.do">
 					<div class="toggleadmin">
 						<div class="ttt" style="margin-left: 50px;display:none;">
 						    <div style="display:flex;margin-bottom: 7px;">
 						        <img src="" alt="" style="width:40px; height: 40px;border-radius: 50%;">
 						        <h5 style="margin:10px;">오늘의 밥</h5>
-					        <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
-					    	</div>
+						        <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
+						    </div>
 						    <div style="display:flex">
 						        <div id="answerAdnim">
 						            <textarea name="IqaContent" id="IqaContent" cols="100" rows="2" placeholder="답글을 입력해주세요"></textarea>
+						        	<input type="hidden" name="itemNo" value="${itemNo }"/>
+						        	<input type="hidden" name="iqNo" value="${q.iqNo }"/>
 						        </div>
 						        <div>
-						            <input class="primary-btn" type="button" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;"
-						            onclick="iqanswer(${q.iqNo});">
+						            <input class="primary-btn" type="submit" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;"
+						            onclick="">
 						        </div>
 						    </div>
-						    <hr/>
+							<hr/>
 						</div>
-					</div> 
-					
 					</div>
+					</form> 
+					
+				</div>
 				</c:if>
 			</c:forEach>
 		</div>
 		
 		<script>
+			//문의 답변css
 		 	function togglererere(e){
 		 		$(e.target).parent().parent().next().next().find("div.ttt").slideToggle(1000);
 		 	} 
@@ -158,8 +168,8 @@
 		    }
 		    
 		    //관리자 문의 답변
-		    function iqanswer(no){
-		    	const content=$("IqaContent").val();
+		    /* function iqanswer(no){
+ 		    	const content=$("IqaContent").val();
 		    	$.ajax({
 		    		type:'get',
 		    		url:'${path}/itemQna/qnaAnswerAdmin.do?iqNo='+no+'&itemNo='+itemNo,
@@ -176,8 +186,8 @@
 		    			}
 		    			${"#answerAdnim"}.html(html);
 		    		}
-		    	})
-		    }  
+		    	}) 
+		    } */   
 		    
 		</script>
 		<!-- 페이징처리 -->

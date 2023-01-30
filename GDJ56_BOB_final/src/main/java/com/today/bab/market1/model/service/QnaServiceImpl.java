@@ -42,4 +42,9 @@ public class QnaServiceImpl implements QnaService {
 	public int qnaAnswerAdmin(IqAnswer iq) {
 		return dao.qnaAnswerAdmin(session,iq);
 	}
+	
+	@Override 
+	public IqAnswer selectIqAnswer() {
+		return dao.selectIqAnswer(session);
+	}
 }

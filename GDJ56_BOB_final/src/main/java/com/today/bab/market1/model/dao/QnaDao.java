@@ -16,4 +16,6 @@ public interface QnaDao {
 	int delectQna(SqlSessionTemplate session,int iqNo);
 	
 	int qnaAnswerAdmin(SqlSessionTemplate session,IqAnswer iq);
+	
+	IqAnswer selectIqAnswer(SqlSessionTemplate session);
 }

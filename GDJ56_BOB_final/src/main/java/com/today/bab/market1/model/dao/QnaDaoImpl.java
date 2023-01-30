@@ -31,4 +31,9 @@ public class QnaDaoImpl implements QnaDao {
 	public int qnaAnswerAdmin(SqlSessionTemplate session,IqAnswer iq) {
 		return session.insert("iqna.qnaAnswerAdmin",iq);
 	}
+	
+	@Override
+	public IqAnswer selectIqAnswer(SqlSessionTemplate session) {
+		return session.selectOne("iqna.selectIqAnswer");
+	}
 }

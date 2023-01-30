@@ -14,4 +14,6 @@ public interface QnaService {
 	int delectQna(int iqNo);
 	//상품 문의 답변
 	int qnaAnswerAdmin(IqAnswer iq);
+	
+	IqAnswer selectIqAnswer();
 }
