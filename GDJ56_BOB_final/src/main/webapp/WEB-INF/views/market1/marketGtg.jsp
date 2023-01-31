@@ -22,6 +22,7 @@
         <div class="container">
             <div class="row">
 
+                <a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:900px;background-color: #07d448;" >상품등록</a>
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
 

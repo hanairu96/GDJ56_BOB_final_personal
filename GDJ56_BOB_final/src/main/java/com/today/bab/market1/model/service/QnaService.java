@@ -15,5 +15,5 @@ public interface QnaService {
 	//상품 문의 답변
 	int qnaAnswerAdmin(IqAnswer iq);
 	
-	IqAnswer selectIqAnswer();
+	List<IqAnswer> selectIqAnswer();
 }

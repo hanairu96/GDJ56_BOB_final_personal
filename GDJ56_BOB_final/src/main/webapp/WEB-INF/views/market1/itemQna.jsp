@@ -84,7 +84,6 @@
 					    </div>
 					    <div style="display:flex">
 					        <div id="answerAdnim">
-					        <c:if test=""
 					            <textarea name="IqaContent" id="IqaContent" cols="100" rows="2" placeholder="답글을 입력해주세요"></textarea>
 					        	<input type="hidden" name="itemNo" value="${itemNo }"/>
 					        	<input type="hidden" name="iqNo" value="${q.iqNo }"/>

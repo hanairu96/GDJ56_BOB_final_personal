@@ -91,9 +91,13 @@ public class ItemQnaController {
 	
 	@RequestMapping("/selectQna.do")
 	public String selectQna(Model m,int itemNo) {
+		//상품 문의 리스트 출력
 		List<ItemQna> qq=service.selectQnaList(itemNo);
+		//상품 문의 답글
+		List<IqAnswer> list=service.selectIqAnswer();
 		
 		m.addAttribute("qna",qq);
+		m.addAttribute("answer",list);
 		m.addAttribute("itemNo",itemNo);
 		return "market1/itemQna";
 	}

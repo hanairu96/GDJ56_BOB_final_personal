@@ -2,7 +2,6 @@ package com.today.bab.market1.model.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -33,7 +32,7 @@ public class QnaDaoImpl implements QnaDao {
 	}
 	
 	@Override
-	public IqAnswer selectIqAnswer(SqlSessionTemplate session) {
+	public List<IqAnswer> selectIqAnswer(SqlSessionTemplate session) {
 		return session.selectOne("iqna.selectIqAnswer");
 	}
 }
