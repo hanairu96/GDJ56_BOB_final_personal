@@ -217,6 +217,7 @@
 		    <version>${org.springframework-version}</version>
 		</dependency>
 		
+		
 		<!-- SMTP 이메일 전송 관련 -->		
 		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 		<dependency>
