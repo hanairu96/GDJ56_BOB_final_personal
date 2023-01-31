@@ -117,7 +117,7 @@
 	                                    </ul>
 	                                </div>
 	                                <div class="product__item__text">
-	                                    <h6><a href="${path }/market1/marketdetail.do?itemNo=${sell.itemNo }">
+	                                    <h6><a href="${path }/market1/marketdetail.do?itemNo=${sell.itemNo }" style="font-weight:bold;">
 	                            	    <c:if test="${sell.itemBrand!=null }">
 								        	[${sell.itemBrand }]
 								        </c:if>
