@@ -298,7 +298,7 @@ public class MemberController {
 	@RequestMapping("/loginFail")
 	public String loginFail() {
 		//로그인 실패 시
-		throw new LoginAccessException("로그인에 실패하였습니다.");
+		throw new LoginAccessException("아이디나 비밀번호가 잘못됐습니다.");
 	}
 	
 	@RequestMapping("/loginSuccess")
