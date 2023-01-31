@@ -35,7 +35,8 @@
         <script>
         	//배너 클릭 시 이동할 페이지 이름
         	let page="market";
-        
+        	
+        	//배너가 3초마다 바뀜
             let count=0;
             setInterval(function(){
                 if(count==0){
@@ -55,6 +56,7 @@
                 if(count>2) count=0;
             },3000)
             
+            //배너의 문자 클릭 시 그 페이지로 감
             $(".tit6>p").click(e=>{
             	if(page=="market"){
             		location.assign("${path}/market1/matketmain.do");
