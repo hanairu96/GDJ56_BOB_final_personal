@@ -20,7 +20,9 @@ public class SubController {
 		return "subscription/subMain";
 	}
 
-	
-	
+	@RequestMapping("/subApply")
+	public String subApply() {
+		return "subscription/subApply";
+	}
 	
 }
