@@ -159,7 +159,7 @@
 									</div>
 									<h3>│</h3>
 									<div style="margin-left: 3%;margin-right: 3%; display: flex;">
-										<h3>문의글</h3>
+										<a href="#qna"><h3>문의글</h3></a>
 									</div>
 								</div>
 								<br>
@@ -228,9 +228,21 @@
 									수강후기
 									</h4>
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-right:30%">
+									<input type="hidden" name="memberId" value="${loginMember.memberId}" id="memberId">
+									<button type="button" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-right:30%"
+									onclick="goPopup(event);">
 											리뷰작성하기
 									</button>
+									
+									
+									<script type="text/javascript">
+						            	function goPopup(e){
+						            		var memberId=$(e.target).prev("input").val();
+						            		var gsWin=window.open("${path}/class/pop.do?id="+memberId,"winName","width=520,height=730"); //open("주소",띄우는방식,크기)
+						            		console.log(oqno);
+						            	}
+									</script>
+									
 								</div>
 								<br>
 								<p style="color: rgb(195, 195, 195);">
@@ -249,8 +261,8 @@
 							
 							<div id="reviewtList"></div>
 
-							<div style="margin-bottom: 3%; margin-top: 3%;">
-								<span>───────────────────────────────────────────────────</span>
+							<div style="margin-bottom: 7%; margin-top: 3%;">
+								<span id="qna">───────────────────────────────────────────────────</span>
 							</div>
 		
 							<div>

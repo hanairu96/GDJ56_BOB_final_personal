@@ -284,7 +284,9 @@ public class OneDayController {
    }
    
    @RequestMapping("/class/pop.do")
-   public ModelAndView classEnroll(ModelAndView mv) {
+   public ModelAndView classEnroll(ModelAndView mv, String id) {
+	  System.out.println(id);
+	  
       mv.setViewName("onedayclass/onedayReviewPop");
       return mv;
       
