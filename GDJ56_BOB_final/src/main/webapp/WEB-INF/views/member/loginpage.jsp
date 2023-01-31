@@ -10,7 +10,7 @@
             <div id="login">
                 <br>
                 <img src="${path}/resources/images/logo-icon.png" style="width: 120px;height: 100px;">
-                <form id="loginForm" action="${path}/member/loginEnd" method="post">
+                <form id="loginForm" action="${path}/login" method="post">
                     <input class="loginform" name="id" type="text" id="logInId" placeholder="아이디를 입력해주세요." style="width: 200px;"><br>
                     <input class="loginform" name="password" type="password" id="logInPwd" placeholder="비밀번호를 입력해주세요." style="width: 200px;"><br>
                     <span id="pwdCheck"><small></small></span>

@@ -63,7 +63,7 @@
 	                <img src="${path}/resources/images/logout.png" onclick="logout();">
                 </c:if>
                 <c:if test="${loginMember==null}">
-                	<img src="${path}/resources/images/login.png" onclick="location.assign('${path}/member/login')">
+                	<img src="${path}/resources/images/login.png" onclick="location.assign('${path}/member/loginpage')">
                 </c:if>
             </div>
         </header>
