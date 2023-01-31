@@ -7,10 +7,6 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <script src="${path }/resources/js/jquery-3.6.1.min.js"></script>
 	<div>
-	<c:forEach var="aa" items="${an }">
-		${aa.iqaContent }
-	</c:forEach>
-	
 		<div style="display: flex;">
 		    <div>
 		        <h4 style="margin-right: 10px;font-weight: bold;">상품문의</h2>
@@ -51,7 +47,6 @@
 		</form>
 		<hr/> 
 		<c:forEach var="q" items="${qna }">
-			<c:if test="${q.iqSecret eq 'N' }">
 				<div style="display: flex; height:40px;margin-bottom: 7px;">
 		 	
 				    <img src="" alt="" style="height:40px;width: 40px;border-radius: 50%;">
@@ -60,9 +55,16 @@
 				    </div>
 				    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
 				</div>
+				<c:if test="${q.iqSecret eq 'N' }">
 				<div style="margin-left:20px;">
 				    <h5>${q.iqContent }</h5>
 				</div>
+				</c:if>
+				<c:if test="${q.iqSecret eq 'Y' }">
+				<div style="margin-left:20px;">
+				    <h5 style="color:gray;">비밀글입니다.</h5>
+				</div>
+				</c:if>
 				<br>
 				<div style="display: flex;">
 				    <div class="col-2">
@@ -98,23 +100,33 @@
 					            <input class="primary-btn" type="submit" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;"
 					            onclick="">
 					        </div>
-					        <div>
-					        
-					        </div>
 					    </div>
+					        <!-- 답글 리스트 출력 -->
+					        <c:forEach var="aa" items="${an }">
+						        <hr/>
+						        <c:if test="${q.iqNo == aa.iqNo }">
+						        <div style="display:flex;margin-bottom: 7px;">
+						        	<h5 style="margin:10px;">오늘의 밥</h5>
+									<span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${aa.iqaDate }"/></span>
+						        </div>
+						        <div style="margin-left:20px;">
+									${aa.iqaContent }
+						        </div>
+						        </c:if>
+							</c:forEach>
 						<hr/>
 					</div>
 				</div>
 				</form>
 				
-			</c:if>
-			<c:if test="${q.iqSecret eq 'Y' }">
+			
+			<%-- <c:if test="${q.iqSecret eq 'Y' }">
 				<div style="display: flex; height:40px;margin-bottom: 7px;">
 				    <img src="" alt="" style="height:40px;width: 40px;border-radius: 50%;">
 				    <div>
 				        <h5 style="margin-left:10px; margin-top: 10px;">야채주스</h5>
 				    </div>
-				    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;">${q.iqDate }</span>
+				    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
 				</div>
 				<div style="margin-left:20px;">
 				    <h5 style="color:gray;">비밀글입니다.</h5>
@@ -149,8 +161,20 @@
 						        	<input type="hidden" name="itemNo" value="${itemNo }"/>
 						        	<input type="hidden" name="iqNo" value="${q.iqNo }"/>
 						        </div>
-						        <div>
-						        </div>
+						        <!-- 답글 리스트 출력 -->
+						        <c:forEach var="aa" items="${an }">
+							        <hr/>
+							        <c:if test="${q.iqNo == aa.iqNo }">
+							        <div style="display:flex;margin-bottom: 7px;">
+							        	<h5 style="margin:10px;">오늘의 밥</h5>
+										<span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${aa.iqaDate }"/></span>
+							        </div>
+							        <div style="margin-left:20px;">
+										${aa.iqaContent }
+							        </div>
+							        </c:if>
+								</c:forEach>
+						        
 						        <div>
 						            <input class="primary-btn" type="submit" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;"
 						            onclick="">
@@ -159,10 +183,9 @@
 							<hr/>
 						</div>
 					</div>
-					</form> 
+					</form>  --%>
 					
-				</div>
-				</c:if>
+				<!-- </div> -->
 			</c:forEach>
 		</div>
 		
@@ -177,7 +200,7 @@
 		    	location.assign('${path}/itemQna/delectQna.do?itemNo='+itemNo+'&iqNo='+no);
 		    }
 		    
-		    //관리자 문의 답변
+		    //관리자 문의 답변 수정중....
 		    /* function iqanswer(no){
  		    	const content=$("IqaContent").val();
 		    	$.ajax({
