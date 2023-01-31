@@ -207,8 +207,10 @@
 		const openApply=()=>{
 			//팝업창을 화면 가운데에 위치시키기 위해 화면의 크기로 위치 구함
 			let popupX=(window.screen.width/2)-250;
-			let popupY=(window.screen.height/2)-300;
-			open("${path}/subscription/subApply", "_blank", "width=500px, height=600px, left="+popupX+", top="+popupY+"");
+			let popupY=(window.screen.height/2)-350;
+			console.log(popupX);
+			console.log(popupY);
+			open("${path}/subscription/subApply", "_blank", "width=500px, height=600px, left="+popupX+", top="+popupY);
 		}
 	</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

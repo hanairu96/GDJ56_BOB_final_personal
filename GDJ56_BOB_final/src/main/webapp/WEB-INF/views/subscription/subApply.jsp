@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-    
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -164,70 +164,88 @@
 			width:100%;
 			transition:800ms ease all;
 		}
-    </style>
-    <script>
-        let choice="일반 우유"; //선택한 항목
-
-        $("#kinds td:nth-child(1)").click(e=>{
-            $("#character").attr("src","${path}/resources/images/subscription/milk.png");
-            $("#kinds td:nth-child(1)").css("backgroundColor","mediumpurple").css("color","white");
-            $("#kinds td:nth-child(2)").css("backgroundColor","lavender").css("color","black");
-            $("#kinds td:nth-child(3)").css("backgroundColor","lavender").css("color","black");
-            $("#items>input").css("backgroundColor","lavender").css("color","black");
-            $("#items>input:nth-child(1)").css("backgroundColor","mediumpurple").css("color","white");
-            choice="일반 우유";
-            $("#items>input:nth-child(1)").val("일반 우유");
-            $("#items>input:nth-child(2)").val("저지방 우유");
-            $("#items>input:nth-child(3)").val("무유당 우유");
-            $("#price>p").text("월별 구독료: 5000원");
-        })
-        $("#kinds td:nth-child(2)").click(e=>{
-            $("#character").attr("src","${path}/resources/images/subscription/egg.png");
-            $("#kinds td:nth-child(1)").css("backgroundColor","lavender").css("color","black");
-            $("#kinds td:nth-child(2)").css("backgroundColor","mediumpurple").css("color","white");
-            $("#kinds td:nth-child(3)").css("backgroundColor","lavender").css("color","black");
-            $("#items>input").css("backgroundColor","lavender").css("color","black");
-            $("#items>input:nth-child(1)").css("backgroundColor","mediumpurple").css("color","white");
-            choice="특란";
-            $("#items>input:nth-child(1)").val("특란");
-            $("#items>input:nth-child(2)").val("유정란");
-            $("#items>input:nth-child(3)").val("흰색 계란");
-            $("#price>p").text("월별 구독료: 15000원");
-        })
-        $("#kinds td:nth-child(3)").click(e=>{
-            $("#character").attr("src","${path}/resources/images/subscription/apple.png");
-            $("#kinds td:nth-child(1)").css("backgroundColor","lavender").css("color","black");
-            $("#kinds td:nth-child(2)").css("backgroundColor","lavender").css("color","black");
-            $("#kinds td:nth-child(3)").css("backgroundColor","mediumpurple").css("color","white");
-            $("#items>input").css("backgroundColor","lavender").css("color","black");
-            $("#items>input:nth-child(1)").css("backgroundColor","mediumpurple").css("color","white");
-            choice="사과";
-            $("#items>input:nth-child(1)").val("사과");
-            $("#items>input:nth-child(2)").val("포도");
-            $("#items>input:nth-child(3)").val("바나나");
-            $("#price>p").text("월별 구독료: 12000원");
-        })
-
-        $("#items>input").click(e=>{
-            $("#items>input").css("backgroundColor","lavender").css("color","black");
-            e.target.style.backgroundColor="mediumpurple";
-            e.target.style.color="white";
-            choice=e.target.value;
-            if(e.target.value=="사과"){
-                $("#character").attr("src","${path}/resources/images/subscription/apple.png");
-            }else if(e.target.value=="포도"){
-                $("#character").attr("src","${path}/resources/images/subscription/grape.png");
-            }else if(e.target.value=="바나나"){
-                $("#character").attr("src","${path}/resources/images/subscription/banana.png");
-            }
-        })
-
-        const pay=()=>{
-            console.log(choice);
-            let decide=confirm(choice+"를 정말로 정기 결제 하시겠습니까?");
-            alert("결제 완료");
-        }
-
-    </script>
+	</style>
+	<script>
+		let choice="일반 우유"; //선택한 항목
+		
+		//우유 클릭 시 바뀜
+		$("#kinds td:nth-child(1)").click(e=>{
+			$("#character").attr("src","${path}/resources/images/subscription/milk.png");
+			$("#kinds td:nth-child(1)").css("backgroundColor","mediumpurple").css("color","white");
+			$("#kinds td:nth-child(2)").css("backgroundColor","lavender").css("color","black");
+			$("#kinds td:nth-child(3)").css("backgroundColor","lavender").css("color","black");
+			$("#items>input").css("backgroundColor","lavender").css("color","black");
+			$("#items>input:nth-child(1)").css("backgroundColor","mediumpurple").css("color","white");
+			choice="일반 우유";
+			$("#items>input:nth-child(1)").val("일반 우유");
+			$("#items>input:nth-child(2)").val("저지방 우유");
+			$("#items>input:nth-child(3)").val("무유당 우유");
+			$("#price>p").text("월별 구독료: 5000원");
+		})
+		//계란 클릭 시 바뀜
+		$("#kinds td:nth-child(2)").click(e=>{
+			$("#character").attr("src","${path}/resources/images/subscription/egg.png");
+			$("#kinds td:nth-child(1)").css("backgroundColor","lavender").css("color","black");
+			$("#kinds td:nth-child(2)").css("backgroundColor","mediumpurple").css("color","white");
+			$("#kinds td:nth-child(3)").css("backgroundColor","lavender").css("color","black");
+			$("#items>input").css("backgroundColor","lavender").css("color","black");
+			$("#items>input:nth-child(1)").css("backgroundColor","mediumpurple").css("color","white");
+			choice="특란";
+			$("#items>input:nth-child(1)").val("특란");
+			$("#items>input:nth-child(2)").val("유정란");
+			$("#items>input:nth-child(3)").val("흰색 계란");
+			$("#price>p").text("월별 구독료: 15000원");
+		})
+		//과일 클릭 시 바뀜
+		$("#kinds td:nth-child(3)").click(e=>{
+			$("#character").attr("src","${path}/resources/images/subscription/apple.png");
+			$("#kinds td:nth-child(1)").css("backgroundColor","lavender").css("color","black");
+			$("#kinds td:nth-child(2)").css("backgroundColor","lavender").css("color","black");
+			$("#kinds td:nth-child(3)").css("backgroundColor","mediumpurple").css("color","white");
+			$("#items>input").css("backgroundColor","lavender").css("color","black");
+			$("#items>input:nth-child(1)").css("backgroundColor","mediumpurple").css("color","white");
+			choice="사과";
+			$("#items>input:nth-child(1)").val("사과");
+			$("#items>input:nth-child(2)").val("포도");
+			$("#items>input:nth-child(3)").val("바나나");
+			$("#price>p").text("월별 구독료: 12000원");
+		})
+		
+		//상품명을 클릭 시 바뀜
+		$("#items>input").click(e=>{
+			$("#items>input").css("backgroundColor","lavender").css("color","black");
+			e.target.style.backgroundColor="mediumpurple";
+			e.target.style.color="white";
+			choice=e.target.value;
+			//종류가 과일일 때 각 상품명을 클릭 시 이미지가 바뀜 
+			if(e.target.value=="사과"){
+				$("#character").attr("src","${path}/resources/images/subscription/apple.png");
+			}else if(e.target.value=="포도"){
+				$("#character").attr("src","${path}/resources/images/subscription/grape.png");
+			}else if(e.target.value=="바나나"){
+				$("#character").attr("src","${path}/resources/images/subscription/banana.png");
+			}
+		})
+		
+		//결제하기 버튼 눌렀을 때
+		const pay=()=>{
+			console.log(choice);
+			let decide=confirm(choice+"를 정말로 정기 결제 하시겠습니까?");
+			if(decide){
+				$.ajax({
+					url:"${path}/subscription/insertSub?memberId=${loginMember.memberId}&choice="+choice,
+					success:data=>{
+						console.log(data);
+						if(data){
+							alert("결제되었습니다.");
+							window.close();
+						}else{
+							alert("결제가 실패하였습니다.");
+						}
+					}
+				})
+			}
+		}
+	</script>
 </body>
 </html>
