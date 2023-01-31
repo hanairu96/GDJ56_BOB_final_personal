@@ -15,5 +15,16 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ItemOrder {
 	private int orderNo;
+	private String memberId;
+	private int price;
+	private Date sellDate;
+	private String delivery;
+	private String refund;
+	private String address;
+	private String orderName;
+	private String orderPhone;
+	private String refund_fix;
+	private String orderComment;
+	private String merchantUid;
 	
 }

@@ -88,12 +88,12 @@
 	               		<c:forEach var="c" items="${classlist}">
 							<div class="col-lg-4" style="padding: 3%;">
 								<div class="zoom">
-									<a href=""><img src="${path}/resources/images/onedayclass/${c.odcMainPic}" width="350" height="300"></a>
+									<a href="${path}/class/odcView.do?no=${c.odcNo }"><img src="${path}/resources/images/onedayclass/${c.odcMainPic}" width="350" height="300"></a>
 								</div>
 									
 								<div class="category-name" >${c.odcCategoty}</div>
 			
-								<a href=""><b><h4>${c.odcCookName}</h4></b></a>
+								<a href="${path}/class/odcView.do?no=${c.odcNo }"><b><h4>${c.odcCookName}</h4></b></a>
 			
 								<div style="display: flex; margin-top: 1%;">
 									<img src="${path}/resources/pato/images/class/chef-hat.png" width="20" height="20"><h5>${c.mastserName}</h5>
@@ -119,13 +119,12 @@
 				<!-- 글등록,장인등록 -->
 				<div style="display: flex; margin-left: 61%;">
 					<form action="${path }/class/classEnroll.do">
-						<input type="text" name="memberId" value="${loginMember.memberId }">
 						<button type="submit" class="btn3 flex-c-m txt11 trans-0-4" style="margin-right: 3%;">
 						클래스 등록
 						</button>
 					</form>
 				
-					<button type="submit" class="btn3 flex-c-m txt11 trans-0-4" onclick="location.assign('${path}/class/masterEnroll.do')">
+					<button type="submit" class="btn3 flex-c-m txt11 trans-0-4" onclick="location.assign('${path}/class/editor.do')">
 						장인 신청
 					</button>
 				</div>

@@ -50,7 +50,7 @@
             <div>
                 <p><a href="${path}/market1/matketmain.do">MARKET</a></p>
                 <p><a href="${path}/class/main.do">ONE-DAY-CLASS</a></p>
-                <p><a href="">SUBSCRIPTION</a></p>
+                <p><a href="${path}/subscription/subMain">SUBSCRIPTION</a></p>
                 <p><a href="">CUSTOMER-CENTER</a></p>
                 <c:if test="${loginMember!=null}">
 	                <c:if test="${loginMember.memberId eq 'admin'}">
@@ -63,7 +63,7 @@
 	                <img src="${path}/resources/images/logout.png" onclick="logout();">
                 </c:if>
                 <c:if test="${loginMember==null}">
-                	<img src="${path}/resources/images/login.png" onclick="location.assign('${path}/member/login')">
+                	<img src="${path}/resources/images/login.png" onclick="location.assign('${path}/member/loginpage')">
                 </c:if>
             </div>
         </header>

@@ -335,7 +335,7 @@
              <div class="w-full overflow-hidden rounded-lg shadow-xs">
               <div class="w-full overflow-x-auto">
 	              <div style="display:flex;justify-content:space-between;align-items:center;">
-		          	<p>총 <b>${totalData }명</b>의 장인이 있습니다.</p>
+		          	<p>총 <b>${yesData }명</b>의 장인 / <b style="color:red;">${ingData }명</b>의 심사가 필요한 회원이 있습니다.</p>
 	        	</div>
                 <table class="w-full whitespace-no-wrap">
                	  	<c:if test="${empty list }">
@@ -369,13 +369,13 @@
 	                          <div
 	                            class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
 	                          >
-	                            <img
-	                              class="object-cover w-full h-full rounded-full"
-	                              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-	                              alt=""
+	                            <img 
+	                            	class="object-cover w-full h-full rounded-full"
+	                            	src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAADBUlEQVR4nO1WW0hUQRg+PhQUeZlxV8EUkrxEkeuc7cGnijhHLISQsAtRnrHYIM3owW4QIWJWZtlDRmZvQflSPYhREJQWGKGbuq4zayI7s3QRKo3scSdmdTGls+7qMSj64Idh5jvzffP/w5xfUaKEzRvIgT5/YYKHwcTR0SRI+W1I+Dgk/CskrAWMjCTGewPJkiO5ipUAhNdCwoKQcgEp/wIJezs9ngnC3KG1qXEQUF5jibhNnnxGPPogLGgb5NmLPz3lO2IWnw757aINxHsDyYDwiZjFCZ+Q90WxAkk+tiVWA0mUbVasBIzRgKXiEv8NrK1v+Zzyqs8DCbsFCD8FKHcByvZOBXfJOfkgpXS5vVkXW8cVq6Fq+Luqlxvz8ZCGMdKMb5YbQJoxgDTj8rw83bii6kaf5QZUzbiEdOx3Ol3LzDjrS0uXIw0zpBv1lhvYVGhkIB3/UDVca8ZBOq5DmjHp2HZwtbIUyNfxIVXHQZmNgoLSFeF5Z7FrJdJxg1yTd2BJxMNw6kYZ0vDEVBhPkIafhsa6MY60sgPKn0B+EbYjzahUNXxH1YxWVccVck75tyFEXPIQ3woIuwAp74KE+QFhkzLk2P7a2523q2os51zTacm1VBtQtg9SPmD2P7C/IWKD67zI23NC2HuonOsHJLDbml6A8keRhDNv3BOOksqQeOrznrkNycMF9wRgOJABCPOGN0vp9oics00i92SjWF9RKzburxZqYblAxUdEVl2LsLt9Zo3JIPTx9JjEoc+XAAn3/LpRxv3HQtWxWFfdIHLPXBWZ1++K9AfPhK3/XRStGRtK7PeD6NSFiIOUdczdJGxgof0hJKw9utQTdvh3GyzagAwfi/xK2j2fVgHCP0ZjILO5Tay52TaLk9bxUmTXNAube9gsC2OyvOa1p7zKzP1cA46dR4WjpGIWR4pLTlp7Z4RMsGPm6afsWrQGUl/0itTO3lkcefKQOGGRStEYof58e7QGFhqAsKKI9wAO8eOA8g9WGwCUv5clVhbTkKgRmpG/Fj8BIGdLBiqo35wAAAAASUVORK5CYII="
+	                            	alt=""
 	                              loading="lazy"
-	                            />
-	                            <div
+	                              >
+	                             <div
 	                              class="absolute inset-0 rounded-full shadow-inner"
 	                              aria-hidden="true"
 	                            ></div>
@@ -416,21 +416,21 @@
 			                       <span
 			                       class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
 			                        >
-			                        <a href="${path }/admin/masterTest.do?name=${m.name}">거절</a>
+			                        <a href="javascript:alert('심사 탈락 사유 : ${m.fail }');" onfocus="this.blur()">거절</a>
 			                      </span>
 			                    </c:if>
 			                    <c:if test="${fn:contains(m.ing,'Y')}">
 			                       <span
 			                        class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
 			                        >
-			                        <a href="${path }/admin/masterTest.do?name=${m.name}">승인</a>
+			                       <a href="javascript:alert('이미 승인 된 회원입니다.');" onfocus="this.blur()">승인</a>
 			                      </span>
 			                    </c:if>
 			                    <c:if test="${fn:contains(m.ing,'B')}">
 			                       <span
 			                       class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
 			                        >
-			                        <a href="${path }/admin/masterTest.do?name=${m.name}">박탈</a>
+			                        <a href="javascript:alert('자격 박탈 사유 : ${m.fail }');" onfocus="this.blur()">박탈</a>
 			                      </span>
 			                    </c:if>
 		                      </td>

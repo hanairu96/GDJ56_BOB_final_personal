@@ -217,6 +217,7 @@
 		    <version>${org.springframework-version}</version>
 		</dependency>
 		
+		
 		<!-- SMTP 이메일 전송 관련 -->		
 		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 		<dependency>
@@ -235,6 +236,7 @@
              <artifactId>log4jdbc-remix</artifactId>  
               <version>0.2.7</version>  
         </dependency>  
+
 
 		<!-- Test -->
 		<dependency>

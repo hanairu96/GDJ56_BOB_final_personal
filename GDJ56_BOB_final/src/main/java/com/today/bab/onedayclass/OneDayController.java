@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,186 +39,251 @@ import org.springframework.web.servlet.ModelAndView;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.member.model.vo.Member;
 import com.today.bab.onedayclass.model.service.OneDayService;
+import com.today.bab.onedayclass.model.vo.OdcQa;
+import com.today.bab.onedayclass.model.vo.OdcQaRe;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 import lombok.extern.slf4j.Slf4j;
 
+@ResponseBody
 @Controller
 @Slf4j
 public class OneDayController {
-	
-	private OneDayService service;
-	
-	@Autowired
-	public OneDayController(OneDayService service) {
-		this.service=service;
-	}
-	
-	@RequestMapping("/class/main.do")
-	public ModelAndView oneDayClassMain(ModelAndView mv) {
-		
-		List<OneDayClass> classlist = service.selectClassList();
-		mv.addObject("classlist",classlist);
-		mv.setViewName("onedayclass/onedayMain");
-		return mv;
-	}
-	
-	@RequestMapping("/class/menu.do")
-	public String oneDayClassBob(Model m,String type) {
-		
-		List<OneDayClass> classlist = service.selectMenuClassList(type);
-		m.addAttribute("classlist",classlist);
-		return "onedayclass/onedaymenu-"+type;
-	}
-	
-	@RequestMapping("/class/search.do")
-	public String selectSearchClass(Model m, String search, String searchlist) {
+   
+   private OneDayService service;
+   
+   @Autowired
+   public OneDayController(OneDayService service) {
+      this.service=service;
+   }
+   
+   @RequestMapping("/class/main.do")
+   public ModelAndView oneDayClassMain(ModelAndView mv) {
+      
+      List<OneDayClass> classlist = service.selectClassList();
+      mv.addObject("classlist",classlist);
+      mv.setViewName("onedayclass/onedayMain");
+      return mv;
+   }
+   
+   @RequestMapping("/class/menu.do")
+   public ModelAndView oneDayClassBob(ModelAndView mv,String type) {
+      
+      List<OneDayClass> classlist = service.selectMenuClassList(type);
+      mv.addObject("classlist",classlist);
+      mv.setViewName("onedayclass/onedaymenu-"+type);
+      return mv;
+   }
+   
+   @RequestMapping("/class/search.do")
+   public ModelAndView selectSearchClass(ModelAndView mv, String search, String searchlist) {
 
-	   Map<String, Object> param = new HashMap();
-	   param.put("type", searchlist);
-	   param.put("keyword", search);
-	   List<OneDayClass> classlist = service.selectSearchClass(param);
-	   m.addAttribute("classlist",classlist);
-	   m.addAttribute("param", param);
-	   return "onedayclass/onedaySearchResult";
-	}
-	
-	@RequestMapping("/class/masterEnroll.do")
-	public String masterEnroll() {
-		return "onedayclass/editor";
-	}
+      Map<String, Object> param = new HashMap();
+      param.put("type", searchlist);
+      param.put("keyword", search);
+      List<OneDayClass> classlist = service.selectSearchClass(param);
+      mv.addObject("classlist",classlist);
+      mv.addObject("param", param);
+      mv.setViewName("onedayclass/onedaySearchResult");
+      return mv;
+   }
+   
+   @RequestMapping("/class/masterEnroll.do")
+   public String masterEnroll() {
+      return "onedayclass/editor";
+   }
 
-	@RequestMapping("/class/masterEndEnroll.do")
-	public String masterEndEnroll(AdminMaster m, Model model) {
-		System.out.println(m);
-		int result=service.masterEndEnroll(m);
-		
-		if(result<0) {
-			model.addAttribute("msg","등록에 실패했습니다");
-			model.addAttribute("loc","/class/masterEndEnroll.do");
-			return "common/msg";
-		}else {
-			model.addAttribute("msg","장인신청 등록이 완료됐습니다");
-			model.addAttribute("loc","/class/main.do");
-			return "common/msg";
-		}
-	}
-	
-	@RequestMapping("/class/editor.do")
-	public String editor(AdminMaster m) {
-		System.out.println(m);
-		return "onedayclass/editor";
-	}
-	
-	@RequestMapping("/class/imageUpload.do")
-	@ResponseBody
-	public void imageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) throws Exception {
+   @RequestMapping("/class/masterEndEnroll.do")
+   public ModelAndView masterEndEnroll(AdminMaster m, ModelAndView model) {
+      System.out.println(m);
+      int result=service.masterEndEnroll(m);
+      
+      if(result<0) {
+         model.addObject("msg","등록에 실패했습니다");
+         model.addObject("loc","/class/masterEndEnroll.do");
+         model.setViewName("common/msg");
+         return model;
+      }else {
+         model.addObject("msg","장인신청 등록이 완료됐습니다");
+         model.addObject("loc","/class/main.do");
+         model.setViewName("common/msg");
+         return model;
+      }
+   }
+   
+   //장인신청 페이지로 넘어가는 메소드
+   @RequestMapping("/class/editor.do")
+   public ModelAndView editor(AdminMaster m, ModelAndView mv) {
+	  mv.setViewName("onedayclass/editor");
+      return mv;
+   }
+   
+   //ckEditor 사진 업로드시 파일저장시키는 메소드
+   @RequestMapping("/class/imageUpload.do")
+   @ResponseBody
+   public void imageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) throws Exception {
 
-	response.setCharacterEncoding("utf-8");
-    response.setContentType("text/html;charset=utf-8");
-	  
-	 String fileName=upload.getOriginalFilename();
-	  
-
-    Date date = new Date();
-    SimpleDateFormat imsi = new SimpleDateFormat("yyMMddHHmmssZ");
-    fileName = imsi.format(date)+"_"+fileName;
-    byte[] bytes = upload.getBytes();
-	  
-
-	String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/onedayclass/");
-    OutputStream outStr = new FileOutputStream(new File(uploadPath + fileName));
-
-    outStr.write(bytes);
+      response.setCharacterEncoding("utf-8");
+       response.setContentType("text/html;charset=utf-8");
+        
+      String fileName=upload.getOriginalFilename();
+        
+       Date date = new Date();
+       SimpleDateFormat imsi = new SimpleDateFormat("yyMMddHHmmssZ");
+       fileName = imsi.format(date)+"_"+fileName;
+       byte[] bytes = upload.getBytes();
+        
+      String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/onedayclass/");
+       OutputStream outStr = new FileOutputStream(new File(uploadPath + fileName));
+   
+       outStr.write(bytes);
     
-    //String callback=request.getParameter("CKEditorFuncNum");
-    PrintWriter out=response.getWriter();
-    String fileUrl=request.getContextPath()+"/resources/images/onedayclass/"+fileName;
+       //String callback=request.getParameter("CKEditorFuncNum");
+       PrintWriter out=response.getWriter();
+       String fileUrl=request.getContextPath()+"/resources/images/onedayclass/"+fileName;
+   
+       //out.println("<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'"+fileUrl+"','이미지가 업로드되었습니다.')"+"</script>");
+       out.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
+       
+       out.flush();
+       outStr.close();
+   }
+   
+   @RequestMapping("/class/classEnroll.do")
+   public ModelAndView classEnroll(String memberId, ModelAndView mv) {
+      AdminMaster master = service.selectMastserById(memberId);
+   
+      mv.addObject("master",master);
+      mv.setViewName("onedayclass/onedayClassEnroll");
+      return mv;
+ 
+      
+   }
+   
+   @RequestMapping("/class/EndclassEnroll.do")
+   public String EndclassEnroll(Model model,HttpServletRequest request, HttpServletResponse response, MultipartFile odcpic,
+         String odcClassName, String memberId,String odcCookName, String startDate, String endDate, String odcTime, int odcPeople, String address
+         ,int odcPrice,String odcContent, String odcEnrollDate, String odcCategoty, String odcStartTime, String mastserName
+   ) throws Exception{
+      
+      System.out.println(startDate);
+      System.out.println(endDate);
+       
+	   SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	   Date odcStartDate = format1.parse(startDate);
+	   System.out.println(odcStartDate);
+	   
+	   SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+	   Date odcEndDate = format2.parse(endDate);
+	   System.out.println(odcEndDate);
+      
+      response.setCharacterEncoding("utf-8");
+       response.setContentType("text/html;charset=utf-8");
+       String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/onedayclass/");
 
-    //out.println("<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'"+fileUrl+"','이미지가 업로드되었습니다.')"+"</script>");
-    out.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
-    
-    out.flush();
-    outStr.close();
-	}
-	
-	@RequestMapping("/class/classEnroll.do")
-	public String classEnroll(String memberId, Model m) {
-		AdminMaster master = service.selectMastserById(memberId);
-		m.addAttribute("master", master);
-		return "onedayclass/onedayClassEnroll";
-	}
-	
-	@RequestMapping("/class/EndclassEnroll.do")
-	public String EndclassEnroll(Model model,HttpServletRequest request, HttpServletResponse response, MultipartFile odcpic,
-			String odcClassName, String memberId,String odcCookName, String odcStartDate, String odcEndDate, String odcTime, int odcPeople, String address
-			,int odcPrice,String odcContent, String odcEnrollDate, String odcCategoty, String odcStartTime, String mastserName
-	) throws Exception{
-		
-		response.setCharacterEncoding("utf-8");
-	    response.setContentType("text/html;charset=utf-8");
-	    String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/onedayclass/");
+      //전송된 파일이 있다면...
+      //파일 리네임 처리 직접 하기
+      String orignalFileName=odcpic.getOriginalFilename();
+      String ext=orignalFileName.substring(orignalFileName.lastIndexOf("."));
+      //중복되지 않는 이름 설정하는 값 지정하기
+      SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+      int rnd=(int)(Math.random()*10000)+1;
+      String renameFile = sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+      
+      //파일 업로드하기
+      try {
+         //MultipartFile 클래스가 제공해주는 메소드 이용해서 저장처리
+         odcpic.transferTo(new File(uploadPath+renameFile));
+      }catch(IOException e) {
+         e.printStackTrace();
+      }
+      
+      //주소 분기처리
+      String[] add=address.split(",");
+      String odcAdd=address;
+      String odcCity=(String)add[1];
+      
+      //파일명
+      String odcMainPic=renameFile;
+      
+      //넘어온값 객체에 빌드
+      OneDayClass odc=OneDayClass.builder().odcClassName(odcClassName).odcCookName(odcCookName).odcStartDate(odcStartDate).odcEndDate(odcEndDate).odcTime(odcTime)
+      .odcPeople(odcPeople).odcAdd(odcAdd).odcCity(odcCity).odcPrice(odcPrice).odcMainPic(odcMainPic).odcContent(odcContent).odcStartTime(odcStartTime).odcCategoty(odcCategoty)
+      .memberId(memberId).build();
+      
+      //객체 보내서 insert
+      int result=service.endclassEnroll(odc);
+      
+      if(result<0) {
+         model.addAttribute("msg","클래스 등록에 실패했습니다");
+         model.addAttribute("loc","/class/masterEndEnroll.do");
+         return "common/msg";
+      }else {
+         model.addAttribute("msg","클래스 등록이 완료됐습니다");
+         model.addAttribute("loc","/class/main.do");
+         return "common/msg";
+      }
+      
+   }
+   
+   @RequestMapping("/class/odcView.do")
+   public ModelAndView odcView(ModelAndView mv, String no) {
+	   
+      OneDayClass odc = service.odcView(no);
+      
+      //날짜 포맷해주기
+      //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일"); 
+      
+  	  //원하는 데이터 포맷 지정
+      //String startDate = simpleDateFormat.format(odc.getOdcStartDate()); 
+      //String endDate = simpleDateFormat.format(odc.getOdcEndDate()); 
+      
+  	  //지정한 포맷으로 변환 
+      //System.out.println("포맷 지정 후 : " + startDate);
+     // System.out.println("포맷 지정 후 : " + endDate);
+      AdminMaster am= service.selectMastserById(odc.getMemberId());
+      mv.addObject("odc",odc);
+      mv.addObject("am",am);
+      //mv.addObject("startDate", startDate);
+      //mv.addObject("endDate", endDate);
+      mv.setViewName("onedayclass/onedayClassDetail");
+      return mv;
+   }
+   
+   @RequestMapping("/class/inputOdcQa.do")
+   public void inputOdcQa(@RequestBody OdcQa oq, HttpSession session) {
+      //System.out.println(oqContent);
+      //System.out.println(oqSecretYn);
+      //System.out.println(odcNo);
+      //System.out.println(memberId);
+      //OdcQa oq=OdcQa.builder().oqContent(oqContent).oqSecretYn(oqSecretYn).odcNo(odcNo).memberId(memberId).build();
+      System.out.println(oq);
+      service.inputOdcQa(oq);
+   }
+   
 
-		//전송된 파일이 있다면...
-		//파일 리네임 처리 직접 하기
-		String orignalFileName=odcpic.getOriginalFilename();
-		String ext=orignalFileName.substring(orignalFileName.lastIndexOf("."));
-		//중복되지 않는 이름 설정하는 값 지정하기
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-		int rnd=(int)(Math.random()*10000)+1;
-		String renameFile = sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
-		
-		//파일 업로드하기
-		try {
-			//MultipartFile 클래스가 제공해주는 메소드 이용해서 저장처리
-			odcpic.transferTo(new File(uploadPath+renameFile));
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-		
-		System.out.println("클래스이름"+odcClassName);
-		System.out.println("요리이름"+odcCookName);
-		System.out.println("시작날짜"+odcStartDate);
-		System.out.println("끝날짜"+odcEndDate);
-		System.out.println("클래스시작시간"+odcTime);
-		System.out.println("수강인원"+odcPeople);
-		
-		System.out.println("주소"+address);
-		String[] add=address.split(",");
-		String odcAdd=address;
-		String odcCity=(String)add[1];
-		
-		System.out.println(odcAdd);
-		System.out.println(odcCity);
-		
-		System.out.println("시작시간"+odcStartTime);
-		System.out.println("강사명"+mastserName);
-		System.out.println("파일이름"+renameFile);
-		String odcMainPic=renameFile;
-		System.out.println(odcMainPic);
-		
-		
-		
-		OneDayClass odc=OneDayClass.builder().odcClassName(odcClassName).odcCookName(odcCookName).odcStartDate(odcStartDate).odcEndDate(odcEndDate).odcTime(odcTime)
-		.odcPeople(odcPeople).odcAdd(odcAdd).odcCity(odcCity).odcPrice(odcPrice).odcMainPic(odcMainPic).odcContent(odcContent).odcStartTime(odcStartTime).odcCategoty(odcCategoty)
-		.memberId(memberId).build();
-		
-		System.out.println(odc);
-		
-		int result=service.endclassEnroll(odc);
-		
-	
-		if(result<0) {
-			model.addAttribute("msg","클래스 등록에 실패했습니다");
-			model.addAttribute("loc","/class/masterEndEnroll.do");
-			return "common/msg";
-		}else {
-			model.addAttribute("msg","클래스 등록이 완료됐습니다");
-			model.addAttribute("loc","/class/main.do");
-			return "common/msg";
-		}
-		
-	}
+   
+   @RequestMapping("/class/selectOdcQaAll.do")
+   public List<OdcQa> selectOdcQaAll(int odcNo){
+	   System.out.println(service.selectOdcQaAll(odcNo));
+      return service.selectOdcQaAll(odcNo);
+      
+   }
+   
+   @RequestMapping("/class/selectReOdcQaAll.do")
+   public List<OdcQaRe> selectReOdcQaAll(int oqno){
+	   System.out.println(oqno);
+	   System.out.println("답글"+service.selectReOdcQaAll(oqno));
+	   return service.selectReOdcQaAll(oqno);
+	   
+   }
+   
+   @RequestMapping("/class/inputReplayOdcQa.do")
+   public void inputReplayOdcQa(@RequestBody OdcQaRe oqr, HttpSession session){
+	   System.out.println(oqr);
+	   service.inputReplayOdcQa(oqr);
+   }
+   
 
 
 }

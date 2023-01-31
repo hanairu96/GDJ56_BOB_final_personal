@@ -1,8 +1,6 @@
 package com.today.bab.onedayclass.model.vo;
 
-import java.sql.Date;
-
-
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,8 +14,8 @@ public class OneDayClass {
 	private int odcNo;
 	private String odcClassName;
 	private String odcCookName;
-	private String odcStartDate;
-	private String odcEndDate;
+	private Date odcStartDate;
+	private Date odcEndDate;
 	private String odcTime;
 	private int odcPeople;
 	private String odcCity;
@@ -25,7 +23,7 @@ public class OneDayClass {
 	private int odcPrice;
 	private String odcMainPic;
 	private String odcContent;
-	private String odcEnrollDate;
+	private Date odcEnrollDate;
 	private String odcCategoty;
 	private String memberId;
 	private String odcStartTime;

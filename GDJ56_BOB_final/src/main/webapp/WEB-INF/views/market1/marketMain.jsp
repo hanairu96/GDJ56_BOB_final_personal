@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/marketHeader2.jsp"/>
+
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
         <div class="container">
@@ -19,7 +21,8 @@
     
     <section class="categories">
         <div class="container">
-			<a href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a> 			
+			<a href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a> 
+			
 			<a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:900px;margin-top:30px;background-color: #07d448;" >상품등록</a>
 
             <br><br><br>
@@ -77,8 +80,8 @@
                 
                   <c:forEach var="i" begin="1" end="10" >
                     <div class="col-lg-3">
-                    <c:if test="${items[i].itemPrice<20000 }">
-                        <div class="categories__item set-bg" style="background-image: url('${path }/resources/upload/market/mainlabel/${items[i].mainPic==null?"20230125_161547211_2742.jpg":itemso[i].mainPic }');">
+                    <c:if test="${items[i].itemPrice<20000}">
+                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${items[i].mainPic }');">
                             <h5><a href="${path}/market1/marketdetail.do?itemNo=${items[i].itemNo}">${items[i].itemName }</a></h5>
                         </div>
                     </c:if>    
@@ -99,7 +102,7 @@
                 
                 	<c:forEach var="i" begin="1" end="10" >
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" style="background-image: url('${path }/resources/upload/market/mainlabel/${items[i].mainPic==null?"20230125_161547211_2742.jpg":itemso[i].mainPic }');">
+                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${items[i].mainPic }');">
                             <h5><a href="${path}/market1/marketdetail.do?itemNo=${items[i].itemNo}">${items[i].itemName }</a></h5>
                         </div>
                     </div>

@@ -2,7 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<script src="${path }/resources/js/jquery-3.6.1.min.js"></script>
 	<div>
 		<div style="display: flex;">
 		    <div>
@@ -26,73 +29,165 @@
 		<br>
 		<form class="wrap-form-reservation size22 m-l-r-auto" method="post"
 			action="${path }/itemQna/insertQna.do">
-			<input type="checkbox" name="iqSecret" value="Y">비밀글
+		    <input type="hidden" name="itemNo" value="${itemNo }"/>
+			<label><input type="checkbox" name="iqSecret" value="Y">비밀글</label>
+				<input type="hidden" name="iqSecret1" value="N"/>
+		    <input type="hidden" name="memberId" value="user03"/>
 			<div style="display: flex;">
 			    <div>
-			        <textarea name="" id="" cols="130%" rows="3"></textarea>
+			        <textarea name="iqContent" id="" cols="120%" rows="3" ></textarea>
 			    </div>
 			    <div>
 			        <input class="primary-btn" type="submit" value="등록하기"
 			        style="height: 80px; width: 130px; margin-left: 5%;background-color: #07d448; border: none;">
 			    </div>
-			    <input type="hidden" name="itemNo" value="${de.itemNo }"/>
-<!-- 
 
-
-수정수정수정수정수정
-mapper에서 문제있다!
-
-
-
-
- -->
-			    <input type="hidden" name="memberId" value="user03"/>
 			</div>
 		</form>
 		<hr/> 
+		<c:forEach var="q" items="${qna }">
+			<c:if test="${q.iqSecret eq 'N' }">
+				<div style="display: flex; height:40px;margin-bottom: 7px;">
+				    <img src="" alt="" style="height:40px;width: 40px;border-radius: 50%;">
+				    <div>
+				        <h5 style="margin-left:10px; margin-top: 10px;">야채주스</h5>
+				    </div>
+				    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
+				</div>
+				<div style="margin-left:20px;">
+				    <h5>${q.iqContent }</h5>
+				</div>
+				<br>
+				<div style="display: flex;">
+				    <div class="col-2">
+				        <span style="color:orange; font-weight: bold; font-size: 20px;">답글보기 0</span>
+				    </div>
+				    <div>
+				        <button id="togglereply" class="primary-btn" type="button" name="reply" style="background-color:#07d448;border: none;color: white;"
+				        onclick="togglererere(event)">답글</button>
+						
+				    </div>
+				    <div>
+				        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;" onclick="deleteQna(${q.iqNo},${itemNo });">삭제</button>
+				    </div>
+				</div>
+				<hr/>
+				
+				<!-- 답변 -->
+				<form method="post" action="${path }/itemQna/qnaAnswerAdmin.do">
+				<div class="toggleadmin">
+					<div class="ttt" style="margin-left: 50px;display:none;">
+					    <div style="display:flex;margin-bottom: 7px;">
+					        <img src="" alt="" style="width:40px; height: 40px;border-radius: 50%;">
+					        <h5 style="margin:10px;">오늘의 밥</h5>
+					        <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
+					    </div>
+					    <div style="display:flex">
+					        <div id="answerAdnim">
+					            <textarea name="IqaContent" id="IqaContent" cols="100" rows="2" placeholder="답글을 입력해주세요"></textarea>
+					        	<input type="hidden" name="itemNo" value="${itemNo }"/>
+					        	<input type="hidden" name="iqNo" value="${q.iqNo }"/>
+					        </div>
+					        <div>
+					            <input class="primary-btn" type="submit" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;"
+					            onclick="">
+					        </div>
+					    </div>
+						<hr/>
+					</div>
+				</div>
+				</form>
+				
+			</c:if>
+			<c:if test="${q.iqSecret eq 'Y' }">
+				<div style="display: flex; height:40px;margin-bottom: 7px;">
+				    <img src="" alt="" style="height:40px;width: 40px;border-radius: 50%;">
+				    <div>
+				        <h5 style="margin-left:10px; margin-top: 10px;">야채주스</h5>
+				    </div>
+				    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;">${q.iqDate }</span>
+				</div>
+				<div style="margin-left:20px;">
+				    <h5 style="color:gray;">비밀글입니다.</h5>
+				</div>
+				<br>
+					<div style="display: flex;">
+					    <div class="col-2">
+					        <span style="color:orange; font-weight: bold; font-size: 20px;">답글보기 0</span>
+					    </div>
+					    <div>
+				        <button id="togglereply" class="primary-btn" type="button" name="reply" style="background-color:#07d448;border: none;color: white;"
+				       	onclick="togglererere(event)">답글</button>
+					    </div>
+					    <div>
+					        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;" onclick="deleteQna(${q.iqNo},${itemNo });">삭제</button>
+					    </div>
+					</div>
+					<hr/>
+					
+					<!-- 답변 -->
+					<form method="post" action="${path }/itemQna/qnaAnswerAdmin.do">
+					<div class="toggleadmin">
+						<div class="ttt" style="margin-left: 50px;display:none;">
+						    <div style="display:flex;margin-bottom: 7px;">
+						        <img src="" alt="" style="width:40px; height: 40px;border-radius: 50%;">
+						        <h5 style="margin:10px;">오늘의 밥</h5>
+						        <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
+						    </div>
+						    <div style="display:flex">
+						        <div id="answerAdnim">
+						            <textarea name="IqaContent" id="IqaContent" cols="100" rows="2" placeholder="답글을 입력해주세요"></textarea>
+						        	<input type="hidden" name="itemNo" value="${itemNo }"/>
+						        	<input type="hidden" name="iqNo" value="${q.iqNo }"/>
+						        </div>
+						        <div>
+						            <input class="primary-btn" type="submit" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;"
+						            onclick="">
+						        </div>
+						    </div>
+							<hr/>
+						</div>
+					</div>
+					</form> 
+					
+				</div>
+				</c:if>
+			</c:forEach>
+		</div>
 		
-		
-		<div style="display: flex; height:40px;margin-bottom: 7px;">
-		    <img src="./img/product/product-3.jpg" alt="" style="height:40px;width: 40px;border-radius: 50%;">
-		    <div>
-		        <h5 style="margin-left:10px; margin-top: 10px;">야채주스</h5>
-		    </div>
-		    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;">2023-01-01</span>
-		</div>
-		<div style="margin-left:20px;">
-		    <h5>최근일자로 보내주세요^^</h5>
-		</div>
-		<br>
-		<div style="display: flex;">
-		    <div class="col-2">
-		        <span style="color:orange; font-weight: bold; font-size: 20px;">답글보기 0</span>
-		    </div>
-		    <div>
-		        <button id="togglereply" class="primary-btn" type="button" name="reply" style="background-color:#07d448;border: none;color: white;">답글</button>
-		    </div>
-		</div>
-		<hr/>
-		
-		<div id="recontainer" style="margin-left: 50px;display:none;">
-		    <div style="display:flex;margin-bottom: 7px;">
-		        <img src="./img/cart/cart-3.jpg" alt="" style="width:40px; height: 40px;border-radius: 50%;">
-		        <h5 style="margin:10px;">오늘의 밥</h5>
-		        <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;">2023-01-01</span>
-		    </div>
-		    <div style="display:flex">
-		        <div >
-		            <textarea name="" id="" cols="100" rows="2" placeholder="답글을 입력해주세요"></textarea>
-		        </div>
-		        <div>
-		            <input class="primary-btn" type="button" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;">
-		        </div>
-		    </div>
-		    <hr/>
-		</div>
 		<script>
-		    $("#togglereply").click(e=>{
-		        $("#recontainer").slideToggle(1000);
-		    });
+			//문의 답변css
+		 	function togglererere(e){
+		 		$(e.target).parent().parent().next().next().find("div.ttt").slideToggle(1000);
+		 	} 
+		     
+		    //문의글 삭제
+		    const deleteQna=(no,itemNo)=>{
+		    	location.assign('${path}/itemQna/delectQna.do?itemNo='+itemNo+'&iqNo='+no);
+		    }
+		    
+		    //관리자 문의 답변
+		    /* function iqanswer(no){
+ 		    	const content=$("IqaContent").val();
+		    	$.ajax({
+		    		type:'get',
+		    		url:'${path}/itemQna/qnaAnswerAdmin.do?iqNo='+no+'&itemNo='+itemNo,
+		    		data:{"iqNo":no,
+				    		"IqaContent",content},
+		    		success:data=>{
+		    			var html="";
+		    			if(data.lenght>0){
+		    				for(i=0;i<data.length;i++){
+		    					html+="<div id='answerAdnim'>";
+					            html+="<textarea name="IqaContent" id="IqaContent" cols="100" rows="2">"+data[i].IqaContent+"</textarea>";
+						        html+="</div>";
+		    				}
+		    			}
+		    			${"#answerAdnim"}.html(html);
+		    		}
+		    	}) 
+		    } */   
+		    
 		</script>
 		<!-- 페이징처리 -->
 		<div class="product__pagination" style="text-align: center;">

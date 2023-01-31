@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 public class IqAnswer {
 	private int iqaNo;
 	private int iqNo;
-	private ItemQna itemNo;
 	private String IqaContent;
 	private Date iqaDate;
 }

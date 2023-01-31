@@ -81,4 +81,9 @@ public class Market1ServiceImpl implements Market1Service{
 //				result+=dao.updateItemPic(session,key);
 		return result;
 	}
+	
+	@Override
+	public List<SellItem> selectCtgAjax(String itemCategory){
+		return dao.selectCtgAjax(session,itemCategory);
+	}
 }
