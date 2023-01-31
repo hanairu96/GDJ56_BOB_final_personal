@@ -344,6 +344,7 @@
 			//입력값
 			const oqrContetnt=$(e.target).prev("input").val();
 			const masterId= $('#masterId').val();
+			const admin="admin";
 			
 			console.log(oqrContetnt);
 			console.log(memberId);
@@ -355,8 +356,8 @@
 				return;
 			}else if(oqContent == '') {
 				alert('내용을 입력하세요');
-			}else if(masterId!=memberId){
-				alert('해당 클래스 강사님만 답변이 가능합니다');
+			}else if(masterId!=memberId&&memberId!=admin){
+				alert('해당 클래스 강사님또는 관리자만 답변이 가능합니다');
 				return;
 			} 
 			
