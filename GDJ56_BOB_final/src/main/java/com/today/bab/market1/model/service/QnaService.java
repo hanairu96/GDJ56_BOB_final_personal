@@ -16,4 +16,6 @@ public interface QnaService {
 	int qnaAnswerAdmin(IqAnswer iq);
 	
 	List<IqAnswer> selectIqAnswer(int itemNo);
+
+	int deleteQnaAnswer(int iqaNo);
 }

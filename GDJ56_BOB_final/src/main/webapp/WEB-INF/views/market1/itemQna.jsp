@@ -33,7 +33,7 @@
 		    <input type="hidden" name="itemNo" value="${itemNo }"/>
 			<label><input type="checkbox" name="iqSecret" value="Y">비밀글</label>
 				<input type="hidden" name="iqSecret1" value="N"/>
-		    <input type="hidden" name="memberId" value="user03"/>
+		    <input type="hidden" name="memberId" value="${loginMember.memberId }"/>
 			<div style="display: flex;">
 			    <div>
 			        <textarea name="iqContent" id="" cols="120%" rows="3" ></textarea>
@@ -49,9 +49,11 @@
 		<c:forEach var="q" items="${qna }">
 				<div style="display: flex; height:40px;margin-bottom: 7px;">
 		 	
-				    <img src="" alt="" style="height:40px;width: 40px;border-radius: 50%;">
+				    <img src="${path }/resources/images/logo-icon.png" alt="" style="height:40px;width: 40px;border-radius: 50%;">
 				    <div>
-				        <h5 style="margin-left:10px; margin-top: 10px;">야채주스</h5>
+				    <c:if test="${q.memberId eq loginMember.memberId }">
+				        <h5 style="margin-left:10px; margin-top: 10px;">${loginMember.nickname }</h5>
+				    </c:if>
 				    </div>
 				    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
 				</div>
@@ -68,7 +70,9 @@
 				<br>
 				<div style="display: flex;">
 				    <div class="col-2">
-				        <span style="color:orange; font-weight: bold; font-size: 20px;">답글보기 0</span>
+				    <%-- <c:if test="${ }"> --%>
+				        <span style="color:orange; font-weight: bold; font-size: 20px;">답글 ${q.answer_count }</span>
+				    <%-- </c:if> --%>
 				    </div>
 				    <div>
 				        <button id="togglereply" class="primary-btn" type="button" name="reply" style="background-color:#07d448;border: none;color: white;"
@@ -82,17 +86,17 @@
 				<hr/>
 				
 				<!-- 답변 -->
-				<form method="post" action="${path }/itemQna/qnaAnswerAdmin.do">
 				<div class="toggleadmin">
 					<div class="ttt" style="margin-left: 50px;display:none;">
+					<form method="post" action="${path }/itemQna/qnaAnswerAdmin.do">
 					    <div style="display:flex;margin-bottom: 7px;">
-					        <img src="" alt="" style="width:40px; height: 40px;border-radius: 50%;">
+					        <img src="${path }/resources/images/logo-icon.png" alt="" style="width:40px; height: 40px;border-radius: 50%;">
 					        <h5 style="margin:10px;">오늘의 밥</h5>
 					        <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
 					    </div>
 					    <div style="display:flex">
 					        <div id="answerAdnim">
-					            <textarea name="IqaContent" id="IqaContent" cols="100" rows="2" placeholder="답글을 입력해주세요"></textarea>
+					            <textarea name="iqaContent" id="iqaContent" cols="100" rows="2" placeholder="답글을 입력해주세요"></textarea>
 					        	<input type="hidden" name="itemNo" value="${itemNo }"/>
 					        	<input type="hidden" name="iqNo" value="${q.iqNo }"/>
 					        </div>
@@ -101,94 +105,37 @@
 					            onclick="">
 					        </div>
 					    </div>
-					        <!-- 답글 리스트 출력 -->
-					        <c:forEach var="aa" items="${an }">
-						        <hr/>
-						        <c:if test="${q.iqNo == aa.iqNo }">
-						        <div style="display:flex;margin-bottom: 7px;">
-						        	<h5 style="margin:10px;">오늘의 밥</h5>
-									<span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${aa.iqaDate }"/></span>
-						        </div>
+				    </form>
+			        <!-- 답글 리스트 출력 -->
+			        <c:if test="${an!=null }">
+				        <c:forEach var="aa" items="${an }">
+					        <c:if test="${q.iqNo == aa.iqNo }">
+					        <hr/>
+					        <div style="display:flex;margin-bottom: 7px;">
+					        	<img src="${path }/resources/images/logo-icon.png" alt="" style="width:40px; height: 40px;border-radius: 50%;">
+					        	<h5 style="margin:10px;">오늘의 밥</h5>
+								<span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${aa.iqaDate }"/></span>
+					        </div>
+					    	<div style="display:flex;">
 						        <div style="margin-left:20px;">
 									${aa.iqaContent }
 						        </div>
-						        </c:if>
-							</c:forEach>
-						<hr/>
-					</div>
-				</div>
-				</form>
-				
-			
-			<%-- <c:if test="${q.iqSecret eq 'Y' }">
-				<div style="display: flex; height:40px;margin-bottom: 7px;">
-				    <img src="" alt="" style="height:40px;width: 40px;border-radius: 50%;">
-				    <div>
-				        <h5 style="margin-left:10px; margin-top: 10px;">야채주스</h5>
-				    </div>
-				    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
-				</div>
-				<div style="margin-left:20px;">
-				    <h5 style="color:gray;">비밀글입니다.</h5>
-				</div>
-				<br>
-					<div style="display: flex;">
-					    <div class="col-2">
-					        <span style="color:orange; font-weight: bold; font-size: 20px;">답글보기 0</span>
-					    </div>
-					    <div>
-				        <button id="togglereply" class="primary-btn" type="button" name="reply" style="background-color:#07d448;border: none;color: white;"
-				       	onclick="togglererere(event)">답글</button>
-					    </div>
-					    <div>
-					        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;" onclick="deleteQna(${q.iqNo},${itemNo });">삭제</button>
-					    </div>
-					</div>
-					<hr/>
-					
-					<!-- 답변 -->
-					<form method="post" action="${path }/itemQna/qnaAnswerAdmin.do">
-					<div class="toggleadmin">
-						<div class="ttt" style="margin-left: 50px;display:none;">
-						    <div style="display:flex;margin-bottom: 7px;">
-						        <img src="" alt="" style="width:40px; height: 40px;border-radius: 50%;">
-						        <h5 style="margin:10px;">오늘의 밥</h5>
-						        <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
-						    </div>
-						    <div style="display:flex">
-						        <div id="answerAdnim">
-						            <textarea name="IqaContent" id="IqaContent" cols="100" rows="2" placeholder="답글을 입력해주세요"></textarea>
-						        	<input type="hidden" name="itemNo" value="${itemNo }"/>
-						        	<input type="hidden" name="iqNo" value="${q.iqNo }"/>
-						        </div>
-						        <!-- 답글 리스트 출력 -->
-						        <c:forEach var="aa" items="${an }">
-							        <hr/>
-							        <c:if test="${q.iqNo == aa.iqNo }">
-							        <div style="display:flex;margin-bottom: 7px;">
-							        	<h5 style="margin:10px;">오늘의 밥</h5>
-										<span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${aa.iqaDate }"/></span>
-							        </div>
-							        <div style="margin-left:20px;">
-										${aa.iqaContent }
-							        </div>
-							        </c:if>
-								</c:forEach>
-						        
 						        <div>
-						            <input class="primary-btn" type="submit" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;"
-						            onclick="">
-						        </div>
-						    </div>
-							<hr/>
-						</div>
+						        	<c:out value="${aa.iqaNo }"/>
+					       			<button id="" class="primary-btn" type="button" 
+					       			style="background-color:magenta;border: none;color: white;margin-left:50px;"
+					       			 onclick="deleteAnswer(${aa.iqaNo },${itemNo });">삭제</button>
+					    		</div>
+					    	</div>
+					        </c:if>
+						</c:forEach>
+					</c:if>
+					<hr/>
 					</div>
-					</form>  --%>
-					
-				<!-- </div> -->
+				</div>
 			</c:forEach>
 		</div>
-		
+			
 		<script>
 			//문의 답변css
 		 	function togglererere(e){
@@ -198,6 +145,11 @@
 		    //문의글 삭제
 		    const deleteQna=(no,itemNo)=>{
 		    	location.assign('${path}/itemQna/delectQna.do?itemNo='+itemNo+'&iqNo='+no);
+		    }
+		    
+		    //질문 답변 삭제하기
+		    const deleteAnswer=(iqaNo,itemNo)=>{
+		    	location.assign('${path}/itemQna/deleteAnswer.do?itemNo='+itemNo+'&iqaNo='+iqaNo);
 		    }
 		    
 		    //관리자 문의 답변 수정중....

@@ -99,6 +99,23 @@ public class ItemQnaController {
 		return "common/msg";
 		
 	}
+	
+	//문의 답글 삭제
+	@RequestMapping("/deleteAnswer.do")
+	public String deleteQnaAnswer(int iqaNo,int itemNo,Model m) {
+		int result=service.deleteQnaAnswer(iqaNo);
+		
+		if(result>0) {
+			m.addAttribute("msg", "질문 삭제 완료");
+			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
+		}else {
+			m.addAttribute("msg", "질문 삭제 실패");
+			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
+		}
+		return "common/msg";
+	}
+	
+//////////나중에 삭제하기	
 	//테스트 서블릿
 	@RequestMapping("/resultresult.do")
 		public String resultresult(int itemNo,Model m) {

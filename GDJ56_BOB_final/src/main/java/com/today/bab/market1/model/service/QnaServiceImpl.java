@@ -47,4 +47,9 @@ public class QnaServiceImpl implements QnaService {
 	public List<IqAnswer> selectIqAnswer(int itemNo) {
 		return dao.selectIqAnswer(session,itemNo);
 	}
+
+	@Override 
+	public int deleteQnaAnswer(int iqaNo) {
+		return dao.deleteQnaAnswer(session,iqaNo);
+	}
 }
