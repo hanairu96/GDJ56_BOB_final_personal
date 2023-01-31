@@ -221,18 +221,23 @@
 								<span>───────────────────────────────────────────────────</span>
 							</div>
 	
-							<!-- 후기 리뷰 남기기 -->
-							<form class="leave-comment p-t-10">
-								<h4 class="txt33 p-b-14">
+							<!-- 후-->
+							<div>
+								<div style="display:flex;">
+									<h4 class="txt33">
 									수강후기
-								</h4>
-	
+									</h4>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-right:30%">
+											리뷰작성하기
+									</button>
+								</div>
+								<br>
 								<p style="color: rgb(195, 195, 195);">
-									* 과도한 욕설과 비방은 통보없이 삭제될 수 있습니다 
+									* 클래스를 수강한 회원님들의 후기입니다.
 								</p>
 								<br>
 								<div class="col-md-12" style="display: flex;">
-			
 									<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
 										<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="email" placeholder="수강후기를 남겨주세요">
 									</div>
@@ -240,17 +245,15 @@
 										등록
 									</button>
 								</div>
-	
-							</form>
+							</div>
 							
 							<div id="reviewtList"></div>
-							
 
 							<div style="margin-bottom: 3%; margin-top: 3%;">
 								<span>───────────────────────────────────────────────────</span>
 							</div>
 		
-							<div class="leave-comment p-t-10">
+							<div>
 								<h4 class="txt33 p-b-14">
 									문의하기
 								</h4>
