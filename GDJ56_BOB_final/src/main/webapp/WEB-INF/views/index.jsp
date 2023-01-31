@@ -33,21 +33,37 @@
             }
         </style>
         <script>
+        	//배너 클릭 시 이동할 페이지 이름
+        	let page="market";
+        
             let count=0;
             setInterval(function(){
                 if(count==0){
                     $(".banner").css({"background-image":"url(${path}/resources/images/banner-class.jpg)"});
                     $(".tit6>p").text("O N E - D A Y - C L A S S");
+                    page="class";
                 }else if(count==1) {
                     $(".banner").css({"background-image":"url(${path}/resources/images/banner-sub.jpg)"});
                     $(".tit6>p").text("S U B S C R I P T I O N").css("color","black");
+                    page="sub";
                 }else if(count==2) {
                     $(".banner").css({"background-image":"url(${path}/resources/images/banner-market.jpg)"});
                     $(".tit6>p").text("M A R K E T").css("color","white");
+                    page="market";
                 }
                 count++;
                 if(count>2) count=0;
             },3000)
+            
+            $(".tit6>p").click(e=>{
+            	if(page=="market"){
+            		location.assign("${path}/market1/matketmain.do");
+            	}else if(page=="class"){
+            		location.assign("${path}/class/main.do");
+            	}else if(page=="sub"){
+            		location.assign("${path}/subscription/subMain");
+            	}
+            })
         </script>
 
         <div class="site-section-main">
@@ -71,7 +87,7 @@
                     <div class="col-md-5">
                         <h3 class="text-black con">Bring joy for your table from Subscription</h3>
                         <p class="con"><span>바쁜 일상 생활, 우리에게 까먹는 것들이 점점 많아집니다. 당신의 식탁에 까먹는 것이 없도록 바랍니다. 구독하기를 통해 당신의 테이블이 가득하기를 바랍니다.</span></p>
-                        <button class="btn-main">More About Subscription</button>
+                        <button class="btn-main" onclick="location.assign('${path}/subscription/subMain')">More About Subscription</button>
                     </div>
                     <div>
                         <img src="${path}/resources/images/food3.jpg" class="img-fluid">
@@ -89,7 +105,7 @@
                     <div class="col-md-5">
                         <h3 class="text-black con">Bring joy for your table from One-Day Class</h3>
                         <p class="con"><span>코로나 시대에 우리는 어떤 걸 할 수 있을가요? 이제 저희는 바깥에서 무엇을 경험할 수 있나요? 푸드에 관한 원데이 클래스를 통해 색다른 경험과 소중한 레시피를 쌓아보세요.</span></p>
-                        <button class="btn-main">More About One-Day Class</button>
+                        <button class="btn-main" onclick="location.assign('${path}/class/main.do')">More About One-Day Class</button>
                     </div>
                 </div>
             </div>
