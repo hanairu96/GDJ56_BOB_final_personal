@@ -93,11 +93,8 @@ public class ItemQnaController {
 	public String selectQna(Model m,int itemNo) {
 		//상품 문의 리스트 출력
 		List<ItemQna> qq=service.selectQnaList(itemNo);
-		//상품 문의 답글
-		List<IqAnswer> list=service.selectIqAnswer();
 		
 		m.addAttribute("qna",qq);
-		m.addAttribute("answer",list);
 		m.addAttribute("itemNo",itemNo);
 		return "market1/itemQna";
 	}
@@ -157,16 +154,12 @@ public class ItemQnaController {
 			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
 			
 			SellItem list=ms.marketdetail(itemNo);
+			//문의 리스트
+			List<ItemQna> qq=service.selectQnaList(itemNo);
+			//문의에 대한 답변 리스트
+			List<IqAnswer> an=service.selectIqAnswer(iqNo);
 			
 			m.addAttribute("de",list);
-			String file="";
-			int count=0;
-			for(ItemPic ii : list.getIpic()) {
-				if(count++!=0) file+=",";
-				file+=ii.getPicName();
-			}
-			List<ItemQna> qq=service.selectQnaList(itemNo);
-			m.addAttribute("picpic",file);
 			m.addAttribute("qna",qq);
 			m.addAttribute("itemNo",itemNo);
 			
@@ -175,16 +168,13 @@ public class ItemQnaController {
 			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
 			
 			SellItem list=ms.marketdetail(itemNo);
+			//문의 리스트
+			List<ItemQna> qq=service.selectQnaList(itemNo);
+			//문의에 대한 답변 리스트
+			List<IqAnswer> an=service.selectIqAnswer(iqNo);
 			
 			m.addAttribute("de",list);
-			String file="";
-			int count=0;
-			for(ItemPic ii : list.getIpic()) {
-				if(count++!=0) file+=",";
-				file+=ii.getPicName();
-			}
-			m.addAttribute("picpic",file);
-			List<ItemQna> qq=service.selectQnaList(itemNo);
+			m.addAttribute("qna",qq);
 			m.addAttribute("qna",qq);
 		}
 		return "common/msg";
