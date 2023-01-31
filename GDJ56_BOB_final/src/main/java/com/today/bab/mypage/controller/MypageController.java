@@ -28,6 +28,7 @@ import com.today.bab.member.model.vo.Member;
 import com.today.bab.mypage.model.service.MypageService;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
+import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.Point;
 
 @Controller
@@ -42,10 +43,21 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/orderlist.do")
-	public ModelAndView selectItemOrderList(ModelAndView mv,HttpServletRequest request) {
+	public ModelAndView selectItemOrderList(ModelAndView mv,HttpServletRequest request,
+			@RequestParam(value="cPage", defaultValue = "1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue = "5") int numPerpage) {
 		HttpSession session = request.getSession();
 	    Member m = (Member) session.getAttribute("loginMember");
-	    //System.out.println("dd"+m.getMemberId());
+	    
+	    List<ItemOrder> orderlist=mypageService.selectItemOrderList(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
+	    int totalData=mypageService.selectItemOrderListCount(m.getMemberId());
+	    List<ItemOrderSellitem> itemlist =mypageService.selectOrderSellItem(m.getMemberId());
+	    System.out.println(itemlist);
+	    
+	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "orderlist.do"));
+	    mv.addObject("orderlist",orderlist);
+	    mv.addObject("itemlist",itemlist);
+	    
 		mv.addObject("memberId",m.getMemberId());
 		mv.setViewName("mypage/orderlist");
 		

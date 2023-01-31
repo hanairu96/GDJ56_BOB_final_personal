@@ -14,6 +14,7 @@ import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.mypage.model.dao.MypageDao;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
+import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.Point;
 
 @Service
@@ -113,5 +114,20 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int selectListPointCount(String memberId) {
 		return mypageDao.selectListPointCount(session,memberId);
+	}
+	
+	@Override
+	public List<ItemOrder> selectItemOrderList(Map<String, Integer> param, String memberId) {
+		return mypageDao.selectItemOrderList(session,param,memberId);
+	}
+	
+	@Override
+	public int selectItemOrderListCount(String memberId) {
+		return mypageDao.selectItemOrderListCount(session,memberId);
+	}
+	
+	@Override
+	public List<ItemOrderSellitem> selectOrderSellItem(String memberId) {
+		return mypageDao.selectOrderSellItem(session,memberId);
 	}
 }

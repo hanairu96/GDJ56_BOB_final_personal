@@ -8,6 +8,8 @@ import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
+import com.today.bab.mypage.model.vo.ItemOrderSellitem;
+import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.Point;
 
 public interface MypageService {
@@ -32,4 +34,11 @@ public interface MypageService {
 	List<Point> selectListPoint(Map<String,Integer> param,String memberId);
 	
 	int selectListPointCount(String memberId);
+	
+	List<ItemOrder> selectItemOrderList(Map<String,Integer> param,String memberId);
+	
+	int selectItemOrderListCount(String memberId);
+	
+	List<ItemOrderSellitem> selectOrderSellItem(String memberId);
+	
 }

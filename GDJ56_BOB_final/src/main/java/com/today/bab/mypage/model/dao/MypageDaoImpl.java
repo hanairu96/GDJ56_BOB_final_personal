@@ -12,6 +12,7 @@ import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
+import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.Point;
 
 @Repository
@@ -92,5 +93,23 @@ public class MypageDaoImpl implements MypageDao{
 	@Override
 	public int selectListPointCount(SqlSessionTemplate session, String memberId) {
 		return session.selectOne("mypage.selectListPointCount",memberId);
+	}
+	
+	@Override
+	public List<ItemOrder> selectItemOrderList(SqlSessionTemplate session, Map<String, Integer> param,
+			String memberId) {
+		return session.selectList("mypage.selectItemOrderList",memberId
+				,new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+				param.get("numPerpage")));
+	}
+	
+	@Override
+	public int selectItemOrderListCount(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectItemOrderListCount",memberId);
+	}
+	
+	@Override
+	public List<ItemOrderSellitem> selectOrderSellItem(SqlSessionTemplate session, String memberId) {
+		return session.selectList("mypage.selectOrderSellItem",memberId);
 	}
 }
