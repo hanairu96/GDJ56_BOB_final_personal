@@ -478,7 +478,7 @@
 		       >
 		       심사확정
 		       </button>
-		       </div>
+		     </div>
 		</div>
 	</form>
 

@@ -1,11 +1,7 @@
 package com.today.bab.admin.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +15,8 @@ import com.today.bab.admin.model.service.AdminService;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminSubscription;
+import com.today.bab.admin.model.vo.ClientQNA;
+import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.common.AdminPageBar;
 
 @Controller
@@ -114,12 +112,18 @@ private AdminService service;
 			@RequestParam(value="cPage", defaultValue="1") int cPage,
 			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {
 		
-		mv.addObject("list",service.adminMaster(Map.of("cPage",cPage,"numPerpage",numPerpage)));
+		int ingData=service.selectMasterIngListCount(); //심사필요한사람
 		
+		
+		mv.addObject("list",service.adminMaster(Map.of("cPage",cPage,"numPerpage",numPerpage)));
 		//페이징처리하기
-		int totalData=service.selectMasterListCount();
+		int yesData=service.selectMasterListCount(); //장인인사람
+		int totalData=service.selectMasterAllListCount(); //전체
+		
 		mv.addObject("pageBar",AdminPageBar.getPage(cPage, numPerpage, totalData, "master.do"));
-		mv.addObject("totalData",totalData);
+		
+		mv.addObject("ingData",ingData);
+		mv.addObject("yesData",yesData);
 		mv.setViewName("admin/adminMaster");
 		
 		return mv;
@@ -144,11 +148,6 @@ private AdminService service;
 //				    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); //sql로 변환
 					
 				    if(utilDate.before(master.getOnedayclass1().get(j).getOdcEndDate())){ 
-				    	//현재날짜가 종료날짜보다 전일때 (진행중 클래스)
-//				    	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
-//			        	//원하는 데이터 포맷 지정
-//				    	String strNowDate = simpleDateFormat.format(master.getOnedayclass1().get(j).getOdcEndDate()); 
-//			        	//지정한 포맷으로 변환 
 				    	
 				    	classIng.add(master.getOnedayclass1().get(j));
 				    	
@@ -227,16 +226,53 @@ private AdminService service;
 		return mv;
 	}
 	
-	//상품관리
-	@RequestMapping("/product.do")
-	public String adminProduct() {
-		return "admin/adminProduct";
-	}
-	
 	//1:1답변관리
 	@RequestMapping("/QnA.do")
-	public String adminQnA() {
-		return "admin/adminQnA";
+	public ModelAndView adminQnA(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {
+		
+		mv.addObject("list",service.selectQnAList(Map.of("cPage",cPage,"numPerpage",numPerpage)));
+		
+		//페이징처리하기
+		int totalData=service.selectQnACount(); //전체
+		
+		mv.addObject("pageBar",AdminPageBar.getPage(cPage, numPerpage, totalData, "QnA.do"));
+		mv.addObject("totalData",totalData);
+		mv.setViewName("admin/adminQnA");
+		
+		return mv;
+	}
+	
+	//1:1답변상세보기
+	@RequestMapping("/QnaInfo.do")
+	public ModelAndView qnaInfo(ModelAndView mv,int cqNo) {
+		mv.addObject("cqNo",cqNo);
+		ClientQNA cq=service.selectQna(cqNo);
+		mv.addObject("cq",cq);
+		mv.setViewName("admin/qnaInfo");
+		
+		return mv;
+	}
+	
+	//1:1답변등록
+	@RequestMapping("/QnAEnd.do")
+	public ModelAndView qnAEnd(ModelAndView mv,String qnaAnswer,int cqNo) {
+		
+		CqAnswer cq=CqAnswer.builder().cqaContent(qnaAnswer).qnaNo(cqNo).build();
+		int result=service.insertqnaAnswer(cq);
+		int result2=service.updateClientQNA(cqNo);
+		
+		if(result>0&&result2>0) {
+			mv.addObject("msg","답변 저장 완료");
+			mv.addObject("loc","/admin/QnA.do");
+		}else {
+			mv.addObject("msg","답변 저장 실패");
+			mv.addObject("loc","/admin/QnA.do");
+		}
+		mv.setViewName("common/msg");
+		
+		return mv;
 	}
 	
 	//문의관리
