@@ -122,7 +122,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" role="tab" style="font-size: 25px;"
-                                    href="javascript:void(0);" onclick="choiceexplain(${de.itemNo},'dd');">문의하기 <span>(1)</span></a>
+                                    href="javascript:void(0);" onclick="choiceexplain(${de.itemNo},'dd');">문의하기 <span>(${qna.size()})</span></a>
                             </li>
                         </ul>
                         <br>

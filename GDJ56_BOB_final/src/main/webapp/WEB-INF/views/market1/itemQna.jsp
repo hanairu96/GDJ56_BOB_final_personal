@@ -12,7 +12,7 @@
 		        <h4 style="margin-right: 10px;font-weight: bold;">상품문의</h2>
 		    </div>
 		    <div>
-		        <span> 총 <span style="color:orange; font-weight: bold;">14</span>개</span>
+		        <span> 총 <span style="color:orange; font-weight: bold;"><c:out value="${qna.size()}"/></span>개</span>
 		    </div>
 		    <div style="margin-left: 60%;">
 		        <!-- 관리자만 -->

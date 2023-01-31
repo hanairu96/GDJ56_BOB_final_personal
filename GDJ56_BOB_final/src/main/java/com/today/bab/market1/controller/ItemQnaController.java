@@ -106,10 +106,10 @@ public class ItemQnaController {
 		int result=service.deleteQnaAnswer(iqaNo);
 		
 		if(result>0) {
-			m.addAttribute("msg", "질문 삭제 완료");
+			m.addAttribute("msg", "답글 삭제 완료");
 			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
 		}else {
-			m.addAttribute("msg", "질문 삭제 실패");
+			m.addAttribute("msg", "답글 삭제 실패");
 			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
 		}
 		return "common/msg";

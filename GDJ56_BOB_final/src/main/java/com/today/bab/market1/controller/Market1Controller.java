@@ -87,6 +87,7 @@ public class Market1Controller {
 			file+=i.getPicName();
 		}
 		mv.addObject("picpic",file);
+		mv.addObject("qna",qnaservice.selectQnaList(itemNo));
 		mv.setViewName("market1/detailMarketItem");
 		return mv;
 	}
