@@ -1,7 +1,6 @@
 package com.today.bab.member.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.today.bab.admin.model.vo.MemberLike;
+import com.today.bab.common.LoginAccessException;
 import com.today.bab.member.model.service.MemberService;
 import com.today.bab.member.model.vo.Member;
 
@@ -48,37 +50,37 @@ public class MemberController {
 		this.passwordEncoder = passwordEncoder;
 	}
 	
-	@RequestMapping("/login")
+	@RequestMapping("/loginpage")
 	public String login() {
-		return "member/login";
+		return "member/loginpage";
 	}
 	
-	@RequestMapping("/loginEnd")
-	public String loginEnd(String id, String password, Model model) {
-		
-		System.out.println(id);
-		System.out.println(password);
-		Member m=Member.builder().memberId(id).password(password).build();
-		System.out.println(m);
-		
-		Member loginMember=service.selectMemberById(m);
-		System.out.println(loginMember);
-		
-		if(loginMember!=null&&
-				//임시로 원래 비번과 암호화된 비번 확인 둘 다 하게 함
-				//입력한 비번과 암호화된 비번이 일치하는지 확인
-				(loginMember.getPassword().equals(m.getPassword())||
-				passwordEncoder.matches(m.getPassword(), loginMember.getPassword()))){
-			model.addAttribute("loginMember", loginMember);
-			System.out.println("성공");
-			return "redirect:/";
-		}else {
-			System.out.println("실패");
-			model.addAttribute("msg","입력이 잘못됐습니다.");
-			model.addAttribute("loc","/member/login");
-			return "common/msg";
-		}
-	}
+//	@RequestMapping("login")
+//	public String loginEnd(String id, String password, Model model) {
+//		
+//		System.out.println(id);
+//		System.out.println(password);
+//		Member m=Member.builder().memberId(id).password(password).build();
+//		System.out.println(m);
+//		
+//		Member loginMember=service.selectMemberById(m);
+//		System.out.println(loginMember);
+//		
+//		if(loginMember!=null&&
+//				//임시로 원래 비번과 암호화된 비번 확인 둘 다 하게 함
+//				//입력한 비번과 암호화된 비번이 일치하는지 확인
+//				(loginMember.getPassword().equals(m.getPassword())||
+//				passwordEncoder.matches(m.getPassword(), loginMember.getPassword()))){
+//			model.addAttribute("loginMember", loginMember);
+//			System.out.println("성공");
+//			return "redirect:/";
+//		}else {
+//			System.out.println("실패");
+//			model.addAttribute("msg","입력이 잘못됐습니다.");
+//			model.addAttribute("loc","/member/login");
+//			return "common/msg";
+//		}
+//	}
 	
 	@RequestMapping("/logout")
 	public String logout(SessionStatus session) {
@@ -265,8 +267,6 @@ public class MemberController {
 		
 		return data;
 	}
-	
-	
 
 	@RequestMapping("/searchIdPwdEnd")
 	public String searchIdPwdEnd(String choice, String searchEmail, Model model) {
@@ -294,4 +294,26 @@ public class MemberController {
 		}
 		return "common/msg";
 	}
+	
+	@RequestMapping("/loginFail")
+	public String loginFail() {
+		//로그인 실패 시
+		throw new LoginAccessException("로그인에 실패하였습니다.");
+	}
+	
+	@RequestMapping("/loginSuccess")
+	public String loginSuccess(Model m){
+		//로그인 성공 시
+		Object member=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		//m.addAttribute("loginMember", Member.builder().memberId(((User)member).getUsername()).build());
+		m.addAttribute("loginMember", (Member)member);
+
+		System.out.println(member);
+		System.out.println(m.getAttribute("loginMember"));
+		System.out.println("시큐리티 로그인 성공");
+		
+		return "redirect:/";
+	}
+		
 }
