@@ -24,13 +24,11 @@
 </section>
 
 <div style="display: flex; margin-left: 65%;">
-	<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4">
+	<%-- <c:if test="${loginMember==null and loginMember.memberId eq 'admin' }"> --%>
+	<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" onclick="location.replace('${path }/market/discountAdmin.do')">
 		등록하기
 	</button>
-
-	<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-left:2%">
-		수정하기
-	</button>
+	<%-- </c:if> --%>
 </div>
 <!-- itemdiscount -->
 <section class="discount-section spad">

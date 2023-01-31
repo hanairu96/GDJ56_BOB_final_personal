@@ -60,43 +60,88 @@
 			<!-- 검색 -->
 			
 			<div>
-				<!-- Select2 -->
 				<select id="selectOp"class="form-select" aria-label="Default select example">
-					<option>전체보기</option>
-					<option>브랜드</option>
-					<option>제품명</option>
+					<option value="ALL" selected>전체보기</option>
+					<option value="ITEM_CATEGORY">카테고리</option>
+					<option value="ITEM_BRAND">브랜드</option>
+					<option value="ITEM_NAME">제품명</option>
 				</select>
 			</div>
 		</div>
 		<div style="width: 300px; display: flex;">
 			<div class="search-sidebar2 size12 bo2 pos-relative">
-				<input class="input-search-sidebar2 p-l-20" type="text" name="검색할항목ajax로바꿔야함" placeholder="Search">
-				<button class="btn-search-sidebar2" onclick="searchItem();"><img style="width: 30px; height: 30px;" src="https://img.icons8.com/ios-filled/512/search.png"></button>
+				<input id="search" class="input-search-sidebar2 p-l-20" type="text" name="검색할항목ajax로바꿔야함" placeholder="Search">
+				<!-- <button class="btn-search-sidebar2" onclick="searchItem();"><img style="width: 30px; height: 30px;" src="https://img.icons8.com/ios-filled/512/search.png"></button> -->
 			</div>
 		</div>
 		
 	</div>
 </form>
-<button onclick="searchItem();">검색</button>
+<script>
+	$(function(){//레디함수
+		let selectOp = "ALL";
+		$("#selectOp").change(e=>{
+			//console.log($(e.target).val());
+			selectOp = $(e.target).val();
+		});
+		
+	    $("#search").keyup(e=>{
+	    	//console.log($(e.target).val());
+	    	
+	    	$.get("${path}/market/discountAdminAjax.do?value="+$(e.target).val()+"&selectOp="+selectOp
+	    			, data=>{
+	    				//console.log(data);
+	    				$("#itemTable tbody").html(''); //원래의 값 비워주기
+	    				
+	    				data.forEach(i=>{
+	    					let itemInfo = i.itemNo;
+	    					//console.log(itemInfo);
+	    					
+	    					let input = "";
+	    					if(i.itemDiscount=='Y') input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo).prop("checked", true);
+	    					else input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo).prop("checked", false);
+	    					
+		    				let tr = $("<tr>");
+	    					let itemNo = $("<td>").text(i.itemNo);
+	    					let checkbox = $("<td>").append(input);
+	    					let itemCategory = $("<td>").text(i.itemCategory);
+	    					let itemName = $("<td>").text(i.itemName);
+	    					let madeIn = $("<td>").text(i.madeIn);
+	    					let itemBrand = $("<td>").text(i.itemBrand);
+	    					let itemPrice = $("<td>").text(i.itemPrice);
+	    					let itemStock = $("<td>").text(i.itemStock);
+	    					
+	    					tr.append(itemNo).append(checkbox).append(itemCategory).append(itemName).append(madeIn).append(itemBrand).append(itemPrice).append(itemStock);
+	    					$("#itemTable tbody").append(tr);
+	    				});
+	    			});
+	    			
+	    });
+	
+	});
+	
+
+	
+	
+	
+</script>
 
 
-
-<!-- todaybab create -->
 <section class="discount-section">
 	<div class="container">
 		<span style="margin-left: 100px;">할인 적용할 상품 선택</span>
 		<form name="disFrm" action="${path}/market/discountAdminEnd.do" method="post">
 		<div class="row flex-c-m">
-			<div class="col-lg-10 col-sm-10" id="items" style="margin-top: 30px; margin-bottom: 70px;">
-				<table class="table table-striped">
+			<div id="items"  class="col-lg-10 col-sm-10" style="margin-top: 30px; margin-bottom: 70px;">
+				<table id="itemTable" class="table table-striped">
 					<thead>
 						<tr>
 							<th scope="col">상품번호</th>
 							<th scope="col">#</th>
 							<th scope="col">카테고리명</th>
-							<th scope="col">원산지</th>
-							<th scope="col">브랜드</th>
 							<th scope="col">제품명</th>
+							<th scope="col">브랜드</th>
+							<th scope="col">원산지</th>
 							<th scope="col">정가</th><!--현재할인중이면9900원출력-->
 							<th scope="col">재고량</th>
 						</tr>
@@ -106,13 +151,13 @@
 							<tr>
 								<th scope="row"><c:out value="${i.itemNo }"/></th>
 								<td>
-								<input type="checkbox" name="chItems" value="${i.itemNo }" ${i.itemDiscount=='Y'?'checked':''}> <!-- onchange="makeItemArr(this);" -->
+								<input type="checkbox" name="chItems" value="${i.itemNo }" ${i.itemDiscount=='Y'?'checked':''} onchange="makeItemArr(this);"> <!-- onchange="makeItemArr(this);" -->
 								</td>
 								<td><c:out value="${i.itemCategory }"/></td>
+								<td><c:out value="${i.itemName }"/></td>
 								<td><c:out value="${i.madeIn }"/></td>
 								<td><c:out value="${i.itemBrand }"/></td>
-								<td><c:out value="${i.itemName }"/></td>
-								<td><c:out value="${i.delPrice }"/></td>
+								<td><c:out value="${i.itemPrice }"/></td>
 								<td><c:out value="${i.itemStock }"/></td>
 							</tr>
 						</c:forEach>
@@ -149,8 +194,8 @@
 	console.log(yArr);
 
 	
-	/* var cbArr = new Array(); //체크한 상품번호를 저장할 배열
-	var yArr = new Array();	//이미 할인y인 상품번호만을 저장할 배열
+	var cbArr = new Array(); //체크한 상품번호를 저장할 배열
+/* 	var yArr = new Array();	//이미 할인y인 상품번호만을 저장할 배열
 	
 	$("input[name=chItems]").each((i,v)=>{//이미 할인 중인 상품을 배열에 저장
 		if($(v).prop("checked")) {
@@ -158,7 +203,7 @@
 			cbArr.push($(v).val());
 			yArr.push($(v).val());
 		}
-	})
+	}) */
 	console.log("이미할인중상품 : "+cbArr);
 	console.log("이미y인상품: "+yArr);console.log(yArr);
 	
@@ -169,7 +214,7 @@
 			else{	cbArr.splice(cbArr.indexOf(checkVal), 1);	}
 			console.log("체크한상품 : "+cbArr);
 			console.log(cbArr);
-	} */
+	}
 	
 	
 </script>
