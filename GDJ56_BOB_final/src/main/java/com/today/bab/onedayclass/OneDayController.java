@@ -41,6 +41,7 @@ import com.today.bab.member.model.vo.Member;
 import com.today.bab.onedayclass.model.service.OneDayService;
 import com.today.bab.onedayclass.model.vo.OdcQa;
 import com.today.bab.onedayclass.model.vo.OdcQaRe;
+import com.today.bab.onedayclass.model.vo.OdcReserve;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 import lombok.extern.slf4j.Slf4j;
@@ -284,8 +285,16 @@ public class OneDayController {
    }
    
    @RequestMapping("/class/pop.do")
-   public ModelAndView classEnroll(ModelAndView mv, String id) {
+   public ModelAndView classEnroll(ModelAndView mv, String id, String no) {
 	  System.out.println(id);
+	  System.out.println(no);
+	  
+	  //예약한 리스트 가져오기
+	  Map<String, Object> param = new HashMap();
+      param.put("id", id);
+      param.put("no", no);
+	  List<OdcReserve> result =service.selectReserve(param);
+	  System.out.println("예약한 리스트"+result);
 	  
       mv.setViewName("onedayclass/onedayReviewPop");
       return mv;

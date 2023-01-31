@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.onedayclass.model.vo.OdcQa;
 import com.today.bab.onedayclass.model.vo.OdcQaRe;
+import com.today.bab.onedayclass.model.vo.OdcReserve;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 @Repository
@@ -70,6 +71,12 @@ public class OneDayDaoImpl implements OneDayDao {
 	public List<OdcQaRe> selectReOdcQaAll(SqlSessionTemplate session, int oqNo) {
 		return session.selectList("onedayclass.selectReOdcQaAll", oqNo);
 	}
+
+	@Override
+	public List<OdcReserve> selectReserve(SqlSessionTemplate session, Map param) {
+		return session.selectList("onedayclass.selectReserve", param);
+	}
+	
 	
 	
 	

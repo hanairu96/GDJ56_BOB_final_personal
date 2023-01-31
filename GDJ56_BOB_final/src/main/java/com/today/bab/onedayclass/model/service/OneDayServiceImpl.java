@@ -11,6 +11,7 @@ import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.onedayclass.model.dao.OneDayDao;
 import com.today.bab.onedayclass.model.vo.OdcQa;
 import com.today.bab.onedayclass.model.vo.OdcQaRe;
+import com.today.bab.onedayclass.model.vo.OdcReserve;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 @Service
@@ -79,6 +80,11 @@ public class OneDayServiceImpl implements OneDayService {
 	@Override
 	public List<OdcQaRe> selectReOdcQaAll(int oqNo) {
 		return dao.selectReOdcQaAll(session,oqNo);
+	}
+
+	@Override
+	public List<OdcReserve> selectReserve(Map param) {
+		return dao.selectReserve(session,param);
 	}
 	
 	

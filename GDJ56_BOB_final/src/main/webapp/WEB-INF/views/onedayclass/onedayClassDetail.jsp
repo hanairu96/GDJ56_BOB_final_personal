@@ -228,6 +228,7 @@
 									수강후기
 									</h4>
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="hidden" name="odcNo" value="${odc.odcNo}" id="odcNo">
 									<input type="hidden" name="memberId" value="${loginMember.memberId}" id="memberId">
 									<button type="button" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-right:30%"
 									onclick="goPopup(event);">
@@ -238,8 +239,10 @@
 									<script type="text/javascript">
 						            	function goPopup(e){
 						            		var memberId=$(e.target).prev("input").val();
-						            		var gsWin=window.open("${path}/class/pop.do?id="+memberId,"winName","width=520,height=730"); //open("주소",띄우는방식,크기)
-						            		console.log(oqno);
+						            		var odcNo=$(e.target).prev().prev("input").val();
+						            		var gsWin=window.open("${path}/class/pop.do?id="+memberId+"&&no="+odcNo,"winName","width=520,height=730"); //open("주소",띄우는방식,크기)
+						            		console.log(memberId);
+						            		console.log(odcNo);
 						            	}
 									</script>
 									
