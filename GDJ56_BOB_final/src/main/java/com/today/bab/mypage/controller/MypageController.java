@@ -2,7 +2,11 @@ package com.today.bab.mypage.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,11 +16,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.member.model.vo.Member;
 import com.today.bab.mypage.model.service.MypageService;
+import com.today.bab.mypage.model.vo.ItemDetail;
+import com.today.bab.mypage.model.vo.ItemOrder;
 
 @Controller
 @RequestMapping("/mypage")
@@ -234,6 +243,87 @@ public class MypageController {
 		
 		
 		int result=mypageService.deleteBasketCount(dbasketNo);
+		
+		response.setContentType("text/csv;charset=utf-8");
+		response.getWriter().print(result);
+	}
+	
+	@RequestMapping("/basket/order.do")
+	public ModelAndView basketOrderList(String[] basketss,HttpServletRequest request,ModelAndView mv) throws JsonProcessingException{
+		
+		HttpSession session = request.getSession();
+	    Member loginMember = (Member) session.getAttribute("loginMember");
+		
+	    //System.out.println(Arrays.toString(basketss));
+	    
+	   List<Basket> orderitemlist= mypageService.basketOrderList(basketss);
+	   
+	   //System.out.println(orderitemlist);
+	   
+	   //List sellItemNo=new ArrayList();
+	   HashMap<Integer, Integer> sellItemNoCount = new HashMap<Integer, Integer>();
+	   for(int i=0;i<orderitemlist.size();i++) {
+		   //System.out.println(orderitemlist.get(i).getItem().get(0).getItemNo());
+		   sellItemNoCount.put(orderitemlist.get(i).getItem().get(0).getItemNo(),orderitemlist.get(i).getItemCount());
+	   }
+	   
+	   //System.out.println(sellItemNo)
+	   
+	   ObjectMapper mapper=new ObjectMapper();
+	   mv.addObject("orderitemlist",orderitemlist);
+	   mv.addObject("basketss",Arrays.toString(basketss));
+	   mv.addObject("sellItemNoCount",mapper.writeValueAsString(sellItemNoCount));
+	   
+	    mv.setViewName("mypage/order");
+	    return mv;
+	}
+	
+	
+	@RequestMapping("/pay.do")
+	public void insertItemOrder(String orderComment,int price,String buyer_addr,String buyer_name,String buyer_tel,String merchant,
+			int use_point, String basketss, String sellItemNoCount, 
+			HttpServletRequest request,HttpServletResponse response) throws IOException {
+
+		HttpSession session = request.getSession();
+	    Member loginMember = (Member) session.getAttribute("loginMember");
+
+	    ItemOrder io=ItemOrder.builder().price(price)
+		.memberId(loginMember.getMemberId()).orderName(buyer_name)
+		.address(buyer_addr).orderPhone(buyer_tel).orderComment(orderComment).merchantUid(merchant).build();
+	    
+	    System.out.println(io);
+	    System.out.println(basketss);
+	    System.out.println(sellItemNoCount);
+
+	    String[] dbasket=basketss.substring(1,basketss.length()-1).substring(0).split(",");
+	    //String[] sellItemNoCounts=sellItemNoCount.substring(1,sellItemNoCount.length()-1).split(",");
+	    
+	    for(int i=0;i<dbasket.length;i++) {
+	    	System.out.println(dbasket[i]);
+	    	//System.out.println(sellItemNoCounts[i]);
+	    }
+	    
+	    ObjectMapper mapper = new ObjectMapper();
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        
+        map = mapper.readValue(sellItemNoCount, 
+                new TypeReference<HashMap<Integer, Integer>>() {});        
+        
+        System.out.println(map);
+	    
+	    List<ItemDetail> ids=new ArrayList();
+
+	    Iterator it = map.entrySet().iterator();
+	    while (it.hasNext()) {
+	        Map.Entry<Integer, Integer> entry = (Map.Entry)it.next();
+	        //System.out.println(entry.getKey() + " = " + entry.getValue()); 
+	        ItemDetail id=ItemDetail.builder().itemNo(entry.getKey()).count(entry.getValue()).build();
+	        ids.add(id);
+	    }
+	    
+	    System.out.println(ids);
+	    
+		int result=mypageService.insertItemOrder(io,ids,dbasket,use_point);
 		
 		response.setContentType("text/csv;charset=utf-8");
 		response.getWriter().print(result);

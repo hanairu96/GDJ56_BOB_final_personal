@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/marketHeader2.jsp"/>
+
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
         <div class="container">
@@ -20,7 +22,7 @@
     <section class="categories">
         <div class="container">
 			<a href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a> 
-			<br>			<a href="${path }/itemQna/selectQna.do">실험중</a> 			
+			
 			<a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:900px;margin-top:30px;background-color: #07d448;" >상품등록</a>
 
             <br><br><br>
