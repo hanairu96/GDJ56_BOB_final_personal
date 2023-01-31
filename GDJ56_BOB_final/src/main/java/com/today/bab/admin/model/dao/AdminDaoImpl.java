@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminSubscription;
+import com.today.bab.admin.model.vo.ClientQNA;
+import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.member.model.vo.Member;
 
 @Repository
@@ -53,7 +55,17 @@ public class AdminDaoImpl implements AdminDao{
 	public int selectMasterListCount(SqlSessionTemplate session) {
 		return session.selectOne("admin.selectMasterListCount");
 	}
-
+	
+	@Override
+	public int selectMasterIngListCount(SqlSessionTemplate session) {
+		return session.selectOne("admin.selectMasterIngListCount");
+	}
+	
+	@Override
+	public int selectMasterAllListCount(SqlSessionTemplate session) {
+		return session.selectOne("admin.selectMasterAllListCount");
+	}
+	
 	@Override
 	public AdminMaster adminMasterInfo(SqlSessionTemplate session, String name) {
 		return session.selectOne("admin.adminMasterInfo",name);		
@@ -72,6 +84,33 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public int masterTestEnd(SqlSessionTemplate session, AdminMaster m) {
 		return session.update("admin.masterTestEnd",m);
+	}
+
+	@Override
+	public List<ClientQNA> selectQnAList(SqlSessionTemplate session, Map<String, Integer> param) {
+		return session.selectList("admin.selectQnAList",null, 
+	            new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+	                  param.get("numPerpage")));
+	}
+
+	@Override
+	public int selectQnACount(SqlSessionTemplate session) {
+		return session.selectOne("admin.selectQnACount");
+	}
+
+	@Override
+	public ClientQNA selectQna(SqlSessionTemplate session, int cqNo) {
+		return session.selectOne("admin.selectQna",cqNo);	
+	}
+
+	@Override
+	public int insertqnaAnswer(SqlSessionTemplate session, CqAnswer cq) {
+		return session.insert("admin.insertqnaAnswer",cq);
+	}
+
+	@Override
+	public int updateClientQNA(SqlSessionTemplate session,int cqNo) {
+		return session.update("admin.updateClientQNA",cqNo);
 	}
 	
 }

@@ -247,114 +247,131 @@
         <main class="h-full pb-16 overflow-y-auto">
           <div style="display: flex; flex-direction: column;">
 
-              <div class="container px-6 mx-auto grid" >
-                <div style="display: flex; flex-direction: row;">
+              <div style="display:flex;" class="container px-6 mx-auto grid" >
+                <div style="display: flex; flex-direction: row;height:fit-content;"">
                   <h4
                     style="font-size: 15px; color: purple; border: 2px solid purple; border-radius:10px; padding: 10px;"
                     class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
                   >
                     1:1 문의 답변 </h4>
                 </div>
-              </div>
 
-                <!-- New Table -->
-                <div class="w-full overflow-hidden rounded-lg shadow-xs"  >
-                  <div class="w-full overflow-x-auto">
-	                  <div style="display:flex;justify-content:space-between;align-items:center;">
-			          	<p>답변해야 할 문의가 총 <b>${totalData }개</b> 있습니다.</p>
-		        	</div>
-                    <table class="w-full whitespace-no-wrap"style="text-align:center;">
-                      <c:if test="${empty list }">
-	                  	 <thead>
-			            	<tr>
-			            		<td colspan="5">모든 문의에 답변을 하셨습니다 :)</td>
-			            	</tr>
-			            </thead>
-		            </c:if>
-		            <c:if test="${not empty list }">
-                      <thead>
-                        <tr
-                        style="text-align:center;"
-                          class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-                        >
-                          <th class="px-4 py-3">제목</th>
-                          <th class="px-4 py-3">내용</th>
-                          <th class="px-4 py-3">구분</th>
-                          <th class="px-4 py-3">질문자</th>
-                          <th class="px-4 py-3">문의날짜</th>
-                        </tr>
-                      </thead>
-                      <tbody
-                        class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
-                      >
-                      <c:forEach var="m" items="${list }" >
-                       
-                        <tr class="text-gray-700 dark:text-gray-400">
+ <form action="${path }/admin/QnAEnd.do?cqNo=${cq.cqNo}" method="post">
+      <div
+        id="my_modal" style="margin-left:50px;margin-top:20px;width:500px;height:auto;background-color: white;border-radius: 15px 15px;text-align: left;"
+          class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <h1 style="text-align: center;"><b>1:1 문의</b></h1>
+        
+        <label class="block text-sm">
+          <span class="text-gray-700 dark:text-gray-400"><b>제목</b></span>
+          <input
+            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+            value=${cq.cqTitle } readonly
+          />
+        </label>
+        <br>
+            <label class="block text-sm">
+              <span class="text-gray-700 dark:text-gray-400"><b>질문자</b></span>
+              <input
+                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                value=${cq.memberId } readonly
+              />
+            </label>
+            <br>
+          <label class="block mt-4 text-sm">
+            <span class="text-gray-700 dark:text-gray-400"><b>문의내용</b></span>
+             <textarea
+              class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+             >${cq.cqContent }</textarea>
+          </label>
+          <br>
+          <label class="block mt-4 text-sm">
+            <span class="text-gray-700 dark:text-gray-400"><b>답변</b></span>
+            <textarea
+              class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+              rows="6"
+              name="qnaAnswer"
+            ></textarea>
+          </label>
+          
+          	  <button
+			       type="reset"
+			       style="display :inline-block;background-color: white; border: 1.5px solid red; color: red;"
+			       class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+			     >
+			     취소
+			     </button>
+		       <button
+		         type="submit"
+		         style="display :inline-block;background-color: white; border: 1.5px solid purple; color: purple;"
+		         class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+		       >
+		       등록
+		       </button>
+            </div>
+            </form>
+            </div>
+</div>
 
-                          <td class="px-4 py-3 text-sm font-semibold">
-                            <div class="flex items-center text-sm" style="display: flex; justify-content:center">
-                              <!-- Avatar with inset shadow -->
-                              <div
-                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                              >
-                                <img 
-                                class="object-cover w-full h-full rounded-full"
-                                src="data:image/png;base64,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">
-                                
-                                <div
-                                  class="absolute inset-0 rounded-full shadow-inner"
-                                  aria-hidden="true"
-                                ></div>
-                              </div>
-                              <div style="display: flex;flex-direction: row;">
-                                <p class="font-semibold">
-                                <a href="${path }/admin/QnaInfo.do?cqNo=${m.cqNo}"><c:out value="${m.cqTitle}"/></a></p>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-4 py-3 text-sm font-semibold">
-                            <c:out value="${m.cqContent}"/>
-                          </td>
-                          </td>
-                          <td class="px-4 py-3 text-sm font-semibold">
-                           <c:out value="${m.cqCate}"/>
-                          </td>
-                          <td class="px-4 py-3 text-xs font-semibold">
-                           <c:out value="${m.memberId}"/>
-                          </td>
-                          <td class="px-4 py-3 text-sm font-semibold">
-                           <c:out value="${m.cqDate}"/>
-                          </td>
-                        </tr>
-                        </c:forEach>
-                      </tbody>
-                      </c:if>
-                    </table>
-                   </div>
-              
-               <div
-                class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
-              >
-                <span class="col-span-2"></span>
-                <!-- Pagination -->
-                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-center">
-                  <nav aria-label="Table navigation">
-                    ${pageBar}
-                  </nav>
-                </span>
-              </div>
-            </div>
-            </div>
-        </main>
-      </div>
-    
-    	 <style>
-    #adminQnATitle{
-      cursor: pointer;
+<!-- <script>
+    function modal(id) {
+        var zIndex = 9999;
+        var modal = document.getElementById(id);
+
+        // 모달 div 뒤에 희끄무레한 레이어
+        var bg = document.createElement('div');
+        bg.setStyle({
+            position: 'fixed',
+            zIndex: zIndex,
+            left: '0px',
+            top: '0px',
+            width: '100%',
+            height: '100%',
+            overflow: 'auto',
+            // 레이어 색깔은 여기서 바꾸면 됨
+            backgroundColor: 'rgba(0,0,0,0.4)'
+        });
+        document.body.append(bg);
+
+        // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+        modal.querySelector('.modal_close_btn').addEventListener('click', function() {
+            bg.remove();
+            modal.style.display = 'none';
+        });
+
+        modal.setStyle({
+            position: 'fixed',
+            display: 'block',
+            boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+
+            // 시꺼먼 레이어 보다 한칸 위에 보이기
+            zIndex: zIndex + 1,
+
+            // div center 정렬
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            msTransform: 'translate(-50%, -50%)',
+            webkitTransform: 'translate(-50%, -50%)'
+        });
     }
 
-    </style>
+    // Element 에 style 한번에 오브젝트로 설정하는 함수 추가
+    Element.prototype.setStyle = function(styles) {
+        for (var k in styles) this.style[k] = styles[k];
+        return this;
+    };
 
-    </div>
-  </body>
+    function qna(){
+    	 modal('my_modal');
+    };
+    
+   /* document.getElementById('adminQnATitle').addEventListener('click', function(e) {
+        // 모달창 띄우기
+        console.log(e.target);
+        modal('my_modal');
+    }); */
+    </script> -->
+    	
+</body>
 </html>

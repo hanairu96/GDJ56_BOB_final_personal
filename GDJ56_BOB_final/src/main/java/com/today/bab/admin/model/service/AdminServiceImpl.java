@@ -11,6 +11,8 @@ import com.today.bab.admin.model.dao.AdminDao;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminSubscription;
+import com.today.bab.admin.model.vo.ClientQNA;
+import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.member.model.vo.Member;
 
 @Service
@@ -59,7 +61,17 @@ public class AdminServiceImpl implements AdminService{
 	public int selectMasterListCount() {
 		return dao.selectMasterListCount(session);
 	}
-
+	
+	@Override
+	public int selectMasterIngListCount() {
+		return dao.selectMasterIngListCount(session);
+	}
+	
+	@Override
+	public int selectMasterAllListCount() {
+		return dao.selectMasterAllListCount(session);
+	}
+	
 	@Override
 	public AdminMaster adminMasterInfo(String teachername) {
 		return dao.adminMasterInfo(session, teachername);
@@ -77,8 +89,32 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public int masterTestEnd(AdminMaster m) {
-		// TODO Auto-generated method stub
 		return dao.masterTestEnd(session,m);
+	}
+
+	@Override
+	public List<ClientQNA> selectQnAList(Map<String, Integer> param) {
+		return dao.selectQnAList(session, param);
+	}
+
+	@Override
+	public int selectQnACount() {
+		return dao.selectQnACount(session);
+	}
+
+	@Override
+	public ClientQNA selectQna(int cqNo) {
+		return dao.selectQna(session,cqNo);
+	}
+	
+	@Override
+	public int insertqnaAnswer(CqAnswer cq) {
+		return dao.insertqnaAnswer(session,cq);
+	}
+
+	@Override
+	public int updateClientQNA(int cqNo) {
+		return dao.updateClientQNA(session,cqNo);
 	}
 	
 }
