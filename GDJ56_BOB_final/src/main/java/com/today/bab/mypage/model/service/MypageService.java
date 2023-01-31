@@ -1,12 +1,14 @@
 package com.today.bab.mypage.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
+import com.today.bab.mypage.model.vo.Point;
 
 public interface MypageService {
 	List<Basket> selectBasketById(String userId);
@@ -23,5 +25,11 @@ public interface MypageService {
 	
 	List<Basket> basketOrderList(String[] basketno);
 	
-	int insertItemOrder(ItemOrder io,List<ItemDetail> ids,String[] basketss,int use_point);
+	int insertItemOrder(ItemOrder io,List<ItemDetail> ids,String[] basketss,Point use_point);
+	
+	int selectpointAll(String memberId);
+	
+	List<Point> selectListPoint(Map<String,Integer> param,String memberId);
+	
+	int selectListPointCount(String memberId);
 }
