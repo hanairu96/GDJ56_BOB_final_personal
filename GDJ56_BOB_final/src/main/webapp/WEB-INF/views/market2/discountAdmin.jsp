@@ -98,20 +98,20 @@
 	    					//console.log(itemInfo);
 	    					
 	    					let input = "";
-	    					if(i.itemDiscount=='Y') input = $("<input type='checkbox' name='chItems'>").val(itemInfo).prop("checked", true);
-	    					else input = $("<input type='checkbox' name='chItems'>").val(itemInfo).prop("checked", false);
+	    					if(i.itemDiscount=='Y') input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo).prop("checked", true);
+	    					else input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo).prop("checked", false);
 	    					
 		    				let tr = $("<tr>");
 	    					let itemNo = $("<td>").text(i.itemNo);
 	    					let checkbox = $("<td>").append(input);
 	    					let itemCategory = $("<td>").text(i.itemCategory);
+	    					let itemName = $("<td>").text(i.itemName);
 	    					let madeIn = $("<td>").text(i.madeIn);
 	    					let itemBrand = $("<td>").text(i.itemBrand);
-	    					let itemName = $("<td>").text(i.itemName);
-	    					let delPrice = $("<td>").text(i.delPrice);
+	    					let itemPrice = $("<td>").text(i.itemPrice);
 	    					let itemStock = $("<td>").text(i.itemStock);
 	    					
-	    					tr.append(itemNo).append(checkbox).append(itemCategory).append(madeIn).append(itemBrand).append(itemName).append(itemName).append(delPrice).append(itemStock);
+	    					tr.append(itemNo).append(checkbox).append(itemCategory).append(itemName).append(madeIn).append(itemBrand).append(itemPrice).append(itemStock);
 	    					$("#itemTable tbody").append(tr);
 	    				});
 	    			});
@@ -127,7 +127,6 @@
 </script>
 
 
-<!-- todaybab create -->
 <section class="discount-section">
 	<div class="container">
 		<span style="margin-left: 100px;">할인 적용할 상품 선택</span>
@@ -140,9 +139,9 @@
 							<th scope="col">상품번호</th>
 							<th scope="col">#</th>
 							<th scope="col">카테고리명</th>
-							<th scope="col">원산지</th>
-							<th scope="col">브랜드</th>
 							<th scope="col">제품명</th>
+							<th scope="col">브랜드</th>
+							<th scope="col">원산지</th>
 							<th scope="col">정가</th><!--현재할인중이면9900원출력-->
 							<th scope="col">재고량</th>
 						</tr>
@@ -152,13 +151,13 @@
 							<tr>
 								<th scope="row"><c:out value="${i.itemNo }"/></th>
 								<td>
-								<input type="checkbox" name="chItems" value="${i.itemNo }" ${i.itemDiscount=='Y'?'checked':''}> <!-- onchange="makeItemArr(this);" -->
+								<input type="checkbox" name="chItems" value="${i.itemNo }" ${i.itemDiscount=='Y'?'checked':''} onchange="makeItemArr(this);"> <!-- onchange="makeItemArr(this);" -->
 								</td>
 								<td><c:out value="${i.itemCategory }"/></td>
+								<td><c:out value="${i.itemName }"/></td>
 								<td><c:out value="${i.madeIn }"/></td>
 								<td><c:out value="${i.itemBrand }"/></td>
-								<td><c:out value="${i.itemName }"/></td>
-								<td><c:out value="${i.delPrice }"/></td>
+								<td><c:out value="${i.itemPrice }"/></td>
 								<td><c:out value="${i.itemStock }"/></td>
 							</tr>
 						</c:forEach>
@@ -195,8 +194,8 @@
 	console.log(yArr);
 
 	
-	/* var cbArr = new Array(); //체크한 상품번호를 저장할 배열
-	var yArr = new Array();	//이미 할인y인 상품번호만을 저장할 배열
+	var cbArr = new Array(); //체크한 상품번호를 저장할 배열
+/* 	var yArr = new Array();	//이미 할인y인 상품번호만을 저장할 배열
 	
 	$("input[name=chItems]").each((i,v)=>{//이미 할인 중인 상품을 배열에 저장
 		if($(v).prop("checked")) {
@@ -204,7 +203,7 @@
 			cbArr.push($(v).val());
 			yArr.push($(v).val());
 		}
-	})
+	}) */
 	console.log("이미할인중상품 : "+cbArr);
 	console.log("이미y인상품: "+yArr);console.log(yArr);
 	
@@ -215,7 +214,7 @@
 			else{	cbArr.splice(cbArr.indexOf(checkVal), 1);	}
 			console.log("체크한상품 : "+cbArr);
 			console.log(cbArr);
-	} */
+	}
 	
 	
 </script>

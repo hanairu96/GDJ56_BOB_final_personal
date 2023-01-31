@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>오늘의밥추천관리자수정</title>
+<title>오늘의밥추천관리자등록</title>
 	<!-- CSS only -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 	<!-- JavaScript Bundle with Popper -->
@@ -23,11 +23,11 @@
 	<div class="t-center" style="margin-top: 150px;">
 		<h3 class="tit3 t-center m-b-35 m-t-2" style="margin-bottom: 150px;">
 			<!-- 등록수정 분기처리해줘야함(+밑에버튼도) -->
-			오늘의 밥 추천 수정
+			오늘의 밥 추천 등록
 		</h3>
 	</div>
 
-	<form class="flex-c-m todaybab" method="get" name="form">
+	<form class="flex-c-m todaybab" method="post" action="${path }/market/todayAdminTitle.do">
 		<span class="tit2 t-center" style="margin-left: 200px;color: rgb(100, 20, 175);">
 			preview
 		</span>
@@ -54,12 +54,9 @@
 				추천제목
 			</span>
 
-			<div class="wrap-inputname m-t-3 m-b-23 t-center">
-				<select name="reNo" id="selectOp"class="form-select" aria-label="Default select example">
-					<c:forEach var="t" items="${relist }">
-						<option value="${t.reNo }"><c:out value="${t.reIcon }${t.reTitle }"/></option>
-					</c:forEach>
-				</select>
+			<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23 t-center">
+				<input id="reTitle" onkeyup="fn_eventKeyup1(this.value)" 
+				class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="reTitle" placeholder="예시)1만원대 추천 상품">
 			</div>
 
 			<!-- 한줄설명 -->
@@ -100,11 +97,8 @@
 			
 			<div class="wrap-btn-booking flex-c-m m-t-6">
 				<div style="display: flex; margin-left: 65%;">
-					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" value="update" onclick="javascript: form.action='${path}/market/updateTodayBob.do';">
-						수정하기
-					</button>
-					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-left:2%" value="delete" onclick="javascript: form.action='${path}/market/deleteTodayBob.do';">
-						삭제하기
+					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4">
+						저장하기
 					</button>
 				</div>
 			</div>
@@ -118,118 +112,84 @@
 
 
 
-<form class="wrap-form-reservation size22 m-l-r-auto">
+<form class="size22 m-l-r-auto">
 	<div class="row flex-c-m" style="margin-top: 100px;">
 		<div class="col-md-2">
 			<!-- 검색 -->
 			
 			<div>
-				<!-- Select2 -->
 				<select id="selectOp"class="form-select" aria-label="Default select example">
-					<option>전체보기</option>
-					<option>브랜드</option>
-					<option>제품명</option>
+					<option value="ALL" selected>전체보기</option>
+					<option value="ITEM_CATEGORY">카테고리</option>
+					<option value="ITEM_BRAND">브랜드</option>
+					<option value="ITEM_NAME">제품명</option>
 				</select>
 			</div>
 		</div>
 		<div style="width: 300px; display: flex;">
 			<div class="search-sidebar2 size12 bo2 pos-relative">
-				<input class="input-search-sidebar2 txt10 p-l-20 p-r-55" type="text" name="검색할항목ajax로바꿔야함" placeholder="Search">
-				<button class="btn-search-sidebar2" onclick="searchItem();"><img style="width: 30px; height: 30px;" src="https://img.icons8.com/ios-filled/512/search.png"></button>
+				<input id="search" class="input-search-sidebar2 p-l-20" type="text" name="검색할항목ajax로바꿔야함" placeholder="Search">
+				<!-- <button class="btn-search-sidebar2" onclick="searchItem();"><img style="width: 30px; height: 30px;" src="https://img.icons8.com/ios-filled/512/search.png"></button> -->
 			</div>
 		</div>
+		
 	</div>
 </form>
-<button onclick="searchItem();">검색</button>
-
 
 
 <!-- todaybab create -->
-<section class="discount-section spad">
+<section class="todaybab-section">
 	<div class="container">
 		<span style="margin-left: 100px;">추천할 상품 선택(20개 필수)</span>
+		<form name="todaybobFrm" method="get" name="form">
 		<div class="row flex-c-m">
-			<div class="col-lg-10 col-sm-10" id="items" style="margin-top: 30px; margin-bottom: 100px;">
-				<table class="table table-striped">
+			<div id="items"  class="col-lg-10 col-sm-10" style="margin-top: 30px; margin-bottom: 70px;">
+				<table id="itemTable" class="table table-striped">
 					<thead>
 						<tr>
 							<th scope="col">상품번호</th>
 							<th scope="col">#</th>
 							<th scope="col">카테고리명</th>
-							<th scope="col">원산지</th>
-							<th scope="col">브랜드</th>
 							<th scope="col">제품명</th>
-							<th scope="col">현재판매가</th><!--현재할인중이면9900원출력-->
+							<th scope="col">브랜드</th>
+							<th scope="col">원산지</th>
+							<th scope="col">정가</th>
 							<th scope="col">재고량</th>
 						</tr>
-						</thead>
-						<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>
-							<input type="checkbox" name="chItems" value="체크된상품번호" onchange="fn_makeItemArr(this);">
-							</td>
-							<td>과일</td>
-							<td>대한민국</td>
-							<td>아삭</td>
-							<td>새빨간사과</td>
-							<td>8,800</td>
-							<td>200</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>
-							<input type="checkbox" name="chItems" value="체크된상품번호" onchange="fn_makeItemArr(this);">
-							</td>
-							<td>과일</td>
-							<td>대한민국</td>
-							<td>아삭</td>
-							<td>새빨간사과</td>
-							<td>8,800</td>
-							<td>200</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>
-							<input type="checkbox" name="chItems" value="체크된상품번호" onchange="fn_makeItemArr(this);">
-							</td>
-							<td>과일</td>
-							<td>대한민국</td>
-							<td>아삭</td>
-							<td>새빨간사과</td>
-							<td>8,800</td>
-							<td>200</td>
-						</tr>
-						<tr>
-							<th scope="row">4</th>
-							<td>
-							<input type="checkbox" name="chItems" value="체크된상품번호" onchange="fn_makeItemArr(this);">
-							</td>
-							<td>과일</td>
-							<td>대한민국</td>
-							<td>아삭</td>
-							<td>새빨간사과</td>
-							<td>8,800</td>
-							<td>200</td>
-						</tr>
-						<tr>
-							<th scope="row">5</th>
-							<td>
-							<input type="checkbox" name="chItems" value="체크된상품번호" onchange="fn_makeItemArr(this);">
-							</td>
-							<td>과일</td>
-							<td>대한민국</td>
-							<td>아삭</td>
-							<td>새빨간사과</td>
-							<td>8,800</td>
-							<td>200</td>
-						</tr>
-
-						</tbody>
+					</thead>
+					<tbody>
+						<c:forEach var="i" items="${allItems }">
+							<tr>
+								<th scope="row"><c:out value="${i.itemNo }"/></th>
+								<td>
+								<input type="checkbox" name="chItems" value="${i.itemNo }" onchange="makeItemArr(this);"> <!-- onchange="makeItemArr(this);" -->
+								</td>
+								<td><c:out value="${i.itemCategory }"/></td>
+								<td><c:out value="${i.itemName }"/></td>
+								<td><c:out value="${i.madeIn }"/></td>
+								<td><c:out value="${i.itemBrand }"/></td>
+								<td><c:out value="${i.itemPrice }"/></td>
+								<td><c:out value="${i.itemStock }"/></td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 
 			</div>
+			<div class="wrap-btn-booking flex-c-m m-t-6">
+				<div style="display: flex; margin-left: 75%; margin-bottom: 50px;">
+					<button type="submit" class="flex-c-m size36 txt11 trans-0-4"
+					value="check" onclick="javascript: form.action=window.open('${path}/market/checkTodayBob.do', '체크한상품확인', 'width=500, height=700, scrollbars=yes, resizable=no')">
+						확인하기
+					</button>
+					<button type="submit" class="flex-c-m size36 txt11 trans-0-4" style="margin-left:2%" 
+					value="checkFin" onclick="javascript: form.action='${path}/market/todayAdminTitle.do';">
+						제목저장&상품등록하기
+					</button>
+				</div>
+			</div>
 		</div>
+		</form>
 
 		
 	</div>
@@ -252,6 +212,18 @@
 		
 		$('#aaa').modal('hide');
 	}
+	
+	var cbArr = new Array(); //체크한 상품번호를 저장할 배열
+	const makeItemArr = (target)=>{
+		var checkVal = target.value;
+		var confirmCheck = target.checked;
+		if(confirmCheck == true){	cbArr.push(checkVal);	}
+		else{	cbArr.splice(cbArr.indexOf(checkVal), 1);	}
+		console.log("체크한상품 : "+cbArr);
+		console.log(cbArr);
+}
+
+	
 	
 	
 /* 	console.log($("#reTitlePrint").text());

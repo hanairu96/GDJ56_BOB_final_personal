@@ -230,7 +230,11 @@
 		    <artifactId>spring-context-support</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
-
+         <dependency>  
+            <groupId>org.lazyluke</groupId>  
+             <artifactId>log4jdbc-remix</artifactId>  
+              <version>0.2.7</version>  
+        </dependency>  
 
 		<!-- Test -->
 		<dependency>

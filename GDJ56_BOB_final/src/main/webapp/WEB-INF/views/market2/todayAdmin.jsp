@@ -23,12 +23,12 @@
 	<div class="t-center" style="margin-top: 150px;">
 		<h3 class="tit3 t-center m-b-35 m-t-2" style="margin-bottom: 150px;">
 			<!-- 등록수정 분기처리해줘야함(+밑에버튼도) -->
-			추천 타이틀 등록
+			오늘의 밥 추천 등록
 		</h3>
 	</div>
 
-	<form class="flex-c-m todaybab">
-		<span class="tit2 t-center" style="margin-left: 300px;color: rgb(100, 20, 175);">
+	<form class="flex-c-m todaybab" method="post" action="${path }/market/todayAdminTitle.do">
+		<span class="tit2 t-center" style="margin-left: 200px;color: rgb(100, 20, 175);">
 			preview
 		</span>
 		<div class="col-lg-4">
@@ -81,31 +81,26 @@
 			        <p>
 						<c:forEach var="es" items="${emojis}">
 							<c:forEach var="e" items="${es }">
-								<button type="button" class="emojiselect" value="<c:out value="${e }"/>" onclick="fn_emoji(event);"><c:out value="${e }"/></button>
+								<button type="button" class="emojiselect" value="<c:out value="${e }"/>" onclick="fn_emoji(event);" style="background-color: transparent;border:none;font-size:30px;"><c:out value="${e }"/></button>
 							</c:forEach>
 						</c:forEach>
 					</p>
 			      </div>
 			      <div class="modal-footer">
-					<button type="submit" class="btn btn-outline-success">로그인</button>
-					<button type="button" class="btn btn-outline-success"
-					data-dismiss="modal">취소</button>
+					<button type="button" class="btn btn-outline-success" data-dismiss="modal">X</button>
 				</div>
 			    </div>
 			  </div>
 			</div>
 
-			<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-				<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="reIcon" placeholder="예시)">
-			</div>
+				<input type="hidden" id="reIcon" name="reIcon"/>
+				<input type="hidden" name="reTitle"/>
+				<input type="hidden" name="reContent"/>
+			
 			<div class="wrap-btn-booking flex-c-m m-t-6">
 				<div style="display: flex; margin-left: 65%;">
 					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4">
-						등록하기저장하기
-					</button>
-			
-					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-left:2%">
-						수정하기저장하기
+						저장하기
 					</button>
 				</div>
 			</div>
@@ -119,118 +114,90 @@
 
 
 
-<form class="wrap-form-reservation size22 m-l-r-auto">
+<form class="size22 m-l-r-auto">
 	<div class="row flex-c-m" style="margin-top: 100px;">
 		<div class="col-md-2">
 			<!-- 검색 -->
 			
 			<div>
-				<!-- Select2 -->
 				<select id="selectOp"class="form-select" aria-label="Default select example">
-					<option>전체보기</option>
-					<option>브랜드</option>
-					<option>제품명</option>
+					<option value="ALL" selected>전체보기</option>
+					<option value="ITEM_CATEGORY">카테고리</option>
+					<option value="ITEM_BRAND">브랜드</option>
+					<option value="ITEM_NAME">제품명</option>
 				</select>
 			</div>
 		</div>
 		<div style="width: 300px; display: flex;">
 			<div class="search-sidebar2 size12 bo2 pos-relative">
-				<input class="input-search-sidebar2 txt10 p-l-20 p-r-55" type="text" name="검색할항목ajax로바꿔야함" placeholder="Search">
-				<button class="btn-search-sidebar2" onclick="searchItem();"><img style="width: 30px; height: 30px;" src="https://img.icons8.com/ios-filled/512/search.png"></button>
+				<input id="search" class="input-search-sidebar2 p-l-20" type="text" name="검색할항목ajax로바꿔야함" placeholder="Search">
+				<!-- <button class="btn-search-sidebar2" onclick="searchItem();"><img style="width: 30px; height: 30px;" src="https://img.icons8.com/ios-filled/512/search.png"></button> -->
 			</div>
 		</div>
+		
 	</div>
 </form>
-<button onclick="searchItem();">검색</button>
-
 
 
 <!-- todaybab create -->
-<section class="discount-section spad">
+<section class="todaybab-section">
 	<div class="container">
 		<span style="margin-left: 100px;">추천할 상품 선택(20개 필수)</span>
+		<form name="todaybobFrm" method="get" name="form">
 		<div class="row flex-c-m">
-			<div class="col-lg-10 col-sm-10" id="items" style="margin-top: 30px; margin-bottom: 100px;">
-				<table class="table table-striped">
+			<div id="items"  class="col-lg-10 col-sm-10" style="margin-top: 30px; margin-bottom: 70px;">
+				<table id="itemTable" class="table table-striped">
 					<thead>
 						<tr>
 							<th scope="col">상품번호</th>
 							<th scope="col">#</th>
 							<th scope="col">카테고리명</th>
-							<th scope="col">원산지</th>
-							<th scope="col">브랜드</th>
 							<th scope="col">제품명</th>
-							<th scope="col">현재판매가</th><!--현재할인중이면9900원출력-->
+							<th scope="col">브랜드</th>
+							<th scope="col">원산지</th>
+							<th scope="col">정가</th>
 							<th scope="col">재고량</th>
 						</tr>
-						</thead>
-						<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>
-							<input type="checkbox" name="chItems" value="체크된상품번호" onchange="fn_makeItemArr(this);">
-							</td>
-							<td>과일</td>
-							<td>대한민국</td>
-							<td>아삭</td>
-							<td>새빨간사과</td>
-							<td>8,800</td>
-							<td>200</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>
-							<input type="checkbox" name="chItems" value="체크된상품번호" onchange="fn_makeItemArr(this);">
-							</td>
-							<td>과일</td>
-							<td>대한민국</td>
-							<td>아삭</td>
-							<td>새빨간사과</td>
-							<td>8,800</td>
-							<td>200</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>
-							<input type="checkbox" name="chItems" value="체크된상품번호" onchange="fn_makeItemArr(this);">
-							</td>
-							<td>과일</td>
-							<td>대한민국</td>
-							<td>아삭</td>
-							<td>새빨간사과</td>
-							<td>8,800</td>
-							<td>200</td>
-						</tr>
-						<tr>
-							<th scope="row">4</th>
-							<td>
-							<input type="checkbox" name="chItems" value="체크된상품번호" onchange="fn_makeItemArr(this);">
-							</td>
-							<td>과일</td>
-							<td>대한민국</td>
-							<td>아삭</td>
-							<td>새빨간사과</td>
-							<td>8,800</td>
-							<td>200</td>
-						</tr>
-						<tr>
-							<th scope="row">5</th>
-							<td>
-							<input type="checkbox" name="chItems" value="체크된상품번호" onchange="fn_makeItemArr(this);">
-							</td>
-							<td>과일</td>
-							<td>대한민국</td>
-							<td>아삭</td>
-							<td>새빨간사과</td>
-							<td>8,800</td>
-							<td>200</td>
-						</tr>
-
-						</tbody>
+					</thead>
+					<tbody>
+						<c:forEach var="i" items="${allItems }">
+							<tr>
+								<th scope="row"><c:out value="${i.itemNo }"/></th>
+								<td>
+								<input type="checkbox" name="chItems" value="${i.itemNo }" onchange="makeItemArr(this);"> <!-- onchange="makeItemArr(this);" -->
+								</td>
+								<td><c:out value="${i.itemCategory }"/></td>
+								<td><c:out value="${i.itemName }"/></td>
+								<td><c:out value="${i.madeIn }"/></td>
+								<td><c:out value="${i.itemBrand }"/></td>
+								<td><c:out value="${i.itemPrice }"/></td>
+								<td><c:out value="${i.itemStock }"/></td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
+				
+				
+				<input type="hidden" id="reIconNext" name="reIcon"/>
+				<input type="hidden" id="reTitleNext" name="reTitle" />
+				<input type="hidden" id="reContentNext" name="reContent"/>
 
 			</div>
+			<div class="wrap-btn-booking flex-c-m m-t-6">
+				<div style="display: flex; margin-left: 75%; margin-bottom: 50px;">
+					<button type="submit" class="flex-c-m size36 txt11 trans-0-4"
+					value="check" onclick="javascript: form.action='${path}/market/checkTodayBob.do'">
+					<%-- value="check" onclick="javascript: form.action=window.open('${path}/market/checkTodayBob.do', '체크한상품확인', 'width=500, height=700, scrollbars=yes, resizable=no')"> --%>
+						확인하기
+					</button>
+<%-- 					<button type="submit" class="flex-c-m size36 txt11 trans-0-4" style="margin-left:2%" 
+					value="checkFin" onclick="javascript: form.action='${path}/market/todayAdminTitle.do';">
+						제목저장&상품등록하기
+					</button> --%>
+				</div>
+			</div>
 		</div>
+		</form>
 
 		
 	</div>
@@ -241,18 +208,43 @@
 <script>
 	const fn_eventKeyup1 = (str)=>{
 		$("#reTitlePrint").html(str);
+		
+		$("#reTitleNext").attr('value', $("#reTitle").val());//hidden
 	}
 	const fn_eventKeyup2 = (str)=>{
 		$("#reContentPrint").html(str);
+		
+		$("#reContentNext").attr('value', $("#reContent").val());//hidden
 	}
 	const fn_emoji = (e)=>{
 		console.log($(e.target).val());
 		$("#reIconPrint").html($(e.target).val());
 		
+		$("#reIcon").attr('value', $(e.target).val());
+		$("#reIconNext").attr('value', $(e.target).val());//hidden
+		
 		
 		$('#aaa').modal('hide');
-		
 	}
+	
+	var cbArr = new Array(); //체크한 상품번호를 저장할 배열
+	const makeItemArr = (target)=>{
+		var checkVal = target.value;
+		var confirmCheck = target.checked;
+		if(confirmCheck == true){	cbArr.push(checkVal);	}
+		else{	cbArr.splice(cbArr.indexOf(checkVal), 1);	}
+		console.log("체크한상품 : "+cbArr);
+		console.log(cbArr);
+}
+
+	
+	
+	
+/* 	console.log($("#reTitlePrint").text());
+	$("#reTitlePrint").text();
+	$("#reContentPrint").text(); */
+	
+	
 </script>
 
 
@@ -263,8 +255,8 @@
 </body>
 <style>
 	.modal-dialog{
-		width: 20%;
-		height: 20%;
+		width: 35%;
+		height: 35%;
 		position:[10,20];
 	}
 	/* 전체 글씨체 */
