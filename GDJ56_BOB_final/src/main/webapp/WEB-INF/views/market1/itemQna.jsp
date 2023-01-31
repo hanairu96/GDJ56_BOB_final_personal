@@ -7,6 +7,8 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <script src="${path }/resources/js/jquery-3.6.1.min.js"></script>
 	<div>
+	<c:out value="${answer }"/>
+	
 		<div style="display: flex;">
 		    <div>
 		        <h4 style="margin-right: 10px;font-weight: bold;">상품문의</h2>
@@ -26,6 +28,7 @@
 		<div>
 		    <span style="color:rgb(197, 195, 195)"> · 상품과 관계없는 글, 양도, 광고성, 욕설, 비방, 도배 등의 글은 예고없이 삭제됩니다.</span>
 		</div>
+		
 		<br>
 		<form class="wrap-form-reservation size22 m-l-r-auto" method="post"
 			action="${path }/itemQna/insertQna.do">
@@ -48,12 +51,7 @@
 		<c:forEach var="q" items="${qna }">
 			<c:if test="${q.iqSecret eq 'N' }">
 				<div style="display: flex; height:40px;margin-bottom: 7px;">
-		 		<c:forEach var="aa" items="${answer}">
-		        	<c:out value="${aa.iqNo }"/>
-		        	<c:if test="${q.iqNo eq aa.iqNo }">
-		        		<c:out value="${q.iqNo }"/>
-		        	</c:if>
-		        </c:forEach>
+		 	
 				    <img src="" alt="" style="height:40px;width: 40px;border-radius: 50%;">
 				    <div>
 				        <h5 style="margin-left:10px; margin-top: 10px;">야채주스</h5>
@@ -97,6 +95,9 @@
 					        <div>
 					            <input class="primary-btn" type="submit" value="답변하기" style="height: 55px;margin-left: 5%; background-color: #07d448;border: none;color: white;"
 					            onclick="">
+					        </div>
+					        <div>
+					        
 					        </div>
 					    </div>
 						<hr/>

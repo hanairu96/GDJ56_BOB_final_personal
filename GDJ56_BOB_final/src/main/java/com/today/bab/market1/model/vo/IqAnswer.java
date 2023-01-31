@@ -19,4 +19,5 @@ public class IqAnswer {
 	private int iqNo;
 	private String IqaContent;
 	private Date iqaDate;
+	private int itemNo;
 }

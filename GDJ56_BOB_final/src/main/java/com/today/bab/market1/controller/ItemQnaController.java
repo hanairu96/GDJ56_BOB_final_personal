@@ -30,6 +30,7 @@ public class ItemQnaController {
 		this.ms=ms;
 	}
 	
+	//상품 문의
 	@RequestMapping("/insertQna.do")
 	public String insertQna(Model m, ItemQna a,
 			String iqContent, String memberId, int itemNo,
@@ -56,16 +57,6 @@ public class ItemQnaController {
 			m.addAttribute("msg", "질문 등록 완료");
 			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
 			
-			SellItem list=ms.marketdetail(itemNo);
-			
-			m.addAttribute("de",list);
-			String file="";
-			int count=0;
-			for(ItemPic ii : list.getIpic()) {
-				if(count++!=0) file+=",";
-				file+=ii.getPicName();
-			}
-			m.addAttribute("picpic",file);
 			List<ItemQna> qq=service.selectQnaList(itemNo);
 			m.addAttribute("qna",qq);
 			
@@ -73,32 +64,28 @@ public class ItemQnaController {
 			m.addAttribute("msg", "질문 등록 실패");
 			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
 			
-			SellItem list=ms.marketdetail(itemNo);
 			
-			m.addAttribute("de",list);
-			String file="";
-			int count=0;
-			for(ItemPic ii : list.getIpic()) {
-				if(count++!=0) file+=",";
-				file+=ii.getPicName();
-			}
-			m.addAttribute("picpic",file);
 			List<ItemQna> qq=service.selectQnaList(itemNo);
 			m.addAttribute("qna",qq);
 		}
 		return "common/msg";
 	}
 	
+	//문의 리스트 출력
 	@RequestMapping("/selectQna.do")
 	public String selectQna(Model m,int itemNo) {
 		//상품 문의 리스트 출력
 		List<ItemQna> qq=service.selectQnaList(itemNo);
+		//문의 답변
+		List<IqAnswer> an=service.selectIqAnswer(itemNo);
 		
+		m.addAttribute("answer",an);
 		m.addAttribute("qna",qq);
 		m.addAttribute("itemNo",itemNo);
 		return "market1/itemQna";
 	}
 	
+	//문의글 삭제
 	@RequestMapping("/delectQna.do")
 	public String delectQna(int iqNo,int itemNo,Model m) {
 		int result=service.delectQna(iqNo);
@@ -106,80 +93,66 @@ public class ItemQnaController {
 		if(result>0) {
 			m.addAttribute("msg", "질문 삭제 완료");
 			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
-			
-			SellItem list=ms.marketdetail(itemNo);
-			
-			m.addAttribute("de",list);
-			String file="";
-			int count=0;
-			for(ItemPic ii : list.getIpic()) {
-				if(count++!=0) file+=",";
-				file+=ii.getPicName();
-			}
 			List<ItemQna> qq=service.selectQnaList(itemNo);
-			m.addAttribute("picpic",file);
-			m.addAttribute("qna",qq);
-			m.addAttribute("itemNo",itemNo);
+			//문의 답변
+			List<IqAnswer> an=service.selectIqAnswer(itemNo);
 			
+			m.addAttribute("answer",an);
+			m.addAttribute("qna",qq);
 		}else {
 			m.addAttribute("msg", "질문 삭제 실패");
 			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
 			
-			SellItem list=ms.marketdetail(itemNo);
-			
-			m.addAttribute("de",list);
-			String file="";
-			int count=0;
-			for(ItemPic ii : list.getIpic()) {
-				if(count++!=0) file+=",";
-				file+=ii.getPicName();
-			}
-			m.addAttribute("picpic",file);
 			List<ItemQna> qq=service.selectQnaList(itemNo);
+			//문의 답변
+			List<IqAnswer> an=service.selectIqAnswer(itemNo);
+			
+			m.addAttribute("answer",an);
 			m.addAttribute("qna",qq);
 		}
 		return "common/msg";
 	}
 	
+	//문의글에 관리자의 답변
 	@RequestMapping("/qnaAnswerAdmin.do")
 	public String qnaAnswerAdmin(int iqNo,int itemNo,String IqaContent,Model m) {
 		
 		IqAnswer iq=IqAnswer.builder()
 				.iqNo(iqNo)
 				.IqaContent(IqaContent)
+				.itemNo(itemNo)
 				.build();
 		int result=service.qnaAnswerAdmin(iq);
 		if(result>0) {
 			m.addAttribute("msg", "답변 입력 완료");
 			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
-			
-			SellItem list=ms.marketdetail(itemNo);
 			//문의 리스트
 			List<ItemQna> qq=service.selectQnaList(itemNo);
 			//문의에 대한 답변 리스트
-			List<IqAnswer> an=service.selectIqAnswer(iqNo);
+			List<IqAnswer> an=service.selectIqAnswer(itemNo);
 			
-			m.addAttribute("de",list);
+			m.addAttribute("answer",an);
 			m.addAttribute("qna",qq);
-			m.addAttribute("itemNo",itemNo);
 			
 		}else {
 			m.addAttribute("msg", "답변 입력 실패");
 			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
-			
-			SellItem list=ms.marketdetail(itemNo);
 			//문의 리스트
 			List<ItemQna> qq=service.selectQnaList(itemNo);
 			//문의에 대한 답변 리스트
-			List<IqAnswer> an=service.selectIqAnswer(iqNo);
-			
-			m.addAttribute("de",list);
-			m.addAttribute("qna",qq);
+			List<IqAnswer> an=service.selectIqAnswer(itemNo);
+			m.addAttribute("answer",an);
 			m.addAttribute("qna",qq);
 		}
 		return "common/msg";
 		
 	}
 	
-	
+	@RequestMapping("/resultresult.do")
+		public String resultresult(int itemNo,Model m) {
+		//문의 답변
+		List<IqAnswer> an=service.selectIqAnswer(itemNo);
+		System.out.println(an);
+		return "market1/marketMain";
+	}
 }

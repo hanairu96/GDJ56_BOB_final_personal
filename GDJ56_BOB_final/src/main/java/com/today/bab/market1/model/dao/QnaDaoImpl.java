@@ -32,7 +32,7 @@ public class QnaDaoImpl implements QnaDao {
 	}
 	
 	@Override
-	public List<IqAnswer> selectIqAnswer(SqlSessionTemplate session,int iqNo) {
-		return session.selectOne("iqna.selectIqAnswer",iqNo);
+	public List<IqAnswer> selectIqAnswer(SqlSessionTemplate session,int itemNo) {
+		return session.selectList("iqna.selectIqAnswer",itemNo);
 	}
 }
