@@ -335,7 +335,7 @@
              <div class="w-full overflow-hidden rounded-lg shadow-xs">
               <div class="w-full overflow-x-auto">
 	              <div style="display:flex;justify-content:space-between;align-items:center;">
-		          	<p>총 <b>${totalData }명</b>의 장인이 있습니다.</p>
+		          	<p>총 <b>${yesData }명</b>의 장인 / <b style="color:red;">${ingData }명</b>의 심사가 필요한 회원이 있습니다.</p>
 	        	</div>
                 <table class="w-full whitespace-no-wrap">
                	  	<c:if test="${empty list }">
