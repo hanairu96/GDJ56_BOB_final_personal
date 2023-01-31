@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
+import com.today.bab.admin.model.vo.AdminQnaAll;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
@@ -47,5 +48,15 @@ public interface AdminService {
 	int insertqnaAnswer(CqAnswer cq);
 	
 	int updateClientQNA(int cqNo);
+	
+	List<AdminQnaAll> adminQnAAll(Map<String,Integer> param);
+	
+	List<AdminQnaAll> adminQnAOneDay(Map<String,Integer> param);
+	
+	int adminQnAAllCount();
+	
+	int qnAMarketCount();
+	
+	int qnAOnedayCount();
 	
 }

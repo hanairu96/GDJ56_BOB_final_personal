@@ -156,7 +156,6 @@ public class OneDayController {
       mv.addObject("master",master);
       mv.setViewName("onedayclass/onedayClassEnroll");
       return mv;
- 
       
    }
    
@@ -279,11 +278,19 @@ public class OneDayController {
    }
    
    @RequestMapping("/class/inputReplayOdcQa.do")
-   public void inputReplayOdcQa(@RequestBody OdcQaRe oqr, HttpSession session){
+   public void inputReplayOdcQa(@RequestBody OdcQaRe oqr,HttpSession session){
 	   System.out.println(oqr);
 	   service.inputReplayOdcQa(oqr);
    }
    
+   @RequestMapping("/class/pop.do")
+   public ModelAndView classEnroll(ModelAndView mv, String id) {
+	  System.out.println(id);
+	  
+      mv.setViewName("onedayclass/onedayReviewPop");
+      return mv;
+      
+   }
 
 
 }
