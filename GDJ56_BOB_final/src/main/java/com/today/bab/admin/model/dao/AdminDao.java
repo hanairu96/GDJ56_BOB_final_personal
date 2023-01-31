@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
+import com.today.bab.admin.model.vo.AdminQnaAll;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
@@ -49,5 +50,15 @@ public interface AdminDao {
 	int insertqnaAnswer(SqlSessionTemplate session,CqAnswer cq);
 	
 	int updateClientQNA(SqlSessionTemplate session,int cqNo);
+	
+	List<AdminQnaAll> adminQnAAll(SqlSessionTemplate session,Map<String,Integer> param);
+	
+	List<AdminQnaAll> adminQnAOneDay(SqlSessionTemplate session,Map<String,Integer> param);
+	
+	int adminQnAAllCount(SqlSessionTemplate session);
+	
+	int qnAMarketCount(SqlSessionTemplate session);
+	
+	int qnAOnedayCount(SqlSessionTemplate session);
 	
 }
