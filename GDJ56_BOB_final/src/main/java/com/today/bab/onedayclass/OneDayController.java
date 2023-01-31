@@ -40,6 +40,7 @@ import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.member.model.vo.Member;
 import com.today.bab.onedayclass.model.service.OneDayService;
 import com.today.bab.onedayclass.model.vo.OdcQa;
+import com.today.bab.onedayclass.model.vo.OdcQaRe;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 import lombok.extern.slf4j.Slf4j;
@@ -264,8 +265,23 @@ public class OneDayController {
    
    @RequestMapping("/class/selectOdcQaAll.do")
    public List<OdcQa> selectOdcQaAll(int odcNo){
+	   System.out.println(service.selectOdcQaAll(odcNo));
       return service.selectOdcQaAll(odcNo);
       
+   }
+   
+   @RequestMapping("/class/selectReOdcQaAll.do")
+   public List<OdcQaRe> selectReOdcQaAll(int oqno){
+	   System.out.println(oqno);
+	   System.out.println("´ä±Û"+service.selectReOdcQaAll(oqno));
+	   return service.selectReOdcQaAll(oqno);
+	   
+   }
+   
+   @RequestMapping("/class/inputReplayOdcQa.do")
+   public void inputReplayOdcQa(@RequestBody OdcQaRe oqr, HttpSession session){
+	   System.out.println(oqr);
+	   service.inputReplayOdcQa(oqr);
    }
    
 

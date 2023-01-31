@@ -1,6 +1,6 @@
 package com.today.bab.onedayclass.model.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -13,14 +13,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OdcQa {
-	
+public class OdcQaRe {
+
+	private int oqrNo;
 	private int oqno;
-	private String oqContent;
+	private String oqrContetnt;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-	private Date oqEnrollDate;
-	private String oqSecretYn;
-	private int odcNo;
-	private String memberId;
+	private Date oqrEnrollDate;
 	
 }
