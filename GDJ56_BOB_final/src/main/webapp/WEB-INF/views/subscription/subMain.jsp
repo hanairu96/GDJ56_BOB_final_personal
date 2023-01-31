@@ -65,23 +65,26 @@
 			<div class="items goods">
 				<div>
 					<ul>
-						<li>일반 우유</li>
-						<li>저지방 우유</li>
-						<li>무유당 우유</li>
+						<li>ㆍ일반 우유</li>
+						<li>ㆍ저지방 우유</li>
+						<li>ㆍ무유당 우유</li>
+						<li>&nbsp&nbsp중 택 1</li>
 					</ul>
 				</div>
 				<div>
 					<ul>
-						<li>특란</li>
-						<li>유정란</li>
-						<li>흰색 계란</li>
+						<li>ㆍ특란</li>
+						<li>ㆍ유정란</li>
+						<li>ㆍ흰색 계란</li>
+						<li>&nbsp&nbsp중 택 1</li>
 					</ul>
 				</div>
 				<div>
 					<ul>
-						<li>사과</li>
-						<li>포도</li>
-						<li>바나나</li>
+						<li>ㆍ사과</li>
+						<li>ㆍ포도</li>
+						<li>ㆍ바나나</li>
+						<li>&nbsp&nbsp중 택 1</li>
 					</ul>
 				</div>
 			</div>
@@ -128,7 +131,7 @@
 			font-size: 20px;
 		}
 		.items ul{
-			margin-top: 20px;
+			margin-top: 10px;
 		}
 		.price>div{
 			border: 1px solid;
