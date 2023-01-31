@@ -18,30 +18,17 @@
         </div>
     </section>
     <section class="product-details spad">
-    <div>
-   		<button class="primary-btn" type="button" onclick="updateItem(${de.itemNo})" style="background-color:blue;border: none;">수정</button>
-    	<button class="primary-btn" type="button" onclick="deleteItemFile(${de.itemNo},'${picpic}','${de.mainPic}','${de.itemLabel}')" style="background-color:red;border: none;" >삭제</button>
-    </div>	
-    <script>
-    	const deleteItemFile=(no,pic,main,label)=>{
-    		const pp=pic.split(",");
-    		var addpath="";
-    		for(let i=0;i<pp.length;i++){
-    			addpath+="&picName="+pp[i];
-    		}
-			location.assign("${path}/market1/deleteItem.do?itemNo="+no+"&mainPic="+main+"&itemLabel="+label+addpath);    	
-    	}
-    	
-    	const updateItem=(no)=>{
-			location.assign("${path}/market1/updateItemGo.do?itemNo="+no); 
-    	}
-    	
-    </script>
+    
+
         <div class="container">
 			<div>            
 	            <div class="row">
 	                <!-- 슬라이더 사진 4개까지 넣을 수 있다 (사진을 4개 미만으로 넣으면 같은 사진 반복) -->
 	                <div class="col-lg-6 col-md-6">
+                    <div>
+				   		<button class="primary-btn" type="button" onclick="updateItem(${de.itemNo})" style="background-color:blue;border: none;">수정</button>
+				    	<button class="primary-btn" type="button" onclick="deleteItemFile(${de.itemNo},'${picpic}','${de.mainPic}','${de.itemLabel}')" style="background-color:red;border: none;" >삭제</button>
+				    </div>	
 	                    <div class="product__details__pic">
 	                        <div class="product__details__pic__item">
 	                        <c:if test="${empty de.mainPic }">
@@ -130,18 +117,32 @@
                         <br>
                     </div>
                 </div>
+                
                 <script>
-                function choiceexplain(no,check){
-			 		 $.ajax({
-						type:"get",
-						url:"${path}/market1/choiceexplain.do?itemNo"+no,
-						data:{"itemNo":no,
-							 "check":check},
-						success:data=>{
-		    				$("#explain").html(data);
-						}
-					})
-                }
+	            	const deleteItemFile=(no,pic,main,label)=>{
+	            		const pp=pic.split(",");
+	            		var addpath="";
+	            		for(let i=0;i<pp.length;i++){
+	            			addpath+="&picName="+pp[i];
+	            		}
+	        			location.assign("${path}/market1/deleteItem.do?itemNo="+no+"&mainPic="+main+"&itemLabel="+label+addpath);    	
+	            	}
+	            	
+	            	const updateItem=(no)=>{
+	        			location.assign("${path}/market1/updateItemGo.do?itemNo="+no); 
+	            	}
+	                
+	                function choiceexplain(no,check){
+				 		 $.ajax({
+							type:"get",
+							url:"${path}/market1/choiceexplain.do?itemNo"+no,
+							data:{"itemNo":no,
+								 "check":check},
+							success:data=>{
+			    				$("#explain").html(data);
+							}
+						})
+	                }
                 </script>
                 
                 
