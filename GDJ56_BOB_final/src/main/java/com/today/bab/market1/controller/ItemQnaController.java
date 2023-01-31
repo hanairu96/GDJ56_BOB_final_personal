@@ -64,7 +64,6 @@ public class ItemQnaController {
 			m.addAttribute("msg", "질문 등록 실패");
 			m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
 			
-			
 			List<ItemQna> qq=service.selectQnaList(itemNo);
 			m.addAttribute("qna",qq);
 		}
@@ -79,9 +78,8 @@ public class ItemQnaController {
 		//문의 답변
 		List<IqAnswer> an=service.selectIqAnswer(itemNo);
 		
-		m.addAttribute("answer",an);
+		m.addAttribute("an",an);
 		m.addAttribute("qna",qq);
-		m.addAttribute("itemNo",itemNo);
 		return "market1/itemQna";
 	}
 	
@@ -115,11 +113,11 @@ public class ItemQnaController {
 	
 	//문의글에 관리자의 답변
 	@RequestMapping("/qnaAnswerAdmin.do")
-	public String qnaAnswerAdmin(int iqNo,int itemNo,String IqaContent,Model m) {
+	public String qnaAnswerAdmin(int iqNo,int itemNo,String iqaContent,Model m) {
 		
 		IqAnswer iq=IqAnswer.builder()
 				.iqNo(iqNo)
-				.IqaContent(IqaContent)
+				.iqaContent(iqaContent)
 				.itemNo(itemNo)
 				.build();
 		int result=service.qnaAnswerAdmin(iq);
@@ -150,9 +148,14 @@ public class ItemQnaController {
 	
 	@RequestMapping("/resultresult.do")
 		public String resultresult(int itemNo,Model m) {
+		List<ItemQna> qq=service.selectQnaList(itemNo);
 		//문의 답변
 		List<IqAnswer> an=service.selectIqAnswer(itemNo);
+		
 		System.out.println(an);
-		return "market1/marketMain";
+		m.addAttribute("an",an);
+		m.addAttribute("qna",qq);
+		return "market1/itemQna";
 	}
+	
 }

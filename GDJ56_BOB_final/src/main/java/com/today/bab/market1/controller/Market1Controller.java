@@ -365,6 +365,7 @@ public class Market1Controller {
 		}else if(check.contains("d")) {
 			page="itemQna";
 			m.addAttribute("qna",qnaservice.selectQnaList(itemNo));
+			m.addAttribute("an",qnaservice.selectIqAnswer(itemNo));
 		}
 		m.addAttribute("itemNo", itemNo);
 		return "market1/"+page;

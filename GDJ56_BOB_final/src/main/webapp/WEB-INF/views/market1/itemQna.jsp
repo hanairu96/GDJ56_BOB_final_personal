@@ -7,7 +7,9 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <script src="${path }/resources/js/jquery-3.6.1.min.js"></script>
 	<div>
-	<c:out value="${answer }"/>
+	<c:forEach var="aa" items="${an }">
+		${aa.iqaContent }
+	</c:forEach>
 	
 		<div style="display: flex;">
 		    <div>
