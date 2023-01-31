@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.onedayclass.model.dao.OneDayDao;
 import com.today.bab.onedayclass.model.vo.OdcQa;
+import com.today.bab.onedayclass.model.vo.OdcQaRe;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 @Service
@@ -69,6 +70,18 @@ public class OneDayServiceImpl implements OneDayService {
 	public List<OdcQa> selectOdcQaAll(int odcNo) {
 		return dao.selectOdcQaAll(session,odcNo);
 	}
+
+	@Override
+	public void inputReplayOdcQa(OdcQaRe oqr) {
+		dao.inputReplayOdcQa(session, oqr);
+	}
+
+	@Override
+	public List<OdcQaRe> selectReOdcQaAll(int oqNo) {
+		return dao.selectReOdcQaAll(session,oqNo);
+	}
+	
+	
 	
 	
 	

@@ -1,5 +1,6 @@
 package com.today.bab.member.model.dao;
 
+import org.apache.ibatis.annotations.Insert;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.today.bab.admin.model.vo.MemberLike;
@@ -12,6 +13,7 @@ public interface MemberDao {
 	Member emailDuplicateCheck(SqlSessionTemplate session, String email);
 	int enrollMember(SqlSessionTemplate session, Member m);
 	int enrollMemberLike(SqlSessionTemplate session, MemberLike ml);
+	int insertPoint(SqlSessionTemplate session, String memberId);
 	Member selectMemberByEmail(SqlSessionTemplate session, String email);
 	int updatePwd(SqlSessionTemplate session, Member m);
 }

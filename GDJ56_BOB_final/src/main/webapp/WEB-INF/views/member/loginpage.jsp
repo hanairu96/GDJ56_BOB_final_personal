@@ -10,7 +10,7 @@
             <div id="login">
                 <br>
                 <img src="${path}/resources/images/logo-icon.png" style="width: 120px;height: 100px;">
-                <form id="loginForm" action="${path}/member/loginEnd" method="post">
+                <form id="loginForm" action="${path}/login" method="post">
                     <input class="loginform" name="id" type="text" id="logInId" placeholder="아이디를 입력해주세요." style="width: 200px;"><br>
                     <input class="loginform" name="password" type="password" id="logInPwd" placeholder="비밀번호를 입력해주세요." style="width: 200px;"><br>
                     <span id="pwdCheck"><small></small></span>
@@ -66,11 +66,11 @@
             line-height: 30px;
             padding: 0;
             border: none;
-            background: #7e8cd2;
-            background: linear-gradient(0deg, #7e8cd2 0%, #7e8cd2 100%);
+            background: royalblue;
+            background: linear-gradient(0deg, royalblue 0%, royalblue 100%);
         }
         .btnStyle:hover {
-            color: #7e8cd2;
+            color: royalblue;
             background: transparent;
             box-shadow:none;
         }
@@ -81,7 +81,7 @@
             right:0;
             height:2px;
             width:0;
-            background: #7e8cd2;
+            background: royalblue;
             box-shadow:
             -1px -1px 5px 0px #fff,
             7px 7px 20px 0px #0003,

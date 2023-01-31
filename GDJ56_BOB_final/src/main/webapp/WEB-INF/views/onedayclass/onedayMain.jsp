@@ -119,7 +119,6 @@
 				<!-- 글등록,장인등록 -->
 				<div style="display: flex; margin-left: 61%;">
 					<form action="${path }/class/classEnroll.do">
-						<input type="text" name="memberId" value="${loginMember.memberId }">
 						<button type="submit" class="btn3 flex-c-m txt11 trans-0-4" style="margin-right: 3%;">
 						클래스 등록
 						</button>

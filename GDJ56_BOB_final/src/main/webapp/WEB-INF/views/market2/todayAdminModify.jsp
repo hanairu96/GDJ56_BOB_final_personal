@@ -23,18 +23,18 @@
 	<div class="t-center" style="margin-top: 150px;">
 		<h3 class="tit3 t-center m-b-35 m-t-2" style="margin-bottom: 150px;">
 			<!-- 등록수정 분기처리해줘야함(+밑에버튼도) -->
-			추천 타이틀 수정
+			오늘의 밥 추천 수정
 		</h3>
 	</div>
 
-	<form class="wrap-form-booking flex-c-m todaybab"><!-- 가운데로옮기기전체에 flex-c-m~~~~~~~~~~~~~~~~~~~~~~ -->
-		<span class="tit2 t-center" style="margin-left: 300px;color: rgb(100, 20, 175);">
+	<form class="flex-c-m todaybab" method="get" name="form">
+		<span class="tit2 t-center" style="margin-left: 200px;color: rgb(100, 20, 175);">
 			preview
 		</span>
-		<div class="col-sm-3 col-md-1 col-lg-4 p-t-30">
-			<div class="dis-flex m-l-40">
-				<div class="p-r-40 p-t-6">
-					<img src="images/icons/map-icon.png" alt="IMG-ICON">
+		<div class="col-lg-4">
+			<div class="dis-flex">
+				<div class="p-r-40">
+					<span id="reIconPrint"></span>
 				</div>
 
 				<div class="flex-col-l">
@@ -54,9 +54,12 @@
 				추천제목
 			</span>
 
-			<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23 t-center">
-				<input id="reTitle" onkeyup="fn_eventKeyup1(this.value)" 
-				class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="reTitle" placeholder="예시)1만원대 추천 상품">
+			<div class="wrap-inputname m-t-3 m-b-23 t-center">
+				<select name="reNo" id="selectOp"class="form-select" aria-label="Default select example">
+					<c:forEach var="t" items="${relist }">
+						<option value="${t.reNo }"><c:out value="${t.reIcon }${t.reTitle }"/></option>
+					</c:forEach>
+				</select>
 			</div>
 
 			<!-- 한줄설명 -->
@@ -69,22 +72,39 @@
 				class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="reContent" placeholder="예시)놓치면 후회할 가격!">
 			</div>
 
-			<!-- 아이콘 -->
+			<!-- 아이콘이모지 -->
 			<span class="txt9">
-				아이콘넣는버튼으로바꾸기
+				<button class="btn btn-outline-success my-2 my-sm-0"
+						data-toggle="modal" data-target="#aa" type="button">이모지</button>
 			</span>
-
-			<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-				<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="reIcon" placeholder="예시)">
+			<div class="modal" tabindex="-1" id="aa">
+			  <div id="aaa" class="modal-dialog modal-dialog-scrollable">
+			    <div class="modal-content">
+			      <div class="modal-body">
+			        <p>
+						<c:forEach var="es" items="${emojis}">
+							<c:forEach var="e" items="${es }">
+								<button type="button" class="emojiselect" value="<c:out value="${e }"/>" onclick="fn_emoji(event);" style="background-color: transparent;border:none;font-size:30px;"><c:out value="${e }"/></button>
+							</c:forEach>
+						</c:forEach>
+					</p>
+			      </div>
+			      <div class="modal-footer">
+					<button type="button" class="btn btn-outline-success" data-dismiss="modal">X</button>
+				</div>
+			    </div>
+			  </div>
 			</div>
+
+			<input type="hidden" id="reIcon" name="reIcon"/>
+			
 			<div class="wrap-btn-booking flex-c-m m-t-6">
 				<div style="display: flex; margin-left: 65%;">
-					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4">
-						등록하기저장하기
+					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" value="update" onclick="javascript: form.action='${path}/market/updateTodayBob.do';">
+						수정하기
 					</button>
-			
-					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-left:2%">
-						수정하기저장하기
+					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-left:2%" value="delete" onclick="javascript: form.action='${path}/market/deleteTodayBob.do';">
+						삭제하기
 					</button>
 				</div>
 			</div>
@@ -224,19 +244,21 @@
 	const fn_eventKeyup2 = (str)=>{
 		$("#reContentPrint").html(str);
 	}
-	const fn_eventKeyup3 = (str)=>{
-		$("#reIconPrint").html(str);
+	const fn_emoji = (e)=>{
+		console.log($(e.target).val());
+		$("#reIconPrint").html($(e.target).val());
+		$("#reIcon").attr('value', $(e.target).val());
+		
+		
+		$('#aaa').modal('hide');
 	}
-
-	var cbArr = new Array(); //체크한 상품번호를 저장할 배열
-	const fn_makeItemArr = (target)=>{
-			var checkVal = target.value;
-			var confirmCheck = target.checked;
-			if(confirmCheck == true){	cbArr.push(checkVal);	}
-			else{	cbArr.splice(cbArr.indexOf(checkVal), 1);	}
-			console.log("검색할 값 : "+cbArr);
-			console.log(cbArr);
-	}
+	
+	
+/* 	console.log($("#reTitlePrint").text());
+	$("#reTitlePrint").text();
+	$("#reContentPrint").text(); */
+	
+	
 </script>
 
 
@@ -246,6 +268,11 @@
 
 </body>
 <style>
+	.modal-dialog{
+		width: 35%;
+		height: 35%;
+		position:[10,20];
+	}
 	/* 전체 글씨체 */
 	*{
 		font-family: 'Gowun Dodum', sans-serif;
@@ -641,6 +668,7 @@
 	.ti-search:before {
 		content: "\e610";
 	}
+
 </style>
 
 </html>
