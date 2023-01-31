@@ -56,5 +56,11 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- 로그인 실패 시 에러 페이지 -->
+	<error-page>
+		<exception-type>com.today.bab.common.LoginAccessException</exception-type>
+		<location>/WEB-INF/views/common/error/loginError.jsp</location>
+	</error-page>
 
 </web-app>
