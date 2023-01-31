@@ -225,7 +225,10 @@
         const pay=()=>{
             console.log(choice);
             let decide=confirm(choice+"를 정말로 정기 결제 하시겠습니까?");
-            alert("결제 완료");
+            if(decide){
+	            location.replace("${path}/subscription/insertSub?memberId=${loginMember.memberId}&choice="+choice);
+    	        alert("결제가 완료되었습니다.");
+            }
         }
 
     </script>
