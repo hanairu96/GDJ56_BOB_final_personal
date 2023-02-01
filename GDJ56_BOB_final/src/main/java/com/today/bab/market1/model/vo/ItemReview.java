@@ -22,5 +22,5 @@ public class ItemReview {
 	private String iqrContent;
 	private Date iqrDate;
 	private int iqrStar;
-	private List<ItemrePic> repic;
+	private List<ItemrePic> itemrepic;
 }

@@ -1,5 +1,7 @@
 package com.today.bab.market1.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -17,5 +19,11 @@ public class ReviewItemDaoImpl implements ReviewItemDao {
 	@Override 
 	public int insertReviewPic(SqlSessionTemplate session,ItemrePic pic ) {
 		return session.insert("ireview.insertReviewPic",pic);
+	}
+	
+	
+	@Override
+	public List<ItemReview> selectReviewAll(SqlSessionTemplate session,int itemNo){
+		return session.selectList("ireview.selectReviewAll",itemNo);
 	}
 }

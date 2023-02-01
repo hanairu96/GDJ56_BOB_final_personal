@@ -76,10 +76,8 @@ public class reviewItemController {
 				}
 			}
 		}
-		r.setRepic(rePic);
-		System.out.println(r);
+		r.setItemrepic(rePic);
 		int result=service.insertRe(r);
-		System.out.println(result);
 		
 		if(result>0) {
 			mv.addObject("msg", "리뷰 작성 완료");

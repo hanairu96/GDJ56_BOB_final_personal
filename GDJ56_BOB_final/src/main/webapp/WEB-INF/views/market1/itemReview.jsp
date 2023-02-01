@@ -48,13 +48,11 @@
 			</div>
 
 			<!-- 리뷰 묶음-->
+			<c:forEach var="re" items="${reviews }">
 			<div style="margin:5%;">
 			    <div style="display: flex;">
 			        <div class="col-9">
-			            <h4>야채주스</h4>
-			        </div>
-			        <div>
-			            <button type="button" name="" style="border: none;">등록하기</button>
+			            <h4>${re.memberId }</h4>
 			        </div>
 			        <div>
 			            <button type="button" name="" style="margin-left : 10px;border: none;">삭제하기</button>
@@ -66,20 +64,25 @@
 			        <i class="fa fa-star"></i>
 			        <i class="fa fa-star"></i>
 			        <i class="fa fa-star-half-o"></i>
-			        <span>5</span>
+			        <span>${re.iqrStar }</span>
 			    </div>
 			    <div>
-			        <h5>야채주스 해먹었어요 너무 맛있어요!!</h5>
+			        <h5>${re.iqrContent }</h5>
 			    </div>
 			    <br>
 			    <div id="test11">
+			    <%-- <c:forEach var="pic" items="${picpic }">
+			        <img src="${path }/resources/upload/market/review/${pic.picName}" alt="" style="width:100px;height: 100px;">
+			    </c:forEach> --%>
+			        <img src="" alt="" style="width:100px;height: 100px;">
 			        <img src="" alt="" style="width:100px;height: 100px;">
 			        <img src="" alt="" style="width:100px;height: 100px;">
 			    </div>
 			    <div style="padding:10px; color:rgb(207, 207, 207);">
-			        2023.01.05
+			        <fmt:formatDate type="date" value="${re.iqrDate }"/>
 			    </div>
 			</div>
+			</c:forEach>
             <hr/>
               
 			<!-- 페이징처리 -->

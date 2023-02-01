@@ -20,10 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.today.bab.common.Market1Pagebar;
 import com.today.bab.market1.model.service.Market1Service;
 import com.today.bab.market1.model.service.QnaService;
+import com.today.bab.market1.model.service.ReviewItemService;
+import com.today.bab.market1.model.vo.ItemReview;
+import com.today.bab.market1.model.vo.ItemrePic;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/market1")
@@ -31,12 +32,14 @@ public class Market1Controller {
 	
 	private Market1Service service;
 	private QnaService qnaservice;
+	private ReviewItemService reservice;
 
 	@Autowired
-	public Market1Controller(Market1Service service,QnaService qnaservice) {
+	public Market1Controller(Market1Service service,QnaService qnaservice, ReviewItemService reservice) {
 		super();
 		this.service = service;
 		this.qnaservice = qnaservice;
+		this.reservice=reservice;
 	}
 	
 	
@@ -370,7 +373,17 @@ public class Market1Controller {
 			m.addAttribute("de",service.marketdetail(itemNo));
 		}else if(check.contains("b")) {
 			page="itemReview";
-//			m.addAttribute("reviews");
+			
+			List<ItemReview> list=reservice.selectReviewAll(itemNo);
+			m.addAttribute("reviews",list);
+//			String file="";
+//			int count=0;
+//			for(ItemrePic i : ((ItemReview) list).getItemrepic()) {
+//				if(count++!=0) file+=",";
+//				file+=i.getPicName();
+//			}
+//			m.addAttribute("picpic",file);
+			
 		}else if(check.contains("c")) {
 			page="itemExchange";
 		}else if(check.contains("d")) {
