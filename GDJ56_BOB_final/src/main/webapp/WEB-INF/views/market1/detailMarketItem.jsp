@@ -105,8 +105,13 @@
 	                            </div>
 	                        </div>
 	                        <br>
-	                        <a href="#" class="primary-btn" style="background-color: #07d448;">장바구니 담기</a>
-	                        <a href="#" class="primary-btn" style="background-color: #07d448;">바로결제하기</a>
+	                        <c:if test="${de.itemStock==0 }">
+		                        <a href="javascript:void(0);" class="primary-btn" style="background-color: magenta;" onclick="soldoutItem();">품절되었습니다.</a>
+	                        </c:if>
+	                        <c:if test="${de.itemStock>0 }">
+		                        <a href="#" class="primary-btn" style="background-color: #07d448;">장바구니 담기</a>
+		                        <a href="#" class="primary-btn" style="background-color: #07d448;">바로결제하기</a>
+	                        </c:if>
 	                        <br><br><br>
 	                        <b>원산지</b> <span><c:out value="${de.madeIn }"/></span><br><br>
 	                        <b>배송비</b> <span><c:out value="${de.delPrice }"/>원</span>
@@ -146,6 +151,11 @@
                 </div>
                 
                 <script>
+                	const soldoutItem=()=>{
+                		alert("품절되었습니다! 재입고를 기다려주세요!");
+                	}
+                
+                
 	            	const deleteItemFile=(no,pic,main,label)=>{
 	            		const pp=pic.split(",");
 	            		var addpath="";

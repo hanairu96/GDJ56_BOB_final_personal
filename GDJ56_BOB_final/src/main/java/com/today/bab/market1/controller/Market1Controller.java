@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,12 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.market1.model.service.Market1Service;
 import com.today.bab.market1.model.service.QnaService;
-import com.today.bab.market1.model.vo.ItemQna;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
 
@@ -67,9 +68,17 @@ public class Market1Controller {
 	
 	//상품 카테고리로 이동
 	@RequestMapping("/marketgtg.do")
-	public ModelAndView marketCtg(ModelAndView mv) {
+	public ModelAndView marketCtg(ModelAndView mv
+//			@RequestParam(value="cPage", defaultValue="1")int cPage,
+//			@RequestParam(value="numPerpage", defaultValue="5")int numPerpage
+			) {
+//		List<SellItem> list=service.selectItemCtg(Map.of("cPage",cPage,"numPerpage",numPerpage));
 		List<SellItem> list=service.selectItemCtg();
-		System.out.println(list);
+		
+		//페이징 처리하기 
+//		int totaldata=service.selectItemCount();
+//		mv.addObject("pageBar",PageFactory.getPage(cPage, numPerpage,totaldata,"marketgtg.do"));
+		
 		mv.addObject("i",list);
 		mv.setViewName("market1/marketGtg");
 		return mv;
@@ -401,7 +410,6 @@ public class Market1Controller {
 			categ="면";
 		}
 		List<SellItem> list=service.selectCtgAjax(categ);
-		System.out.println(list);
 		m.addAttribute("ii", list);
 		return "market1/resultGtgselect";
 	}

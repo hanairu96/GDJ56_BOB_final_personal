@@ -82,18 +82,6 @@
 	                    </div>
                     </div>
                     
-                        <!-- 재고 0일경우 분기처리 해줘야한다  -->
-                        <%-- <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg hov-img-zoom"  data-setbg="${path }/img/product/product-2.jpg" style="filter: grayscale(100%);">
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">바나나</a></h6>
-                                    <p>맛있는 바나나</p>
-                                    <h5 style="color: tomato;">재입고 준비중입니다</h5>
-                                </div>
-                            </div>
-                        </div> --%>
                     <div id="explain">
 	                    <div style="padding-bottom:20px;">
                             <h6><span style="font-weight:bold;padding:10px;">${i[1].sellitem_count }</span> 건</h6>
@@ -102,7 +90,8 @@
 						<c:forEach var="sell" items="${i }">
 	                        <div class="col-lg-4 col-md-6 col-sm-6">
 	                            <div class="product__item">
-	                                <div class="product__item__pic set-bg" style="background-image: url('${path }/resources/upload/market/mainlabel/${sell.mainPic }')">
+	                                <div class="product__item__pic set-bg"
+		style="background-image: url('${path }/resources/upload/market/mainlabel/${sell.mainPic }');${sell.itemStock==0?'filter: grayscale(100%)':''};">
 	                                    <ul class="product__item__pic__hover">
 	                                        <li><a href="#"><i class="fa fa-shopping" ><img src="${path }/resources/market/img/market-cart.png" style="width:27px;"></i></a></li>
 	                                    </ul>
@@ -115,7 +104,12 @@
 	                                    <c:out value="${sell.itemName }"/>
 	                                    </a></h6>
 	                                    <p><c:out value="${sell.mainContent }"/></p>
-	                                    <h5><c:out value="${sell.itemPrice }"/>원</h5>
+	                                    <c:if test="${sell.itemStock==0 }">
+	                                    	<h5 style="color: tomato;">재입고 준비중입니다</h5>
+	                                    </c:if>
+	                                    <c:if test="${sell.itemStock>0 }">
+	                                    	<h5><c:out value="${sell.itemPrice }"/>원</h5>
+	                                    </c:if>
 	                                </div>
 	                            </div>
 	                        </div>
