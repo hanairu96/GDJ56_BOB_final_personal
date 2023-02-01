@@ -69,6 +69,7 @@ public class Market1Controller {
 	@RequestMapping("/marketgtg.do")
 	public ModelAndView marketCtg(ModelAndView mv) {
 		List<SellItem> list=service.selectItemCtg();
+		System.out.println(list);
 		mv.addObject("i",list);
 		mv.setViewName("market1/marketGtg");
 		return mv;
@@ -400,6 +401,7 @@ public class Market1Controller {
 			categ="면";
 		}
 		List<SellItem> list=service.selectCtgAjax(categ);
+		System.out.println(list);
 		m.addAttribute("ii", list);
 		return "market1/resultGtgselect";
 	}

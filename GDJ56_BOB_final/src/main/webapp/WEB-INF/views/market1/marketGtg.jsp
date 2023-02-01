@@ -96,7 +96,7 @@
                         </div> --%>
                     <div id="explain">
 	                    <div style="padding-bottom:20px;">
-                            <h6><span style="font-weight:bold;padding:10px;">16(count...)</span> 건</h6>
+                            <h6><span style="font-weight:bold;padding:10px;">${i[1].sellitem_count }</span> 건</h6>
                         </div>
 	                    <div class="row">
 						<c:forEach var="sell" items="${i }">

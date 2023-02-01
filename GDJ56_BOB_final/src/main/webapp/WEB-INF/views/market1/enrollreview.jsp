@@ -22,7 +22,7 @@
             <form class="mb-3" action="" name="reviewform" id="reviewform" method="post">
                 <hr/>
                 <div style="display: flex;">
-                    <img src="./img/banner/banner-1.jpg" style="width:150px;height:150px;margin-left: 10px;"/>
+                    <img src="" style="width:150px;height:150px;margin-left: 10px;"/>
                     <h3 style="margin:55px;">상품 이름</h3>
                 </div>
                 <hr/>
