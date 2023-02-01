@@ -23,5 +23,6 @@ public class ItemQna {
 //	private SellItem itemNo;
 	private int itemNo;
 	private String iqSecret;
+	private int answer_count;
 
 }

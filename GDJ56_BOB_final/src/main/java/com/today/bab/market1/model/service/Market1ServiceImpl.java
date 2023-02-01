@@ -26,8 +26,8 @@ public class Market1ServiceImpl implements Market1Service{
 	}
 	
 	@Override
-	public List<SellItem> selectItemCtg(){
-		return dao.selectItemCtg(session);
+	public List<SellItem> selectItemCtg(Map<String, Integer> param){
+		return dao.selectItemCtg(session,param);
 	}
 	
 	@Override
@@ -85,5 +85,10 @@ public class Market1ServiceImpl implements Market1Service{
 	@Override
 	public List<SellItem> selectCtgAjax(String itemCategory){
 		return dao.selectCtgAjax(session,itemCategory);
+	}
+	
+	@Override
+	public int selectItemCount() {
+		return dao.selectItemCount(session);
 	}
 }

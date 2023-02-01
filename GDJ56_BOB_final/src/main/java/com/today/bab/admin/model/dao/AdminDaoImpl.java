@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
+import com.today.bab.admin.model.vo.AdminQnaAll;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
@@ -111,6 +112,42 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public int updateClientQNA(SqlSessionTemplate session,int cqNo) {
 		return session.update("admin.updateClientQNA",cqNo);
+	}
+
+	@Override
+	public List<AdminQnaAll> adminQnAAll(SqlSessionTemplate session,Map<String,Integer> param) {
+		return session.selectList("admin.adminQnAAll",null, 
+	            new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+	                  param.get("numPerpage")));
+	}
+
+	@Override
+	public int adminQnAAllCount(SqlSessionTemplate session) {
+		return session.selectOne("admin.adminQnAAllCount");
+	}
+
+	@Override
+	public int qnAMarketCount(SqlSessionTemplate session) {
+		return session.selectOne("admin.qnAMarketCount");
+	}
+
+	@Override
+	public int qnAOnedayCount(SqlSessionTemplate session) {
+		return session.selectOne("admin.qnAOnedayCount");
+	}
+	
+	@Override
+	public List<AdminQnaAll> adminQnAMarket(SqlSessionTemplate session,Map<String,Integer> param) {
+		return session.selectList("admin.adminQnAMarket",null, 
+	            new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+	                  param.get("numPerpage")));
+	}
+	
+	@Override
+	public List<AdminQnaAll> adminQnAOneDay(SqlSessionTemplate session,Map<String,Integer> param) {
+		return session.selectList("admin.adminQnAOneDay",null, 
+	            new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+	                  param.get("numPerpage")));
 	}
 	
 }

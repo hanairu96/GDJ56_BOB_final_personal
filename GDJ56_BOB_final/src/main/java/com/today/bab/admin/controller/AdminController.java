@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.today.bab.admin.model.service.AdminService;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
+import com.today.bab.admin.model.vo.AdminQnaAll;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
@@ -277,8 +278,60 @@ private AdminService service;
 	
 	//문의관리
 	@RequestMapping("/QnAAll.do")
-	public String adminQnAAll() {
-		return "admin/adminQnAAll";
+	public ModelAndView adminQnAAll(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {
+		
+		mv.addObject("list",service.adminQnAAll(Map.of("cPage",cPage,"numPerpage",numPerpage)));
+		
+		//페이징처리하기
+		int totalData=service.adminQnAAllCount(); //마켓+원데이 수
+		
+		mv.addObject("pageBar",AdminPageBar.getPage(cPage, numPerpage, totalData, "QnAAll.do"));
+		mv.addObject("totalData",totalData);
+		mv.addObject("cateG","전체");
+		mv.setViewName("admin/adminQnAAll");
+		
+		return mv;
+		
+	}
+	
+	//문의관리-마켓
+	@RequestMapping("/qnAMarket.do") 
+	public ModelAndView qnAMarket(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {
+		
+		mv.addObject("list",service.adminQnAMarket(Map.of("cPage",cPage,"numPerpage",numPerpage)));
+		//페이징처리하기
+		int totalData=service.qnAMarketCount(); //마켓 수
+		
+		mv.addObject("pageBar",AdminPageBar.getPage(cPage, numPerpage, totalData, "qnAMarket.do"));
+		mv.addObject("totalData",totalData);
+		mv.addObject("cateG","마켓");
+		mv.setViewName("admin/adminQnAAll");
+		
+		return mv;
+		
+	}
+	
+	//문의관리-원데이
+	@RequestMapping("/qnAOneday.do")
+	public ModelAndView qnAOneday(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {
+		
+		mv.addObject("list",service.adminQnAOneDay(Map.of("cPage",cPage,"numPerpage",numPerpage)));
+		//페이징처리하기
+		int totalData=service.qnAOnedayCount(); //원데이 수
+		
+		mv.addObject("pageBar",AdminPageBar.getPage(cPage, numPerpage, totalData, "qnAOneday.do"));
+		mv.addObject("totalData",totalData);
+		mv.addObject("cateG","원데이");
+		mv.setViewName("admin/adminQnAAll");
+		
+		return mv;
+		
 	}
 	
 	//환불관리

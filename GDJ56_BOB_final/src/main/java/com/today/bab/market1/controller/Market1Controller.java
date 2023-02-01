@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,12 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.today.bab.common.Market1Pagebar;
 import com.today.bab.market1.model.service.Market1Service;
 import com.today.bab.market1.model.service.QnaService;
-import com.today.bab.market1.model.vo.ItemQna;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
 
@@ -67,8 +69,17 @@ public class Market1Controller {
 	
 	//상품 카테고리로 이동
 	@RequestMapping("/marketgtg.do")
-	public ModelAndView marketCtg(ModelAndView mv) {
-		List<SellItem> list=service.selectItemCtg();
+	public ModelAndView marketCtg(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1")int cPage,
+			@RequestParam(value="numPerpage", defaultValue="15")int numPerpage
+			) {
+		List<SellItem> list=service.selectItemCtg(Map.of("cPage",cPage,"numPerpage",numPerpage));
+//		List<SellItem> list=service.selectItemCtg();
+		
+		//페이징 처리하기 
+		int totaldata=service.selectItemCount();
+		mv.addObject("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"marketgtg.do"));
+		
 		mv.addObject("i",list);
 		mv.setViewName("market1/marketGtg");
 		return mv;
@@ -87,6 +98,7 @@ public class Market1Controller {
 			file+=i.getPicName();
 		}
 		mv.addObject("picpic",file);
+		mv.addObject("qna",qnaservice.selectQnaList(itemNo));
 		mv.setViewName("market1/detailMarketItem");
 		return mv;
 	}
@@ -365,6 +377,7 @@ public class Market1Controller {
 		}else if(check.contains("d")) {
 			page="itemQna";
 			m.addAttribute("qna",qnaservice.selectQnaList(itemNo));
+			m.addAttribute("an",qnaservice.selectIqAnswer(itemNo));
 		}
 		m.addAttribute("itemNo", itemNo);
 		return "market1/"+page;

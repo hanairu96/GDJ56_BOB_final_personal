@@ -73,8 +73,8 @@
 			    </div>
 			    <br>
 			    <div id="test11">
-			        <img src="./img/banner/jjjj.jpg" alt="" style="width:100px;height: 100px;">
-			        <img src="./img/banner/jjjj.jpg" alt="" style="width:100px;height: 100px;">
+			        <img src="" alt="" style="width:100px;height: 100px;">
+			        <img src="" alt="" style="width:100px;height: 100px;">
 			    </div>
 			    <div style="padding:10px; color:rgb(207, 207, 207);">
 			        2023.01.05

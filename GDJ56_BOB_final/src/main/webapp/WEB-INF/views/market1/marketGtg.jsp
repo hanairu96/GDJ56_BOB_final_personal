@@ -74,70 +74,49 @@
                 </div>
                 
                 <div class="col-lg-9 col-md-7">
-                    <div class="filter__item">
-                        <div class="row">
-                            <div class="col-lg-2 col-md-순">
-                                <div class="filter__found">
-                                    <h6><span>16(count...)</span>건</h6>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-9 col-md-3">
-                                <div class="filter__option" style="font-weight: bold;">
-                                    <a href="" style="color: black;">고액순 </a>|
-                                    <a href="" style="color: black;"> 저가순 </a>|
-                                    <a href="" style="color: black;"> 판매순</a>
-                                </div>
-                            </div>
-
-                        </div>
+                    <div class="filter__item" style="padding-top:20px;">
+	                    <div class="filter__option" style="font-weight: bold;font-size:20px;">
+	                        <a href="" style="color: black;margin:10px;">고액순 </a>|
+	                        <a href="" style="color: black;margin:10px;"> 저가순 </a>|
+	                        <a href="" style="color: black;margin:10px;"> 판매순</a>
+	                    </div>
                     </div>
                     
-                    
-                        <!-- 재고 0일경우  -->
-                        <%-- <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg hov-img-zoom"  data-setbg="${path }/img/product/product-2.jpg" style="filter: grayscale(100%);">
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">바나나</a></h6>
-                                    <p>맛있는 바나나</p>
-                                    <h5 style="color: tomato;">재입고 준비중입니다</h5>
-                                </div>
-                            </div>
-                        </div> --%>
                     <div id="explain">
+	                    <div style="padding-bottom:20px;">
+                            <h6><span style="font-weight:bold;padding:10px;">${i[0].sellitem_count }</span> 건</h6>
+                        </div>
 	                    <div class="row">
 						<c:forEach var="sell" items="${i }">
 	                        <div class="col-lg-4 col-md-6 col-sm-6">
 	                            <div class="product__item">
-	                                <div class="product__item__pic set-bg" style="background-image: url('${path }/resources/upload/market/mainlabel/${sell.mainPic }')">
+	                                <div class="product__item__pic set-bg"
+		style="background-image: url('${path }/resources/upload/market/mainlabel/${sell.mainPic }');${sell.itemStock==0?'filter: grayscale(100%)':''};">
 	                                    <ul class="product__item__pic__hover">
 	                                        <li><a href="#"><i class="fa fa-shopping" ><img src="${path }/resources/market/img/market-cart.png" style="width:27px;"></i></a></li>
 	                                    </ul>
 	                                </div>
 	                                <div class="product__item__text">
-	                                    <h6><a href="${path }/market1/marketdetail.do?itemNo=${sell.itemNo }">
+	                                    <h6><a href="${path }/market1/marketdetail.do?itemNo=${sell.itemNo }" style="font-weight:bold;">
 	                            	    <c:if test="${sell.itemBrand!=null }">
 								        	[${sell.itemBrand }]
 								        </c:if>
 	                                    <c:out value="${sell.itemName }"/>
 	                                    </a></h6>
 	                                    <p><c:out value="${sell.mainContent }"/></p>
-	                                    <h5><c:out value="${sell.itemPrice }"/>원</h5>
+	                                    <c:if test="${sell.itemStock==0 }">
+	                                    	<h5 style="color: tomato;">재입고 준비중입니다</h5>
+	                                    </c:if>
+	                                    <c:if test="${sell.itemStock>0 }">
+	                                    	<h5><c:out value="${sell.itemPrice }"/>원</h5>
+	                                    </c:if>
 	                                </div>
 	                            </div>
 	                        </div>
 						</c:forEach>
 	                	</div>
 	                    <!-- 페이징처리 -->
-	                    <div class="product__pagination">
-	                        <a href="#"><i class="fa" style="font-weight:bold;"> &lt; </i></a>
-	                        <a href="#">1</a>
-	                        <a href="#">2</a>
-	                        <a href="#">3</a>
-	                        <a href="#"><i class="fa" style="font-weight:bold;"> > </i></a>
-	                    </div>
+	                    ${pageBar }
                 	</div>
                 
             </div>

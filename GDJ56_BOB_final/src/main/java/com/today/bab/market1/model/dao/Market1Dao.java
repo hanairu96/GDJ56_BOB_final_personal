@@ -10,7 +10,7 @@ import com.today.bab.market2.model.vo.SellItem;
 
 public interface Market1Dao {
 	
-	List<SellItem> selectItemCtg(SqlSessionTemplate session);
+	List<SellItem> selectItemCtg(SqlSessionTemplate session,Map<String, Integer> param);
 	
 	SellItem marketdetail(SqlSessionTemplate session, int itemNo);
 	
@@ -29,4 +29,6 @@ public interface Market1Dao {
 	int deleteItemPic(SqlSessionTemplate session,int itemNo);
 	
 	List<SellItem> selectCtgAjax(SqlSessionTemplate session,String itemCategory);
+	
+	int selectItemCount(SqlSessionTemplate session);
 }
