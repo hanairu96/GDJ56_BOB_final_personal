@@ -260,8 +260,8 @@
                 <!-- New Table -->
                 <div class="w-full overflow-hidden rounded-lg shadow-xs"  >
                   <div class="w-full overflow-x-auto">
-	                  <div style="display:flex;justify-content:space-between;align-items:center;">
-			          	<p>답변해야 할 문의가 총 <b>${totalData }개</b> 있습니다.</p>
+	                <div style="display:flex;justify-content:space-between;align-items:center;">
+			          	<p style="color:red;margin-left:50px;"> >>> 답변해야 할 문의가 총 <b>${totalData }개</b> 있습니다.</p>
 		        	</div>
                     <table class="w-full whitespace-no-wrap"style="text-align:center;">
                       <c:if test="${empty list }">

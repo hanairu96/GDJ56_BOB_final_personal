@@ -302,7 +302,7 @@ private AdminService service;
 			@RequestParam(value="cPage", defaultValue="1") int cPage,
 			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {
 		
-		mv.addObject("list",service.adminQnAAll(Map.of("cPage",cPage,"numPerpage",numPerpage)));
+		mv.addObject("list",service.adminQnAMarket(Map.of("cPage",cPage,"numPerpage",numPerpage)));
 		//페이징처리하기
 		int totalData=service.qnAMarketCount(); //마켓 수
 		

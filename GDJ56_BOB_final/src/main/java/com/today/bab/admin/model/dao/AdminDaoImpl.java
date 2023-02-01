@@ -137,6 +137,13 @@ public class AdminDaoImpl implements AdminDao{
 	}
 	
 	@Override
+	public List<AdminQnaAll> adminQnAMarket(SqlSessionTemplate session,Map<String,Integer> param) {
+		return session.selectList("admin.adminQnAMarket",null, 
+	            new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+	                  param.get("numPerpage")));
+	}
+	
+	@Override
 	public List<AdminQnaAll> adminQnAOneDay(SqlSessionTemplate session,Map<String,Integer> param) {
 		return session.selectList("admin.adminQnAOneDay",null, 
 	            new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
