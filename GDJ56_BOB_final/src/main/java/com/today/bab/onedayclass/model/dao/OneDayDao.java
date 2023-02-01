@@ -9,6 +9,7 @@ import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.onedayclass.model.vo.OdcQa;
 import com.today.bab.onedayclass.model.vo.OdcQaRe;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
+import com.today.bab.onedayclass.model.vo.OdcReview;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 public interface OneDayDao {
@@ -25,4 +26,5 @@ public interface OneDayDao {
 	void inputReplayOdcQa(SqlSessionTemplate session, OdcQaRe oqr);
 	List<OdcQaRe> selectReOdcQaAll(SqlSessionTemplate session, int oqNo);
 	List<OdcReserve> selectReserve(SqlSessionTemplate session, Map param);
+	List<OdcReview> selectReview(SqlSessionTemplate session, int no);
 }

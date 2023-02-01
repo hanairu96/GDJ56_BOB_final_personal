@@ -10,6 +10,7 @@ import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.onedayclass.model.vo.OdcQa;
 import com.today.bab.onedayclass.model.vo.OdcQaRe;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
+import com.today.bab.onedayclass.model.vo.OdcReview;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 @Repository
@@ -76,6 +77,13 @@ public class OneDayDaoImpl implements OneDayDao {
 	public List<OdcReserve> selectReserve(SqlSessionTemplate session, Map param) {
 		return session.selectList("onedayclass.selectReserve", param);
 	}
+
+	@Override
+	public List<OdcReview> selectReview(SqlSessionTemplate session, int no) {
+		return session.selectList("onedayclass.selectReview",no);
+	}
+	
+	
 	
 	
 	

@@ -6,8 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +44,7 @@ import com.today.bab.onedayclass.model.service.OneDayService;
 import com.today.bab.onedayclass.model.vo.OdcQa;
 import com.today.bab.onedayclass.model.vo.OdcQaRe;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
+import com.today.bab.onedayclass.model.vo.OdcReview;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 import lombok.extern.slf4j.Slf4j;
@@ -293,10 +296,42 @@ public class OneDayController {
 	  Map<String, Object> param = new HashMap();
       param.put("id", id);
       param.put("no", no);
-	  List<OdcReserve> result =service.selectReserve(param);
-	  System.out.println("예약한 리스트"+result);
+	  List<OdcReserve> reserveList =service.selectReserve(param);
+	  System.out.println("예약한 리스트"+reserveList);
 	  
-      mv.setViewName("onedayclass/onedayReviewPop");
+	  //예약날짜 저장
+	  String[] arr = new String[reserveList.size()];
+	  //예약시퀀스 번호 기준으로의 리뷰리스트
+	  List<OdcReview> OdcReviewList=new ArrayList();
+	  
+	  //예약리스트 존재여부
+	  if(!reserveList.isEmpty()) {
+		  for(int i=0;i<reserveList.size();i++) {
+			  
+			  //예약시퀀스번호 기준으로 리뷰 가져오기
+			  OdcReviewList=service.selectReview(reserveList.get(i).getOdcreNo());
+			  
+			  //한 클래스의 예약한 날짜를 가져오기
+			  DateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+			  Date nowDate = new Date();
+			  nowDate=reserveList.get(i).getOdcDate();
+			  String today = sdFormat.format(nowDate);
+			  
+			  arr[i]=today;
+			 
+			  
+			  
+		  }
+		 System.out.println("이 클래스의 예약 날짜들:"+Arrays.toString(arr));
+		 System.out.println("시퀀스 번호 기준으로 리뷰리스트"+OdcReviewList);
+		 //System.out.println("이 클래스의 예약한 횟수:"+arr.length);
+		 //System.out.println("이 클래스의 리뷰한 횟수:");
+		  mv.addObject("reserveList", reserveList);
+		  mv.setViewName("onedayclass/onedayReviewPop");
+	  }else {
+		  mv.addObject("msg","리뷰는 클래스를 수강한 회원만 가능합니다");
+	      mv.setViewName("common/close");
+	  }
       return mv;
       
    }
