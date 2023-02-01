@@ -159,7 +159,7 @@
 									</div>
 									<h3>│</h3>
 									<div style="margin-left: 3%;margin-right: 3%; display: flex;">
-										<h3>문의글</h3>
+										<a href="#qna"><h3>문의글</h3></a>
 									</div>
 								</div>
 								<br>
@@ -221,18 +221,35 @@
 								<span>───────────────────────────────────────────────────</span>
 							</div>
 	
-							<!-- 후기 리뷰 남기기 -->
-							<form class="leave-comment p-t-10">
-								<h4 class="txt33 p-b-14">
+							<!-- 후-->
+							<div>
+								<div style="display:flex;">
+									<h4 class="txt33">
 									수강후기
-								</h4>
-	
+									</h4>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="hidden" name="memberId" value="${loginMember.memberId}" id="memberId">
+									<button type="button" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-right:30%"
+									onclick="goPopup(event);">
+											리뷰작성하기
+									</button>
+									
+									
+									<script type="text/javascript">
+						            	function goPopup(e){
+						            		var memberId=$(e.target).prev("input").val();
+						            		var gsWin=window.open("${path}/class/pop.do?id="+memberId,"winName","width=520,height=730"); //open("주소",띄우는방식,크기)
+						            		console.log(oqno);
+						            	}
+									</script>
+									
+								</div>
+								<br>
 								<p style="color: rgb(195, 195, 195);">
-									* 과도한 욕설과 비방은 통보없이 삭제될 수 있습니다 
+									* 클래스를 수강한 회원님들의 후기입니다.
 								</p>
 								<br>
 								<div class="col-md-12" style="display: flex;">
-			
 									<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
 										<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="email" placeholder="수강후기를 남겨주세요">
 									</div>
@@ -240,17 +257,15 @@
 										등록
 									</button>
 								</div>
-	
-							</form>
+							</div>
 							
 							<div id="reviewtList"></div>
-							
 
-							<div style="margin-bottom: 3%; margin-top: 3%;">
-								<span>───────────────────────────────────────────────────</span>
+							<div style="margin-bottom: 7%; margin-top: 3%;">
+								<span id="qna">───────────────────────────────────────────────────</span>
 							</div>
 		
-							<div class="leave-comment p-t-10">
+							<div>
 								<h4 class="txt33 p-b-14">
 									문의하기
 								</h4>
@@ -344,6 +359,7 @@
 			//입력값
 			const oqrContetnt=$(e.target).prev("input").val();
 			const masterId= $('#masterId').val();
+			const admin="admin";
 			
 			console.log(oqrContetnt);
 			console.log(memberId);
@@ -355,8 +371,8 @@
 				return;
 			}else if(oqContent == '') {
 				alert('내용을 입력하세요');
-			}else if(masterId!=memberId){
-				alert('해당 클래스 강사님만 답변이 가능합니다');
+			}else if(masterId!=memberId&&memberId!=admin){
+				alert('해당 클래스 강사님또는 관리자만 답변이 가능합니다');
 				return;
 			} 
 			

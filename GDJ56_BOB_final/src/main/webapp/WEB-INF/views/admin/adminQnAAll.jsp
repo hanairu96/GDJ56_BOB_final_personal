@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath }"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="path" value="${pageContext.request.contextPath }"/> 
 
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
@@ -257,12 +259,22 @@
                       마켓/원데이클래스 문의 관리 </h2>
 
                       <div style="width:100%;text-align: center;">
+                      	<div style="display: inline-block;">
                           <h2
-                          style="font-size: 15px; color: gray; padding: 10px;"
+                          style="font-size: 18px; color: gray; padding: 10px;display:flex;flex-direction:row;text-align:center;""
                           class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
                         >
-                            <a href="" >마켓</a> &nbsp;/&nbsp; <a href="">원데이클래스</a>
+                        	<c:if test="${fn:contains(cateG,'마켓')}">
+                            	 <a href="${path }/admin/QnAAll.do" ><p style="padding-right:15px;">전체</p></a> / <a href="${path }/admin/qnAMarket.do" ><p style="color:blue;padding-left:15px;padding-right:15px;">마켓</p></a> / <a href="${path }/admin/qnAOneday.do"><p style="padding-left:15px;">원데이클래스</p></a>
+                          	</c:if>
+                          	<c:if test="${fn:contains(cateG,'원데이')}">
+                            	<a href="${path }/admin/QnAAll.do" ><p style="padding-right:15px;">전체</p></a> / <a href="${path }/admin/qnAMarket.do" ><p style="padding-left:15px;padding-right:15px;">마켓</p></a> / <a href="${path }/admin/qnAOneday.do"><p style="color:blue;padding-left:15px;">원데이클래스</p></a>
+                          	</c:if>
+                          	<c:if test="${fn:contains(cateG,'전체')}">
+                            	<a href="${path }/admin/QnAAll.do" ><p style="color:blue;padding-right:15px;">전체</p></a> / <a href="${path }/admin/qnAMarket.do" ><p style="padding-left:15px;padding-right:15px;">마켓</p></a> / <a href="${path }/admin/qnAOneday.do"><p style="padding-left:15px;">원데이클래스</p></a>
+                          	</c:if>
                           </h2>
+                       </div>
                     </div>
                   </div>
                 </div>
@@ -270,109 +282,221 @@
                 <!-- New Table -->
                 <div class="w-full overflow-hidden rounded-lg shadow-xs">
                   <div class="w-full overflow-x-auto">
+                  	<div style="display:flex;justify-content:space-between;align-items:center;">
+			          	<p style="color:red;margin-left:50px;"> >>> 답변해야 할 문의가 총 <b>${totalData }개</b> 있습니다.</p>
+		        	</div>
                     <table class="w-full whitespace-no-wrap"style="text-align:center;">
-                      <thead>
-                        <tr
-                        style="text-align:center;"
-                          class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-                        >
-                          <th class="px-4 py-3">카테고리</th>
-                          <th class="px-4 py-3">상품명</th>
-                          <th class="px-4 py-3">내용</th>
-                          <th class="px-4 py-3">닉네임</th>
-                          <th class="px-4 py-3">문의날짜</th>
-                        </tr>
-                      </thead>
-                      <tbody
-                        class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
-                      >
-                      <tr class="text-gray-700 dark:text-gray-400">
-
-                        <td class="px-4 py-3 text-sm font-semibold">
-                          <div class="flex items-center text-sm" style="display: flex; justify-content:center">
-                            <!-- Avatar with inset shadow -->
-                            <div
-                              class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                            >
-                             <img 
-                              class="object-cover w-full h-full rounded-full"
-                              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAADsUlEQVR4nO2Va0xbZRzG+8kPJvumiTHzg59moD2nl9PTQneVW2JAGJsmbnE1cw3BsIsbRpKZYKSnl9N260bHrWywKS4lIZIhYTAgo6x0SMp0i7oQydA5LgazlTKoPad9TEmKtqd1RRf9YJ/k+XSe9///ve/7f3NEoowySlB2dt1LGo11giAZXkIwiFlJW8JjkzBFrc61PfzztyeZIA08rbJ5srLYF0RPUq7GdrO5+QbP82HE5Hb/gK3b7RHvJBDnWwghiSiajfRe86/nRr/iUV0zxNFq2+BfNlcoap+jlOYgx/3RPKrGxlGUlbfz6QJs227n2z+ficu6xznI5abgli3mTSkBsglDcUXFZX9iwfdPdKHycK8AYL+2M+xy+QQAxSVNnMX+dTzsJFC6u/0RQehLUgLcv7+4eSmwGkksuOfNVr7OOC4ouHvvxUhLyw0BgE7XEamuGRJc2cf6sTBFWVpSAni9944nO9K8vHqu6fxU2gAGw1Xsf9vFJeY7u+ehpK0PkjYXi5lX8vLPCo4/KnWOLdLV80vaAN3d3yC/sDGcmB/zASqV9TFB1L2cBEBfdfKjKyuJxXg+AqnMiJGbIQFA+RuXkAxgZuZXKChWkI9ae7ArICb0BwUASiVb39wsLDY9vQhSakxaLArgODciWBN9RTK5GdfcK4I1H9QMgySZTwQAJMlUvHvos8eJxVydPqhyrLjcNSs4zoLCBhzQXhQATEz8GH2KsDvuCABeL7uwLJEw+wQACkXts7SK/ZllB7jZWT+Wl39DX9+32PWqHQ7HCAqLGtDWcQ+j4zy+HHiEqqO90Gov4a19bTAa+zE350cwyMHjmUZRkQMNDW7s2HEG55x3cd0bQk//Q1Qd6wspact0VlbtM0kHUSYzv5irsX1BKU0hJW3GIV0Hbt9+sLarKz13UFLaApnciPwCBwyGgTXIpaVV1On7UFBYD7nChD17nbja/93aGp/vJxzQfgolzUKuMAdoldUllTLPp3yGMUXvqLFpFE9Rq6KNiEwT4EKbN+UPKDo7MTmdHk5MMhVPHeDM2esoLnejspqLc3HZEJytnvXcqVODnJhgajIAoswV/JtD2Hp+7L8bQt2RRSwsLP0TAMPJ0/Zh/u8CHP6Qi8sxhv6gRKI/ljZANslodu46HZiaWoDfv5rSrGUQr5UOQ3c0EOfK44H1zPd357F1my1AEEaZaCOSU+b31DmWeQVlWkllqcwYImUmXkaxoUTHMuoc65xcbnxnQ80z+l/pd9sT+w0MpAzfAAAAAElFTkSuQmCC">
-
-                              <div
-                                class="absolute inset-0 rounded-full shadow-inner"
-                                aria-hidden="true"
-                              ></div>
-                            </div>
-                            <div style="display: flex;flex-direction: row;">
-                              <p class="font-semibold">마켓</p>
-                            </div>
-                          </div>
-                          
-                        </td>
-                        <td class="px-4 py-3 text-sm font-semibold">
-                          시금치
-                        </td>
-
-                        </td>
-                        <td class="px-4 py-3 text-sm font-semibold">
-                          시금치 재입고는 언제인가요?
-                        </td>
-                        <td class="px-4 py-3 text-xs font-semibold">
-                          질문쟁이1
-                        </td>
-                        <td class="px-4 py-3 text-sm font-semibold">
-                          6/10/2020
-                        </td>
-                      </tr>
-
-                      <tr class="text-gray-700 dark:text-gray-400">
-
-                        <td class="px-4 py-3 text-sm font-semibold">
-                          <div class="flex items-center text-sm" style="display: flex; justify-content:center">
-                            <!-- Avatar with inset shadow -->
-                            <div
-                              class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                            >
-                            <img 
-                              class="object-cover w-full h-full rounded-full"
-                              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAEbUlEQVR4nLVXbUxTVxjusv1eth/bsriP7POHTgEB+RAJywYx/CBsi9sPt/0yCBL5oYka2FiG0TQxCs7IIvJHJvKxKRja0nPbUoaFttxz2yIU/MgiAn82UCj3tlAWfZZzCxtt7y2lq2/ypCen977POe973ue+R6NJ0CTa+/qCYHyfgY01z9oCw8Y3RUoqJUpMEuUWJcohAmyOW6TkkN9heCN5xILlbZGSFpEnTxVIFbH6bCeLTsLEsFpfEHlyRqRkJV7i6IVwQZESLfO1KfKF27qXV0ONJIFjPuMn58l4EslD4Il3w0Wgs/N5kXKGpJOvi0TMdIg8OZMsMv/tgdBYMIWfC0q0iuRLw6Z32aFJ1gKWJ73y79I9IXIBK4rVIVHu16Tt3tOP4NQdeRycvhsVBYlybdEiw8df5xuB7do/ektOw/Lk+Oq8CZLLHIoCT5763eYt63JvOpwI0T1jByxXLmLa2hUegZHfZbLAmA2BsUF5LjDhDM2vPsMUc334uXhJRZ6g8eR3OHaoDA21x6G7dA5HDx6Ap7sFg21NuFhXjbKv9yM7J09+ThLMCIzbEZy5H5YKkSfGUOkBz6louyLYjlvrT2PW1oO+lkbUf38c3371JdIzcvB5cTFqqirQ8ZMW90lHKBpuK5YfjEFyWSJ9+ULht5tfi4f4oeU6epvPo7qqHPtKS7EzPRtflJTgxyOHcfPns7Bf+AG/lX+GO63nw98VzPC7+xR9LroMr2h8TtOHaqRe3TU51IWfFiErJw9l3+xHY10Nhtov47HdgImrDeg/WQWfXQ/vlbO4XrkPk13NmBvoAldzAOO/1MfclM/FfaC6AL/LAqHPiCFjD6Y9diw98Monej283S0YOFeL+VFH2PyjkUHYLtThrr4dy3+MxF6AqJKCwKgNf808hODyqGLE7YHXo/yfR6BwOp1wU6qkA/+lAKFD6Ius479np+Gx9SMnv2hTyN5TiJT0HGzdkS6jtrpG9hWpiBIlC6plGJyawBO/DyuLj1G4tzRu8p1Z+diWkvEvOYPXI8i+mM+Icg6VIbNQq6WcpyZtXUzSzNyPkZq5G9tSw4kZior2qubfz3PlMjkz1sOpSfEjux7FxSVIz8qXkbZrD1IycrE9LQtbd0STruGj1EyM3LyqImbckzApZibxXLvaam9da8L21F2qZJFgaWit18YoQdKqibQlB3lH5LlltZcGO5qRm1ewIXlaRi50TQ0xpJwLLlDLexolEynRKqbBYcCfNh1m+rtx+sRRFBR8Iod4/Y535xXgRGUFpqw3MDuoh48nat+SU5rYLRnRh4nFsFEmnrTciILQ1QJb2+Wo+WlrN2Ztus23ZLGaUvYVXHD2ytGYG9Jjbsgg75T9yrDrMe8wqu6cNaXzbutLmnhszmF4UeS5nlg6vhmIlCNxt+VhFxNKtP+nT5QvJjw5xVKrSdQC1PSWyHOXWO1u+mqmdtoTMb/bvGWRmipYOCO/HWvazuSVKVyUyDwLEz3k1bXrORsn6ugfCLWGahFcXZsAAAAASUVORK5CYII=">
-                              
-                              <div
-                                class="absolute inset-0 rounded-full shadow-inner"
-                                aria-hidden="true"
-                              ></div>
-                            </div>
-                            <div style="display: flex;flex-direction: row;">
-                              <p class="font-semibold">원데이클래스</p>
-                            </div>
-                          </div>
-                          
-                        </td>
-                        <td class="px-4 py-3 text-sm font-semibold">
-                          저염식치즈만들기
-                        </td>
-
-                        </td>
-                        <td class="px-4 py-3 text-sm font-semibold">
-                          몇명이서 듣는 클래스인가요?
-                        </td>
-                        <td class="px-4 py-3 text-xs font-semibold">
-                          질문쟁이2
-                        </td>
-                        <td class="px-4 py-3 text-sm font-semibold">
-                          6/10/2020
-                        </td>
-                      </tr>
-                      
-                      
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+	                     <c:if test="${empty list }">
+		                  	 <thead>
+				            	<tr>
+				            		<td colspan="5">문의사항이 없습니다 :)</td>
+				            	</tr>
+				            </thead>
+			            </c:if>
+			            <c:if test="${not empty list }">
+	                      <thead>
+	                        <tr
+	                        style="text-align:center;"
+	                          class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+	                        >
+	                          <th class="px-4 py-3">카테고리</th>
+	                          <th class="px-4 py-3">상품명</th>
+	                          <th class="px-4 py-3">내용</th>
+	                          <th class="px-4 py-3">질문자</th>
+	                          <th class="px-4 py-3">문의날짜</th>
+	                        </tr>
+	                      </thead>
+	                      <tbody
+	                        class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+	                      >
+	                      
+	                      <!-- 마켓클릭한경우 -->
+	                      <c:if test="${fn:contains(cateG,'마켓')}">
+	                      <c:forEach var="m" items="${list }" >
+	                      	<c:if test="${fn:contains(m.cate,'마켓')}">
+		                      <tr class="text-gray-700 dark:text-gray-400">
+		
+		                        <td class="px-4 py-3 text-sm font-semibold">
+		                          <div class="flex items-center text-sm" style="display: flex; justify-content:center">
+		                            <!-- Avatar with inset shadow -->
+		                            <div
+		                              class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
+		                            >
+			                             <img 
+			                              class="object-cover w-full h-full rounded-full"
+			                              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAADsUlEQVR4nO2Va0xbZRzG+8kPJvumiTHzg59moD2nl9PTQneVW2JAGJsmbnE1cw3BsIsbRpKZYKSnl9N260bHrWywKS4lIZIhYTAgo6x0SMp0i7oQydA5LgazlTKoPad9TEmKtqd1RRf9YJ/k+XSe9///ve/7f3NEoowySlB2dt1LGo11giAZXkIwiFlJW8JjkzBFrc61PfzztyeZIA08rbJ5srLYF0RPUq7GdrO5+QbP82HE5Hb/gK3b7RHvJBDnWwghiSiajfRe86/nRr/iUV0zxNFq2+BfNlcoap+jlOYgx/3RPKrGxlGUlbfz6QJs227n2z+ficu6xznI5abgli3mTSkBsglDcUXFZX9iwfdPdKHycK8AYL+2M+xy+QQAxSVNnMX+dTzsJFC6u/0RQehLUgLcv7+4eSmwGkksuOfNVr7OOC4ouHvvxUhLyw0BgE7XEamuGRJc2cf6sTBFWVpSAni9944nO9K8vHqu6fxU2gAGw1Xsf9vFJeY7u+ehpK0PkjYXi5lX8vLPCo4/KnWOLdLV80vaAN3d3yC/sDGcmB/zASqV9TFB1L2cBEBfdfKjKyuJxXg+AqnMiJGbIQFA+RuXkAxgZuZXKChWkI9ae7ArICb0BwUASiVb39wsLDY9vQhSakxaLArgODciWBN9RTK5GdfcK4I1H9QMgySZTwQAJMlUvHvos8eJxVydPqhyrLjcNSs4zoLCBhzQXhQATEz8GH2KsDvuCABeL7uwLJEw+wQACkXts7SK/ZllB7jZWT+Wl39DX9+32PWqHQ7HCAqLGtDWcQ+j4zy+HHiEqqO90Gov4a19bTAa+zE350cwyMHjmUZRkQMNDW7s2HEG55x3cd0bQk//Q1Qd6wspact0VlbtM0kHUSYzv5irsX1BKU0hJW3GIV0Hbt9+sLarKz13UFLaApnciPwCBwyGgTXIpaVV1On7UFBYD7nChD17nbja/93aGp/vJxzQfgolzUKuMAdoldUllTLPp3yGMUXvqLFpFE9Rq6KNiEwT4EKbN+UPKDo7MTmdHk5MMhVPHeDM2esoLnejspqLc3HZEJytnvXcqVODnJhgajIAoswV/JtD2Hp+7L8bQt2RRSwsLP0TAMPJ0/Zh/u8CHP6Qi8sxhv6gRKI/ljZANslodu46HZiaWoDfv5rSrGUQr5UOQ3c0EOfK44H1zPd357F1my1AEEaZaCOSU+b31DmWeQVlWkllqcwYImUmXkaxoUTHMuoc65xcbnxnQ80z+l/pd9sT+w0MpAzfAAAAAElFTkSuQmCC">
+			
+			                              <div
+			                                class="absolute inset-0 rounded-full shadow-inner"
+			                                aria-hidden="true"
+			                              ></div>
+		                            </div>
+		                            <div style="display: flex;flex-direction: row;">
+		                              <p class="font-semibold">${m.cate }</p>
+		                            </div>
+		                          </div>
+		                          
+		                        </td>
+		                        <td class="px-4 py-3 text-sm font-semibold">
+		                          ${m.itemName }
+		                        </td>
+		                        <td class="px-4 py-3 text-sm font-semibold">
+		                          <a class="nav-link" data-toggle="tab" role="tab"
+                                     href="${path}/market1/marketdetail.do?itemNo=${m.itemNo}">${m.iqContent }</a>
+		                        </td>
+		                        <td class="px-4 py-3 text-xs font-semibold">
+		                          ${m.memberId }
+		                        </td>
+		                        <td class="px-4 py-3 text-sm font-semibold">
+		                          ${m.iqDate }
+		                        </td>
+		                      </tr>
+		                      </c:if>
+	                       	</c:forEach>
+	                       </c:if>
+	                       
+	                       <!-- 원데이클릭한경우 -->
+	                      <c:if test="${fn:contains(cateG,'원데이')}">
+	                      <c:forEach var="m" items="${list }" >
+		                      <tr class="text-gray-700 dark:text-gray-400">
+		
+		                        <td class="px-4 py-3 text-sm font-semibold">
+		                          <div class="flex items-center text-sm" style="display: flex; justify-content:center">
+		                            <!-- Avatar with inset shadow -->
+		                            <div
+		                              class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
+		                            >
+			                             <img 
+		                              		class="object-cover w-full h-full rounded-full"
+		                              		src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAEbUlEQVR4nLVXbUxTVxjusv1eth/bsriP7POHTgEB+RAJywYx/CBsi9sPt/0yCBL5oYka2FiG0TQxCs7IIvJHJvKxKRja0nPbUoaFttxz2yIU/MgiAn82UCj3tlAWfZZzCxtt7y2lq2/ypCen977POe973ue+R6NJ0CTa+/qCYHyfgY01z9oCw8Y3RUoqJUpMEuUWJcohAmyOW6TkkN9heCN5xILlbZGSFpEnTxVIFbH6bCeLTsLEsFpfEHlyRqRkJV7i6IVwQZESLfO1KfKF27qXV0ONJIFjPuMn58l4EslD4Il3w0Wgs/N5kXKGpJOvi0TMdIg8OZMsMv/tgdBYMIWfC0q0iuRLw6Z32aFJ1gKWJ73y79I9IXIBK4rVIVHu16Tt3tOP4NQdeRycvhsVBYlybdEiw8df5xuB7do/ektOw/Lk+Oq8CZLLHIoCT5763eYt63JvOpwI0T1jByxXLmLa2hUegZHfZbLAmA2BsUF5LjDhDM2vPsMUc334uXhJRZ6g8eR3OHaoDA21x6G7dA5HDx6Ap7sFg21NuFhXjbKv9yM7J09+ThLMCIzbEZy5H5YKkSfGUOkBz6louyLYjlvrT2PW1oO+lkbUf38c3371JdIzcvB5cTFqqirQ8ZMW90lHKBpuK5YfjEFyWSJ9+ULht5tfi4f4oeU6epvPo7qqHPtKS7EzPRtflJTgxyOHcfPns7Bf+AG/lX+GO63nw98VzPC7+xR9LroMr2h8TtOHaqRe3TU51IWfFiErJw9l3+xHY10Nhtov47HdgImrDeg/WQWfXQ/vlbO4XrkPk13NmBvoAldzAOO/1MfclM/FfaC6AL/LAqHPiCFjD6Y9diw98Monej283S0YOFeL+VFH2PyjkUHYLtThrr4dy3+MxF6AqJKCwKgNf808hODyqGLE7YHXo/yfR6BwOp1wU6qkA/+lAKFD6Ius479np+Gx9SMnv2hTyN5TiJT0HGzdkS6jtrpG9hWpiBIlC6plGJyawBO/DyuLj1G4tzRu8p1Z+diWkvEvOYPXI8i+mM+Icg6VIbNQq6WcpyZtXUzSzNyPkZq5G9tSw4kZior2qubfz3PlMjkz1sOpSfEjux7FxSVIz8qXkbZrD1IycrE9LQtbd0STruGj1EyM3LyqImbckzApZibxXLvaam9da8L21F2qZJFgaWit18YoQdKqibQlB3lH5LlltZcGO5qRm1ewIXlaRi50TQ0xpJwLLlDLexolEynRKqbBYcCfNh1m+rtx+sRRFBR8Iod4/Y535xXgRGUFpqw3MDuoh48nat+SU5rYLRnRh4nFsFEmnrTciILQ1QJb2+Wo+WlrN2Ztus23ZLGaUvYVXHD2ytGYG9Jjbsgg75T9yrDrMe8wqu6cNaXzbutLmnhszmF4UeS5nlg6vhmIlCNxt+VhFxNKtP+nT5QvJjw5xVKrSdQC1PSWyHOXWO1u+mqmdtoTMb/bvGWRmipYOCO/HWvazuSVKVyUyDwLEz3k1bXrORsn6ugfCLWGahFcXZsAAAAASUVORK5CYII=">
+		                              
+			                              <div
+			                                class="absolute inset-0 rounded-full shadow-inner"
+			                                aria-hidden="true"
+			                              ></div>
+		                            </div>
+		                            <div style="display: flex;flex-direction: row;">
+		                              <p class="font-semibold">${m.cate }</p>
+		                            </div>
+		                          </div>
+		                          
+		                        </td>
+		                        <td class="px-4 py-3 text-sm font-semibold">
+		                          ${m.itemName }
+		                        </td>
+		                        <td class="px-4 py-3 text-sm font-semibold">
+		                           <a href="${path }/class/odcView.do?no=${m.itemNo }#qna">${m.iqContent }</a>
+		                        </td>
+		                        <td class="px-4 py-3 text-xs font-semibold">
+		                          ${m.memberId }
+		                        </td>
+		                        <td class="px-4 py-3 text-sm font-semibold">
+		                          ${m.iqDate }
+		                        </td>
+		                      </tr>
+	                       	</c:forEach>
+	                       </c:if>
+	                       
+	                       <!-- 전체클릭한경우 -->
+	                      <c:if test="${fn:contains(cateG,'전체')}">
+	                      <c:forEach var="m" items="${list }" >
+		                      <tr class="text-gray-700 dark:text-gray-400">
+		
+		                        <td class="px-4 py-3 text-sm font-semibold">
+		                          <div class="flex items-center text-sm" style="display: flex; justify-content:center">
+		                            <!-- Avatar with inset shadow -->
+		                            <div
+		                              class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
+		                            >
+		                            <c:if test="${fn:contains(m.cate,'마켓')}">
+			                             <img 
+			                              class="object-cover w-full h-full rounded-full"
+			                              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAADsUlEQVR4nO2Va0xbZRzG+8kPJvumiTHzg59moD2nl9PTQneVW2JAGJsmbnE1cw3BsIsbRpKZYKSnl9N260bHrWywKS4lIZIhYTAgo6x0SMp0i7oQydA5LgazlTKoPad9TEmKtqd1RRf9YJ/k+XSe9///ve/7f3NEoowySlB2dt1LGo11giAZXkIwiFlJW8JjkzBFrc61PfzztyeZIA08rbJ5srLYF0RPUq7GdrO5+QbP82HE5Hb/gK3b7RHvJBDnWwghiSiajfRe86/nRr/iUV0zxNFq2+BfNlcoap+jlOYgx/3RPKrGxlGUlbfz6QJs227n2z+ficu6xznI5abgli3mTSkBsglDcUXFZX9iwfdPdKHycK8AYL+2M+xy+QQAxSVNnMX+dTzsJFC6u/0RQehLUgLcv7+4eSmwGkksuOfNVr7OOC4ouHvvxUhLyw0BgE7XEamuGRJc2cf6sTBFWVpSAni9944nO9K8vHqu6fxU2gAGw1Xsf9vFJeY7u+ehpK0PkjYXi5lX8vLPCo4/KnWOLdLV80vaAN3d3yC/sDGcmB/zASqV9TFB1L2cBEBfdfKjKyuJxXg+AqnMiJGbIQFA+RuXkAxgZuZXKChWkI9ae7ArICb0BwUASiVb39wsLDY9vQhSakxaLArgODciWBN9RTK5GdfcK4I1H9QMgySZTwQAJMlUvHvos8eJxVydPqhyrLjcNSs4zoLCBhzQXhQATEz8GH2KsDvuCABeL7uwLJEw+wQACkXts7SK/ZllB7jZWT+Wl39DX9+32PWqHQ7HCAqLGtDWcQ+j4zy+HHiEqqO90Gov4a19bTAa+zE350cwyMHjmUZRkQMNDW7s2HEG55x3cd0bQk//Q1Qd6wspact0VlbtM0kHUSYzv5irsX1BKU0hJW3GIV0Hbt9+sLarKz13UFLaApnciPwCBwyGgTXIpaVV1On7UFBYD7nChD17nbja/93aGp/vJxzQfgolzUKuMAdoldUllTLPp3yGMUXvqLFpFE9Rq6KNiEwT4EKbN+UPKDo7MTmdHk5MMhVPHeDM2esoLnejspqLc3HZEJytnvXcqVODnJhgajIAoswV/JtD2Hp+7L8bQt2RRSwsLP0TAMPJ0/Zh/u8CHP6Qi8sxhv6gRKI/ljZANslodu46HZiaWoDfv5rSrGUQr5UOQ3c0EOfK44H1zPd357F1my1AEEaZaCOSU+b31DmWeQVlWkllqcwYImUmXkaxoUTHMuoc65xcbnxnQ80z+l/pd9sT+w0MpAzfAAAAAElFTkSuQmCC">
+			
+			                              <div
+			                                class="absolute inset-0 rounded-full shadow-inner"
+			                                aria-hidden="true"
+			                              ></div>
+		                              </c:if>
+		                              <c:if test="${fn:contains(m.cate,'원데이')}">
+			                             <img 
+		                              		class="object-cover w-full h-full rounded-full"
+		                              		src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAEbUlEQVR4nLVXbUxTVxjusv1eth/bsriP7POHTgEB+RAJywYx/CBsi9sPt/0yCBL5oYka2FiG0TQxCs7IIvJHJvKxKRja0nPbUoaFttxz2yIU/MgiAn82UCj3tlAWfZZzCxtt7y2lq2/ypCen977POe973ue+R6NJ0CTa+/qCYHyfgY01z9oCw8Y3RUoqJUpMEuUWJcohAmyOW6TkkN9heCN5xILlbZGSFpEnTxVIFbH6bCeLTsLEsFpfEHlyRqRkJV7i6IVwQZESLfO1KfKF27qXV0ONJIFjPuMn58l4EslD4Il3w0Wgs/N5kXKGpJOvi0TMdIg8OZMsMv/tgdBYMIWfC0q0iuRLw6Z32aFJ1gKWJ73y79I9IXIBK4rVIVHu16Tt3tOP4NQdeRycvhsVBYlybdEiw8df5xuB7do/ektOw/Lk+Oq8CZLLHIoCT5763eYt63JvOpwI0T1jByxXLmLa2hUegZHfZbLAmA2BsUF5LjDhDM2vPsMUc334uXhJRZ6g8eR3OHaoDA21x6G7dA5HDx6Ap7sFg21NuFhXjbKv9yM7J09+ThLMCIzbEZy5H5YKkSfGUOkBz6louyLYjlvrT2PW1oO+lkbUf38c3371JdIzcvB5cTFqqirQ8ZMW90lHKBpuK5YfjEFyWSJ9+ULht5tfi4f4oeU6epvPo7qqHPtKS7EzPRtflJTgxyOHcfPns7Bf+AG/lX+GO63nw98VzPC7+xR9LroMr2h8TtOHaqRe3TU51IWfFiErJw9l3+xHY10Nhtov47HdgImrDeg/WQWfXQ/vlbO4XrkPk13NmBvoAldzAOO/1MfclM/FfaC6AL/LAqHPiCFjD6Y9diw98Monej283S0YOFeL+VFH2PyjkUHYLtThrr4dy3+MxF6AqJKCwKgNf808hODyqGLE7YHXo/yfR6BwOp1wU6qkA/+lAKFD6Ius479np+Gx9SMnv2hTyN5TiJT0HGzdkS6jtrpG9hWpiBIlC6plGJyawBO/DyuLj1G4tzRu8p1Z+diWkvEvOYPXI8i+mM+Icg6VIbNQq6WcpyZtXUzSzNyPkZq5G9tSw4kZior2qubfz3PlMjkz1sOpSfEjux7FxSVIz8qXkbZrD1IycrE9LQtbd0STruGj1EyM3LyqImbckzApZibxXLvaam9da8L21F2qZJFgaWit18YoQdKqibQlB3lH5LlltZcGO5qRm1ewIXlaRi50TQ0xpJwLLlDLexolEynRKqbBYcCfNh1m+rtx+sRRFBR8Iod4/Y535xXgRGUFpqw3MDuoh48nat+SU5rYLRnRh4nFsFEmnrTciILQ1QJb2+Wo+WlrN2Ztus23ZLGaUvYVXHD2ytGYG9Jjbsgg75T9yrDrMe8wqu6cNaXzbutLmnhszmF4UeS5nlg6vhmIlCNxt+VhFxNKtP+nT5QvJjw5xVKrSdQC1PSWyHOXWO1u+mqmdtoTMb/bvGWRmipYOCO/HWvazuSVKVyUyDwLEz3k1bXrORsn6ugfCLWGahFcXZsAAAAASUVORK5CYII=">
+		                              
+			                              <div
+			                                class="absolute inset-0 rounded-full shadow-inner"
+			                                aria-hidden="true"
+			                              ></div>
+		                              </c:if>
+		                            </div>
+		                            <div style="display: flex;flex-direction: row;">
+		                              <p class="font-semibold">${m.cate }</p>
+		                            </div>
+		                          </div>
+		                          
+		                        </td>
+		                        <td class="px-4 py-3 text-sm font-semibold">
+		                          ${m.itemName }
+		                        </td>
+		                        <td class="px-4 py-3 text-sm font-semibold">
+		                        	<c:if test="${fn:contains(m.cate,'원데이')}">
+		                        		<a href="${path }/class/odcView.do?no=${m.itemNo}#qna">${m.iqContent }</a>
+		                        	</c:if>
+		                        	<c:if test="${fn:contains(m.cate,'마켓')}">
+		                        		<a class="nav-link" data-toggle="tab" role="tab"
+                                    		href="${path}/market1/marketdetail.do?itemNo=${m.itemNo}">${m.iqContent }</a>
+                                  <%--   href="javascript:void(0);" onclick="choiceexplain(${m.itemNo},'dd');" --%>
+		                        	</c:if>
+		                        </td>
+		                        <td class="px-4 py-3 text-xs font-semibold">
+		                          ${m.memberId }
+		                        </td>
+		                        <td class="px-4 py-3 text-sm font-semibold">
+		                          ${m.iqDate }
+		                        </td>
+		                      </tr>
+	                       </c:forEach>
+	                       </c:if>
+	                       
+	                  	  </tbody>
+                  		</c:if>
+                	</table>
+             	 </div>
+              
+	               <div
+	                class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
+	              >
+	                <span class="col-span-2"></span>
+	                <!-- Pagination -->
+	                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-center">
+	                  <nav aria-label="Table navigation">
+	                    ${pageBar}
+	                  </nav>
+	                </span>
+	              </div>
+            	</div>
             </div>
         </main>
       </div>
     </div>
+    <!-- <script>
+           function choiceexplain(no,check){
+				 $.ajax({
+					type:"get",
+					url:"${path}/market1/choiceexplain.do?itemNo"+no,
+					data:{"itemNo":no,
+						 "check":check},
+					success:data=>{
+						 console.log(data);
+						location.assign("${path}/market1/marketdetail.do?itemNo="+no)
+						
+						$(document).ready(function(){ 
+							$("#explain").html(data);
+						});
+				 				
+				}
+			})
+           }
+    </script> -->
   </body>
 </html>

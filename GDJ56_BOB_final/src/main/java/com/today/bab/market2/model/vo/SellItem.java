@@ -34,4 +34,6 @@ public class SellItem {
 	private String itemStock;
 	private Date itemEnroll;
 	private List<ItemPic> ipic;
+	
+	private int sellitem_count;
 }

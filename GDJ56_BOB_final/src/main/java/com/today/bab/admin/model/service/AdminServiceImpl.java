@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.today.bab.admin.model.dao.AdminDao;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
+import com.today.bab.admin.model.vo.AdminQnaAll;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
@@ -116,5 +117,37 @@ public class AdminServiceImpl implements AdminService{
 	public int updateClientQNA(int cqNo) {
 		return dao.updateClientQNA(session,cqNo);
 	}
+
+	@Override
+	public List<AdminQnaAll> adminQnAAll(Map<String,Integer> param) {
+		return dao.adminQnAAll(session,param);
+	}
+	
+	@Override
+	public List<AdminQnaAll> adminQnAOneDay(Map<String,Integer> param) {
+		return dao.adminQnAOneDay(session,param);
+	}
+
+	@Override
+	public List<AdminQnaAll> adminQnAMarket(Map<String,Integer> param) {
+		return dao.adminQnAMarket(session,param);
+	}
+	
+	@Override
+	public int adminQnAAllCount() {
+		return dao.adminQnAAllCount(session);
+	}
+
+	@Override
+	public int qnAMarketCount() {
+		return dao.qnAMarketCount(session);
+	}
+
+	@Override
+	public int qnAOnedayCount() {
+		return dao.qnAOnedayCount(session);
+	}
+	
+	
 	
 }

@@ -19,7 +19,7 @@
 			username-parameter="id"
 			password-parameter="password"
 			default-target-url="/"
-			authentication-failure-forward-url="/member/loginError"
+			authentication-failure-forward-url="/member/loginFail"
 			authentication-success-forward-url="/member/loginSuccess"
 		/>
 		<security:csrf disabled="true"/>
@@ -40,7 +40,7 @@
 		<security:logout logout-url="/member/logout" logout-success-url="/"/>
 		
 		<!-- 권한에 맞지 않는 주소에 접근했을 때 -->
-		<security:access-denied-handler error-page="/WEB-INF/views/common/authError.jsp"/>
+		<security:access-denied-handler error-page="/WEB-INF/views/common/error/authError.jsp"/>
 
 	</security:http>
 		
