@@ -53,6 +53,8 @@ public interface AdminService {
 	
 	List<AdminQnaAll> adminQnAOneDay(Map<String,Integer> param);
 	
+	List<AdminQnaAll> adminQnAMarket(Map<String,Integer> param);
+	
 	int adminQnAAllCount();
 	
 	int qnAMarketCount();

@@ -282,6 +282,9 @@
                 <!-- New Table -->
                 <div class="w-full overflow-hidden rounded-lg shadow-xs">
                   <div class="w-full overflow-x-auto">
+                  	<div style="display:flex;justify-content:space-between;align-items:center;">
+			          	<p style="color:red;margin-left:50px;"> >>> 답변해야 할 문의가 총 <b>${totalData }개</b> 있습니다.</p>
+		        	</div>
                     <table class="w-full whitespace-no-wrap"style="text-align:center;">
 	                     <c:if test="${empty list }">
 		                  	 <thead>
@@ -338,7 +341,8 @@
 		                          ${m.itemName }
 		                        </td>
 		                        <td class="px-4 py-3 text-sm font-semibold">
-		                          ${m.iqContent }
+		                          <a class="nav-link" data-toggle="tab" role="tab"
+                                     href="${path}/market1/marketdetail.do?itemNo=${m.itemNo}">${m.iqContent }</a>
 		                        </td>
 		                        <td class="px-4 py-3 text-xs font-semibold">
 		                          ${m.memberId }
@@ -436,10 +440,12 @@
 		                        </td>
 		                        <td class="px-4 py-3 text-sm font-semibold">
 		                        	<c:if test="${fn:contains(m.cate,'원데이')}">
-		                        		<a href="${path }/class/odcView.do?no=${m.itemNo }#qna">${m.iqContent }</a>
+		                        		<a href="${path }/class/odcView.do?no=${m.itemNo}#qna">${m.iqContent }</a>
 		                        	</c:if>
 		                        	<c:if test="${fn:contains(m.cate,'마켓')}">
-		                        		<a href="">${m.iqContent }</a>
+		                        		<a class="nav-link" data-toggle="tab" role="tab"
+                                    		href="${path}/market1/marketdetail.do?itemNo=${m.itemNo}">${m.iqContent }</a>
+                                  <%--   href="javascript:void(0);" onclick="choiceexplain(${m.itemNo},'dd');" --%>
 		                        	</c:if>
 		                        </td>
 		                        <td class="px-4 py-3 text-xs font-semibold">
@@ -473,5 +479,24 @@
         </main>
       </div>
     </div>
+    <!-- <script>
+           function choiceexplain(no,check){
+				 $.ajax({
+					type:"get",
+					url:"${path}/market1/choiceexplain.do?itemNo"+no,
+					data:{"itemNo":no,
+						 "check":check},
+					success:data=>{
+						 console.log(data);
+						location.assign("${path}/market1/marketdetail.do?itemNo="+no)
+						
+						$(document).ready(function(){ 
+							$("#explain").html(data);
+						});
+				 				
+				}
+			})
+           }
+    </script> -->
   </body>
 </html>

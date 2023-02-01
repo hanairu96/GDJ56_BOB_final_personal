@@ -55,6 +55,8 @@ public interface AdminDao {
 	
 	List<AdminQnaAll> adminQnAOneDay(SqlSessionTemplate session,Map<String,Integer> param);
 	
+	List<AdminQnaAll> adminQnAMarket(SqlSessionTemplate session,Map<String,Integer> param);
+	
 	int adminQnAAllCount(SqlSessionTemplate session);
 	
 	int qnAMarketCount(SqlSessionTemplate session);
