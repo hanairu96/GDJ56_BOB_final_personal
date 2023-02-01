@@ -77,54 +77,7 @@
 		
 	</div>
 </form>
-<script>
-	$(function(){//레디함수
-		let selectOp = "ALL";
-		$("#selectOp").change(e=>{
-			//console.log($(e.target).val());
-			selectOp = $(e.target).val();
-		});
-		
-	    $("#search").keyup(e=>{
-	    	//console.log($(e.target).val());
-	    	
-	    	$.get("${path}/market/discountAdminAjax.do?value="+$(e.target).val()+"&selectOp="+selectOp
-	    			, data=>{
-	    				//console.log(data);
-	    				$("#itemTable tbody").html(''); //원래의 값 비워주기
-	    				
-	    				data.forEach(i=>{
-	    					let itemInfo = i.itemNo;
-	    					//console.log(itemInfo);
-	    					
-	    					let input = "";
-	    					if(i.itemDiscount=='Y') input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo).prop("checked", true);
-	    					else input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo).prop("checked", false);
-	    					
-		    				let tr = $("<tr>");
-	    					let itemNo = $("<td>").text(i.itemNo);
-	    					let checkbox = $("<td>").append(input);
-	    					let itemCategory = $("<td>").text(i.itemCategory);
-	    					let itemName = $("<td>").text(i.itemName);
-	    					let madeIn = $("<td>").text(i.madeIn);
-	    					let itemBrand = $("<td>").text(i.itemBrand);
-	    					let itemPrice = $("<td>").text(i.itemPrice);
-	    					let itemStock = $("<td>").text(i.itemStock);
-	    					
-	    					tr.append(itemNo).append(checkbox).append(itemCategory).append(itemName).append(madeIn).append(itemBrand).append(itemPrice).append(itemStock);
-	    					$("#itemTable tbody").append(tr);
-	    				});
-	    			});
-	    			
-	    });
-	
-	});
-	
 
-	
-	
-	
-</script>
 
 
 <section class="discount-section">
@@ -152,11 +105,12 @@
 								<th scope="row"><c:out value="${i.itemNo }"/></th>
 								<td>
 								<input type="checkbox" name="chItems" value="${i.itemNo }" ${i.itemDiscount=='Y'?'checked':''} onchange="makeItemArr(this);"> <!-- onchange="makeItemArr(this);" -->
+								<%-- <input type="checkbox" name="chItems" value="${i.itemNo }" onchange="makeItemArr(this);"> --%>
 								</td>
 								<td><c:out value="${i.itemCategory }"/></td>
 								<td><c:out value="${i.itemName }"/></td>
-								<td><c:out value="${i.madeIn }"/></td>
 								<td><c:out value="${i.itemBrand }"/></td>
+								<td><c:out value="${i.madeIn }"/></td>
 								<td><c:out value="${i.itemPrice }"/></td>
 								<td><c:out value="${i.itemStock }"/></td>
 							</tr>
@@ -183,18 +137,49 @@
 
 
 <script>
+	//yArr - 완료사용중
 	let yArr = ""; //현재 할인 중인 상품을 담은 문자열
+	
+	
 	$("input[name=chItems]").each((i,v)=>{
 		if($(v).prop("checked")) {
 			yArr += $(v).val()+",";
+			
 		}
 	})
+	
 	yArr = yArr.substring(0, yArr.length-1);
 	$("input[name=yArr]").attr("value", yArr);//이미 할인 중인 상품을 hidden에 넣어 넘기기
-	console.log(yArr);
-
 	
-	var cbArr = new Array(); //체크한 상품번호를 저장할 배열
+/////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	//frontArr - yArrFront와 chArrFront 합친 배열
+	/* var frontArr = new Array(); //배열을 합쳐서 저장할 배열
+	frontArr.push(...yArrFront); */
+	
+	//chArrFront
+	var chArrFront = new Array(); //체크한 상품번호를 저장할 배열
+	
+	//chArrFront.push(...yArrFront);
+	
+	const makeItemArr = (target)=>{
+			var checkVal = target.value;
+			var confirmCheck = target.checked;
+			if(confirmCheck == true){	chArrFront.push(checkVal);	}
+			else{	chArrFront.splice(	chArrFront.indexOf(checkVal), 1);	}
+			console.log("체크한상품 : "+chArrFront);
+			console.log(chArrFront);
+			
+			
+			
+			/* frontArr.push(...chArrFront);
+			console.log(frontArr); */
+	}
+	
+	
+	
 /* 	var yArr = new Array();	//이미 할인y인 상품번호만을 저장할 배열
 	
 	$("input[name=chItems]").each((i,v)=>{//이미 할인 중인 상품을 배열에 저장
@@ -204,17 +189,73 @@
 			yArr.push($(v).val());
 		}
 	}) */
-	console.log("이미할인중상품 : "+cbArr);
-	console.log("이미y인상품: "+yArr);console.log(yArr);
 	
-	const makeItemArr = (target)=>{
-			var checkVal = target.value;
-			var confirmCheck = target.checked;
-			if(confirmCheck == true){	cbArr.push(checkVal);	}
-			else{	cbArr.splice(cbArr.indexOf(checkVal), 1);	}
-			console.log("체크한상품 : "+cbArr);
-			console.log(cbArr);
-	}
+	
+	
+$(function(){
+	//로컬스토리지
+	let yArrFront = new Array(); //이미 할인y인 상품번호만을 저장할 배열
+	$("input[name=chItems]").each((i,v)=>{
+		if($(v).prop("checked")) {
+			yArrFront.push($(v).val()); //이미 할인 중인 상품을 배열에 저장
+		}
+	})
+	console.log(yArrFront);
+
+  /* 	checkboxShowGPSInfo.change(function() {
+		showGPSInfo = !!checkboxShowGPSInfo.is(":checked")
+		localStorage["showGPSInfo"] = showGPSInfo
+	}) */
+	
+
+})//레디함수./
+</script>
+<script>
+	$(function(){//레디함수
+		let selectOp = "ALL";
+		$("#selectOp").change(e=>{
+			//console.log($(e.target).val());
+			selectOp = $(e.target).val();
+		});
+		
+	    $("#search").keyup(e=>{
+	    	//console.log($(e.target).val());
+	    	
+	    	$.get("${path}/market/discountAdminAjax.do?value="+$(e.target).val()+"&selectOp="+selectOp
+	    			, data=>{
+	    				//console.log(data);
+	    				$("#itemTable tbody").html(''); //원래의 값 비워주기
+	    				
+	    				data.forEach(i=>{
+	    					let itemInfo = i.itemNo;
+	    					//console.log(itemInfo);
+	    					
+	    					let input = "";
+	    					/* if(i.itemDiscount=='Y') input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo).prop("checked", true);
+	    					else input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo).prop("checked", false); */
+	    					input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo);
+	    					
+		    				let tr = $("<tr>");
+	    					let itemNo = $("<td>").text(i.itemNo);
+	    					let checkbox = $("<td>").append(input);
+	    					let itemCategory = $("<td>").text(i.itemCategory);
+	    					let itemName = $("<td>").text(i.itemName);
+	    					let itemBrand = $("<td>").text(i.itemBrand);
+	    					let madeIn = $("<td>").text(i.madeIn);
+	    					let itemPrice = $("<td>").text(i.itemPrice);
+	    					let itemStock = $("<td>").text(i.itemStock);
+	    					
+	    					tr.append(itemNo).append(checkbox).append(itemCategory).append(itemName).append(itemBrand).append(madeIn).append(itemPrice).append(itemStock);
+	    					$("#itemTable tbody").append(tr);
+	    				});
+	    			});
+	    			
+	    });
+	
+	});
+	
+
+	
 	
 	
 </script>
@@ -308,7 +349,7 @@
 	/* /.테이블스크롤 */
 	#items{
 		overflow: scroll;
-		height: 300px;
+		height: 450px;
 		width: 600px;
 	}
 	#items::-webkit-scrollbar{

@@ -328,9 +328,11 @@
     								},
     						success:data=>{
     							if(data>0){
+    								console.log(data);
     								alert("결제가 완료되었습니다.");
     								location.replace('${path}/mypage/basket.do');
     							}else{
+    								console.log(data);
     								alert("결제가 실패하였습니다.");
     							}
     							
