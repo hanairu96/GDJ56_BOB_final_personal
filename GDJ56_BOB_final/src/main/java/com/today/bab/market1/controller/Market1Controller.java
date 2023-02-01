@@ -27,7 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/market1")
-@Slf4j
 public class Market1Controller {
 	
 	private Market1Service service;
