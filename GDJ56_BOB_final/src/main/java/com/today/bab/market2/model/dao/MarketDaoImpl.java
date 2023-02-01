@@ -22,14 +22,14 @@ public class MarketDaoImpl implements MarketDao {
 		return session.selectList("market2.sellItemByNo", chItemsTxt);
 	}
 	
-//	@Override
-//	public List<SellItem> bestItems(SqlSessionTemplate session) {
-//		return session.selectList("market2.bestItems");
-//	}
-//	@Override
-//	public List<SellItem> bestItemsAjax(SqlSessionTemplate session, String value) {
-//		return session.selectList("market2.bestItemsAjax", value);
-//	}
+													//	@Override
+													//	public List<SellItem> bestItems(SqlSessionTemplate session) {
+													//		return session.selectList("market2.bestItems");
+													//	}
+													//	@Override
+													//	public List<SellItem> bestItemsAjax(SqlSessionTemplate session, String value) {
+													//		return session.selectList("market2.bestItemsAjax", value);
+													//	}
 	@Override
 	public List<SellItem> bestItems(SqlSessionTemplate session, String data) {
 		return session.selectList("market2.bestItems", data!=null?data.trim():data);
@@ -56,21 +56,25 @@ public class MarketDaoImpl implements MarketDao {
 	public int deleteTodayBob(SqlSessionTemplate session, int reNo) {
 		return session.delete("market2.deleteTodayBob", reNo);
 	}
+													//	@Override
+													//	public int selectTodayBobByTitle(SqlSessionTemplate session, String reTitle) {
+													//		return session.selectOne("market2.selectTodayBobByTitle", reTitle);
+													//	}
 	@Override
 	public int insertTodayBob(SqlSessionTemplate session, TodayBob tb) {
 		return session.insert("market2.insertTodayBob", tb);
-	}
-	@Override
-	public int selectTodayBobByTitle(SqlSessionTemplate session, String reTitle) {
-		return session.selectOne("market2.selectTodayBobByTitle", reTitle);
 	}
 	@Override
 	public int insertTodayBobItems(SqlSessionTemplate session, Map<String, Object> param) {
 		return session.insert("market2.insertTodayBobItems", param);
 	}
 	@Override
-	public int insertTodayBobItem(SqlSessionTemplate session, TobobDetail td) {
-		return session.insert("market2.insertTodayBobItem", td);
+	public int insertTodayBobItem(SqlSessionTemplate session, Map param) {
+		return session.insert("market2.insertTodayBobItem", param);
+	}
+	@Override
+	public List<SellItem> todayView(SqlSessionTemplate session, int reNo) {
+		return session.selectList("market2.todayView", reNo);
 	}
 	
 	
