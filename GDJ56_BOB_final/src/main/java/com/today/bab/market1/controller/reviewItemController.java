@@ -77,7 +77,7 @@ public class reviewItemController {
 			}
 		}
 		r.setRepic(rePic);
-		
+		System.out.println(r);
 		int result=service.insertRe(r);
 		System.out.println(result);
 		
