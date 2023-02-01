@@ -121,7 +121,6 @@
 									${aa.iqaContent }
 						        </div>
 						        <div>
-						        	<c:out value="${aa.iqaNo }"/>
 					       			<button id="" class="primary-btn" type="button" 
 					       			style="background-color:magenta;border: none;color: white;margin-left:50px;"
 					       			 onclick="deleteAnswer(${aa.iqaNo },${itemNo });">삭제</button>

@@ -31,27 +31,49 @@
 				    </div>	
 	                    <div class="product__details__pic">
 	                        <div class="product__details__pic__item">
+	                        <!-- 메인사진이 없는 경우 -->
 	                        <c:if test="${empty de.mainPic }">
 	                            <img class="product__details__pic__item--large"
 	                                src="${path }/resources/market/img/product/details/product-details-1.jpg" alt="">
 	                        </c:if>
+							<!-- 메인사진이 있는 경우 -->	                        
 	                        <c:if test="${not empty de.mainPic }">
-	                            <img class="product__details__pic__item--large"
+	                            <img id="bigpicmain" class="product__details__pic__item--large"
 	                                src="${path }/resources/upload/market/mainlabel/${de.mainPic}" alt="">
+	                        
 	                        </c:if>
 	                        </div>
-	                        <div class="product__details__pic__slider owl-carousel">
+	                        <!-- 배열로 돌아갈 4가지 사진 -->
+	                        <div id="imgcollect" class="product__details__pic__slider owl-carousel">
 	                      	<c:if test="${not empty de.ipic }">
 		                        <c:forEach var="file" items="${de.ipic }">
-										 <img src="${path }/resources/upload/market/detail/${file.picName}">
+									<img class="picpicsmall" 
+									data-imgbigurl="${path }/resources/upload/market/detail/${file.picName}"
+									src="${path }/resources/upload/market/detail/${file.picName}">
 								</c:forEach>                         
-		                            <img src="${path }/resources/upload/market/mainlabel/${de.mainPic}" alt="">
+		                            <img class="picpicsmall"
+		                            data-imgbigurl="${path }/resources/upload/market/mainlabel/${de.mainPic}"
+		                            src="${path }/resources/upload/market/mainlabel/${de.mainPic}" alt="">
 	                        </c:if>
 	                        </div>
 	                    </div>
 	                </div>
-	
-	
+	                <!-- ?????????이건 왜 안먹히는걸까????????? -->
+<!-- 	                <script>
+		                const bigpic=document.querySelector("#imgcollect");
+		                var smallpic=document.querySelectorAll(".picpicsmall");
+		                console.log(bigpic);
+		                console.log(smallpic);
+		                for(let i=0;i<smallpic.length;i++){
+		                	smallpic[i].addEventListener("click",changepic());
+		                	smallpic[i].onclick=changepic;
+		                }
+		                function changepic(){
+		                    var changesmallpic=this.getAttribute("src");
+		                    bigpic.setAttribute("src",changesmallpic);
+		                }
+						                
+	                </script>  -->
 	                <div class="col-lg-6 col-md-6">
 	                    <div class="product__details__text" style="margin-left:30px;">
 	                    	<br>
@@ -60,6 +82,9 @@
 						        [${de.itemBrand }]
 						    </c:if>
 	                        <c:out value="${de.itemName }"/></h3>
+	                        
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	           <!-- 별점 디테일 필요함.... 리뷰가 있을때만 수정해야한다!!!!-->
 	                        <div class="product__details__rating">
 	                            <i class="fa fa-star"></i>
 	                            <i class="fa fa-star"></i>
@@ -68,6 +93,8 @@
 	                            <i class="fa fa-star-half-o"></i>
 	                            <span>(18 리뷰)</span>
 	                        </div>
+	                        
+	                        
 	                        <div class="product__details__price"><c:out value="${de.itemPrice }"/>원</div>
 	                        <p><c:out value="${de.mainContent}"/></p>
 	                        <div class="product__details__quantity">
@@ -173,10 +200,10 @@
 						        </div>
 						        <br><br>
 						        <div>
-						            <span class="col-1" style="font-weight:bold;">용량 </span><span style="margin-left:2%">${de.weight }</span><br>
-						            <span class="col-1" style="font-weight:bold;">특징 </span><span style="margin-left:2%">${de.itemPoint }</span><br>
-						            <span class="col-1" style="font-weight:bold;">보관법</span><span class="col-3">${de.itemKeep }</span><br>
-						            <span class="col-1" style="font-weight:bold;">활용팁</span><span class="col-3">${de.itemTip }</span><br>
+						            <span class="col-1" style="font-weight:bold;">용량 </span><span class="col-4" style="margin-left:2%">${de.weight }</span><br>
+						            <span class="col-1" style="font-weight:bold;">특징 </span><span class="col-4" style="margin-left:2%">${de.itemPoint }</span><br>
+						            <span class="col-1" style="font-weight:bold;">보관법</span><span class="col-4">${de.itemKeep }</span><br>
+						            <span class="col-1" style="font-weight:bold;">활용팁</span><span class="col-4">${de.itemTip }</span><br>
 						        </div>
 						        <br>
 						        <div style="text-align: center;">
@@ -214,6 +241,26 @@
 		        autoHeight: false,
 		        autoplay: true
 		    });
+	    	
+		     /*--------------------------
+		         Select
+		     ----------------------------*/
+		     $("select").niceSelect();
+	
+		     /*------------------
+		       Single Product
+		    --------------------*/
+		     $('.product__details__pic__slider img').on('click', function () {
+	
+		         var imgurl = $(this).data('imgbigurl');
+		         var bigImg = $('.product__details__pic__item--large').attr('src');
+		         if (imgurl != bigImg) {
+		             $('.product__details__pic__item--large').attr({
+		                 src: imgurl
+		             });
+		         }
+		     });
+	    	
 	    	
 	    	//상품 갯수
 	        var proQty = $('.pro-qty');

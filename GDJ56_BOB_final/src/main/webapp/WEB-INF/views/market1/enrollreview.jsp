@@ -30,7 +30,6 @@
                     <h4 style="margin-left: 10px;">별점</h4>
                 </div>
                 <div>
-                    <link href="/assets/css/star.css" rel="stylesheet"/>
                     <fieldset>
                         <span class="text-bold">별점을 선택해주세요</span>
                         <input type="radio" name="reviewStar" value="5" id="rate1"><label

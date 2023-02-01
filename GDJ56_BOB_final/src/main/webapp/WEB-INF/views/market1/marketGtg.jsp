@@ -74,27 +74,15 @@
                 </div>
                 
                 <div class="col-lg-9 col-md-7">
-                    <div class="filter__item">
-                        <div class="row">
-                            <div class="col-lg-2 col-md-순">
-                                <div class="filter__found">
-                                    <h6><span>16(count...)</span>건</h6>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-9 col-md-3">
-                                <div class="filter__option" style="font-weight: bold;">
-                                    <a href="" style="color: black;">고액순 </a>|
-                                    <a href="" style="color: black;"> 저가순 </a>|
-                                    <a href="" style="color: black;"> 판매순</a>
-                                </div>
-                            </div>
-
-                        </div>
+                    <div class="filter__item" style="padding-top:20px;">
+	                    <div class="filter__option" style="font-weight: bold;font-size:20px;">
+	                        <a href="" style="color: black;margin:10px;">고액순 </a>|
+	                        <a href="" style="color: black;margin:10px;"> 저가순 </a>|
+	                        <a href="" style="color: black;margin:10px;"> 판매순</a>
+	                    </div>
                     </div>
                     
-                    
-                        <!-- 재고 0일경우  -->
+                        <!-- 재고 0일경우 분기처리 해줘야한다  -->
                         <%-- <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg hov-img-zoom"  data-setbg="${path }/img/product/product-2.jpg" style="filter: grayscale(100%);">
@@ -107,6 +95,9 @@
                             </div>
                         </div> --%>
                     <div id="explain">
+	                    <div style="padding-bottom:20px;">
+                            <h6><span style="font-weight:bold;padding:10px;">16(count...)</span> 건</h6>
+                        </div>
 	                    <div class="row">
 						<c:forEach var="sell" items="${i }">
 	                        <div class="col-lg-4 col-md-6 col-sm-6">
