@@ -49,4 +49,12 @@ public interface MypageDao {
 	int selectItemOrderListCount(SqlSessionTemplate session,String memberId);
 	
 	List<ItemOrderSellitem> selectOrderSellItem(SqlSessionTemplate session,String memberId);
+	
+	List<ItemOrderSellitem> selectListItemDetail(SqlSessionTemplate session,int orderNo);
+	
+	ItemOrder selectOrderDetail(SqlSessionTemplate session,int orderNo);
+	
+	int updateOrderCancel(SqlSessionTemplate session,ItemOrder io);
+	
+	int updateOrderConfirm(SqlSessionTemplate session,int orderNo);
 }

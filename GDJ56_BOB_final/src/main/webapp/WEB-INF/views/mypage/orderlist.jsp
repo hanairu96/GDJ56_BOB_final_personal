@@ -406,7 +406,7 @@
 		                          <div style="width:200px;">
 			                            <p class="font-semibold">
 			                            <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
-			                            <a href="${path}/mypage/orderlist/orderdetail?orderNo=${order.orderNo}">
+			                            <a href="${path}/mypage/orderdetail?orderNo=${order.orderNo}">
 				                            <c:forEach var="i"  items="${itemlist}" varStatus="status">
 				                            	<c:if test="${i.orderNo eq order.orderNo}">
 				                            	 [${i.orderitem.itemBrand}]${i.orderitem.itemName}
@@ -425,11 +425,72 @@
 		                        ${order.orderNo }
 		                      </td>
 		                      <td class="px-4 py-3 text-xs">
-			                      <div id="orderStatus">
-			                   		<span id="orderStatuss">
-			                   			<%-- <fmt:formatDate pattern="yyyy-MM-dd" value="${order.sellDate}"/> --%>
-			                   		</span>
-			                      </div>
+		                      	<c:if test="order."></c:if>
+				                      <c:if test="${order.delivery eq 'Y'}">	
+				                      		<c:if test="${order.refund eq 'N' }">
+				                      			<span
+						                          class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+						                        >
+						                          주문완료 
+						                        </span>
+						                        &nbsp;
+				                      			<button id="orderCancel" value="${order.orderNo }"
+						                          class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+						                        >
+						                          주문취소신청
+						                        </button>
+				                      		</c:if>
+				                      		<c:if test="${order.refund eq 'Y' }">
+				                      			<c:if test="${order.refundFix eq 'N' }">
+					                      			<span  value="${order.orderNo }"
+							                          class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+							                        >
+							                          주문취소대기중
+							                        </span>
+							                     </c:if> 
+							                     <c:if test="${order.refundFix eq 'Y' }">
+					                      			<span  value="${order.orderNo }"
+							                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+							                        >
+							                          주문취소완료
+							                        </span>
+							                     </c:if>    
+				                      		</c:if>
+				                        
+				                      </c:if>
+				                      <c:if test="${order.delivery eq '배송중'}">
+				                      	<span
+				                          class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
+				                        >
+				                          배송중 
+				                        </span>
+				                      </c:if>
+				                      <c:if test="${order.delivery eq '배송완료'}">
+				                      	<span
+				                          class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
+				                        >
+				                        배송완료 
+				                      </span>
+				                      &nbsp;
+				                        <button id="orderConfirm" value="${order.orderNo }"
+				                          class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
+				                        >
+				                          구매확정
+				                        </button>
+				                      </c:if>
+				                      <c:if test="${order.delivery eq '구매확정'}">
+				                      	<span
+				                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+				                        >
+				                        구매확정완료
+				                        </span>
+				                        &nbsp; 
+				                        <span
+				                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+				                        >
+				                        리뷰쓰러가기
+				                        </span>
+				                      </c:if>
 		                      </td>
 		                      <td class="px-4 py-3 text-sm">
 		                      	<span id="orderDate">
@@ -463,7 +524,7 @@
 </html>
 <script>
   
-  
+  /* 
  //현재: 
   var now = new Date();
   
@@ -538,7 +599,7 @@
 		  span.className="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700";
 		  orderStatuss[i].appendChild(span);
 	  }
-  }
+  }*/
   
 	  const ordercancel = document.querySelectorAll("#orderCancel");
 	  const orderConfirm = document.querySelectorAll("#orderConfirm");
@@ -554,19 +615,58 @@
 	  function click(e) {
 	
 	    if(e.target.id=="orderCancel"){
-	      let result=window.confirm("주문을 취소하겠습니까?");
-	      if(result){
-	        console.log(e.target.value); //-> value가 주문번호
-	        //주문삭제
+	      let result=window.prompt("주문을 취소하겠습니까? *환불사유입력");
+	      //console.log(result);
+	      if(result!=null){
+	        //console.log(e.target.value); //-> value가 주문번호
+		        $.ajax({
+					url : "${path}/mypage/ordercancel",
+					type : "post",
+					data : {
+							comment : result,
+							orderNo : e.target.value
+							},
+					success:data=>{
+						if(data>0){
+							console.log(data);
+							alert("주문취소신청이 완료되었습니다.");
+							location.reload();
+						}else{
+							console.log(data);
+							alert("주문취소신청이 실패하였습니다.");
+						}	
+					},error : function(request, status, error) {
+					   	 alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
+				    }
+				});
 	      }
 	    }else if(e.target.id=="orderConfirm"){
 	      let confirmresult=window.confirm("구매을 확정하겠습니까?");
 	      
 	      if(confirmresult){
 	        console.log(e.target.value);
-	        //주문확정 
+	         $.ajax({
+				url : "${path}/mypage/orderconfirm",
+				type : "post",
+				data : {
+						orderNo : e.target.value
+						},
+				success:data=>{
+					if(data>0){
+						console.log(data);
+						alert("구매확정이 완료되었습니다.");
+						location.reload();
+					}else{
+						console.log(data);
+						alert("구매확정이 실패하였습니다.");
+					}	
+				},error : function(request, status, error) {
+				   	 alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
+			    }
+			}); 
+	        
 	      }
 	    }
 	    
-	  }
+	  } 
 </script>

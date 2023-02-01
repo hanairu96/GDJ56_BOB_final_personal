@@ -112,4 +112,24 @@ public class MypageDaoImpl implements MypageDao{
 	public List<ItemOrderSellitem> selectOrderSellItem(SqlSessionTemplate session, String memberId) {
 		return session.selectList("mypage.selectOrderSellItem",memberId);
 	}
+	
+	@Override
+	public List<ItemOrderSellitem> selectListItemDetail(SqlSessionTemplate session, int orderNo) {
+		return session.selectList("mypage.selectListItemDetail",orderNo);
+	}
+	
+	@Override
+	public ItemOrder selectOrderDetail(SqlSessionTemplate session, int orderNo) {
+		return session.selectOne("mypage.selectOrderDetail",orderNo);
+	}
+	
+	@Override
+	public int updateOrderCancel(SqlSessionTemplate session, ItemOrder io) {
+		return session.update("mypage.updateOrderCancel",io);
+	}
+	
+	@Override
+	public int updateOrderConfirm(SqlSessionTemplate session, int orderNo) {
+		return session.update("mypage.updateOrderConfirm",orderNo);
+	}
 }

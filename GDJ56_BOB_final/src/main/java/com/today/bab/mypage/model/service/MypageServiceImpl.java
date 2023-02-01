@@ -85,8 +85,12 @@ public class MypageServiceImpl implements MypageService {
 					result=0;
 					result=mypageDao.updateMinusStock(session, ids);  
 					if(up.getPointChange()>0) {
+						//System.out.println(up.getPointChange());
 						result=0;
 						result=mypageDao.insertPoint(session, up);
+					}else {
+						//System.out.println(up.getPointChange());
+						result=1;
 					}
 				}else {
 					result=0;
@@ -129,5 +133,25 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public List<ItemOrderSellitem> selectOrderSellItem(String memberId) {
 		return mypageDao.selectOrderSellItem(session,memberId);
+	}
+	
+	@Override
+	public List<ItemOrderSellitem> selectListItemDetail(int orderNo) {
+		return mypageDao.selectListItemDetail(session,orderNo);
+	}
+	
+	@Override
+	public ItemOrder selectOrderDetail(int orderNo) {
+		return mypageDao.selectOrderDetail(session,orderNo);
+	}
+	
+	@Override
+	public int updateOrderCancel(ItemOrder io) {
+		return mypageDao.updateOrderCancel(session,io);
+	}
+	
+	@Override
+	public int updateOrderConfirm(int orderNo) {
+		return mypageDao.updateOrderConfirm(session,orderNo);
 	}
 }

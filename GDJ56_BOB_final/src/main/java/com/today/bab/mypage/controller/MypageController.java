@@ -52,7 +52,7 @@ public class MypageController {
 	    List<ItemOrder> orderlist=mypageService.selectItemOrderList(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
 	    int totalData=mypageService.selectItemOrderListCount(m.getMemberId());
 	    List<ItemOrderSellitem> itemlist =mypageService.selectOrderSellItem(m.getMemberId());
-	    System.out.println(itemlist);
+	    //System.out.println(itemlist);
 	    
 	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "orderlist.do"));
 	    mv.addObject("orderlist",orderlist);
@@ -205,7 +205,7 @@ public class MypageController {
 	      mv.addObject("basket",b);
 	      mv.setViewName("mypage/basket");
 	      
-	      System.out.println(b);
+	      //System.out.println(b);
 	      
 	      return mv;
 	   }
@@ -319,11 +319,11 @@ public class MypageController {
 
 	    ItemOrder io=ItemOrder.builder().price(price)
 		.memberId(loginMember.getMemberId()).orderName(buyer_name)
-		.address(buyer_addr).orderPhone(buyer_tel).orderComment(orderComment).merchantUid(merchant).build();
+		.address(buyer_addr).orderPhone(buyer_tel).orderComment(orderComment).merchantUid(merchant).pointUse(use_point).build();
 	    
-	    System.out.println(io);
-	    System.out.println(basketss);
-	    System.out.println(sellItemNoCount);
+	    //System.out.println(io);
+	   // System.out.println(basketss);
+	    //System.out.println(sellItemNoCount);
 
 	    String[] dbasket=basketss.substring(1,basketss.length()-1).substring(0).split(",");
 	    //String[] sellItemNoCounts=sellItemNoCount.substring(1,sellItemNoCount.length()-1).split(",");
@@ -339,7 +339,7 @@ public class MypageController {
         map = mapper.readValue(sellItemNoCount, 
                 new TypeReference<HashMap<Integer, Integer>>() {});        
         
-        System.out.println(map);
+        //System.out.println(map);
 	    
 	    List<ItemDetail> ids=new ArrayList();
 
@@ -351,11 +351,42 @@ public class MypageController {
 	        ids.add(id);
 	    }
 	    
-	    System.out.println(ids);
-	    System.out.println(use_point+"d");
+	    //System.out.println(ids);
+	    //System.out.println(use_point+"d");
 	    Point usepoint=Point.builder().memberId(loginMember.getMemberId()).pointChange(use_point).build();
 	    
 		int result=mypageService.insertItemOrder(io,ids,dbasket,usepoint);
+		
+		response.setContentType("text/csv;charset=utf-8");
+		response.getWriter().print(result);
+	}
+	
+	@RequestMapping("/orderdetail")
+	public ModelAndView selectSubscription(ModelAndView mv,int orderNo) {
+		
+		mv.addObject("itemdetail",mypageService.selectListItemDetail(orderNo));
+		mv.addObject("orderdetail",mypageService.selectOrderDetail(orderNo));
+		
+		mv.setViewName("mypage/orderdetail");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/ordercancel")
+	public void updateOrderCancel(int orderNo,String comment,HttpServletResponse response) throws IOException {
+		
+		ItemOrder io=ItemOrder.builder().orderNo(orderNo).refundMsg(comment).build();
+		
+		int result=mypageService.updateOrderCancel(io);
+		
+		response.setContentType("text/csv;charset=utf-8");
+		response.getWriter().print(result);
+	}
+	
+	@RequestMapping("/orderconfirm")
+	public void updateOrderConfirm(int orderNo,HttpServletResponse response) throws IOException {
+		
+		int result=mypageService.updateOrderConfirm(orderNo);
 		
 		response.setContentType("text/csv;charset=utf-8");
 		response.getWriter().print(result);

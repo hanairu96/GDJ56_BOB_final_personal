@@ -41,4 +41,11 @@ public interface MypageService {
 	
 	List<ItemOrderSellitem> selectOrderSellItem(String memberId);
 	
+	List<ItemOrderSellitem> selectListItemDetail(int orderNo);
+	
+	ItemOrder selectOrderDetail(int orderNo);
+	
+	int updateOrderCancel(ItemOrder io);
+	
+	int updateOrderConfirm(int orderNo);
 }
