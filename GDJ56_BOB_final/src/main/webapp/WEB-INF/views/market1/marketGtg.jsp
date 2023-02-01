@@ -84,7 +84,7 @@
                     
                     <div id="explain">
 	                    <div style="padding-bottom:20px;">
-                            <h6><span style="font-weight:bold;padding:10px;">${i[1].sellitem_count }</span> 건</h6>
+                            <h6><span style="font-weight:bold;padding:10px;">${i[0].sellitem_count }</span> 건</h6>
                         </div>
 	                    <div class="row">
 						<c:forEach var="sell" items="${i }">
@@ -116,13 +116,7 @@
 						</c:forEach>
 	                	</div>
 	                    <!-- 페이징처리 -->
-	                    <div class="product__pagination">
-	                        <a href="#"><i class="fa" style="font-weight:bold;"> &lt; </i></a>
-	                        <a href="#">1</a>
-	                        <a href="#">2</a>
-	                        <a href="#">3</a>
-	                        <a href="#"><i class="fa" style="font-weight:bold;"> > </i></a>
-	                    </div>
+	                    ${pageBar }
                 	</div>
                 
             </div>

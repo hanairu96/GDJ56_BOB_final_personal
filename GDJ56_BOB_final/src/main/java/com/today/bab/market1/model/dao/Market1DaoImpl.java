@@ -3,6 +3,7 @@ package com.today.bab.market1.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,8 +13,9 @@ import com.today.bab.market2.model.vo.SellItem;
 @Repository
 public class Market1DaoImpl implements Market1Dao {
 	@Override
-	public List<SellItem> selectItemCtg(SqlSessionTemplate session){
-		return session.selectList("ma.selectItemCtg");
+	public List<SellItem> selectItemCtg(SqlSessionTemplate session, Map<String, Integer> param){
+		return session.selectList("ma.selectItemCtg",null,
+				new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),param.get("numPerpage")));
 	}
 	
 	@Override
@@ -59,5 +61,10 @@ public class Market1DaoImpl implements Market1Dao {
 	@Override
 	public List<SellItem> selectCtgAjax(SqlSessionTemplate session,String itemCategory){
 		return session.selectList("ma.selectCtgAjax",itemCategory);
+	}
+	
+	@Override
+	public int selectItemCount(SqlSessionTemplate session) {
+		return session.selectOne("ma.selectItemCount");
 	}
 }

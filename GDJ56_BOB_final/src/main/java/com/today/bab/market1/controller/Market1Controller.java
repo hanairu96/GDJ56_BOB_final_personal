@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.today.bab.common.Market1Pagebar;
 import com.today.bab.market1.model.service.Market1Service;
 import com.today.bab.market1.model.service.QnaService;
 import com.today.bab.market2.model.vo.ItemPic;
@@ -68,16 +69,16 @@ public class Market1Controller {
 	
 	//상품 카테고리로 이동
 	@RequestMapping("/marketgtg.do")
-	public ModelAndView marketCtg(ModelAndView mv
-//			@RequestParam(value="cPage", defaultValue="1")int cPage,
-//			@RequestParam(value="numPerpage", defaultValue="5")int numPerpage
+	public ModelAndView marketCtg(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1")int cPage,
+			@RequestParam(value="numPerpage", defaultValue="15")int numPerpage
 			) {
-//		List<SellItem> list=service.selectItemCtg(Map.of("cPage",cPage,"numPerpage",numPerpage));
-		List<SellItem> list=service.selectItemCtg();
+		List<SellItem> list=service.selectItemCtg(Map.of("cPage",cPage,"numPerpage",numPerpage));
+//		List<SellItem> list=service.selectItemCtg();
 		
 		//페이징 처리하기 
-//		int totaldata=service.selectItemCount();
-//		mv.addObject("pageBar",PageFactory.getPage(cPage, numPerpage,totaldata,"marketgtg.do"));
+		int totaldata=service.selectItemCount();
+		mv.addObject("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"marketgtg.do"));
 		
 		mv.addObject("i",list);
 		mv.setViewName("market1/marketGtg");
