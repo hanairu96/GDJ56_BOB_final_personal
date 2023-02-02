@@ -11,6 +11,7 @@ import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.onedayclass.model.vo.OdcReserve;
 
 public interface MypageService {
 	List<Basket> selectBasketById(String userId);
@@ -48,4 +49,6 @@ public interface MypageService {
 	int updateOrderCancel(ItemOrder io);
 	
 	int updateOrderConfirm(int orderNo);
+	
+	List<OdcReserve> selectOnedayclass(String memberId);
 }
