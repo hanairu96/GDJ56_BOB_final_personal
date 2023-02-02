@@ -50,7 +50,7 @@
 	            </div>
 	            <h2 id="as-title">답변</h2>
 	            <div id="answer">
-	                답변
+	                ${cq.cqanswer.cqaContent}
 	            </div>
 	            <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="">등록하기</button><br>
 	            <button type="button" id="list-btn" class="customBtn btnStyle" onclick="goList();">목록으로</button>
