@@ -18,6 +18,7 @@
                 <select name="search-option" class="form-select">
                     <option value="qna-title">제목</option>
                     <option value="qna-contents">내용</option>
+                    <option value="qna-category">분류</option>
                     <option value="qna-writer">작성자</option>
                 </select>
                 <input class="search" name="search" type="text" placeholder="search">
@@ -26,6 +27,7 @@
             <table class="list-table" style="text-align: center;margin: 20px;">
                 <thead>
                     <tr>
+                        <th class="categorys">분류</th>
                         <th class="titles">제목</th>
                         <th class="writers">작성자</th>
                         <th class="dates">작성일</th>
@@ -35,6 +37,7 @@
                 <tbody>
                 <c:forEach var="ql" items="${list}">
                     <tr>
+	                    <td class="categorys">${ql.cqCate}</td>
                         <td class="titles"><a href="">${ql.cqTitle}</a></td>
                         <td class="writers">${ql.memberId}</td>
                         <td class="dates">${ql.cqDate}</td>
@@ -125,14 +128,17 @@
             width: 70px;
             height: auto;
         }
+        .categorys{
+            width: 120px;
+        }
         .titles{
-            width: 700px;
+            width: 630px;
         }
         .writers{
             width: 120px;
         }
         .dates{
-            width: 150px;
+            width: 100px;
         }
         .answers{
             width: 100px;
