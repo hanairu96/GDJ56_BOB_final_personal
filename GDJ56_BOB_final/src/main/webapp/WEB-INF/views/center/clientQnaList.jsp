@@ -18,6 +18,7 @@
                 <select name="search-option" class="form-select">
                     <option value="qna-title">제목</option>
                     <option value="qna-contents">내용</option>
+                    <option value="qna-category">분류</option>
                     <option value="qna-writer">작성자</option>
                 </select>
                 <input class="search" name="search" type="text" placeholder="search">
@@ -26,6 +27,7 @@
             <table class="list-table" style="text-align: center;margin: 20px;">
                 <thead>
                     <tr>
+                        <th class="categorys">분류</th>
                         <th class="titles">제목</th>
                         <th class="writers">작성자</th>
                         <th class="dates">작성일</th>
@@ -35,10 +37,30 @@
                 <tbody>
                 <c:forEach var="ql" items="${list}">
                     <tr>
-                        <td class="titles"><a href="">${ql.cqTitle}</a></td>
-                        <td class="writers">${ql.memberId}</td>
+	                    <td class="categorys">${ql.cqCate}</td>
+	                    <c:if test="${(ql.cqSe eq 'Y')}">
+	                        <c:if test="${(loginMember.memberId ne ql.memberId)&&(loginMember.memberId ne 'admin')}">
+		                        <td class="titles"><img src="${path}/resources/images/lock.png">비밀글입니다.</td>
+    		                    <td class="writers">${ql.memberId.substring(0,1)}*****</td>
+	                        </c:if>
+	                        <c:if test="${(loginMember.memberId eq ql.memberId)||(loginMember.memberId eq 'admin')}">
+		                        <td class="titles"><a href=""><img src="${path}/resources/images/lock.png">${ql.cqTitle}</a></td>
+    		                    <td class="writers">${ql.memberId}</td>
+	                        </c:if>
+	                    </c:if>
+	                    <c:if test="${ql.cqSe ne 'Y'}">
+	                        <td class="titles"><a href="">${ql.cqTitle}</a></td>
+    	                    <td class="writers">${ql.memberId}</td>
+	                    </c:if>
                         <td class="dates">${ql.cqDate}</td>
-                        <td class="answers">답변완료</td>
+                        <td class="answers">
+	                        <c:if test="${ql.cqCheck eq 'Y'}">
+	                        	답변완료
+	                        </c:if>
+	                        <c:if test="${ql.cqCheck ne 'Y'}">
+	                        	답변대기
+	                        </c:if>	
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -104,6 +126,10 @@
             border-bottom: 1px solid gray;
             height: 50px;
         }
+        .list-table img{
+        	width: 25px;
+        	height: 25px;
+        }
         .search-form{
             text-align: right;
             margin-right: 30px;
@@ -118,14 +144,17 @@
             width: 70px;
             height: auto;
         }
+        .categorys{
+            width: 120px;
+        }
         .titles{
-            width: 700px;
+            width: 630px;
         }
         .writers{
             width: 120px;
         }
         .dates{
-            width: 150px;
+            width: 100px;
         }
         .answers{
             width: 100px;
@@ -200,6 +229,7 @@
 		}
     </style>
     <script>
+    	//사이드 메뉴 누르면 페이지 이동
 		$(".side-menu>div:eq(0)").click(e=>{
    			location.assign("${path}/center/noticeList");
    		})
@@ -207,8 +237,9 @@
    			location.assign("${path}/center/clientQnaList");
    		})
    		
+		//답변완료면 보라색으로 표시  		
         for(let i=0;i<6;i++){
-            if(document.querySelectorAll(".answers")[i].textContent=="답변완료"){
+            if(document.querySelectorAll(".answers")[i].textContent.trim()=="답변완료"){
                 $(".answers:eq("+i+")").css("color", "purple").css("font-weight", "bolder");
             }
         }
