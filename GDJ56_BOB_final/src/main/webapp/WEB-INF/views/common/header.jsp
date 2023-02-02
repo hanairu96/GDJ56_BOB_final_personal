@@ -51,7 +51,7 @@
                 <p><a href="${path}/market1/matketmain.do">MARKET</a></p>
                 <p><a href="${path}/class/main.do">ONE-DAY-CLASS</a></p>
                 <p><a href="${path}/subscription/subMain">SUBSCRIPTION</a></p>
-                <p><a href="">CUSTOMER-CENTER</a></p>
+                <p><a href="${path}/center/noticeList">CUSTOMER-CENTER</a></p>
                 <c:if test="${loginMember!=null}">
 	                <c:if test="${loginMember.memberId eq 'admin'}">
 	                	<p><a href="${path}/admin/main.do">ADMINPAGE</a></p>

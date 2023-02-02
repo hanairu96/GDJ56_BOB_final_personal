@@ -21,9 +21,9 @@
     
     <section class="categories">
         <div class="container">
-			<a href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a>
-			<a href="${path }/itemQna/resultresult.do?itemNo=8">리뷰</a> 
-			
+			<a style="font-size:30px;" href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a><br>
+			<a style="font-size:30px;" href="${path }/itemQna/resultresult.do?itemNo=8">리뷰</a><br>
+			<a style="font-size:30px;" href="${path }/itemReview/insertReviewGo.do?itemNo=8&memberId=user03&itemName=고사리&mainPic=20230127_184026868_5159.jpg">리뷰쓰기</a> 
 			<a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:900px;margin-top:30px;background-color: #07d448;" >상품등록</a>
 			
             <br><br><br>
@@ -65,6 +65,7 @@
                 </div>
             </div>
             <br><br><br>
+
 
             <!-- 구독서비스 연결 -->
             <img src="${path }/resources/market/img/banner/banner-2.jpg" alt="" style="width:100%; height: 300px; ">

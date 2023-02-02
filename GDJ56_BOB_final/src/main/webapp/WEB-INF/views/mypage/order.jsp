@@ -18,7 +18,7 @@
                 	<div class="blog__sidebar__recent">
                             <span class="blog__sidebar__recent__item">
                                 <div class="blog__sidebar__recent__item__pic">
-                                    <img style="border:solid 1px; width:100px;height:100px" src="img/blog/sidebar/sr-1.jpg" alt="">
+                                    <img style=" width:110px;height:110px" src="${path }/resources/upload/market/mainlabel/${ios.mainPic}" alt="">
                                 </div>
                                 <div class="blog__sidebar__recent__item__text">
                                 	<h6>
@@ -293,7 +293,7 @@
 	    //console.log($("#orderName").val());
 	    //console.log($("#orderPhone").val());
 	    /* console.log(${loginMember.memberId}); */
-	    let orderaddr=$("#inputAddress_postcode").val()+""+$("#inputAddress_address").val()+","+$("#inputAddress_detailAddress").val();
+	    let orderaddr="("+$("#inputAddress_postcode").val()+") "+$("#inputAddress_address").val()+","+$("#inputAddress_detailAddress").val();
 	    //console.log(orderaddr);
 	    let merchant = 'bob_'+Math.floor(Math.random() * 100000000)+1;
 	    console.log(merchant);
@@ -310,27 +310,30 @@
     			buyer_addr: orderaddr
     		}, function(rsp){	
     				if(rsp.success){
-    					//alert("결제가 완료되었습니다."); */
+    					 /* console.log(rsp.imp_uid+"uid");
+    					alert("결제가 완료되었습니다."); */ 
     					$.ajax({
     						url : "${path}/mypage/pay.do",
     						type : "post",
     						/* contentType:"application/json", */
-    						data : {
+    						 data : {
     								price : Number($("#totaltotal").html()),
     								buyer_addr: orderaddr,
     								buyer_name : $("#orderName").val(),
     								buyer_tel : $("#orderPhone").val(),
     								orderComment : $("#orderComment").val(),
-    								merchant : merchant,
+    								merchant : rsp.imp_uid,
     								use_point : Number($("#finalpoint").html()),
     								basketss : JSON.stringify(${basketss}),
     								sellItemNoCount : JSON.stringify(${sellItemNoCount})
     								},
     						success:data=>{
     							if(data>0){
+    								console.log(data);
     								alert("결제가 완료되었습니다.");
     								location.replace('${path}/mypage/basket.do');
     							}else{
+    								console.log(data);
     								alert("결제가 실패하였습니다.");
     							}
     							
@@ -338,7 +341,7 @@
     						},error : function(request, status, error) {
     						   	 alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
     					    }
-    					});
+    					}); 
     					
     				 }else{	
     					alert(rsp.error_msg);

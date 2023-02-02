@@ -4,7 +4,9 @@
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
   <head>
     <meta charset="UTF-8" />
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -394,165 +396,118 @@
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
+                     <%-- ${orderlist} --%>
+                    <c:if test="${not empty orderlist}">
+                    	<c:forEach var="order" items="${orderlist}">
+                    		<tr class="text-gray-700 dark:text-gray-400">
+		                      <td class="px-4 py-3">
+		                        <div class="flex items-center text-sm">
+		                          </div>
+		                          <div style="width:200px;">
+			                            <p class="font-semibold">
+			                            <div style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+			                            <a href="${path}/mypage/orderdetail?orderNo=${order.orderNo}">
+				                            <c:forEach var="i"  items="${itemlist}" varStatus="status">
+				                            	<c:if test="${i.orderNo eq order.orderNo}">
+				                            	 [${i.orderitem.itemBrand}]${i.orderitem.itemName}
+				                            	</c:if>
+				                            </c:forEach>
+			                            </a>
+			                            </div>
+			                            </p>
+		                            <p class="text-xs text-gray-600 dark:text-gray-400">
+		                              ${order.price }원
+		                            </p>
+		                          </div>
+		                        </div>	
+		                      </td>
+		                      <td class="px-4 py-3 text-sm">
+		                        ${order.orderNo }
+		                      </td>
+		                      <td class="px-4 py-3 text-xs">
+		                      	<c:if test="order."></c:if>
+				                      <c:if test="${order.delivery eq 'Y'}">	
+				                      		<c:if test="${order.refund eq 'N' }">
+				                      			<span
+						                          class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+						                        >
+						                          주문완료 
+						                        </span>
+						                        &nbsp;
+				                      			<button id="orderCancel" value="${order.orderNo }"
+						                          class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+						                        >
+						                          주문취소신청
+						                        </button>
+				                      		</c:if>
+				                      		<c:if test="${order.refund eq 'Y' }">
+				                      			<c:if test="${order.refundFix eq 'N' }">
+					                      			<span  value="${order.orderNo }"
+							                          class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+							                        >
+							                          주문취소대기중
+							                        </span>
+							                     </c:if> 
+							                     <c:if test="${order.refundFix eq 'Y' }">
+					                      			<span  value="${order.orderNo }"
+							                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+							                        >
+							                          주문취소완료
+							                        </span>
+							                     </c:if>    
+				                      		</c:if>
+				                        
+				                      </c:if>
+				                      <c:if test="${order.delivery eq '배송중'}">
+				                      	<span
+				                          class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
+				                        >
+				                          배송중 
+				                        </span>
+				                      </c:if>
+				                      <c:if test="${order.delivery eq '배송완료'}">
+				                      	<span
+				                          class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
+				                        >
+				                        배송완료 
+				                      </span>
+				                      &nbsp;
+				                        <button id="orderConfirm" value="${order.orderNo }"
+				                          class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
+				                        >
+				                          구매확정
+				                        </button>
+				                      </c:if>
+				                      <c:if test="${order.delivery eq '구매확정'}">
+				                      	<span
+				                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+				                        >
+				                        구매확정완료
+				                        </span>
+				                        &nbsp; 
+				                        <button onclick="location.assign('${path}/mypage/orderdetail?orderNo=${order.orderNo}');"
+				                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+				                        >
+				                        리뷰쓰러가기
+				                        </button>
+				                      </c:if>
+				                      <c:if test="${order.delivery eq '리뷰끝'}">
+				                      	<span
+				                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+				                        >
+				                        구매확정완료
+				                        </span>
+				                      </c:if>
+		                      </td>
+		                      <td class="px-4 py-3 text-sm">
+		                      	<span id="orderDate">
+		                     	 	<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${order.sellDate}"/>
+		                      	</span>
+		                      </td>
+		                    </tr>
+                    	</c:forEach>	
+                    </c:if>
                     
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          </div>
-                          <div>
-                            <p class="font-semibold">고구마 외 3건</p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">
-                              23,000원
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        2023011600000000
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        <span
-                          class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                        >
-                          주문완료 
-                        </span>
-                      &nbsp;
-                        <button id="orderCancel" value="a"
-                          class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                        >
-                          주문취소 
-                        </button>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                    </tr>
-
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          </div>
-                          <div>
-                            <p class="font-semibold">감자 외 5건</p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">
-                              24,500원
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <a href="./viewOrder.html">2023011600000000</a> 
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        <span
-                          class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
-                        >
-                          배송중 
-                        </span>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                    </tr>
-
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          </div>
-                          <div>
-                            <p class="font-semibold">고구마,감자..</p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">
-                              45,000원
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        2023011600000000
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        <span
-                          class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
-                        >
-                        배송완료 
-                      </span>
-                      &nbsp;
-                        <button id="orderConfirm" value="orderno"
-                          class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
-                        >
-                          구매확정
-                        </button>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                    </tr>
-
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          </div>
-                          <div>
-                            <p class="font-semibold">고구마,감자..</p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">
-                              23,000원
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        2023011600000000
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        <span
-                          class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                        >
-                          주문완료 
-                        </span>
-                      &nbsp;
-                        <button id="orderCancel" value="b"
-                          class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                        >
-                          주문취소 
-                        </button>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                    </tr>
-
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          <div>
-                            <p class="font-semibold">고구마,딸기..</p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">
-                              50,000원
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        2023011600000000
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        <span
-                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-                        >
-                        구매확정완료
-                        </span>
-                        &nbsp; 
-                        <span
-                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-                        >
-                        리뷰쓰러가기
-                        </span>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                    </tr>
-
                   </tbody>
                 </table>
               </div>
@@ -563,89 +518,7 @@
                 <!-- Pagination -->
                 <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
                   <nav aria-label="Table navigation">
-                    <ul class="inline-flex items-center">
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                          aria-label="Previous"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="w-4 h-4 fill-current"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                              clip-rule="evenodd"
-                              fill-rule="evenodd"
-                            ></path>
-                          </svg>
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          1
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          2
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          3
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          4
-                        </button>
-                      </li>
-                      <li>
-                        <span class="px-3 py-1">...</span>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          8
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          9
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-                          aria-label="Next"
-                        >
-                          <svg
-                            class="w-4 h-4 fill-current"
-                            aria-hidden="true"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                              clip-rule="evenodd"
-                              fill-rule="evenodd"
-                            ></path>
-                          </svg>
-                        </button>
-                      </li>
-                    </ul>
+                  	${pageBar }
                   </nav>
                 </span>
               </div>
@@ -657,34 +530,150 @@
   </body>
 </html>
 <script>
-  const ordercancel = document.querySelectorAll("#orderCancel");
-  const orderConfirm = document.querySelectorAll("#orderConfirm");
-
-  for (let i=0; i<ordercancel.length; i++) {
-    ordercancel[i].addEventListener("click", click);
-  }
-
-  for (let j = 0; j < orderConfirm.length; j++) {
-    orderConfirm[j].addEventListener("click", click);
-  }
-
-  function click(e) {
-
-    if(e.target.id=="orderCancel"){
-      let result=window.confirm("주문을 취소하겠습니까?");
-      if(result){
-        console.log(e.target.value); //-> value가 주문번호
-        //주문삭제
-      }
-    }else if(e.target.id=="orderConfirm"){
-      let confirmresult=window.confirm("구매을 확정하겠습니까?");
-      
-      if(confirmresult){
-        console.log(e.target.value);
-        //주문확정 
-      }
-    }
-    
-  }
-
+  
+  /* 
+ //현재: 
+  var now = new Date();
+  
+  var orderStatuss = document.querySelectorAll("#orderStatuss");    
+  var date=document.querySelectorAll("#orderDate");
+  
+  for(let i=0;i<date.length;i++){
+	  //console.log(date[i].innerText);
+	  var date1=date[i].innerText.substring(10, 0);
+	  //console.log(date1);
+	  var date_arr = date1.split("-");    
+	   
+	  var year = now.getFullYear();   // 연도
+	  var month = now.getMonth()+1;   // 월    
+	  var day = now.getDate();        // 일
+	   
+	  var stDate = new Date(date_arr[0], date_arr[1], date_arr[2]);
+	  var endDate = new Date(year, month, day);
+	   
+	  var btMs = endDate.getTime() - stDate.getTime() ;
+	  var btDay = btMs / (1000*60*60*24) ;
+	   
+	  console.log("일수 차이는?? " + btDay);
+	  
+	  if(btDay<2){
+		  //date[i].innerText="주문완료";
+		  const span = document.createElement("span");
+		  span.innerHTML="주문완료";
+		  span.className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100";
+		  orderStatuss[i].appendChild(span);
+		  
+		  const btn = document.createElement("button");
+		  btn.innerHTML="주문취소";
+		  btn.className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100";
+		  btn.id ="orderCancel";
+		  orderStatuss[i].appendChild(btn);
+		  
+	  }else if(btDay<5){
+		  //date[i].innerText="배송중";
+		  const span = document.createElement("span");
+		  span.innerHTML="배송중";
+		  span.className="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600";
+		  orderStatuss[i].appendChild(span);
+		  
+	  }else if(btDay<7){
+		  //date[i].innerText="배송완료";
+		  const span = document.createElement("span");
+		  span.innerHTML="배송완료";
+		  span.className="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700";
+		  orderStatuss[i].appendChild(span);
+		  
+		  const btn = document.createElement("button");
+		  btn.innerHTML="구매확정";
+		  btn.id ="orderConfirm";
+		  btn.className="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700";
+		  orderStatuss[i].appendChild(btn);
+		  
+	  }else if(btDay<20){
+		  //date[i].innerText="구매확정";
+		  const span = document.createElement("span");
+		  span.innerHTML="구매확정완료";
+		  span.className="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700";
+		  orderStatuss[i].appendChild(span);
+		  
+		  const btn = document.createElement("button");
+		  btn.innerHTML="리뷰쓰러가기";
+		  btn.className="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700";
+		  orderStatuss[i].appendChild(btn);
+	  }else{
+		  const span = document.createElement("span");
+		  span.innerHTML="구매확정완료";
+		  span.className="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700";
+		  orderStatuss[i].appendChild(span);
+	  }
+  }*/
+  
+	  const ordercancel = document.querySelectorAll("#orderCancel");
+	  const orderConfirm = document.querySelectorAll("#orderConfirm");
+	
+	  for (let i=0; i<ordercancel.length; i++) {
+	    ordercancel[i].addEventListener("click", click);
+	  }
+	
+	  for (let j = 0; j < orderConfirm.length; j++) {
+	    orderConfirm[j].addEventListener("click", click);
+	  }
+	
+	  function click(e) {
+	
+	    if(e.target.id=="orderCancel"){
+	      let result=window.prompt("주문을 취소하겠습니까? *환불사유입력");
+	      //console.log(result);
+	      if(result!=null){
+	        //console.log(e.target.value); //-> value가 주문번호
+		        $.ajax({
+					url : "${path}/mypage/ordercancel",
+					type : "post",
+					data : {
+							comment : result,
+							orderNo : e.target.value
+							},
+					success:data=>{
+						if(data>0){
+							console.log(data);
+							alert("주문취소신청이 완료되었습니다.");
+							location.reload();
+						}else{
+							console.log(data);
+							alert("주문취소신청이 실패하였습니다.");
+						}	
+					},error : function(request, status, error) {
+					   	 alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
+				    }
+				});
+	      }
+	    }else if(e.target.id=="orderConfirm"){
+	      let confirmresult=window.confirm("구매을 확정하겠습니까?");
+	      
+	      if(confirmresult){
+	        console.log(e.target.value);
+	         $.ajax({
+				url : "${path}/mypage/orderconfirm",
+				type : "post",
+				data : {
+						orderNo : e.target.value
+						},
+				success:data=>{
+					if(data>0){
+						console.log(data);
+						alert("구매확정이 완료되었습니다.");
+						location.reload();
+					}else{
+						console.log(data);
+						alert("구매확정이 실패하였습니다.");
+					}	
+				},error : function(request, status, error) {
+				   	 alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
+			    }
+			}); 
+	        
+	      }
+	    }
+	    
+	  } 
 </script>

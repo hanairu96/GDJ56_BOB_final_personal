@@ -13,8 +13,8 @@ public interface MarketService {
 	List<SellItem> sellItemByNo(String chItemsTxt);
 	
 	//베스트 상품 조회
-//	List<SellItem> bestItems();
-//	List<SellItem> bestItemsAjax(String value);
+												//	List<SellItem> bestItems();
+												//	List<SellItem> bestItemsAjax(String value); ↓하나로 합침
 	List<SellItem> bestItems(String value);
 	
 	//오늘만(할인) 등록
@@ -24,13 +24,16 @@ public interface MarketService {
 	List<TodayBob> todayBobList();
 	int todayBobListCount();
 	
+//	//오늘의밥추천(추천) 타이틀 삭제
+	int deleteTodayBob(int reNo);
+	
 	//오늘의밥추천(추천) 타이틀 생성
-//	int insertTodayBob(TodayBob tb); //-->상품넣는것도 동시에해보는중int insertTodayBob(TodayBob tb);Map<String, Object> param
-//	//					 삭제
-//	int deleteTodayBob(int reNo);
-//	//타이틀 제목으로 생성된 seq번호 구하기
-//	int selectTodayBobByTitle(String reTitle);
+												//	int insertTodayBob(TodayBob tb); //-->상품넣는것도 동시에해보는중int insertTodayBob(TodayBob tb);Map<String, Object> param
+												//	//타이틀 제목으로 생성된 seq번호 구하기
+												//	int selectTodayBobByTitle(String reTitle); ↓하나로 합침
 	int insertTodayBobItems(Map<String, Object> param);
+	
+	List<SellItem> todayView(int reNo);
 	
 	
 	

@@ -23,8 +23,9 @@ public class ItemOrder {
 	private String address;
 	private String orderName;
 	private String orderPhone;
-	private String refund_fix;
+	private String refundFix;
 	private String orderComment;
 	private String merchantUid;
-	
+	private int pointUse;
+	private String refundMsg;
 }
