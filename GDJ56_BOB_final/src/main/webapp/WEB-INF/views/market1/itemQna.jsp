@@ -38,7 +38,7 @@
 		    <input type="hidden" name="memberId" value="${loginMember.memberId }"/>
 			<div style="display: flex;">
 			    <div>
-			        <textarea name="iqContent" id="" cols="120%" rows="3" required></textarea>
+			        <textarea name="iqContent" id="" cols="100%" rows="3" required></textarea>
 			    </div>
 			    <div>
 			        <input class="primary-btn" type="submit" value="등록하기"

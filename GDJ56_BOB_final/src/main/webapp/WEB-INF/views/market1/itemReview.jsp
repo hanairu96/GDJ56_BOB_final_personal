@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <script src="${path }/resources/js/jquery-3.6.1.min.js"></script>
 <style>
@@ -47,40 +48,45 @@
 			    </div>
 			</div>
 
+
 			<!-- 리뷰 묶음-->
-			<div style="margin:5%;">
+			<c:forEach var="re" items="${reviews }">
+			<div style="margin:2%;">
 			    <div style="display: flex;">
-			        <div class="col-9">
-			            <h4>야채주스</h4>
+			        <div class="col-9" style="display:flex;margin:10px;">
+			        	 <img src="${path }/resources/images/logo-icon.png" alt="" style="height:40px;width: 40px;border-radius: 50%;">
+			            <h4 style="margin-left :10px;">${re.memberId }</h4>
 			        </div>
 			        <div>
-			            <button type="button" name="" style="border: none;">등록하기</button>
-			        </div>
-			        <div>
-			            <button type="button" name="" style="margin-left : 10px;border: none;">삭제하기</button>
+			            <button  class="primary-btn" type="button" name="" style="margin-left : 10px;border: none;background-color:magenta;">삭제하기</button>
 			        </div>
 			    </div>
 			    <div class="product__detailss__rating">
-			        <i class="fa fa-star"></i>
-			        <i class="fa fa-star"></i>
-			        <i class="fa fa-star"></i>
-			        <i class="fa fa-star"></i>
-			        <i class="fa fa-star-half-o"></i>
-			        <span>5</span>
+			    <c:forEach var="i" begin="1" end="${re.iqrStar}">
+			    	<img src="${path }/resources/market/star1.png" style="width:25px;"/>
+			    </c:forEach>
+			        <span style="margin-left:20px;">${re.iqrStar }</span>
 			    </div>
-			    <div>
-			        <h5>야채주스 해먹었어요 너무 맛있어요!!</h5>
+			    <div style="margin:10px;">
+			        <h5>${re.iqrContent }</h5>
 			    </div>
 			    <br>
 			    <div id="test11">
-			        <img src="" alt="" style="width:100px;height: 100px;">
+			    <%-- <c:forEach var="pic" items="${picpic }">
+			        <img src="${path }/resources/upload/market/review/${pic.picName}" alt="" style="width:100px;height: 100px;">
+			    </c:forEach> --%>
+			        <img src="" alt="" style="width:100px;height: 100px;margin-right:50px;">
+			        <img src="" alt="" style="width:100px;height: 100px;margin-right:50px;">
 			        <img src="" alt="" style="width:100px;height: 100px;">
 			    </div>
 			    <div style="padding:10px; color:rgb(207, 207, 207);">
-			        2023.01.05
+			        <fmt:formatDate type="date" value="${re.iqrDate }"/>
 			    </div>
 			</div>
             <hr/>
+			</c:forEach>
+              
+              
               
 			<!-- 페이징처리 -->
 			<div class="product__pagination" style="text-align: center;">

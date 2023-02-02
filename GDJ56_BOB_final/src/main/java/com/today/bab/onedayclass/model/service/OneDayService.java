@@ -6,6 +6,8 @@ import java.util.Map;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.onedayclass.model.vo.OdcQa;
 import com.today.bab.onedayclass.model.vo.OdcQaRe;
+import com.today.bab.onedayclass.model.vo.OdcReserve;
+import com.today.bab.onedayclass.model.vo.OdcReview;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 public interface OneDayService {
@@ -21,4 +23,9 @@ public interface OneDayService {
 	List<OdcQa> selectOdcQaAll(int odcNo);
 	List<OdcQaRe> selectReOdcQaAll(int oqNo);
 	void inputReplayOdcQa(OdcQaRe oqr);
+	List<OdcReserve> selectReserve(Map param);
+	List<OdcReview> selectReview(int no);
+	List<OdcReserve> selectNoReviewReserve(int no2);
+	int insertReview(OdcReview or);
+	List<OdcReview> selectReviewByodcNo(int odcNo);
 }
