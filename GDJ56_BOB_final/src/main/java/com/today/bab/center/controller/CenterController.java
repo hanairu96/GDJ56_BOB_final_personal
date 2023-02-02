@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -59,6 +60,26 @@ public class CenterController {
 		mv.setViewName("center/clientQnaList");
 		
 		return mv;
+	}
+	
+	@RequestMapping("/noticeView")
+	public String noticeView(int noticeNo, Model model) {
+		
+		Notice n=service.selectNotice(noticeNo);
+		
+		model.addAttribute("n", n);
+		
+		return "center/noticeView";
+	}
+
+	@RequestMapping("/clientQnaView")
+	public String clientQnaView(int cqNo, Model model) {
+		
+		ClientQNA cq=service.selectClientQna(cqNo);
+		
+		model.addAttribute("cq", cq);
+		
+		return "center/clientQnaView";
 	}
 	
 
