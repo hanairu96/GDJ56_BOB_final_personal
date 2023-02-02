@@ -13,7 +13,6 @@ import javax.net.ssl.HttpsURLConnection;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
@@ -24,11 +23,10 @@ import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminQnaAll;
 import com.today.bab.admin.model.vo.AdminSubscription;
+import com.today.bab.admin.model.vo.AdminTotalData;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.member.model.vo.Member;
-
-import lombok.Data;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -177,6 +175,7 @@ public class AdminServiceImpl implements AdminService{
 		return dao.selectcancelOrder(session,merchant_uid);
 	}
 	
+	//환불처리를 위한 토큰발급
 	public String getToken() throws IOException {
 
 		HttpsURLConnection conn = null;
@@ -217,6 +216,7 @@ public class AdminServiceImpl implements AdminService{
 		return token;
 	}
 	
+	//발급받은 토큰과 결제정보를 통해 아임포트API에 환불처리요청
 	public void payMentCancle(String access_token, String imp_uid, int amount, String reason) throws IOException  {
 		
 		HttpsURLConnection conn = null;
@@ -261,6 +261,12 @@ public class AdminServiceImpl implements AdminService{
 		return dao.insertPoint(session,updatePoint);
 	}
 
+	@Override
+	public List<AdminTotalData> adminTotalData() {
+		return dao.adminTotalData(session);
+	}
+
+	
 	
 	
 	
