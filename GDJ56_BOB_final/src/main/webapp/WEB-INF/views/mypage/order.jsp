@@ -310,18 +310,19 @@
     			buyer_addr: orderaddr
     		}, function(rsp){	
     				if(rsp.success){
-    					//alert("결제가 완료되었습니다."); */
+    					 /* console.log(rsp.imp_uid+"uid");
+    					alert("결제가 완료되었습니다."); */ 
     					$.ajax({
     						url : "${path}/mypage/pay.do",
     						type : "post",
     						/* contentType:"application/json", */
-    						data : {
+    						 data : {
     								price : Number($("#totaltotal").html()),
     								buyer_addr: orderaddr,
     								buyer_name : $("#orderName").val(),
     								buyer_tel : $("#orderPhone").val(),
     								orderComment : $("#orderComment").val(),
-    								merchant : merchant,
+    								merchant : rsp.imp_uid,
     								use_point : Number($("#finalpoint").html()),
     								basketss : JSON.stringify(${basketss}),
     								sellItemNoCount : JSON.stringify(${sellItemNoCount})
@@ -340,7 +341,7 @@
     						},error : function(request, status, error) {
     						   	 alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
     					    }
-    					});
+    					}); 
     					
     				 }else{	
     					alert(rsp.error_msg);
