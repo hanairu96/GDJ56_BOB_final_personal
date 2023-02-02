@@ -29,36 +29,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                <c:forEach var="nl" items="${list}">
                     <tr>
-                        <td class="nos">1</td>
-                        <td class="titles"><a href="#">안녕하세요</a></td>
-                        <td class="dates">2022/12/12</td>
+                        <td class="nos">${nl.noticeNo}</td>
+                        <td class="titles"><a href="#">${nl.noticeTitle}</a></td>
+                        <td class="dates">${nl.noticeDate}</td>
                     </tr>
-                    <tr>
-                        <td class="nos">2</td>
-                        <td class="titles"><a href="#">안녕하세요</a></td>
-                        <td class="dates">2022/12/12</td>
-                    </tr>
-                    <tr>
-                        <td class="nos">2</td>
-                        <td class="titles"><a href="#">안녕하세요</a></td>
-                        <td class="dates">2022/12/12</td>
-                    </tr>
-                    <tr>
-                        <td class="nos">2</td>
-                        <td class="titles"><a href="#">안녕하세요</a></td>
-                        <td class="dates">2022/12/12</td>
-                    </tr>
-                    <tr>
-                        <td class="nos">2</td>
-                        <td class="titles"><a href="#">안녕하세요</a></td>
-                        <td class="dates">2022/12/12</td>
-                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
             <button type="button" id="write-btn" class="customBtn btnStyle" onclick="write();">글쓰기</button>
             <div class="page-bar">
-                pageBar
+                ${pageBar}
             </div>
         </div>
     </section>
