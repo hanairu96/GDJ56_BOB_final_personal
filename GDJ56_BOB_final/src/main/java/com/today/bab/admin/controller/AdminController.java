@@ -1,12 +1,6 @@
 package com.today.bab.admin.controller;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,20 +9,17 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.JsonObject;
 import com.today.bab.admin.model.service.AdminService;
 import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminSubscription;
+import com.today.bab.admin.model.vo.AdminTotalData;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.common.AdminPageBar;
@@ -47,8 +38,15 @@ private AdminService service;
 	
 	//관리자페이지 메인
 	@RequestMapping("/main.do")
-	public String adminMain() {
-		return "admin/adminMain";
+	public ModelAndView adminMain(ModelAndView mv) {
+		List<AdminTotalData> atd=service.adminTotalData();
+		
+		mv.addObject("profit",atd.get(0).getTotal());
+		mv.addObject("sales",atd.get(1).getTotal());
+		mv.addObject("members",atd.get(2).getTotal());
+		mv.setViewName("admin/adminMain");
+		
+		return mv;
 	}
 	
 	//회원관리

@@ -246,7 +246,9 @@
               </li>
               
               <li class="flex">
-              <a href="${path }"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAADC0lEQVR4nO2WXUiTURjHDzWjiy6LIi+km6CbLoqCYEQRRYSCjGYqY/ah1ObH1GxqOTdrOsu2kjQIGyzMMM2iWKskXNZmY1A6Lbecq5hufVC+73veiCDtH+9q9p3DyLrYH35X5zz8Dg+Hcx5CphEAsxiGWcFxXAml1DY2NtYbCoUyyd8Ix3FLKaUKjuMucBz3mlIKgQcDw+j3DIFhmPcKhWLZtAUA5vA8v4HneSnHcTsppRaWZUejosBwEBfb7dCWnoQ0uRRZkv1QF52MrHV3dzcKdQKUUgnDMEtilSZQSl1RicDoyHPYrD0w1jQjO7MK6SmlOFqggd2ow5tLBnjPNUyKv4dl2XG3271jSjHLsquEguO1zdiRpoFMUgFZahmMqkrcMunAdhiAa4e/wdtsxOb1xdgu1URqomRn6OAbfAyv1+smhMz7rZjn+XWCWJl1CB35MngttT+Ivodpr0bjzu2wFsrQrc6cpCBNBecdD/x+fz8hJDFmcVdJBsJtR6YUh8/XoTjnGGrUp2HSnIlg1+ZBnVn4d8UjrSZk5TQjd991FFbcimCrVMfFifFWT/tyvbf+g8v1orUGG8UqeM36mRU/Muuxbk0BnPVVMysetnwSu07MsHjCVgtrdSXeXamNPyCIP5n++O/0X/3HlNK1gjh/lwF50mIcyK7EeZ0WfoseE7afi72WOkiStdiWehAZEn2EvPQySDbthatnAENDQzGJF7As+/bpk1H03vPhbk8/zKcuQ5VzGFu3lEK7R4fLei1GzlZ/EZ9rQG6OKbL/G+77hCkTdru9gxCyiEwVp9OZ3NfX1+XxeByBQOAhwzDjQhdevXoNx+1eNNa3Ybdcj/SUMhjydTBraibHW5/P1yfURens7GxNSkraTAgRkRgz9/MpF4vF4uVNTU1FDoejIxgMBliW/SBInj97iZs33DAaWmAxX42I5XK5XKj5igWEkNmxSn+VWYSQ+VKpdE1LS4vG5XJdC4fDoejwPjg46E5ISFj5p5JYIrRvoVKp3FBeXr5LJBKt/typmPIRW0XTSiwMybkAAAAASUVORK5CYII=">
+              <!-- 나가는문 -->
+              <a href="${path }">
+              	<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAADC0lEQVR4nO2WXUiTURjHDzWjiy6LIi+km6CbLoqCYEQRRYSCjGYqY/ah1ObH1GxqOTdrOsu2kjQIGyzMMM2iWKskXNZmY1A6Lbecq5hufVC+73veiCDtH+9q9p3DyLrYH35X5zz8Dg+Hcx5CphEAsxiGWcFxXAml1DY2NtYbCoUyyd8Ix3FLKaUKjuMucBz3mlIKgQcDw+j3DIFhmPcKhWLZtAUA5vA8v4HneSnHcTsppRaWZUejosBwEBfb7dCWnoQ0uRRZkv1QF52MrHV3dzcKdQKUUgnDMEtilSZQSl1RicDoyHPYrD0w1jQjO7MK6SmlOFqggd2ow5tLBnjPNUyKv4dl2XG3271jSjHLsquEguO1zdiRpoFMUgFZahmMqkrcMunAdhiAa4e/wdtsxOb1xdgu1URqomRn6OAbfAyv1+smhMz7rZjn+XWCWJl1CB35MngttT+Ivodpr0bjzu2wFsrQrc6cpCBNBecdD/x+fz8hJDFmcVdJBsJtR6YUh8/XoTjnGGrUp2HSnIlg1+ZBnVn4d8UjrSZk5TQjd991FFbcimCrVMfFifFWT/tyvbf+g8v1orUGG8UqeM36mRU/Muuxbk0BnPVVMysetnwSu07MsHjCVgtrdSXeXamNPyCIP5n++O/0X/3HlNK1gjh/lwF50mIcyK7EeZ0WfoseE7afi72WOkiStdiWehAZEn2EvPQySDbthatnAENDQzGJF7As+/bpk1H03vPhbk8/zKcuQ5VzGFu3lEK7R4fLei1GzlZ/EZ9rQG6OKbL/G+77hCkTdru9gxCyiEwVp9OZ3NfX1+XxeByBQOAhwzDjQhdevXoNx+1eNNa3Ybdcj/SUMhjydTBraibHW5/P1yfURens7GxNSkraTAgRkRgz9/MpF4vF4uVNTU1FDoejIxgMBliW/SBInj97iZs33DAaWmAxX42I5XK5XKj5igWEkNmxSn+VWYSQ+VKpdE1LS4vG5XJdC4fDoejwPjg46E5ISFj5p5JYIrRvoVKp3FBeXr5LJBKt/typmPIRW0XTSiwMybkAAAAASUVORK5CYII=">
               </a>
                 </li>
               
@@ -306,7 +308,7 @@
                   <p
                     class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                   >
-                    <span class="numberCount1">600</span>
+                    <span class="numberCount1">${members }</span>
                   </p>
                 </div>
               </div>
@@ -333,7 +335,7 @@
                   <p
                     class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                   >
-                    $<span class="numberCount2">2000</span>
+                    <span class="numberCount2">${profit }</span>
                   </p>
                 </div>
               </div>
@@ -359,7 +361,7 @@
                   <p
                     class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                   >
-                  <span class="numberCount3">376</span>
+                  <span class="numberCount3">${sales }</span>
                   </p>
                 </div>
               </div>
@@ -404,11 +406,11 @@
                     const numberCount2=document.querySelector(".numberCount2").innerHTML;
                     const numberCount3=document.querySelector(".numberCount3").innerHTML;
                     const numberCount4=document.querySelector(".numberCount4").innerHTML;
-                    console.log(numberCount1+numberCount2+numberCount3+numberCount4);
+                    console.log(numberCount1+" "+numberCount2+" "+numberCount3+" "+numberCount4);
                     
                     //회원수
                     function counterFn1() {
-                      id0 = setInterval(count0Fn, 0.00000001);
+                      id0 = setInterval(count0Fn, 100);
                       function count0Fn() {
                         cnt0++;
                         if (cnt0 > numberCount1) {
@@ -420,11 +422,13 @@
                     }
                     //매출액
                       function counterFn2() {
-                      id1 = setInterval(count0Fn, 0.000000000001);
+                      id1 = setInterval(count0Fn, 0.000000000009);
                       function count0Fn() {
-                        cnt1++;
+                        cnt1=cnt1+1111;
                         if (cnt1 > numberCount2) {
-                          clearInterval(id1);
+                         /*  clearInterval(numberCount2);
+                          console.log("dd"); */
+                          $(".numberCount2").text(numberCount2);
                         } else {
                           $(".numberCount2").text(cnt1);
                         }
@@ -432,7 +436,7 @@
                     }
                     //판매량
                       function counterFn3() {
-                      id2 = setInterval(count0Fn, 0.0000001);
+                      id2 = setInterval(count0Fn, 10);
                       function count0Fn() {
                         cnt2++;
                         if (cnt2 > numberCount3) {
@@ -444,7 +448,7 @@
                     }
                     //사원수
                       function counterFn4() {
-                      id3 = setInterval(count0Fn, 1000);
+                      id3 = setInterval(count0Fn, 100);
                       function count0Fn() {
                         cnt3++;
                         if (cnt3 > 6) {
