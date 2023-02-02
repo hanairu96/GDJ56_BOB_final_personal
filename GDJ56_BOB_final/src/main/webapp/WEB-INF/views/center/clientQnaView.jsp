@@ -61,8 +61,13 @@
 		                <p>(아직 등록된 답변이 없습니다.)</p>
 	            	</c:if>
 	            </div>
+	            <textarea id="textEnroll" rows="5" cols="130"></textarea>
 	            <c:if test="${loginMember.memberId eq 'admin'}">
-		            <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="">등록하기</button><br>
+		            <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="answerEnroll();">답변 등록</button><br>
+		            <div id="enroll-cancel">
+			            <button type="button" id="enroll-end" class="customBtn btnStyle" onclick="enrollEnd();">등록</button><br>
+			            <button type="button" id="cancel" class="customBtn btnStyle" onclick="cancel();">취소</button><br>
+		            </div>
 	            </c:if>
 	            <button type="button" id="list-btn" class="customBtn btnStyle" onclick="goList();">목록으로</button>
 	        </div>
@@ -170,9 +175,26 @@
         	color: gray;
         	margin-bottom: 0px;
         }
+        #textEnroll{
+        	display: none;
+        	margin-left: 70px;
+            margin-right: 70px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
         #enroll-btn{
             margin-left: 82%;
             margin-bottom: 30px;
+        }
+        #enroll-cancel{
+        	display: none;
+	        margin-left: 74%;
+            margin-bottom: 30px;
+        }
+        #enroll-cancel>button{
+        	width: 100px;
+        	margin-left: 10px;
         }
         #list-btn{
             margin-left: 6%;
@@ -240,6 +262,46 @@
 		$(".side-menu>div:eq(1)").click(e=>{
 			location.assign("${path}/center/clientQnaList");
 		})
+		
+		//답변 등록 버튼 나옴
+		const answerEnroll=()=>{
+			$("#answer").hide();
+			$("#textEnroll").show();
+			$("#textEnroll").focus();
+			$("#enroll-btn").hide();
+			$("#enroll-cancel").css("display","flex");
+			$("#enroll-cancel").show();
+		}
+		
+		//답변 등록하기
+		const enrollEnd=()=>{
+			let no=${cq.cqNo}; //문의글 번호
+			let answer=$("#textEnroll").val(); //textarea에 입력한 내용
+			let args=[no, answer];
+			//등록 성공 여부를 boolean 값으로 받음
+			$.ajax({
+				url:"${path}/center/answerEnroll",
+				data:{args:args},
+				success:data=>{
+					if(data){
+						alert("등록되었습니다.");
+						//등록 성공했으면 새로고침
+						location.reload();
+					}else{
+						alert("등록이 실패하였습니다.");
+					}
+				}
+			})
+		}
+		
+		//취소 시 원래 상태로 복구
+		const cancel=()=>{
+			$("#answer").show();
+			$("#textEnroll").hide();
+			$("#enroll-btn").show();
+			$("#enroll-cancel").css("display","none");
+			$("#enroll-cancel").hide();
+		}
 		
 		//목록으로
     	const goList=()=>{
