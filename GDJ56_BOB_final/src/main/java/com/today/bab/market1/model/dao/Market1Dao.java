@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.today.bab.market1.model.vo.MarketMemberLike;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
 
@@ -31,4 +32,6 @@ public interface Market1Dao {
 	List<SellItem> selectCtgAjax(SqlSessionTemplate session,String itemCategory);
 	
 	int selectItemCount(SqlSessionTemplate session);
+	
+	List<MarketMemberLike> memberLike(SqlSessionTemplate session);
 }

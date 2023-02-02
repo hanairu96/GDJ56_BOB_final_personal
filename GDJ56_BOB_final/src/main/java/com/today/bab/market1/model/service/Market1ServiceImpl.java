@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.today.bab.market1.model.dao.Market1Dao;
+import com.today.bab.market1.model.vo.MarketMemberLike;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
 
@@ -90,5 +91,10 @@ public class Market1ServiceImpl implements Market1Service{
 	@Override
 	public int selectItemCount() {
 		return dao.selectItemCount(session);
+	}
+	
+	@Override
+	public List<MarketMemberLike> memberLike(){
+		return dao.memberLike(session);
 	}
 }

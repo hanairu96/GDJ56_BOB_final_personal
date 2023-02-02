@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.market1.model.vo.ItemrePic;
+import com.today.bab.market1.model.vo.MarketMemberLike;
 
 @Repository
 public class ReviewItemDaoImpl implements ReviewItemDao {
@@ -51,6 +52,8 @@ public class ReviewItemDaoImpl implements ReviewItemDao {
 	public int selectAvg(SqlSessionTemplate session,int itemNo) {
 		return session.selectOne("ireview.selectAvg",itemNo);
 	}
+	
+	
 	
 	
 }

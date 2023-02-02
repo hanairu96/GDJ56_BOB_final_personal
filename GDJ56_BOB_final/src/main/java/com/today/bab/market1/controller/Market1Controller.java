@@ -23,6 +23,7 @@ import com.today.bab.market1.model.service.Market1Service;
 import com.today.bab.market1.model.service.QnaService;
 import com.today.bab.market1.model.service.ReviewItemService;
 import com.today.bab.market1.model.vo.ItemReview;
+import com.today.bab.market1.model.vo.MarketMemberLike;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
 
@@ -65,6 +66,41 @@ public class Market1Controller {
 	public ModelAndView marketmain(ModelAndView mv) {
 		List<SellItem> list=service.selectItemMarket();
 		mv.addObject("items",list);
+		
+		//회원 선호리스트 뽑아주기
+		List<MarketMemberLike> like=service.memberLike();
+		System.out.println(like);
+		List addlike=new ArrayList();
+		String choice="";
+		for(MarketMemberLike l : like) {
+			System.out.println(l);
+			if(l.getFruit().equals("Y")) {
+				choice="과일";
+				addlike.add(choice);
+			}else if(l.getSea().equals("Y")) {
+				choice="수산";
+				addlike.add(choice);
+			}else if(l.getMeat().equals("Y")) {
+				choice="정육";
+				addlike.add(choice);
+			}else if(l.getSide().equals("Y")) {
+				choice="반찬";
+				addlike.add(choice);
+			}else if(l.getVege().equals("Y")) {
+				choice="채소";
+				addlike.add(choice);
+			}
+			addlike.add(l.getMemberId());
+		}
+		System.out.println(addlike);
+		
+		
+		
+		
+		
+		
+		
+		
 		mv.setViewName("market1/marketMain");
 		return mv;
 	}

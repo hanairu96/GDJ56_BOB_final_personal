@@ -3,6 +3,7 @@ package com.today.bab.market1.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.today.bab.market1.model.vo.MarketMemberLike;
 import com.today.bab.market2.model.vo.SellItem;
 
 public interface Market1Service {
@@ -30,4 +31,7 @@ public interface Market1Service {
 	
 	//카페고리 처음 출력할때 페이징
 	int selectItemCount();
+	
+	//마켓 메인에 회원가입할떄 받은 선호 음식 출력
+	List<MarketMemberLike> memberLike();
 }

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.market1.model.vo.ItemrePic;
+import com.today.bab.market1.model.vo.MarketMemberLike;
 
 public interface ReviewItemDao {
 	
@@ -23,4 +24,5 @@ public interface ReviewItemDao {
 	int insertPoint(SqlSessionTemplate session,String memberId);
 	
 	int selectAvg(SqlSessionTemplate session,int itemNo);
+	
 }
