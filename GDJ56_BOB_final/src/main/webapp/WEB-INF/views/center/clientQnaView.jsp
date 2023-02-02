@@ -198,6 +198,15 @@
 		}
     </style>
     <script>
+	 	//사이드 메뉴 누르면 페이지 이동
+		$(".side-menu>div:eq(0)").click(e=>{
+			location.assign("${path}/center/noticeList");
+		})
+		$(".side-menu>div:eq(1)").click(e=>{
+			location.assign("${path}/center/clientQnaList");
+		})
+		
+		//목록으로
     	const goList=()=>{
     		location.assign("${path}/center/clientQnaList");
     	}
