@@ -97,13 +97,6 @@
 				<input type="hidden" name="reTitle"/>
 				<input type="hidden" name="reContent"/>
 			
-			<div class="wrap-btn-booking flex-c-m m-t-6">
-				<div style="display: flex; margin-left: 65%;">
-					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4">
-						저장하기
-					</button>
-				</div>
-			</div>
 		</div>
 
 
@@ -181,19 +174,17 @@
 				<input type="hidden" id="reIconNext" name="reIcon"/>
 				<input type="hidden" id="reTitleNext" name="reTitle" />
 				<input type="hidden" id="reContentNext" name="reContent"/>
+				
+				<!-- checkbox말고 로컬스토리지에 찍힌 값 -->
+				<input type="hidden" id="itemLS" name="itemLS"/>
 
 			</div>
 			<div class="wrap-btn-booking flex-c-m m-t-6">
 				<div style="display: flex; margin-left: 75%; margin-bottom: 50px;">
 					<button type="submit" class="flex-c-m size36 txt11 trans-0-4"
 					value="check" onclick="javascript: form.action='${path}/market/checkTodayBob.do'">
-					<%-- value="check" onclick="javascript: form.action=window.open('${path}/market/checkTodayBob.do', '체크한상품확인', 'width=500, height=700, scrollbars=yes, resizable=no')"> --%>
 						확인하기
 					</button>
-<%-- 					<button type="submit" class="flex-c-m size36 txt11 trans-0-4" style="margin-left:2%" 
-					value="checkFin" onclick="javascript: form.action='${path}/market/todayAdminTitle.do';">
-						제목저장&상품등록하기
-					</button> --%>
 				</div>
 			</div>
 		</div>
@@ -227,6 +218,9 @@
 		$('#aaa').modal('hide');
 	}
 	
+	
+	
+	
 	var cbArr = new Array(); //체크한 상품번호를 저장할 배열
 	const makeItemArr = (target)=>{
 		var checkVal = target.value;
@@ -235,14 +229,148 @@
 		else{	cbArr.splice(cbArr.indexOf(checkVal), 1);	}
 		console.log("체크한상품 : "+cbArr);
 		console.log(cbArr);
-}
-
+		
+		
+		///.로컬스토리지
+		// 배열을 문자열 형태로 변환해주는 메소드
+		// JSON : 자바스크립트 객체 표현법을 객체화한 것으로, 관련 기능 제공
+		const cbArrString = JSON.stringify(cbArr);
+		console.log(cbArrString);
+		localStorage.setItem("items", cbArrString)
+		
+		
+		
+		//string으로 출력하려고 ["6","8","9"] ==>> 6,8,9 문자열로 바꾸기
+		let next = cbArrString.replace(/"/g,'');
+		console.log(next);
+		next=next.substring(1).slice(0, -1);
+		console.log(next);
+		
+		
+ 		$("#itemLS").attr("value", next);
+		console.log($("#itemLS").val());
 	
+	
+	}//makeItemArr./
+	
+	
+	
+	$(()=>{ //레디함수로 로드될 때 로컬스토리지에 저장된 값은 체크해줌
+		
+		
+		localStorage.removeItem('items');
+		
+		$("input[name=chItems]").each((i,v)=>{ //상품의 checkbox를 모두 가져와서 //includes()로 로컬스토리지에 포함되어 있다면 checked로 변경
+			
+			const no = $(v).val();
+			//console.log(no);
+			
+			
+			if(localStorage.getItem("items")==null){
+				
+			}else{
+				
+					if(localStorage.getItem("items").includes(no)) $(v).prop("checked", true); //배열을 로컬스토리지에서 읽어오기
+				
+			}
+	
+		});
+		
+	})
+	
+	
+
 	
 	
 /* 	console.log($("#reTitlePrint").text());
 	$("#reTitlePrint").text();
 	$("#reContentPrint").text(); */
+	
+	
+</script>
+<script>
+$(function(){//레디함수
+	let selectOp = "ALL";
+	$("#selectOp").change(e=>{
+		//console.log($(e.target).val());
+		selectOp = $(e.target).val();
+	});
+	
+    $("#search").keyup(e=>{
+    	//console.log($(e.target).val());
+    	
+    	
+    	
+    	
+    	
+    	
+    	$.get("${path}/market/discountAdminAjax.do?value="+$(e.target).val()+"&selectOp="+selectOp
+    			, data=>{
+    				//console.log(data);
+    				$("#itemTable tbody").html(''); //원래의 값 비워주기
+    				
+    				data.forEach(i=>{
+    					let itemInfo = i.itemNo;
+    					//console.log(itemInfo);
+    					
+    					/* 
+    					let flag = "false";
+  //x//					$("input[name=chItems]").each((i,v)=>{ //로컬스토리지에 저장된 값은 체크 보여주도록
+			
+							const no = $(v).val();
+
+							if(localStorage.getItem("items").includes(no)) {
+								
+								$(v).prop("checked", true);
+								flag = "true";
+								
+							}
+				
+				    	}); */
+    					
+    					
+    					
+    					let input = "";
+  //x//					/* if(i.itemDiscount=='Y') input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo).prop("checked", true);
+    					//else input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo).prop("checked", false); */
+    					/* if(localStorage.getItem("items").includes(no)) input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo).prop("checked", true);
+    					else input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo).prop("checked", false); */
+    					input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo);
+    					
+	    				let tr = $("<tr>");
+    					let itemNo = $("<td>").text(i.itemNo);
+    					let checkbox = $("<td>").append(
+    							
+    							localStorage.getItem("items")==null ? input:
+    							
+    							input.prop('checked', localStorage.getItem('items').includes(itemInfo))
+    							
+    					
+    					
+    					); //로컬스토리지 포함 체크
+    					let itemCategory = $("<td>").text(i.itemCategory);
+    					let itemName = $("<td>").text(i.itemName);
+    					let itemBrand = $("<td>").text(i.itemBrand);
+    					let madeIn = $("<td>").text(i.madeIn);
+    					let itemPrice = $("<td>").text(i.itemPrice);
+    					let itemStock = $("<td>").text(i.itemStock);
+    					
+    					tr.append(itemNo).append(checkbox).append(itemCategory).append(itemName).append(itemBrand).append(madeIn).append(itemPrice).append(itemStock);
+    					$("#itemTable tbody").append(tr);
+    				});
+    		});//$.get./
+    			
+    });//$("#search").keyup.e./
+    
+	
+
+    
+    
+    
+});//레디함수./
+	
+
+	
 	
 	
 </script>
@@ -340,7 +468,7 @@
 	/* /.테이블스크롤 */
 	#items{
 		overflow: scroll;
-		height: 300px;
+		height: 450px;
 		width: 600px;
 	}
 	#items::-webkit-scrollbar{

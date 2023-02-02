@@ -33,41 +33,19 @@
                     </tr>
                 </thead>
                 <tbody>
+                <c:forEach var="ql" items="${list}">
                     <tr>
-                        <td class="titles"><a href="">답변해주세요.</a></td>
-                        <td class="writers">aaaabbbbcccc</td>
-                        <td class="dates">2023/02/01</td>
-                        <td class="answers">답변대기</td>
-                    </tr>
-                    <tr>
-                        <td class="titles"><a href="">신고합니다</a></td>
-                        <td class="writers">dongmm</td>
-                        <td class="dates">2023/02/01</td>
+                        <td class="titles"><a href="">${ql.cqTitle}</a></td>
+                        <td class="writers">${ql.memberId}</td>
+                        <td class="dates">${ql.cqDate}</td>
                         <td class="answers">답변완료</td>
                     </tr>
-                    <tr>
-                        <td class="titles"><a href="">제안해요</a></td>
-                        <td class="writers">user09</td>
-                        <td class="dates">2023/01/12</td>
-                        <td class="answers">답변완료</td>
-                    </tr>
-                    <tr>
-                        <td class="titles"><a href="">제안해요</a></td>
-                        <td class="writers">user09</td>
-                        <td class="dates">2023/01/12</td>
-                        <td class="answers">답변완료</td>
-                    </tr>
-                    <tr>
-                        <td class="titles"><a href="">제안해요</a></td>
-                        <td class="writers">user09</td>
-                        <td class="dates">2023/01/12</td>
-                        <td class="answers">답변완료</td>
-                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
             <button type="button" id="write-btn" class="customBtn btnStyle" onclick="">글쓰기</button>
             <div class="page-bar">
-                pageBar
+                ${pageBar}
             </div>
         </div>
     </section>
