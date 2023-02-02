@@ -287,11 +287,12 @@
                   >
                     <%-- ${itemdetail}
                     ${orderdetail} --%>
-                  			<c:forEach var="item" items="${itemdetail}"> 
+                  			<c:forEach var="item" items="${itemdetail}" varStatus="status1"> 
                   				<tr class="text-gray-700 dark:text-gray-400">
 			                      <td class="px-4 py-3 text-sm">
 			                      		<div style="display:flex;">
 					                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					                        <input type="text" hidden value="${item.orderitem.itemNo}" id="itemNo_">
 					                        <a href="${path}/market1/marketdetail.do?itemNo=${item.orderitem.itemNo}">
 					                        <img style="width:100px;height:70px" src="${path}/resources/upload/market/mainlabel/${item.orderitem.mainPic}" >
 			                        		</a>
@@ -305,13 +306,36 @@
 			    						<c:if test="${not empty item.orderitem.itemBrand}">[${item.orderitem.itemBrand}]${item.orderitem.itemName}</c:if>
 			    						&nbsp;
 			    						</a>
-			    						<c:if test="${orderdetail.delivery eq '구매확정'}">
-			    							<button onclick="location.assign('${path }/itemReview/insertReviewGo.do?itemNo=${item.orderitem.itemNo}&itemName=${item.orderitem.itemName}&mainPic=${item.orderitem.mainPic}&orderNo=${orderdetail.orderNo}')"
-				    							class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-				    							리뷰쓰기
-			    							</button>
-			    						</c:if>
-			    						
+			    						${reviewItemNo}
+			    						 <%-- <c:if test="${orderdetail.delivery eq '구매확정'}">
+			    							<c:if test="${empty reviewItemNo}"> 
+				    							<button onclick="location.assign('${path }/itemReview/insertReviewGo.do?itemNo=${item.orderitem.itemNo}&itemName=${item.orderitem.itemName}&mainPic=${item.orderitem.mainPic}&orderNo=${orderdetail.orderNo}')"
+							    					class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+							    					리뷰쓰기
+						    					</button>
+			    							</c:if>
+			    							<c:set var="doneLoop" value="false"/>
+			    							
+			    							<c:if test="${not empty reviewItemNo}"> 
+			    								
+			    								<c:forEach var="bb" items="${reviewItemNo }">
+			    								
+			    								<c:if test="${not doneLoop}"> 
+			    									<c:if test="${!fn:contains(item.orderitem.itemNo,bb)}">
+			    									${item.orderitem.itemNo }${bb}
+			    										<button onclick="location.assign('${path }/itemReview/insertReviewGo.do?itemNo=${item.orderitem.itemNo}&itemName=${item.orderitem.itemName}&mainPic=${item.orderitem.mainPic}&orderNo=${orderdetail.orderNo}')"
+									    					class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+									    					리뷰쓰기
+								    					</button>
+								    					<c:set var="doneLoop" value="true"/>
+			    									</c:if>
+			    								</c:if>
+			    								</c:forEach>
+				    							
+			    							</c:if>
+			    							
+			    							
+			    						</c:if>   --%>
 			                        </div>
 			                      </td>
 			                      <td class="px-4 py-3 ">
@@ -459,4 +483,6 @@
 		let totalprice = parseInt(itemcount[i].innerHTML)*parseInt(price[i].value);
 		resultPrice[i].innerText=totalprice;
 	} 
+	
+	var itemNo = document.querySelectorAll("#itemNo_");
 </script>

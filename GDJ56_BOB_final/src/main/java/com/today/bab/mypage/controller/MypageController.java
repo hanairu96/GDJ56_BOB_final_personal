@@ -24,6 +24,7 @@ import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.common.MypagePageBar;
+import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.member.model.vo.Member;
 import com.today.bab.mypage.model.service.MypageService;
 import com.today.bab.mypage.model.vo.ItemDetail;
@@ -370,6 +371,17 @@ public class MypageController {
 	@RequestMapping("/orderdetail")
 	public ModelAndView selectSubscription(ModelAndView mv,int orderNo) {
 		
+		List<ItemReview> io = mypageService.selectReviewByOrderNo(orderNo);
+		
+		ArrayList reviewItemNo = new ArrayList();
+		
+		for(int i=0;i<io.size();i++) {
+			reviewItemNo.add(io.get(i).getItemNo());
+		}
+		
+		
+	
+		mv.addObject("reviewItemNo",reviewItemNo);
 		mv.addObject("itemdetail",mypageService.selectListItemDetail(orderNo));
 		mv.addObject("orderdetail",mypageService.selectOrderDetail(orderNo));
 		
