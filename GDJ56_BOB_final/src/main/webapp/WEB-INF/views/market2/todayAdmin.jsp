@@ -123,7 +123,7 @@
 		</div>
 		<div style="width: 300px; display: flex;">
 			<div class="search-sidebar2 size12 bo2 pos-relative">
-				<input id="search" class="input-search-sidebar2 p-l-20" type="text" name="검색할항목ajax로바꿔야함" placeholder="Search">
+				<input id="search" class="input-search-sidebar2 p-l-20" type="text" name="" placeholder="Search">
 				<!-- <button class="btn-search-sidebar2" onclick="searchItem();"><img style="width: 30px; height: 30px;" src="https://img.icons8.com/ios-filled/512/search.png"></button> -->
 			</div>
 		</div>
@@ -277,14 +277,6 @@
 		});
 		
 	})
-	
-	
-
-	
-	
-/* 	console.log($("#reTitlePrint").text());
-	$("#reTitlePrint").text();
-	$("#reContentPrint").text(); */
 	
 	
 </script>

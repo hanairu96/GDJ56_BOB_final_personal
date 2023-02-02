@@ -138,17 +138,16 @@ public class MarketController {
 	
 	//(관리자)추천
 	@RequestMapping("/market/todayAdmin.do")
-	public ModelAndView todayAdmin(ModelAndView mv, String value) {
+	public ModelAndView todayAdmin(ModelAndView mv, String value, String selectOp) {
 		
 		mv.addObject("emojis", Emojis.getAllEmojisSortedByCategory()); //이모지
 		
 		
 		Map<String, Object> param = new HashMap();
-		param.put("value", value);
+		param.put("keyword", value);
+		param.put("selectOp", selectOp);
 		
-		System.out.println(value);
-		
-		List<SellItem> list = service.sellItemAll(param);
+		List<SellItem> list = service.sellItemAll(param); //상품검색 - ajax로 키워드 검색
 		mv.addObject("allItems",list);
 		
 		mv.setViewName("market2/todayAdmin");
@@ -156,15 +155,31 @@ public class MarketController {
 		return mv;
 	}
 
+	//(관리자)추천 수정
 	@RequestMapping("/market/todayAdminModify.do")
-	public ModelAndView todayAdminModify(ModelAndView mv) {
-		List<TodayBob> list = service.todayBobList(); //추천제목 select에 넣어주려고
-		mv.addObject("relist",list);
+	public ModelAndView todayAdminModify(ModelAndView mv, String value, String selectOp) {
+		List<TodayBob> titleList = service.todayBobList(); //추천제목 select에 넣어주려고
+		
+		
+		Map<String, Object> param = new HashMap();
+		param.put("keyword", value);
+		param.put("selectOp", selectOp);
+		
+		List<SellItem> list = service.sellItemAll(param); //상품검색 - ajax로 키워드 검색
+		mv.addObject("allItems",list);
+		
+		
+		
+		mv.addObject("relist",titleList);//제목
+		
+		
+		
 		mv.setViewName("market2/todayAdminModify");
 		System.out.println(mv);
 		return mv;
 	}
 
+	//(관리자)추천 등록 확인
 	@RequestMapping("/market/checkTodayBob.do")
 	public ModelAndView checkTodayBob(ModelAndView mv, String itemLS, String reTitle, String reContent, String reIcon) {
 		
@@ -185,6 +200,8 @@ public class MarketController {
 		mv.setViewName("market2/todayBobCheck");
 		return mv;
 	}
+	
+	//(관리자)추천 등록 - 타이틀생성+아이템
 	@RequestMapping("/market/todayBobEnd.do")
 	public ModelAndView todayBobEnd(ModelAndView mv, int[] chItems, String reTitle, String reContent, String reIcon) {
 		
@@ -227,6 +244,8 @@ public class MarketController {
 
 		return mv;
 	}
+	
+	//(관리자)추천 삭제
 	@RequestMapping("/market/deleteTodayBob.do")
 	public ModelAndView deleteTodayBob(ModelAndView mv, int reNo) {
 		int result = service.deleteTodayBob(reNo);
@@ -236,6 +255,7 @@ public class MarketController {
 		return mv;
 	}
 	
+	//(관리자)추천 상품 보기
 	@RequestMapping("/market/todayView.do")
 	@ResponseBody
 	public List<SellItem> todayView(int reNo) {
