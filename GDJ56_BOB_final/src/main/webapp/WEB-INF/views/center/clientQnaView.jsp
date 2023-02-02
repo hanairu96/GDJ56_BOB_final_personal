@@ -15,19 +15,19 @@
             <table class="outline">
                 <tr>
                     <td class="line-title">제목</td>
-                    <td class="line-content">ㅇㅇㅇ</td>
+                    <td class="line-content headline">${cq.cqTitle}</td>
                 </tr>
                 <tr>
                     <td class="line-title">작성자</td>
-                    <td class="line-content">ㅇㅇㅇ</td>
+                    <td class="line-content">${cq.memberId}</td>
                 </tr>
                 <tr>
                     <td class="line-title">분류</td>
-                    <td class="line-content">ㅇㅇㅇ</td>
+                    <td class="line-content">${cq.cqCate}</td>
                 </tr>
                 <tr>
                     <td class="line-title">작성일</td>
-                    <td class="line-content">ㅇㅇㅇ</td>
+                    <td class="line-content">${cq.cqDate}</td>
                 </tr>
             </table>
             <div class="btns">
@@ -35,14 +35,14 @@
                 <button type="button" id="delete-btn" class="customBtn btnStyle" onclick="">삭제하기</button>
             </div>
             <div id="text">
-                내용
+                ${cq.cqContent}
             </div>
             <h2 id="as-title">답변</h2>
             <div id="answer">
                 답변
             </div>
             <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="">등록하기</button><br>
-            <button type="button" id="list-btn" class="customBtn btnStyle" onclick="">목록으로</button>
+            <button type="button" id="list-btn" class="customBtn btnStyle" onclick="goList();">목록으로</button>
         </div>
     </section>
     <style>
@@ -106,6 +106,9 @@
             width: 700px;
             padding-left: 20px;
         }
+        .headline{
+            font-weight: bold;
+        }
         .btns{
             margin-left: 70%
         }
@@ -119,13 +122,15 @@
             min-height: 250px;
         }
         #as-title{
+        	font-size: 20px !important;
+        	font-weight: bold;
             margin-left: 70px;
         }
         #answer{
             border: 1px solid black;
             margin-left: 70px;
             margin-right: 70px;
-            margin-top: 0px;
+            margin-top: 10px;
             margin-bottom: 20px;
             padding: 20px;
             min-height: 10px;
@@ -192,4 +197,9 @@
 			transition:800ms ease all;
 		}
     </style>
+    <script>
+    	const goList=()=>{
+    		location.assign("${path}/center/clientQnaList");
+    	}
+    </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

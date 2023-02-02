@@ -73,9 +73,9 @@ public class CenterController {
 	}
 
 	@RequestMapping("/clientQnaView")
-	public String clientQnaView(int sqNo, Model model) {
+	public String clientQnaView(int cqNo, Model model) {
 		
-		ClientQNA cq=service.selectClientQna(sqNo);
+		ClientQNA cq=service.selectClientQna(cqNo);
 		
 		model.addAttribute("cq", cq);
 		

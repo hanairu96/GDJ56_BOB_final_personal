@@ -15,11 +15,11 @@
             <table class="outline">
                 <tr>
                     <td class="line-title">제목</td>
-                    <td class="line-content">ㅇㅇㅇ</td>
+                    <td class="line-content headline">${n.noticeTitle}</td>
                 </tr>
                 <tr>
                     <td class="line-title">작성일</td>
-                    <td class="line-content">ㅇㅇㅇ</td>
+                    <td class="line-content">${n.noticeDate}</td>
                 </tr>
             </table>
             <div class="btns">
@@ -27,10 +27,9 @@
                 <button type="button" id="delete-btn" class="customBtn btnStyle" onclick="">삭제하기</button>
             </div>
             <div id="text">
-                내용
+                ${n.noticeContent}
             </div>
-            <button type="button" id="list-btn" class="customBtn btnStyle" onclick="">목록으로</button>
-
+            <button type="button" id="list-btn" class="customBtn btnStyle" onclick="goList();">목록으로</button>
         </div>
     </section>
     <style>
@@ -93,6 +92,9 @@
         .line-content{
             width: 700px;
             padding-left: 20px;
+        }
+        .headline{
+            font-weight: bold;
         }
         .btns{
             margin-left: 70%;
@@ -164,4 +166,9 @@
 			transition:800ms ease all;
 		}
     </style>
+    <script>
+    	const goList=()=>{
+    		location.assign("${path}/center/noticeList");
+    	}
+    </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
