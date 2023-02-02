@@ -180,7 +180,7 @@ public class OneDayController {
 	   Date odcEndDate = format2.parse(endDate);
 	   System.out.println(odcEndDate);
       
-      response.setCharacterEncoding("utf-8");
+       response.setCharacterEncoding("utf-8");
        response.setContentType("text/html;charset=utf-8");
        String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/onedayclass/");
 
@@ -289,9 +289,7 @@ public class OneDayController {
    
    @RequestMapping("/class/pop.do")
    public ModelAndView classEnroll(ModelAndView mv, String id, String no) {
-	  System.out.println(id);
-	  System.out.println(no);
-	  
+	   
 	  //예약한 리스트 가져오기
 	  Map<String, Object> param = new HashMap();
       param.put("id", id);
@@ -303,38 +301,115 @@ public class OneDayController {
 	  String[] arr = new String[reserveList.size()];
 	  //예약시퀀스 번호 기준으로의 리뷰리스트
 	  List<OdcReview> OdcReviewList=new ArrayList();
+	  //리뷰없는 예약시퀀스번호 저장
+	  List nums = new ArrayList();
+	  
+	  //예약한 수업 정보 가져오기
+	  //Listservice.odcView(no);	  
 	  
 	  //예약리스트 존재여부
 	  if(!reserveList.isEmpty()) {
 		  for(int i=0;i<reserveList.size();i++) {
 			  
-			  //예약시퀀스번호 기준으로 리뷰 가져오기
-			  OdcReviewList=service.selectReview(reserveList.get(i).getOdcreNo());
+			  int odcreNo =reserveList.get(i).getOdcreNo();
 			  
+			 //예약시퀀스번호 기준으로 리뷰 가져오기
+			 OdcReviewList=service.selectReview(odcreNo);
+			 //리뷰없는 예약시퀀스 번호 저장하기
+			 if(OdcReviewList.isEmpty()){
+				 nums.add(odcreNo);
+			 }
+			
 			  //한 클래스의 예약한 날짜를 가져오기
-			  DateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
-			  Date nowDate = new Date();
-			  nowDate=reserveList.get(i).getOdcDate();
-			  String today = sdFormat.format(nowDate);
-			  
-			  arr[i]=today;
-			 
-			  
+			  //DateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+			  //Date nowDate = new Date();
+			  //nowDate=reserveList.get(i).getOdcDate();
+			  //String today = sdFormat.format(nowDate);
+			  //arr[i]=today;
 			  
 		  }
-		 System.out.println("이 클래스의 예약 날짜들:"+Arrays.toString(arr));
-		 System.out.println("시퀀스 번호 기준으로 리뷰리스트"+OdcReviewList);
+		  System.out.println("리뷰없는 예약시퀀스번호"+nums);
 		 //System.out.println("이 클래스의 예약한 횟수:"+arr.length);
 		 //System.out.println("이 클래스의 리뷰한 횟수:");
-		  mv.addObject("reserveList", reserveList);
-		  mv.setViewName("onedayclass/onedayReviewPop");
+		 
+		  //리뷰가 없는 예약 시퀀스 번호의 예약리스트 가져오기
+		  List<OdcReserve> reserveList2=new ArrayList();
+		  for(int i=0;i<nums.size();i++) {
+			  String reserNo = nums.get(i).toString();
+			  System.out.println(reserNo);
+			  int no2=Integer.parseInt(reserNo);
+			  reserveList2.addAll(service.selectNoReviewReserve(no2));
+		  }
+		  System.out.println("리뷰없는 예약 리스트"+reserveList2);
+		  
+		  if(nums.size()<1) {
+			  mv.addObject("msg","이미 신청한 클래스의 리뷰 작성을 완료하셨습니다.");
+		      mv.setViewName("common/close");
+		  }else {
+			  mv.addObject("reserveList2", reserveList2);
+			  mv.setViewName("onedayclass/onedayReviewPop");
+		  }
 	  }else {
-		  mv.addObject("msg","리뷰는 클래스를 수강한 회원만 가능합니다");
+		  mv.addObject("msg","리뷰는 클래스를 수강한 회원만 가능합니다. "
+		  		+ "<br>*클래스를 예약하신 분들은 예약한 수업날짜가 현재 날짜 이후일 떼 리뷰쓰기가 가능해집니다.");
 	      mv.setViewName("common/close");
 	  }
       return mv;
-      
    }
+   
+   	@RequestMapping("/class/reviewEndEnroll.do")
+	public ModelAndView reviewEndEnroll(HttpServletRequest request, HttpServletResponse response, MultipartFile orePic1,OdcReview or
+		)throws Exception{
+		
+   		System.out.println("파일이름"+orePic1);
+   		
+   		response.setCharacterEncoding("utf-8");
+   		response.setContentType("text/html;charset=utf-8");
+	 	String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/onedayclass/");
 
-
+	 	if(orePic1!=null) {
+	 	String orignalFileName=orePic1.getOriginalFilename();
+	 	String ext=orignalFileName.substring(orignalFileName.lastIndexOf("."));
+	 	//중복되지 않는 이름 설정하는 값 지정하기
+	 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+	 	int rnd=(int)(Math.random()*10000)+1;
+	 	String renameFile = sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+	 	or.setOrePic(renameFile);
+	   
+	 	//파일 업로드하기
+	 	try {
+	 		//MultipartFile 클래스가 제공해주는 메소드 이용해서 저장처리
+	 		orePic1.transferTo(new File(uploadPath+renameFile));
+	 	}catch(IOException e) {
+	 		e.printStackTrace();
+	 	}
+	 	
+	 	}
+       
+	 	//OdcReview or = new OdcReview();
+	 	//or.builder().odcreNo(odcreNo).odcNo(odcNo).oreContent(oreContent).memberId(memberId).oreGood(oreGood).oreSame(oreSame).orePic(renameFile);
+	 	
+	 	ModelAndView mv = new ModelAndView();
+	 	//디비에 전송...
+	 	int result = service.insertReview(or);
+	 	
+	 	if(result>0) {
+			  mv.addObject("msg","리뷰 작성 성공:)");
+		      mv.setViewName("common/close");
+		  }else {
+			  mv.addObject("msg", "리뷰 작성 실패 :(");
+			  mv.setViewName("common/close");
+		  }
+   		
+		return mv;    
+   	}
+   	
+   	@RequestMapping("/class/selectReview.do")
+   	public List<OdcReview> selectReview(int odcNo) {
+   		System.out.println("클래스 번호"+odcNo);
+   		System.out.println(service.selectReviewByodcNo(odcNo));
+   		return service.selectReviewByodcNo(odcNo);
+   	}
+   	
+   	
 }

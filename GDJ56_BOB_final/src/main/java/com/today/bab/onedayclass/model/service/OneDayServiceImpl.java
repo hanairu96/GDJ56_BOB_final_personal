@@ -92,6 +92,22 @@ public class OneDayServiceImpl implements OneDayService {
 	public List<OdcReview> selectReview(int no) {
 		return dao.selectReview(session,no);
 	}
+
+	@Override
+	public List<OdcReserve> selectNoReviewReserve(int no2) {
+		return dao.selectNoReviewReserve(session,no2);
+	}
+
+	@Override
+	public int insertReview(OdcReview or) {
+		return dao.insertReview(session, or);
+	}
+	
+	@Override
+	public List<OdcReview> selectReviewByodcNo(int odcNo) {
+		return dao.selectReviewByodcNo(session,odcNo);
+	}
+	
 	
 	
 	

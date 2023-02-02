@@ -27,4 +27,7 @@ public interface OneDayDao {
 	List<OdcQaRe> selectReOdcQaAll(SqlSessionTemplate session, int oqNo);
 	List<OdcReserve> selectReserve(SqlSessionTemplate session, Map param);
 	List<OdcReview> selectReview(SqlSessionTemplate session, int no);
+	List<OdcReserve> selectNoReviewReserve(SqlSessionTemplate session, int no2);
+	int insertReview(SqlSessionTemplate session, OdcReview or);
+	List<OdcReview> selectReviewByodcNo(SqlSessionTemplate session, int odcNo);
 }

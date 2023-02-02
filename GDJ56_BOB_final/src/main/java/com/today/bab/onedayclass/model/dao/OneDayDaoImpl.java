@@ -82,8 +82,22 @@ public class OneDayDaoImpl implements OneDayDao {
 	public List<OdcReview> selectReview(SqlSessionTemplate session, int no) {
 		return session.selectList("onedayclass.selectReview",no);
 	}
+
+	@Override
+	public List<OdcReserve> selectNoReviewReserve(SqlSessionTemplate session, int no2) {
+		return session.selectList("onedayclass.selectNoReviewReserve",no2);
+	}
+
+	@Override
+	public int insertReview(SqlSessionTemplate session, OdcReview or) {
+		return session.insert("onedayclass.insertReview",or);
+	}
 	
 	
+	@Override
+	public List<OdcReview> selectReviewByodcNo(SqlSessionTemplate session, int odcNo) {
+		return session.selectList("onedayclass.selectReviewByodcNo",odcNo);
+	}
 	
 	
 	

@@ -25,4 +25,7 @@ public interface OneDayService {
 	void inputReplayOdcQa(OdcQaRe oqr);
 	List<OdcReserve> selectReserve(Map param);
 	List<OdcReview> selectReview(int no);
+	List<OdcReserve> selectNoReviewReserve(int no2);
+	int insertReview(OdcReview or);
+	List<OdcReview> selectReviewByodcNo(int odcNo);
 }
