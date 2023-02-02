@@ -23,8 +23,10 @@
                 </tr>
             </table>
             <div class="btns">
-                <button type="button" id="update-btn" class="customBtn btnStyle" onclick="">수정하기</button>
-                <button type="button" id="delete-btn" class="customBtn btnStyle" onclick="">삭제하기</button>
+            	<c:if test="${loginMember.memberId eq 'admin'}">
+	                <button type="button" id="update-btn" class="customBtn btnStyle" onclick="">수정하기</button>
+	                <button type="button" id="delete-btn" class="customBtn btnStyle" onclick="">삭제하기</button>
+                </c:if>
             </div>
             <div id="text">
                 ${n.noticeContent}

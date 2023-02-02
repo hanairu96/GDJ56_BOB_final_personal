@@ -42,8 +42,12 @@
 	                </tr>
 	            </table>
 	            <div class="btns">
-	                <button type="button" id="update-btn" class="customBtn btnStyle" onclick="">수정하기</button>
-	                <button type="button" id="delete-btn" class="customBtn btnStyle" onclick="">삭제하기</button>
+	            	<c:if test="${loginMember.memberId eq cq.memberId}">
+		                <button type="button" id="update-btn" class="customBtn btnStyle" onclick="">수정하기</button>
+	            	</c:if>
+	            	<c:if test="${(loginMember.memberId eq cq.memberId)||(loginMember.memberId eq 'admin')}">
+	                	<button type="button" id="delete-btn" class="customBtn btnStyle" onclick="">삭제하기</button>
+	                </c:if>
 	            </div>
 	            <div id="text">
 	                ${cq.cqContent}
@@ -57,7 +61,9 @@
 		                <p>(아직 등록된 답변이 없습니다.)</p>
 	            	</c:if>
 	            </div>
-	            <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="">등록하기</button><br>
+	            <c:if test="${loginMember.memberId eq 'admin'}">
+		            <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="">등록하기</button><br>
+	            </c:if>
 	            <button type="button" id="list-btn" class="customBtn btnStyle" onclick="goList();">목록으로</button>
 	        </div>
 	    </section>
@@ -127,8 +133,15 @@
             font-weight: bold;
         }
         .btns{
-            margin-left: 70%
+            margin-right: 7%;
+            text-align: right;
         }
+        /* #update-btn{
+            margin-left: 70%;
+        }
+        #delete-btn{
+            margin-left: 82%;
+        } */
         #text{
             border: 1px solid black;
             margin-left: 70px;
