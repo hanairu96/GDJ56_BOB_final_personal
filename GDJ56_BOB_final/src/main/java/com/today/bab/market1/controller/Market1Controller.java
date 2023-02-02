@@ -376,7 +376,6 @@ public class Market1Controller {
 			List<ItemReview> list=reservice.selectReviewAll(itemNo);
 			m.addAttribute("reviews",list);
 			m.addAttribute("picpic",reservice.selectrReviewPic());
-			
 		}else if(check.contains("c")) {
 			page="itemExchange";
 		}else if(check.contains("d")) {

@@ -29,8 +29,6 @@ public class ReviewItemServiceImpl implements ReviewItemService {
 		
 		if(result>0) {
 			result+=dao.insertPoint(session, r.getMemberId());
-			
-					
 					
 			for(ItemrePic pic:r.getItemrepic()) {
 				pic.setItemreivew(r);

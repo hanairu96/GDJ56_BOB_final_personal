@@ -33,7 +33,7 @@ public class reviewItemController {
 	}
 	
 	@RequestMapping("/insertReviewGo.do")
-	public String insertReviewGo(Model m,int itemNo,String itemName,String mainPic,HttpServletRequest request) {
+	public String insertReviewGo(Model m,int itemNo,String itemName,String mainPic, int orderNo,HttpServletRequest request) {
 	      
 		HttpSession session = request.getSession();
 	    Member  loginMember= (Member) session.getAttribute("loginMember");
@@ -42,13 +42,15 @@ public class reviewItemController {
 		m.addAttribute("memberId",loginMember.getMemberId());
 		m.addAttribute("itemName",itemName);
 		m.addAttribute("mainPic",mainPic);
+		m.addAttribute("orderNo",orderNo);
+		
 		return "market1/enrollreview";
 	}
 	
 	//리뷰 작성
 	@RequestMapping("/insertRe.do")
 	public ModelAndView insertRe(ModelAndView mv,
-			int itemNo, String memberId, String iqrContent,MultipartFile[] files,int iqrStar
+			int itemNo, String memberId, String iqrContent,MultipartFile[] files,int iqrStar,int orderNo
 			,HttpSession session) {
 		//이미지 저장할 경로 설정
 		String path=session.getServletContext().getRealPath("/resources/upload/market/review/");
@@ -63,6 +65,7 @@ public class reviewItemController {
 				.memberId(memberId)
 				.iqrContent(iqrContent)
 				.iqrStar(iqrStar)
+				.orderNo(orderNo)
 				.build();
 		
 		for(MultipartFile f : files) {
