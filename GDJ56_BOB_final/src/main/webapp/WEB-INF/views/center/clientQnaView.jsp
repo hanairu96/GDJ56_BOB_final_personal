@@ -50,7 +50,12 @@
 	            </div>
 	            <h2 id="as-title">답변</h2>
 	            <div id="answer">
-	                ${cq.cqanswer.cqaContent}
+	            	<c:if test="${not empty cq.cqanswer.cqaContent}">
+		                ${cq.cqanswer.cqaContent}
+	            	</c:if>
+	            	<c:if test="${empty cq.cqanswer.cqaContent}">
+		                <p>(아직 등록된 답변이 없습니다.)</p>
+	            	</c:if>
 	            </div>
 	            <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="">등록하기</button><br>
 	            <button type="button" id="list-btn" class="customBtn btnStyle" onclick="goList();">목록으로</button>
@@ -146,6 +151,11 @@
             margin-bottom: 20px;
             padding: 20px;
             min-height: 10px;
+        }
+        #answer p{
+        	text-align: center;
+        	color: gray;
+        	margin-bottom: 0px;
         }
         #enroll-btn{
             margin-left: 82%;
