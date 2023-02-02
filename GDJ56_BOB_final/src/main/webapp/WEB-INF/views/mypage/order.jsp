@@ -293,7 +293,7 @@
 	    //console.log($("#orderName").val());
 	    //console.log($("#orderPhone").val());
 	    /* console.log(${loginMember.memberId}); */
-	    let orderaddr=$("#inputAddress_postcode").val()+""+$("#inputAddress_address").val()+","+$("#inputAddress_detailAddress").val();
+	    let orderaddr="("+$("#inputAddress_postcode").val()+") "+$("#inputAddress_address").val()+","+$("#inputAddress_detailAddress").val();
 	    //console.log(orderaddr);
 	    let merchant = 'bob_'+Math.floor(Math.random() * 100000000)+1;
 	    console.log(merchant);

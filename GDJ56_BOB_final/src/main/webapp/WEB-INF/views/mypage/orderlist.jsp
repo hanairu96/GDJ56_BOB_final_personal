@@ -491,6 +491,13 @@
 				                        리뷰쓰러가기
 				                        </span>
 				                      </c:if>
+				                      <c:if test="${order.delivery eq '리뷰끝'}">
+				                      	<span
+				                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+				                        >
+				                        구매확정완료
+				                        </span>
+				                      </c:if>
 		                      </td>
 		                      <td class="px-4 py-3 text-sm">
 		                      	<span id="orderDate">
