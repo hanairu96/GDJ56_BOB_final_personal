@@ -14,4 +14,8 @@ public interface ReviewItemDao {
 	int insertReviewPic(SqlSessionTemplate session,ItemrePic pic );
 	
 	List<ItemReview> selectReviewAll(SqlSessionTemplate session,int itemNo);
+	
+	List<ItemrePic> selectrReviewPic(SqlSessionTemplate session);
+	
+	int insertPoint(SqlSessionTemplate session,String memberId);
 }

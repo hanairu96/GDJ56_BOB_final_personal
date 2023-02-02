@@ -30,6 +30,7 @@ import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.onedayclass.model.vo.OdcReserve;
 
 @Controller
 @RequestMapping("/mypage")
@@ -234,7 +235,12 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/onedayclass.do")
-	public ModelAndView selectOnedayclass(ModelAndView mv) {
+	public ModelAndView selectOnedayclass(ModelAndView mv,HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+	    Member m = (Member) session.getAttribute("loginMember");
+	    
+	    List<OdcReserve> odcReserve = mypageService.selectOnedayclass(m.getMemberId());
 		
 		mv.setViewName("mypage/onedayclass");
 		

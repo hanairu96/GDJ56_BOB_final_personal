@@ -9,14 +9,11 @@
     #test11 img {
         transition: all 0.3s linear;
     }
-    #test11>img:last-child:hover  {
+    #test11>img:hover  {
         border: 1px solid purple;
-        transform: scale(3.5);
+        transform: scale(4);
     }
-    #test11>img:first-child:hover  {
-        border: 1px solid purple;
-        transform: scale(3.5);
-    }
+   
 </style>
        <div class="container">
 			<div style="width:120%;">
@@ -72,12 +69,11 @@
 			    </div>
 			    <br>
 			    <div id="test11">
-			    <%-- <c:forEach var="pic" items="${picpic }">
-			        <img src="${path }/resources/upload/market/review/${pic.picName}" alt="" style="width:100px;height: 100px;">
-			    </c:forEach> --%>
-			        <img src="" alt="" style="width:100px;height: 100px;margin-right:50px;">
-			        <img src="" alt="" style="width:100px;height: 100px;margin-right:50px;">
-			        <img src="" alt="" style="width:100px;height: 100px;">
+			    <c:forEach var="pic" items="${picpic }">
+			    	<c:if test="${re.reNo == pic.reNo }">
+			        	<img src="${path }/resources/upload/market/review/${pic.picName}" alt="" style="width:100px;height: 100px;margin-right:30px;">
+			        </c:if>
+			    </c:forEach>
 			    </div>
 			    <div style="padding:10px; color:rgb(207, 207, 207);">
 			        <fmt:formatDate type="date" value="${re.iqrDate }"/>

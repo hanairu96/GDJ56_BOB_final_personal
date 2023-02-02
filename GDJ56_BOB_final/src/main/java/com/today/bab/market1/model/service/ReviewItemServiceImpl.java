@@ -28,6 +28,8 @@ public class ReviewItemServiceImpl implements ReviewItemService {
 		int result=dao.insertRe(session,r);
 		
 		if(result>0) {
+			result+=dao.insertPoint(session, r.getMemberId());
+					
 			for(ItemrePic pic:r.getItemrepic()) {
 				pic.setItemreivew(r);
 				result+=dao.insertReviewPic(session,pic);
@@ -41,6 +43,10 @@ public class ReviewItemServiceImpl implements ReviewItemService {
 		return dao.selectReviewAll(session,itemNo);
 	}
 	
+	@Override
+	public List<ItemrePic> selectrReviewPic(){
+		return dao.selectrReviewPic(session);
+	}
 
 	
 	
