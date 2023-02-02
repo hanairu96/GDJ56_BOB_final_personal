@@ -13,4 +13,7 @@ public interface CenterDao {
 	int selectNoticeCount(SqlSessionTemplate session);
 	List<ClientQNA> selectCqList(SqlSessionTemplate session, Map<String, Integer> page);
 	int selectCqCount(SqlSessionTemplate session);
+	Notice selectNotice(SqlSessionTemplate session, int no);
+	ClientQNA selectClientQna(SqlSessionTemplate session, int no);
+	
 }

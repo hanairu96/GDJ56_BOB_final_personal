@@ -16,6 +16,7 @@ import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.onedayclass.model.vo.OdcReserve;
 
 @Service
 public class MypageServiceImpl implements MypageService {
@@ -153,5 +154,10 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int updateOrderConfirm(int orderNo) {
 		return mypageDao.updateOrderConfirm(session,orderNo);
+	}
+	
+	@Override
+	public List<OdcReserve> selectOnedayclass(String memberId) {
+		return mypageDao.selectOnedayclass(session,memberId);
 	}
 }

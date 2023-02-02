@@ -203,8 +203,9 @@ public class OneDayController {
       
       //주소 분기처리
       String[] add=address.split(",");
-      String odcAdd=address;
-      String odcCity=(String)add[1];
+      String odcAdd=add[0]+" "+add[2];
+      String[] city=add[1].split(" ");
+      String odcCity=city[0]+" "+city[1];
       
       //파일명
       String odcMainPic=renameFile;
@@ -245,8 +246,14 @@ public class OneDayController {
       //System.out.println("포맷 지정 후 : " + startDate);
      // System.out.println("포맷 지정 후 : " + endDate);
       AdminMaster am= service.selectMastserById(odc.getMemberId());
+      
+      System.out.println(am.getHistory().split(",").length);
+      
+      String[] h = new String[am.getHistory().split(",").length];
+      h=am.getHistory().split(",");
+      
       mv.addObject("odc",odc);
-      mv.addObject("am",am);
+      mv.addObject("h",h);
       //mv.addObject("startDate", startDate);
       //mv.addObject("endDate", endDate);
       mv.setViewName("onedayclass/onedayClassDetail");
@@ -409,6 +416,13 @@ public class OneDayController {
    		System.out.println("클래스 번호"+odcNo);
    		System.out.println(service.selectReviewByodcNo(odcNo));
    		return service.selectReviewByodcNo(odcNo);
+   	}
+   	
+  	@RequestMapping("/map.do")
+   	public ModelAndView map() {
+   			ModelAndView mv = new ModelAndView();
+   			mv.setViewName("onedayclass/map");
+   		return mv;
    	}
    	
    	
