@@ -361,22 +361,22 @@
 				  IMP.init("imp44501773");
 					 
 					const cancelPay=(merchantUid,price,refundMsg)=>{
-						$.ajax({
+					 	if(confirm("환불 신청 사유 : "+refundMsg)){
+							$.ajax({
 								url: "${path}/admin/refundEnd.do",
 								type:"post",
-								//datatype:"json",
 								contentType : 'application/x-www-form-urlencoded; charset = utf-8',
 								data : {
 									"merchant_uid": merchantUid,
 							        "cancel_request_amount": price, // 환불금액
 							        "reason": refundMsg // 환불사유
+								},
+								success:data=>{
+									alert(data);
+									location.reload();
 								}
-							}).done(function(result){ //환불 성공
-								alert(result);
-							
-							}).fail(function(error){
-								alert(error);
-							});//ajax
+							});
+						};
 					}; 
 			</script>
         </main>

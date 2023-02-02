@@ -366,41 +366,41 @@ private AdminService service;
 	}
 	
 	//주문취소
-		@RequestMapping("/refundEnd.do")
-		public void orderCancle(String merchant_uid, int cancel_request_amount, String reason,
-		HttpServletResponse response)throws IOException {
-			
-			AdminItemOrder cancelOrder = service.selectcancelOrder(merchant_uid);
-			
-			String result="";
-			String end="";
-		    if(!"".equals(cancelOrder.getMerchantUid())) {
-		        String token = service.getToken(); //토큰발급
-		        service.payMentCancle(token,cancelOrder.getMerchantUid(), cancel_request_amount, reason); //토큰,uid,환불금액,환불사유 로 환불요청
-		        result="성공";
-		    }else {
-		    	 result="실패";
-		    }
-		    
-		    if(result.equals("성공")) {
-		    	int result2=service.updateItemOrder(cancelOrder);
-		    	int result3=service.insertPoint(cancelOrder);
-		    	if(result2>0&&result3>0) {
-		    		end="환불 승인 완료";
-		    	}else {
-		    		end="환불 승인 실패";
-		    	}
-		    }else {
-		    	end="환불 승인 실패";
-		    }
-		    
-		    
-		    
-		    response.setContentType("text/csv;charset=utf-8");
-			response.getWriter().print(end);
-		    
-		    
-		    
-		}
+	@RequestMapping("/refundEnd.do")
+	public void orderCancle(String merchant_uid, int cancel_request_amount, String reason,
+	HttpServletResponse response)throws IOException {
+		
+		AdminItemOrder cancelOrder = service.selectcancelOrder(merchant_uid);
+		
+		String result="";
+		String end="";
+	    if(!"".equals(cancelOrder.getMerchantUid())) {
+	        String token = service.getToken(); //토큰발급
+	        service.payMentCancle(token,cancelOrder.getMerchantUid(), cancel_request_amount, reason); //토큰,uid,환불금액,환불사유 로 환불요청
+	        result="성공";
+	    }else {
+	    	 result="실패";
+	    }
+	    
+	    if(result.equals("성공")) {
+	    	int result2=service.updateItemOrder(cancelOrder);
+	    	int result3=service.insertPoint(cancelOrder);
+	    	if(result2>0&&result3>0) {
+	    		end="환불 승인 완료";
+	    	}else {
+	    		end="환불 승인 실패";
+	    	}
+	    }else {
+	    	end="환불 승인 실패";
+	    }
+	    
+	    
+	    
+	    response.setContentType("text/csv;charset=utf-8");
+		response.getWriter().print(end);
+	    
+	    
+	    
+	}
 		
 }
