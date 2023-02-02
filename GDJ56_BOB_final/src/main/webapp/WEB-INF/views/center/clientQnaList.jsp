@@ -38,8 +38,14 @@
                 <c:forEach var="ql" items="${list}">
                     <tr>
 	                    <td class="categorys">${ql.cqCate}</td>
-                        <td class="titles"><a href="">${ql.cqTitle}</a></td>
-                        <td class="writers">${ql.memberId}</td>
+	                    <c:if test="${ql.cqSe eq 'Y'}">
+	                        <td class="titles"><img src="${path}/resources/images/lock.png">비밀글입니다.</td>
+    	                    <td class="writers">${ql.memberId.substring(0,1)}*****</td>
+	                    </c:if>
+	                    <c:if test="${ql.cqSe ne 'Y'}">
+	                        <td class="titles"><a href="">${ql.cqTitle}</a></td>
+    	                    <td class="writers">${ql.memberId}</td>
+	                    </c:if>
                         <td class="dates">${ql.cqDate}</td>
                         <td class="answers">
 	                        <c:if test="${ql.cqCheck eq 'Y'}">
@@ -113,6 +119,10 @@
         .list-table th, td{
             border-bottom: 1px solid gray;
             height: 50px;
+        }
+        .list-table img{
+        	width: 25px;
+        	height: 25px;
         }
         .search-form{
             text-align: right;
