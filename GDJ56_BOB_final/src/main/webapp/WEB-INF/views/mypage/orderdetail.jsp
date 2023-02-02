@@ -304,13 +304,14 @@
 				                        <c:if test="${empty item.orderitem.itemBrand}">${item.orderitem.itemName}</c:if>
 			    						<c:if test="${not empty item.orderitem.itemBrand}">[${item.orderitem.itemBrand}]${item.orderitem.itemName}</c:if>
 			    						&nbsp;
+			    						</a>
 			    						<c:if test="${orderdetail.delivery eq '구매확정'}">
-			    							<button 
+			    							<button onclick="location.assign('${path }/itemReview/insertReviewGo.do?itemNo=${item.orderitem.itemNo}&itemName=${item.orderitem.itemName}&mainPic=${item.orderitem.mainPic}')"
 				    							class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
 				    							리뷰쓰기
 			    							</button>
 			    						</c:if>
-			    						</a>
+			    						
 			                        </div>
 			                      </td>
 			                      <td class="px-4 py-3 ">

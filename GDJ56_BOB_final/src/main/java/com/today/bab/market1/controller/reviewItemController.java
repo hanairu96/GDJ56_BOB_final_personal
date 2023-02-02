@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.today.bab.market1.model.service.ReviewItemService;
 import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.market1.model.vo.ItemrePic;
-import com.today.bab.market2.model.vo.ItemPic;
+import com.today.bab.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/itemReview")
@@ -32,9 +33,13 @@ public class reviewItemController {
 	}
 	
 	@RequestMapping("/insertReviewGo.do")
-	public String insertReviewGo(Model m,int itemNo, String memberId,String itemName,String mainPic) {
+	public String insertReviewGo(Model m,int itemNo,String itemName,String mainPic,HttpServletRequest request) {
+	      
+		HttpSession session = request.getSession();
+	    Member  loginMember= (Member) session.getAttribute("loginMember");
+	    
 		m.addAttribute("itemNo",itemNo);
-		m.addAttribute("memberId",memberId);
+		m.addAttribute("memberId",loginMember.getMemberId());
 		m.addAttribute("itemName",itemName);
 		m.addAttribute("mainPic",mainPic);
 		return "market1/enrollreview";
