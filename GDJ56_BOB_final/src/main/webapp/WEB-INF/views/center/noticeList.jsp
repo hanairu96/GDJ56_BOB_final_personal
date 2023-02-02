@@ -29,13 +29,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="nl" items="${list}">
-                    <tr>
-                        <td class="nos">${nl.noticeNo}</td>
-                        <td class="titles"><a href="#">${nl.noticeTitle}</a></td>
-                        <td class="dates">${nl.noticeDate}</td>
-                    </tr>
-                </c:forEach>
+                	<c:if test="${empty list}">
+	                	<tr>
+	                		<td colspan="3">등록된 글이 없습니다.</td>
+	                	</tr>
+	                </c:if>
+                	<c:if test="${not empty list}">
+		                <c:forEach var="nl" items="${list}">
+		                    <tr>
+		                        <td class="nos">${nl.noticeNo}</td>
+		                        <td class="titles"><a href="#">${nl.noticeTitle}</a></td>
+		                        <td class="dates">${nl.noticeDate}</td>
+		                    </tr>
+		                </c:forEach>
+		            </c:if>
                 </tbody>
             </table>
             <button type="button" id="write-btn" class="customBtn btnStyle" onclick="write();">글쓰기</button>

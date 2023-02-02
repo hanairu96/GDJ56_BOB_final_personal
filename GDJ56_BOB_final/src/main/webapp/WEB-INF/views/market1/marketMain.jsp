@@ -67,9 +67,7 @@
             <br><br><br>
 
 
-            <!-- 구독서비스 연결 -->
-            <img src="${path }/resources/market/img/banner/banner-2.jpg" alt="" style="width:100%; height: 300px; ">
-            <br><br><br><br>
+            <br><br><br>
             
 
             <!-- 1만원대 추천상품 -->
@@ -113,6 +111,10 @@
                 </div>
             </div>
             <br><br><br>
+            
+            <!-- 구독서비스 연결 -->
+            <img src="${path }/resources/market/img/banner/banner-2.jpg" alt="" style="width:100%; height: 300px; ">
+            <br>
 
 
         </div>

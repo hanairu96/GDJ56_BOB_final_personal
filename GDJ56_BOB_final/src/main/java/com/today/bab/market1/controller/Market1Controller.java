@@ -373,17 +373,9 @@ public class Market1Controller {
 			m.addAttribute("de",service.marketdetail(itemNo));
 		}else if(check.contains("b")) {
 			page="itemReview";
-			
 			List<ItemReview> list=reservice.selectReviewAll(itemNo);
 			m.addAttribute("reviews",list);
-//			String file="";
-//			int count=0;
-//			for(ItemrePic i : ((ItemReview) list).getItemrepic()) {
-//				if(count++!=0) file+=",";
-//				file+=i.getPicName();
-//			}
-//			m.addAttribute("picpic",file);
-			
+			m.addAttribute("picpic",reservice.selectrReviewPic());
 		}else if(check.contains("c")) {
 			page="itemExchange";
 		}else if(check.contains("d")) {

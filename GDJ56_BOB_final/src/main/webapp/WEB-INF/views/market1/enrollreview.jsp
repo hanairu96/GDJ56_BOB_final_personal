@@ -30,6 +30,7 @@
                 <hr/>
                 <input type="hidden" name="itemNo" value="${itemNo }"/>
                 <input type="hidden" name="memberId" value="${memberId }"/>
+                <input type="hidden" name="orderNo" value="${orderNo }"/>
                 <div style="display: flex;">
                     <h4 style="margin-left: 10px;">별점</h4>
                 </div>
