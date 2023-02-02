@@ -292,15 +292,25 @@
 			                      <td class="px-4 py-3 text-sm">
 			                      		<div style="display:flex;">
 					                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					                        <img style="border:solid 1px; width:28px;height:28px" alt="" src=""><%-- ${item.orderitem.mainPic} --%>
+					                        <a href="${path}/market1/marketdetail.do?itemNo=${item.orderitem.itemNo}">
+					                        <img style="width:100px;height:70px" src="${path}/resources/upload/market/mainlabel/${item.orderitem.mainPic}" >
+			                        		</a>
 			                        	</div>
 			                      </td>
+			                      <input type="text" value="${item.orderitem.itemPrice }" id="itemPrice" hidden>
 			                      <td class="px-4 py-3">
 			                        <div class="flex items-center text-sm" id="stockinfo">
+			                        	<a href="${path}/market1/marketdetail.do?itemNo=${item.orderitem.itemNo}">
 				                        <c:if test="${empty item.orderitem.itemBrand}">${item.orderitem.itemName}</c:if>
 			    						<c:if test="${not empty item.orderitem.itemBrand}">[${item.orderitem.itemBrand}]${item.orderitem.itemName}</c:if>
 			    						&nbsp;
-			    						<span id=""></span>
+			    						<c:if test="${orderdetail.delivery eq '구매확정'}">
+			    							<button 
+				    							class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+				    							리뷰쓰기
+			    							</button>
+			    						</c:if>
+			    						</a>
 			                        </div>
 			                      </td>
 			                      <td class="px-4 py-3 ">
@@ -437,3 +447,15 @@
     </div>
   </body>
 </html>
+<script>
+
+	var itemcount =	document.querySelectorAll("#result");
+	var price =	document.querySelectorAll("#itemPrice");
+	var resultPrice = document.querySelectorAll("#priceResult");
+	//console.log(itemcount[0].innerHTML);
+	//console.log(price[0].value);
+	for(let i=0;i<itemcount.length;i++){
+		let totalprice = parseInt(itemcount[i].innerHTML)*parseInt(price[i].value);
+		resultPrice[i].innerText=totalprice;
+	} 
+</script>

@@ -13,10 +13,15 @@ import lombok.NoArgsConstructor;
 @Builder
 public class OdcReserve {
 
+	private String memberId;
 	private int odcreNo;
 	private int odcNo;
 	private Date odcDate;
-	private String memberId;
 	private Date odcEnrollDate;
+	private String odcClassName;
+	private int odcPrice;
+	private String master;
+	private String odcPic;
+	
 	
 }
