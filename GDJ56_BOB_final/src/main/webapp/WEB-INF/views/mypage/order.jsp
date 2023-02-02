@@ -18,7 +18,7 @@
                 	<div class="blog__sidebar__recent">
                             <span class="blog__sidebar__recent__item">
                                 <div class="blog__sidebar__recent__item__pic">
-                                    <img style="border:solid 1px; width:100px;height:100px" src="img/blog/sidebar/sr-1.jpg" alt="">
+                                    <img style=" width:110px;height:110px" src="${path }/resources/upload/market/mainlabel/${ios.mainPic}" alt="">
                                 </div>
                                 <div class="blog__sidebar__recent__item__text">
                                 	<h6>
