@@ -363,7 +363,7 @@ private AdminService service;
 		return mv;
 	}
 	
-	//주문취소
+	//환불처리
 	@RequestMapping("/refundEnd.do")
 	public void orderCancle(String merchant_uid, int cancel_request_amount, String reason,
 	HttpServletResponse response)throws IOException {

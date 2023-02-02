@@ -175,6 +175,7 @@ public class AdminServiceImpl implements AdminService{
 		return dao.selectcancelOrder(session,merchant_uid);
 	}
 	
+	//환불처리를 위한 토큰발급
 	public String getToken() throws IOException {
 
 		HttpsURLConnection conn = null;
@@ -215,6 +216,7 @@ public class AdminServiceImpl implements AdminService{
 		return token;
 	}
 	
+	//발급받은 토큰과 결제정보를 통해 아임포트API에 환불처리요청
 	public void payMentCancle(String access_token, String imp_uid, int amount, String reason) throws IOException  {
 		
 		HttpsURLConnection conn = null;
