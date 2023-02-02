@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +23,6 @@ import com.today.bab.market1.model.service.Market1Service;
 import com.today.bab.market1.model.service.QnaService;
 import com.today.bab.market1.model.service.ReviewItemService;
 import com.today.bab.market1.model.vo.ItemReview;
-import com.today.bab.market1.model.vo.ItemrePic;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
 
@@ -366,16 +366,25 @@ public class Market1Controller {
 	
 	
 	@RequestMapping("/choiceexplain.do")
-	public String choiceexplain(int itemNo,String check,Model m) {
+	public String choiceexplain(int itemNo,String check,Model m,
+			@Validated @RequestParam(value="cPage", defaultValue="1", required = true)int cPage,
+			@Validated @RequestParam(value="numPerpage", defaultValue="2", required = true)int numPerpage
+			) {
 		String page="";
 		if(check.contains("a")) {
 			page="ItemDetailInfo";
 			m.addAttribute("de",service.marketdetail(itemNo));
 		}else if(check.contains("b")) {
 			page="itemReview";
-			List<ItemReview> list=reservice.selectReviewAll(itemNo);
+//			List<ItemReview> list=reservice.selectReviewAll(itemNo);
+			List<ItemReview> list=reservice.selectReviewAll(itemNo,Map.of("cPage",cPage,"numPerpage",numPerpage));
 			m.addAttribute("reviews",list);
 			m.addAttribute("picpic",reservice.selectrReviewPic());
+			//페이징처리
+			int totaldata=reservice.selectReviewCount();
+			m.addAttribute("itemNo", itemNo);
+			m.addAttribute("check", "b");
+			m.addAttribute("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"choiceexplain.do"));
 		}else if(check.contains("c")) {
 			page="itemExchange";
 		}else if(check.contains("d")) {

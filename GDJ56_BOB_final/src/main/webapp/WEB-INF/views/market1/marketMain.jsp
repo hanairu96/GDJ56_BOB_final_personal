@@ -6,7 +6,7 @@
 <jsp:include page="/WEB-INF/views/common/marketHeader2.jsp"/>
 
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
+	<div class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -17,9 +17,8 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
     
-    <section class="categories">
         <div class="container">
 			<a style="font-size:30px;" href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a><br>
 			<a style="font-size:30px;" href="${path }/itemQna/resultresult.do?itemNo=8">리뷰</a><br>
@@ -118,7 +117,6 @@
 
 
         </div>
-    </section>
 	<script>
 		(function ($) {
 		    $(".categories__slider").owlCarousel({

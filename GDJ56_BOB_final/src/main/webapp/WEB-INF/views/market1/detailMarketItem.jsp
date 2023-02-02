@@ -132,7 +132,7 @@
                             <li class="nav -item">
                                 <a class="nav-link" data-toggle="tab" role="tab"
                                     aria-selected="false" style="font-size: 25px;"
-                                    href="javascript:void(0);" onclick="choiceexplain(${de.itemNo},'bb');">리뷰<span>(1)</span></a>
+                                    href="javascript:void(0);" onclick="choiceexplain(${de.itemNo},'bb');">리뷰<span>(${reviews.size() })</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" role="tab"

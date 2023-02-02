@@ -1,6 +1,7 @@
 package com.today.bab.market1.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.market1.model.vo.ItemrePic;
@@ -9,7 +10,9 @@ public interface ReviewItemService {
 	
 	int insertRe(ItemReview r);
 	
-	List<ItemReview> selectReviewAll(int itemNo);
+	List<ItemReview> selectReviewAll(int itemNo,Map<String,Integer> param);
 	
 	List<ItemrePic> selectrReviewPic();
+	
+	int selectReviewCount();
 }

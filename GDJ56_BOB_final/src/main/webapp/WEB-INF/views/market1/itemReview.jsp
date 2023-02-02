@@ -54,9 +54,6 @@
 			        	 <img src="${path }/resources/images/logo-icon.png" alt="" style="height:40px;width: 40px;border-radius: 50%;">
 			            <h4 style="margin-left :10px;">${re.memberId }</h4>
 			        </div>
-			        <div>
-			            <button  class="primary-btn" type="button" name="" style="margin-left : 10px;border: none;background-color:magenta;">삭제하기</button>
-			        </div>
 			    </div>
 			    <div class="product__detailss__rating">
 			    <c:forEach var="i" begin="1" end="${re.iqrStar}">
@@ -85,11 +82,7 @@
               
               
 			<!-- 페이징처리 -->
-			<div class="product__pagination" style="text-align: center;">
-			    <a href="#"><i class="fa fa-long-arrow-left"></i></a>
-			    <a href="#">1</a>
-			    <a href="#">2</a>
-			    <a href="#">3</a>
-			    <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+			<div style="text-align: center;">
+				 ${pageBar }
 			</div>
 		</div>

@@ -1,6 +1,7 @@
 package com.today.bab.market1.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,8 @@ public class ReviewItemServiceImpl implements ReviewItemService {
 	}
 	
 	@Override
-	public List<ItemReview> selectReviewAll(int itemNo){
-		return dao.selectReviewAll(session,itemNo);
+	public List<ItemReview> selectReviewAll(int itemNo,Map<String,Integer> param){
+		return dao.selectReviewAll(session,itemNo,param);
 	}
 	
 	@Override
@@ -48,7 +49,10 @@ public class ReviewItemServiceImpl implements ReviewItemService {
 		return dao.selectrReviewPic(session);
 	}
 
-	
+	@Override
+	public int selectReviewCount() {
+		return dao.selectReviewCount(session);
+	}
 	
 	
 	
