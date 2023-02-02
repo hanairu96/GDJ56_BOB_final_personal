@@ -6,7 +6,7 @@ public class MypagePageBar {
 	         //pagebar를 만들어서 반환해주는 기능을 하는 메소드
 	         String pageBar="";
 	         int totalPage=(int)Math.ceil((double)totalData/numPerpage);
-	         int pageBarSize=3;
+	         int pageBarSize=5;
 	         int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 	         int pageEnd=pageNo+pageBarSize-1;
 	         

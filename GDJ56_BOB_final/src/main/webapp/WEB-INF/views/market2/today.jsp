@@ -19,43 +19,122 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
 <body class="animsition">
-<section id="item_banner" style="margin-top: 150px;">
+<%-- <section id="item_banner" style="margin-top: 150px;">
 	<!-- 개수별for문분기처리 -->
 	<!-- 3개까지 -->
 	<c:if test="${relistCnt <= 3}"> 
 		<div class="todaybab_title">
 		  <c:forEach var="r" items="${relist }">
-			<a href="#"><h4>${r.reIcon }${r.reTitle }</h4></a>
+			<a href="${path }/market/todayView.do?reNo=${r.reNo }"><h4>${r.reIcon }${r.reTitle }</h4></a>
 		  </c:forEach>
 		</div>
 	</c:if>
 	<!-- 4개일경우 -->
 	<c:if test="${relistCnt == 4}">
 		<div class="todaybab_title">
-			<a href="#"><h4>${relist.get(0).reIcon }${relist.get(0).reTitle }</h4></a>
-			<a href="#"><h4>${relist.get(1).reIcon }${relist.get(1).reTitle }</h4></a>
+			<a href="${path }/market/todayView.do?reNo=${relist.get(0).reNo }"><h4>${relist.get(0).reIcon }${relist.get(0).reTitle }</h4></a>
+			<a href="${path }/market/todayView.do?reNo=${relist.get(1).reNo }"><h4>${relist.get(1).reIcon }${relist.get(1).reTitle }</h4></a>
 		</div>
 		<div class="todaybab_title">
-			<a href="#"><h4>${relist.get(2).reIcon }${relist.get(2).reTitle }</h4></a>
-			<a href="#"><h4>${relist.get(3).reIcon }${relist.get(3).reTitle }</h4></a>
+			<a href="${path }/market/todayView.do?reNo=${relist.get(2).reNo }"><h4>${relist.get(2).reIcon }${relist.get(2).reTitle }</h4></a>
+			<a href="${path }/market/todayView.do?reNo=${relist.get(3).reNo }"><h4>${relist.get(3).reIcon }${relist.get(3).reTitle }</h4></a>
 		</div>
 	</c:if>
 	<!-- 5개일경우 -->
 	<c:if test="${relistCnt == 5}">
 		<div class="todaybab_title">
-			<a href="#"><h4>${relist.get(0).reIcon }${relist.get(0).reTitle }</h4></a>
-			<a href="#"><h4>${relist.get(1).reIcon }${relist.get(1).reTitle }</h4></a>
-			<a href="#"><h4>${relist.get(2).reIcon }${relist.get(2).reTitle }</h4></a>
+			<a href="${path }/market/todayView.do?reNo=${relist.get(0).reNo }"><h4>${relist.get(0).reIcon }${relist.get(0).reTitle }</h4></a>
+			<a href="${path }/market/todayView.do?reNo=${relist.get(1).reNo }"><h4>${relist.get(1).reIcon }${relist.get(1).reTitle }</h4></a>
+			<a href="${path }/market/todayView.do?reNo=${relist.get(2).reNo }"><h4>${relist.get(2).reIcon }${relist.get(2).reTitle }</h4></a>
 		</div>
 		<div class="todaybab_title">
-			<a href="#"><h4>${relist.get(3).reIcon }${relist.get(3).reTitle }</h4></a>
-			<a href="#"><h4>${relist.get(4).reIcon }${relist.get(4).reTitle }</h4></a>
+			<a href="${path }/market/todayView.do?reNo=${relist.get(3).reNo }"><h4>${relist.get(3).reIcon }${relist.get(3).reTitle }</h4></a>
+			<a href="${path }/market/todayView.do?reNo=${relist.get(4).reNo }"><h4>${relist.get(4).reIcon }${relist.get(4).reTitle }</h4></a>
+		</div>
+	</c:if>
+</section> --%>
+<section id="item_banner" style="margin-top: 150px;">
+	<!-- 개수별for문분기처리 -->
+	<!-- 3개까지 -->
+	<c:if test="${relistCnt <= 3}"> 
+		<div class="todaybab_title">
+		  <c:forEach var="r" items="${relist }">
+			<a href="javascript:callFunction();" id="${r.reNo }"><h4>${r.reIcon }${r.reTitle }</h4></a>
+		  </c:forEach>
+		</div>
+	</c:if>
+	<!-- 4개일경우 -->
+	<c:if test="${relistCnt == 4}">
+		<div class="todaybab_title">
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(0).reNo }"><h4>${relist.get(0).reIcon }${relist.get(0).reTitle }</h4></a>
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(1).reNo }"><h4>${relist.get(1).reIcon }${relist.get(1).reTitle }</h4></a>
+		</div>
+		<div class="todaybab_title">
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(2).reNo }"><h4>${relist.get(2).reIcon }${relist.get(2).reTitle }</h4></a>
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(3).reNo }"><h4>${relist.get(3).reIcon }${relist.get(3).reTitle }</h4></a>
+		</div>
+	</c:if>
+	<!-- 5개일경우 -->
+	<c:if test="${relistCnt == 5}">
+		<div class="todaybab_title">
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(0).reNo }"><h4>${relist.get(0).reIcon }${relist.get(0).reTitle }</h4></a>
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(1).reNo }"><h4>${relist.get(1).reIcon }${relist.get(1).reTitle }</h4></a>
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(2).reNo }"><h4>${relist.get(2).reIcon }${relist.get(2).reTitle }</h4></a>
+		</div>
+		<div class="todaybab_title">
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(3).reNo }"><h4>${relist.get(3).reIcon }${relist.get(3).reTitle }</h4></a>
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(4).reNo }"><h4>${relist.get(4).reIcon }${relist.get(4).reTitle }</h4></a>
 		</div>
 	</c:if>
 </section>
+<script>
+/* $(".todaybab_title a").click(e=>{
+	$.get("${path }/market/todayView.do?reNo="+changeBtn
+			,data=>{
+					console.log(data);
+					
+					const html = data;
+					$("#aaaaa").html(html);
+					
+	});//$.get./
+	
+	
+	
+})//click e./ */
+
+const callFunction = (e)=>{
+	console.log(e);
+//	$(".todaybab_title a").click(e=>{
+		clickTag = $(e.target).parent().attr("id");
+		
+		console.log(clickTag);
+		
+		$.get("${path }/market/todayView.do?reNo="+clickTag
+				,data=>{
+						console.log(data);
+						
+						
+						var html = ""; 
+						html = data;
+						$("#aaaaa").html(html); 
+						
+		});//$.get./
+	
+//		e.stopPropagation();
+	
+//	};//클릭이벤트./
+	
+	
+	
+	
+}
+
+
+</script>
+<div id="aaaaa">아ㅏ아아아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ</div>
 
 <div style="display: flex; margin-left: 65%; margin-bottom: 30px;">
-	<c:if test="${relistCnt <= 5}"><!-- btn(등록,수정) ->타이틀이 5개로 차면(max5) 등록하기는 안 보이고 수정하기만 보이게 -->
+	<c:if test="${relistCnt < 5}"><!-- btn(등록,수정) ->타이틀이 5개로 차면(max5) 등록하기는 안 보이고 수정하기만 보이게 -->
 		<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" onclick="location.replace('${path}/market/todayAdmin.do')">등록하기</button>
 	</c:if>
 	<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-left:2%" onclick="location.replace('${path}/market/todayAdminModify.do')">수정하기</button>

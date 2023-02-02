@@ -15,4 +15,6 @@ public class TobobDetail {
 //	private int reNo;
 	private SellItem itemNo;
 	private TodayBob reNo;
+	
+//	private List<TodayBob> reNo;
 }

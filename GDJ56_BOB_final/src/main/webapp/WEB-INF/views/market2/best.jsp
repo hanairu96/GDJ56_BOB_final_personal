@@ -53,16 +53,16 @@
 	<section class="recipe-section section-best-item">
 		<div class="container">
 			<p>총 100건</p>
-			<div class="row">
+			<div class="row" id="print">
 				<c:forEach var="i" items="${bestItems }">
-				<div id="print" class="col-lg-4 col-sm-6" style="padding: 3%;">
+				<div class="col-lg-4 col-sm-6" style="padding: 3%;">
 					<div class="recipe-item">
 						<div class="zoom">
-							<a href="#"><img src="${i.mainPic}" alt="" width="330" height="280"></a><!-- ! 사진경로연결해주기 -->
+							<a href="${path}/market1/marketdetail.do?itemNo=${i.itemNo }"><img src="${i.mainPic}" alt="" width="330" height="280"></a><!-- ! 사진경로연결해주기 -->
 						</div>
 						<div class="ri-text">
-							<div class="cat-name">과일<c:out value="${i.itemCategory }"/></div>
-							<a href="#">
+							<div class="cat-name"><c:out value="${i.itemCategory }"/></div>
+							<a href="${path}/market1/marketdetail.do?itemNo=${i.itemNo }">
 								<h4><c:out value="${i.itemName }"/></h4>
 								<p><c:out value="${i.mainContent }"/></p>
 							</a>
@@ -109,12 +109,22 @@
 
 
 <script>
-$(function(){//레디함수
+$(function(){//.레디함수
 	
-	/* $.get("${path}/market/bestAjax.do?value="
-			, data=>{
-				console.log(data);
-			}); */
+	//최근본상품
+/*  	var out = localStorage.getItem('list');
+	var list = JSON.parse(out);
+	if ( list == null) list = [];
+	
+	var id = $('#itemName').html();
+	var category = $('#cate').html();
+	var price = $('#price').html();
+	var str = id+'|'+category+'|'+price;
+	
+	if(id != null) {
+		list.unshift(str); // 앞에서부터 저장
+		localStorage.setItem('list', JSON.stringify(list));
+	} */
 	
 	
 	//가격대별
@@ -122,35 +132,62 @@ $(function(){//레디함수
 		changeBtn = $(e.target).val();
 		$.get("${path}/market/bestAjax.do?value="+changeBtn
     			, data=>{
-    				console.log(data);
+    					console.log(data);
     				
-    				/* var html = '';
-    				for(var i=0; data.size(); i++){
-			    				html += "<div class='"+col-lg-4 col-sm-6+"' style='"+padding: 3%;+"'>
-								<div class='"+recipe-item+"'>
-								<div class='"+zoom+"'>
-									<a href='"+#+'"><img src='"+${i.mainPic}+"'width='"+330+"' height='"+280+"'></a>
-								</div>";
-								
-						</div>";
-    				}
-    				
-    				$("#print").empty();
-    				$("#print").append(html); */
-    				
-    				
-    				
-    				
-    				
-    				
-    				
-    				
-    				
-    			});
-	});
+    					//반복문 2개 : 1//data.forEach(i=>{	console.log(i)	}); 2//for(let i=0; i<data.length; i++){ console.log(data[i]);	};
+    					
+    					$("#print").html(''); //원래의 값 비워주기
+    					
+    					
+    					var html = "";
+    					data.forEach(i=>{	console.log(i)
+    						//html += "<h4>"+i.itemName+"</h4>";
+    						
+    						var itemNo = i.itemNo;
+    						
+    						html += "<div class='col-lg-4 col-sm-6' style='padding: 3%;'>";
+							html += "<div class='recipe-item'>";
+							html += "<div class='zoom'>";
+							html += "<a href='#'><img src='"+i.mainPic+"' alt='' width='330' height='280'></a>";
+							html += "</div>";
+							html += "<div class='ri-text'>";
+							html += "<div class='cat-name'>"+i.itemCategory+"</div>";
+							html += "<a href='${path}/market1/marketdetail.do?itemNo="+itemNo+"'>";
+							html += "<h4>"+i.itemName+"</h4>";
+							html += "<p>"+i.mainContent+"</p>";
+							html += "</a>";
+							html += "<div style='display: flex; margin-top: 1%; justify-content: space-between; align-items: center;'>";
+							html += "<div style='display: flex;'>";
+							html += "<img src='https://img.icons8.com/ios/512/money-bag.png' width='20' height='20'>";
+							html += "<h5>"+i.itemPrice+"</h5><h5>원</h5>";
+							html += "</div>";
+							html += "<div class='zoom'>";
+							html += "<a href=''><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>";
+							html += "</div>";
+							html += "</div>";
+							html += "</div>";
+							html += "</div>";
+							html += "</div>";
+    					
+    					
+    					
+    					});//data.forEach반복문./
+    					
+    					$("#print").html(html);
+    					
+
+			}); //data./$.get./
 	
 	
-});
+	})//e./click./
+	
+	
+	
+	
+	
+	
+	
+});//레디함수./
 	
 
 

@@ -15,8 +15,8 @@ public interface MarketDao {
 	List<SellItem> sellItemByNo(SqlSessionTemplate session, String chItemsTxt);
 	
 	
-//	List<SellItem> bestItems(SqlSessionTemplate session);
-//	List<SellItem> bestItemsAjax(SqlSessionTemplate session, String value);
+																//	List<SellItem> bestItems(SqlSessionTemplate session);
+																//	List<SellItem> bestItemsAjax(SqlSessionTemplate session, String value);
 	List<SellItem> bestItems(SqlSessionTemplate session,  String value);
 	
 	
@@ -27,10 +27,11 @@ public interface MarketDao {
 	List<TodayBob> todayBobList(SqlSessionTemplate session);
 	int todayBobListCount(SqlSessionTemplate session);
 	int deleteTodayBob(SqlSessionTemplate session, int reNo);
+																//	int selectTodayBobByTitle(SqlSessionTemplate session, String reTitle);
 	int insertTodayBob(SqlSessionTemplate session, TodayBob tb);
-	int selectTodayBobByTitle(SqlSessionTemplate session, String reTitle);
 	int insertTodayBobItems(SqlSessionTemplate session, Map<String, Object> param); //전체
-	int insertTodayBobItem(SqlSessionTemplate session, TobobDetail td);	//1개씩
+	int insertTodayBobItem(SqlSessionTemplate session, Map param);	//1개씩
+	List<SellItem> todayView(SqlSessionTemplate session, int reNo);
 	
 	
 

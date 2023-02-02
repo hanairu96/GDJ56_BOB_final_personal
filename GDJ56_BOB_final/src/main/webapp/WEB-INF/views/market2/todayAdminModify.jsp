@@ -140,12 +140,11 @@
 		</div>
 	</div>
 </form>
-<button onclick="searchItem();">검색</button>
 
 
 
 <!-- todaybab create -->
-<section class="discount-section spad">
+<section class="discount-section">
 	<div class="container">
 		<span style="margin-left: 100px;">추천할 상품 선택(20개 필수)</span>
 		<div class="row flex-c-m">
@@ -354,7 +353,7 @@
 	/* /.테이블스크롤 */
 	#items{
 		overflow: scroll;
-		height: 300px;
+		height: 450px;
 		width: 600px;
 	}
 	#items::-webkit-scrollbar{

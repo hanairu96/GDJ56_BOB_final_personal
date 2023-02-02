@@ -129,6 +129,11 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
+	public List<AdminQnaAll> adminQnAMarket(Map<String,Integer> param) {
+		return dao.adminQnAMarket(session,param);
+	}
+	
+	@Override
 	public int adminQnAAllCount() {
 		return dao.adminQnAAllCount(session);
 	}
