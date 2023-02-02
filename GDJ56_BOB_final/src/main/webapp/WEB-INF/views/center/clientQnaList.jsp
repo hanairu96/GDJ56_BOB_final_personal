@@ -38,9 +38,15 @@
                 <c:forEach var="ql" items="${list}">
                     <tr>
 	                    <td class="categorys">${ql.cqCate}</td>
-	                    <c:if test="${ql.cqSe eq 'Y'}">
-	                        <td class="titles"><img src="${path}/resources/images/lock.png">비밀글입니다.</td>
-    	                    <td class="writers">${ql.memberId.substring(0,1)}*****</td>
+	                    <c:if test="${(ql.cqSe eq 'Y')}">
+	                        <c:if test="${(loginMember.memberId ne ql.memberId)&&(loginMember.memberId ne 'admin')}">
+		                        <td class="titles"><img src="${path}/resources/images/lock.png">비밀글입니다.</td>
+    		                    <td class="writers">${ql.memberId.substring(0,1)}*****</td>
+	                        </c:if>
+	                        <c:if test="${(loginMember.memberId eq ql.memberId)||(loginMember.memberId eq 'admin')}">
+		                        <td class="titles"><a href=""><img src="${path}/resources/images/lock.png">${ql.cqTitle}</a></td>
+    		                    <td class="writers">${ql.memberId}</td>
+	                        </c:if>
 	                    </c:if>
 	                    <c:if test="${ql.cqSe ne 'Y'}">
 	                        <td class="titles"><a href="">${ql.cqTitle}</a></td>
