@@ -228,6 +228,7 @@
 									수강후기
 									</h4>
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="hidden" name="odcNo" value="${odc.odcNo}" id="odcNo">
 									<input type="hidden" name="memberId" value="${loginMember.memberId}" id="memberId">
 									<button type="button" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-right:30%"
 									onclick="goPopup(event);">
@@ -238,8 +239,10 @@
 									<script type="text/javascript">
 						            	function goPopup(e){
 						            		var memberId=$(e.target).prev("input").val();
-						            		var gsWin=window.open("${path}/class/pop.do?id="+memberId,"winName","width=520,height=730"); //open("주소",띄우는방식,크기)
-						            		console.log(oqno);
+						            		var odcNo=$(e.target).prev().prev("input").val();
+						            		var gsWin=window.open("${path}/class/pop.do?id="+memberId+"&&no="+odcNo,"winName","width=520,height=730"); //open("주소",띄우는방식,크기)
+						            		console.log(memberId);
+						            		console.log(odcNo);
 						            	}
 									</script>
 									
@@ -248,21 +251,13 @@
 								<p style="color: rgb(195, 195, 195);">
 									* 클래스를 수강한 회원님들의 후기입니다.
 								</p>
-								<br>
-								<div class="col-md-12" style="display: flex;">
-									<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-										<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="email" placeholder="수강후기를 남겨주세요">
-									</div>
-									<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin: 1%;">
-										등록
-									</button>
-								</div>
+								<div class="reviewList"></div>
 							</div>
 							
 							<div id="reviewtList"></div>
 
 							<div style="margin-bottom: 7%; margin-top: 3%;">
-								<span id="qna">───────────────────────────────────────────────────</span>
+								<span id="qna" style="color:white">───────────────────────────────────────────────────</span>
 							</div>
 		
 							<div>
@@ -451,9 +446,57 @@
 	 	//댓글리스트 가져오기
 		$(function(){
  		    getCommentList();
+ 		    getReviewList();
  		});
-	
-	
+		
+	 	//리뷰가져오기
+		function getReviewList(){
+			const odcNo= $('#odcNo').val();
+			$.ajax({
+				type:'get',
+				url : "<c:url value='/class/selectReview.do'/>",
+				data:{
+				"odcNo" : odcNo
+				}, 
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+				success : function(data){
+					
+					var html = "";
+					if(data.length > 0){
+		
+						for(i=0; i<data.length; i++){
+							html+="<div style='border-bottom:solid #898585 1px;'>";
+							html+="<br>";
+							html+="<div class='col-md-12' style='display: flex;'>";
+							html+="<span>";
+							html+="<span>"+data[i].memberId+"</span>";
+							html+="<span>│"+data[i].oreDate+"</span>";
+							html+="<span style='cursor: pointer;'>│수정</span>";
+							html+="<span style='cursor: pointer;'>│삭제</span>";
+							html+="</span>";
+							html+="</div>";
+							html+="<div class='col-md-12'style='display:flex; margin-left: -1.5%;'>";
+							if(data[i].oreGood=='Y'){
+							html+="<div style='border-radius: 10px; border: solid #898585 1px; margin: 1%;'> &nbsp;#추천해요👍&nbsp; </div>";
+							}
+							if(data[i].oreSame=='Y'){
+							html+="<div style='border-radius: 10px; border: solid #898585 1px;margin: 1%'> &nbsp;#실제 수업은 클래스 소개와 동일한 방식으로 진행됐어요😊 </div>";
+							}
+							html+="</div>";
+							html+="<div class='col-md-12' style='display: flex;'>";
+							html+="<img src='${path}/resources/images/onedayclass/"+data[i].orePic+"' width='100' height='100' class='rimg' style='margin: 1%; transition: all 0.3s linear;'>";
+							html+="<span>"+data[i].oreContent+"</span>";
+							html+="</div>";
+							html+="</div>";
+						}
+		
+					}else{
+						html += '<h6><strong>등록된 후기가 없습니다</strong></h6>';
+					}
+					$(".reviewList").html(html);
+				}		
+			});
+		}
 		
 	 	//댓글가져오기
 		function getCommentList(){
@@ -755,5 +798,8 @@
 	li {
         list-style-image: url(${path}/resources/images/send-comment.png) weith:10px height:10px;
     }
+    .rimg:hover{
+		transform: scale(2.5);
+	}
 </style>
 </html>

@@ -20,18 +20,29 @@
 			<h3 class="tit7 t-center" style="margin: 3%;">
 				REVIEW
 			</h3>
-			<form class="size22 m-l-r-auto">
-
+			<form class="size22 m-l-r-auto" action="${path }/class/reviewEndEnroll.do" method="post" enctype="multipart/form-data">
 				<div style="display: flex; padding: 5%;">
-					<img src="./images/choco.jpg" width="150" height="150">
-					<div style="display: inline; padding: 2%;">
-						<h3>[클래스명] 수제 바크 초콜릿 만들기</h3>
-						<br>
-						<p>강사명 : 김강사</p>
-						<p>예약한 날짜 : 2022-03-09</p>
-						<p>금액 : 50000원</p>
+					<c:forEach var="r" items="${reserveList2 }" begin="0" end="0"> 
+						<img src="${path}/resources/images/onedayclass/${r.odcPic}" width="150" height="150">
+						<div style="display: inline; padding: 2%;">
+							<input type="hidden" value="${r.odcreNo }" name="odcreNo">
+							<input type="hidden" value="${r.odcNo }" name="odcNo">
+							<h3>[클래스명] ${r.odcClassName }</h3>
+							<br>
+							<p>강사명 : ${r.master }</p>
+							<p>금액 : ${r.odcPrice }원</p>
+					</c:forEach>
+					<div style="display:flex">
+						<p>수강날짜</p>
+						&nbsp;
+						<select name='dateList'> 
+					<c:forEach var="r" items="${reserveList2 }">
+							<option value="${r.odcNo }" name="odcNo"><p><fmt:formatDate value="${r.odcDate}" pattern="yyyy-MM-dd"/></p></option>
+					</c:forEach>
+						</select>
 					</div>
 				</div>
+		</div>
 					
 				<ul style="border: solid 1px; margin-bottom: 1%;"></ul>
 
@@ -41,8 +52,9 @@
 
 				<div id="wrap">
 					<div id="tabs">
-						<button type="button" class="selected" value="Y">이 강의를 추천해요👍</button>
-						<button type="button" class="" value="N">이 강의를 추천하지 않습니다👎</button>
+						<button type="button" name="" value="Y" class="selected" id="good">이 강의를 추천해요👍</button>
+						<button type="button" name="" value="N" class="" id="bad">이 강의를 추천하지 않습니다👎</button>
+						<input type="hidden" value="N" name="oreGood" id="gb">
 					</div>	
 					<br>	
 					<div class="t-center">
@@ -50,12 +62,12 @@
 							<h4 class="tit7 t-center" style="margin: 3%;">
 								실제 수업은 클래스 소개와 동일한 방식으로 진행됐나요?
 							</h4>
-							<input type="radio" name="contact" value="mail" />
+							<input type="radio" name="oreSame" value="Y" />
 							<span>예😊</span>
 						</label>
 						<label>
 							&nbsp;
-							<input type="radio" name="contact" value="mail" />
+							<input type="radio" name="oreSame" value="N" />
 							<span>아니오😓</span>
 						</label>
 					</div>
@@ -66,13 +78,13 @@
 				</h3>
 				<div id="wrap" style="">
 					<p>사진첨부(한 장만 가능합니다)</p>
-					<input type="file">
+					<input type="file" name="orePic1">
 					<br><br>
-					<textarea style="width: 100%; height: 10em;" placeholder="과도한 욕설과 비방은 통보없이 삭제됩니다. 오늘도 소중한 리뷰를 남겨주셔서 감사합니다 :)"></textarea>
+					<textarea style="width: 100%; height: 10em;" name="oreContent" placeholder="과도한 욕설과 비방은 통보없이 삭제됩니다. 오늘도 소중한 리뷰를 남겨주셔서 감사합니다 :)"></textarea>
 				</div>
-				<button type="submit" class="btn3 t-center" style="margin-left: 40%; margin-right: 50%;">저장하기</button>
+				<input type="submit" class="btn3 t-center" style="margin-left: 40%; margin-right: 50%;" value="저장하기">
+				<input type="hidden" name="memberId" value="${loginMember.memberId }">
 			</form>
-		</div>
 	</section>
 </body>
 						
@@ -81,6 +93,15 @@
 		$("button").css({ "background-color": "#fff" });
 		$(this).css({ "background-color": "rgb(239, 239, 239)" });
 	});
+	$("button#good").click(function () {
+		console.log($("input#good"));
+		$("input#gb").attr("value","Y");
+	});
+	$("button#bad").click(function () {
+		console.log($("input#good"));
+		$("input#gb").attr("value","N");
+	});
+
 </script>
 
 <style>

@@ -16,12 +16,13 @@ import lombok.NoArgsConstructor;
 public class OdcReview {
 	
 	private int odcreNo;
-	private int odc_no;
-	private String ore_content;
-	private Date ore_date;
+	private int odcNo;
+	private String oreContent;
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private Date oreDate;
 	private String memberId;
-	private String ore_good;
-	private String ore_same;
-	private String ore_pic;
+	private String oreGood;
+	private String oreSame;
+	private String orePic;
 
 }

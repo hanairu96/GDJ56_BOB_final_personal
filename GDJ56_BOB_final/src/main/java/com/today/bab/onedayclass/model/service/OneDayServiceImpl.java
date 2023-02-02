@@ -11,6 +11,8 @@ import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.onedayclass.model.dao.OneDayDao;
 import com.today.bab.onedayclass.model.vo.OdcQa;
 import com.today.bab.onedayclass.model.vo.OdcQaRe;
+import com.today.bab.onedayclass.model.vo.OdcReserve;
+import com.today.bab.onedayclass.model.vo.OdcReview;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 @Service
@@ -80,6 +82,32 @@ public class OneDayServiceImpl implements OneDayService {
 	public List<OdcQaRe> selectReOdcQaAll(int oqNo) {
 		return dao.selectReOdcQaAll(session,oqNo);
 	}
+
+	@Override
+	public List<OdcReserve> selectReserve(Map param) {
+		return dao.selectReserve(session,param);
+	}
+
+	@Override
+	public List<OdcReview> selectReview(int no) {
+		return dao.selectReview(session,no);
+	}
+
+	@Override
+	public List<OdcReserve> selectNoReviewReserve(int no2) {
+		return dao.selectNoReviewReserve(session,no2);
+	}
+
+	@Override
+	public int insertReview(OdcReview or) {
+		return dao.insertReview(session, or);
+	}
+	
+	@Override
+	public List<OdcReview> selectReviewByodcNo(int odcNo) {
+		return dao.selectReviewByodcNo(session,odcNo);
+	}
+	
 	
 	
 	
