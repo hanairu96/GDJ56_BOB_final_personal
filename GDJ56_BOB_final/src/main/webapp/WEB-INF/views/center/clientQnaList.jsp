@@ -38,7 +38,14 @@
                         <td class="titles"><a href="">${ql.cqTitle}</a></td>
                         <td class="writers">${ql.memberId}</td>
                         <td class="dates">${ql.cqDate}</td>
-                        <td class="answers">답변완료</td>
+                        <td class="answers">
+	                        <c:if test="${ql.cqCheck eq 'Y'}">
+	                        	답변완료
+	                        </c:if>
+	                        <c:if test="${ql.cqCheck ne 'Y'}">
+	                        	답변대기
+	                        </c:if>	
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -200,6 +207,7 @@
 		}
     </style>
     <script>
+    	//사이드 메뉴 누르면 페이지 이동
 		$(".side-menu>div:eq(0)").click(e=>{
    			location.assign("${path}/center/noticeList");
    		})
@@ -207,8 +215,9 @@
    			location.assign("${path}/center/clientQnaList");
    		})
    		
+		//답변완료면 보라색으로 표시  		
         for(let i=0;i<6;i++){
-            if(document.querySelectorAll(".answers")[i].textContent=="답변완료"){
+            if(document.querySelectorAll(".answers")[i].textContent.trim()=="답변완료"){
                 $(".answers:eq("+i+")").css("color", "purple").css("font-weight", "bolder");
             }
         }
