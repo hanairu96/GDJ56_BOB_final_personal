@@ -12,6 +12,7 @@ import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminQnaAll;
 import com.today.bab.admin.model.vo.AdminSubscription;
+import com.today.bab.admin.model.vo.AdminTotalData;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.member.model.vo.Member;
@@ -176,6 +177,11 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public int insertPoint(SqlSessionTemplate session, AdminItemOrder updatePoint) {
 		return session.insert("admin.insertPoint",updatePoint);
+	}
+
+	@Override
+	public List<AdminTotalData> adminTotalData(SqlSessionTemplate session) {
+		return session.selectList("admin.adminTotalData");
 	}
 	
 }

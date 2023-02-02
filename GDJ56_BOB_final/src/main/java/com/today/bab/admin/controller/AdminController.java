@@ -1,12 +1,6 @@
 package com.today.bab.admin.controller;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,20 +9,17 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.JsonObject;
 import com.today.bab.admin.model.service.AdminService;
 import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminSubscription;
+import com.today.bab.admin.model.vo.AdminTotalData;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.common.AdminPageBar;
@@ -47,8 +38,15 @@ private AdminService service;
 	
 	//관리자페이지 메인
 	@RequestMapping("/main.do")
-	public String adminMain() {
-		return "admin/adminMain";
+	public ModelAndView adminMain(ModelAndView mv) {
+		List<AdminTotalData> atd=service.adminTotalData();
+		
+		mv.addObject("profit",atd.get(0).getTotal());
+		mv.addObject("sales",atd.get(1).getTotal());
+		mv.addObject("members",atd.get(2).getTotal());
+		mv.setViewName("admin/adminMain");
+		
+		return mv;
 	}
 	
 	//회원관리
@@ -365,7 +363,7 @@ private AdminService service;
 		return mv;
 	}
 	
-	//주문취소
+	//환불처리
 	@RequestMapping("/refundEnd.do")
 	public void orderCancle(String merchant_uid, int cancel_request_amount, String reason,
 	HttpServletResponse response)throws IOException {
@@ -384,7 +382,13 @@ private AdminService service;
 	    
 	    if(result.equals("성공")) {
 	    	int result2=service.updateItemOrder(cancelOrder);
-	    	int result3=service.insertPoint(cancelOrder);
+	    	int result3=1;
+	    	
+	    	if(result2>0) {
+	    		if(cancelOrder.getPointUse()>0) {
+		    		result3=service.insertPoint(cancelOrder);
+		    	}
+	    	}
 	    	if(result2>0&&result3>0) {
 	    		end="환불 승인 완료";
 	    	}else {
@@ -393,14 +397,8 @@ private AdminService service;
 	    }else {
 	    	end="환불 승인 실패";
 	    }
-	    
-	    
-	    
 	    response.setContentType("text/csv;charset=utf-8");
 		response.getWriter().print(end);
-	    
-	    
-	    
 	}
 		
 }

@@ -9,6 +9,7 @@ import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminQnaAll;
 import com.today.bab.admin.model.vo.AdminSubscription;
+import com.today.bab.admin.model.vo.AdminTotalData;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.member.model.vo.Member;
@@ -77,5 +78,5 @@ public interface AdminService {
 	
 	int insertPoint(AdminItemOrder updatePoint);
 	
-	
+	List<AdminTotalData> adminTotalData();
 }

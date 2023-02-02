@@ -60,6 +60,7 @@
 	                	<p><a href="${path}/mypage/orderlist.do">MYPAGE</a></p>
 	                </c:if>
 	                <img src="${path}/resources/images/shopping-basket.png" onclick="">
+	                <img src="${path}/resources/images/bell.gif" style="margin-top:10px;width:60px;height:60px;">
 	                <img src="${path}/resources/images/logout.png" onclick="logout();">
                 </c:if>
                 <c:if test="${loginMember==null}">
