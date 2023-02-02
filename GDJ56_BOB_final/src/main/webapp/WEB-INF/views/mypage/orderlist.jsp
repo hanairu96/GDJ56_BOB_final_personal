@@ -485,10 +485,17 @@
 				                        구매확정완료
 				                        </span>
 				                        &nbsp; 
-				                        <span
+				                        <button onclick="location.assign('${path}/mypage/orderdetail?orderNo=${order.orderNo}');"
 				                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
 				                        >
 				                        리뷰쓰러가기
+				                        </button>
+				                      </c:if>
+				                      <c:if test="${order.delivery eq '리뷰끝'}">
+				                      	<span
+				                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+				                        >
+				                        구매확정완료
 				                        </span>
 				                      </c:if>
 		                      </td>
