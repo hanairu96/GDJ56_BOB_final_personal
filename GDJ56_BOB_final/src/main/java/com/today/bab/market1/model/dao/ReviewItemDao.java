@@ -14,12 +14,13 @@ public interface ReviewItemDao {
 	
 	int insertReviewPic(SqlSessionTemplate session,ItemrePic pic );
 	
-	List<ItemReview> selectReviewAll(SqlSessionTemplate session,int itemNo ,Map<String,Integer> param);
+	List<ItemReview> selectReviewAll(SqlSessionTemplate session,int itemNo);
+//	List<ItemReview> selectReviewAll(SqlSessionTemplate session,int itemNo ,Map<String,Integer> param);
+//	int selectReviewCount(SqlSessionTemplate session);
 
 	List<ItemrePic> selectrReviewPic(SqlSessionTemplate session);
 	
 	int insertPoint(SqlSessionTemplate session,String memberId);
 	
-	int selectReviewCount(SqlSessionTemplate session);
-
+	int selectAvg(SqlSessionTemplate session,int itemNo);
 }

@@ -23,10 +23,18 @@ public class ReviewItemDaoImpl implements ReviewItemDao {
 		return session.insert("ireview.insertReviewPic",pic);
 	}
 	
+//	@Override
+//	public List<ItemReview> selectReviewAll(SqlSessionTemplate session,int itemNo,Map<String,Integer> param){
+//		return session.selectList("ireview.selectReviewAll",itemNo,
+//				new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),param.get("numPerpage")));
+//	}
+//	@Override
+//	public int selectReviewCount(SqlSessionTemplate session) {
+//		return session.selectOne("ireview.selectReviewCount");
+//	}
 	@Override
-	public List<ItemReview> selectReviewAll(SqlSessionTemplate session,int itemNo,Map<String,Integer> param){
-		return session.selectList("ireview.selectReviewAll",itemNo,
-				new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),param.get("numPerpage")));
+	public List<ItemReview> selectReviewAll(SqlSessionTemplate session,int itemNo){
+		return session.selectList("ireview.selectReviewAll",itemNo);
 	}
 	
 	@Override
@@ -40,8 +48,9 @@ public class ReviewItemDaoImpl implements ReviewItemDao {
 	}
 	
 	@Override
-	public int selectReviewCount(SqlSessionTemplate session) {
-		return session.selectOne("ireview.selectReviewCount");
+	public int selectAvg(SqlSessionTemplate session,int itemNo) {
+		return session.selectOne("ireview.selectAvg",itemNo);
 	}
+	
 	
 }

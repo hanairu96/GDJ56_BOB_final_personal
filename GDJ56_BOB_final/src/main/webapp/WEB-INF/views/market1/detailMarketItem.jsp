@@ -83,15 +83,17 @@
 						    </c:if>
 	                        <c:out value="${de.itemName }"/></h3>
 	                        
-<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	           <!-- 별점 디테일 필요함.... 리뷰가 있을때만 수정해야한다!!!!-->
 	                        <div class="product__details__rating">
-	                            <i class="fa fa-star"></i>
-	                            <i class="fa fa-star"></i>
-	                            <i class="fa fa-star"></i>
-	                            <i class="fa fa-star"></i>
-	                            <i class="fa fa-star-half-o"></i>
-	                            <span>(18 리뷰)</span>
+	                        <c:if test="${reavg !=null }">
+		                        <c:forEach var="i" begin="1" end="${reavg }">
+		                        	<img src="${path }/resources/market/star1.png" style="width:25px;"/>
+		                        </c:forEach>
+	                        </c:if>
+	                        <c:if test="${reavg ==null }">
+							   	<img src="${path }/resources/market/star1.png" style="width:25px;"/>
+									첫 리뷰를 등록해주세요
+						    </c:if>	
+	                            <span style="font-size">(리뷰 ${reviews.size() })</span>
 	                        </div>
 	                        
 	                        

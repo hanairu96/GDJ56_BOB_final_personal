@@ -91,11 +91,11 @@
 					
 					
 					<!-- <form method="post"> -->
+					<c:if test="${loginMember eq 'admin' }">
 					<form method="post" action="${path }/itemQna/qnaAnswerAdmin.do">
 					    <div style="display:flex;margin-bottom: 7px;">
 					        <img src="${path }/resources/images/logo-icon.png" alt="" style="width:40px; height: 40px;border-radius: 50%;">
 					        <h5 style="margin:10px;">오늘의 밥</h5>
-					        <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
 					    </div>
 					    <div style="display:flex">
 					        <div id="answerAdnim">
@@ -108,14 +108,15 @@
 					            onclick="">
 					        </div>
 					    </div>
+			        <hr/>
 				    </form>
+				  	</c:if>
 				    
 				    
 			        <!-- 답글 리스트 출력 -->
 			        <c:if test="${an!=null }">
 				        <c:forEach var="aa" items="${an }">
 					        <c:if test="${q.iqNo == aa.iqNo }">
-					        <hr/>
 					        <div style="display:flex;margin-bottom: 7px;">
 					        	<img src="${path }/resources/images/logo-icon.png" alt="" style="width:40px; height: 40px;border-radius: 50%;">
 					        	<h5 style="margin:10px;">오늘의 밥</h5>
@@ -126,15 +127,17 @@
 									${aa.iqaContent }
 						        </div>
 						        <div>
+						        <c:if test="${loginMember eq 'admin' }">
 					       			<button id="" class="primary-btn" type="button" 
 					       			style="background-color:magenta;border: none;color: white;margin-left:50px;"
 					       			 onclick="deleteAnswer(${aa.iqaNo },${itemNo });">삭제</button>
+					       		</c:if>
 					    		</div>
 					    	</div>
+							<hr/>
 					        </c:if>
 						</c:forEach>
 					</c:if>
-					<hr/>
 					</div>
 				</div>
 			</c:forEach>

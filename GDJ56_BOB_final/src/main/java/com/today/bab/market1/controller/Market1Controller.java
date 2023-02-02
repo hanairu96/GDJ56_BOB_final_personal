@@ -101,6 +101,13 @@ public class Market1Controller {
 		}
 		mv.addObject("picpic",file);
 		mv.addObject("qna",qnaservice.selectQnaList(itemNo));
+		List<ItemReview> review=reservice.selectReviewAll(itemNo);
+		mv.addObject("reviews",review);
+		if(!review.isEmpty()) {
+			int avg=reservice.selectAvg(itemNo);
+			mv.addObject("reavg",avg);
+		}
+		
 		mv.setViewName("market1/detailMarketItem");
 		return mv;
 	}
@@ -377,14 +384,15 @@ public class Market1Controller {
 		}else if(check.contains("b")) {
 			page="itemReview";
 //			List<ItemReview> list=reservice.selectReviewAll(itemNo);
-			List<ItemReview> list=reservice.selectReviewAll(itemNo,Map.of("cPage",cPage,"numPerpage",numPerpage));
-			m.addAttribute("reviews",list);
+			m.addAttribute("reviews",reservice.selectReviewAll(itemNo));
 			m.addAttribute("picpic",reservice.selectrReviewPic());
-			//페이징처리
-			int totaldata=reservice.selectReviewCount();
-			m.addAttribute("itemNo", itemNo);
-			m.addAttribute("check", "b");
-			m.addAttribute("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"choiceexplain.do"));
+			
+			//페이징처리 다시 시도해보자...
+//			List<ItemReview> list=reservice.selectReviewAll(itemNo,Map.of("cPage",cPage,"numPerpage",numPerpage));
+//			int totaldata=reservice.selectReviewCount();
+//			m.addAttribute("itemNo", itemNo);
+//			m.addAttribute("check", "b");
+//			m.addAttribute("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"choiceexplain.do"));
 		}else if(check.contains("c")) {
 			page="itemExchange";
 		}else if(check.contains("d")) {

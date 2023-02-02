@@ -38,22 +38,32 @@ public class ReviewItemServiceImpl implements ReviewItemService {
 		}		
 		return result;
 	}
-	
+
 	@Override
-	public List<ItemReview> selectReviewAll(int itemNo,Map<String,Integer> param){
-		return dao.selectReviewAll(session,itemNo,param);
+	public List<ItemReview> selectReviewAll(int itemNo){
+		return dao.selectReviewAll(session,itemNo);
 	}
+	
+//	@Override
+//	public List<ItemReview> selectReviewAll(int itemNo,Map<String,Integer> param){
+//		return dao.selectReviewAll(session,itemNo,param);
+//	}
+//	@Override
+//	public int selectReviewCount() {
+//		return dao.selectReviewCount(session);
+//	}
+//	
 	
 	@Override
 	public List<ItemrePic> selectrReviewPic(){
 		return dao.selectrReviewPic(session);
 	}
-
-	@Override
-	public int selectReviewCount() {
-		return dao.selectReviewCount(session);
-	}
 	
+	@Override
+	public int selectAvg(int itemNo) {
+		return dao.selectAvg(session,itemNo);
+	}
+
 	
 	
 	

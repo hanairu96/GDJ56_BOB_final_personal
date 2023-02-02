@@ -10,9 +10,11 @@ public interface ReviewItemService {
 	
 	int insertRe(ItemReview r);
 	
-	List<ItemReview> selectReviewAll(int itemNo,Map<String,Integer> param);
-	
+	List<ItemReview> selectReviewAll(int itemNo);
+//	List<ItemReview> selectReviewAll(int itemNo,Map<String,Integer> param);
+//	int selectReviewCount();
+
 	List<ItemrePic> selectrReviewPic();
 	
-	int selectReviewCount();
+	int selectAvg(int itemNo);
 }

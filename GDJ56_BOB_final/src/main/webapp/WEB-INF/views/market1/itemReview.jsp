@@ -41,9 +41,15 @@
 			                <a class="nav-link" data-toggle="tab" href="#tabs-2"
 			                aria-selected="false" style="font-size: 15px;font-weight: bold;">사진리뷰</a>
 			            </li>
+			            <li>
+			                <a class="nav-link" data-toggle="tab" href="#tabs-2"
+			                aria-selected="false" style="font-size: 15px;font-weight: bold;">내가 쓴 댓글보기</a>
+			            </li>
 			        </ul>
 			    </div>
 			</div>
+			
+			
 
 
 			<!-- 리뷰 묶음-->
@@ -56,9 +62,9 @@
 			        </div>
 			    </div>
 			    <div class="product__detailss__rating">
-			    <c:forEach var="i" begin="1" end="${re.iqrStar}">
-			    	<img src="${path }/resources/market/star1.png" style="width:25px;"/>
-			    </c:forEach>
+				    <c:forEach var="i" begin="1" end="${re.iqrStar}">
+				    	<img src="${path }/resources/market/star1.png" style="width:25px;"/>
+				    </c:forEach>
 			        <span style="margin-left:20px;">${re.iqrStar }</span>
 			    </div>
 			    <div style="margin:10px;">
