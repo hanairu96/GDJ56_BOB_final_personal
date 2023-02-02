@@ -40,6 +40,15 @@ public class CenterServiceImpl implements CenterService {
 	public int selectCqCount() {
 		return dao.selectCqCount(session);
 	}
-	
+
+	@Override
+	public Notice selectNotice(int no) {
+		return dao.selectNotice(session, no);
+	}
+
+	@Override
+	public ClientQNA selectClientQna(int no) {
+		return dao.selectClientQna(session, no);
+	}
 	
 }
