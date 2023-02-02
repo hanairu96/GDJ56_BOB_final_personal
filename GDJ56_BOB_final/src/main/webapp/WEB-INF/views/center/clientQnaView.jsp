@@ -5,46 +5,58 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value="MainPage"/>
 </jsp:include>
-    <section>
-        <div class="side-menu">
-            <div>공지사항</div>
-            <div>1:1 문의</div>
-        </div>
-        <div class="board">
-            <h1 id="main-title">1:1 문의</h1>
-            <table class="outline">
-                <tr>
-                    <td class="line-title">제목</td>
-                    <td class="line-content headline">${cq.cqTitle}</td>
-                </tr>
-                <tr>
-                    <td class="line-title">작성자</td>
-                    <td class="line-content">${cq.memberId}</td>
-                </tr>
-                <tr>
-                    <td class="line-title">분류</td>
-                    <td class="line-content">${cq.cqCate}</td>
-                </tr>
-                <tr>
-                    <td class="line-title">작성일</td>
-                    <td class="line-content">${cq.cqDate}</td>
-                </tr>
-            </table>
-            <div class="btns">
-                <button type="button" id="update-btn" class="customBtn btnStyle" onclick="">수정하기</button>
-                <button type="button" id="delete-btn" class="customBtn btnStyle" onclick="">삭제하기</button>
-            </div>
-            <div id="text">
-                ${cq.cqContent}
-            </div>
-            <h2 id="as-title">답변</h2>
-            <div id="answer">
-                답변
-            </div>
-            <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="">등록하기</button><br>
-            <button type="button" id="list-btn" class="customBtn btnStyle" onclick="goList();">목록으로</button>
-        </div>
-    </section>
+	<!-- 비밀글일 때 로그인 안 했거나 작성자 또는 관리자가 아니면 접근 불가 -->
+	<c:if test="${(cq.cqSe eq 'Y')&&((empty loginMember)||(not empty loginMember)&&(loginMember.memberId ne cq.memberId)&&(loginMember.memberId ne 'admin'))}">
+		<script>
+			console.log("실패");
+			alert("잘못된 접근입니다.");
+			location.assign("${path}/center/clientQnaList");
+		</script>
+	</c:if>
+	<!-- 비밀글이 아니거나 작성자이거나 관리자면 접근 가능 -->
+	<c:if test="${(cq.cqSe ne 'Y')||(loginMember.memberId eq cq.memberId)||(loginMember.memberId eq 'admin')}">
+		<script>console.log("성공");</script>
+	    <section>
+	        <div class="side-menu">
+	            <div>공지사항</div>
+	            <div>1:1 문의</div>
+	        </div>
+	        <div class="board">
+	            <h1 id="main-title">1:1 문의</h1>
+	            <table class="outline">
+	                <tr>
+	                    <td class="line-title">제목</td>
+	                    <td class="line-content headline">${cq.cqTitle}</td>
+	                </tr>
+	                <tr>
+	                    <td class="line-title">작성자</td>
+	                    <td class="line-content">${cq.memberId}</td>
+	                </tr>
+	                <tr>
+	                    <td class="line-title">분류</td>
+	                    <td class="line-content">${cq.cqCate}</td>
+	                </tr>
+	                <tr>
+	                    <td class="line-title">작성일</td>
+	                    <td class="line-content">${cq.cqDate}</td>
+	                </tr>
+	            </table>
+	            <div class="btns">
+	                <button type="button" id="update-btn" class="customBtn btnStyle" onclick="">수정하기</button>
+	                <button type="button" id="delete-btn" class="customBtn btnStyle" onclick="">삭제하기</button>
+	            </div>
+	            <div id="text">
+	                ${cq.cqContent}
+	            </div>
+	            <h2 id="as-title">답변</h2>
+	            <div id="answer">
+	                답변
+	            </div>
+	            <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="">등록하기</button><br>
+	            <button type="button" id="list-btn" class="customBtn btnStyle" onclick="goList();">목록으로</button>
+	        </div>
+	    </section>
+	</c:if>
     <style>
         section{
             display: flex;
