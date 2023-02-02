@@ -70,7 +70,7 @@ public class Market1DaoImpl implements Market1Dao {
 	}
 	
 	@Override
-	public List<MarketMemberLike> memberLike(SqlSessionTemplate session){
-		return session.selectList("ma.memberLike");
+	public MarketMemberLike memberLike(SqlSessionTemplate session,String memberId){
+		return session.selectOne("ma.memberLike",memberId);
 	}
 }

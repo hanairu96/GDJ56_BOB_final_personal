@@ -33,5 +33,5 @@ public interface Market1Dao {
 	
 	int selectItemCount(SqlSessionTemplate session);
 	
-	List<MarketMemberLike> memberLike(SqlSessionTemplate session);
+	MarketMemberLike memberLike(SqlSessionTemplate session,String memberId);
 }

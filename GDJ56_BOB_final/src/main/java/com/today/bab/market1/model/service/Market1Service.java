@@ -33,5 +33,5 @@ public interface Market1Service {
 	int selectItemCount();
 	
 	//마켓 메인에 회원가입할떄 받은 선호 음식 출력
-	List<MarketMemberLike> memberLike();
+	MarketMemberLike memberLike(String memberId);
 }

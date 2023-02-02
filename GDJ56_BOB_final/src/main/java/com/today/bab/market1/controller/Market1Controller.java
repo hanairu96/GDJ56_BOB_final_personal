@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.market1.model.vo.MarketMemberLike;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
+import com.today.bab.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/market1")
@@ -63,37 +65,39 @@ public class Market1Controller {
 	
 	//INDEX에서 마켓 메인 이동 
 	@RequestMapping("/matketmain.do")
-	public ModelAndView marketmain(ModelAndView mv) {
+	public ModelAndView marketmain(ModelAndView mv,HttpServletRequest request) {
 		List<SellItem> list=service.selectItemMarket();
 		mv.addObject("items",list);
 		
 		//회원 선호리스트 뽑아주기
-		List<MarketMemberLike> like=service.memberLike();
-		System.out.println(like);
-		List addlike=new ArrayList();
-		String choice="";
-		for(MarketMemberLike l : like) {
-			System.out.println(l);
-			if(l.getFruit().equals("Y")) {
+		HttpSession session = request.getSession();
+	    Member  loginMember= (Member) session.getAttribute("loginMember");
+	    
+		if(loginMember!=null) {
+			String memberId=loginMember.getMemberId();
+			MarketMemberLike like=service.memberLike(memberId);
+			System.out.println(like);
+			List addlike=new ArrayList();
+			String choice="";
+			
+			if(like.getFruit().equals("Y")) {
 				choice="과일";
 				addlike.add(choice);
-			}else if(l.getSea().equals("Y")) {
+			}if(like.getSea().equals("Y")) {
 				choice="수산";
 				addlike.add(choice);
-			}else if(l.getMeat().equals("Y")) {
+			}if(like.getMeat().equals("Y")) {
 				choice="정육";
 				addlike.add(choice);
-			}else if(l.getSide().equals("Y")) {
+			}if(like.getSide().equals("Y")) {
 				choice="반찬";
 				addlike.add(choice);
-			}else if(l.getVege().equals("Y")) {
+			}if(like.getVege().equals("Y")) {
 				choice="채소";
 				addlike.add(choice);
 			}
-			addlike.add(l.getMemberId());
+			System.out.println(addlike);
 		}
-		System.out.println(addlike);
-		
 		
 		
 		
