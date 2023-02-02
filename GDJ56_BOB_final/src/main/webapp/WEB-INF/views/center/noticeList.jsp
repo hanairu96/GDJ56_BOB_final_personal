@@ -29,13 +29,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="nl" items="${list}">
-                    <tr>
-                        <td class="nos">${nl.noticeNo}</td>
-                        <td class="titles"><a href="#">${nl.noticeTitle}</a></td>
-                        <td class="dates">${nl.noticeDate}</td>
-                    </tr>
-                </c:forEach>
+                	<c:if test="${empty list}">
+	                	<tr>
+	                		<td colspan="3">등록된 글이 없습니다.</td>
+	                	</tr>
+	                </c:if>
+                	<c:if test="${not empty list}">
+		                <c:forEach var="nl" items="${list}">
+		                    <tr>
+		                        <td class="nos">${nl.noticeNo}</td>
+		                        <td class="titles"><a href="#">${nl.noticeTitle}</a></td>
+		                        <td class="dates">${nl.noticeDate}</td>
+		                    </tr>
+		                </c:forEach>
+		            </c:if>
                 </tbody>
             </table>
             <button type="button" id="write-btn" class="customBtn btnStyle" onclick="write();">글쓰기</button>
@@ -188,15 +195,17 @@
 		}
     </style>
    	<script>
+ 	 	//사이드 메뉴 누르면 페이지 이동
    		$(".side-menu>div:eq(0)").click(e=>{
    			location.assign("${path}/center/noticeList");
    		})
    		$(".side-menu>div:eq(1)").click(e=>{
    			location.assign("${path}/center/clientQnaList");
    		})
-   	
+   		
+   		//글쓰기
    		const write=()=>{
-   			//location.assign("${path}/customer/noticeWrite");	
+   			location.assign("${path}/center/noticeWrite");	
    		}
    	</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

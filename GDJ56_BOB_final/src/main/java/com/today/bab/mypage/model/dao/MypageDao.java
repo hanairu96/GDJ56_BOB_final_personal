@@ -12,6 +12,7 @@ import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.onedayclass.model.vo.OdcReserve;
 
 public interface MypageDao {
 	List<Basket> selectBasketById(SqlSessionTemplate session,String userId);
@@ -57,4 +58,6 @@ public interface MypageDao {
 	int updateOrderCancel(SqlSessionTemplate session,ItemOrder io);
 	
 	int updateOrderConfirm(SqlSessionTemplate session,int orderNo);
+	
+	List<OdcReserve> selectOnedayclass(SqlSessionTemplate session,String memberId);
 }

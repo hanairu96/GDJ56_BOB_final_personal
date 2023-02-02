@@ -395,16 +395,16 @@
 			                      <td class="px-4 py-3 text-sm">
 			                      		<div style="display:flex;">
 					                        <input type="checkbox" name="productCheck" id="productCheck_" value="${b.basketNo }">
-					                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					                        <img style="border:solid 1px; width:28px;height:28px" alt="" src="">${bi.mainPic}
-			                        	</div>
+					                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${path}/market1/marketdetail.do?itemNo=${bi.itemNo}">
+					                        <img style="width:70px;height:60x" alt="" src="${path }/resources/upload/market/mainlabel/${bi.mainPic}">
+			                        	</a></div>
 			                      </td>
 			                      <td class="px-4 py-3">
 			                        <div class="flex items-center text-sm" id="stockinfo">
+			                        <a href="${path}/market1/marketdetail.do?itemNo=${bi.itemNo}">
 				                        <c:if test="${empty bi.itemBrand}">${bi.itemName}</c:if>
 			    						<c:if test="${not empty bi.itemBrand}">[${bi.itemBrand}]${bi.itemName}</c:if>
-			    						&nbsp;
-			    						<span id=""></span>
+			    					</a>
 			                        </div>
 			                      </td>
 			                      <td class="px-4 py-3 text-sm">

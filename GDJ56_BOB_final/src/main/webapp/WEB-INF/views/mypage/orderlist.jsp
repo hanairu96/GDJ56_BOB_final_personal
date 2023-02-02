@@ -424,8 +424,7 @@
 		                      <td class="px-4 py-3 text-sm">
 		                        ${order.orderNo }
 		                      </td>
-		                      <td class="px-4 py-3 text-xs">
-		                      	<c:if test="order."></c:if>
+		                      <td class="px-4 py-3 text-xs">		
 				                      <c:if test="${order.delivery eq 'Y'}">	
 				                      		<c:if test="${order.refund eq 'N' }">
 				                      			<span
@@ -447,17 +446,16 @@
 							                        >
 							                          주문취소대기중
 							                        </span>
-							                     </c:if> 
-							                     <c:if test="${order.refundFix eq 'Y' }">
-					                      			<span  value="${order.orderNo }"
-							                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-							                        >
-							                          주문취소완료
-							                        </span>
-							                     </c:if>    
+							                     </c:if>   
 				                      		</c:if>
-				                        
 				                      </c:if>
+				                      <c:if test="${order.delivery eq 'N' }">
+					                      <span  value="${order.orderNo }"
+							               class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+							               >
+							               		주문취소완료
+							               </span>
+							           </c:if> 
 				                      <c:if test="${order.delivery eq '배송중'}">
 				                      	<span
 				                          class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
@@ -485,10 +483,17 @@
 				                        구매확정완료
 				                        </span>
 				                        &nbsp; 
-				                        <span
+				                        <button onclick="location.assign('${path}/mypage/orderdetail?orderNo=${order.orderNo}');"
 				                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
 				                        >
 				                        리뷰쓰러가기
+				                        </button>
+				                      </c:if>
+				                      <c:if test="${order.delivery eq '리뷰끝'}">
+				                      	<span
+				                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+				                        >
+				                        구매확정완료
 				                        </span>
 				                      </c:if>
 		                      </td>

@@ -21,9 +21,19 @@ public class ReviewItemDaoImpl implements ReviewItemDao {
 		return session.insert("ireview.insertReviewPic",pic);
 	}
 	
-	
 	@Override
 	public List<ItemReview> selectReviewAll(SqlSessionTemplate session,int itemNo){
 		return session.selectList("ireview.selectReviewAll",itemNo);
 	}
+	
+	@Override
+	public List<ItemrePic> selectrReviewPic(SqlSessionTemplate session){
+		return session.selectList("ireview.selectrReviewPic");
+	}
+	
+	@Override
+	public int insertPoint(SqlSessionTemplate session,String memberId) {
+		return session.insert("ireview.insertPoint",memberId);
+	}
+	
 }
