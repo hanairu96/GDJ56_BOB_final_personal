@@ -384,7 +384,13 @@ private AdminService service;
 	    
 	    if(result.equals("성공")) {
 	    	int result2=service.updateItemOrder(cancelOrder);
-	    	int result3=service.insertPoint(cancelOrder);
+	    	int result3=1;
+	    	
+	    	if(result2>0) {
+	    		if(cancelOrder.getPointUse()>0) {
+		    		result3=service.insertPoint(cancelOrder);
+		    	}
+	    	}
 	    	if(result2>0&&result3>0) {
 	    		end="환불 승인 완료";
 	    	}else {
@@ -393,14 +399,8 @@ private AdminService service;
 	    }else {
 	    	end="환불 승인 실패";
 	    }
-	    
-	    
-	    
 	    response.setContentType("text/csv;charset=utf-8");
 		response.getWriter().print(end);
-	    
-	    
-	    
 	}
 		
 }
