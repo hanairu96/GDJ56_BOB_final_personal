@@ -39,7 +39,6 @@
 				<button class="menu txt26 trans-0-4" name="healty" onclick="location.assign('${path}/class/menu.do?type=healthy')">
 					💪건강식
 				</button>
-
 				<button class="menu txt26 trans-0-4" name="baking" onclick="location.assign('${path}/class/menu.do?type=baking')">
 					🍰베이킹
 				</button>
@@ -88,7 +87,7 @@
 	               		<c:forEach var="c" items="${classlist}">
 							<div class="col-lg-4" style="padding: 3%;" >
 								<div class="zoom">
-									<a href="${path}/class/odcView.do?no=${c.odcNo }"><img src="${path}/resources/images/onedayclass/${c.odcMainPic}" width="350" height="300"></a>
+									<a href="${path}/class/odcView.do?no=${c.odcNo }"><img src="${path}/resources/images/onedayclass/${c.odcMainPic}" width="300" height="300" style="overflow: hidden;"></a>
 								</div>
 									
 								<div class="category-name" >${c.odcCategoty}</div>
@@ -96,7 +95,7 @@
 								<a href="${path}/class/odcView.do?no=${c.odcNo }"><b><h4>${c.odcCookName}</h4></b></a>
 			
 								<div style="display: flex; margin-top: 1%; width:350">
-									<img src="${path}/resources/pato/images/class/chef-hat.png" width="20" height="20"><h5>${c.mastserName}</h5>
+									<img src="${path}/resources/pato/images/class/chef-hat.png" width="20" height="20" ><h5>${c.mastserName}</h5>
 									&nbsp;&nbsp;&nbsp;<img src="${path}/resources/pato/images/class/place-marker.png" width="20" height="20" ><h5>${c.odcCity}</h5>
 								</div>			
 							</div>

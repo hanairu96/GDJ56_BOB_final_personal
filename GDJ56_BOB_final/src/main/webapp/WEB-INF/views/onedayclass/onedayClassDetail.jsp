@@ -509,10 +509,10 @@
 						html+="</div>";
 						html+="<div class='col-md-12'style='display:flex; margin-left: -1.5%;'>";
 						if(data[i].oreGood=='Y'){
-							html+="<div style='border-radius: 10px; border: solid #898585 1px; margin: 1%;'> &nbsp;#추천해요👍&nbsp; </div>";
+							html+="<div style='border-radius: 10px; border: solid #898585 1px; margin: 1%;'> &nbsp;추천해요👍&nbsp; </div>";
 						}
 						if(data[i].oreSame=='Y'){
-							html+="<div style='border-radius: 10px; border: solid #898585 1px;margin: 1%'> &nbsp;#실제 수업은 클래스 소개와 동일한 방식으로 진행됐어요😊 </div>";
+							html+="<div style='border-radius: 10px; border: solid #898585 1px;margin: 1%'> &nbsp;실제 수업은 클래스 소개와 동일한 방식으로 진행됐어요😊 </div>";
 						}
 						html+="</div>";
 						html+="<div class='col-md-12' style='display: flex;'>";

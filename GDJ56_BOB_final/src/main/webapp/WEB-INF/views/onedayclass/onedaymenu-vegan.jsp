@@ -34,7 +34,7 @@
 				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/main.do')">
 					전체
 				</button>
-				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/menu.do?type=bob')">
+				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/menu.do?type=bab')">
 					🍚집밥
 				</button>
 				<button class="menu txt26 trans-0-4" style="background-color:#bde28f; color:white;" onclick="location.assign('${path}/class/menu.do?type=vegan')">
