@@ -5,10 +5,12 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminQnaAll;
 import com.today.bab.admin.model.vo.AdminSubscription;
+import com.today.bab.admin.model.vo.AdminTotalData;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.member.model.vo.Member;
@@ -63,4 +65,17 @@ public interface AdminDao {
 	
 	int qnAOnedayCount(SqlSessionTemplate session);
 	
+	List<AdminItemOrder> adminRefund(SqlSessionTemplate session,Map<String,Integer> param);
+	
+	int adminRefundCount(SqlSessionTemplate session);
+	
+	AdminItemOrder selectcancelOrder(SqlSessionTemplate session,String merchant_uid);
+	
+	int updateItemOrder(SqlSessionTemplate session,AdminItemOrder updateItemOrder);
+	
+	int insertPoint(SqlSessionTemplate session,AdminItemOrder updatePoint);
+	
+	List<AdminTotalData> adminTotalData(SqlSessionTemplate session);
 }
+
+

@@ -23,6 +23,12 @@
     <!-- You need focus-trap.js to make the modal accessible -->
     <script src="${path}/resources/assets/js/focus-trap.js" defer></script>
     <script src="${path}/resources/assets/js/jquery-3.6.0.min.js"></script>
+    
+    <!-- 제이쿼리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous" type="text/javascript"></script>
+<!-- 아임포트 -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
   </head>
   <body>
     <div
@@ -236,8 +242,11 @@
               </li>
               
               <li class="flex">
-              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAADC0lEQVR4nO2WXUiTURjHDzWjiy6LIi+km6CbLoqCYEQRRYSCjGYqY/ah1ObH1GxqOTdrOsu2kjQIGyzMMM2iWKskXNZmY1A6Lbecq5hufVC+73veiCDtH+9q9p3DyLrYH35X5zz8Dg+Hcx5CphEAsxiGWcFxXAml1DY2NtYbCoUyyd8Ix3FLKaUKjuMucBz3mlIKgQcDw+j3DIFhmPcKhWLZtAUA5vA8v4HneSnHcTsppRaWZUejosBwEBfb7dCWnoQ0uRRZkv1QF52MrHV3dzcKdQKUUgnDMEtilSZQSl1RicDoyHPYrD0w1jQjO7MK6SmlOFqggd2ow5tLBnjPNUyKv4dl2XG3271jSjHLsquEguO1zdiRpoFMUgFZahmMqkrcMunAdhiAa4e/wdtsxOb1xdgu1URqomRn6OAbfAyv1+smhMz7rZjn+XWCWJl1CB35MngttT+Ivodpr0bjzu2wFsrQrc6cpCBNBecdD/x+fz8hJDFmcVdJBsJtR6YUh8/XoTjnGGrUp2HSnIlg1+ZBnVn4d8UjrSZk5TQjd991FFbcimCrVMfFifFWT/tyvbf+g8v1orUGG8UqeM36mRU/Muuxbk0BnPVVMysetnwSu07MsHjCVgtrdSXeXamNPyCIP5n++O/0X/3HlNK1gjh/lwF50mIcyK7EeZ0WfoseE7afi72WOkiStdiWehAZEn2EvPQySDbthatnAENDQzGJF7As+/bpk1H03vPhbk8/zKcuQ5VzGFu3lEK7R4fLei1GzlZ/EZ9rQG6OKbL/G+77hCkTdru9gxCyiEwVp9OZ3NfX1+XxeByBQOAhwzDjQhdevXoNx+1eNNa3Ybdcj/SUMhjydTBraibHW5/P1yfURens7GxNSkraTAgRkRgz9/MpF4vF4uVNTU1FDoejIxgMBliW/SBInj97iZs33DAaWmAxX42I5XK5XKj5igWEkNmxSn+VWYSQ+VKpdE1LS4vG5XJdC4fDoejwPjg46E5ISFj5p5JYIrRvoVKp3FBeXr5LJBKt/typmPIRW0XTSiwMybkAAAAASUVORK5CYII=">
-                </li>
+              <!-- 나가는문 -->
+              <a href="${path }">
+              	<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAADC0lEQVR4nO2WXUiTURjHDzWjiy6LIi+km6CbLoqCYEQRRYSCjGYqY/ah1ObH1GxqOTdrOsu2kjQIGyzMMM2iWKskXNZmY1A6Lbecq5hufVC+73veiCDtH+9q9p3DyLrYH35X5zz8Dg+Hcx5CphEAsxiGWcFxXAml1DY2NtYbCoUyyd8Ix3FLKaUKjuMucBz3mlIKgQcDw+j3DIFhmPcKhWLZtAUA5vA8v4HneSnHcTsppRaWZUejosBwEBfb7dCWnoQ0uRRZkv1QF52MrHV3dzcKdQKUUgnDMEtilSZQSl1RicDoyHPYrD0w1jQjO7MK6SmlOFqggd2ow5tLBnjPNUyKv4dl2XG3271jSjHLsquEguO1zdiRpoFMUgFZahmMqkrcMunAdhiAa4e/wdtsxOb1xdgu1URqomRn6OAbfAyv1+smhMz7rZjn+XWCWJl1CB35MngttT+Ivodpr0bjzu2wFsrQrc6cpCBNBecdD/x+fz8hJDFmcVdJBsJtR6YUh8/XoTjnGGrUp2HSnIlg1+ZBnVn4d8UjrSZk5TQjd991FFbcimCrVMfFifFWT/tyvbf+g8v1orUGG8UqeM36mRU/Muuxbk0BnPVVMysetnwSu07MsHjCVgtrdSXeXamNPyCIP5n++O/0X/3HlNK1gjh/lwF50mIcyK7EeZ0WfoseE7afi72WOkiStdiWehAZEn2EvPQySDbthatnAENDQzGJF7As+/bpk1H03vPhbk8/zKcuQ5VzGFu3lEK7R4fLei1GzlZ/EZ9rQG6OKbL/G+77hCkTdru9gxCyiEwVp9OZ3NfX1+XxeByBQOAhwzDjQhdevXoNx+1eNNa3Ybdcj/SUMhjydTBraibHW5/P1yfURens7GxNSkraTAgRkRgz9/MpF4vF4uVNTU1FDoejIxgMBliW/SBInj97iZs33DAaWmAxX42I5XK5XKj5igWEkNmxSn+VWYSQ+VKpdE1LS4vG5XJdC4fDoejwPjg46E5ISFj5p5JYIrRvoVKp3FBeXr5LJBKt/typmPIRW0XTSiwMybkAAAAASUVORK5CYII=">
+              </a>
+              </li>
               
                   </ul>
                 </template>
@@ -259,184 +268,120 @@
              <!-- New Table -->
              <div class="w-full overflow-hidden rounded-lg shadow-xs">
               <div class="w-full overflow-x-auto">
+             	 <div style="display:flex;justify-content:space-between;align-items:center;">
+			          	<p style="color:red;margin-left:50px;"> >>> 총 <b>${totalData }건</b> 의 환불신청이 있습니다.</p>
+		        </div>
                 <table class="w-full whitespace-no-wrap"style="text-align:center;">
-                  <thead>
-                    <tr
-                    style="text-align:center;"
-                      class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-                    >
-                      <th class="px-4 py-3">주문번호</th>
-                      <th class="px-4 py-3">아이디</th>
-                      <th class="px-4 py-3">환불금액</th>
-                      <th class="px-4 py-3">신청날짜</th>
-                    </tr>
-                  </thead>
-                  <tbody
-                    class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
-                  >
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm" style="display: flex; justify-content:center">
-                          <!-- Avatar with inset shadow -->
-                          <div
-                            class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                          >
-                            <img 
-                            class="object-cover w-full h-full rounded-full"
-                            src="data:image/png;base64,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">
-                            <div
-                              class="absolute inset-0 rounded-full shadow-inner"
-                              aria-hidden="true"
-                            ></div>
-                          </div>
-                          <div style="display: flex;flex-direction: row;">
-                            <p class="font-semibold" id="chatBot"><a href="${path }/admin/refundInfo.do"><b>2022121995765220</b></a></p>
-                          </div>
-
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm font-semibold">
-                        aaaaa
-                      </td>
-                      <td class="px-4 py-3 text-xs font-semibold">
-                        60,000원
-                      </td>
-                      <td class="px-4 py-3 text-sm font-semibold">
-                        6/10/2020
-                      </td>
-                    </tr>
-
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm" style="display: flex; justify-content:center">
-                          <!-- Avatar with inset shadow -->
-                          <div
-                            class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                          >
-                            <img 
-                            class="object-cover w-full h-full rounded-full"
-                            src="data:image/png;base64,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">
-                            <div
-                              class="absolute inset-0 rounded-full shadow-inner"
-                              aria-hidden="true"
-                            ></div>
-                          </div>
-                          <div style="display: flex;flex-direction: row;">
-                            <p class="font-semibold" id="chatBot"><b>2022121995765220</b></p>
-                          </div>
-
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm font-semibold">
-                        bbbbb
-                      </td>
-                      <td class="px-4 py-3 text-xs font-semibold">
-                        120,000원
-                      </td>
-                      <td class="px-4 py-3 text-sm font-semibold">
-                        6/10/2020
-                      </td>
-                    </tr>
-                  </tbody>
+                   <c:if test="${empty list }">
+		                  	 <thead>
+				            	<tr>
+				            		<td colspan="5">환불신청 내역이 없습니다 :)</td>
+				            	</tr>
+				            </thead>
+			            </c:if>
+			      <c:if test="${not empty list }">
+	                  <thead>
+	                    <tr
+	                    style="text-align:center;"
+	                      class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+	                    >
+	                      <th class="px-4 py-3">주문번호</th>
+	                      <th class="px-4 py-3">아이디</th>
+	                      <th class="px-4 py-3">주문자명</th>
+	                      <th class="px-4 py-3">환불신청금액</th>
+	                      <th class="px-4 py-3">신청날짜</th>
+	                      <th class="px-4 py-3">처리</th>
+	                    </tr>
+	                  </thead>
+	                  <tbody
+	                    class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+	                  >
+	                   <c:forEach var="m" items="${list }" >
+	                    <tr class="text-gray-700 dark:text-gray-400">
+	                      <td class="px-4 py-3">
+	                        <div class="flex items-center text-sm" style="display: flex; justify-content:center">
+	                          <!-- Avatar with inset shadow -->
+	                          <div
+	                            class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
+	                          >
+	                            <img 
+	                            class="object-cover w-full h-full rounded-full"
+	                            src="data:image/png;base64,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">
+	                            <div
+	                              class="absolute inset-0 rounded-full shadow-inner"
+	                              aria-hidden="true"
+	                            ></div>
+	                          </div>
+	                          <div style="display: flex;flex-direction: row;">
+	                            <p class="font-semibold" id="chatBot"><b><c:out value="${m.orderNo }"/></b></p>
+	                          </div>
+	
+	                        </div>
+	                      </td>
+	                      <td class="px-4 py-3 text-sm font-semibold">
+	                        <c:out value="${m.memberId }"/>
+	                      </td>
+	                      <td class="px-4 py-3 text-xs font-semibold">
+	                        <c:out value="${m.orderName }"/>
+	                      </td>
+	                      <td class="px-4 py-3 text-sm font-semibold">
+	                        <c:out value="${m.price }"/>원
+	                      </td>
+	                      <td class="px-4 py-3 text-sm font-semibold">
+	                        <c:out value="${m.refundDate }"/>
+	                      </td>
+	                      <td class="px-4 py-3 text-sm font-semibold">
+	                         <button
+	                         	onclick="cancelPay('${m.merchantUid}',${m.price},'${m.refundMsg}')"
+	                         	<%-- onclick="cancelPay('${m.merchantUid}',${m.price},'${m.refundMsg}')" --%>
+	                            style="display :inline-block;background-color: white; border: 1.5px solid purple; color: purple;"
+	                            class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+	                          >
+	                          환불승인
+                          </button>
+	                      </td>
+	                    </tr>
+	                   </c:forEach>
+	                  </tbody>
+                  </c:if>
                 </table>
               </div>
               <div
-                class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
-              >
-                <span class="col-span-2"></span>
-                <!-- Pagination -->
-                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                  <nav aria-label="Table navigation">
-                    <ul class="inline-flex items-center">
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                          aria-label="Previous"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="w-4 h-4 fill-current"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                              clip-rule="evenodd"
-                              fill-rule="evenodd"
-                            ></path>
-                          </svg>
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          1
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          2
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          3
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          4
-                        </button>
-                      </li>
-                      <li>
-                        <span class="px-3 py-1">...</span>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          8
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          9
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-                          aria-label="Next"
-                        >
-                          <svg
-                            class="w-4 h-4 fill-current"
-                            aria-hidden="true"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                              clip-rule="evenodd"
-                              fill-rule="evenodd"
-                            ></path>
-                          </svg>
-                        </button>
-                      </li>
-                    </ul>
-                  </nav>
-                </span>
-              </div>
+	                class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
+	              >
+	                <span class="col-span-2"></span>
+	                <!-- Pagination -->
+	                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-center">
+	                  <nav aria-label="Table navigation">
+	                    ${pageBar}
+	                  </nav>
+	                </span>
+	              </div>
+            	</div>
             </div>
-            </div>
-
-
+            
+			  <script type="text/javascript">
+				  IMP.init("imp44501773");
+					 
+					const cancelPay=(merchantUid,price,refundMsg)=>{
+					 	if(confirm("환불 신청 사유 : "+refundMsg)){
+							$.ajax({
+								url: "${path}/admin/refundEnd.do",
+								type:"post",
+								contentType : 'application/x-www-form-urlencoded; charset = utf-8',
+								data : {
+									"merchant_uid": merchantUid,
+							        "cancel_request_amount": price, // 환불금액
+							        "reason": refundMsg // 환불사유
+								},
+								success:data=>{
+									alert(data);
+									location.reload();
+								}
+							});
+						};
+					}; 
+			</script>
         </main>
       </div>
     </div>

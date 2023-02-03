@@ -1,9 +1,12 @@
 package com.today.bab.admin.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.admin.model.service.AdminService;
+import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
-import com.today.bab.admin.model.vo.AdminQnaAll;
 import com.today.bab.admin.model.vo.AdminSubscription;
+import com.today.bab.admin.model.vo.AdminTotalData;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.common.AdminPageBar;
@@ -25,7 +29,7 @@ import com.today.bab.common.AdminPageBar;
 //@SessionAttributes({"loginMember"})
 public class AdminController {
 	
-private AdminService service;
+	private AdminService service;
 	
 	@Autowired
 	public AdminController(AdminService service) {
@@ -34,8 +38,15 @@ private AdminService service;
 	
 	//관리자페이지 메인
 	@RequestMapping("/main.do")
-	public String adminMain() {
-		return "admin/adminMain";
+	public ModelAndView adminMain(ModelAndView mv) {
+		List<AdminTotalData> atd=service.adminTotalData();
+		
+		mv.addObject("profit",atd.get(0).getTotal());
+		mv.addObject("sales",atd.get(1).getTotal());
+		mv.addObject("members",atd.get(2).getTotal());
+		mv.setViewName("admin/adminMain");
+		
+		return mv;
 	}
 	
 	//회원관리
@@ -336,15 +347,58 @@ private AdminService service;
 	
 	//환불관리
 	@RequestMapping("/refund.do")
-	public String adminRefund() {
-		return "admin/adminRefund";
+	public ModelAndView adminRefund(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {
+		
+		mv.addObject("list",service.adminRefund(Map.of("cPage",cPage,"numPerpage",numPerpage)));
+		
+		//페이징처리하기
+		int totalData=service.adminRefundCount(); //환불신청 건수
+		
+		mv.addObject("pageBar",AdminPageBar.getPage(cPage, numPerpage, totalData, "refund.do"));
+		mv.addObject("totalData",totalData);
+		mv.setViewName("admin/adminRefund");
+		
+		return mv;
 	}
 	
-	//환불-상세
-	@RequestMapping("/refundInfo.do")
-	public String adminRefundInfo() {
-		return "admin/adminRefundInfo";
+	//환불처리
+	@RequestMapping("/refundEnd.do")
+	public void orderCancle(String merchant_uid, int cancel_request_amount, String reason,
+	HttpServletResponse response)throws IOException {
+		
+		AdminItemOrder cancelOrder = service.selectcancelOrder(merchant_uid);
+		
+		String result="";
+		String end="";
+	    if(!"".equals(cancelOrder.getMerchantUid())) {
+	        String token = service.getToken(); //토큰발급
+	        service.payMentCancle(token,cancelOrder.getMerchantUid(), cancel_request_amount, reason); //토큰,uid,환불금액,환불사유 로 환불요청
+	        result="성공";
+	    }else {
+	    	 result="실패";
+	    }
+	    
+	    if(result.equals("성공")) {
+	    	int result2=service.updateItemOrder(cancelOrder);
+	    	int result3=1;
+	    	
+	    	if(result2>0) {
+	    		if(cancelOrder.getPointUse()>0) {
+		    		result3=service.insertPoint(cancelOrder);
+		    	}
+	    	}
+	    	if(result2>0&&result3>0) {
+	    		end="환불 승인 완료";
+	    	}else {
+	    		end="환불 승인 실패";
+	    	}
+	    }else {
+	    	end="환불 승인 실패";
+	    }
+	    response.setContentType("text/csv;charset=utf-8");
+		response.getWriter().print(end);
 	}
-	
-	
+		
 }

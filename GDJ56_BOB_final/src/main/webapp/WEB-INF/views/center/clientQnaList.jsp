@@ -50,12 +50,12 @@
 		    		                    <td class="writers">${ql.memberId.substring(0,1)}*****</td>
 			                        </c:if>
 			                        <c:if test="${(loginMember.memberId eq ql.memberId)||(loginMember.memberId eq 'admin')}">
-				                        <td class="titles"><a href=""><img src="${path}/resources/images/lock.png">${ql.cqTitle}</a></td>
+				                        <td class="titles"><a href="${path}/center/clientQnaView?cqNo=${ql.cqNo}"><img src="${path}/resources/images/lock.png">${ql.cqTitle}</a></td>
 		    		                    <td class="writers">${ql.memberId}</td>
 			                        </c:if>
 			                    </c:if>
 			                    <c:if test="${ql.cqSe ne 'Y'}">
-			                        <td class="titles"><a href="">${ql.cqTitle}</a></td>
+			                        <td class="titles"><a href="${path}/center/clientQnaView?cqNo=${ql.cqNo}">${ql.cqTitle}</a></td>
 		    	                    <td class="writers">${ql.memberId}</td>
 			                    </c:if>
 		                        <td class="dates">${ql.cqDate}</td>
@@ -72,7 +72,9 @@
 		            </c:if>
                 </tbody>
             </table>
-            <button type="button" id="write-btn" class="customBtn btnStyle" onclick="">글쓰기</button>
+            <c:if test="${not empty loginMember}">
+            	<button type="button" id="write-btn" class="customBtn btnStyle" onclick="">글쓰기</button>
+            </c:if>
             <div class="page-bar">
                 ${pageBar}
             </div>

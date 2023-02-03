@@ -104,9 +104,9 @@
 									<h3>${odc.odcClassName }</h3>
 									<br>
 								</h4>
-								
-								<div class="txt32 flex-w" style="display: flex;">
-									<div style="border:solid black 2px;padding: 0.5%;">
+								<span id="classinfo" style="color:white">───────────────────────────────────────────────────</span>
+								<div style="display: flex;">
+									<div style="border:solid black 2px;">
 									<span>
 										<img src="${path}/resources/pato/images/class/cook-male.png" width="30" height="30">
 										${odc.mastserName}
@@ -115,31 +115,31 @@
 									</span>
 									</div>
 									&nbsp;&nbsp;
-									<div style="border:solid black 2px;padding: 0.5%;">
+									<div style="border:solid black 2px;padding:0.3%">
 										<span>
 											<img src="${path}/resources/pato/images/class/time1.png" width="30" height="30">
-											수업 소요 시간 : 약 ${odc.odcTime }분
+											수업 소요 : 약 ${odc.odcTime }분
 										</span>
 									</div>
 									&nbsp;&nbsp;
-									<div style="border:solid black 2px;  padding: 0.5%;">
+									<div style="border:solid black 2px;padding:0.3%">
 									<span>
 										<img src="${path}/resources/pato/images/class/time2.gif" width="30" height="30">
 										수업시작 : ${odc.odcStartTime }
 									</span>
 									</div>
 									&nbsp;&nbsp;
-									<div style="border:solid black 2px;  padding: 0.5%;">
+									<div style="border:solid black 2px; width:230px; padding:0.3%">
 									<span>
 										<img src="${path}/resources/pato/images/class/place.png" width="30" height="30">
-										<p>${odc.odcCity }</p>
+										${odc.odcCity }
 									</span>
 									</div>
 									&nbsp;&nbsp;
-									<div style="border:solid black 2px; padding: 0.5%;">
+									<div style="border:solid black 2px;width:100px; padding:0.3%">
 									<span>
 										<img src="${path}/resources/pato/images/class/person.png" width="30" height="30">
-										<p>1명~${odc.odcPeople }</p>
+										1~${odc.odcPeople }명
 									</span>
 									</div>
 								</div>
@@ -147,15 +147,15 @@
 								<!-- 상세페이지 메뉴바 -->
 								<div class="multab" style="display: flex; padding: 5%; text-align: center;box-shadow: 0px 5px 5px -5px gray;" id="datailmenubar">
 									<div style="margin-left: 3%;margin-right: 3%; display: flex;">
-										<h3>클래스 소개</h3>
+										<a href="#classinfo"><h3>클래스 소개</h3></a>
 									</div>
 									<h3>│</h3>
 									<div style="margin-left: 3%;margin-right: 3%; display: flex;">
-										<h3>강사 소개</h3>
+										<a href="#masterinfo"><h3>강사 소개</h3></a>
 									</div>
 									<h3>│</h3>
 									<div style="margin-left: 3%;margin-right: 3%; display: flex;">
-										<h3>수강 후기</h3>
+										<a href="#reviewlist"><h3>수강 후기</h3></a>
 									</div>
 									<h3>│</h3>
 									<div style="margin-left: 3%;margin-right: 3%; display: flex;">
@@ -170,58 +170,93 @@
 								
 								<br><br>
 
-								<div style="margin-bottom: 3%; margin-top: 3%;">
-									<span>───────────────────────────────────────────────────</span>
+								<div style="margin-bottom: 5%;">
+									<span id="masterinfo">───────────────────────────────────────────────────</span>
 								</div>
 
 								<h4 class="txt33 p-b-14">강사님 소개</h4><br>
-								<p style="margin: 1%;">
-									<%-- <c:set var="keywordArr" value="${fn:split(${am.history},',')}"/>
-									<c:foreach var="word" items="${keywordArr}">
-									    ${word}
-									</c:foreach> --%>
-								</p>	
+								
+								 <c:choose>
+		              				 <c:when test="${empty h }">
+		              				 	<strong>강사님은 아직 경력이 없지만 열심히 수업을 준비하셨습니다👨‍🍳💪</strong>
+		              				 </c:when>
+		              				 <c:otherwise>
+			              				 <c:forEach var="h" items="${h}">
+			              				 	<div style='border-radius: 10px; border: solid #898585 1px; margin: 1%;box-shadow: 0px 5px 5px -5px gray;'>
+												<h5>${h}</h5>
+											</div>
+			              				 </c:forEach>
+		              				 </c:otherwise>
+	              				 </c:choose>
+	
+				
 								<div style="margin-bottom: 3%; margin-top: 3%;">
 									<span>───────────────────────────────────────────────────</span>
 								</div>
-	
+								
 								<h4 class="txt33 p-b-14" style="padding : 2%">
-									대한민국 서울특별시 관악구 봉천동 인헌2길 9-3 플러스홈
+									클래스 위치
 								</h4>
+								
+								<h4 class="txt33 p-b-14" style="padding : 2%">
+									${odc.odcAdd }
+								</h4>
+								<input type="hidden" value="${odc.odcAdd }" id="classPlace">
 								<!-- 다음 지도api-->
 								<div id="all" style="align-items: center;">
-									<div id="map" style="width:500px;height:300px;align-items: center;"></div>
+									<div id="map" style="width:800px;height:300px;align-items: center;"></div>
 								</div>
+								
+								<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f0ca5ca19fc5b73909077a7b94b21bd4&libraries=services"></script>
 								<script>
-									/* var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-									mapOption = { 
-										center: new kakao.maps.LatLng(37.4780485, 126.8790079), // 지도의 중심좌표
-										level: 3 // 지도의 확대 레벨
-									};
-									
-									var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-									
-									// 마커가 표시될 위치입니다 
-									var markerPosition  = new kakao.maps.LatLng(37.4780485, 126.8790079); 
-									
-									// 마커를 생성합니다
-									var marker = new kakao.maps.Marker({
-										position: markerPosition
-									});
-									
-									// 마커가 지도 위에 표시되도록 설정합니다
-									marker.setMap(map); */
-									
-									// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
-									// marker.setMap(null);    
-								</script>   
+								var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+								    mapOption = {
+								        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+								        level: 3 // 지도의 확대 레벨
+								    };  
+
+								// 지도를 생성합니다    
+								var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+								// 주소-좌표 변환 객체를 생성합니다
+								var geocoder = new kakao.maps.services.Geocoder();
+								
+								const palce=$('#classPlace').val();
+								console.log(palce)
+
+								// 주소로 좌표를 검색합니다
+								geocoder.addressSearch(palce, function(result, status) {
+
+								    // 정상적으로 검색이 완료됐으면 
+								     if (status === kakao.maps.services.Status.OK) {
+
+								        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+								        // 결과값으로 받은 위치를 마커로 표시합니다
+								        var marker = new kakao.maps.Marker({
+								            map: map,
+								            position: coords
+								        });
+
+								        // 인포윈도우로 장소에 대한 설명을 표시합니다
+								        var infowindow = new kakao.maps.InfoWindow({
+								            content: '<div style="width:150px;text-align:center;padding:6px 0;">원데이클래스 위치</div>'
+								        });
+								        infowindow.open(map, marker);
+
+								        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+								        map.setCenter(coords);
+								    } 
+								});    
+								</script>
+								 
 							</div>
 
 							<div style="margin-bottom: 3%; margin-top: 3%;">
-								<span>───────────────────────────────────────────────────</span>
+								<span id="reviewlist">───────────────────────────────────────────────────</span>
 							</div>
 	
-							<!-- 후-->
+							<!-- 후기영역-->
 							<div>
 								<div style="display:flex;">
 									<h4 class="txt33">
@@ -234,27 +269,13 @@
 									onclick="goPopup(event);">
 											리뷰작성하기
 									</button>
-									
-									
-									<script type="text/javascript">
-						            	function goPopup(e){
-						            		var memberId=$(e.target).prev("input").val();
-						            		var odcNo=$(e.target).prev().prev("input").val();
-						            		var gsWin=window.open("${path}/class/pop.do?id="+memberId+"&&no="+odcNo,"winName","width=520,height=730"); //open("주소",띄우는방식,크기)
-						            		console.log(memberId);
-						            		console.log(odcNo);
-						            	}
-									</script>
-									
 								</div>
-								<br>
-								<p style="color: rgb(195, 195, 195);">
-									* 클래스를 수강한 회원님들의 후기입니다.
-								</p>
-								<div class="reviewList"></div>
+									<br>
+									<p style="color: rgb(195, 195, 195);">
+										* 클래스를 수강한 회원님들의 후기입니다.
+									</p>
+									<div class="reviewList"></div>
 							</div>
-							
-							<div id="reviewtList"></div>
 
 							<div style="margin-bottom: 7%; margin-top: 3%;">
 								<span id="qna" style="color:white">───────────────────────────────────────────────────</span>
@@ -293,292 +314,300 @@
 					</div>
 				</div>
 
-	 	<script type="text/javascript">
-		//답댓글보기
-		function goView(e){
-			const oqno=$(e.target).prev().val();
-			const masterName= $('#masterName').val();
-			$(e.target).parent().parent().next().next("div").slideToggle("fast");
-			console.log(oqno);
-			$.ajax({
-		        type:'get',
-		        url : "<c:url value='/class/selectReOdcQaAll.do'/>",
-		        data:{
-		        	"oqno" : oqno
-				}, 
-		        contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
-		        success : function(data){
-		            
-					var html = "";
-					         
-					if(data.length > 0) {
-						
-						for(i=0; i<data.length; i++){
-					      	  
-							html+="<ul style='margin:1%;'>";
-							html+="<li>";
-							html+="<div id='reply_area' class='bo-rad-10 sizefull txt10 p-l-20'>";
-							html+="<div id='replyInfo'>";
-							html+="<span>"+masterName+"</span>";
-							html+="<span>│"+data[i].oqrEnrollDate+"</span>";
-							html+="<span style='cursor: pointer;'>│수정</span>";
-							html+="<span style='cursor: pointer;'>│삭제</span>";
-							html+="</div>";
-							html+="<div id='txt_area' class='wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23' style='border: solid gray 1px;'>";
-							html+="<p>"+data[i].oqrContetnt+"</p>";
-							html+="</div>";
-							html+="</div>";
-							html+="</li>";
-							html+="</ul>";
-						}
-						
-					}else{
-						html += '<h6><strong>등록된 댓글이 없습니다</strong></h6>';
-					}
-						$(".reCommentList").html(html);
-				}
-			});
-			
-		};
-		
-		function goInput(e){
-			$(e.target).parent().parent().next("div").slideToggle("fast");
-				//$("#commentInput") // 2초에 걸쳐서 진행
-		};
-		
-		//답댓글 데이터 넣어주기
-		function reCommentBtn(e){
-			//로그인한 회원 아이디
-			const memberId= $('#memberId').val();
-			const oqno=$(e.target).prev().prev().val();
-			//입력값
-			const oqrContetnt=$(e.target).prev("input").val();
-			const masterId= $('#masterId').val();
-			const admin="admin";
-			
-			console.log(oqrContetnt);
-			console.log(memberId);
-			console.log(oqno);
-			console.log(masterId);
-			
- 			if(memberId == ''){
-				alert('로그인 후 이용해주세요');
-				return;
-			}else if(oqContent == '') {
-				alert('내용을 입력하세요');
-			}else if(masterId!=memberId&&memberId!=admin){
-				alert('해당 클래스 강사님또는 관리자만 답변이 가능합니다');
-				return;
-			} 
-			
-			$.ajax({
-				type:'post',
-				url:'<c:url value="/class/inputReplayOdcQa.do"/>',
-				contentType: 'application/json',
-				data:JSON.stringify({
-						"oqno":oqno,
-						"oqrContetnt":oqrContetnt,
-				}), 
-				success : function(data){
-		          
-					alert('댓글을 입력하셨습니다!');
-					goView();
-		            
-		    	},
-				error:function(){
-					alert('통신실패');
-				}
-			
-			})
+<script type="text/javascript">
 
-		}
-		
-		
-	 	//댓글데이터넣어주기
-		$('#Comment_regist').click(function(){
-			
-			const oqContent=$('#oqContent').val();
-			//const oqSecretYn =$('#oqContent').is(":checked");
-			const secret=$('#secret').is(":checked");
-			var oqSecretYn = (secret == true) ? "Y" : "N";
-			const odcNo= $('#odcNo').val();
-			const memberId= $('#memberId').val();
-			
-			console.log(secret);
-			console.log(oqContent);
-			console.log(oqSecretYn);
-			console.log(odcNo);
-			console.log(memberId);
-			
-			
-			
-			if(memberId == ''){
-				alert('로그인 후 이용해주세요');
-				return;
-			}else if(oqContent == '') {
-				alert('내용을 입력하세요');
-			}
-			
-			$.ajax({
-				type:'post',
-				url:'<c:url value="/class/inputOdcQa.do"/>',
-				contentType: 'application/json',
-				data:JSON.stringify({
-						"odcNo":odcNo,
-						"memberId":memberId,
-						"oqContent":oqContent,
-						"oqSecretYn":oqSecretYn
-				}), 
-				success : function(data){
-		          
-		            
-					getCommentList();
-	                $("#oqContent").val("");
-		            
-		    	},
-				error:function(){
-					alert('통신실패');
-				}
-			
-			})
-		});
-	 	
-	 	//댓글리스트 가져오기
-		$(function(){
- 		    getCommentList();
- 		    getReviewList();
- 		});
-		
-	 	//리뷰가져오기
-		function getReviewList(){
-			const odcNo= $('#odcNo').val();
-			$.ajax({
-				type:'get',
-				url : "<c:url value='/class/selectReview.do'/>",
-				data:{
-				"odcNo" : odcNo
-				}, 
-				contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
-				success : function(data){
+	//페이지 실행시 댓글리스트, 리뷰리스트 가져오기
+	$(function(){
+	    getCommentList();
+	    getReviewList();
+	});
+	
+	//후기작성 팝업창 열기
+	function goPopup(e){
+		var memberId=$(e.target).prev("input").val();
+		var odcNo=$(e.target).prev().prev("input").val();
+		var gsWin=window.open("${path}/class/pop.do?id="+memberId+"&&no="+odcNo,"winName","width=520,height=730"); //open("주소",띄우는방식,크기)
+		console.log(memberId);
+		console.log(odcNo);
+	}
+
+	//답댓글 보기 창 열어주기
+	function goView(e){
+		const oqno=$(e.target).prev().val();
+		const masterName= $('#masterName').val();
+		$(e.target).parent().parent().next().next("div").slideToggle("fast");
+		console.log(oqno);
+		$.ajax({
+	        type:'get',
+	        url : "<c:url value='/class/selectReOdcQaAll.do'/>",
+	        data:{
+	        	"oqno" : oqno
+			}, 
+	        contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+	        success : function(data){
+	            
+				var html = "";
+				         
+				if(data.length > 0) {
 					
-					var html = "";
-					if(data.length > 0){
-		
-						for(i=0; i<data.length; i++){
-							html+="<div style='border-bottom:solid #898585 1px;'>";
-							html+="<br>";
-							html+="<div class='col-md-12' style='display: flex;'>";
-							html+="<span>";
-							html+="<span>"+data[i].memberId+"</span>";
-							html+="<span>│"+data[i].oreDate+"</span>";
-							html+="<span style='cursor: pointer;'>│수정</span>";
-							html+="<span style='cursor: pointer;'>│삭제</span>";
-							html+="</span>";
-							html+="</div>";
-							html+="<div class='col-md-12'style='display:flex; margin-left: -1.5%;'>";
-							if(data[i].oreGood=='Y'){
-							html+="<div style='border-radius: 10px; border: solid #898585 1px; margin: 1%;'> &nbsp;#추천해요👍&nbsp; </div>";
-							}
-							if(data[i].oreSame=='Y'){
-							html+="<div style='border-radius: 10px; border: solid #898585 1px;margin: 1%'> &nbsp;#실제 수업은 클래스 소개와 동일한 방식으로 진행됐어요😊 </div>";
-							}
-							html+="</div>";
-							html+="<div class='col-md-12' style='display: flex;'>";
-							html+="<img src='${path}/resources/images/onedayclass/"+data[i].orePic+"' width='100' height='100' class='rimg' style='margin: 1%; transition: all 0.3s linear;'>";
-							html+="<span>"+data[i].oreContent+"</span>";
-							html+="</div>";
-							html+="</div>";
-						}
-		
-					}else{
-						html += '<h6><strong>등록된 후기가 없습니다</strong></h6>';
+					for(i=0; i<data.length; i++){
+				      	  
+						html+="<ul style='margin:1%;'>";
+						html+="<li>";
+						html+="<div id='reply_area' class='bo-rad-10 sizefull txt10 p-l-20'>";
+						html+="<div id='replyInfo'>";
+						html+="<span>"+masterName+"</span>";
+						html+="<span>│"+data[i].oqrEnrollDate+"</span>";
+						html+="<span style='cursor: pointer;'>│수정</span>";
+						html+="<span style='cursor: pointer;'>│삭제</span>";
+						html+="</div>";
+						html+="<div id='txt_area' class='wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23' style='border: solid gray 1px;'>";
+						html+="<p>"+data[i].oqrContetnt+"</p>";
+						html+="</div>";
+						html+="</div>";
+						html+="</li>";
+						html+="</ul>";
 					}
-					$(".reviewList").html(html);
-				}		
-			});
+					
+				}else{
+					html += '<h6><strong>등록된 댓글이 없습니다</strong></h6>';
+				}
+					$(".reCommentList").html(html);
+			}
+		});
+		
+	};
+	
+	//댓글 입력 창 열어주기
+	function goInput(e){
+		$(e.target).parent().parent().next("div").slideToggle("fast");
+			//$("#commentInput") // 2초에 걸쳐서 진행
+	};
+
+	//답댓글 데이터 넣어주기
+	function reCommentBtn(e){
+		//로그인한 회원 아이디
+		const memberId= $('#memberId').val();
+		const oqno=$(e.target).prev().prev().val();
+		//입력값
+		const oqrContetnt=$(e.target).prev("input").val();
+		const masterId= $('#masterId').val();
+		const admin="admin";
+		
+		console.log(oqrContetnt);
+		console.log(memberId);
+		console.log(oqno);
+		console.log(masterId);
+		
+			if(memberId == ''){
+			alert('로그인 후 이용해주세요');
+			return;
+		}else if(oqContent == '') {
+			alert('내용을 입력하세요');
+		}else if(masterId!=memberId&&memberId!=admin){
+			alert('해당 클래스 강사님또는 관리자만 답변이 가능합니다');
+			return;
+		} 
+		
+		$.ajax({
+			type:'post',
+			url:'<c:url value="/class/inputReplayOdcQa.do"/>',
+			contentType: 'application/json',
+			data:JSON.stringify({
+					"oqno":oqno,
+					"oqrContetnt":oqrContetnt,
+			}), 
+			success : function(data){
+	          
+				alert('댓글을 입력하셨습니다!');
+				goView();
+	            
+	    	},
+			error:function(){
+				alert('통신실패');
+			}
+		
+		});
+	
+	};
+
+
+	//댓글데이터넣어주기
+	$('#Comment_regist').click(function(){
+		
+		const oqContent=$('#oqContent').val();
+		//const oqSecretYn =$('#oqContent').is(":checked");
+		const secret=$('#secret').is(":checked");
+		var oqSecretYn = (secret == true) ? "Y" : "N";
+		const odcNo= $('#odcNo').val();
+		const memberId= $('#memberId').val();
+		
+		console.log(secret);
+		console.log(oqContent);
+		console.log(oqSecretYn);
+		console.log(odcNo);
+		console.log(memberId);
+		
+		
+		
+		if(memberId == ''){
+			alert('로그인 후 이용해주세요');
+			return;
+		}else if(oqContent == '') {
+			alert('내용을 입력하세요');
 		}
 		
-	 	//댓글가져오기
-		function getCommentList(){
-			const odcNo= $('#odcNo').val();
-			const masterId= $('#masterId').val();
-		    $.ajax({
-		        type:'get',
-		        url : "<c:url value='/class/selectOdcQaAll.do'/>",
-		        data:{
-		        	"odcNo" : odcNo
-				}, 
-		        contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
-		        success : function(data){
-		            
-		            var html = "";
-		            
-		            if(data.length > 0){
-		                
-		                for(i=0; i<data.length; i++){
-		                
-		          /*       html +="<span>"+data[i].memberId+"</span>";
-		                   html +="<span>"+data[i].oqEnrollDate+"</span>"; */
-		                 
-		                   html+="<div style='border-bottom: solid 1px gray;margin:2%;'  class='col-md-12'>";
-		                   html+="<ul style='margin:1%;'>";
-		                   html+="<li>";
-		                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
-		                   html+="<span>";
-		                   html+="<span>"+data[i].memberId+"</span>";
-		                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
-		                   html+="<span style='cursor: pointer;'>│수정</span>";
-		                   html+="<span style='cursor: pointer;'>│삭제</span>";
-		                   html+="</span>";
-		                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
-		                   html+="<p style='padding:auto;'>"+data[i].oqContent+"</p>";
-		                   html+="</div>";
-		                   html+="<div class='commentView'>";
-		                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
-		                   html+="<span class='vieCommentList' style='cursor: pointer;' onclick='goView(event);'>댓글보기</span>";
-		                   html+="<span class='enrollCommentInput' style='cursor: pointer;' onclick='goInput(event);'>│댓글쓰기</span>";
-		                   html+="</div>";
-		                   html+="</div>";
-		                   html+="<div class='commentInput' style='display:none;'>";
-		                   html+="<ul style='margin:1%;'>";
-		                   html+="<li>";
-		                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
-		                   html+="<div class='replyInfo'>";
-		                   html+="<span>강사님</span>";
-		                   html+="</div>";
-		                   html+="<div style='display: flex;'>";
-		                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
-		                   html+="<input class='bo-rad-10 txt10 p-l-20' id='replyComment' type='text' style='border: solid gray 1px; width: 800px; height: 50px;' placeholder='강사님! 해당 문의에 대한 답글을 남겨 주세요'>";
-		                   html+="&nbsp;&nbsp;";
-		                   html+="<button style='width: 100px;cursor: pointer;' onclick='reCommentBtn(event);'>등록</button>";
-		                   html+="</div>";
-		                   html+="</div>";
-		                   html+="</li>";
-		                   html+="</ul>";
-		                   html+="</div>";
-		                   html+="<div class='reCommentList' style='display: none;'>";
-		                   html+="</div>";
-		                   html+="</li>";
-		                   html+="</ul>";
-		                   html+="</div>";
-		                }
-		                
-		            }else {
-		            
-		                html += '<h6><strong>등록된 댓글이 없습니다</strong></h6>';
-		               
-		            }
-		            
-		            $("#commentList").html(html);
-		            
-		        },
-		        error:function(){
-		        	alert('통신실패');
-		       }
-		        
-		    });
-		}
-	</script>
+		$.ajax({
+			type:'post',
+			url:'<c:url value="/class/inputOdcQa.do"/>',
+			contentType: 'application/json',
+			data:JSON.stringify({
+					"odcNo":odcNo,
+					"memberId":memberId,
+					"oqContent":oqContent,
+					"oqSecretYn":oqSecretYn
+			}), 
+			success : function(data){
+	          
+	            
+				getCommentList();
+	               $("#oqContent").val("");
+	            
+	    	},
+			error:function(){
+				alert('통신실패');
+			}
+		
+		})
+	});
+	
+
+	//리뷰가져오기
+	function getReviewList(){
+		const odcNo= $('#odcNo').val();
+		$.ajax({
+			type:'get',
+			url : "<c:url value='/class/selectReview.do'/>",
+			data:{
+			"odcNo" : odcNo
+			}, 
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+			success : function(data){
+				
+				var html = "";
+				if(data.length > 0){
+					for(i=0; i<data.length; i++){
+						html+="<div style='border-bottom:solid #898585 1px;'>";
+						html+="<br>";
+						html+="<div class='col-md-12' style='display: flex;'>";
+						html+="<span>";
+						html+="<span>"+data[i].memberId+"</span>";
+						html+="<span>│"+data[i].oreDate+"</span>";
+						html+="<span style='cursor: pointer;'>│수정</span>";
+						html+="<span style='cursor: pointer;'>│삭제</span>";
+						html+="</span>";
+						html+="</div>";
+						html+="<div class='col-md-12'style='display:flex; margin-left: -1.5%;'>";
+						if(data[i].oreGood=='Y'){
+							html+="<div style='border-radius: 10px; border: solid #898585 1px; margin: 1%;'> &nbsp;#추천해요👍&nbsp; </div>";
+						}
+						if(data[i].oreSame=='Y'){
+							html+="<div style='border-radius: 10px; border: solid #898585 1px;margin: 1%'> &nbsp;#실제 수업은 클래스 소개와 동일한 방식으로 진행됐어요😊 </div>";
+						}
+						html+="</div>";
+						html+="<div class='col-md-12' style='display: flex;'>";
+						html+="<img src='${path}/resources/images/onedayclass/"+data[i].orePic+"' width='100' height='100' class='rimg' style='margin: 1%; transition: all 0.3s linear;'>";
+						html+="<span>"+data[i].oreContent+"</span>";
+						html+="</div>";
+						html+="</div>";
+					}
+				}else{
+					html += '<h6><strong>등록된 후기가 없습니다</strong></h6>';
+				}
+				$(".reviewList").html(html);
+			}	
+		});
+	}
+
+	//댓글가져오기
+	function getCommentList(){
+		const odcNo= $('#odcNo').val();
+		const masterId= $('#masterId').val();
+	    $.ajax({
+	        type:'get',
+	        url : "<c:url value='/class/selectOdcQaAll.do'/>",
+	        data:{
+	        	"odcNo" : odcNo
+			}, 
+	        contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+	        success : function(data){
+	            
+	            var html = "";
+	            
+	            if(data.length > 0){
+	                
+	                for(i=0; i<data.length; i++){
+	                 
+	                   html+="<div style='border-bottom: solid 1px gray;margin:2%;'  class='col-md-12'>";
+	                   html+="<ul style='margin:1%;'>";
+	                   html+="<li>";
+	                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
+	                   html+="<span>";
+	                   html+="<span>"+data[i].memberId+"</span>";
+	                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
+	                   html+="<span style='cursor: pointer;'>│수정</span>";
+	                   html+="<span style='cursor: pointer;'>│삭제</span>";
+	                   html+="</span>";
+	                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
+	                   html+="<p style='padding:auto;'>"+data[i].oqContent+"</p>";
+	                   html+="</div>";
+	                   html+="<div class='commentView'>";
+	                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
+	                   html+="<span class='vieCommentList' style='cursor: pointer;' onclick='goView(event);'>댓글보기</span>";
+	                   html+="<span class='enrollCommentInput' style='cursor: pointer;' onclick='goInput(event);'>│댓글쓰기</span>";
+	                   html+="</div>";
+	                   html+="</div>";
+	                   html+="<div class='commentInput' style='display:none;'>";
+	                   html+="<ul style='margin:1%;'>";
+	                   html+="<li>";
+	                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
+	                   html+="<div class='replyInfo'>";
+	                   html+="<span>강사님</span>";
+	                   html+="</div>";
+	                   html+="<div style='display: flex;'>";
+	                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
+	                   html+="<input class='bo-rad-10 txt10 p-l-20' id='replyComment' type='text' style='border: solid gray 1px; width: 800px; height: 50px;' placeholder='강사님! 해당 문의에 대한 답글을 남겨 주세요'>";
+	                   html+="&nbsp;&nbsp;";
+	                   html+="<button style='width: 100px;cursor: pointer;' onclick='reCommentBtn(event);'>등록</button>";
+	                   html+="</div>";
+	                   html+="</div>";
+	                   html+="</li>";
+	                   html+="</ul>";
+	                   html+="</div>";
+	                   html+="<div class='reCommentList' style='display: none;'>";
+	                   html+="</div>";
+	                   html+="</li>";
+	                   html+="</ul>";
+	                   html+="</div>";
+	                }
+	                
+	            }else {
+	            
+	                html += '<h6><strong>등록된 댓글이 없습니다</strong></h6>';
+	               
+	            }
+	            
+	            $("#commentList").html(html);
+	            
+	        },
+	        
+	        error:function(){
+	        	alert('통신실패');
+	       }
+	        
+	    });
+	}
+</script>
 
 				<!-- 사이드 달력 -->
 				<div class="col-md-4 col-lg-3" style="width: 30%; height: 100%;">

@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.admin.model.vo.ClientQNA;
@@ -61,5 +63,107 @@ public class CenterController {
 		return mv;
 	}
 	
+	@RequestMapping("/noticeView")
+	public String noticeView(int noticeNo, Model model) {
+		
+		Notice n=service.selectNotice(noticeNo);
+		
+		model.addAttribute("n", n);
+		
+		return "center/noticeView";
+	}
+
+	@RequestMapping("/clientQnaView")
+	public String clientQnaView(int cqNo, Model model) {
+		
+		ClientQNA cq=service.selectClientQna(cqNo);
+		
+		model.addAttribute("cq", cq);
+		
+		return "center/clientQnaView";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/answerEnroll")
+	public boolean answerEnroll(@RequestParam(value="args[]") List<String> args) {
+		int no=Integer.parseInt(args.get(0));
+		String answer=args.get(1);
+		Map<String, Object> param=Map.of("no", no, "answer", answer);
+		
+		int result=service.answerEnroll(param);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
+
+	@ResponseBody
+	@RequestMapping("/answerUpdate")
+	public boolean answerUpdate(@RequestParam(value="args[]") List<String> args) {
+		int no=Integer.parseInt(args.get(0));
+		String answer=args.get(1);
+		Map<String, Object> param=Map.of("no", no, "answer", answer);
+		
+		int result=service.answerUpdate(param);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
+	
+	@RequestMapping("/noticeWrite")
+	public String noticeWrite() {
+		return "center/noticeWrite";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/noticeWriteEnd")
+	public boolean noticeWriteEnd(@RequestParam(value="input[]") List<String> input) {
+		String title=input.get(0);
+		String content=input.get(1);
+		Map<String, Object> param=Map.of("title", title, "content", content);
+		
+		int result=service.noticeWriteEnd(param);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
+
+	@ResponseBody
+	@RequestMapping("/noticeUpdate")
+	public boolean noticeUpdate(@RequestParam(value="input[]") List<String> input) {
+		String title=input.get(0);
+		String content=input.get(1);
+		int no=Integer.parseInt(input.get(2));
+		Map<String, Object> param=Map.of("title", title, "content", content, "no", no);
+		
+		int result=service.noticeUpdate(param);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
+
+	@ResponseBody
+	@RequestMapping("/noticeDelete")
+	public boolean noticeDelete(int no) {
+		
+		int result=service.noticeDelete(no);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
 
 }

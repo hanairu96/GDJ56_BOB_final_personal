@@ -11,5 +11,12 @@ public interface CenterService {
 	int selectNoticeCount();
 	List<ClientQNA> selectCqList(Map<String, Integer> page);
 	int selectCqCount();
+	Notice selectNotice(int no);
+	ClientQNA selectClientQna(int no);
+	int answerEnroll(Map<String, Object> param);
+	int answerUpdate(Map<String, Object> param);
+	int noticeWriteEnd(Map<String, Object> param);
+	int noticeUpdate(Map<String, Object> param);
+	int noticeDelete(int no);
 
 }

@@ -38,14 +38,16 @@
 		                <c:forEach var="nl" items="${list}">
 		                    <tr>
 		                        <td class="nos">${nl.noticeNo}</td>
-		                        <td class="titles"><a href="#">${nl.noticeTitle}</a></td>
+		                        <td class="titles"><a href="${path}/center/noticeView?noticeNo=${nl.noticeNo}">${nl.noticeTitle}</a></td>
 		                        <td class="dates">${nl.noticeDate}</td>
 		                    </tr>
 		                </c:forEach>
 		            </c:if>
                 </tbody>
             </table>
-            <button type="button" id="write-btn" class="customBtn btnStyle" onclick="write();">글쓰기</button>
+            <c:if test="${loginMember.memberId eq 'admin'}">
+            	<button type="button" id="write-btn" class="customBtn btnStyle" onclick="writeBoard();">글쓰기</button>
+            </c:if>
             <div class="page-bar">
                 ${pageBar}
             </div>
@@ -204,7 +206,7 @@
    		})
    		
    		//글쓰기
-   		const write=()=>{
+   		const writeBoard=()=>{
    			location.assign("${path}/center/noticeWrite");	
    		}
    	</script>
