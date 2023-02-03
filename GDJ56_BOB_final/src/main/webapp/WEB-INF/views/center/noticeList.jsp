@@ -46,7 +46,7 @@
                 </tbody>
             </table>
             <c:if test="${loginMember.memberId eq 'admin'}">
-            	<button type="button" id="write-btn" class="customBtn btnStyle" onclick="write();">글쓰기</button>
+            	<button type="button" id="write-btn" class="customBtn btnStyle" onclick="writeBoard();">글쓰기</button>
             </c:if>
             <div class="page-bar">
                 ${pageBar}
@@ -206,7 +206,7 @@
    		})
    		
    		//글쓰기
-   		const write=()=>{
+   		const writeBoard=()=>{
    			location.assign("${path}/center/noticeWrite");	
    		}
    	</script>

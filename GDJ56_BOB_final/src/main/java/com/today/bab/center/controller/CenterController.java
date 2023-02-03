@@ -114,5 +114,56 @@ public class CenterController {
 		}
 		return data;
 	}
+	
+	@RequestMapping("/noticeWrite")
+	public String noticeWrite() {
+		return "center/noticeWrite";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/noticeWriteEnd")
+	public boolean noticeWriteEnd(@RequestParam(value="input[]") List<String> input) {
+		String title=input.get(0);
+		String content=input.get(1);
+		Map<String, Object> param=Map.of("title", title, "content", content);
+		
+		int result=service.noticeWriteEnd(param);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
+
+	@ResponseBody
+	@RequestMapping("/noticeUpdate")
+	public boolean noticeUpdate(@RequestParam(value="input[]") List<String> input) {
+		String title=input.get(0);
+		String content=input.get(1);
+		int no=Integer.parseInt(input.get(2));
+		Map<String, Object> param=Map.of("title", title, "content", content, "no", no);
+		
+		int result=service.noticeUpdate(param);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
+
+	@ResponseBody
+	@RequestMapping("/noticeDelete")
+	public boolean noticeDelete(int no) {
+		
+		int result=service.noticeDelete(no);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
 
 }
