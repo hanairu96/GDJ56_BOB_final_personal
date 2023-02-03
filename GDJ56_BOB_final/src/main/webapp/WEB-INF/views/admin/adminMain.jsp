@@ -246,7 +246,9 @@
               </li>
               
               <li class="flex">
-              <a href="${path }"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAADC0lEQVR4nO2WXUiTURjHDzWjiy6LIi+km6CbLoqCYEQRRYSCjGYqY/ah1ObH1GxqOTdrOsu2kjQIGyzMMM2iWKskXNZmY1A6Lbecq5hufVC+73veiCDtH+9q9p3DyLrYH35X5zz8Dg+Hcx5CphEAsxiGWcFxXAml1DY2NtYbCoUyyd8Ix3FLKaUKjuMucBz3mlIKgQcDw+j3DIFhmPcKhWLZtAUA5vA8v4HneSnHcTsppRaWZUejosBwEBfb7dCWnoQ0uRRZkv1QF52MrHV3dzcKdQKUUgnDMEtilSZQSl1RicDoyHPYrD0w1jQjO7MK6SmlOFqggd2ow5tLBnjPNUyKv4dl2XG3271jSjHLsquEguO1zdiRpoFMUgFZahmMqkrcMunAdhiAa4e/wdtsxOb1xdgu1URqomRn6OAbfAyv1+smhMz7rZjn+XWCWJl1CB35MngttT+Ivodpr0bjzu2wFsrQrc6cpCBNBecdD/x+fz8hJDFmcVdJBsJtR6YUh8/XoTjnGGrUp2HSnIlg1+ZBnVn4d8UjrSZk5TQjd991FFbcimCrVMfFifFWT/tyvbf+g8v1orUGG8UqeM36mRU/Muuxbk0BnPVVMysetnwSu07MsHjCVgtrdSXeXamNPyCIP5n++O/0X/3HlNK1gjh/lwF50mIcyK7EeZ0WfoseE7afi72WOkiStdiWehAZEn2EvPQySDbthatnAENDQzGJF7As+/bpk1H03vPhbk8/zKcuQ5VzGFu3lEK7R4fLei1GzlZ/EZ9rQG6OKbL/G+77hCkTdru9gxCyiEwVp9OZ3NfX1+XxeByBQOAhwzDjQhdevXoNx+1eNNa3Ybdcj/SUMhjydTBraibHW5/P1yfURens7GxNSkraTAgRkRgz9/MpF4vF4uVNTU1FDoejIxgMBliW/SBInj97iZs33DAaWmAxX42I5XK5XKj5igWEkNmxSn+VWYSQ+VKpdE1LS4vG5XJdC4fDoejwPjg46E5ISFj5p5JYIrRvoVKp3FBeXr5LJBKt/typmPIRW0XTSiwMybkAAAAASUVORK5CYII=">
+              <!-- 나가는문 -->
+              <a href="${path }">
+              	<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAADC0lEQVR4nO2WXUiTURjHDzWjiy6LIi+km6CbLoqCYEQRRYSCjGYqY/ah1ObH1GxqOTdrOsu2kjQIGyzMMM2iWKskXNZmY1A6Lbecq5hufVC+73veiCDtH+9q9p3DyLrYH35X5zz8Dg+Hcx5CphEAsxiGWcFxXAml1DY2NtYbCoUyyd8Ix3FLKaUKjuMucBz3mlIKgQcDw+j3DIFhmPcKhWLZtAUA5vA8v4HneSnHcTsppRaWZUejosBwEBfb7dCWnoQ0uRRZkv1QF52MrHV3dzcKdQKUUgnDMEtilSZQSl1RicDoyHPYrD0w1jQjO7MK6SmlOFqggd2ow5tLBnjPNUyKv4dl2XG3271jSjHLsquEguO1zdiRpoFMUgFZahmMqkrcMunAdhiAa4e/wdtsxOb1xdgu1URqomRn6OAbfAyv1+smhMz7rZjn+XWCWJl1CB35MngttT+Ivodpr0bjzu2wFsrQrc6cpCBNBecdD/x+fz8hJDFmcVdJBsJtR6YUh8/XoTjnGGrUp2HSnIlg1+ZBnVn4d8UjrSZk5TQjd991FFbcimCrVMfFifFWT/tyvbf+g8v1orUGG8UqeM36mRU/Muuxbk0BnPVVMysetnwSu07MsHjCVgtrdSXeXamNPyCIP5n++O/0X/3HlNK1gjh/lwF50mIcyK7EeZ0WfoseE7afi72WOkiStdiWehAZEn2EvPQySDbthatnAENDQzGJF7As+/bpk1H03vPhbk8/zKcuQ5VzGFu3lEK7R4fLei1GzlZ/EZ9rQG6OKbL/G+77hCkTdru9gxCyiEwVp9OZ3NfX1+XxeByBQOAhwzDjQhdevXoNx+1eNNa3Ybdcj/SUMhjydTBraibHW5/P1yfURens7GxNSkraTAgRkRgz9/MpF4vF4uVNTU1FDoejIxgMBliW/SBInj97iZs33DAaWmAxX42I5XK5XKj5igWEkNmxSn+VWYSQ+VKpdE1LS4vG5XJdC4fDoejwPjg46E5ISFj5p5JYIrRvoVKp3FBeXr5LJBKt/typmPIRW0XTSiwMybkAAAAASUVORK5CYII=">
               </a>
                 </li>
               
@@ -264,24 +266,7 @@
               ADMIN HOME
             </h2>
             <!-- CTA -->
-            <a
-              class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
-              href="${path }/admin/QnA.do"
-            >
-              <div class="flex items-center">
-                <svg
-                  class="w-5 h-5 mr-2"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                  ></path>
-                </svg>
-                <span>매일 1:1 문의 답변 꼭!!</span>
-              </div>
-              <span>바로 이동 &RightArrow;</span>
-            </a>
+            
             <!-- Cards -->
             <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
               <!-- Card -->
@@ -306,7 +291,7 @@
                   <p
                     class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                   >
-                    <span class="numberCount1">600</span>
+                    <span class="numberCount1">${members }</span>
                   </p>
                 </div>
               </div>
@@ -333,7 +318,7 @@
                   <p
                     class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                   >
-                    $<span class="numberCount2">2000</span>
+                    <span class="numberCount2">${profit }</span>
                   </p>
                 </div>
               </div>
@@ -359,7 +344,7 @@
                   <p
                     class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                   >
-                  <span class="numberCount3">376</span>
+                  <span class="numberCount3">${sales }</span>
                   </p>
                 </div>
               </div>
@@ -404,11 +389,11 @@
                     const numberCount2=document.querySelector(".numberCount2").innerHTML;
                     const numberCount3=document.querySelector(".numberCount3").innerHTML;
                     const numberCount4=document.querySelector(".numberCount4").innerHTML;
-                    console.log(numberCount1+numberCount2+numberCount3+numberCount4);
+                    console.log(numberCount1+" "+numberCount2+" "+numberCount3+" "+numberCount4);
                     
                     //회원수
                     function counterFn1() {
-                      id0 = setInterval(count0Fn, 0.00000001);
+                      id0 = setInterval(count0Fn, 100);
                       function count0Fn() {
                         cnt0++;
                         if (cnt0 > numberCount1) {
@@ -420,11 +405,13 @@
                     }
                     //매출액
                       function counterFn2() {
-                      id1 = setInterval(count0Fn, 0.000000000001);
+                      id1 = setInterval(count0Fn, 0.000000000009);
                       function count0Fn() {
-                        cnt1++;
+                        cnt1=cnt1+1111;
                         if (cnt1 > numberCount2) {
-                          clearInterval(id1);
+                         /*  clearInterval(numberCount2);
+                          console.log("dd"); */
+                          $(".numberCount2").text(numberCount2);
                         } else {
                           $(".numberCount2").text(cnt1);
                         }
@@ -432,7 +419,7 @@
                     }
                     //판매량
                       function counterFn3() {
-                      id2 = setInterval(count0Fn, 0.0000001);
+                      id2 = setInterval(count0Fn, 10);
                       function count0Fn() {
                         cnt2++;
                         if (cnt2 > numberCount3) {
@@ -444,7 +431,7 @@
                     }
                     //사원수
                       function counterFn4() {
-                      id3 = setInterval(count0Fn, 1000);
+                      id3 = setInterval(count0Fn, 100);
                       function count0Fn() {
                         cnt3++;
                         if (cnt3 > 6) {
@@ -473,30 +460,50 @@
                 <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
                   Sales
                 </h4>
-                <canvas id="pie"></canvas>
-                <div
-                  class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400"
-                >
-                  <!-- Chart legend -->
-                  <div class="flex items-center">
-                    <span
-                      class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full"
-                    ></span>
-                    <span>Shirts</span>
-                  </div>
-                  <div class="flex items-center">
-                    <span
-                      class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"
-                    ></span>
-                    <span>Shoes</span>
-                  </div>
-                  <div class="flex items-center">
-                    <span
-                      class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"
-                    ></span>
-                    <span>Bags</span>
-                  </div>
-                </div>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.min.js"></script>
+                <script src="path/to/chartjs/dist/chart.umd.js"></script>
+                <div style="text-align:center;">
+				  <canvas id="chart1" style="display:inline;" width="300" height="300"></canvas>
+				</div>
+				
+				<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+				
+				<script>
+				  const chart1 = document.getElementById('chart1');
+				
+				  new Chart(chart1, {
+					  type: 'doughnut',
+					  data: {
+					  labels: [
+						    '채소',
+						    '정육',
+						    '간편식'
+						  ],
+						  datasets: [{
+						    label: '판매수량',
+						    data: [250, 70, 130],
+						    backgroundColor: [
+						      'rgb(255, 99, 132)',
+						      'rgb(54, 162, 235)',
+						      'rgb(255, 205, 86)'
+						    ],
+						   
+						  }]
+						},
+						options: {
+							responsive: false,
+							scales: {
+								yAxes: [{
+									ticks: {
+										beginAtZero: true
+									}
+								}]
+							},
+						}
+				  });
+				</script>
+               
               </div>
               <div
                 class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
@@ -504,26 +511,109 @@
                 <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
                   Profit
                 </h4>
-                <canvas id="line"></canvas>
-                <div
-                  class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400"
-                >
-                  <!-- Chart legend -->
-                  <div class="flex items-center">
-                    <span
-                      class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"
-                    ></span>
-                    <span>2022</span>
-                  </div>
-                  <div class="flex items-center">
-                    <span
-                      class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"
-                    ></span>
-                    <span>2023</span>
-                  </div>
-                </div>
+                <script src="resources/vendor/chart/Chart.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+                <div style="text-align:center;">
+				  <canvas id="chart2" style="display:inline;" width="300" height="200"></canvas>
+				</div>
+				<script>
+				const chart2 = document.getElementById('chart2');
+				 new Chart(chart2, {
+		                type: 'line', // 차트의 형태
+		                data: { // 차트에 들어갈 데이터
+		                    labels: [
+		                        //x 축
+		                    	"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+		                    ],
+		                    datasets: [
+		                        { //데이터
+		                            label: '목표', //차트 제목
+		                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+		                            data: [
+		                                100,120,180,220,280,320,360,400,450,520,600,780 //x축 label에 대응되는 데이터 값
+		                            ],
+		                            backgroundColor: [
+		                                //색상
+		                                'rgba(255, 99, 132, 0.2)',
+		                                'rgba(54, 162, 235, 0.2)',
+		                                'rgba(255, 206, 86, 0.2)',
+		                                'rgba(75, 192, 192, 0.2)',
+		                                'rgba(153, 102, 255, 0.2)',
+		                                'rgba(255, 159, 64, 0.2)'
+		                            ],
+		                            borderColor: [
+		                                //경계선 색상
+		                                'rgba(255, 99, 132, 1)',
+		                                'rgba(54, 162, 235, 1)',
+		                                'rgba(255, 206, 86, 1)',
+		                                'rgba(75, 192, 192, 1)',
+		                                'rgba(153, 102, 255, 1)',
+		                                'rgba(255, 159, 64, 1)'
+		                            ],
+		                            borderWidth: 2 //경계선 굵기
+		                        },
+		                        { //데이터
+		                            label: '현재', //차트 제목
+		                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+		                            data: [
+		                            	25,43 //x축 label에 대응되는 데이터 값
+		                            ],
+		                            backgroundColor: [
+		                                //색상
+		                                'rgba(108, 192, 255, 0.2)',
+		                                'rgba(108, 192, 255, 0.2)',
+		                                'rgba(108, 192, 255, 0.2)',
+		                                'rgba(108, 192, 255, 0.2)',
+		                                'rgba(108, 192, 255, 0.2)',
+		                                'rgba(108, 192, 255, 0.2)'
+		                            ],
+		                            borderColor: [
+		                                //경계선 색상
+		                                'rgba(108, 192, 255, 1)',
+		                                'rgba(108, 192, 255, 1)',
+		                                'rgba(108, 192, 255, 1)',
+		                                'rgba(108, 192, 255, 1)',
+		                                'rgba(108, 192, 255, 1)',
+		                                'rgba(108, 192, 255, 1)'
+		                            ],
+		                            borderWidth: 2 //경계선 굵기
+		                        }
+		                    ]
+		                },
+		                options: {
+		                    scales: {
+		                        yAxes: [
+		                            {
+		                                ticks: {
+		                                    beginAtZero: true,
+		                                    max:800
+		                                }
+		                            }
+		                        ]
+		                    }
+		                }
+		            });
+				</script>
               </div>
             </div>
+            <a
+              class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
+              href="${path }/admin/QnA.do"
+            >
+              <div class="flex items-center">
+                <svg
+                  class="w-5 h-5 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                  ></path>
+                </svg>
+                <span>매일 1:1 문의 답변 꼭!!</span>
+              </div>
+              <span>바로 이동 &RightArrow;</span>
+            </a>
           </div>
         </main>
       </div>

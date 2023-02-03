@@ -50,5 +50,24 @@ public class CenterServiceImpl implements CenterService {
 	public ClientQNA selectClientQna(int no) {
 		return dao.selectClientQna(session, no);
 	}
+
+	@Override
+	public int answerEnroll(Map<String, Object> param) {
+		int resultEnroll=dao.answerEnroll(session, param);
+		int resultUpdate=dao.updateCheck(session, (int)param.get("no"));
+		
+		int result=0;
+		if(resultEnroll>0&&resultUpdate>0) {
+			result=1;
+		}
+		return result;
+	}
+
+	@Override
+	public int answerUpdate(Map<String, Object> param) {
+		int result=dao.answerUpdate(session, param);
+		
+		return result;
+	}
 	
 }

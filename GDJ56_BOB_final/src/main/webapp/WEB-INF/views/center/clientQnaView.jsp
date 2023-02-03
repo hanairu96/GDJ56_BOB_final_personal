@@ -5,46 +5,83 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value="MainPage"/>
 </jsp:include>
-    <section>
-        <div class="side-menu">
-            <div>공지사항</div>
-            <div>1:1 문의</div>
-        </div>
-        <div class="board">
-            <h1 id="main-title">1:1 문의</h1>
-            <table class="outline">
-                <tr>
-                    <td class="line-title">제목</td>
-                    <td class="line-content headline">${cq.cqTitle}</td>
-                </tr>
-                <tr>
-                    <td class="line-title">작성자</td>
-                    <td class="line-content">${cq.memberId}</td>
-                </tr>
-                <tr>
-                    <td class="line-title">분류</td>
-                    <td class="line-content">${cq.cqCate}</td>
-                </tr>
-                <tr>
-                    <td class="line-title">작성일</td>
-                    <td class="line-content">${cq.cqDate}</td>
-                </tr>
-            </table>
-            <div class="btns">
-                <button type="button" id="update-btn" class="customBtn btnStyle" onclick="">수정하기</button>
-                <button type="button" id="delete-btn" class="customBtn btnStyle" onclick="">삭제하기</button>
-            </div>
-            <div id="text">
-                ${cq.cqContent}
-            </div>
-            <h2 id="as-title">답변</h2>
-            <div id="answer">
-                답변
-            </div>
-            <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="">등록하기</button><br>
-            <button type="button" id="list-btn" class="customBtn btnStyle" onclick="goList();">목록으로</button>
-        </div>
-    </section>
+	<!-- 비밀글일 때 로그인 안 했거나 작성자 또는 관리자가 아니면 접근 불가 -->
+	<c:if test="${(cq.cqSe eq 'Y')&&((empty loginMember)||(not empty loginMember)&&(loginMember.memberId ne cq.memberId)&&(loginMember.memberId ne 'admin'))}">
+		<script>
+			console.log("실패");
+			alert("잘못된 접근입니다.");
+			location.assign("${path}/center/clientQnaList");
+		</script>
+	</c:if>
+	<!-- 비밀글이 아니거나 작성자이거나 관리자면 접근 가능 -->
+	<c:if test="${(cq.cqSe ne 'Y')||(loginMember.memberId eq cq.memberId)||(loginMember.memberId eq 'admin')}">
+		<script>console.log("성공");</script>
+	    <section>
+	        <div class="side-menu">
+	            <div>공지사항</div>
+	            <div>1:1 문의</div>
+	        </div>
+	        <div class="board">
+	            <h1 id="main-title">1:1 문의</h1>
+	            <table class="outline">
+	                <tr>
+	                    <td class="line-title">제목</td>
+	                    <td class="line-content headline">${cq.cqTitle}</td>
+	                </tr>
+	                <tr>
+	                    <td class="line-title">작성자</td>
+	                    <td class="line-content">${cq.memberId}</td>
+	                </tr>
+	                <tr>
+	                    <td class="line-title">분류</td>
+	                    <td class="line-content">${cq.cqCate}</td>
+	                </tr>
+	                <tr>
+	                    <td class="line-title">작성일</td>
+	                    <td class="line-content">${cq.cqDate}</td>
+	                </tr>
+	            </table>
+	            <div class="btns">
+	            	<c:if test="${loginMember.memberId eq cq.memberId}">
+		                <button type="button" id="update-btn" class="customBtn btnStyle" onclick="">수정하기</button>
+	            	</c:if>
+	            	<c:if test="${(loginMember.memberId eq cq.memberId)||(loginMember.memberId eq 'admin')}">
+	                	<button type="button" id="delete-btn" class="customBtn btnStyle" onclick="">삭제하기</button>
+	                </c:if>
+	            </div>
+	            <div id="text">
+	                ${cq.cqContent}
+	            </div>
+	            <h2 id="as-title">답변</h2>
+	            <div id="answer">
+	            	<c:if test="${not empty cq.cqanswer.cqaContent}">
+		                ${cq.cqanswer.cqaContent}
+	            	</c:if>
+	            	<c:if test="${empty cq.cqanswer.cqaContent}">
+		                <p>(아직 등록된 답변이 없습니다.)</p>
+	            	</c:if>
+	            </div>
+	            <textarea id="textEnroll" rows="5" cols="130"></textarea>
+	            <c:if test="${loginMember.memberId eq 'admin'}">
+	            	<c:if test="${empty cq.cqanswer.cqaContent}">
+			            <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="answerEnroll();">답변 등록</button><br>
+	            	</c:if>
+	            	<c:if test="${not empty cq.cqanswer.cqaContent}">
+			            <button type="button" id="update-btn" class="customBtn btnStyle" onclick="answerUpdate();">답변 수정</button><br>
+	            	</c:if>
+		            <div id="enroll-cancel">
+			            <button type="button" id="enroll-end" class="customBtn btnStyle" onclick="enrollEnd();">등록</button><br>
+			            <button type="button" id="cancel" class="customBtn btnStyle" onclick="cancel();">취소</button><br>
+		            </div>
+		            <div id="update-cancel">
+			            <button type="button" id="update-end" class="customBtn btnStyle" onclick="updateEnd();">수정</button><br>
+			            <button type="button" id="cancel" class="customBtn btnStyle" onclick="cancel();">취소</button><br>
+		            </div>
+	            </c:if>
+	            <button type="button" id="list-btn" class="customBtn btnStyle" onclick="goList();">목록으로</button>
+	        </div>
+	    </section>
+	</c:if>
     <style>
         section{
             display: flex;
@@ -110,7 +147,8 @@
             font-weight: bold;
         }
         .btns{
-            margin-left: 70%
+            margin-right: 7%;
+            text-align: right;
         }
         #text{
             border: 1px solid black;
@@ -135,9 +173,31 @@
             padding: 20px;
             min-height: 10px;
         }
-        #enroll-btn{
+        #answer p{
+        	text-align: center;
+        	color: gray;
+        	margin-bottom: 0px;
+        }
+        #textEnroll{
+        	display: none;
+        	margin-left: 70px;
+            margin-right: 70px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        #enroll-btn, #update-btn{
             margin-left: 82%;
             margin-bottom: 30px;
+        }
+        #enroll-cancel, #update-cancel{
+        	display: none;
+	        margin-left: 74%;
+            margin-bottom: 30px;
+        }
+        #enroll-cancel>button, #update-cancel>button{
+        	width: 100px;
+        	margin-left: 10px;
         }
         #list-btn{
             margin-left: 6%;
@@ -198,6 +258,82 @@
 		}
     </style>
     <script>
+	 	//사이드 메뉴 누르면 페이지 이동
+		$(".side-menu>div:eq(0)").click(e=>{
+			location.assign("${path}/center/noticeList");
+		})
+		$(".side-menu>div:eq(1)").click(e=>{
+			location.assign("${path}/center/clientQnaList");
+		})
+		
+		//답변 등록 버튼 나옴
+		const answerEnroll=()=>{
+			$("#answer").hide();
+			$("#textEnroll").show();
+			$("#textEnroll").focus();
+			$("#enroll-btn").hide();
+			$("#enroll-cancel").css("display","flex");
+			$("#enroll-cancel").show();
+		}
+		
+		//답변 등록하기
+		const enrollEnd=()=>{
+			let no=${cq.cqNo}; //문의글 번호
+			let answer=$("#textEnroll").val(); //textarea에 입력한 내용
+			let args=[no, answer];
+			//등록 성공 여부를 boolean 값으로 받음
+			$.ajax({
+				url:"${path}/center/answerEnroll",
+				data:{args:args},
+				success:data=>{
+					if(data){
+						alert("등록되었습니다.");
+						//등록 성공했으면 새로고침
+						location.reload();
+					}else{
+						alert("등록이 실패하였습니다.");
+					}
+				}
+			})
+		}
+		
+		//답변 수정 버튼 나옴
+		const answerUpdate=()=>{
+			$("#answer").hide();
+			$("#textEnroll").show();
+			$("#textEnroll").focus();
+			$("#update-btn").hide();
+			$("#update-cancel").css("display","flex");
+			$("#update-cancel").show();
+		}
+		
+		//답변 수정하기
+		const updateEnd=()=>{
+			let no=${cq.cqNo}; //문의글 번호
+			let answer=$("#textEnroll").val(); //textarea에 입력한 내용
+			let args=[no, answer];
+			//등록 성공 여부를 boolean 값으로 받음
+			$.ajax({
+				url:"${path}/center/answerUpdate",
+				data:{args:args},
+				success:data=>{
+					if(data){
+						alert("수정되었습니다.");
+						//등록 성공했으면 새로고침
+						location.reload();
+					}else{
+						alert("수정이 실패하였습니다.");
+					}
+				}
+			})
+		}
+		
+		//취소 시 원래 상태로 복구
+		const cancel=()=>{
+			location.reload();
+		}
+		
+		//목록으로
     	const goList=()=>{
     		location.assign("${path}/center/clientQnaList");
     	}
