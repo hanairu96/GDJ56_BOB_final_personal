@@ -16,6 +16,7 @@ import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.Point;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
+import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 @Repository
 public class MypageDaoImpl implements MypageDao{
@@ -144,5 +145,15 @@ public class MypageDaoImpl implements MypageDao{
 	@Override
 	public List<ItemReview> selectReviewByOrderNo(SqlSessionTemplate session, int orderNo) {
 		return session.selectList("mypage.selectReviewByOrderNo",orderNo);
+	}
+	
+	@Override
+	public String selectMemberMaster(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectMemberMaster",memberId);
+	}
+	
+	@Override
+	public List<OneDayClass> selectOnedayclassMaster(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectOnedayclassMaster",memberId);
 	}
 }

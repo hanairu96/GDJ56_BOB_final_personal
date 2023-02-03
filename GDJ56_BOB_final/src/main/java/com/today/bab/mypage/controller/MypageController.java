@@ -32,6 +32,7 @@ import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.Point;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
+import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 @Controller
 @RequestMapping("/mypage")
@@ -241,8 +242,18 @@ public class MypageController {
 		HttpSession session = request.getSession();
 	    Member m = (Member) session.getAttribute("loginMember");
 	    
+	    String memberMaster = mypageService.selectMemberMaster(m.getMemberId());
+	    
+	    if(memberMaster.equals("Y")) {
+	    	List<OneDayClass> odc = mypageService.selectOnedayclassMaster(m.getMemberId());
+	    	mv.addObject("master",odc);
+	    	System.out.println(odc);
+	    }
+	    
 	    List<OdcReserve> odcReserve = mypageService.selectOnedayclass(m.getMemberId());
-		
+	    
+	    mv.addObject("odcReserve",odcReserve);
+	    System.out.println(odcReserve);
 		mv.setViewName("mypage/onedayclass");
 		
 		return mv;

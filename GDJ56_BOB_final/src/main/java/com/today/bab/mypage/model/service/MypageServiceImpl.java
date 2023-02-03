@@ -18,6 +18,7 @@ import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.Point;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
+import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 @Service
 public class MypageServiceImpl implements MypageService {
@@ -165,5 +166,15 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public List<ItemReview> selectReviewByOrderNo(int orderNo) {
 		return mypageDao.selectReviewByOrderNo(session,orderNo);
+	}
+	
+	@Override
+	public String selectMemberMaster(String memberId) {
+		return mypageDao.selectMemberMaster(session,memberId);
+	}
+	
+	@Override
+	public List<OneDayClass> selectOnedayclassMaster(String memberId) {
+		return mypageDao.selectOnedayclassMaster(session, memberId);
 	}
 }
