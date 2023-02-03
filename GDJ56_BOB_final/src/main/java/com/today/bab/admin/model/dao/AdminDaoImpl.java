@@ -11,6 +11,7 @@ import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminQnaAll;
+import com.today.bab.admin.model.vo.AdminSellItem;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.AdminTotalData;
 import com.today.bab.admin.model.vo.ClientQNA;
@@ -182,6 +183,18 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public List<AdminTotalData> adminTotalData(SqlSessionTemplate session) {
 		return session.selectList("admin.adminTotalData");
+	}
+
+	@Override
+	public List<AdminSellItem> adminProductList(SqlSessionTemplate session, Map<String, Integer> param) {
+		return session.selectList("admin.adminProductList",null, 
+	            new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+	                  param.get("numPerpage")));
+	}
+
+	@Override
+	public int adminProductCount(SqlSessionTemplate session) {
+		return session.selectOne("admin.adminProductCount");
 	}
 	
 }

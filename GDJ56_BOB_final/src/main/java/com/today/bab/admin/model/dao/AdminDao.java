@@ -9,6 +9,7 @@ import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminQnaAll;
+import com.today.bab.admin.model.vo.AdminSellItem;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.AdminTotalData;
 import com.today.bab.admin.model.vo.ClientQNA;
@@ -76,6 +77,10 @@ public interface AdminDao {
 	int insertPoint(SqlSessionTemplate session,AdminItemOrder updatePoint);
 	
 	List<AdminTotalData> adminTotalData(SqlSessionTemplate session);
+	
+	List<AdminSellItem> adminProductList(SqlSessionTemplate session,Map<String,Integer> param);
+	
+	int adminProductCount(SqlSessionTemplate session);
 }
 
 
