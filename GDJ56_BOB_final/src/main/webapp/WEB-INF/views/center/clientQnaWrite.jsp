@@ -11,31 +11,33 @@
             <div>1:1 문의</div>
         </div>
         <div class="board">
-            <h1 id="main-title">공지사항</h1>
+            <h1 id="main-title">1:1 문의</h1>
             <table class="outline">
-                <tr id="fix-title-tr">
+                <tr>
                     <td class="line-title">제목</td>
-                    <td class="line-content headline">${n.noticeTitle}</td>
+                    <td class="line-content headline"><input type="text" id="input-title" placeholder="제목을 입력하세요."></td>
                 </tr>
-                <tr id="input-title-tr">
-                    <td class="line-title">제목</td>
-                    <td class="line-content headline"><input type="text" id="input-title" value="${n.noticeTitle}"></td>
+               	<tr>
+                    <td class="line-title">작성자</td>
+                    <td class="line-content">${loginMember.memberId}</td>
+                </tr>
+                <tr>
+                    <td class="line-title">분류</td>
+                    <td class="line-content"><input type="text" id="input-category" placeholder="분류를 입력하세요."></td>
                 </tr>
                 <tr>
                     <td class="line-title">작성일</td>
-                    <td class="line-content">${n.noticeDate}</td>
+                    <td class="line-content date"></td>
                 </tr>
             </table>
-            <div class="btns">
-            	<c:if test="${loginMember.memberId eq 'admin'}">
-	                <button type="button" id="update-btn" class="customBtn btnStyle" onclick="updateNt();">수정하기</button>
-	                <button type="button" id="delete-btn" class="customBtn btnStyle" onclick="deleteNt();">삭제하기</button>
-	                <button type="button" id="updateEnd-btn" class="customBtn btnStyle" onclick="updateNtEnd();">수정완료</button>
-	                <button type="button" id="cancel-btn" class="customBtn btnStyle" onclick="cancelNt();">취소</button>
-                </c:if>
+            <div id="secret-div">
+            	<input type="checkbox" id="secret" value="비밀글 여부"> 비밀글 여부
             </div>
-            <textarea id="input-content" rows="10" cols="130" readonly>${n.noticeContent}</textarea>
-            <button type="button" id="list-btn" class="customBtn btnStyle" onclick="goList();">목록으로</button>
+            <textarea id="input-content" rows="10" cols="130"></textarea>
+            <div id="enroll-cancel">
+	            <button type="button" id="enroll-end" class="customBtn btnStyle" onclick="enrollEnd();">등록</button><br>
+	            <button type="button" id="cancel" class="customBtn btnStyle" onclick="cancel();">취소</button><br>
+            </div>
         </div>
     </section>
     <style>
@@ -102,29 +104,30 @@
             width: 700px;
             padding-left: 20px;
         }
-        #input-title-tr{
-        	display: none;
-        }
         .headline{
             font-weight: bold;
         }
-        #input-content{
-        	margin-left: 70px;
-            margin-right: 70px;
+        .headline>input{
+			width: 600px;
+        }
+        #secret-div{
+        	width: fit-content;
+        }
+		#input-content{
+			width: 87%;
             margin-top: 10px;
             margin-bottom: 20px;
             padding: 20px;
             resize: none;
         }
-        .btns{
-            margin-left: 70%;
-        }
-        #updateEnd-btn, #cancel-btn{
-        	display: none;
-        }
-        #list-btn{
-            margin-left: 6%;
+        #enroll-cancel{
+        	display: flex;
+	        margin-left: 74%;
             margin-bottom: 30px;
+        }
+        #enroll-cancel>button{
+        	width: 100px;
+        	margin-left: 10px;
         }
 
         .customBtn {
@@ -189,70 +192,54 @@
 			location.assign("${path}/center/clientQnaList");
 		})
 		
-		//수정하기 버튼 눌렀을 때
-		const updateNt=()=>{
-			//수정완료, 취소 버튼 보임
-			$("#updateEnd-btn").css("display", "inline-block");
-			$("#cancel-btn").css("display", "inline-block");
-			
-			//수정하기, 삭제하기 버튼 사라짐
-			$("#update-btn").css("display", "none");
-			$("#delete-btn").css("display", "none");
-			
-			//기존 제목 줄이 사라지고 수정할 수 있는 제목 줄이 보임
-			$("#fix-title-tr").hide();
-			$("#input-title-tr").show();
-			
-			//내용 입력창이 수정할 수 있게 바뀌고 포커스가 맞춰짐
-			$("#input-content").attr("readonly", false);
-			$("#input-content").focus();
-		}
-			
-		//수정하기
-		const updateNtEnd=()=>{
-			let title=$("#input-title").val();
-			let content=$("#input-content").val();
-			let no=${n.noticeNo};
-			let input=[title, content, no];
+		//처음에 자동으로 제목 입력창에 포커스
+		$("#input-title").focus();
+		
+		//작성일 칸에 날짜 자동 입력
+		let today=new Date();
+	 	let dateToday=today.toLocaleDateString();
+	 	$(".date").text(dateToday);
+	 	
+	 	//체크박스 영역을 누르면 체크가 됨
+	 	$("#secret-div").click(e=>{
+	 		$("#secret").prop("checked", true);
+	 	})
+	 	
+	 	//textarea 좌우 가운데 정렬
+	 	let bdWidth=$(".board").css("width").replace('px',''); //board 영역의 너비
+	 	let taWidth=$("#input-content").css("width").replace('px',''); //textarea 영역의 너비
+	 	let marginVal=(bdWidth-taWidth)/2;
+	 	$("#input-content").css("margin-left", marginVal).css("margin-right", marginVal);
+	 	//체크박스 영역의 왼쪽 margin
+	 	$("#secret-div").css("margin-left", marginVal);
+		
+		//1:1 문의 등록
+		const enrollEnd=()=>{
+			let title=$("#input-title").val(); //제목
+			let writer="${loginMember.memberId}"; //작성자
+			let category=$("#input-category").val(); //분류
+			let secret=$("#secret").is(':checked'); //비밀글 여부
+			let content=$("#input-content").val(); //내용
+			let input=[title, writer, category, secret, content];
 			//등록 성공 여부를 boolean 값으로 받음
 			$.ajax({
-				url:"${path}/center/noticeUpdate",
+				url:"${path}/center/cqWriteEnd",
 				data:{input:input},
 				success:data=>{
 					if(data){
-						alert("수정되었습니다.");
-						//수정 성공했으면 새로고침
-						location.reload();
+						alert("등록되었습니다.");
+						//등록 성공했으면 목록으로 가기
+						location.assign("${path}/center/clientQnaList");
 					}else{
-						alert("수정이 실패하였습니다.");
+						alert("등록이 실패하였습니다.");
 					}
 				}
 			})
 		}
 		
-		//삭제하기
-		const deleteNt=()=>{
-			let check=confirm("정말로 삭제하시겠습니까?");
-			if(check){
-				$.ajax({
-					url:"${path}/center/noticeDelete",
-					data:{no:${n.noticeNo}},
-					success:data=>{
-						if(data){
-							alert("삭제되었습니다.");
-							//삭제 성공했으면 목록으로
-							location.assign("${path}/center/noticeList");
-						}else{
-							alert("삭제에 실패하였습니다.");
-						}
-					}
-				})
-			}
-		}
-		
-		//목록으로
-    	const goList=()=>{
-    		location.assign("${path}/center/noticeList");
+		//취소하면 목록으로
+    	const cancel=()=>{
+    		location.assign("${path}/center/clientQnaList");
     	}
     </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

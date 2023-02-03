@@ -21,4 +21,5 @@ public interface CenterDao {
 	int noticeWriteEnd(SqlSessionTemplate session, Map<String, Object> param);
 	int noticeUpdate(SqlSessionTemplate session, Map<String, Object> param);
 	int noticeDelete(SqlSessionTemplate session, int no);
+	int cqWriteEnd(SqlSessionTemplate session, Map<String, Object> param);
 }
