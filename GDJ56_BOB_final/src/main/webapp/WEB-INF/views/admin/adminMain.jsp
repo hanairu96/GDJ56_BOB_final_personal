@@ -266,24 +266,7 @@
               ADMIN HOME
             </h2>
             <!-- CTA -->
-            <a
-              class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
-              href="${path }/admin/QnA.do"
-            >
-              <div class="flex items-center">
-                <svg
-                  class="w-5 h-5 mr-2"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                  ></path>
-                </svg>
-                <span>매일 1:1 문의 답변 꼭!!</span>
-              </div>
-              <span>바로 이동 &RightArrow;</span>
-            </a>
+            
             <!-- Cards -->
             <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
               <!-- Card -->
@@ -477,30 +460,50 @@
                 <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
                   Sales
                 </h4>
-                <canvas id="pie"></canvas>
-                <div
-                  class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400"
-                >
-                  <!-- Chart legend -->
-                  <div class="flex items-center">
-                    <span
-                      class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full"
-                    ></span>
-                    <span>Shirts</span>
-                  </div>
-                  <div class="flex items-center">
-                    <span
-                      class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"
-                    ></span>
-                    <span>Shoes</span>
-                  </div>
-                  <div class="flex items-center">
-                    <span
-                      class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"
-                    ></span>
-                    <span>Bags</span>
-                  </div>
-                </div>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.min.js"></script>
+                <script src="path/to/chartjs/dist/chart.umd.js"></script>
+                <div style="text-align:center;">
+				  <canvas id="chart1" style="display:inline;" width="300" height="300"></canvas>
+				</div>
+				
+				<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+				
+				<script>
+				  const chart1 = document.getElementById('chart1');
+				
+				  new Chart(chart1, {
+					  type: 'doughnut',
+					  data: {
+					  labels: [
+						    '채소',
+						    '정육',
+						    '간편식'
+						  ],
+						  datasets: [{
+						    label: '판매수량',
+						    data: [250, 70, 130],
+						    backgroundColor: [
+						      'rgb(255, 99, 132)',
+						      'rgb(54, 162, 235)',
+						      'rgb(255, 205, 86)'
+						    ],
+						   
+						  }]
+						},
+						options: {
+							responsive: false,
+							scales: {
+								yAxes: [{
+									ticks: {
+										beginAtZero: true
+									}
+								}]
+							},
+						}
+				  });
+				</script>
+               
               </div>
               <div
                 class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
@@ -508,26 +511,109 @@
                 <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
                   Profit
                 </h4>
-                <canvas id="line"></canvas>
-                <div
-                  class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400"
-                >
-                  <!-- Chart legend -->
-                  <div class="flex items-center">
-                    <span
-                      class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"
-                    ></span>
-                    <span>2022</span>
-                  </div>
-                  <div class="flex items-center">
-                    <span
-                      class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"
-                    ></span>
-                    <span>2023</span>
-                  </div>
-                </div>
+                <script src="resources/vendor/chart/Chart.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+                <div style="text-align:center;">
+				  <canvas id="chart2" style="display:inline;" width="300" height="200"></canvas>
+				</div>
+				<script>
+				const chart2 = document.getElementById('chart2');
+				 new Chart(chart2, {
+		                type: 'line', // 차트의 형태
+		                data: { // 차트에 들어갈 데이터
+		                    labels: [
+		                        //x 축
+		                    	"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+		                    ],
+		                    datasets: [
+		                        { //데이터
+		                            label: '목표', //차트 제목
+		                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+		                            data: [
+		                                100,120,180,220,280,320,360,400,450,520,600,780 //x축 label에 대응되는 데이터 값
+		                            ],
+		                            backgroundColor: [
+		                                //색상
+		                                'rgba(255, 99, 132, 0.2)',
+		                                'rgba(54, 162, 235, 0.2)',
+		                                'rgba(255, 206, 86, 0.2)',
+		                                'rgba(75, 192, 192, 0.2)',
+		                                'rgba(153, 102, 255, 0.2)',
+		                                'rgba(255, 159, 64, 0.2)'
+		                            ],
+		                            borderColor: [
+		                                //경계선 색상
+		                                'rgba(255, 99, 132, 1)',
+		                                'rgba(54, 162, 235, 1)',
+		                                'rgba(255, 206, 86, 1)',
+		                                'rgba(75, 192, 192, 1)',
+		                                'rgba(153, 102, 255, 1)',
+		                                'rgba(255, 159, 64, 1)'
+		                            ],
+		                            borderWidth: 2 //경계선 굵기
+		                        },
+		                        { //데이터
+		                            label: '현재', //차트 제목
+		                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+		                            data: [
+		                            	25,43 //x축 label에 대응되는 데이터 값
+		                            ],
+		                            backgroundColor: [
+		                                //색상
+		                                'rgba(108, 192, 255, 0.2)',
+		                                'rgba(108, 192, 255, 0.2)',
+		                                'rgba(108, 192, 255, 0.2)',
+		                                'rgba(108, 192, 255, 0.2)',
+		                                'rgba(108, 192, 255, 0.2)',
+		                                'rgba(108, 192, 255, 0.2)'
+		                            ],
+		                            borderColor: [
+		                                //경계선 색상
+		                                'rgba(108, 192, 255, 1)',
+		                                'rgba(108, 192, 255, 1)',
+		                                'rgba(108, 192, 255, 1)',
+		                                'rgba(108, 192, 255, 1)',
+		                                'rgba(108, 192, 255, 1)',
+		                                'rgba(108, 192, 255, 1)'
+		                            ],
+		                            borderWidth: 2 //경계선 굵기
+		                        }
+		                    ]
+		                },
+		                options: {
+		                    scales: {
+		                        yAxes: [
+		                            {
+		                                ticks: {
+		                                    beginAtZero: true,
+		                                    max:800
+		                                }
+		                            }
+		                        ]
+		                    }
+		                }
+		            });
+				</script>
               </div>
             </div>
+            <a
+              class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
+              href="${path }/admin/QnA.do"
+            >
+              <div class="flex items-center">
+                <svg
+                  class="w-5 h-5 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                  ></path>
+                </svg>
+                <span>매일 1:1 문의 답변 꼭!!</span>
+              </div>
+              <span>바로 이동 &RightArrow;</span>
+            </a>
           </div>
         </main>
       </div>
