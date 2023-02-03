@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.admin.model.vo.ClientQNA;
@@ -82,5 +83,36 @@ public class CenterController {
 		return "center/clientQnaView";
 	}
 	
+	@ResponseBody
+	@RequestMapping("/answerEnroll")
+	public boolean answerEnroll(@RequestParam(value="args[]") List<String> args) {
+		int no=Integer.parseInt(args.get(0));
+		String answer=args.get(1);
+		Map<String, Object> param=Map.of("no", no, "answer", answer);
+		
+		int result=service.answerEnroll(param);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
+
+	@ResponseBody
+	@RequestMapping("/answerUpdate")
+	public boolean answerUpdate(@RequestParam(value="args[]") List<String> args) {
+		int no=Integer.parseInt(args.get(0));
+		String answer=args.get(1);
+		Map<String, Object> param=Map.of("no", no, "answer", answer);
+		
+		int result=service.answerUpdate(param);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
 
 }

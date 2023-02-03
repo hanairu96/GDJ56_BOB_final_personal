@@ -42,17 +42,42 @@
 	                </tr>
 	            </table>
 	            <div class="btns">
-	                <button type="button" id="update-btn" class="customBtn btnStyle" onclick="">수정하기</button>
-	                <button type="button" id="delete-btn" class="customBtn btnStyle" onclick="">삭제하기</button>
+	            	<c:if test="${loginMember.memberId eq cq.memberId}">
+		                <button type="button" id="update-btn" class="customBtn btnStyle" onclick="">수정하기</button>
+	            	</c:if>
+	            	<c:if test="${(loginMember.memberId eq cq.memberId)||(loginMember.memberId eq 'admin')}">
+	                	<button type="button" id="delete-btn" class="customBtn btnStyle" onclick="">삭제하기</button>
+	                </c:if>
 	            </div>
 	            <div id="text">
 	                ${cq.cqContent}
 	            </div>
 	            <h2 id="as-title">답변</h2>
 	            <div id="answer">
-	                답변
+	            	<c:if test="${not empty cq.cqanswer.cqaContent}">
+		                ${cq.cqanswer.cqaContent}
+	            	</c:if>
+	            	<c:if test="${empty cq.cqanswer.cqaContent}">
+		                <p>(아직 등록된 답변이 없습니다.)</p>
+	            	</c:if>
 	            </div>
-	            <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="">등록하기</button><br>
+	            <textarea id="textEnroll" rows="5" cols="130"></textarea>
+	            <c:if test="${loginMember.memberId eq 'admin'}">
+	            	<c:if test="${empty cq.cqanswer.cqaContent}">
+			            <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="answerEnroll();">답변 등록</button><br>
+	            	</c:if>
+	            	<c:if test="${not empty cq.cqanswer.cqaContent}">
+			            <button type="button" id="update-btn" class="customBtn btnStyle" onclick="answerUpdate();">답변 수정</button><br>
+	            	</c:if>
+		            <div id="enroll-cancel">
+			            <button type="button" id="enroll-end" class="customBtn btnStyle" onclick="enrollEnd();">등록</button><br>
+			            <button type="button" id="cancel" class="customBtn btnStyle" onclick="cancel();">취소</button><br>
+		            </div>
+		            <div id="update-cancel">
+			            <button type="button" id="update-end" class="customBtn btnStyle" onclick="updateEnd();">수정</button><br>
+			            <button type="button" id="cancel" class="customBtn btnStyle" onclick="cancel();">취소</button><br>
+		            </div>
+	            </c:if>
 	            <button type="button" id="list-btn" class="customBtn btnStyle" onclick="goList();">목록으로</button>
 	        </div>
 	    </section>
@@ -122,7 +147,8 @@
             font-weight: bold;
         }
         .btns{
-            margin-left: 70%
+            margin-right: 7%;
+            text-align: right;
         }
         #text{
             border: 1px solid black;
@@ -147,9 +173,31 @@
             padding: 20px;
             min-height: 10px;
         }
-        #enroll-btn{
+        #answer p{
+        	text-align: center;
+        	color: gray;
+        	margin-bottom: 0px;
+        }
+        #textEnroll{
+        	display: none;
+        	margin-left: 70px;
+            margin-right: 70px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        #enroll-btn, #update-btn{
             margin-left: 82%;
             margin-bottom: 30px;
+        }
+        #enroll-cancel, #update-cancel{
+        	display: none;
+	        margin-left: 74%;
+            margin-bottom: 30px;
+        }
+        #enroll-cancel>button, #update-cancel>button{
+        	width: 100px;
+        	margin-left: 10px;
         }
         #list-btn{
             margin-left: 6%;
@@ -217,6 +265,73 @@
 		$(".side-menu>div:eq(1)").click(e=>{
 			location.assign("${path}/center/clientQnaList");
 		})
+		
+		//답변 등록 버튼 나옴
+		const answerEnroll=()=>{
+			$("#answer").hide();
+			$("#textEnroll").show();
+			$("#textEnroll").focus();
+			$("#enroll-btn").hide();
+			$("#enroll-cancel").css("display","flex");
+			$("#enroll-cancel").show();
+		}
+		
+		//답변 등록하기
+		const enrollEnd=()=>{
+			let no=${cq.cqNo}; //문의글 번호
+			let answer=$("#textEnroll").val(); //textarea에 입력한 내용
+			let args=[no, answer];
+			//등록 성공 여부를 boolean 값으로 받음
+			$.ajax({
+				url:"${path}/center/answerEnroll",
+				data:{args:args},
+				success:data=>{
+					if(data){
+						alert("등록되었습니다.");
+						//등록 성공했으면 새로고침
+						location.reload();
+					}else{
+						alert("등록이 실패하였습니다.");
+					}
+				}
+			})
+		}
+		
+		//답변 수정 버튼 나옴
+		const answerUpdate=()=>{
+			$("#answer").hide();
+			$("#textEnroll").show();
+			$("#textEnroll").focus();
+			$("#update-btn").hide();
+			$("#update-cancel").css("display","flex");
+			$("#update-cancel").show();
+		}
+		
+		//답변 수정하기
+		const updateEnd=()=>{
+			let no=${cq.cqNo}; //문의글 번호
+			let answer=$("#textEnroll").val(); //textarea에 입력한 내용
+			let args=[no, answer];
+			//등록 성공 여부를 boolean 값으로 받음
+			$.ajax({
+				url:"${path}/center/answerUpdate",
+				data:{args:args},
+				success:data=>{
+					if(data){
+						alert("수정되었습니다.");
+						//등록 성공했으면 새로고침
+						location.reload();
+					}else{
+						alert("수정이 실패하였습니다.");
+					}
+				}
+			})
+		}
+		
+		//취소 시 원래 상태로 복구
+		const cancel=()=>{
+			location.reload();
+		}
 		
 		//목록으로
     	const goList=()=>{
