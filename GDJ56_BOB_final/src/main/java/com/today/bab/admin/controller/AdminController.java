@@ -29,7 +29,7 @@ import com.today.bab.common.AdminPageBar;
 //@SessionAttributes({"loginMember"})
 public class AdminController {
 	
-private AdminService service;
+	private AdminService service;
 	
 	@Autowired
 	public AdminController(AdminService service) {
