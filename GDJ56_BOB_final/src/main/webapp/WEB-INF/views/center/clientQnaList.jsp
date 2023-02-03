@@ -72,7 +72,9 @@
 		            </c:if>
                 </tbody>
             </table>
-            <button type="button" id="write-btn" class="customBtn btnStyle" onclick="">글쓰기</button>
+            <c:if test="${not empty loginMember}">
+            	<button type="button" id="write-btn" class="customBtn btnStyle" onclick="">글쓰기</button>
+            </c:if>
             <div class="page-bar">
                 ${pageBar}
             </div>
