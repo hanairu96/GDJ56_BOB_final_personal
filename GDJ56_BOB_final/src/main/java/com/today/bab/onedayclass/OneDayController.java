@@ -98,7 +98,7 @@ public class OneDayController {
    }
 
    @RequestMapping("/class/masterEndEnroll.do")
-   public ModelAndView masterEndEnroll(AdminMaster m, ModelAndView model) {
+   public ModelAndView masterEndEnroll(AdminMaster m, ModelAndView model, String history1) {
       System.out.println(m);
       int result=service.masterEndEnroll(m);
       
@@ -236,15 +236,15 @@ public class OneDayController {
       OneDayClass odc = service.odcView(no);
       
       //날짜 포맷해주기
-      //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일"); 
+      SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
       
   	  //원하는 데이터 포맷 지정
       //String startDate = simpleDateFormat.format(odc.getOdcStartDate()); 
-      //String endDate = simpleDateFormat.format(odc.getOdcEndDate()); 
-      
+      String endDate = simpleDateFormat.format(odc.getOdcEndDate()); 
+  
   	  //지정한 포맷으로 변환 
       //System.out.println("포맷 지정 후 : " + startDate);
-     // System.out.println("포맷 지정 후 : " + endDate);
+      System.out.println("포맷 지정 후 : " + endDate);
       AdminMaster am= service.selectMastserById(odc.getMemberId());
       
       System.out.println(am.getHistory().split(",").length);
@@ -253,6 +253,7 @@ public class OneDayController {
       h=am.getHistory().split(",");
       
       mv.addObject("odc",odc);
+      mv.addObject("endDate",endDate);
       mv.addObject("h",h);
       //mv.addObject("startDate", startDate);
       //mv.addObject("endDate", endDate);
@@ -424,6 +425,46 @@ public class OneDayController {
    			mv.setViewName("onedayclass/map");
    		return mv;
    	}
+  	
+  	@RequestMapping("/class/countPerson.do")
+  	public int countPerson(String reDate, int odcNo) {
+  		System.out.println(odcNo);
+  		Map param=new HashMap();
+  		param.put("reDate", reDate);
+        param.put("odcNo", odcNo);
+  		int num=service.countPerson(param);
+  		System.out.println("예약한 인원수"+num);
+  		return num;
+  	}
    	
+  	@RequestMapping("/class/inputReservation.do")
+  	public ModelAndView inputReservation(ModelAndView mv,String memberId,String odcDate, String odcNo){
+//  		 try {
+//             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//             Date odcDate = format.parse(odcDate1);
+//             System.out.println(odcDate);
+//             or.setOdcDate(odcDate);
+//         } catch(Exception e) {
+//             e.printStackTrace();
+//         }
+     
+  		
+  		Map param=new HashMap();
+  		param.put("memberId", memberId);
+        param.put("odcNo", odcNo);
+        param.put("odcDate", odcDate);
+  		
+        int result=service.inputReservation(param);
+
+        if(result>0) {
+			  mv.addObject("msg","리뷰 작성 성공:)");
+		      mv.setViewName("common/close");
+		  }else {
+			  mv.addObject("msg", "리뷰 작성 실패 :(");
+			  mv.setViewName("common/close");
+		  }
+  		//System.out.println(or);
+  		return mv;
+  	} 
    	
 }

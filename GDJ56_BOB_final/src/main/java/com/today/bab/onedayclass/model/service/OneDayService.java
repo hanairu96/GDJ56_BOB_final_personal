@@ -28,4 +28,6 @@ public interface OneDayService {
 	List<OdcReserve> selectNoReviewReserve(int no2);
 	int insertReview(OdcReview or);
 	List<OdcReview> selectReviewByodcNo(int odcNo);
+	int countPerson(Map param);
+	int inputReservation(Map param);
 }

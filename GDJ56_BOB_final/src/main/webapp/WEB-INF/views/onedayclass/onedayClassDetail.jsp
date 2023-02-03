@@ -29,9 +29,18 @@
 <script>
 	//달력 배치 및 효과 스크립트
 	$(function () {
+		
 		$("#search").on("click", function() {
-			$("#searchbox").slideDown("fast"); // 2초에 걸쳐서 진행
+				
+			const reDate=$("#testDatepicker").val();
+			if(reDate==''){
+				alert('날짜를 지정해주시요')
+			}else{
+				$("#searchbox").slideDown("fast"); // 2초에 걸쳐서 진행
+			}
+			
 		});
+		
 		$(window).scroll(  
 			function(){  
 				console.log('test');
@@ -56,6 +65,7 @@
 			}
 		);
 	});
+	
 </script>
 
 <body>
@@ -177,7 +187,7 @@
 								<h4 class="txt33 p-b-14">강사님 소개</h4><br>
 								
 								 <c:choose>
-		              				 <c:when test="${empty h }">
+		              				 <c:when test="${empty h}">
 		              				 	<strong>강사님은 아직 경력이 없지만 열심히 수업을 준비하셨습니다👨‍🍳💪</strong>
 		              				 </c:when>
 		              				 <c:otherwise>
@@ -615,7 +625,8 @@
 						<div style="text-align: center;" id="calender">
 							<h3>클래스일정</h3>
 							<p>원하는 날짜를 선택해주세요</p>
-							<input type="text" id="testDatepicker" style="border: #111111 solid 2px;" placeholder="클릭해서 가능한 날짜 보기" onchange="inputValueChange()">
+							<input type="text" id="testDatepicker" style="border: #111111 solid 2px;" placeholder="클릭해서 가능한 날짜 보기" onchange="onchanged();">
+							<input type="hidden" id="ddd" value="<fmt:formatDate value='${odc.odcEndDate }' pattern='yyyy-MM-dd'/>">
 							<button type="submit" class="btn3" id="search">
 								날짜확정
 							</button>	
@@ -623,30 +634,72 @@
 						<!-- datepicker 스크립트  -->
 							<script>
 								$(function(){
-									const date=$("#testDatepicker").datepicker({
-									});
+									const endDate=$("#ddd").val();
+									$("#testDatepicker").datepicker({
+										  dateFormat: 'yy-mm-dd',
+										  minDate: 0,
+										  maxDate: endDate
+										});	
 								})
+								function onchanged(){
+									const odcNo= $('#odcNo').val();
+									const reDate=$("#testDatepicker").val();
+									const odcPerson=${odc.odcPeople};
+									console.log(odcPerson);
+									$.ajax({
+								        type:'get',
+								        url : "<c:url value='/class/countPerson.do'/>",
+								        data:{
+								        	"reDate" : reDate,
+								        	"odcNo" : odcNo
+										}, 
+								        contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+								        success : function(data){
+								        	if(odcPerson==data){
+								        		$("#testDatepicker").val('');
+								        		alert('선택하신 날짜는 예약 가능한 인원수를 모두 채워져 예약 마감됐습니다')
+								        		$("#searchbox").slideUp("fast");
+								        		return;
+								        	}else{
+								        		const cPerson=data;
+									        	$("#person").text(cPerson);
+									        	$("#datepic").text(reDate);
+									        	$("input[name=odcDate]").val(reDate);
+								        	};
+								        },
+										error:function(){
+						        		alert('통신실패');
+						      			}
+									});
+								}
 							</script> 
 							
 							
 							<div style="border: solid black; width: 100; height: 300; display: none; text-align: center;" id="searchbox">
-								<p>참가인원 10/100</p>
-								<p>예약 금액 1인 38,000원</p>
-								<p>17:30 예약하시겠습니까?</p>
-								<p>
-									클래스 특성상 예약 후 재료준비로 인해
-									취소 및 환불이 불가능 합니다.
-								</p>	
-								<label>
-								<input type="checkbox">
-								동의
-								</label>
-								
-								<br>
-								
-								<button type="submit" class="btn3" >
-									예약하기
-								</button>	
+								<form action="${path }/class/inputReservation.do">
+									<h4>예약 정보</h4>
+									<p id="datepic"></p>
+									<input type="hidden" name="odcDate" value="">
+									<input type="hidden" name="memberId" value="${loginMember.memberId }">
+									<input type="hidden" name="odcNo" value="${odc.odcNo} ">
+									<p>${odc.odcStartTime }</p>
+									<p>예약 금액(1인) : ${odc.odcPrice}</p>
+									<p>해당 클래스는 ${odc.odcPeople }명까지 신청이 가능합니다.</p>
+									<p>현재 <b id="person" style="color:purple"></b>명이 신청했습니다</p>
+									<p>
+										클래스 특성상 예약 후 재료준비로 인해</p>
+									<p>	취소 및 환불이 불가능 합니다.
+									</p>	
+									<label>
+									<input type="checkbox">
+									동의
+									</label>
+									
+									<br>
+									<button type="submit" class="btn3" >
+										예약하기
+									</button>
+								</form>	
 							</div>
 						</div>	
 					</div>

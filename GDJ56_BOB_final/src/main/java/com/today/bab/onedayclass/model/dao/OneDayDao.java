@@ -30,4 +30,6 @@ public interface OneDayDao {
 	List<OdcReserve> selectNoReviewReserve(SqlSessionTemplate session, int no2);
 	int insertReview(SqlSessionTemplate session, OdcReview or);
 	List<OdcReview> selectReviewByodcNo(SqlSessionTemplate session, int odcNo);
+	int countPerson(SqlSessionTemplate session, Map param);
+	int inputReservation(SqlSessionTemplate session, Map param);
 }

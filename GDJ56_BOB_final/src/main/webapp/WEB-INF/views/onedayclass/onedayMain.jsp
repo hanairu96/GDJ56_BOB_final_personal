@@ -62,7 +62,6 @@
 					<button class="search-btn">&nbsp; 검색 &nbsp;</button>
 				</select>
 			</form>
-			
 		</div>
 
 		<script>

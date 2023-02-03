@@ -107,6 +107,17 @@ public class OneDayServiceImpl implements OneDayService {
 	public List<OdcReview> selectReviewByodcNo(int odcNo) {
 		return dao.selectReviewByodcNo(session,odcNo);
 	}
+
+	@Override
+	public int countPerson(Map param) {
+		return dao.countPerson(session,param);
+	}
+
+	@Override
+	public int inputReservation(Map param) {
+		return dao.inputReservation(session, param);
+	}
+	
 	
 	
 	

@@ -34,7 +34,7 @@
 				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/main.do')">
 					전체
 				</button>
-				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/menu.do?type=bab')">
+				<button class="menu txt26 trans-0-4" onclick="location.assign('${path}/class/menu.do?type=bob')">
 					🍚집밥
 				</button>
 				<button class="menu txt26 trans-0-4" style="background-color:#bde28f; color:white;" onclick="location.assign('${path}/class/menu.do?type=vegan')">
@@ -90,7 +90,7 @@
 	               		<c:forEach var="c" items="${classlist}">
 							<div class="col-lg-4" style="padding: 3%;">
 								<div class="zoom">
-									<a href=""><img src="${path}/resources/pato/images/class/${c.odcMainPic}" width="350" height="300"></a>
+									<a href=""><img src="${path}/resources/images/onedayclass/${c.odcMainPic}" width="350" height="300"></a>
 								</div>
 									
 								<div class="category-name" >${c.odcCategoty}</div>
