@@ -35,6 +35,10 @@ public interface MarketService {
 	
 	List<SellItem> todayView(int reNo);
 	
+	//할인 상품
+	List<SellItem> discountView();
+	int discountCount();
+	
 	
 	
 //페이징처리List<SellItem> sellItemAll(Map<String, Integer> page);

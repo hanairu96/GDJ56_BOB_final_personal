@@ -26,31 +26,31 @@
 	<c:if test="${relistCnt <= 3}"> 
 		<div class="todaybab_title">
 		  <c:forEach var="r" items="${relist }">
-			<a href="javascript:callFunction();" id="${r.reNo } class="${r.reContent }"><h4>${r.reIcon }${r.reTitle }</h4></a>
+			<a href="javascript:callFunction();" id="${r.reNo } class="${r.reContent }"><h3>${r.reIcon }${r.reTitle }</h3></a>
 		  </c:forEach>
 		</div>
 	</c:if>
 	<!-- 4개일경우 -->
 	<c:if test="${relistCnt == 4}">
 		<div class="todaybab_title">
-			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(0).reNo }" class="${relist.get(0).reContent }"><h4>${relist.get(0).reIcon }${relist.get(0).reTitle }</h4></a>
-			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(1).reNo }" class="${relist.get(1).reContent }"><h4>${relist.get(1).reIcon }${relist.get(1).reTitle }</h4></a>
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(0).reNo }" class="${relist.get(0).reContent }"><h3>${relist.get(0).reIcon }${relist.get(0).reTitle }</h3></a>
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(1).reNo }" class="${relist.get(1).reContent }"><h3>${relist.get(1).reIcon }${relist.get(1).reTitle }</h3></a>
 		</div>
 		<div class="todaybab_title">
-			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(2).reNo }" class="${relist.get(2).reContent }"><h4>${relist.get(2).reIcon }${relist.get(2).reTitle }</h4></a>
-			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(3).reNo }" class="${relist.get(3).reContent }"><h4>${relist.get(3).reIcon }${relist.get(3).reTitle }</h4></a>
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(2).reNo }" class="${relist.get(2).reContent }"><h3>${relist.get(2).reIcon }${relist.get(2).reTitle }</h3></a>
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(3).reNo }" class="${relist.get(3).reContent }"><h3>${relist.get(3).reIcon }${relist.get(3).reTitle }</h3></a>
 		</div>
 	</c:if>
 	<!-- 5개일경우 -->
 	<c:if test="${relistCnt == 5}">
 		<div class="todaybab_title">
-			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(0).reNo }" class="${relist.get(0).reContent }"><h4>${relist.get(0).reIcon }${relist.get(0).reTitle }</h4></a>
-			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(1).reNo }" class="${relist.get(1).reContent }"><h4>${relist.get(1).reIcon }${relist.get(1).reTitle }</h4></a>
-			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(2).reNo }" class="${relist.get(2).reContent }"><h4>${relist.get(2).reIcon }${relist.get(2).reTitle }</h4></a>
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(0).reNo }" class="${relist.get(0).reContent }"><h3>${relist.get(0).reIcon }${relist.get(0).reTitle }</h3></a>
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(1).reNo }" class="${relist.get(1).reContent }"><h3>${relist.get(1).reIcon }${relist.get(1).reTitle }</h3></a>
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(2).reNo }" class="${relist.get(2).reContent }"><h3>${relist.get(2).reIcon }${relist.get(2).reTitle }</h3></a>
 		</div>
 		<div class="todaybab_title">
-			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(3).reNo }" class="${relist.get(3).reContent }"><h4>${relist.get(3).reIcon }${relist.get(3).reTitle }</h4></a>
-			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(4).reNo }" class="${relist.get(4).reContent }"><h4>${relist.get(4).reIcon }${relist.get(4).reTitle }</h4></a>
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(3).reNo }" class="${relist.get(3).reContent }"><h3>${relist.get(3).reIcon }${relist.get(3).reTitle }</h3></a>
+			<a href="javascript:void(0);" onclick="callFunction(event);" id="${relist.get(4).reNo }" class="${relist.get(4).reContent }"><h3>${relist.get(4).reIcon }${relist.get(4).reTitle }</h3></a>
 		</div>
 	</c:if>
 </section>
@@ -96,7 +96,7 @@ const callFunction = (e)=>{
 	   						html += "<div class='col-lg-4 col-sm-6' style='padding: 3%;'>";
 							html += "<div class='recipe-item'>";
 							html += "<div class='zoom'>";
-							html += "<a href='#'><img src='"+i.mainPic+"' alt='' width='330' height='280'></a>";
+							html += "<a href='#'><img src='${path }/resources/upload/market/mainlabel/"+i.mainPic+"' alt='' width='330' height='280'></a>";
 							html += "</div>";
 							html += "<div class='ri-text'>";
 							html += "<div class='cat-name'>"+i.itemCategory+"</div>";
@@ -137,13 +137,20 @@ const callFunction = (e)=>{
 
 
 </script>
+	<%-- <c:if test="${loginMember==null and loginMember.memberId eq 'admin' }"> --%>
 
 <div style="display: flex; margin-left: 65%; margin-bottom: 30px;">
+
+
+<c:if test="${m!=null and m=='admin' }">
 	<c:if test="${relistCnt < 5}"><!-- btn(등록,수정) ->타이틀이 5개로 차면(max5) 등록하기는 안 보이고 수정하기만 보이게 -->
 		<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" onclick="location.replace('${path}/market/todayAdmin.do')">등록하기</button>
 	</c:if>
 	<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-left:2%" onclick="location.replace('${path}/market/todayAdminModify.do')">수정하기</button>
-	
+</c:if>
+
+
+
 </div>
 <!-- todaybab -->
 <section class="discount-section spad">
@@ -376,22 +383,22 @@ const callFunction = (e)=>{
 		font-family: inherit;
 		font-weight: 500;
 		line-height: 1.1;
-		/* color: inherit; */
+		color: inherit;
 	}
 	
-	h4 {
+/* 	h4 {
 	  color: green;
-	 /*  text-decoration: underline yellow; */
+	 /*  text-decoration: underline yellow; 
 	}
 	
 	h4:focus,
 	h4:hover {
 	  display: inline-block;
 	  color: yellowgreen;
-	  /* text-decoration-color: yellow; */
+	  /* text-decoration-color: yellow; 
 	  transform: translateY(-2px);
 	  transition: 1s;
-	}
+	} */
 
 	/* 전체 글씨체 */
 	*{

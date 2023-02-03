@@ -12,87 +12,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>오늘의밥추천관리자수정</title>
+<title>확인</title>
 	<!-- CSS only -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
 <body class="animsition">
-<div>
-	<div class="t-center" style="margin-top: 150px;">
-		<h3 class="tit3 t-center m-b-35 m-t-2" style="margin-bottom: 150px;">
-			<!-- 등록수정 분기처리해줘야함(+밑에버튼도) -->
-			오늘의 밥 추천 수정
-		</h3>
-	</div>
+<div style="width:100%;display: flex;align-items: center;justify-content: center;margin-top:100px; margin-bottom: 100px;">
+	<span class="tit2 t-center" style="margin-left: 200px;color: rgb(100, 20, 175);">
+			preview
+		</span>
+		<div class="col-lg-4">
+			<div class="dis-flex">
+				<div class="p-r-40">
+					<span id="reIconPrint">${tb.reIcon }</span>
+				</div>
 
-	<form class="flex-c-m todaybab" method="get" name="form">
-		
-		<div class="col-md-3" style="margin-left: 250px;">
-			<!-- 추천제목 -->
-			<span class="txt9">
-				추천제목
-			</span>
+				<div class="flex-col-l">
+					<span id="reTitlePrint" class="txt5 p-b-10">
+						${tb.reTitle }
+					</span>
 
-			<div class="wrap-inputname m-t-3 m-b-23 t-center">
-				<select name="reNo" id="selectTitle"class="form-select" aria-label="Default select example">
-					<c:forEach var="t" items="${relist }">
-						<option value="${t.reNo }"><c:out value="${t.reIcon }${t.reTitle }"/></option>
-					</c:forEach>
-				</select>
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="wrap-btn-booking flex-c-m m-t-6">
-				<div style="display: flex; margin-left: 65%;">
-					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" value="update" onclick="javascript: form.action='${path}/market/updateTodayBob.do';">
-						수정하기
-					</button>
-					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-left:2%" value="delete" onclick="javascript: form.action='${path}/market/deleteTodayBob.do';">
-						삭제하기
-					</button>
+					<span id="reContentPrint" class="txt23 size38">
+						${tb.reContent }
+					</span>
 				</div>
 			</div>
 		</div>
-
-
-		
-	</form>
 </div>
 
 
-
-
-<form class="size22 m-l-r-auto">
-	<div class="row flex-c-m" style="margin-top: 100px;">
-		<div class="col-md-2">
-			<!-- 검색 -->
-			
-			<div>
-				<select id="selectOp"class="form-select" aria-label="Default select example">
-					<option value="ALL" selected>전체보기</option>
-					<option value="ITEM_CATEGORY">카테고리</option>
-					<option value="ITEM_BRAND">브랜드</option>
-					<option value="ITEM_NAME">제품명</option>
-				</select>
-			</div>
-		</div>
-		<div style="width: 300px; display: flex;">
-			<div class="search-sidebar2 size12 bo2 pos-relative">
-				<input id="search" class="input-search-sidebar2 p-l-20" type="text" name="" placeholder="Search">
-				<!-- <button class="btn-search-sidebar2" onclick="searchItem();"><img style="width: 30px; height: 30px;" src="https://img.icons8.com/ios-filled/512/search.png"></button> -->
-			</div>
-		</div>
-		
-	</div>
-</form>
-
-
-<!-- todaybab create -->
 <section class="todaybab-section">
 	<div class="container">
-		<span style="margin-left: 100px;">추천할 상품 선택</span>
+		<span style="margin-left: 100px;">선택한 상품(20개)</span>
 		<form name="todaybobFrm" method="get" name="form">
 		<div class="row flex-c-m">
 			<div id="items"  class="col-lg-10 col-sm-10" style="margin-top: 30px; margin-bottom: 70px;">
@@ -100,7 +53,6 @@
 					<thead>
 						<tr>
 							<th scope="col">상품번호</th>
-							<th scope="col">#</th>
 							<th scope="col">카테고리명</th>
 							<th scope="col">제품명</th>
 							<th scope="col">브랜드</th>
@@ -110,38 +62,38 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="i" items="${allItems }">
+						<c:forEach var="i" items="${list }">
 							<tr>
 								<th scope="row"><c:out value="${i.itemNo }"/></th>
-								<td>
-								<input type="checkbox" name="chItems" value="${i.itemNo }" onchange="makeItemArr(this);"> <!-- onchange="makeItemArr(this);" -->
-								</td>
 								<td><c:out value="${i.itemCategory }"/></td>
-								<td><c:out value="${i.itemName }"/></td>
+								<th scope="row"><c:out value="${i.itemName }"/></th>
 								<td><c:out value="${i.madeIn }"/></td>
 								<td><c:out value="${i.itemBrand }"/></td>
 								<td><c:out value="${i.itemPrice }"/></td>
 								<td><c:out value="${i.itemStock }"/></td>
 							</tr>
+							
+							<input type="hidden" name="chItems" value="${i.itemNo }"/>
 						</c:forEach>
 					</tbody>
 				</table>
 				
-				
-				<input type="hidden" id="reIconNext" name="reIcon"/>
-				<input type="hidden" id="reTitleNext" name="reTitle" />
-				<input type="hidden" id="reContentNext" name="reContent"/>
-				
-				<!-- checkbox말고 로컬스토리지에 찍힌 값 -->
-				<input type="hidden" id="itemLS" name="itemLS"/>
+				<input type="hidden" name="reIcon" value="${tb.reIcon }"/>
+				<input type="hidden" name="reTitle" value="${tb.reTitle }"/>
+				<input type="hidden" name="reContent" value="${tb.reContent }"/>
 
 			</div>
 			<div class="wrap-btn-booking flex-c-m m-t-6">
 				<div style="display: flex; margin-left: 75%; margin-bottom: 50px;">
 					<button type="submit" class="flex-c-m size36 txt11 trans-0-4"
-					value="check" onclick="javascript: form.action='${path}/market/checkTodayBobModify.do'">
-						확인하기
+					value="check" onclick="javascript: form.action='${path}/market/todayBobEnd.do'">
+					<%-- value="check" onclick="javascript: form.action=window.open('${path}/market/checkTodayBob.do', '체크한상품확인', 'width=500, height=700, scrollbars=yes, resizable=no')"> --%>
+						생성하기
 					</button>
+<%-- 					<button type="submit" class="flex-c-m size36 txt11 trans-0-4" style="margin-left:2%" 
+					value="checkFin" onclick="javascript: form.action='${path}/market/todayAdminTitle.do';">
+						제목저장&상품등록하기
+					</button> --%>
 				</div>
 			</div>
 		</div>
@@ -154,186 +106,39 @@
 
 
 <script>
-var cbArr = new Array(); //체크한 상품번호를 저장할 배열
-const makeItemArr = (target)=>{
-	var checkVal = target.value;
-	var confirmCheck = target.checked;
-	if(confirmCheck == true){	cbArr.push(checkVal);	}
-	else{	cbArr.splice(cbArr.indexOf(checkVal), 1);	}
-	//console.log("체크한상품 : "+cbArr);
-	//console.log(cbArr);
-	
-	
-	///.로컬스토리지
-	// 배열을 문자열 형태로 변환해주는 메소드
-	// JSON : 자바스크립트 객체 표현법을 객체화한 것으로, 관련 기능 제공
-	const cbArrString = JSON.stringify(cbArr);
-	//console.log(cbArrString);
-	localStorage.setItem("items", checkVal+",");
-	
-	
-	//string으로 출력하려고 ["6","8","9"] ==>> 6,8,9 문자열로 바꾸기
-/* 	let next = cbArrString.replace(/"/g,'');
-	//console.log(next);
-	next=next.substring(1).slice(0, -1);
-	console.log(next); */
-	
-	var a = localStorage.getItem("itemString");
-	var b = localStorage.getItem("items");
-	//b = b.replace(/"/g,'').substring(1).slice(0, -1)+",";
-	localStorage.removeItem('items');
-	localStorage.removeItem('itemString');
-	localStorage.setItem("itemString", a+b);
-	
-	let next = localStorage.getItem("itemString").slice(0, -1);
-	console.log(next);
-	
-	$("#itemLS").attr("value", next);
-	console.log($("#itemLS").val());
-
-
-}//makeItemArr./
-
-
-
-	
-	
-</script>
-<script>
-$(function(){//레디함수
-	
-	//제목선택시
-	localStorage.removeItem('itemString'); //로드될 때 로컬스토리지에 저장된 값은 체크해줌
-	
-	let selectTitle = "ALL";
-	$("#selectTitle").change(e=>{
+	const fn_eventKeyup1 = (str)=>{
+		$("#reTitlePrint").html(str);
+	}
+	const fn_eventKeyup2 = (str)=>{
+		$("#reContentPrint").html(str);
+	}
+	const fn_emoji = (e)=>{
+		console.log($(e.target).val());
+		$("#reIconPrint").html($(e.target).val());
+		$("#reIcon").attr('value', $(e.target).val());
 		
-		localStorage.removeItem('itemString');
 		
-		selectTitle = $(e.target).val();
-		console.log("추천시퀀스"+selectTitle); //추천시퀀스
-		
-		$.get("${path}/market/chageItem.do?reNo="+selectTitle
-    			, data=>{
-    				
-    				
-    				var itemNo ="";
-    				data.forEach(i=>{
-    					itemNo += i.itemNo+",";
-    				});var itemString = itemNo; console.log(itemString);
-    				
-    				
-    				localStorage.setItem("itemString", itemString);
-    				
-    				
-    				
-    				console.log("슬라이스전"+localStorage.getItem("itemString"));
-    		    	
-    		    	//상품이무조건있으니까널값처리안해줘도됨
-    		    	let getItems = localStorage.getItem("itemString").slice(0, -1).split(",");
-    				console.log("get스토리지"+getItems);
-    		    	
-    				
-    				
-    				$("input[name=chItems]").each((i,v)=>{ //상품의 checkbox를 모두 가져와서 //includes()로 로컬스토리지에 포함되어 있다면 checked로 변경
-    					
-    					//checked되어있으면 모든 checked풀고
-    					if($("input:checkbox[name=chItems]:checked").length == 0){}
-    					else{
-    						$(v).prop("checked", false);
-    						
-    					}
-    					
-    					
-    					const no = $(v).val();
-    					//console.log(no);
-    					
-    					
-    					if(getItems.includes(no)) $(v).prop("checked", true); //해당상품은 checked
-    					
+		$('#aaa').modal('hide');
+	}
+	
+	var cbArr = new Array(); //체크한 상품번호를 저장할 배열
+	const makeItemArr = (target)=>{
+		var checkVal = target.value;
+		var confirmCheck = target.checked;
+		if(confirmCheck == true){	cbArr.push(checkVal);	}
+		else{	cbArr.splice(cbArr.indexOf(checkVal), 1);	}
+		console.log("체크한상품 : "+cbArr);
+		console.log(cbArr);
+}
 
-    				});
-    				
-    				
-    				
-    				
-    				
-    				
-    	});//$.get./
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-
-	});//selectTitle.change./
 	
 	
 	
+/* 	console.log($("#reTitlePrint").text());
+	$("#reTitlePrint").text();
+	$("#reContentPrint").text(); */
 	
 	
-	
-	
-	
-	//검색
-	let selectOp = "ALL";
-	$("#selectOp").change(e=>{
-		//console.log($(e.target).val());
-		selectOp = $(e.target).val();
-	});
-    $("#search").keyup(e=>{
-    	//console.log($(e.target).val());
-    	
-    	let getItems = localStorage.getItem("itemString").slice(0, -1).split(",");
-    	
-    	$.get("${path}/market/discountAdminAjax.do?value="+$(e.target).val()+"&selectOp="+selectOp
-    			, data=>{
-    				//console.log(data);
-    				$("#itemTable tbody").html(''); //원래의 값 비워주기
-    				
-    				data.forEach(i=>{
-    					let itemInfo = i.itemNo;
-    					
-    					let input = "";
-    					//input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo);
-    					
-    					console.log(itemInfo, getItems);
-    					if(getItems.includes(itemInfo.toString())) { //자료형에 맞추기 - getItems눈 문자, itemInfo는 숫자
-    						input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);' checked>").val(itemInfo);
-    						console.log("있"+input);
-    					}else{
-    						input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo);
-    						console.log("없"+input);
-    					}
-    					
-    					
-	    				let tr = $("<tr>");
-    					let itemNo = $("<td>").text(i.itemNo);
-    					let checkbox = $("<td>").append(input); //로컬스토리지 포함 체크
-    					let itemCategory = $("<td>").text(i.itemCategory);
-    					let itemName = $("<td>").text(i.itemName);
-    					let itemBrand = $("<td>").text(i.itemBrand);
-    					let madeIn = $("<td>").text(i.madeIn);
-    					let itemPrice = $("<td>").text(i.itemPrice);
-    					let itemStock = $("<td>").text(i.itemStock);
-    					
-    					tr.append(itemNo).append(checkbox).append(itemCategory).append(itemName).append(itemBrand).append(madeIn).append(itemPrice).append(itemStock);
-    					$("#itemTable tbody").append(tr);
-    				});
-    		});//$.get./
-    			
-    });//$("#search").keyup.e./
-    
-	
-    
-    
-    
-});//레디함수./
 </script>
 
 
@@ -429,7 +234,7 @@ $(function(){//레디함수
 	/* /.테이블스크롤 */
 	#items{
 		overflow: scroll;
-		height: 450px;
+		height: 600px;
 		width: 600px;
 	}
 	#items::-webkit-scrollbar{

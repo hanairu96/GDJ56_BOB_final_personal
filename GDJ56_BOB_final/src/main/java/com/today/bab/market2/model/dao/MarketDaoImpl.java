@@ -77,5 +77,14 @@ public class MarketDaoImpl implements MarketDao {
 		return session.selectList("market2.todayView", reNo);
 	}
 	
+	@Override
+	public List<SellItem> discountView(SqlSessionTemplate session) {
+		return session.selectList("market2.discountView");
+	}
+	@Override
+	public int discountCount(SqlSessionTemplate session) {
+		return session.selectOne("market2.discountCount");
+	}
+	
 	
 }

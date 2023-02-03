@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.today.bab.market2.controller.Emojis;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.today.bab.market2.model.service.MarketService;
 import com.today.bab.market2.model.vo.SellItem;
 import com.today.bab.market2.model.vo.TodayBob;
+import com.today.bab.member.model.vo.Member;
 
 @Controller
 public class MarketController {
@@ -53,7 +57,17 @@ public class MarketController {
 	
 	//(회원)할인
 	@RequestMapping("/market/discount.do")
-	public ModelAndView discountItemAll(ModelAndView mv) {
+	public ModelAndView discountItemAll(ModelAndView mv, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+	    Member loginMember = (Member) session.getAttribute("loginMember");
+		
+		List<SellItem> list = service.discountView();
+		int listCnt = service.discountCount();
+		
+		mv.addObject("m",loginMember==null?"":loginMember.getMemberId());
+		
+		mv.addObject("disList",list);
+		mv.addObject("disCnt",listCnt);
 
 		mv.setViewName("market2/discount");
 		System.out.println(mv);
@@ -62,9 +76,20 @@ public class MarketController {
 
 	//(회원)추천
 	@RequestMapping("/market/today.do")
-	public ModelAndView todayItemAll(ModelAndView mv) {
+	public ModelAndView todayItemAll(ModelAndView mv, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+	    Member loginMember = (Member) session.getAttribute("loginMember");
+	    
+	    System.out.println(loginMember);
+		/*
+		 * String loginSta; if(loginMember == null) { loginSta =
+		 * loginMember.getMemberId() }else { loginSta = loginMember.getMemberId(); }
+		 */
+	    
 		List<TodayBob> list = service.todayBobList();
 		int listCnt = service.todayBobListCount();
+		
+		mv.addObject("m",loginMember==null?"":loginMember.getMemberId());
 		
 		mv.addObject("relist",list);
 		mv.addObject("relistCnt",listCnt);
@@ -261,6 +286,16 @@ public class MarketController {
 	public List<SellItem> todayView(int reNo) {
 		
 		List<SellItem> list = service.todayView(reNo); //추천상품보기
+		System.out.println(list);
+		return list;
+	}
+	
+	//(관리자)추천 상품 수정 - 선택한 제목에 해당하는 상품
+	@RequestMapping("/market/chageItem.do")
+	@ResponseBody
+	public List<SellItem> selectItemByReNo(int reNo){
+		
+		List<SellItem> list = service.todayView(reNo);
 		System.out.println(list);
 		return list;
 	}

@@ -135,7 +135,7 @@
 <!-- todaybab create -->
 <section class="todaybab-section">
 	<div class="container">
-		<span style="margin-left: 100px;">추천할 상품 선택(20개 필수)</span>
+		<span style="margin-left: 100px;">추천할 상품 선택</span>
 		<form name="todaybobFrm" method="get" name="form">
 		<div class="row flex-c-m">
 			<div id="items"  class="col-lg-10 col-sm-10" style="margin-top: 30px; margin-bottom: 70px;">
@@ -181,8 +181,8 @@
 			</div>
 			<div class="wrap-btn-booking flex-c-m m-t-6">
 				<div style="display: flex; margin-left: 75%; margin-bottom: 50px;">
-					<button type="submit" class="flex-c-m size36 txt11 trans-0-4"
-					value="check" onclick="javascript: form.action='${path}/market/checkTodayBob.do'">
+					<button type="submit" id="checkBtn" class="flex-c-m size36 txt11 trans-0-4"
+					value="check" onclick="javascript: form.action='${path}/market/checkTodayBob.do'"><!-- disabled x -->
 						확인하기
 					</button>
 				</div>
@@ -236,7 +236,7 @@
 		// JSON : 자바스크립트 객체 표현법을 객체화한 것으로, 관련 기능 제공
 		const cbArrString = JSON.stringify(cbArr);
 		console.log(cbArrString);
-		localStorage.setItem("items", cbArrString)
+		localStorage.setItem("items", cbArrString);
 		
 		
 		
@@ -276,11 +276,28 @@
 	
 		});
 		
+		
+		
+		
+		
 	})
 	
 	
 </script>
 <script>
+
+//버튼 - 20개가 아니면 비활성화 - x
+/* $("input:checkbox[name=chItems]").change(e=>{
+	if($("input:checkbox[name=chItems]:checked").length = 1) {	
+			$("#checkBtn").removeAttr("disabled");
+			}
+	else{
+		$("#checkBtn").attr("disabled", true);
+	}
+});
+ */
+
+
 $(function(){//레디함수
 	let selectOp = "ALL";
 	$("#selectOp").change(e=>{

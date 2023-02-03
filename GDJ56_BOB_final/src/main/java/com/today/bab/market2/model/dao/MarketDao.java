@@ -33,6 +33,10 @@ public interface MarketDao {
 	int insertTodayBobItem(SqlSessionTemplate session, Map param);	//1개씩
 	List<SellItem> todayView(SqlSessionTemplate session, int reNo);
 	
+
+	List<SellItem> discountView(SqlSessionTemplate session);
+	int discountCount(SqlSessionTemplate session);
+	
 	
 
 }

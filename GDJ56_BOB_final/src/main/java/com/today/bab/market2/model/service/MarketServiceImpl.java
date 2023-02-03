@@ -115,6 +115,15 @@ public class MarketServiceImpl implements MarketService {
 		return dao.todayView(session, reNo);
 	}
 	
+	@Override
+	public List<SellItem> discountView() {
+		return dao.discountView(session);
+	}
+	@Override
+	public int discountCount() {
+		return dao.discountCount(session);
+	}
+	
 	
 	
 	

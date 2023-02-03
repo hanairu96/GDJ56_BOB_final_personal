@@ -9,7 +9,7 @@
 <script>console.log("${path }");</script>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<jsp:include page="/WEB-INF/views/common/marketHeader.jsp"/>
+<jsp:include page="/WEB-INF/views/common/marketHeader2.jsp"/>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -29,20 +29,20 @@
 </section>
 <!-- best_item -->
 <section id="best_item">
-<div class="section-gallery p-t-118 p-b-100 section-best-item">
+<div class="section-gallery p-t-118 p-b-100 section-best-item" style="align-items:flex-start;">
 	<div class="wrap-label-gallery m-b-60">
 		<div class="tab">
 			<ul>
 				<li style="font-family: ChosunSm;">가격대별 베스트</li>
-				<li><button style="font-family: ChosunSm;" type="button" class="btn btn-light changeBtn" value="10000">~3만원</button><!--  onclick="changeBtn(this); -->
+				<li><button style="font-family: ChosunSm;" type="button" class="btn btn-light changeBtn" value="20000">~2만원</button><!--  onclick="changeBtn(this); -->
 				</li>
-				<li><button style="font-family: ChosunSm;" type="button" class="btn btn-light changeBtn" value="20000">~5만원</button>
+				<li><button style="font-family: ChosunSm;" type="button" class="btn btn-light changeBtn" value="30000">~3만원</button>
 				</li>
-				<li><button style="font-family: ChosunSm;" type="button" class="btn btn-light changeBtn" value="30000">~7만원</button>
+				<li><button style="font-family: ChosunSm;" type="button" class="btn btn-light changeBtn" value="40000">~4만원</button>
 				</li>
-				<li><button style="font-family: ChosunSm;" type="button" class="btn btn-light changeBtn" value="100000">~10만원</button>
+				<li><button style="font-family: ChosunSm;" type="button" class="btn btn-light changeBtn" value="50000">~5만원</button>
 				</li>
-				<li><button style="font-family: ChosunSm;" type="button" class="btn btn-light changeBtn" value="100000al">10만원~</button>
+				<li><button style="font-family: ChosunSm;" type="button" class="btn btn-light changeBtn" value="50000al">5만원~</button>
 				</li>
 			</ul>
 		</div>
@@ -52,13 +52,13 @@
 
 	<section class="recipe-section section-best-item">
 		<div class="container">
-			<p>총 100건</p>
+			<p><!-- 총 100건 --></p>
 			<div class="row" id="print">
 				<c:forEach var="i" items="${bestItems }">
 				<div class="col-lg-4 col-sm-6" style="padding: 3%;">
 					<div class="recipe-item">
 						<div class="zoom">
-							<a href="${path}/market1/marketdetail.do?itemNo=${i.itemNo }"><img src="${i.mainPic}" alt="" width="330" height="280"></a><!-- ! 사진경로연결해주기 -->
+							<a href="${path}/market1/marketdetail.do?itemNo=${i.itemNo }"><img src="${path }/resources/upload/market/mainlabel/${i.mainPic }" alt="" width="330" height="280"></a><!-- ! 사진경로연결해주기 -->
 						</div>
 						<div class="ri-text">
 							<div class="cat-name"><c:out value="${i.itemCategory }"/></div>
@@ -148,7 +148,7 @@ $(function(){//.레디함수
     						html += "<div class='col-lg-4 col-sm-6' style='padding: 3%;'>";
 							html += "<div class='recipe-item'>";
 							html += "<div class='zoom'>";
-							html += "<a href='#'><img src='"+i.mainPic+"' alt='' width='330' height='280'></a>";
+							html += "<a href='#'><img src='${path }/resources/upload/market/mainlabel/"+i.mainPic+"' alt='' width='330' height='280'></a>";
 							html += "</div>";
 							html += "<div class='ri-text'>";
 							html += "<div class='cat-name'>"+i.itemCategory+"</div>";
@@ -304,7 +304,7 @@ $(function(){//.레디함수
 		width: 320px;
 		padding: 30px;
 		margin: 20px;
-		height: 1300px
+		height: 1300px;
 	}
 
 	#best_item .tab li {
