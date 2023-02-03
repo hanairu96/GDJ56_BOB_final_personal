@@ -18,4 +18,7 @@ public interface CenterDao {
 	int answerEnroll(SqlSessionTemplate session, Map<String, Object> param);
 	int updateCheck(SqlSessionTemplate session, int no);
 	int answerUpdate(SqlSessionTemplate session, Map<String, Object> param);
+	int noticeWriteEnd(SqlSessionTemplate session, Map<String, Object> param);
+	int noticeUpdate(SqlSessionTemplate session, Map<String, Object> param);
+	int noticeDelete(SqlSessionTemplate session, int no);
 }
