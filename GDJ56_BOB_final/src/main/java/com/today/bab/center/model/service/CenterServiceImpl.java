@@ -62,5 +62,12 @@ public class CenterServiceImpl implements CenterService {
 		}
 		return result;
 	}
+
+	@Override
+	public int answerUpdate(Map<String, Object> param) {
+		int result=dao.answerUpdate(session, param);
+		
+		return result;
+	}
 	
 }

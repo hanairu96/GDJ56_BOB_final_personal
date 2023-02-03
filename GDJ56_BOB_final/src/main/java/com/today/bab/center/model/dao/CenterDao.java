@@ -17,4 +17,5 @@ public interface CenterDao {
 	ClientQNA selectClientQna(SqlSessionTemplate session, int no);
 	int answerEnroll(SqlSessionTemplate session, Map<String, Object> param);
 	int updateCheck(SqlSessionTemplate session, int no);
+	int answerUpdate(SqlSessionTemplate session, Map<String, Object> param);
 }

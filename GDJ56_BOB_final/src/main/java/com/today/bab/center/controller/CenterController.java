@@ -90,16 +90,29 @@ public class CenterController {
 		String answer=args.get(1);
 		Map<String, Object> param=Map.of("no", no, "answer", answer);
 		
-		boolean data=false;
-		
 		int result=service.answerEnroll(param);
 		
+		boolean data=false;
 		if(result>0) {
 			data=true;
 		}
-		
 		return data;
+	}
 
+	@ResponseBody
+	@RequestMapping("/answerUpdate")
+	public boolean answerUpdate(@RequestParam(value="args[]") List<String> args) {
+		int no=Integer.parseInt(args.get(0));
+		String answer=args.get(1);
+		Map<String, Object> param=Map.of("no", no, "answer", answer);
+		
+		int result=service.answerUpdate(param);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
 	}
 
 }

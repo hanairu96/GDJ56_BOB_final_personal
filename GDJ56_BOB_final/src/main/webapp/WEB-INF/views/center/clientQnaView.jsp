@@ -63,9 +63,18 @@
 	            </div>
 	            <textarea id="textEnroll" rows="5" cols="130"></textarea>
 	            <c:if test="${loginMember.memberId eq 'admin'}">
-		            <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="answerEnroll();">답변 등록</button><br>
+	            	<c:if test="${empty cq.cqanswer.cqaContent}">
+			            <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="answerEnroll();">답변 등록</button><br>
+	            	</c:if>
+	            	<c:if test="${not empty cq.cqanswer.cqaContent}">
+			            <button type="button" id="update-btn" class="customBtn btnStyle" onclick="answerUpdate();">답변 수정</button><br>
+	            	</c:if>
 		            <div id="enroll-cancel">
 			            <button type="button" id="enroll-end" class="customBtn btnStyle" onclick="enrollEnd();">등록</button><br>
+			            <button type="button" id="cancel" class="customBtn btnStyle" onclick="cancel();">취소</button><br>
+		            </div>
+		            <div id="update-cancel">
+			            <button type="button" id="update-end" class="customBtn btnStyle" onclick="updateEnd();">수정</button><br>
 			            <button type="button" id="cancel" class="customBtn btnStyle" onclick="cancel();">취소</button><br>
 		            </div>
 	            </c:if>
@@ -141,12 +150,6 @@
             margin-right: 7%;
             text-align: right;
         }
-        /* #update-btn{
-            margin-left: 70%;
-        }
-        #delete-btn{
-            margin-left: 82%;
-        } */
         #text{
             border: 1px solid black;
             margin-left: 70px;
@@ -183,16 +186,16 @@
             margin-bottom: 20px;
             padding: 20px;
         }
-        #enroll-btn{
+        #enroll-btn, #update-btn{
             margin-left: 82%;
             margin-bottom: 30px;
         }
-        #enroll-cancel{
+        #enroll-cancel, #update-cancel{
         	display: none;
 	        margin-left: 74%;
             margin-bottom: 30px;
         }
-        #enroll-cancel>button{
+        #enroll-cancel>button, #update-cancel>button{
         	width: 100px;
         	margin-left: 10px;
         }
@@ -294,13 +297,40 @@
 			})
 		}
 		
+		//답변 수정 버튼 나옴
+		const answerUpdate=()=>{
+			$("#answer").hide();
+			$("#textEnroll").show();
+			$("#textEnroll").focus();
+			$("#update-btn").hide();
+			$("#update-cancel").css("display","flex");
+			$("#update-cancel").show();
+		}
+		
+		//답변 수정하기
+		const updateEnd=()=>{
+			let no=${cq.cqNo}; //문의글 번호
+			let answer=$("#textEnroll").val(); //textarea에 입력한 내용
+			let args=[no, answer];
+			//등록 성공 여부를 boolean 값으로 받음
+			$.ajax({
+				url:"${path}/center/answerUpdate",
+				data:{args:args},
+				success:data=>{
+					if(data){
+						alert("수정되었습니다.");
+						//등록 성공했으면 새로고침
+						location.reload();
+					}else{
+						alert("수정이 실패하였습니다.");
+					}
+				}
+			})
+		}
+		
 		//취소 시 원래 상태로 복구
 		const cancel=()=>{
-			$("#answer").show();
-			$("#textEnroll").hide();
-			$("#enroll-btn").show();
-			$("#enroll-cancel").css("display","none");
-			$("#enroll-cancel").hide();
+			location.reload();
 		}
 		
 		//목록으로

@@ -14,5 +14,6 @@ public interface CenterService {
 	Notice selectNotice(int no);
 	ClientQNA selectClientQna(int no);
 	int answerEnroll(Map<String, Object> param);
+	int answerUpdate(Map<String, Object> param);
 
 }

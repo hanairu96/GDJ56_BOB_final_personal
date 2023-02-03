@@ -59,4 +59,9 @@ public class CenterDaoImpl implements CenterDao {
 		return session.update("center.updateCheck", no);
 	}
 	
+	@Override
+	public int answerUpdate(SqlSessionTemplate session, Map<String, Object> param) {
+		return session.update("center.answerUpdate", param);
+	}
+	
 }
