@@ -64,17 +64,17 @@
 	            <textarea id="textEnroll" rows="5" cols="130"></textarea>
 	            <c:if test="${loginMember.memberId eq 'admin'}">
 	            	<c:if test="${empty cq.cqanswer.cqaContent}">
-			            <button type="button" id="enroll-btn" class="customBtn btnStyle" onclick="answerEnroll();">답변 등록</button><br>
+			            <button type="button" id="enroll-as-btn" class="customBtn btnStyle" onclick="answerEnroll();">답변 등록</button><br>
 	            	</c:if>
 	            	<c:if test="${not empty cq.cqanswer.cqaContent}">
-			            <button type="button" id="update-btn" class="customBtn btnStyle" onclick="answerUpdate();">답변 수정</button><br>
+			            <button type="button" id="update-as-btn" class="customBtn btnStyle" onclick="answerUpdate();">답변 수정</button><br>
 	            	</c:if>
 		            <div id="enroll-cancel">
-			            <button type="button" id="enroll-end" class="customBtn btnStyle" onclick="enrollEnd();">등록</button><br>
+			            <button type="button" id="enroll-as-end" class="customBtn btnStyle" onclick="enrollEnd();">등록</button><br>
 			            <button type="button" id="cancel" class="customBtn btnStyle" onclick="cancel();">취소</button><br>
 		            </div>
 		            <div id="update-cancel">
-			            <button type="button" id="update-end" class="customBtn btnStyle" onclick="updateEnd();">수정</button><br>
+			            <button type="button" id="update-as-end" class="customBtn btnStyle" onclick="updateEnd();">수정</button><br>
 			            <button type="button" id="cancel" class="customBtn btnStyle" onclick="cancel();">취소</button><br>
 		            </div>
 	            </c:if>
@@ -186,7 +186,7 @@
             margin-bottom: 20px;
             padding: 20px;
         }
-        #enroll-btn, #update-btn{
+        #enroll-as-btn, #update-as-btn{
             margin-left: 82%;
             margin-bottom: 30px;
         }
@@ -271,7 +271,7 @@
 			$("#answer").hide();
 			$("#textEnroll").show();
 			$("#textEnroll").focus();
-			$("#enroll-btn").hide();
+			$("#enroll-as-btn").hide();
 			$("#enroll-cancel").css("display","flex");
 			$("#enroll-cancel").show();
 		}
@@ -302,7 +302,7 @@
 			$("#answer").hide();
 			$("#textEnroll").show();
 			$("#textEnroll").focus();
-			$("#update-btn").hide();
+			$("#update-as-btn").hide();
 			$("#update-cancel").css("display","flex");
 			$("#update-cancel").show();
 		}
