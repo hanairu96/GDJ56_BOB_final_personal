@@ -87,5 +87,11 @@ public class CenterServiceImpl implements CenterService {
 	public int cqWriteEnd(Map<String, Object> param) {
 		return dao.cqWriteEnd(session, param);
 	}
+
+	
+	@Override
+	public int cqDelete(int no) {
+		return dao.cqDelete(session, no);
+	}
 	
 }

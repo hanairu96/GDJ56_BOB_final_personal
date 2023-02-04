@@ -20,4 +20,5 @@ public interface CenterService {
 	int noticeDelete(int no);
 	int cqWriteEnd(Map<String, Object> param);
 
+	int cqDelete(int no);
 }

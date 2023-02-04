@@ -255,7 +255,7 @@
     	
    		//글쓰기
    		const writeBoard=()=>{
-   			location.assign("${path}/center/cqWrite");	
+   			location.assign("${path}/center/cqWrite");
    		}
     </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -210,5 +210,21 @@ public class CenterController {
 		}
 		return data;
 	}
+	
+	//1:1 문의 수정
+	
+	//1:1 문의 삭제
+	@ResponseBody
+	@RequestMapping("/cqDelete")
+	public boolean cqDelete(int no) {
+		
+		int result=service.cqDelete(no);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
 
 }

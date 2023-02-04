@@ -43,10 +43,10 @@
 	            </table>
 	            <div class="btns">
 	            	<c:if test="${loginMember.memberId eq cq.memberId}">
-		                <button type="button" id="update-btn" class="customBtn btnStyle" onclick="">수정하기</button>
+		                <button type="button" id="update-btn" class="customBtn btnStyle" onclick="updateCq();">수정하기</button>
 	            	</c:if>
 	            	<c:if test="${(loginMember.memberId eq cq.memberId)||(loginMember.memberId eq 'admin')}">
-	                	<button type="button" id="delete-btn" class="customBtn btnStyle" onclick="">삭제하기</button>
+	                	<button type="button" id="delete-btn" class="customBtn btnStyle" onclick="deleteCq();">삭제하기</button>
 	                </c:if>
 	            </div>
 	            <div id="text">
@@ -70,11 +70,11 @@
 			            <button type="button" id="update-as-btn" class="customBtn btnStyle" onclick="answerUpdate();">답변 수정</button><br>
 	            	</c:if>
 		            <div id="enroll-cancel">
-			            <button type="button" id="enroll-as-end" class="customBtn btnStyle" onclick="enrollEnd();">등록</button><br>
+			            <button type="button" id="enroll-as-end" class="customBtn btnStyle" onclick="answerEnrollEnd();">등록</button><br>
 			            <button type="button" id="cancel" class="customBtn btnStyle" onclick="cancel();">취소</button><br>
 		            </div>
 		            <div id="update-cancel">
-			            <button type="button" id="update-as-end" class="customBtn btnStyle" onclick="updateEnd();">수정</button><br>
+			            <button type="button" id="update-as-end" class="customBtn btnStyle" onclick="answerUpdateEnd();">수정</button><br>
 			            <button type="button" id="cancel" class="customBtn btnStyle" onclick="cancel();">취소</button><br>
 		            </div>
 	            </c:if>
@@ -185,6 +185,7 @@
             margin-top: 10px;
             margin-bottom: 20px;
             padding: 20px;
+            resize: none;
         }
         #enroll-as-btn, #update-as-btn{
             margin-left: 82%;
@@ -266,6 +267,31 @@
 			location.assign("${path}/center/clientQnaList");
 		})
 		
+		//글 수정
+		const updateCq=()=>{
+			
+		}
+		
+		//글 삭제
+		const deleteCq=()=>{
+			let check=confirm("정말로 삭제하시겠습니까?");
+			if(check){
+				$.ajax({
+					url:"${path}/center/cqDelete",
+					data:{no:${cq.cqNo}},
+					success:data=>{
+						if(data){
+							alert("삭제되었습니다.");
+							//삭제 성공했으면 목록으로
+							location.assign("${path}/center/clientQnaList");
+						}else{
+							alert("삭제에 실패하였습니다.");
+						}
+					}
+				})
+			}
+		}
+		
 		//답변 등록 버튼 나옴
 		const answerEnroll=()=>{
 			$("#answer").hide();
@@ -277,7 +303,7 @@
 		}
 		
 		//답변 등록하기
-		const enrollEnd=()=>{
+		const answerEnrollEnd=()=>{
 			let no=${cq.cqNo}; //문의글 번호
 			let answer=$("#textEnroll").val(); //textarea에 입력한 내용
 			let args=[no, answer];
@@ -308,7 +334,7 @@
 		}
 		
 		//답변 수정하기
-		const updateEnd=()=>{
+		const answerUpdateEnd=()=>{
 			let no=${cq.cqNo}; //문의글 번호
 			let answer=$("#textEnroll").val(); //textarea에 입력한 내용
 			let args=[no, answer];
