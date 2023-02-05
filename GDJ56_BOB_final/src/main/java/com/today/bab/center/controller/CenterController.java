@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.admin.model.vo.ClientQNA;
@@ -25,7 +26,8 @@ public class CenterController {
 	public CenterController(CenterService service) {
 		this.service = service;
 	}
-	
+
+	//공지사항 리스트 출력
 	@RequestMapping("/noticeList")
 	public ModelAndView noticeList(ModelAndView mv,
 			@RequestParam(value="cPage", defaultValue="1") int cPage,
@@ -44,6 +46,7 @@ public class CenterController {
 		return mv;
 	}
 
+	//1:1 문의 리스트 출력
 	@RequestMapping("/clientQnaList")
 	public ModelAndView clientQnaList(ModelAndView mv,
 			@RequestParam(value="cPage", defaultValue="1") int cPage,
@@ -61,7 +64,8 @@ public class CenterController {
 		
 		return mv;
 	}
-	
+
+	//공지사항 상세화면 출력
 	@RequestMapping("/noticeView")
 	public String noticeView(int noticeNo, Model model) {
 		
@@ -72,6 +76,7 @@ public class CenterController {
 		return "center/noticeView";
 	}
 
+	//1:1 문의 상세화면 출력
 	@RequestMapping("/clientQnaView")
 	public String clientQnaView(int cqNo, Model model) {
 		
@@ -81,6 +86,145 @@ public class CenterController {
 		
 		return "center/clientQnaView";
 	}
+
+	//1:1 문의 답변 등록
+	@ResponseBody
+	@RequestMapping("/answerEnroll")
+	public boolean answerEnroll(@RequestParam(value="args[]") List<String> args) {
+		int no=Integer.parseInt(args.get(0));
+		String answer=args.get(1);
+		Map<String, Object> param=Map.of("no", no, "answer", answer);
+		
+		int result=service.answerEnroll(param);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
+
+	//1:1 문의 답변 수정
+	@ResponseBody
+	@RequestMapping("/answerUpdate")
+	public boolean answerUpdate(@RequestParam(value="args[]") List<String> args) {
+		int no=Integer.parseInt(args.get(0));
+		String answer=args.get(1);
+		Map<String, Object> param=Map.of("no", no, "answer", answer);
+		
+		int result=service.answerUpdate(param);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
 	
+	//공지사항 작성 페이지로 이동
+	@RequestMapping("/noticeWrite")
+	public String noticeWrite() {
+		return "center/noticeWrite";
+	}
+	
+	//공지사항 작성
+	@ResponseBody
+	@RequestMapping("/noticeWriteEnd")
+	public boolean noticeWriteEnd(@RequestParam(value="input[]") List<String> input) {
+		String title=input.get(0);
+		String content=input.get(1);
+		Map<String, Object> param=Map.of("title", title, "content", content);
+		
+		int result=service.noticeWriteEnd(param);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
+
+	//공지사항 수정
+	@ResponseBody
+	@RequestMapping("/noticeUpdate")
+	public boolean noticeUpdate(@RequestParam(value="input[]") List<String> input) {
+		String title=input.get(0);
+		String content=input.get(1);
+		int no=Integer.parseInt(input.get(2));
+		Map<String, Object> param=Map.of("title", title, "content", content, "no", no);
+		
+		int result=service.noticeUpdate(param);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
+
+	//공지사항 삭제
+	@ResponseBody
+	@RequestMapping("/noticeDelete")
+	public boolean noticeDelete(int no) {
+		
+		int result=service.noticeDelete(no);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
+
+	//1:1 문의 작성 페이지로 이동
+	@RequestMapping("/cqWrite")
+	public String cqWrite() {
+		return "center/clientQnaWrite";
+	}
+	
+	//1:1 문의 작성
+	@ResponseBody
+	@RequestMapping("/cqWriteEnd")
+	public boolean cqWriteEnd(@RequestParam(value="input[]") List<String> input) {
+		String title=input.get(0);
+		String writer=input.get(1);
+		String category=input.get(2);
+		String secret=input.get(3);
+		String content=input.get(4);
+		
+		System.out.println(secret);
+		if(secret.equals("true")) {
+			secret="Y";
+		}else {
+			secret="N";
+		}
+		System.out.println(secret);
+		
+		Map<String, Object> param=Map.of("title", title, "writer", writer, "category", category, "secret", secret, "content", content);
+		
+		int result=service.cqWriteEnd(param);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
+	
+	//1:1 문의 수정
+	
+	//1:1 문의 삭제
+	@ResponseBody
+	@RequestMapping("/cqDelete")
+	public boolean cqDelete(int no) {
+		
+		int result=service.cqDelete(no);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
 
 }

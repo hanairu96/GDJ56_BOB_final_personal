@@ -285,13 +285,12 @@
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-                    <%-- ${itemdetail}
-                    ${orderdetail} --%>
-                  			<c:forEach var="item" items="${itemdetail}"> 
+                  			<c:forEach var="item" items="${itemdetail}" varStatus="status1"> 
                   				<tr class="text-gray-700 dark:text-gray-400">
 			                      <td class="px-4 py-3 text-sm">
 			                      		<div style="display:flex;">
 					                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					                        <input type="text" hidden value="${item.orderitem.itemNo}" id="itemNo_">
 					                        <a href="${path}/market1/marketdetail.do?itemNo=${item.orderitem.itemNo}">
 					                        <img style="width:100px;height:70px" src="${path}/resources/upload/market/mainlabel/${item.orderitem.mainPic}" >
 			                        		</a>
@@ -305,13 +304,19 @@
 			    						<c:if test="${not empty item.orderitem.itemBrand}">[${item.orderitem.itemBrand}]${item.orderitem.itemName}</c:if>
 			    						&nbsp;
 			    						</a>
-			    						<c:if test="${orderdetail.delivery eq '구매확정'}">
-			    							<button onclick="location.assign('${path }/itemReview/insertReviewGo.do?itemNo=${item.orderitem.itemNo}&itemName=${item.orderitem.itemName}&mainPic=${item.orderitem.mainPic}&orderNo=${orderdetail.orderNo}')"
-				    							class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-				    							리뷰쓰기
-			    							</button>
-			    						</c:if>
 			    						
+			    						<div id="reviewbtn">
+			    						</div>
+			    						<input type="text" hidden value="${item.orderitem.itemName}">
+			    						<input type="text" hidden value="${item.orderitem.mainPic}">
+			    						 <c:if test="${orderdetail.delivery eq '구매확정'}">
+			    							<c:if test="${empty reviewItemNo}"> 
+				    							<button onclick="location.assign('${path }/itemReview/insertReviewGo.do?itemNo=${item.orderitem.itemNo}&itemName=${item.orderitem.itemName}&mainPic=${item.orderitem.mainPic}&orderNo=${orderdetail.orderNo}')"
+							    					class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+							    					리뷰쓰기
+						    					</button>
+			    							</c:if>
+			    							</c:if>
 			                        </div>
 			                      </td>
 			                      <td class="px-4 py-3 ">
@@ -389,9 +394,6 @@
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-                    <%-- ${itemdetail}
-                    ${orderdetail} --%>
-                  			
                   				<tr class="text-gray-700 dark:text-gray-400">
 				                      <td class="px-4 py-3 text-sm">
 				                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -459,4 +461,50 @@
 		let totalprice = parseInt(itemcount[i].innerHTML)*parseInt(price[i].value);
 		resultPrice[i].innerText=totalprice;
 	} 
+	
+	var listss = new Array();
+
+	<c:forEach items="${reviewItemNo}" var="item">
+		listss.push("${item}");
+	</c:forEach>
+	
+	var itemNo = document.querySelectorAll("#itemNo_");
+	var reviewbtn = document.querySelectorAll("#reviewbtn");
+
+	
+	if(listss.length>0){
+		for(let i=0;i<itemNo.length;i++){
+			let count=0;
+			//console.log(itemNo[i].value);
+			for(let j=0;j<listss.length;j++){
+				if(itemNo[i].value!=listss[j] ){
+					//console.log(list[j]);
+					count=count+1;
+				}
+			}  
+			if(count==listss.length){
+				const btn = document.createElement("button");
+				btn.innerHTML="리뷰쓰기";
+				btn.className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100";
+				reviewbtn[i].appendChild(btn);
+				btn.onclick = function () {
+				    this.parentElement;
+				    console.log('d'); 
+				    console.log(this.parentElement.nextElementSibling);
+				    location.assign('${path }/itemReview/insertReviewGo.do?itemNo='+itemNo[i].value+'&itemName='+this.parentElement.nextElementSibling.value+'&mainPic='+this.parentElement.nextElementSibling.nextElementSibling.value+'&orderNo=${orderdetail.orderNo}'); 
+			}; 
+
+		}else{
+				const btn = document.createElement("button");
+				btn.innerHTML="리뷰완료";
+				btn.className="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700";
+				reviewbtn[i].appendChild(btn);
+				btn.onclick = function () {
+					location.assign('${path}/market1/marketdetail.do?itemNo='+itemNo[i].value);
+				};
+			}
+		}
+	} 
+	
+
 </script>

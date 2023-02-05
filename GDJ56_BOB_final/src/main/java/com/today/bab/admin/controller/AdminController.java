@@ -29,7 +29,7 @@ import com.today.bab.common.AdminPageBar;
 //@SessionAttributes({"loginMember"})
 public class AdminController {
 	
-private AdminService service;
+	private AdminService service;
 	
 	@Autowired
 	public AdminController(AdminService service) {
@@ -399,6 +399,24 @@ private AdminService service;
 	    }
 	    response.setContentType("text/csv;charset=utf-8");
 		response.getWriter().print(end);
+	}
+	
+	//상품관리
+	@RequestMapping("/product.do")
+	public ModelAndView adminProductList(ModelAndView mv,
+		@RequestParam(value="cPage", defaultValue="1") int cPage,
+		@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {
+
+		mv.addObject("list",service.adminProductList(Map.of("cPage",cPage,"numPerpage",numPerpage)));
+		
+		//페이징처리하기
+		int totalData=service.adminProductCount(); 
+		
+		mv.addObject("pageBar",AdminPageBar.getPage(cPage, numPerpage, totalData, "product.do"));
+		mv.addObject("totalData",totalData);
+		mv.setViewName("admin/adminProduct");
+		
+		return mv;
 	}
 		
 }

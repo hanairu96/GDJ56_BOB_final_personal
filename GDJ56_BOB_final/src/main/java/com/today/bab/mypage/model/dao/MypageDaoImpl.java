@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
+import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
@@ -137,5 +138,11 @@ public class MypageDaoImpl implements MypageDao{
 	@Override
 	public List<OdcReserve> selectOnedayclass(SqlSessionTemplate session, String memberId) {
 		return session.selectList("mypage.selectOnedayclass",memberId);
+	}
+	
+	
+	@Override
+	public List<ItemReview> selectReviewByOrderNo(SqlSessionTemplate session, int orderNo) {
+		return session.selectList("mypage.selectReviewByOrderNo",orderNo);
 	}
 }

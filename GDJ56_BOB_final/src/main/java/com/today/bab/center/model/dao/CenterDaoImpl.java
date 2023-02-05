@@ -48,5 +48,46 @@ public class CenterDaoImpl implements CenterDao {
 	public ClientQNA selectClientQna(SqlSessionTemplate session, int no) {
 		return session.selectOne("center.selectClientQna", no);
 	}
+
+	@Override
+	public int answerEnroll(SqlSessionTemplate session, Map<String, Object> param) {
+		return session.insert("center.answerEnroll", param);
+	}
+
+	@Override
+	public int updateCheck(SqlSessionTemplate session, int no) {
+		return session.update("center.updateCheck", no);
+	}
+	
+	@Override
+	public int answerUpdate(SqlSessionTemplate session, Map<String, Object> param) {
+		return session.update("center.answerUpdate", param);
+	}
+
+	@Override
+	public int noticeWriteEnd(SqlSessionTemplate session, Map<String, Object> param) {
+		return session.insert("center.noticeWriteEnd", param);
+	}
+	
+	@Override
+	public int noticeUpdate(SqlSessionTemplate session, Map<String, Object> param) {
+		return session.update("center.noticeUpdate", param);
+	}
+
+	@Override
+	public int noticeDelete(SqlSessionTemplate session, int no) {
+		return session.delete("center.noticeDelete", no);
+	}
+
+	@Override
+	public int cqWriteEnd(SqlSessionTemplate session, Map<String, Object> param) {
+		return session.insert("center.cqWriteEnd", param);
+	}
+
+	
+	@Override
+	public int cqDelete(SqlSessionTemplate session, int no) {
+		return session.delete("center.cqDelete", no);
+	}
 	
 }
