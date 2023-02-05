@@ -212,6 +212,32 @@ public class CenterController {
 	}
 	
 	//1:1 문의 수정
+	@ResponseBody
+	@RequestMapping("/cqUpdate")
+	public boolean cqUpdate(@RequestParam(value="input[]") List<String> input) {
+		int no=Integer.valueOf(input.get(0));
+		String category=input.get(1);
+		String title=input.get(2);
+		String content=input.get(3);
+		String secret=input.get(4);
+		
+		if(secret.equals("true")) {
+			secret="Y";
+		}else {
+			secret="N";
+		}
+		System.out.println(secret);
+		
+		Map<String, Object> param=Map.of("no", no, "category", category, "title", title, "content", content, "secret", secret);
+		
+		int result=service.cqUpdate(param);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
 	
 	//1:1 문의 삭제
 	@ResponseBody
