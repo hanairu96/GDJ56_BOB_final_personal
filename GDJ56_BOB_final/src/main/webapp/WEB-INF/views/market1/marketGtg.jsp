@@ -86,7 +86,6 @@
 	                        <a href="" style="color: black;margin:10px;"> 판매순</a>
 	                    </div>
                     </div>
-                    
                     <div id="explain">
 	                    <div style="padding-bottom:20px;">
                             <h6><span style="font-weight:bold;padding:10px;">${i[0].sellitem_count }</span> 건</h6>
@@ -98,7 +97,7 @@
 	                                <div class="product__item__pic set-bg"
 		style="background-image: url('${path }/resources/upload/market/mainlabel/${sell.mainPic }');${sell.itemStock==0?'filter: grayscale(100%)':''};">
 	                                    <ul class="product__item__pic__hover">
-	                                        <li><a href="#"><i class="fa fa-shopping" ><img src="${path }/resources/market/img/market-cart.png" style="width:27px;"></i></a></li>
+	                                        <li><a href="javascript:void(0);" onclick="addbasketitem(${sell.itemNo },'${loginMember.memberId }')"><i class="fa fa-shopping" ><img src="${path }/resources/market/img/market-cart.png" style="width:27px;"></i></a></li>
 	                                    </ul>
 	                                </div>
 	                                <div class="product__item__text">
@@ -123,6 +122,16 @@
 	                    <!-- 페이징처리 -->
 	                    ${pageBar }
                 	</div>
+                	<script>
+						const addbasketitem=(no,memberId)=>{
+		 					if(${loginMember==null}){
+								alert("로그인 후 사용가능합니다.");
+							}else{
+								location.assign('${path}/basket/insertbasket.do?itemNo='+no+'&memberId='+memberId);
+							}
+						}                	
+                	
+                	</script>
                 
             </div>
         </div>
