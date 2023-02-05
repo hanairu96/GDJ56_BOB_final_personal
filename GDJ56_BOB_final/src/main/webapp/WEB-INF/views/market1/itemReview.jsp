@@ -34,26 +34,46 @@
 			    <div class="col-10">
 			        <ul class="nav nav-tabs" role="tablist">
 			            <li>
-			                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
-			                style="font-size: 15px;font-weight: bold;">별점 높은 순</a>
+			                <a class="nav-link active" data-toggle="tab" href="javascript:void(0);" role="tab"
+			                style="font-size: 15px;font-weight: bold;" onclick="reviewlist('high');">별점 높은 순</a>
 			            </li>
 			            <li>
-			                <a class="nav-link" data-toggle="tab" href="#tabs-3"
-			                style="font-size: 15px;font-weight: bold;">별점 낮은 순</a>
+			                <a class="nav-link" data-toggle="tab" href="javascript:void(0);"
+			                style="font-size: 15px;font-weight: bold;" onclick="reviewlist('low');">별점 낮은 순</a>
 			            </li>
-			            <li>
+			            <!-- <li>
 			                <a class="nav-link" data-toggle="tab" href="#tabs-2"
 			                aria-selected="false" style="font-size: 15px;font-weight: bold;">사진리뷰</a>
-			            </li>
+			            </li> -->
 			            <li>
-			                <a class="nav-link" data-toggle="tab" href="#tabs-2"
-			                aria-selected="false" style="font-size: 15px;font-weight: bold;">내가 쓴 댓글보기</a>
+			                <a class="nav-link" data-toggle="tab" href="javascript:void(0);"
+			               	style="font-size: 15px;font-weight: bold;" onclick="reviewlist('mem');">내가 쓴 댓글보기</a>
 			            </li>
 			        </ul>
 			    </div>
 			</div>
 			
+			<script>
+				const reviewlist=(list)=>{
+					if(list == 'mem'){
+						if(${loginMember==null}){
+							alert("로그인 후 사용이 가능합니다.");
+						}
+					}
+               		$.ajax({
+               			type:'get',
+               			url:'${path}/itemReview/choiceReviewList.do?',
+               			data:{"list":list},
+               			success:data=>{
+               				console.log(data);
+           //    				$("#explain").html(data);
+               			}
+               		})
+					
+				}
 			
+			
+			</script>			
 
 
 			<!-- 리뷰 묶음-->
@@ -91,8 +111,8 @@
               
               
               
-			<!-- 페이징처리 -->
-			<div style="text-align: center;">
+			<!-- 페이징처리..다시.... -->
+			<%-- <div style="text-align: center;">
 				 ${pageBar }
-			</div>
+			</div> --%>
 		</div>

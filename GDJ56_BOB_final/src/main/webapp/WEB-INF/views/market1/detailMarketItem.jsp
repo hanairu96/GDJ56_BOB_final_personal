@@ -217,10 +217,10 @@
 						        </div>
 						        <br><br>
 						        <div>
-						            <span class="col-1" style="font-weight:bold;">용량 </span><span class="col-4" style="margin-left:2%">${de.weight }</span><br>
-						            <span class="col-1" style="font-weight:bold;">특징 </span><span class="col-4" style="margin-left:2%">${de.itemPoint }</span><br>
-						            <span class="col-1" style="font-weight:bold;">보관법</span><span class="col-4">${de.itemKeep }</span><br>
-						            <span class="col-1" style="font-weight:bold;">활용팁</span><span class="col-4">${de.itemTip }</span><br>
+						            <span class="col-1" style="font-weight:bold;">용량 </span><span style="margin-left:2%">${de.weight }</span><br>
+						            <span class="col-1" style="font-weight:bold;">특징 </span><span style="margin-left:2%">${de.itemPoint }</span><br>
+						            <span class="col-1" style="font-weight:bold;">보관법</span><span class="col-3">${de.itemKeep }</span><br>
+						            <span class="col-1" style="font-weight:bold;">활용팁</span><span class="col-3">${de.itemTip }</span><br>
 						        </div>
 						        <br>
 						        <div style="text-align: center;">

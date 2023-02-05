@@ -53,6 +53,11 @@ public class ReviewItemDaoImpl implements ReviewItemDao {
 		return session.selectOne("ireview.selectAvg",itemNo);
 	}
 	
+	@Override
+	public List<ItemReview> choiceReviewList(SqlSessionTemplate session,String list){
+		return session.selectList("ireview.choiceReviewList",list);
+	}
+	
 	
 	
 	

@@ -87,7 +87,6 @@
 	                        <a href="" style="color: black;margin:10px;"> 판매순</a>
 	                    </div>
                     </div>
-                     ${basket }
                     <div id="explain">
 	                    <div style="padding-bottom:20px;">
                             <h6><span style="font-weight:bold;padding:10px;">${i[0].sellitem_count }</span> 건</h6>
@@ -122,8 +121,8 @@
 						</c:forEach>
 	                	</div>
 	                    <!-- 페이징처리 -->
-	                    ${pageBar }
-                	</div>
+	                    	${pageBar }
+                		</div>
                 	
                 	<script>
 						/* const addbasketitem=(no,memberId,mainPic,itemName)=>{
@@ -157,7 +156,6 @@
 									arr.push({itemNo:${b.itemNo}});
 								</c:forEach>
 								for(let i=0;arr.length;i++){
-									console.log(arr[i]);
 									if(arr[i].itemNo==no){
 										console.log(no);
 										Swal.fire({
@@ -174,37 +172,13 @@
 												location.assign('${path}/basket/updatebasket.do?itemNo='+no+'&memberId='+memberId); 
 								        	}
 								        })
-									/* }else{
-										location.assign('${path}/basket/insertbasket.do?itemNo='+no+'&memberId='+memberId); */
 									}
-									
 								}
+								
+								//??아니 어떻게 해야하징...
+								location.assign('${path}/basket/insertbasket.do?itemNo='+no+'&memberId='+memberId);
 							}
 						}
-								
-									
-									/* if(${basket==null}){
-									}else{
-										Swal.fire({
-								            title: itemName,
-								            text: "이 상품은 이미 담겨있습니다. 더 담으시겠습니까?",
-								            imageUrl: '${path }/resources/upload/market/mainlabel/'+mainPic,
-								            showCancelButton: true,
-								            confirmButtonColor: '#07d448',
-								            cancelButtonColor: 'magenta',
-								            confirmButtonText: '장바구니 추가',
-								            cancelButtonText: '쇼핑하기'
-								        }).then((result) => {
-								        	if (result.isConfirmed) {
-												location.assign('${path}/basket/updatebasket.do?itemNo='+no+'&memberId='+memberId); 
-								                Swal.fire(
-								                	itemName,
-								                    '상품이 장바구니에 담겼습니다.',
-								                    'success'
-								                )
-								            }
-								        })
-									} */
                 	</script>
                 
             </div>

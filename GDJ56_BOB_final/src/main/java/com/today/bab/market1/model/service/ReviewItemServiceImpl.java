@@ -63,6 +63,10 @@ public class ReviewItemServiceImpl implements ReviewItemService {
 		return dao.selectAvg(session,itemNo);
 	}
 
+	@Override
+	public List<ItemReview> choiceReviewList(String list){
+		return dao.choiceReviewList(session,list);
+	}
 	
 	
 }

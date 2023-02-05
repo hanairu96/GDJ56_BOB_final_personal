@@ -25,4 +25,5 @@ public interface ReviewItemDao {
 	
 	int selectAvg(SqlSessionTemplate session,int itemNo);
 	
+	List<ItemReview> choiceReviewList(SqlSessionTemplate session,String list);
 }

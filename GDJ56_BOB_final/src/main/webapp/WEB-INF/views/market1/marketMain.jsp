@@ -64,28 +64,9 @@
 	                    </div>
 	                 </c:forEach>
                  </c:if>
-                  <%--   <div class="col-lg-3">
-                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/market/img/categories/cat-2.jpg');">
-                            <h5><a href="#">Dried Fruit</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/market/img/categories/cat-4.jpg');">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/market/img/categories/cat-5.jpg');">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div> --%>
                 </div>
             </div>
             <br><br><br>
-
-
-            <br><br><br>
-            
 
             <!-- 1만원대 추천상품 -->
             <div style="text-align: center;">

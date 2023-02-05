@@ -18,5 +18,7 @@ public interface ReviewItemService {
 	List<ItemrePic> selectrReviewPic();
 	
 	int selectAvg(int itemNo);
+	
+	List<ItemReview> choiceReviewList(String list);
 
 }
