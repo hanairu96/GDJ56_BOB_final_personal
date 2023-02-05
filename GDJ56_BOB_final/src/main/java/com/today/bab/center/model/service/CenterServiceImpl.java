@@ -65,29 +65,33 @@ public class CenterServiceImpl implements CenterService {
 
 	@Override
 	public int answerUpdate(Map<String, Object> param) {
-		int result=dao.answerUpdate(session, param);
-		
-		return result;
+		return dao.answerUpdate(session, param);
 	}
 
 	@Override
 	public int noticeWriteEnd(Map<String, Object> param) {
-		int result=dao.noticeWriteEnd(session, param);
-		
-		return result;
+		return dao.noticeWriteEnd(session, param);
 	}
 	
 	@Override
 	public int noticeUpdate(Map<String, Object> param) {
-		int result=dao.noticeUpdate(session, param);
-		
-		return result;
+		return dao.noticeUpdate(session, param);
 	}
 
 	@Override
 	public int noticeDelete(int no) {
-		int result=dao.noticeDelete(session, no);
-		
-		return result;
+		return dao.noticeDelete(session, no);
 	}
+
+	@Override
+	public int cqWriteEnd(Map<String, Object> param) {
+		return dao.cqWriteEnd(session, param);
+	}
+
+	
+	@Override
+	public int cqDelete(int no) {
+		return dao.cqDelete(session, no);
+	}
+	
 }
