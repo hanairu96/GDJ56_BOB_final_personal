@@ -76,10 +76,11 @@ public class Market1Controller {
 		if(loginMember!=null) {
 			String memberId=loginMember.getMemberId();
 			MarketMemberLike like=service.memberLike(memberId);
-			System.out.println(like);
+//			System.out.println(like);
 			List addlike=new ArrayList();
 			String choice="";
 			
+			//선택지가 모두 y인것만 추가
 			if(like.getFruit().equals("Y")) {
 				choice="과일";
 				addlike.add(choice);
@@ -96,14 +97,19 @@ public class Market1Controller {
 				choice="채소";
 				addlike.add(choice);
 			}
-			System.out.println(addlike);
+//			System.out.println(addlike);
+			mv.addObject("likectg",addlike);
+			
+			if(addlike.size()!=0) {
+				List<SellItem> likesell=new ArrayList();
+				for(int i=0;i<addlike.size();i++) {
+//					System.out.println(addlike.get(i));
+					likesell.addAll(service.selectMainLike((String) addlike.get(i)));
+//					System.out.println(likesell);
+				}
+				mv.addObject("likemenu",likesell);
+			}
 		}
-		
-		
-		
-		
-		
-		
 		
 		mv.setViewName("market1/marketMain");
 		return mv;
@@ -115,6 +121,7 @@ public class Market1Controller {
 			@RequestParam(value="cPage", defaultValue="1")int cPage,
 			@RequestParam(value="numPerpage", defaultValue="15")int numPerpage
 			) {
+
 		List<SellItem> list=service.selectItemCtg(Map.of("cPage",cPage,"numPerpage",numPerpage));
 //		List<SellItem> list=service.selectItemCtg();
 		

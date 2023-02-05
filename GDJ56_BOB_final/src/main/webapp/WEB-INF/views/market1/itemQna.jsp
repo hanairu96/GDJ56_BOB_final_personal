@@ -5,6 +5,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
     
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+	*{
+		font-family: 'Gowun Dodum', sans-serif;
+	}
+</style>
 <script src="${path }/resources/js/jquery-3.6.1.min.js"></script>
 	<div>
 		<div style="display: flex;">

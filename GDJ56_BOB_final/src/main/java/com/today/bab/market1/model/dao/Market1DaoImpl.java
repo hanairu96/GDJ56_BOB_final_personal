@@ -73,4 +73,9 @@ public class Market1DaoImpl implements Market1Dao {
 	public MarketMemberLike memberLike(SqlSessionTemplate session,String memberId){
 		return session.selectOne("ma.memberLike",memberId);
 	}
+	
+	@Override
+	public List<SellItem> selectMainLike(SqlSessionTemplate session,String like) {
+		return session.selectList("ma.selectMainLike",like);
+	}
 }

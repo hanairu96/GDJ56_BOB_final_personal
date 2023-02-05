@@ -34,4 +34,6 @@ public interface Market1Service {
 	
 	//마켓 메인에 회원가입할떄 받은 선호 음식 출력
 	MarketMemberLike memberLike(String memberId);
+	
+	List<SellItem> selectMainLike(String like);
 }

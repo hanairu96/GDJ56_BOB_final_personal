@@ -97,4 +97,9 @@ public class Market1ServiceImpl implements Market1Service{
 	public MarketMemberLike memberLike(String memberId){
 		return dao.memberLike(session,memberId);
 	}
+	
+	@Override
+	public List<SellItem> selectMainLike(String like) {
+		return dao.selectMainLike(session,like);
+	}
 }
