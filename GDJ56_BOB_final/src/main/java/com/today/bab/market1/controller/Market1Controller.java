@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.today.bab.basket.model.service.BasketService;
+import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.common.Market1Pagebar;
 import com.today.bab.market1.model.service.Market1Service;
 import com.today.bab.market1.model.service.QnaService;
@@ -36,13 +38,15 @@ public class Market1Controller {
 	private Market1Service service;
 	private QnaService qnaservice;
 	private ReviewItemService reservice;
-
+	private BasketService bservice;
+	
 	@Autowired
-	public Market1Controller(Market1Service service,QnaService qnaservice, ReviewItemService reservice) {
+	public Market1Controller(Market1Service service,QnaService qnaservice, ReviewItemService reservice,BasketService bservice) {
 		super();
 		this.service = service;
 		this.qnaservice = qnaservice;
 		this.reservice=reservice;
+		this.bservice=bservice;
 	}
 	
 	
@@ -120,7 +124,7 @@ public class Market1Controller {
 	public ModelAndView marketCtg(ModelAndView mv,
 			@RequestParam(value="cPage", defaultValue="1")int cPage,
 			@RequestParam(value="numPerpage", defaultValue="15")int numPerpage
-			) {
+			,HttpServletRequest request) {
 
 		List<SellItem> list=service.selectItemCtg(Map.of("cPage",cPage,"numPerpage",numPerpage));
 //		List<SellItem> list=service.selectItemCtg();
@@ -129,6 +133,13 @@ public class Market1Controller {
 		int totaldata=service.selectItemCount();
 		mv.addObject("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"marketgtg.do"));
 		
+		//회원이 장바구니 제품을 담았을때 장바구니에 있는 상품들 리스트 
+		HttpSession session = request.getSession();
+	    Member  loginMember= (Member) session.getAttribute("loginMember");
+		if(loginMember!=null) {
+			List<Basket> blist=bservice.selectBasket(loginMember.getMemberId());
+			mv.addObject("basket",blist);
+		}
 		mv.addObject("i",list);
 		mv.setViewName("market1/marketGtg");
 		return mv;

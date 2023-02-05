@@ -37,5 +37,25 @@ public class BasketController {
 			m.addAttribute("loc","/market1/marketgtg.do");
 		}
 		return "common/msg";
-	}	
+	}
+	
+	@RequestMapping("/updatebasket.do")
+	public String updateBasket(int itemNo,String memberId,Model m) {
+		Basket b=Basket.builder()
+				.itemNo(itemNo)
+				.memberId(memberId)
+				.build();
+		int result=service.updateBasket(b);
+		if(result>0) { 
+			m.addAttribute("msg","장바구니에 상품을 담았습니다.");
+			m.addAttribute("loc","/market1/marketgtg.do");
+		}else {
+			m.addAttribute("msg","장바구니에 상품 담기를 실패하였습니다.");
+			m.addAttribute("loc","/market1/marketgtg.do");
+		}
+		return "common/msg";
+		
+		
+	}
+	
 }
