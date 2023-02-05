@@ -50,7 +50,7 @@
 	                </tr>
 	            </table>
 	            <div id="secret-div">
-            		<input type="checkbox" id="secret" value="비밀글 여부"> 비밀글 여부
+            		<input type="checkbox" id="secret" value="secret"> 비밀글 여부
 	            </div>
 	            <div class="btns">
 	            	<c:if test="${loginMember.memberId eq cq.memberId}">
@@ -294,6 +294,11 @@
 		$(".side-menu>div:eq(1)").click(e=>{
 			location.assign("${path}/center/clientQnaList");
 		})
+		
+		//비밀글이면 수정 시 체크박스에 체크 된 상태로 나옴
+		if(${cq.cqSe eq 'Y'}){
+	 		$("#secret").prop("checked", true);
+		}
 		
 		//체크박스 영역을 누르면 체크가 됨
 	 	$("#secret-div").click(e=>{

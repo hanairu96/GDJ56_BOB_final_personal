@@ -31,7 +31,7 @@
                 </tr>
             </table>
             <div id="secret-div">
-            	<input type="checkbox" id="secret" value="비밀글 여부"> 비밀글 여부
+            	<input type="checkbox" id="secret" value="secret"> 비밀글 여부
             </div>
             <textarea id="input-content" rows="10" cols="130"></textarea>
             <div id="enroll-cancel">
