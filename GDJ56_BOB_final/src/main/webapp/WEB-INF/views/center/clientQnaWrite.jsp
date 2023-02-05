@@ -23,7 +23,15 @@
                 </tr>
                 <tr>
                     <td class="line-title">분류</td>
-                    <td class="line-content"><input type="text" id="input-category" placeholder="분류를 입력하세요."></td>
+                    <td class="line-content">
+	                    <select name="category" id="input-category">
+	            	        <option value="배송문의" selected="selected">배송문의</option>
+	                	    <option value="신고">신고</option>
+	                    	<option value="제안하기">제안하기</option>
+	                    	<option value="시스템장애">시스템장애</option>
+	                    	<option value="기타">기타</option>
+	                    </select>
+                    </td>
                 </tr>
                 <tr>
                     <td class="line-title">작성일</td>

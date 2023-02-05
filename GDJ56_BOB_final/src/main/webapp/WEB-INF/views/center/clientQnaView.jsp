@@ -42,7 +42,15 @@
 	                </tr>
 	                <tr id="input-cate-tr">
 	                    <td class="line-title">분류</td>
-	                    <td class="line-content"><input type="text" id="input-category" value="${cq.cqCate}"></td>
+	                    <td class="line-content">
+		                    <select name="category" id="input-category">
+		            	        <option value="배송문의">배송문의</option>
+		                	    <option value="신고">신고</option>
+		                    	<option value="제안하기">제안하기</option>
+		                    	<option value="시스템장애">시스템장애</option>
+		                    	<option value="기타">기타</option>
+		                    </select>
+	                    </td>	                    
 	                </tr>
 	                <tr>
 	                    <td class="line-title">작성일</td>
@@ -334,6 +342,9 @@
 			$("#input-content").attr("readonly", false);
 			$("#input-content").focus();
 		}
+		
+		//수정 시 분류는 저장된 값으로 선택됨
+		$("#input-category").val("${cq.cqCate}").prop("selected", true);
 		
 		//수정하기
 		const updateCqEnd=()=>{
