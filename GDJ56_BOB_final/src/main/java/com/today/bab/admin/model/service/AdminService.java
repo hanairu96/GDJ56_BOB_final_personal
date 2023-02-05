@@ -84,4 +84,12 @@ public interface AdminService {
 	List<AdminSellItem> adminProductList(Map<String,Integer> param);
 	
 	int adminProductCount();
+	
+	List<Member> memberSearchClass(Map<String, Object> param);
+	
+	int memberSearchClassCount(Map<String, Object> param);
+	
+	List<AdminMaster> masterSearchClass(Map<String, Object> param);
+	
+	int masterSearchClassCount(Map<String, Object> param);
 }

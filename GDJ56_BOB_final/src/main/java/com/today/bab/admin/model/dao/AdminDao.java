@@ -81,6 +81,16 @@ public interface AdminDao {
 	List<AdminSellItem> adminProductList(SqlSessionTemplate session,Map<String,Integer> param);
 	
 	int adminProductCount(SqlSessionTemplate session);
+	
+	List<Member> memberSearchClass(SqlSessionTemplate session,Map<String, Object> param);
+	
+	int memberSearchClassCount(SqlSessionTemplate session,Map<String, Object> param);
+	
+	List<AdminMaster> masterSearchClass(SqlSessionTemplate session,Map<String, Object> param);
+	
+	int masterSearchClassCount(SqlSessionTemplate session,Map<String, Object> param);
+	
+	
 }
 
 

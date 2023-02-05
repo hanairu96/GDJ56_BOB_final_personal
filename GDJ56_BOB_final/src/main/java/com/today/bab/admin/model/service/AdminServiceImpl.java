@@ -277,6 +277,26 @@ public class AdminServiceImpl implements AdminService{
 		return dao.adminProductCount(session);
 	}
 
+	@Override
+	public List<Member> memberSearchClass(Map<String, Object> param) {
+		return dao.memberSearchClass(session,param);
+	}
+
+	@Override
+	public int memberSearchClassCount(Map<String, Object> param) {
+		return dao.memberSearchClassCount(session,param);
+	}
+
+	@Override
+	public List<AdminMaster> masterSearchClass(Map<String, Object> param) {
+		return dao.masterSearchClass(session,param);
+	}
+
+	@Override
+	public int masterSearchClassCount(Map<String, Object> param) {
+		return dao.masterSearchClassCount(session,param);
+	}
+
 	
 	
 	

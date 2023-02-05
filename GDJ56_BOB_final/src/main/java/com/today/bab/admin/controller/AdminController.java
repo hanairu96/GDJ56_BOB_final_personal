@@ -3,6 +3,7 @@ package com.today.bab.admin.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ import com.today.bab.admin.model.vo.AdminTotalData;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.common.AdminPageBar;
+import com.today.bab.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/admin")
@@ -418,5 +420,70 @@ public class AdminController {
 		
 		return mv;
 	}
+	
+	//회원검색
+	@RequestMapping("/memberSearch.do")
+	public ModelAndView memberSearchClass(ModelAndView mv, String search, String searchlist,
+			@RequestParam(value="cPage", defaultValue="1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {	
+	
+		if(searchlist.equals("searchNo")) {
+			mv.addObject("totalData",0);
+			mv.setViewName("admin/memberSearch");
+		}else {
+			Map<String, Object> param = new HashMap();
+	        param.put("type", searchlist);
+	        param.put("keyword", search);
+	        param.put("cPage", cPage);
+	        param.put("numPerpage", numPerpage);
+	      
+	        List<Member> list = service.memberSearchClass(param);
+	        System.out.println(list);
+	        
+		    //페이징처리하기
+			int totalData=service.memberSearchClassCount(param);
+			System.out.println(totalData);
+			
+			mv.addObject("pageBar",AdminPageBar.getPage(cPage, numPerpage, totalData, "memberSearch.do"));
+			mv.addObject("totalData",totalData);
+			mv.addObject("list",list);
+		    mv.addObject("param", param);
+			mv.setViewName("admin/memberSearch");
+		}
+		return mv;
+	}
+	
+	//장인검색
+	@RequestMapping("/masterSearch.do")
+	public ModelAndView masterSearchClass(ModelAndView mv, String search, String searchlist,
+			@RequestParam(value="cPage", defaultValue="1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {	
+	
+		if(searchlist.equals("searchNo")) {
+			mv.addObject("totalData",0);
+			mv.setViewName("admin/masterSearch");
+		}else {
+			Map<String, Object> param = new HashMap();
+	        param.put("type", searchlist);
+	        param.put("keyword", search);
+	        param.put("cPage", cPage);
+	        param.put("numPerpage", numPerpage);
+	      
+	        List<AdminMaster> list = service.masterSearchClass(param);
+	        System.out.println(list);
+	        
+		    //페이징처리하기
+			int totalData=service.masterSearchClassCount(param);
+			System.out.println(totalData);
+			
+			mv.addObject("pageBar",AdminPageBar.getPage(cPage, numPerpage, totalData, "masterSearch.do"));
+			mv.addObject("totalData",totalData);
+			mv.addObject("list",list);
+		    mv.addObject("param", param);
+			mv.setViewName("admin/masterSearch");
+		}
+		return mv;
+	}
+	
 		
 }

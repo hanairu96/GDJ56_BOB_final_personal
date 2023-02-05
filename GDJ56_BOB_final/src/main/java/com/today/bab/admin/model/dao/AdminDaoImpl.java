@@ -196,5 +196,33 @@ public class AdminDaoImpl implements AdminDao{
 	public int adminProductCount(SqlSessionTemplate session) {
 		return session.selectOne("admin.adminProductCount");
 	}
+
+	@Override
+	public List<Member> memberSearchClass(SqlSessionTemplate session, Map<String, Object> param) {
+		int cPage=((int)(param.get("cPage")))-1;
+		int numPerpage=(int)(param.get("numPerpage"));
+		
+		return session.selectList("admin.memberSearchClass",param, 
+	            new RowBounds(cPage*numPerpage,numPerpage));
+	}
+
+	@Override
+	public int memberSearchClassCount(SqlSessionTemplate session,Map<String, Object> param) {
+		return session.selectOne("admin.memberSearchClassCount",param);
+	}
+
+	@Override
+	public List<AdminMaster> masterSearchClass(SqlSessionTemplate session, Map<String, Object> param) {
+		int cPage=((int)(param.get("cPage")))-1;
+		int numPerpage=(int)(param.get("numPerpage"));
+		
+		return session.selectList("admin.masterSearchClass",param, 
+	            new RowBounds(cPage*numPerpage,numPerpage));
+	}
+
+	@Override
+	public int masterSearchClassCount(SqlSessionTemplate session, Map<String, Object> param) {
+		return session.selectOne("admin.masterSearchClassCount",param);
+	}
 	
 }

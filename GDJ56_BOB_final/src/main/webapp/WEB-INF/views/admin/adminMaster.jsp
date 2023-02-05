@@ -256,83 +256,41 @@
               >
                 클래스 장인 관리
               </h2>
-              <!-- Search input -->
-              <div class="flex justify-center flex-1 lg:mr-32" style="align-items:center;">
-                <div
-                  class=" w-full max-w-xl mr-6 focus-within:text-purple-500"
-                >
-                  <div class=" inset-y-0 flex items-center pl-2">
-                   
-                    <div class="adminselectBox" style="height:35px;width:80px;margin-left:10px;font-size: 12px;">
-                      <select class="adminSelectMember" style="color:purple;height:35px;"> 
-                        <option disabled selected>검색</option>
-                        <option value="id">아이디</option>
-                        <option value="nickname">강사명</option>
-                      </select>
-                      <span style="margin-left:0px;" class="icoArrow">
-                        <img src="https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png" alt="">
-                      </span>
-                    </div>
-<style>
-  .adminselectBox {
-  position: relative;
-  width: 150px;
-  height: 35px;
-  border-radius: 4px;
-  border: 1px solid purple;
-}
-.adminselectBox .adminSelectMember {
-  width: inherit;
-  height: inherit;
-  background: transparent;
-  border: 0 none;
-  outline: 0 none;
-  padding: 0 5px;
-  position: relative;
-  z-index: 3; 
-}
-.adminselectBox .adminSelectMember option {
-  background-color: rgb(190, 122, 190);
-  color: #fff;
-  font-size: 12px;
-}
-.adminselectBox .icoArrow {
-  position: absolute; 
-  top: 0; 
-  right: 0; 
-  z-index: 1; 
-  width: 35px; 
-  height: inherit;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.adminselectBox .icoArrow img {
-  width: 50%;
-  transition: .3s;
-}
-
-.adminselectBox .adminSelectMember:focus + .icoArrow img {
-  transform: rotate(180deg);
-}
-</style>
-
-
-                  <input
-                    style="height:35px;width:220px;border:1px solid purple;margin-left:15px;margin-right:15px;"
-                    class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                    type="text"
-                    placeholder="Search for master"
-                    aria-label="Search"
-                  />
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </svg>
-                </div>
-                </div>
-              </div>
+               <!-- 검색창 -->
+				<div id="searchbox"  class="flex justify-center flex-1 lg:mr-32" style="align-items:center;text-align:center;" >
+						
+					<form action="${path }/admin/masterSearch.do" method="post" onsubmit="return checkIt();">
+						<select name="searchlist"
+							style="padding: 0.3%; margin: 1%;width:100px; 
+							border:1px solid purple;margin-left:-6%;color:purple;height:35px;text-align:center;"
+							class="text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input">
+							  <option value="searchNo">검색 ▼</option>
+		                      <option value="MEMBER_ID">아이디</option>
+		                      <option value="M_NAME">강사명</option>
+							<input 
+								id="searchclass" 
+								style="height:35px;width:220px;border:1px solid purple;margin-left:15px;margin-right:15px;"
+				                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+								type="text" name="search" placeholder="Search for masters"/>
+							<button class="search-btn" style="height:35px;position:absolute;margin-top:4px;">
+							 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+				                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+				             </svg>
+							</button>
+						</select>
+					</form>
+					<script>
+						const checkIt=()=>{
+							if(document.querySelector("#searchclass").value==""){
+								alert("검색할 내용을 입력하세요");
+								return false;
+							}
+								
+						}
+					</script>
+					
+				</div>
+		
             </div>
              <!-- New Table -->
              <div class="w-full overflow-hidden rounded-lg shadow-xs">
