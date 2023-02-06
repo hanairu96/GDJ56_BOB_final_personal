@@ -53,6 +53,19 @@ public class CenterDaoImpl implements CenterDao {
 	}
 
 	@Override
+	public List<ClientQNA> selectCqListSearch(SqlSessionTemplate session, Map<String, Integer> page, Map<String, String> param) {
+		return session.selectList("center.selectCqListSearch", param,
+				new RowBounds(
+						(page.get("cPage")-1)*page.get("numPerpage"),
+						page.get("numPerpage")));
+	}
+	
+	@Override
+	public int selectCqCount(SqlSessionTemplate session, Map<String, String> param) {
+		return session.selectOne("center.selectCqCountSearch", param);
+	}
+
+	@Override
 	public Notice selectNotice(SqlSessionTemplate session, int no) {
 		return session.selectOne("center.selectNotice", no);
 	}

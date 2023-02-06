@@ -14,14 +14,14 @@
             <h1 id="main-title">1:1 문의</h1>
             <p>운영자에게 신고하기, 제안하기 등 다양한 문의를 자유롭게 보내주세요.</p>
             <p>오늘의 밥은 항상 고객님들의 소리에 귀 기울이겠습니다.</p>
-            <form action="" class="search-form">
-                <select name="search-option" class="form-select">
-                    <option value="qna-title">제목</option>
-                    <option value="qna-contents">내용</option>
-                    <option value="qna-category">분류</option>
-                    <option value="qna-writer">작성자</option>
+            <form action="${path}/center/clientQnaListSearch" class="search-form">
+                <select name="option" class="form-select">
+                    <option value="cq_title">제목</option>
+                    <option value="cq_content">내용</option>
+                    <option value="cq_cate">분류</option>
+                    <option value="member_id">작성자</option>
                 </select>
-                <input class="search" name="search" type="text" placeholder="search">
+                <input class="search" name="optionVal" type="text" placeholder="search">
                 <button id="search-btn" class="customBtn btnStyle" type="submit">검색</button>
             </form>
             <table class="list-table" style="text-align: center;margin: 20px;">

@@ -86,6 +86,27 @@ public class CenterController {
 		return mv;
 	}
 
+	//1:1 문의 리스트 검색한 것 출력
+	@RequestMapping("/clientQnaListSearch")
+	public ModelAndView clientQnaListSearch(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage,
+			String option, String optionVal) {
+		
+		Map<String, Integer> page=Map.of("cPage", cPage, "numPerpage", numPerpage);
+		Map<String, String> param=Map.of("option", option, "optionVal", optionVal);
+		List<ClientQNA> list=service.selectCqListSearch(page, param);
+		mv.addObject("list", list);
+		
+		int totalData=service.selectCqCount(param);
+		mv.addObject("pageBar", Market2PageBar.getPage(cPage, numPerpage, totalData, "clientQnaList"));
+		mv.addObject("totalContents", totalData);
+		
+		mv.setViewName("center/clientQnaList");
+		
+		return mv;
+	}
+
 	//공지사항 상세화면 출력
 	@RequestMapping("/noticeView")
 	public String noticeView(int noticeNo, Model model) {
