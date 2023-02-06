@@ -407,7 +407,7 @@
 		                      	<c:if test="${p.pointContent eq '결제시 사용'}">
 		                      		-${p.pointChange}원
 		                      	</c:if>
-		                        <c:if test="${p.pointContent eq '후기작성' or p.pointContent eq '주문완료' or p.pointContent eq '회원가입'}">
+		                        <c:if test="${p.pointContent eq '후기작성' or p.pointContent eq '주문완료' or p.pointContent eq '회원가입' or p.pointContent eq '주문취소'}">
 		                      		+${p.pointChange}원
 		                      	</c:if> 
 		                      </td>

@@ -73,7 +73,7 @@
                 </tbody>
             </table>
             <c:if test="${not empty loginMember}">
-            	<button type="button" id="write-btn" class="customBtn btnStyle" onclick="">글쓰기</button>
+            	<button type="button" id="write-btn" class="customBtn btnStyle" onclick="writeBoard();">글쓰기</button>
             </c:if>
             <div class="page-bar">
                 ${pageBar}
@@ -252,5 +252,10 @@
                 $(".answers:eq("+i+")").css("color", "purple").css("font-weight", "bolder");
             }
         }
+    	
+   		//글쓰기
+   		const writeBoard=()=>{
+   			location.assign("${path}/center/cqWrite");
+   		}
     </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
