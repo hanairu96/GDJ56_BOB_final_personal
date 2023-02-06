@@ -96,6 +96,14 @@
 				<span class="txt29">
 					${odc.odcClassName }
 				</span>
+				<span class="txt29 m-l-10 m-r-10">/</span>
+				<a href="${path}/class/editClass.do?no=${odc.odcNo }" class="txt27">
+					수정하기
+				</a>
+				<span class="txt29 m-l-10 m-r-10">/</span>
+				<a href="${path}/class/menu.do?type=${odc.odcCategoty }" class="txt27">
+					삭제하기
+				</a>
 			</div>
 		</div>
 
@@ -104,7 +112,6 @@
 				<div class="col-md-8 col-lg-9">
 					<div class=" bo5-r">
 						<div class="blo4 p-b-63">
-
 							<div class="zoom bo-rad-10" style="margin: 3%;">
 								<img src="${path}/resources/images/onedayclass/${odc.odcMainPic }" height="450">
 							</div>
@@ -119,9 +126,9 @@
 									<div style="border:solid black 2px;">
 									<span>
 										<img src="${path}/resources/pato/images/class/cook-male.png" width="30" height="30">
-										${odc.mastserName}
+										${odc.masterName}
 										<input type="hidden" name="masterId" value="${odc.memberId }" id="masterId">
-										<input type="hidden" name="masterName" value="${odc.mastserName}" id="masterName">
+										<input type="hidden" name="masterName" value="${odc.masterName}" id="masterName">
 									</span>
 									</div>
 									&nbsp;&nbsp;

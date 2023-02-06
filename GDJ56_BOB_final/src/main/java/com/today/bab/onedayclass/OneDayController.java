@@ -40,6 +40,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.common.Market1Pagebar;
+import com.today.bab.common.oneclass;
 import com.today.bab.market2.model.vo.SellItem;
 import com.today.bab.member.model.vo.Member;
 import com.today.bab.onedayclass.model.service.OneDayService;
@@ -85,18 +86,30 @@ public class OneDayController {
       mv.addObject("classlist",classlist);
       mv.setViewName("onedayclass/onedaymenu-"+type);
       return mv;
+      
    }
    
    @RequestMapping("/class/search.do")
-   public ModelAndView selectSearchClass(ModelAndView mv, String search, String searchlist) {
+   public ModelAndView selectSearchClass(ModelAndView mv, String search, String searchlist,
+		   @RequestParam(value="cPage", defaultValue="1")int cPage,
+		   @RequestParam(value="numPerpage", defaultValue="2")int numPerpage) {
 
+	  System.out.println(search);
+	  System.out.println(searchlist);
+	  
+	   
       Map<String, Object> param = new HashMap();
       param.put("type", searchlist);
       param.put("keyword", search);
+      param.put("cPage", cPage);
+      param.put("numPerpage", numPerpage);
       List<OneDayClass> classlist = service.selectSearchClass(param);
+      int totaldata=service.searchCountClasslist(param);
       mv.addObject("classlist",classlist);
       mv.addObject("param", param);
+      mv.addObject("pageBar",oneclass.getPage(cPage, numPerpage,totaldata,"/bab/class/search.do", searchlist, search));
       mv.setViewName("onedayclass/onedaySearchResult");
+      
       return mv;
    }
    
@@ -173,7 +186,7 @@ public class OneDayController {
    
    @RequestMapping("/class/EndclassEnroll.do")
    public String EndclassEnroll(Model model,HttpServletRequest request, HttpServletResponse response, MultipartFile odcpic,
-         String odcClassName, String memberId,String odcCookName, String startDate, String endDate, String odcTime, int odcPeople, String address
+         String odcNo,String odcClassName, String memberId,String odcCookName, String startDate, String endDate, String odcTime, int odcPeople, String address
          ,int odcPrice,String odcContent, String odcEnrollDate, String odcCategoty, String odcStartTime, String mastserName
    ) throws Exception{
       
@@ -219,7 +232,7 @@ public class OneDayController {
       String odcMainPic=renameFile;
       
       //넘어온값 객체에 빌드
-      OneDayClass odc=OneDayClass.builder().odcClassName(odcClassName).odcCookName(odcCookName).odcStartDate(odcStartDate).odcEndDate(odcEndDate).odcTime(odcTime)
+      OneDayClass odc=OneDayClass.builder().odcNo(odcNo).odcClassName(odcClassName).odcCookName(odcCookName).odcStartDate(odcStartDate).odcEndDate(odcEndDate).odcTime(odcTime)
       .odcPeople(odcPeople).odcAdd(odcAdd).odcCity(odcCity).odcPrice(odcPrice).odcMainPic(odcMainPic).odcContent(odcContent).odcStartTime(odcStartTime).odcCategoty(odcCategoty)
       .memberId(memberId).build();
       
@@ -474,5 +487,22 @@ public class OneDayController {
   		//System.out.println(or);
   		return mv;
   	} 
+  	
+  	@RequestMapping("/class/editClass.do")
+  	public ModelAndView editClass(String no, ModelAndView mv) {
+		System.out.println("수업번호"+no);
+		OneDayClass odc=service.odcView(no);
+			 
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
+		
+		String startDate = simpleDateFormat.format(odc.getOdcStartDate()); 
+	  	String endDate = simpleDateFormat.format(odc.getOdcEndDate()); 
+		 
+	  	mv.addObject("startDate",startDate);
+	  	mv.addObject("endDate",endDate);
+		mv.addObject("odc",odc);
+		mv.setViewName("onedayclass/onedayEditClass");
+		return mv;
+  	}
    	
 }

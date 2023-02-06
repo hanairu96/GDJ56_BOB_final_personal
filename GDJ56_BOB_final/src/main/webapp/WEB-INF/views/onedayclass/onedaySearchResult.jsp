@@ -57,6 +57,7 @@
 		
 		<c:forEach var="m" items="${param }" begin="1" end="1">
 			<c:forEach var="s" items="${m.value }" begin="0" end="0">
+			<c:set var="searchlist" value="${s }"/>
 			  <c:choose>
 			     <c:when test="${s=='ODC_COOKNAME'}">
 			     	<c:set var="select1" value="selected"/>
@@ -107,6 +108,7 @@
 		<div class="container">
 		 <c:forEach var="m" items="${param }" begin="0" end="0">
 			<c:forEach var="s" items="${m.value }" begin="0" end="0">
+			<c:set var="search" value="${s }"/>
 				<h2>"${s }" 검색된 결과</h2>
 			</c:forEach>
 		</c:forEach>
@@ -142,13 +144,13 @@
 			
 			<div style="display: flex;">
 				<!-- 페이지바 -->
-				<div class="pagination" style="margin-right: -5%;">
-					<a href="#" class="item-pagination flex-c-m trans-0-4">prev</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4">3</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4">next</a>
-				</div>
+				<form action="${path}/class/search.do?search=${search }&&searchlist=${searchlist }">
+				  	<div style="display: flex;margin-left:50%">
+			        	${pageBar}
+			        	<input type="hidden" name="search" value="${search }">
+			        	<input type="hidden" name="searchlist" value="${searchlist }">
+			   		</div>
+		   		</form>
 				<!-- 글등록,장인등록 -->
 				<div style="display: flex; margin-left: 61%;">
 					<button type="submit" class="btn3 flex-c-m txt11 trans-0-4" style="margin-right: 3%;">

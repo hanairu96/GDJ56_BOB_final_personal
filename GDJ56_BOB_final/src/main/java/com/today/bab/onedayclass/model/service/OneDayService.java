@@ -14,6 +14,7 @@ public interface OneDayService {
 
 	List<OneDayClass> selectClassList(Map<String, Integer> param);
 	int countClasslist();
+	int searchCountClasslist(Map param);
 	List<OneDayClass> selectMenuClassList(String type);
 	List<OneDayClass> selectSearchClass(Map<String, Object> param);
 	int masterEndEnroll(AdminMaster m);

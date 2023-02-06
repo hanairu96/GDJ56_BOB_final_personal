@@ -99,7 +99,7 @@
 								<a href="${path}/class/odcView.do?no=${c.odcNo }"><b><h4>${c.odcCookName}</h4></b></a>
 			
 								<div style="display: flex; margin-top: 1%;">
-									<img src="${path}/resources/pato/images/class/chef-hat.png" width="20" height="20"><h5>${c.mastserName}</h5>
+									<img src="${path}/resources/pato/images/class/chef-hat.png" width="20" height="20"><h5>${c.masterName}</h5>
 									&nbsp;&nbsp;&nbsp;<img src="${path}/resources/pato/images/class/place-marker.png" width="20" height="20" ><h5>${c.odcCity}</h5>
 								</div>			
 							</div>
