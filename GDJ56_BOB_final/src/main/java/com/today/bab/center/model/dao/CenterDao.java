@@ -11,6 +11,9 @@ import com.today.bab.center.model.vo.Notice;
 public interface CenterDao {
 	List<Notice> selectNoticeList(SqlSessionTemplate session, Map<String, Integer> page);
 	int selectNoticeCount(SqlSessionTemplate session);
+	List<Notice> selectNoticeListSearch(SqlSessionTemplate session, Map<String, Integer> page, Map<String, String> param);
+	int selectNoticeCount(SqlSessionTemplate session, Map<String, String> param);
+
 	List<ClientQNA> selectCqList(SqlSessionTemplate session, Map<String, Integer> page);
 	int selectCqCount(SqlSessionTemplate session);
 	Notice selectNotice(SqlSessionTemplate session, int no);

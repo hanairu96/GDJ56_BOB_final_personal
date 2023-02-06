@@ -9,6 +9,8 @@ import com.today.bab.center.model.vo.Notice;
 public interface CenterService {
 	List<Notice> selectNoticeList(Map<String, Integer> page);
 	int selectNoticeCount();
+	List<Notice> selectNoticeListSearch(Map<String, Integer> page, Map<String, String> param);
+	int selectNoticeCount(Map<String, String> param);
 	List<ClientQNA> selectCqList(Map<String, Integer> page);
 	int selectCqCount();
 	Notice selectNotice(int no);

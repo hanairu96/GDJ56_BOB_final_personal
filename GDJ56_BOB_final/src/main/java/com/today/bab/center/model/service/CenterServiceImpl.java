@@ -32,6 +32,16 @@ public class CenterServiceImpl implements CenterService {
 	}
 
 	@Override
+	public List<Notice> selectNoticeListSearch(Map<String, Integer> page, Map<String, String> param) {
+		return dao.selectNoticeListSearch(session, page, param);
+	}
+	
+	@Override
+	public int selectNoticeCount(Map<String, String> param) {
+		return dao.selectNoticeCount(session, param);
+	}
+
+	@Override
 	public List<ClientQNA> selectCqList(Map<String, Integer> page) {
 		return dao.selectCqList(session, page);
 	}
