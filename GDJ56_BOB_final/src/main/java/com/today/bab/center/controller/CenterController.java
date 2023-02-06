@@ -45,7 +45,28 @@ public class CenterController {
 		
 		return mv;
 	}
-
+	
+	//공지사항 리스트 검색한 것 출력
+	@RequestMapping("/noticeListSearch")
+	public ModelAndView noticeListSearch(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage, 
+			String option, String optionVal) {
+		
+		Map<String, Integer> page=Map.of("cPage", cPage, "numPerpage", numPerpage);
+		Map<String, String> param=Map.of("option", option, "optionVal", optionVal);
+		List<Notice> list=service.selectNoticeListSearch(page, param);
+		mv.addObject("list", list);
+		
+		int totalData=service.selectNoticeCount(param);
+		mv.addObject("pageBar", Market2PageBar.getPage(cPage, numPerpage, totalData, "noticeList"));
+		mv.addObject("totalContents", totalData);
+		
+		mv.setViewName("center/noticeList");
+		
+		return mv;
+	}
+	
 	//1:1 문의 리스트 출력
 	@RequestMapping("/clientQnaList")
 	public ModelAndView clientQnaList(ModelAndView mv,
@@ -57,6 +78,27 @@ public class CenterController {
 		mv.addObject("list", list);
 		
 		int totalData=service.selectCqCount();
+		mv.addObject("pageBar", Market2PageBar.getPage(cPage, numPerpage, totalData, "clientQnaList"));
+		mv.addObject("totalContents", totalData);
+		
+		mv.setViewName("center/clientQnaList");
+		
+		return mv;
+	}
+
+	//1:1 문의 리스트 검색한 것 출력
+	@RequestMapping("/clientQnaListSearch")
+	public ModelAndView clientQnaListSearch(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage,
+			String option, String optionVal) {
+		
+		Map<String, Integer> page=Map.of("cPage", cPage, "numPerpage", numPerpage);
+		Map<String, String> param=Map.of("option", option, "optionVal", optionVal);
+		List<ClientQNA> list=service.selectCqListSearch(page, param);
+		mv.addObject("list", list);
+		
+		int totalData=service.selectCqCount(param);
 		mv.addObject("pageBar", Market2PageBar.getPage(cPage, numPerpage, totalData, "clientQnaList"));
 		mv.addObject("totalContents", totalData);
 		
