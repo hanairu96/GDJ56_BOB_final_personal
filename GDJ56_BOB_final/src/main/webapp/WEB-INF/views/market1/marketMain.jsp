@@ -37,7 +37,7 @@
                 <a href="${path }/market1/marketgtg.do"><h3 style="font-weight: bold;">이 상품 어때요? ></h3></a>
             </c:if>
             <c:if test="${likemenu!=null }">
-                <a href="${path }/market1/memberLikeList.do?likectg=${likectg }"><h3 style="font-weight: bold;">이 상품 어때요? ></h3></a>
+                <a href="${path }/market1/memberLikeList.do"><h3 style="font-weight: bold;">이 상품 어때요? ></h3></a>
             </c:if>
             
             
