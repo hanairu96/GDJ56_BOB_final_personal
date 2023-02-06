@@ -57,6 +57,7 @@
 		
 		<c:forEach var="m" items="${param }" begin="1" end="1">
 			<c:forEach var="s" items="${m.value }" begin="0" end="0">
+			<c:set var="searchlist" value="${s }"/>
 			  <c:choose>
 			     <c:when test="${s=='ODC_COOKNAME'}">
 			     	<c:set var="select1" value="selected"/>
@@ -107,6 +108,7 @@
 		<div class="container">
 		 <c:forEach var="m" items="${param }" begin="0" end="0">
 			<c:forEach var="s" items="${m.value }" begin="0" end="0">
+			<c:set var="search" value="${s }"/>
 				<h2>"${s }" 검색된 결과</h2>
 			</c:forEach>
 		</c:forEach>
@@ -121,12 +123,12 @@
 	               		<c:forEach var="c" items="${classlist}">
 							<div class="col-lg-4" style="padding: 3%;">
 								<div class="zoom">
-									<a href=""><img src="${path}/resources/pato/images/class/${c.odcMainPic}" width="350" height="300"></a>
+									<a href="${path}/class/odcView.do?no=${c.odcNo }"><img src="${path}/resources/pato/images/class/${c.odcMainPic}" width="350" height="300"></a>
 								</div>
 									
 								<div class="category-name" >${c.odcCategoty}</div>
 			
-								<a href=""><b><h4>${c.odcCookName}</h4></b></a>
+								<a href="${path}/class/odcView.do?no=${c.odcNo }"><b><h4>${c.odcCookName}</h4></b></a>
 			
 								<div style="display: flex; margin-top: 1%;">
 									<img src="${path}/resources/pato/images/class/chef-hat.png" width="20" height="20"><h5>${c.mastserName}</h5>
@@ -142,13 +144,13 @@
 			
 			<div style="display: flex;">
 				<!-- 페이지바 -->
-				<div class="pagination" style="margin-right: -5%;">
-					<a href="#" class="item-pagination flex-c-m trans-0-4">prev</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4">3</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4">next</a>
-				</div>
+				<form action="${path}/class/search.do?search=${search }&&searchlist=${searchlist }">
+				  	<div style="display: flex;margin-left:50%">
+			        	${pageBar}
+			        	<input type="hidden" name="search" value="${search }">
+			        	<input type="hidden" name="searchlist" value="${searchlist }">
+			   		</div>
+		   		</form>
 				<!-- 글등록,장인등록 -->
 				<div style="display: flex; margin-left: 61%;">
 					<button type="submit" class="btn3 flex-c-m txt11 trans-0-4" style="margin-right: 3%;">

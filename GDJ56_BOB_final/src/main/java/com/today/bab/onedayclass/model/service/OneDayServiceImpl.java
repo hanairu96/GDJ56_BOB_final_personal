@@ -28,8 +28,18 @@ public class OneDayServiceImpl implements OneDayService {
 	}
 
 	@Override
-	public List<OneDayClass> selectClassList() {
-		return dao.selectClassList(session);
+	public List<OneDayClass> selectClassList(Map<String, Integer> param) {
+		return dao.selectClassList(session,param);
+	}
+	
+	@Override
+	public int countClasslist() {
+		return dao.countClasslist(session);
+	}
+	
+	@Override
+	public int searchCountClasslist(Map param) {
+		return dao.countClasslist(session);
 	}
 
 	@Override
@@ -55,7 +65,17 @@ public class OneDayServiceImpl implements OneDayService {
 
 	@Override
 	public int endclassEnroll(OneDayClass odc) {
-		return dao.endclassEnroll(session, odc);
+		System.out.println("수업번호"+odc.getOdcNo());
+		String no=String.valueOf(odc.getOdcNo());
+		OneDayClass e = dao.odcView(session,no);
+		if(e!=null){
+			System.out.println("수업존배여부");
+			System.out.println(odc);
+			return dao.updateClass(session,odc);
+		}else{
+			System.out.println("수업존배여여부");
+			return dao.endclassEnroll(session, odc);
+		}
 	}
 
 	@Override
@@ -107,6 +127,17 @@ public class OneDayServiceImpl implements OneDayService {
 	public List<OdcReview> selectReviewByodcNo(int odcNo) {
 		return dao.selectReviewByodcNo(session,odcNo);
 	}
+
+	@Override
+	public int countPerson(Map param) {
+		return dao.countPerson(session,param);
+	}
+
+	@Override
+	public int inputReservation(Map param) {
+		return dao.inputReservation(session, param);
+	}
+	
 	
 	
 	

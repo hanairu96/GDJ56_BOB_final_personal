@@ -29,9 +29,25 @@
 <script>
 	//달력 배치 및 효과 스크립트
 	$(function () {
+		//로그인한 회원 아이디
+		
 		$("#search").on("click", function() {
-			$("#searchbox").slideDown("fast"); // 2초에 걸쳐서 진행
+				
+			const reDate=$("#testDatepicker").val();
+			const memberId=$('#memberId').val();
+			console.log(memberId)
+			if(memberId==''){
+				alert('로그인 시 이용가능한 서비스 입니다');
+				return window.location.assign("${path}/member/loginpage");
+			}
+			if(reDate==''){
+				alert('날짜를 지정해주시요');
+			}else{
+				$("#searchbox").slideDown("fast"); // 2초에 걸쳐서 진행
+			}
+			
 		});
+		
 		$(window).scroll(  
 			function(){  
 				console.log('test');
@@ -56,6 +72,7 @@
 			}
 		);
 	});
+	
 </script>
 
 <body>
@@ -94,24 +111,31 @@
 				<div class="col-md-8 col-lg-9">
 					<div class=" bo5-r">
 						<div class="blo4 p-b-63">
-
 							<div class="zoom bo-rad-10" style="margin: 3%;">
 								<img src="${path}/resources/images/onedayclass/${odc.odcMainPic }" height="450">
 							</div>
 
 							<div class="t-center">
-								<h4 class="">
 									<h3>${odc.odcClassName }</h3>
+									<c:set var="odcmasterId" value="${odc.memberId }"/> 
+									<c:set var="m" value="${loginMember.memberId }"/> 
+									<c:if test="${m eq odcmasterId }">
+										<div style="margin-left:79%">
+											<a href="${path}/class/editClass.do?no=${odc.odcNo }">
+												<img src="${path }/resources/images/onedayclass/edit.png" width=30 height=30>
+												<b style="color:black">글 수정하기</b>
+											</a>
+										</div>
+									</c:if>
 									<br>
-								</h4>
 								<span id="classinfo" style="color:white">───────────────────────────────────────────────────</span>
 								<div style="display: flex;">
 									<div style="border:solid black 2px;">
 									<span>
 										<img src="${path}/resources/pato/images/class/cook-male.png" width="30" height="30">
-										${odc.mastserName}
+										${odc.masterName}
 										<input type="hidden" name="masterId" value="${odc.memberId }" id="masterId">
-										<input type="hidden" name="masterName" value="${odc.mastserName}" id="masterName">
+										<input type="hidden" name="masterName" value="${odc.masterName}" id="masterName">
 									</span>
 									</div>
 									&nbsp;&nbsp;
@@ -177,7 +201,7 @@
 								<h4 class="txt33 p-b-14">강사님 소개</h4><br>
 								
 								 <c:choose>
-		              				 <c:when test="${empty h }">
+		              				 <c:when test="${empty h}">
 		              				 	<strong>강사님은 아직 경력이 없지만 열심히 수업을 준비하셨습니다👨‍🍳💪</strong>
 		              				 </c:when>
 		              				 <c:otherwise>
@@ -269,8 +293,13 @@
 									onclick="goPopup(event);">
 											리뷰작성하기
 									</button>
+									
 								</div>
 									<br>
+									<label>
+										<input type="checkbox" value="secret" name="secret" id="secret">
+										내가 쓴 글
+									</label>
 									<p style="color: rgb(195, 195, 195);">
 										* 클래스를 수강한 회원님들의 후기입니다.
 									</p>
@@ -285,6 +314,10 @@
 								<h4 class="txt33 p-b-14">
 									문의하기
 								</h4>
+								<label>
+									<input type="checkbox" value="secret" name="secret" id="secret">
+									내가 쓴 글
+								</label>
 								<div class="col-md-12" id="">
 									<div class=" size12 bo2 bo-rad-10 m-t-3 m-b-23">
 										<input type="hidden" name="memberId" value="${loginMember.memberId }" id="memberId">
@@ -509,10 +542,10 @@
 						html+="</div>";
 						html+="<div class='col-md-12'style='display:flex; margin-left: -1.5%;'>";
 						if(data[i].oreGood=='Y'){
-							html+="<div style='border-radius: 10px; border: solid #898585 1px; margin: 1%;'> &nbsp;#추천해요👍&nbsp; </div>";
+							html+="<div style='border-radius: 10px; border: solid #898585 1px; margin: 1%;'> &nbsp;추천해요👍&nbsp; </div>";
 						}
 						if(data[i].oreSame=='Y'){
-							html+="<div style='border-radius: 10px; border: solid #898585 1px;margin: 1%'> &nbsp;#실제 수업은 클래스 소개와 동일한 방식으로 진행됐어요😊 </div>";
+							html+="<div style='border-radius: 10px; border: solid #898585 1px;margin: 1%'> &nbsp;실제 수업은 클래스 소개와 동일한 방식으로 진행됐어요😊 </div>";
 						}
 						html+="</div>";
 						html+="<div class='col-md-12' style='display: flex;'>";
@@ -615,7 +648,8 @@
 						<div style="text-align: center;" id="calender">
 							<h3>클래스일정</h3>
 							<p>원하는 날짜를 선택해주세요</p>
-							<input type="text" id="testDatepicker" style="border: #111111 solid 2px;" placeholder="클릭해서 가능한 날짜 보기" onchange="inputValueChange()">
+							<input type="text" id="testDatepicker" style="border: #111111 solid 2px;" placeholder="클릭해서 가능한 날짜 보기" onchange="onchanged();">
+							<input type="hidden" id="ddd" value="<fmt:formatDate value='${odc.odcEndDate }' pattern='yyyy-MM-dd'/>">
 							<button type="submit" class="btn3" id="search">
 								날짜확정
 							</button>	
@@ -623,30 +657,72 @@
 						<!-- datepicker 스크립트  -->
 							<script>
 								$(function(){
-									const date=$("#testDatepicker").datepicker({
-									});
+									const endDate=$("#ddd").val();
+									$("#testDatepicker").datepicker({
+										  dateFormat: 'yy-mm-dd',
+										  minDate: 0,
+										  maxDate: endDate
+										});	
 								})
+								function onchanged(){
+									const odcNo= $('#odcNo').val();
+									const reDate=$("#testDatepicker").val();
+									const odcPerson=${odc.odcPeople};
+									console.log(odcPerson);
+									$.ajax({
+								        type:'get',
+								        url : "<c:url value='/class/countPerson.do'/>",
+								        data:{
+								        	"reDate" : reDate,
+								        	"odcNo" : odcNo
+										}, 
+								        contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+								        success : function(data){
+								        	if(odcPerson==data){
+								        		$("#testDatepicker").val('');
+								        		alert('선택하신 날짜는 예약 가능한 인원수를 모두 채워져 예약 마감됐습니다')
+								        		$("#searchbox").slideUp("fast");
+								        		return;
+								        	}else{
+								        		const cPerson=data;
+									        	$("#person").text(cPerson);
+									        	$("#datepic").text(reDate);
+									        	$("input[name=odcDate]").val(reDate);
+								        	};
+								        },
+										error:function(){
+						        		alert('통신실패');
+						      			}
+									});
+								}
 							</script> 
 							
 							
 							<div style="border: solid black; width: 100; height: 300; display: none; text-align: center;" id="searchbox">
-								<p>참가인원 10/100</p>
-								<p>예약 금액 1인 38,000원</p>
-								<p>17:30 예약하시겠습니까?</p>
-								<p>
-									클래스 특성상 예약 후 재료준비로 인해
-									취소 및 환불이 불가능 합니다.
-								</p>	
-								<label>
-								<input type="checkbox">
-								동의
-								</label>
-								
-								<br>
-								
-								<button type="submit" class="btn3" >
-									예약하기
-								</button>	
+								<form action="${path }/class/inputReservation.do">
+									<h4>예약 정보</h4>
+									<p id="datepic"></p>
+									<input type="hidden" name="odcDate" value="">
+									<input type="hidden" name="memberId" value="${loginMember.memberId }">
+									<input type="hidden" name="odcNo" value="${odc.odcNo} ">
+									<p>${odc.odcStartTime }</p>
+									<p>예약 금액(1인) : ${odc.odcPrice}</p>
+									<p>해당 클래스는 ${odc.odcPeople }명까지 신청이 가능합니다.</p>
+									<p>현재 <b id="person" style="color:purple"></b>명이 신청했습니다</p>
+									<p>
+										클래스 특성상 예약 후 재료준비로 인해</p>
+									<p>	취소 및 환불이 불가능 합니다.
+									</p>	
+									<label>
+									<input type="checkbox">
+									동의
+									</label>
+									
+									<br>
+									<button type="submit" class="btn3" >
+										예약하기
+									</button>
+								</form>	
 							</div>
 						</div>	
 					</div>

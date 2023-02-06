@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market2.model.dao.MarketDao;
 import com.today.bab.market2.model.vo.SellItem;
 import com.today.bab.market2.model.vo.TobobDetail;
@@ -77,7 +78,7 @@ public class MarketServiceImpl implements MarketService {
 														//		return dao.selectTodayBobByTitle(session, reTitle);
 														//	}
 	@Override
-	@Transactional
+	@Transactional //트랜잭션처리
 	public int insertTodayBobItems(Map<String, Object> param) {//타이틀&아이템등록 동시에
 		
 		
@@ -113,6 +114,46 @@ public class MarketServiceImpl implements MarketService {
 	@Override
 	public List<SellItem> todayView(int reNo) {
 		return dao.todayView(session, reNo);
+	}
+	@Override
+	public List<SellItem> todayViewAll() {
+		return dao.todayViewAll(session);
+	}
+	
+	@Override
+	public List<SellItem> discountView() {
+		return dao.discountView(session);
+	}
+	@Override
+	public int discountCount() {
+		return dao.discountCount(session);
+	}
+	
+	@Override
+	public TodayBob todobDetailByreNo(int selectTitleNext) {
+		return dao.todobDetailByreNo(session, selectTitleNext);
+	}
+	
+	@Override
+	@Transactional //트랜잭션처리
+	public int checkTodayBobModifyEnd(Map<String, Object> param) {
+
+		String itemLS = (String)param.get("itemLS");
+		int selectTitleNext = (int)param.get("selectTitleNext");
+		
+		//삭제먼저하고
+		int result = dao.deleteModi(session, selectTitleNext);
+		
+		//insert
+		for(int i=0; i<itemLS.split(",").length; i++) {
+			dao.insertTodayBobItem(session, Map.of(	"item",itemLS.split(",")[i],"reNo",selectTitleNext)	);
+		}
+		
+		return 1;
+	}
+	@Override
+	public int cart(Basket b) {
+		return dao.cart(session, b);
 	}
 	
 	

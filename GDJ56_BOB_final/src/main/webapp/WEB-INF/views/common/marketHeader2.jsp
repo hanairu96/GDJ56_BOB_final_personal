@@ -35,7 +35,7 @@
 <body>
 <div class="marketHeader" style="width: 89%; display: flex; margin-left: 100px;">
     <!-- /.카테고리 -->
-    <section class="hero hero-normal col-lg-3" style="margin-top: 25px;">
+    <!-- <section class="hero hero-normal col-lg-3" style="margin-top: 25px;">
         <div class="hero__categories">
             <div class="hero__categories__all">
                 <i class="fa fa-bars"></i>
@@ -51,14 +51,15 @@
                 <li><a href="#">면·양념·오일</a></li>
             </ul>
         </div>
-    </section>
+    </section> -->
     <!-- 카테고리./ -->
-    <div class="col-lg-6">
+    <div class="col-lg-9">
         <nav class="header__menu" id="header__menu" style="margin-top: 5px; display: flex;"><!-- 부트입히고 display빼기 -->
             <ul>
-                <li class="menu"><a href="${path }/market/best.do" onclick="fn_menu();">베스트</a></li><!--체크시class="active"적용-->
-                <li class="menu"><a href="${path }/market/discount.do" onclick="fn_menu();">오늘만</a></li>
-                <li class="menu"><a href="${path }/market/today.do" onclick="fn_menu();">오늘의 밥 추천</a></li>
+                <li class="menu"><a href="${path }/market/best.do" onclick="fn_menu();">카테고리     </a></li><!--체크시class="active"적용-->
+                <li class="menu"><a href="${path }/market/best.do" onclick="fn_menu();">베스트     </a></li><!--체크시class="active"적용-->
+                <li class="menu"><a href="${path }/market/discount.do" onclick="fn_menu();">오늘만     </a></li>
+                <li class="menu"><a href="${path }/market/today.do" onclick="fn_menu();">오늘의 밥 추천     </a></li>
             </ul>
         </nav>
     </div>
@@ -95,11 +96,12 @@ const fn_menu = ()=>{
 #header__menu>ul>li{
     font-family: TmonMonsori;
     font-size: 100px;
+    width: 200px;
 }
 #header__menu>ul>li>a{
     font-size: 20px;
     margin-left: 20px;
-    padding-left: 32px;
+    /* padding-left: 32px; */
     color: gray; 
 }
 .hero__categories ul li a{
@@ -108,8 +110,11 @@ const fn_menu = ()=>{
 .marketHeader {
     position: sticky;
     z-index: 100;
-    top: 200px;
+    top: 150px;
     background: rgba(137, 43, 226, 0.167);
+}
+#header__menu>ul {
+    padding: rever;
 }
 </style>
 

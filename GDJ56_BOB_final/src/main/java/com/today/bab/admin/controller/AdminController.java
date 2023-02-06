@@ -205,7 +205,7 @@ public class AdminController {
 		return mv;
 		
 	}
-	//장인-심사
+	//장인-심사 내용출력
 	@RequestMapping("/masterTest.do")
 	public ModelAndView adminMasterTest(ModelAndView mv,String name) {
 		
@@ -221,16 +221,20 @@ public class AdminController {
 	
 	//장인-심사 : 탈락/승인 처리
 	@RequestMapping("/masterTestEnd.do")
-	public ModelAndView masterTestEnd(ModelAndView mv,String name,String masterTestText,String test) {
+	public ModelAndView masterTestEnd(ModelAndView mv,String name,String masterTestText,String test,String masterId) {
 		
 		String ing="";
 		if(test.equals("'탈락'")) ing="N";
 		else ing="Y";
 		
-		AdminMaster m=AdminMaster.builder().name(name).ing(ing).fail(masterTestText).build();
+		AdminMaster m=AdminMaster.builder().memberId(masterId).name(name).ing(ing).fail(masterTestText).build();
 		int result=service.masterTestEnd(m);
+		int result1=service.masterTestEnd2(m);
+		System.out.println(m);
+		System.out.println(result);
+		System.out.println(result1);
 		
-		if(result>0) {
+		if(result>0&&result1>0) {
 			mv.addObject("msg","심사 저장 완료");
 			mv.addObject("loc","/admin/master.do");
 		}else {

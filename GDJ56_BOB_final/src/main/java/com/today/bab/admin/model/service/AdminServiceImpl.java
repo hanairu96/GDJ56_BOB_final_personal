@@ -106,6 +106,11 @@ public class AdminServiceImpl implements AdminService{
 	public int masterTestEnd(AdminMaster m) {
 		return dao.masterTestEnd(session,m);
 	}
+	
+	@Override
+	public int masterTestEnd2(AdminMaster m) {
+		return dao.masterTestEnd2(session,m);
+	}
 
 	@Override
 	public List<ClientQNA> selectQnAList(Map<String, Integer> param) {

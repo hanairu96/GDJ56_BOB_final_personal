@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath }"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="path" value="${pageContext.request.contextPath }"/> 
 
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
@@ -325,7 +327,7 @@
 	                        <c:out value="${m.orderName }"/>
 	                      </td>
 	                      <td class="px-4 py-3 text-sm font-semibold">
-	                        <c:out value="${m.price }"/>원
+	                      <fmt:formatNumber type="number" maxFractionDigits="3" value="${m.price }" />원
 	                      </td>
 	                      <td class="px-4 py-3 text-sm font-semibold">
 	                        <c:out value="${m.refundDate }"/>
