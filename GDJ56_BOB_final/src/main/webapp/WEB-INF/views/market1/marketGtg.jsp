@@ -146,37 +146,36 @@
 						            }
 						        })
 					    }; */
+						var arr=new Array();
+						<c:forEach var="b" items="${basket}">
+							arr.push({itemNo:${b.itemNo}});
+						</c:forEach>
 						
 						const addbasketitem=(no,memberId,mainPic,itemName)=>{
 		 					if(${loginMember==null}){
 								alert("로그인 후 사용가능합니다.");
 							}else{
-								var arr=new Array();
-								<c:forEach var="b" items="${basket}">
-									arr.push({itemNo:${b.itemNo}});
-								</c:forEach>
-								for(let i=0;arr.length;i++){
-									if(arr[i].itemNo==no){
-										console.log(no);
-										Swal.fire({
-								            title: itemName,
-								            text: "이 상품은 이미 담겨있습니다. 더 담으시겠습니까?",
-								            imageUrl: '${path }/resources/upload/market/mainlabel/'+mainPic,
-								            showCancelButton: true,
-								            confirmButtonColor: '#07d448',
-								            cancelButtonColor: 'magenta',
-								            confirmButtonText: '장바구니 추가',
-								            cancelButtonText: '계속 쇼핑하기'
-								        }).then((result) => {
-								        	if (result.isConfirmed) {
-												location.assign('${path}/basket/updatebasket.do?itemNo='+no+'&memberId='+memberId); 
-								        	}
-								        })
-									}
+								const item=arr.filter(e=>e.itemNo==no);
+								console.log(item);
+ 								if(item.length>0){
+ 									Swal.fire({
+ 							            title: itemName,
+ 							            text: "이 상품은 이미 담겨있습니다. 더 담으시겠습니까?",
+ 							            imageUrl: '${path }/resources/upload/market/mainlabel/'+mainPic,
+ 							            showCancelButton: true,
+							            confirmButtonColor: '#07d448',
+ 							            cancelButtonColor: 'magenta',
+ 							            confirmButtonText: '장바구니 추가',
+ 							            cancelButtonText: '계속 쇼핑하기'
+ 							        }).then((result) => {
+ 							        	if (result.isConfirmed) {
+ 											location.assign('${path}/basket/updatebasket.do?itemNo='+no+'&memberId='+memberId); 
+ 							        	}
+ 							        })
+ 								}else{
+ 									location.assign('${path}/basket/insertbasket.do?itemNo='+no+'&memberId='+memberId);
+							
 								}
-								
-								//??아니 어떻게 해야하징...
-								location.assign('${path}/basket/insertbasket.do?itemNo='+no+'&memberId='+memberId);
 							}
 						}
                 	</script>
