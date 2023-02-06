@@ -1,9 +1,13 @@
 package com.today.bab.admin.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,20 +16,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.admin.model.service.AdminService;
+import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
-import com.today.bab.admin.model.vo.AdminQnaAll;
+import com.today.bab.admin.model.vo.AdminSearch;
 import com.today.bab.admin.model.vo.AdminSubscription;
+import com.today.bab.admin.model.vo.AdminTotalData;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.common.AdminPageBar;
+import com.today.bab.common.AdminPageBar2;
+import com.today.bab.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/admin")
 //@SessionAttributes({"loginMember"})
 public class AdminController {
 	
-private AdminService service;
+	private AdminService service;
 	
 	@Autowired
 	public AdminController(AdminService service) {
@@ -34,8 +42,15 @@ private AdminService service;
 	
 	//관리자페이지 메인
 	@RequestMapping("/main.do")
-	public String adminMain() {
-		return "admin/adminMain";
+	public ModelAndView adminMain(ModelAndView mv) {
+		List<AdminTotalData> atd=service.adminTotalData();
+		
+		mv.addObject("profit",atd.get(0).getTotal());
+		mv.addObject("sales",atd.get(1).getTotal());
+		mv.addObject("members",atd.get(2).getTotal());
+		mv.setViewName("admin/adminMain");
+		
+		return mv;
 	}
 	
 	//회원관리
@@ -190,7 +205,7 @@ private AdminService service;
 		return mv;
 		
 	}
-	//장인-심사
+	//장인-심사 내용출력
 	@RequestMapping("/masterTest.do")
 	public ModelAndView adminMasterTest(ModelAndView mv,String name) {
 		
@@ -206,16 +221,20 @@ private AdminService service;
 	
 	//장인-심사 : 탈락/승인 처리
 	@RequestMapping("/masterTestEnd.do")
-	public ModelAndView masterTestEnd(ModelAndView mv,String name,String masterTestText,String test) {
+	public ModelAndView masterTestEnd(ModelAndView mv,String name,String masterTestText,String test,String masterId) {
 		
 		String ing="";
 		if(test.equals("'탈락'")) ing="N";
 		else ing="Y";
 		
-		AdminMaster m=AdminMaster.builder().name(name).ing(ing).fail(masterTestText).build();
+		AdminMaster m=AdminMaster.builder().memberId(masterId).name(name).ing(ing).fail(masterTestText).build();
 		int result=service.masterTestEnd(m);
+		int result1=service.masterTestEnd2(m);
+		System.out.println(m);
+		System.out.println(result);
+		System.out.println(result1);
 		
-		if(result>0) {
+		if(result>0&&result1>0) {
 			mv.addObject("msg","심사 저장 완료");
 			mv.addObject("loc","/admin/master.do");
 		}else {
@@ -336,15 +355,143 @@ private AdminService service;
 	
 	//환불관리
 	@RequestMapping("/refund.do")
-	public String adminRefund() {
-		return "admin/adminRefund";
+	public ModelAndView adminRefund(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {
+		
+		mv.addObject("list",service.adminRefund(Map.of("cPage",cPage,"numPerpage",numPerpage)));
+		
+		//페이징처리하기
+		int totalData=service.adminRefundCount(); //환불신청 건수
+		
+		mv.addObject("pageBar",AdminPageBar.getPage(cPage, numPerpage, totalData, "refund.do"));
+		mv.addObject("totalData",totalData);
+		mv.setViewName("admin/adminRefund");
+		
+		return mv;
 	}
 	
-	//환불-상세
-	@RequestMapping("/refundInfo.do")
-	public String adminRefundInfo() {
-		return "admin/adminRefundInfo";
+	//환불처리
+	@RequestMapping("/refundEnd.do")
+	public void orderCancle(String merchant_uid, int cancel_request_amount, String reason,
+	HttpServletResponse response)throws IOException {
+		
+		AdminItemOrder cancelOrder = service.selectcancelOrder(merchant_uid);
+		
+		String result="";
+		String end="";
+	    if(!"".equals(cancelOrder.getMerchantUid())) {
+	        String token = service.getToken(); //토큰발급
+	        service.payMentCancle(token,cancelOrder.getMerchantUid(), cancel_request_amount, reason); //토큰,uid,환불금액,환불사유 로 환불요청
+	        result="성공";
+	    }else {
+	    	 result="실패";
+	    }
+	    
+	    if(result.equals("성공")) {
+	    	int result2=service.updateItemOrder(cancelOrder);
+	    	int result3=1;
+	    	
+	    	if(result2>0) {
+	    		if(cancelOrder.getPointUse()>0) {
+		    		result3=service.insertPoint(cancelOrder);
+		    	}
+	    	}
+	    	if(result2>0&&result3>0) {
+	    		end="환불 승인 완료";
+	    	}else {
+	    		end="환불 승인 실패";
+	    	}
+	    }else {
+	    	end="환불 승인 실패";
+	    }
+	    response.setContentType("text/csv;charset=utf-8");
+		response.getWriter().print(end);
 	}
 	
+	//상품관리
+	@RequestMapping("/product.do")
+	public ModelAndView adminProductList(ModelAndView mv,
+		@RequestParam(value="cPage", defaultValue="1") int cPage,
+		@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {
+
+		mv.addObject("list",service.adminProductList(Map.of("cPage",cPage,"numPerpage",numPerpage)));
+		System.out.println("상품관리"+service.adminProductList(Map.of("cPage",cPage,"numPerpage",numPerpage)));
+		//페이징처리하기
+		int totalData=service.adminProductCount(); 
+		
+		mv.addObject("pageBar",AdminPageBar.getPage(cPage, numPerpage, totalData, "product.do"));
+		mv.addObject("totalData",totalData);
+		mv.setViewName("admin/adminProduct");
+		
+		return mv;
+	}
 	
+	//회원검색
+	@RequestMapping("/memberSearch.do")
+	public ModelAndView memberSearchClass(ModelAndView mv, String search, String searchlist,
+			int cpage, int numPerpage) {	
+		
+		if(searchlist.equals("searchNo")) {
+			AdminSearch as=AdminSearch.builder().cpage(cpage).numPerpage(numPerpage).type(searchlist)
+					.keyword(search).build();
+			
+			mv.addObject("totalData",0);
+			mv.addObject("as", as);
+			mv.setViewName("admin/memberSearch");
+		}else {
+			AdminSearch as=AdminSearch.builder().cpage(cpage).numPerpage(numPerpage).type(searchlist)
+					.keyword(search).build();
+			
+	        List<Member> list = service.memberSearchClass(as);
+	        
+		    //페이징처리하기
+			int totalData=service.memberSearchClassCount(as);
+			
+			mv.addObject("pageBar",AdminPageBar2.getPage(cpage, numPerpage, totalData, "memberSearch.do"));
+			mv.addObject("totalData",totalData);
+			mv.addObject("list",list);
+		    mv.addObject("as", as);
+			mv.setViewName("admin/memberSearch");
+		}
+		return mv;
+	}
+	
+	//장인검색
+	@RequestMapping("/masterSearch.do")
+	public ModelAndView masterSearchClass(ModelAndView mv, String search, String searchlist,
+		int cpage, int numPerpage) {	
+
+		if(searchlist.equals("searchNo")) {
+			AdminSearch as=AdminSearch.builder().cpage(cpage).numPerpage(numPerpage).type(searchlist)
+					.keyword(search).build();
+			
+			mv.addObject("totalData",0);
+			mv.addObject("as", as);
+			mv.setViewName("admin/masterSearch");
+		}else {
+			AdminSearch as=AdminSearch.builder().cpage(cpage).numPerpage(numPerpage).type(searchlist)
+					.keyword(search).build();
+			
+	        List<AdminMaster> list = service.masterSearchClass(as);
+	        
+		    //페이징처리하기
+			int totalData=service.masterSearchClassCount(as);
+			
+			//페이징처리하기
+			int yesData=service.masterSearchClassYesCount(as); //장인인사람
+			int ingData=service.masterSearchClassIngCount(as); //심사필요한사람
+			
+			mv.addObject("ingData",ingData);
+			mv.addObject("yesData",yesData);
+			
+			mv.addObject("pageBar",AdminPageBar2.getPage(cpage, numPerpage, totalData, "masterSearch.do"));
+			mv.addObject("totalData",totalData);
+			mv.addObject("list",list);
+		    mv.addObject("as", as);
+			mv.setViewName("admin/masterSearch");
+		}
+		return mv;
+	}
+		
 }

@@ -22,5 +22,8 @@ public class ItemReview {
 	private String iqrContent;
 	private Date iqrDate;
 	private int iqrStar;
+	private int orderNo;
 	private List<ItemrePic> itemrepic;
+	
+	private int countreivew;
 }

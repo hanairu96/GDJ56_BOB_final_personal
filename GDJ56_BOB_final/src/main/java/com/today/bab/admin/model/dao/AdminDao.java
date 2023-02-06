@@ -5,10 +5,14 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminQnaAll;
+import com.today.bab.admin.model.vo.AdminSearch;
+import com.today.bab.admin.model.vo.AdminSellItem;
 import com.today.bab.admin.model.vo.AdminSubscription;
+import com.today.bab.admin.model.vo.AdminTotalData;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.member.model.vo.Member;
@@ -41,6 +45,8 @@ public interface AdminDao {
 	
 	int masterTestEnd(SqlSessionTemplate session, AdminMaster m);
 	
+	int masterTestEnd2(SqlSessionTemplate session, AdminMaster m);
+	
 	List<ClientQNA> selectQnAList(SqlSessionTemplate session,Map<String,Integer> param);
 	
 	int selectQnACount(SqlSessionTemplate session);
@@ -63,4 +69,35 @@ public interface AdminDao {
 	
 	int qnAOnedayCount(SqlSessionTemplate session);
 	
+	List<AdminItemOrder> adminRefund(SqlSessionTemplate session,Map<String,Integer> param);
+	
+	int adminRefundCount(SqlSessionTemplate session);
+	
+	AdminItemOrder selectcancelOrder(SqlSessionTemplate session,String merchant_uid);
+	
+	int updateItemOrder(SqlSessionTemplate session,AdminItemOrder updateItemOrder);
+	
+	int insertPoint(SqlSessionTemplate session,AdminItemOrder updatePoint);
+	
+	List<AdminTotalData> adminTotalData(SqlSessionTemplate session);
+	
+	List<AdminSellItem> adminProductList(SqlSessionTemplate session,Map<String,Integer> param);
+	
+	int adminProductCount(SqlSessionTemplate session);
+	
+	List<Member> memberSearchClass(SqlSessionTemplate session,AdminSearch as);
+	
+	int memberSearchClassCount(SqlSessionTemplate session,AdminSearch as);
+	
+	List<AdminMaster> masterSearchClass(SqlSessionTemplate session,AdminSearch as);
+	
+	int masterSearchClassCount(SqlSessionTemplate session,AdminSearch as);
+	
+	int masterSearchClassYesCount(SqlSessionTemplate session,AdminSearch as);
+	 
+	int masterSearchClassIngCount(SqlSessionTemplate session,AdminSearch as);
+	
+	
 }
+
+

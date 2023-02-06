@@ -7,10 +7,14 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminQnaAll;
+import com.today.bab.admin.model.vo.AdminSearch;
+import com.today.bab.admin.model.vo.AdminSellItem;
 import com.today.bab.admin.model.vo.AdminSubscription;
+import com.today.bab.admin.model.vo.AdminTotalData;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.member.model.vo.Member;
@@ -86,6 +90,11 @@ public class AdminDaoImpl implements AdminDao{
 	public int masterTestEnd(SqlSessionTemplate session, AdminMaster m) {
 		return session.update("admin.masterTestEnd",m);
 	}
+	
+	@Override
+	public int masterTestEnd2(SqlSessionTemplate session, AdminMaster m) {
+		return session.update("admin.masterTestEnd2",m);
+	}
 
 	@Override
 	public List<ClientQNA> selectQnAList(SqlSessionTemplate session, Map<String, Integer> param) {
@@ -148,6 +157,90 @@ public class AdminDaoImpl implements AdminDao{
 		return session.selectList("admin.adminQnAOneDay",null, 
 	            new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
 	                  param.get("numPerpage")));
+	}
+
+	@Override
+	public List<AdminItemOrder> adminRefund(SqlSessionTemplate session, Map<String, Integer> param) {
+		return session.selectList("admin.adminRefund",null, 
+	            new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+	                  param.get("numPerpage")));
+	}
+
+	@Override
+	public int adminRefundCount(SqlSessionTemplate session) {
+		return session.selectOne("admin.adminRefundCount");
+	}
+
+	@Override
+	public AdminItemOrder selectcancelOrder(SqlSessionTemplate session, String merchantUid) {
+		return session.selectOne("admin.selectcancelOrder",merchantUid);	
+	}
+
+	@Override
+	public int updateItemOrder(SqlSessionTemplate session, AdminItemOrder updateItemOrder) {
+		return session.update("admin.updateItemOrder",updateItemOrder);
+	}
+
+	@Override
+	public int insertPoint(SqlSessionTemplate session, AdminItemOrder updatePoint) {
+		return session.insert("admin.insertPoint",updatePoint);
+	}
+
+	@Override
+	public List<AdminTotalData> adminTotalData(SqlSessionTemplate session) {
+		return session.selectList("admin.adminTotalData");
+	}
+
+	@Override
+	public List<AdminSellItem> adminProductList(SqlSessionTemplate session, Map<String, Integer> param) {
+		return session.selectList("admin.adminProductList",null, 
+	            new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+	                  param.get("numPerpage")));
+	}
+
+	@Override
+	public int adminProductCount(SqlSessionTemplate session) {
+		return session.selectOne("admin.adminProductCount");
+	}
+
+	@Override
+	public List<Member> memberSearchClass(SqlSessionTemplate session, AdminSearch as) {
+//		int cPage=(((int)(param.get("cPage")))-1);
+//		int numPerpage=((int)(param.get("numPerpage")));
+		
+		return session.selectList("admin.memberSearchClass",as, 
+				new RowBounds((as.getCpage()-1)*as.getNumPerpage(),
+						as.getNumPerpage()));
+	}
+
+	@Override
+	public int memberSearchClassCount(SqlSessionTemplate session, AdminSearch as) {
+		return session.selectOne("admin.memberSearchClassCount",as);
+	}
+
+	@Override
+	public List<AdminMaster> masterSearchClass(SqlSessionTemplate session, AdminSearch as) {
+//		int cPage=(((int)(param.get("cPage")))-1);
+//		int numPerpage=((int)(param.get("numPerpage")));
+		
+		return session.selectList("admin.masterSearchClass",as, 
+				new RowBounds((as.getCpage()-1)*as.getNumPerpage(),
+						as.getNumPerpage()));
+	}
+
+	@Override
+	public int masterSearchClassCount(SqlSessionTemplate session, AdminSearch as) {
+		return session.selectOne("admin.masterSearchClassCount",as);
+	}
+
+	@Override
+	public int masterSearchClassYesCount(SqlSessionTemplate session, AdminSearch as) {
+		return session.selectOne("admin.masterSearchClassYesCount",as);
+	}
+
+	@Override
+	public int masterSearchClassIngCount(SqlSessionTemplate session, AdminSearch as) {
+		return session.selectOne("admin.masterSearchClassIngCount",as);
 	}
 	
 }

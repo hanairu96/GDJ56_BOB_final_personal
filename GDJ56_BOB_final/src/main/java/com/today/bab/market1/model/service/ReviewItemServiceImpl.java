@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.today.bab.market1.model.dao.ReviewItemDao;
 import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.market1.model.vo.ItemrePic;
+import com.today.bab.market1.model.vo.MarketMemberLike;
 
 @Service
 public class ReviewItemServiceImpl implements ReviewItemService {
@@ -28,6 +29,8 @@ public class ReviewItemServiceImpl implements ReviewItemService {
 		int result=dao.insertRe(session,r);
 		
 		if(result>0) {
+			result+=dao.insertPoint(session, r.getMemberId());
+					
 			for(ItemrePic pic:r.getItemrepic()) {
 				pic.setItemreivew(r);
 				result+=dao.insertReviewPic(session,pic);
@@ -35,16 +38,35 @@ public class ReviewItemServiceImpl implements ReviewItemService {
 		}		
 		return result;
 	}
-	
+
 	@Override
 	public List<ItemReview> selectReviewAll(int itemNo){
 		return dao.selectReviewAll(session,itemNo);
 	}
 	
+//	@Override
+//	public List<ItemReview> selectReviewAll(int itemNo,Map<String,Integer> param){
+//		return dao.selectReviewAll(session,itemNo,param);
+//	}
+//	@Override
+//	public int selectReviewCount() {
+//		return dao.selectReviewCount(session);
+//	}
+	
+	@Override
+	public List<ItemrePic> selectrReviewPic(){
+		return dao.selectrReviewPic(session);
+	}
+	
+	@Override
+	public int selectAvg(int itemNo) {
+		return dao.selectAvg(session,itemNo);
+	}
 
-	
-	
-	
+	@Override
+	public List<ItemReview> choiceReviewList(String list){
+		return dao.choiceReviewList(session,list);
+	}
 	
 	
 }

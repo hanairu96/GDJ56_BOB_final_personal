@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath }"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="path" value="${pageContext.request.contextPath }"/> 
 
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
@@ -233,8 +235,11 @@
               </li>
               
               <li class="flex">
-              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAADC0lEQVR4nO2WXUiTURjHDzWjiy6LIi+km6CbLoqCYEQRRYSCjGYqY/ah1ObH1GxqOTdrOsu2kjQIGyzMMM2iWKskXNZmY1A6Lbecq5hufVC+73veiCDtH+9q9p3DyLrYH35X5zz8Dg+Hcx5CphEAsxiGWcFxXAml1DY2NtYbCoUyyd8Ix3FLKaUKjuMucBz3mlIKgQcDw+j3DIFhmPcKhWLZtAUA5vA8v4HneSnHcTsppRaWZUejosBwEBfb7dCWnoQ0uRRZkv1QF52MrHV3dzcKdQKUUgnDMEtilSZQSl1RicDoyHPYrD0w1jQjO7MK6SmlOFqggd2ow5tLBnjPNUyKv4dl2XG3271jSjHLsquEguO1zdiRpoFMUgFZahmMqkrcMunAdhiAa4e/wdtsxOb1xdgu1URqomRn6OAbfAyv1+smhMz7rZjn+XWCWJl1CB35MngttT+Ivodpr0bjzu2wFsrQrc6cpCBNBecdD/x+fz8hJDFmcVdJBsJtR6YUh8/XoTjnGGrUp2HSnIlg1+ZBnVn4d8UjrSZk5TQjd991FFbcimCrVMfFifFWT/tyvbf+g8v1orUGG8UqeM36mRU/Muuxbk0BnPVVMysetnwSu07MsHjCVgtrdSXeXamNPyCIP5n++O/0X/3HlNK1gjh/lwF50mIcyK7EeZ0WfoseE7afi72WOkiStdiWehAZEn2EvPQySDbthatnAENDQzGJF7As+/bpk1H03vPhbk8/zKcuQ5VzGFu3lEK7R4fLei1GzlZ/EZ9rQG6OKbL/G+77hCkTdru9gxCyiEwVp9OZ3NfX1+XxeByBQOAhwzDjQhdevXoNx+1eNNa3Ybdcj/SUMhjydTBraibHW5/P1yfURens7GxNSkraTAgRkRgz9/MpF4vF4uVNTU1FDoejIxgMBliW/SBInj97iZs33DAaWmAxX42I5XK5XKj5igWEkNmxSn+VWYSQ+VKpdE1LS4vG5XJdC4fDoejwPjg46E5ISFj5p5JYIrRvoVKp3FBeXr5LJBKt/typmPIRW0XTSiwMybkAAAAASUVORK5CYII=">
-                </li>
+              <!-- 나가는문 -->
+              <a href="${path }">
+              	<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAADC0lEQVR4nO2WXUiTURjHDzWjiy6LIi+km6CbLoqCYEQRRYSCjGYqY/ah1ObH1GxqOTdrOsu2kjQIGyzMMM2iWKskXNZmY1A6Lbecq5hufVC+73veiCDtH+9q9p3DyLrYH35X5zz8Dg+Hcx5CphEAsxiGWcFxXAml1DY2NtYbCoUyyd8Ix3FLKaUKjuMucBz3mlIKgQcDw+j3DIFhmPcKhWLZtAUA5vA8v4HneSnHcTsppRaWZUejosBwEBfb7dCWnoQ0uRRZkv1QF52MrHV3dzcKdQKUUgnDMEtilSZQSl1RicDoyHPYrD0w1jQjO7MK6SmlOFqggd2ow5tLBnjPNUyKv4dl2XG3271jSjHLsquEguO1zdiRpoFMUgFZahmMqkrcMunAdhiAa4e/wdtsxOb1xdgu1URqomRn6OAbfAyv1+smhMz7rZjn+XWCWJl1CB35MngttT+Ivodpr0bjzu2wFsrQrc6cpCBNBecdD/x+fz8hJDFmcVdJBsJtR6YUh8/XoTjnGGrUp2HSnIlg1+ZBnVn4d8UjrSZk5TQjd991FFbcimCrVMfFifFWT/tyvbf+g8v1orUGG8UqeM36mRU/Muuxbk0BnPVVMysetnwSu07MsHjCVgtrdSXeXamNPyCIP5n++O/0X/3HlNK1gjh/lwF50mIcyK7EeZ0WfoseE7afi72WOkiStdiWehAZEn2EvPQySDbthatnAENDQzGJF7As+/bpk1H03vPhbk8/zKcuQ5VzGFu3lEK7R4fLei1GzlZ/EZ9rQG6OKbL/G+77hCkTdru9gxCyiEwVp9OZ3NfX1+XxeByBQOAhwzDjQhdevXoNx+1eNNa3Ybdcj/SUMhjydTBraibHW5/P1yfURens7GxNSkraTAgRkRgz9/MpF4vF4uVNTU1FDoejIxgMBliW/SBInj97iZs33DAaWmAxX42I5XK5XKj5igWEkNmxSn+VWYSQ+VKpdE1LS4vG5XJdC4fDoejwPjg46E5ISFj5p5JYIrRvoVKp3FBeXr5LJBKt/typmPIRW0XTSiwMybkAAAAASUVORK5CYII=">
+              </a>
+              </li>
               
                   </ul>
                 </template>
@@ -331,219 +336,79 @@
              <!-- New Table -->
              <div class="w-full overflow-hidden rounded-lg shadow-xs">
               <div class="w-full overflow-x-auto">
-                <table class="w-full whitespace-no-wrap" style="text-align:center;">
+               <div style="display:flex;justify-content:space-between;align-items:center;">
+		          	<p>총 <b>${totalData }개</b>의 상품이 있습니다</p>
+	        	</div>
+                <table class="w-full whitespace-no-wrap" style="text-align:center;table-layout:fixed;">
+                  <c:if test="${empty list }">
+                   		<thead>
+			            	<tr>
+			            		<td colspan="8">등록된 상품이 없습니다 :(</td>
+			            	</tr>
+			            </thead>
+		            </c:if>
+		            <c:if test="${not empty list }">
                   <thead>
                     <tr
                     style="text-align:center;"
-                      class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                       class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
-                      <th class="px-4 py-3">카테고리</th>
+                      <th class="px-4 py-3">상품사진</th>
+                      <th class="px-4 py-3">브랜드</th>
                       <th class="px-4 py-3">제품명</th>
+                      <th class="px-4 py-3">가격</th>
+                      <th class="px-4 py-3">원산지</th>
                       <th class="px-4 py-3">등록일</th>
                       <th class="px-4 py-3">재고량</th>
                       <th class="px-4 py-3">관리</th>
                     </tr>
                   </thead>
                   <tbody
-                    class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
-                  >
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        채소
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        시금치
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <span
-                        class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
-                        >
-                       0
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <button
-                        style="width:fit-content;background-color: white; border: 1.5px solid purple; color: purple;"
-                        class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                      >상품등록</button>
-                      </td>
-                    </tr>
-
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        채소
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        시금치
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <span
-                        class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
-                        >
-                       0
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <button
-                        style="width:fit-content;background-color: white; border: 1.5px solid purple; color: purple;"
-                        class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                      >상품등록</button>
-                      </td>
-                    </tr>
-                    </tr>
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        채소
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        시금치
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                       5
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <button
-                        style="width:fit-content;background-color: white; border: 1.5px solid purple; color: purple;"
-                        class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                      >상품등록</button>
-                      </td>
-                    </tr>
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        채소
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        시금치
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                       15
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                      </td>
-                    </tr>
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        채소
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        시금치
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                       30
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                      </td>
-                    </tr>
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        채소
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        시금치
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                       80
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                      </td>
-                    </tr>
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        채소
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        시금치
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                       120
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                      </td>
-                    </tr>
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        채소
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        시금치
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                       250
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                      </td>
-                    </tr>
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        채소
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        시금치
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                       369
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                      </td>
-                    </tr>
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        채소
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        시금치
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                       480
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                      </td>
-                    </tr>
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        채소
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        시금치
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                       900
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                      </td>
-                    </tr>
-                  </tbody>
+	                    class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+	                  >
+	                  	<c:forEach var="m" items="${list }" >
+		                    <tr class="text-gray-700 dark:text-gray-400">
+	                      <td class="px-4 py-3 text-xs">
+	                      <img style="width:120px;height:120px;" src="${path }/resources/upload/market/mainlabel/${m.mainPic}">
+	                      </td>
+	                      <td class="px-4 py-3 text-xs" style="width:10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+	                        ${m.itemBrand}
+	                      </td>
+	                      <td class="px-4 py-3 text-sm" style="width:20px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+	                        ${m.itemName}
+	                      </td>
+	                      <td class="px-4 py-3 text-sm" >
+	                        ${m.itemPrice}
+	                      </td>
+	                      <td class="px-4 py-3 text-sm" style="width:10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+	                       ${m.madeIn }
+	                      </td>
+	                      <td class="px-4 py-3 text-sm" >
+	                        ${m.itemEnroll}
+	                      </td>
+	                      <td class="px-4 py-3 text-sm">
+	                       <c:if test="${m.itemStock eq 0 }">
+		                        <span
+		                        class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
+		                        >
+		                       ${m.itemStock }
+		                       </span>
+	                       </c:if>
+	                       <c:if test="${m.itemStock ne 0 }">
+		                        ${m.itemStock }
+	                       </c:if>
+	                      </td>
+	                      <td class="px-4 py-3 text-sm">
+	                        <button
+	                        onclick="location.assign('${path}/market1/updateItemGo.do?itemNo=${m.itemNo }');"
+	                        style="width:fit-content;background-color: white; border: 1.5px solid purple; color: purple;"
+	                        class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+	                      >상품정보수정</button>
+	                      </td>
+	                    </tr>
+					  </c:forEach>
+					</tbody>
+				  </c:if>
                 </table>
               </div>
               <div
@@ -551,91 +416,9 @@
               >
                 <span class="col-span-2"></span>
                 <!-- Pagination -->
-                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-center">
                   <nav aria-label="Table navigation">
-                    <ul class="inline-flex items-center">
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                          aria-label="Previous"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="w-4 h-4 fill-current"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                              clip-rule="evenodd"
-                              fill-rule="evenodd"
-                            ></path>
-                          </svg>
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          1
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          2
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          3
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          4
-                        </button>
-                      </li>
-                      <li>
-                        <span class="px-3 py-1">...</span>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          8
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          9
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-                          aria-label="Next"
-                        >
-                          <svg
-                            class="w-4 h-4 fill-current"
-                            aria-hidden="true"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                              clip-rule="evenodd"
-                              fill-rule="evenodd"
-                            ></path>
-                          </svg>
-                        </button>
-                      </li>
-                    </ul>
+                    ${pageBar}
                   </nav>
                 </span>
               </div>

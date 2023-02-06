@@ -24,12 +24,14 @@ import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.common.MypagePageBar;
+import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.member.model.vo.Member;
 import com.today.bab.mypage.model.service.MypageService;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.onedayclass.model.vo.OdcReserve;
 
 @Controller
 @RequestMapping("/mypage")
@@ -234,7 +236,12 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/onedayclass.do")
-	public ModelAndView selectOnedayclass(ModelAndView mv) {
+	public ModelAndView selectOnedayclass(ModelAndView mv,HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+	    Member m = (Member) session.getAttribute("loginMember");
+	    
+	    List<OdcReserve> odcReserve = mypageService.selectOnedayclass(m.getMemberId());
 		
 		mv.setViewName("mypage/onedayclass");
 		
@@ -364,6 +371,17 @@ public class MypageController {
 	@RequestMapping("/orderdetail")
 	public ModelAndView selectSubscription(ModelAndView mv,int orderNo) {
 		
+		List<ItemReview> io = mypageService.selectReviewByOrderNo(orderNo);
+		
+		ArrayList reviewItemNo = new ArrayList();
+		
+		for(int i=0;i<io.size();i++) {
+			reviewItemNo.add(io.get(i).getItemNo());
+		}
+		
+		
+	
+		mv.addObject("reviewItemNo",reviewItemNo);
 		mv.addObject("itemdetail",mypageService.selectListItemDetail(orderNo));
 		mv.addObject("orderdetail",mypageService.selectOrderDetail(orderNo));
 		

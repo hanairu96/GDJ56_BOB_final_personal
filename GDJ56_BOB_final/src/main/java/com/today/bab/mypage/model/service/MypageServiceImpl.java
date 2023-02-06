@@ -11,11 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
+import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.mypage.model.dao.MypageDao;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.onedayclass.model.vo.OdcReserve;
 
 @Service
 public class MypageServiceImpl implements MypageService {
@@ -153,5 +155,15 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int updateOrderConfirm(int orderNo) {
 		return mypageDao.updateOrderConfirm(session,orderNo);
+	}
+	
+	@Override
+	public List<OdcReserve> selectOnedayclass(String memberId) {
+		return mypageDao.selectOnedayclass(session,memberId);
+	}
+	
+	@Override
+	public List<ItemReview> selectReviewByOrderNo(int orderNo) {
+		return mypageDao.selectReviewByOrderNo(session,orderNo);
 	}
 }

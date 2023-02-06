@@ -424,8 +424,7 @@
 		                      <td class="px-4 py-3 text-sm">
 		                        ${order.orderNo }
 		                      </td>
-		                      <td class="px-4 py-3 text-xs">
-		                      	<c:if test="order."></c:if>
+		                      <td class="px-4 py-3 text-xs">		
 				                      <c:if test="${order.delivery eq 'Y'}">	
 				                      		<c:if test="${order.refund eq 'N' }">
 				                      			<span
@@ -447,17 +446,16 @@
 							                        >
 							                          주문취소대기중
 							                        </span>
-							                     </c:if> 
-							                     <c:if test="${order.refundFix eq 'Y' }">
-					                      			<span  value="${order.orderNo }"
-							                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-							                        >
-							                          주문취소완료
-							                        </span>
-							                     </c:if>    
+							                     </c:if>   
 				                      		</c:if>
-				                        
 				                      </c:if>
+				                      <c:if test="${order.delivery eq 'N' }">
+					                      <span  value="${order.orderNo }"
+							               class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+							               >
+							               		취소완료
+							               </span>
+							           </c:if> 
 				                      <c:if test="${order.delivery eq '배송중'}">
 				                      	<span
 				                          class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
@@ -466,17 +464,32 @@
 				                        </span>
 				                      </c:if>
 				                      <c:if test="${order.delivery eq '배송완료'}">
-				                      	<span
-				                          class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
-				                        >
-				                        배송완료 
-				                      </span>
-				                      &nbsp;
-				                        <button id="orderConfirm" value="${order.orderNo }"
-				                          class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
-				                        >
-				                          구매확정
-				                        </button>
+				                      		<c:if test="${order.refund eq 'N' }">
+					                      			<span
+							                          class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
+							                        >
+							                        배송완료 
+							                      </span>
+							                      &nbsp;
+							                        <button id="orderConfirm" value="${order.orderNo }"
+							                          class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
+							                        >
+							                          구매확정
+							                        </button>
+							                        <button id="orderCancel" value="${order.orderNo }"
+									                      class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
+									                 >
+									                     환불신청
+									                 </button>
+							                     </c:if> 
+							                     <c:if test="${order.refund eq 'Y' }">
+					                      			<span  value="${order.orderNo }"
+							                          class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+							                        >
+							                          환불대기중
+							                        </span>
+							                     </c:if> 
+				                      	
 				                      </c:if>
 				                      <c:if test="${order.delivery eq '구매확정'}">
 				                      	<span
@@ -636,11 +649,11 @@
 					success:data=>{
 						if(data>0){
 							console.log(data);
-							alert("주문취소신청이 완료되었습니다.");
+							alert("신청이 완료되었습니다.");
 							location.reload();
 						}else{
 							console.log(data);
-							alert("주문취소신청이 실패하였습니다.");
+							alert("신청이 실패하였습니다.");
 						}	
 					},error : function(request, status, error) {
 					   	 alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);

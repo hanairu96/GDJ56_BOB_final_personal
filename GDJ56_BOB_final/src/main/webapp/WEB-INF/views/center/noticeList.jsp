@@ -12,12 +12,12 @@
         </div>
         <div class="board">
             <h1 id="main-title">공지사항</h1>
-            <form action="" class="search-form">
-                <select name="search-option" class="form-select">
-                    <option value="notice-title">제목</option>
-                    <option value="notice-contents">내용</option>
+            <form action="${path}/center/noticeListSearch" class="search-form">
+                <select name="option" class="form-select">
+                    <option value="notice_title">제목</option>
+                    <option value="notice_content">내용</option>
                 </select>
-                <input class="search" name="search" type="text" placeholder="search">
+                <input class="search" name="optionVal" type="text" placeholder="search">
                 <button id="search-btn" class="customBtn btnStyle" type="submit">검색</button>
             </form>
             <table class="list-table" style="text-align: center;margin: 20px;">
@@ -29,16 +29,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="nl" items="${list}">
-                    <tr>
-                        <td class="nos">${nl.noticeNo}</td>
-                        <td class="titles"><a href="#">${nl.noticeTitle}</a></td>
-                        <td class="dates">${nl.noticeDate}</td>
-                    </tr>
-                </c:forEach>
+                	<c:if test="${empty list}">
+	                	<tr>
+	                		<td colspan="3">등록된 글이 없습니다.</td>
+	                	</tr>
+	                </c:if>
+                	<c:if test="${not empty list}">
+		                <c:forEach var="nl" items="${list}">
+		                    <tr>
+		                        <td class="nos">${nl.noticeNo}</td>
+		                        <td class="titles"><a href="${path}/center/noticeView?noticeNo=${nl.noticeNo}">${nl.noticeTitle}</a></td>
+		                        <td class="dates">${nl.noticeDate}</td>
+		                    </tr>
+		                </c:forEach>
+		            </c:if>
                 </tbody>
             </table>
-            <button type="button" id="write-btn" class="customBtn btnStyle" onclick="write();">글쓰기</button>
+            <c:if test="${loginMember.memberId eq 'admin'}">
+            	<button type="button" id="write-btn" class="customBtn btnStyle" onclick="writeBoard();">글쓰기</button>
+            </c:if>
             <div class="page-bar">
                 ${pageBar}
             </div>
@@ -188,15 +197,17 @@
 		}
     </style>
    	<script>
+ 	 	//사이드 메뉴 누르면 페이지 이동
    		$(".side-menu>div:eq(0)").click(e=>{
    			location.assign("${path}/center/noticeList");
    		})
    		$(".side-menu>div:eq(1)").click(e=>{
    			location.assign("${path}/center/clientQnaList");
    		})
-   	
-   		const write=()=>{
-   			//location.assign("${path}/customer/noticeWrite");	
+   		
+   		//글쓰기
+   		const writeBoard=()=>{
+   			location.assign("${path}/center/noticeWrite");	
    		}
    	</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

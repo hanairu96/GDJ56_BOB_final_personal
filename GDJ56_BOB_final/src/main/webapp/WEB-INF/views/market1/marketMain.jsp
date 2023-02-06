@@ -4,9 +4,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <jsp:include page="/WEB-INF/views/common/marketHeader2.jsp"/>
-
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+	*{
+		font-family: 'Gowun Dodum', sans-serif;
+	}
+</style>
+	<div class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -17,12 +22,11 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
     
-    <section class="categories">
         <div class="container">
 			<a style="font-size:30px;" href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a><br>
-			<a style="font-size:30px;" href="${path }/itemQna/resultresult.do?itemNo=8">리뷰</a><br>
+			<%-- <a style="font-size:30px;" href="${path }/itemQna/resultresult.do?itemNo=8">리뷰</a><br> --%>
 			<a style="font-size:30px;" href="${path }/itemReview/insertReviewGo.do?itemNo=8&memberId=user03&itemName=고사리&mainPic=20230127_184026868_5159.jpg">리뷰쓰기</a> 
 			<a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:900px;margin-top:30px;background-color: #07d448;" >상품등록</a>
 			
@@ -32,45 +36,37 @@
             <div style="text-align: center;">
                 <h3 style="font-weight: bold;">이 상품 어때요? ></h3>
                 <br>	
-                <h5>야채주스 님 맞춤 상품! 둘러보세요!</h5>
+            <c:if test="${loginMember!=null }">
+                <h5>${likectg }를 선호하시는 ${loginMember.nickname } 님 맞춤 상품! 둘러보세요!</h5>
+            </c:if>    
+            <c:if test="${loginMember==null }">
+                <h5> 오늘의 밥 인기상품 ! 둘러보세요!</h5>
+            </c:if>    
                 <br>
             </div>
            <div class="row">
                 <div class="categories__slider owl-carousel">
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" style="background-image: url('${path }/resources/market/img/categories/cat-1.jpg');">
-                            <h5><a href="#">Fresh Fruit</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/market/img/categories/cat-2.jpg');">
-                            <h5><a href="#">Dried Fruit</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/market/img/categories/cat-3.jpg');">
-                            <h5><a href="#">Vegetables</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/market/img/categories/cat-4.jpg');">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/market/img/categories/cat-5.jpg');">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
+                <c:if test="${likemenu==null }">
+	                <c:forEach var="i" begin="1" end="10" >
+	                    <div class="col-lg-3">
+	                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${items[i].mainPic }');">
+	                            <h5><a href="${path}/market1/marketdetail.do?itemNo=${items[i].itemNo}">${items[i].itemName }</a></h5>
+	                        </div>
+	                    </div>
+	                 </c:forEach>
+                 </c:if>
+                 <c:if test="${likemenu!=null }">
+	                 <c:forEach var="like" items="${likemenu }">
+	                    <div class="col-lg-3">
+	                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${like.mainPic }');">
+	                        	<h5><a href="${path}/market1/marketdetail.do?itemNo=${like.itemNo}">${like.itemName }</a></h5>
+	                        </div>
+	                    </div>
+	                 </c:forEach>
+                 </c:if>
                 </div>
             </div>
             <br><br><br>
-
-
-            <!-- 구독서비스 연결 -->
-            <img src="${path }/resources/market/img/banner/banner-2.jpg" alt="" style="width:100%; height: 300px; ">
-            <br><br><br><br>
-            
 
             <!-- 1만원대 추천상품 -->
             <div style="text-align: center;">
@@ -113,10 +109,13 @@
                 </div>
             </div>
             <br><br><br>
+            
+            <!-- 구독서비스 연결 -->
+            <img src="${path }/resources/market/img/banner/banner-2.jpg" alt="" style="width:100%; height: 300px; ">
+            <br>
 
 
         </div>
-    </section>
 	<script>
 		(function ($) {
 		    $(".categories__slider").owlCarousel({

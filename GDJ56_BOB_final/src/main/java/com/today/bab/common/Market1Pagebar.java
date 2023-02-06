@@ -4,7 +4,7 @@ public class Market1Pagebar {
 	public static String getPage(int cPage,int numPerpage, int totalData,String url ) {
 		String pageBar="";
 		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
-		int pageBarSize=5;
+		int pageBarSize=3;
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
 		

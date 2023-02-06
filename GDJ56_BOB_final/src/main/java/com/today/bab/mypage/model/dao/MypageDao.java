@@ -8,10 +8,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
+import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.onedayclass.model.vo.OdcReserve;
 
 public interface MypageDao {
 	List<Basket> selectBasketById(SqlSessionTemplate session,String userId);
@@ -57,4 +59,8 @@ public interface MypageDao {
 	int updateOrderCancel(SqlSessionTemplate session,ItemOrder io);
 	
 	int updateOrderConfirm(SqlSessionTemplate session,int orderNo);
+	
+	List<OdcReserve> selectOnedayclass(SqlSessionTemplate session,String memberId);
+	
+	List<ItemReview> selectReviewByOrderNo(SqlSessionTemplate session,int orderNo);
 }
