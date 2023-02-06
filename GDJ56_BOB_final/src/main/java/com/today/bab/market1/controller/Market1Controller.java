@@ -120,7 +120,7 @@ public class Market1Controller {
 	@RequestMapping("/marketgtg.do")
 	public ModelAndView marketCtg(ModelAndView mv,
 			@RequestParam(value="cPage", defaultValue="1")int cPage,
-			@RequestParam(value="numPerpage", defaultValue="15")int numPerpage
+			@RequestParam(value="numPerpage", defaultValue="6")int numPerpage
 			,HttpServletRequest request) {
 
 		List<SellItem> list=service.selectItemCtg(Map.of("cPage",cPage,"numPerpage",numPerpage));

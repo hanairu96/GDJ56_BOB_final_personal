@@ -114,6 +114,29 @@
                 </div>
             </div>
             <br><br><br>
+
+
+            <!-- 매진임박상품 -->
+            <div style="text-align: center;">
+                <h3 style="font-weight: bold;">매진임박 상품 ! ></h3><br>
+            </div>
+            <div>
+            	<img src="${path }/resources/market/img/soon.gif" style="width:150px;"/>
+            </div>
+            <div class="row">
+                <div class="categories__slider owl-carousel">
+                
+                	<c:forEach var="i" begin="1" end="10" >
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${items[i].mainPic }');">
+                            <h5><a href="${path}/market1/marketdetail.do?itemNo=${items[i].itemNo}">${items[i].itemName }</a></h5>
+                        </div>
+                    </div>
+                	</c:forEach>
+      
+                </div>
+            </div>
+            <br><br><br>
             
             <!-- 구독서비스 연결 -->
             <img src="${path }/resources/market/img/banner/banner-2.jpg" alt="" style="width:100%; height: 300px; ">
