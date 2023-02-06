@@ -28,8 +28,13 @@ public class OneDayServiceImpl implements OneDayService {
 	}
 
 	@Override
-	public List<OneDayClass> selectClassList() {
-		return dao.selectClassList(session);
+	public List<OneDayClass> selectClassList(Map<String, Integer> param) {
+		return dao.selectClassList(session,param);
+	}
+	
+	@Override
+	public int countClasslist() {
+		return dao.countClasslist(session);
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package com.today.bab.onedayclass.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -17,9 +18,18 @@ import com.today.bab.onedayclass.model.vo.OneDayClass;
 public class OneDayDaoImpl implements OneDayDao {
 
 	@Override
-	public List<OneDayClass> selectClassList(SqlSessionTemplate session) {
+	public List<OneDayClass> selectClassList(SqlSessionTemplate session, Map<String, Integer> param) {
 		
-		return session.selectList("onedayclass.selectClassList");
+		return session.selectList("onedayclass.selectClassList",null, 
+	            new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+	                  param.get("numPerpage")));
+	}
+	
+	
+
+	@Override
+	public int countClasslist(SqlSessionTemplate session) {
+		return session.selectOne("onedayclass.countClasslist");
 	}
 
 	@Override

@@ -121,12 +121,12 @@
 	               		<c:forEach var="c" items="${classlist}">
 							<div class="col-lg-4" style="padding: 3%;">
 								<div class="zoom">
-									<a href=""><img src="${path}/resources/pato/images/class/${c.odcMainPic}" width="350" height="300"></a>
+									<a href="${path}/class/odcView.do?no=${c.odcNo }"><img src="${path}/resources/pato/images/class/${c.odcMainPic}" width="350" height="300"></a>
 								</div>
 									
 								<div class="category-name" >${c.odcCategoty}</div>
 			
-								<a href=""><b><h4>${c.odcCookName}</h4></b></a>
+								<a href="${path}/class/odcView.do?no=${c.odcNo }"><b><h4>${c.odcCookName}</h4></b></a>
 			
 								<div style="display: flex; margin-top: 1%;">
 									<img src="${path}/resources/pato/images/class/chef-hat.png" width="20" height="20"><h5>${c.mastserName}</h5>

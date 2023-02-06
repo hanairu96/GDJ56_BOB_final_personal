@@ -39,6 +39,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.admin.model.vo.AdminMaster;
+import com.today.bab.common.Market1Pagebar;
+import com.today.bab.market2.model.vo.SellItem;
 import com.today.bab.member.model.vo.Member;
 import com.today.bab.onedayclass.model.service.OneDayService;
 import com.today.bab.onedayclass.model.vo.OdcQa;
@@ -62,13 +64,19 @@ public class OneDayController {
    }
    
    @RequestMapping("/class/main.do")
-   public ModelAndView oneDayClassMain(ModelAndView mv) {
+   public ModelAndView oneDayClassMain(ModelAndView mv,
+		   @RequestParam(value="cPage", defaultValue="1")int cPage,
+		   @RequestParam(value="numPerpage", defaultValue="5")int numPerpage) {
       
-      List<OneDayClass> classlist = service.selectClassList();
+      List<OneDayClass> classlist = service.selectClassList(Map.of("cPage",cPage,"numPerpage",numPerpage));
+      int totaldata=service.countClasslist();
+      System.out.println(classlist);
+      mv.addObject("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"/bab/class/main.do"));
       mv.addObject("classlist",classlist);
       mv.setViewName("onedayclass/onedayMain");
       return mv;
    }
+  
    
    @RequestMapping("/class/menu.do")
    public ModelAndView oneDayClassBob(ModelAndView mv,String type) {
