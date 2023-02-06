@@ -92,14 +92,14 @@
 	                        <div class="product__details__rating">
 	                        <c:if test="${reavg !=null }">
 		                        <c:forEach var="i" begin="1" end="${reavg }">
-		                        	<img src="${path }/resources/market/star1.png" style="width:25px;"/>
+		                        	<img src="${path }/resources/market/star1.png" style="width:30px;"/>
 		                        </c:forEach>
 	                        </c:if>
 	                        <c:if test="${reavg ==null }">
-							   	<img src="${path }/resources/market/star1.png" style="width:25px;"/>
+							   	<img src="${path }/resources/market/star1.png" style="width:30px;"/>
 									첫 리뷰를 등록해주세요
 						    </c:if>	
-	                            <span style="font-size">(리뷰 ${reviews.size() })</span>
+	                            <span style="font-size:20px;">(리뷰 ${reviews.size() })</span>
 	                        </div>
 	                        
 	                        

@@ -103,6 +103,9 @@
 			        <fmt:formatDate type="date" value="${re.iqrDate }"/>
 			    </div>
 			</c:forEach>
+			<c:if test="${review==null }">
+				<div>상품 후기가 없습니다.</div>
+			</c:if>
 			</div>
             <hr/>
               

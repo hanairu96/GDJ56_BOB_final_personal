@@ -82,9 +82,9 @@
                 <div class="col-lg-9 col-md-7">
                     <div class="filter__item" style="padding-top:20px;">
 	                    <div class="filter__option" style="font-weight: bold;font-size:20px;">
-	                        <a href="" style="color: black;margin:10px;">고액순 </a>|
-	                        <a href="" style="color: black;margin:10px;"> 저가순 </a>|
-	                        <a href="" style="color: black;margin:10px;"> 판매순</a>
+	                        <a a href="javascript:void(0);" onclick="checkcheck('noodle');" style="color: black;margin:10px;">고액순 </a>|
+	                        <a a href="javascript:void(0);" onclick="checkcheck('noodle');" style="color: black;margin:10px;"> 저가순 </a>|
+	                        <a a href="javascript:void(0);" onclick="checkcheck('noodle');" style="color: black;margin:10px;"> 인기상품순</a>
 	                    </div>
                     </div>
                     <div id="explain">

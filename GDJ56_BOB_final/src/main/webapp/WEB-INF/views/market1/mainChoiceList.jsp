@@ -28,7 +28,7 @@
     <section class="product spad">
         <div class="container" >
         	<div class="col-lg-9 col-md-7">
-            	<div class="row" stlye="margin:0 auto;">
+            	<div class="row" style="text-align: center;">
 				<c:forEach var="sell" items="${i }">
                 	<div class="col-lg-4 col-md-6 col-sm-6" >
                     	<div class="product__item">
