@@ -9,6 +9,7 @@ import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminQnaAll;
+import com.today.bab.admin.model.vo.AdminSearch;
 import com.today.bab.admin.model.vo.AdminSellItem;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.AdminTotalData;
@@ -82,13 +83,17 @@ public interface AdminDao {
 	
 	int adminProductCount(SqlSessionTemplate session);
 	
-	List<Member> memberSearchClass(SqlSessionTemplate session,Map<String, Object> param);
+	List<Member> memberSearchClass(SqlSessionTemplate session,AdminSearch as);
 	
-	int memberSearchClassCount(SqlSessionTemplate session,Map<String, Object> param);
+	int memberSearchClassCount(SqlSessionTemplate session,AdminSearch as);
 	
-	List<AdminMaster> masterSearchClass(SqlSessionTemplate session,Map<String, Object> param);
+	List<AdminMaster> masterSearchClass(SqlSessionTemplate session,AdminSearch as);
 	
-	int masterSearchClassCount(SqlSessionTemplate session,Map<String, Object> param);
+	int masterSearchClassCount(SqlSessionTemplate session,AdminSearch as);
+	
+	int masterSearchClassYesCount(SqlSessionTemplate session,AdminSearch as);
+	 
+	int masterSearchClassIngCount(SqlSessionTemplate session,AdminSearch as);
 	
 	
 }

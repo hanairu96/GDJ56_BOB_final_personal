@@ -8,6 +8,7 @@ import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminQnaAll;
+import com.today.bab.admin.model.vo.AdminSearch;
 import com.today.bab.admin.model.vo.AdminSellItem;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.AdminTotalData;
@@ -85,11 +86,15 @@ public interface AdminService {
 	
 	int adminProductCount();
 	
-	List<Member> memberSearchClass(Map<String, Object> param);
+	List<Member> memberSearchClass(AdminSearch as);
 	
-	int memberSearchClassCount(Map<String, Object> param);
+	int memberSearchClassCount(AdminSearch as);
 	
-	List<AdminMaster> masterSearchClass(Map<String, Object> param);
+	List<AdminMaster> masterSearchClass(AdminSearch as);
 	
-	int masterSearchClassCount(Map<String, Object> param);
+	int masterSearchClassCount(AdminSearch as);
+	
+	int masterSearchClassYesCount(AdminSearch as);
+	
+	int masterSearchClassIngCount(AdminSearch as);
 }

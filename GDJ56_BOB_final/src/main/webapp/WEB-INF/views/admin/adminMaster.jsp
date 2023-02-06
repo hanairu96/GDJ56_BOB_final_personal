@@ -278,6 +278,8 @@
 				             </svg>
 							</button>
 						</select>
+						<input type="hidden" name="cpage" value="1">
+						<input type="hidden" name="numPerpage" value="5">
 					</form>
 					<script>
 						const checkIt=()=>{

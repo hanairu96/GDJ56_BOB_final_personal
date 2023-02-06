@@ -256,21 +256,6 @@
               >
                 클래스 장인 관리
               </h2>
-               <c:forEach var="m" items="${param }" begin="1" end="1">
-					<c:forEach var="s" items="${m.value }" begin="0" end="0">
-					  <c:choose>
-					  	 <c:when test="${s=='searchNo'}">
-					     	<c:set var="select0" value="selected"/>
-					     </c:when>
-					     <c:when test="${s=='MEMBER_ID'}">
-					     	<c:set var="select1" value="selected"/>
-					     </c:when>
-					     <c:when test="${s=='M_NAME'}">
-					     	<c:set var="select2" value="selected"/>
-					     </c:when>
-					  </c:choose>
-					</c:forEach>
-				</c:forEach>
                <!-- 검색창 -->
 				<div id="searchbox"  class="flex justify-center flex-1 lg:mr-32" style="align-items:center;text-align:center;" >
 						
@@ -279,20 +264,16 @@
 							style="padding: 0.3%; margin: 1%;width:100px; 
 							border:1px solid purple;margin-left:-6%;color:purple;height:35px;text-align:center;"
 							class="text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input">
-							  <option value="searchNo" ${select0 }>검색 ▼</option>
-		                      <option value="MEMBER_ID" ${select1 }>아이디</option>
-		                      <option value="M_NAME" ${select2 }>강사명</option>
-		                      <c:forEach var='m' items='${param }' begin='0' end='0'>
-								<c:forEach var='s' items='${m.value }' begin='0' end='0'>
+							  <option value="searchNo" ${fn:contains(as.type,'searchNo')?'selected':''}>검색 ▼</option>
+		                      <option value="MEMBER_ID" ${fn:contains(as.type,'MEMBER_ID')?'selected':''}>아이디</option>
+		                      <option value="M_NAME"${fn:contains(as.type,'M_NAME')?'selected':''}>강사명</option>	                     
 							<input 
 								id="searchclass" 
 								style="height:35px;width:220px;border:1px solid purple;margin-left:15px;margin-right:15px;"
 				                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
 								onclick="change();"
 								type="text" name="search" placeholder="Search for masters"
-								
-								value="${s }"/>
-								</c:forEach></c:forEach>
+								value="${as.keyword}"/>
 				<script>
 					const change=()=>{
 							document.querySelector("#searchclass").value="";
@@ -312,6 +293,8 @@
 		             </svg>
 					</button>
 				</select>
+				<input type="hidden" name="cpage" value="1">
+				<input type="hidden" name="numPerpage" value="5">
 			</form>
 					
 				</div>
@@ -437,13 +420,32 @@
                 <!-- Pagination -->
                 <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-center">
                   <nav aria-label="Table navigation">
-                    ${pageBar}
+	                  <form action="${path }/admin/masterSearch.do" method="post" name ="pageForm" method="post">
+	                    <input type="hidden" id="cpage" name="cpage" value="${as.cpage}">
+						<input type="hidden" name="numPerpage" value="${as.numPerpage}">
+						<input type="hidden" name="searchlist" value="${as.type}">
+						<input type="hidden" name="search" value="${as.keyword}">
+	                    ${pageBar}
+	                    
+	                    
+						
+					  </form>
                   </nav>
                 </span>
               </div>
             </div>
             </div>
-
+	<script>
+	//		검색 후 페이지 처리 -> 검색타입+검색키워드+cPage+numPerpage를 계속 같이 넘겨야함
+			 function fn_paging(pageNo){
+			console.log(pageNo);
+		    // 사용자가 클릭한 페이지 번호를 form에 넣고 서브밋을 보냄
+		    const cpage=document.querySelector("#cpage");
+		    cpage.value=pageNo;
+		    
+		    document.pageForm.submit(); // 서브밋
+		  } 
+	</script>
 
         </main>
       </div>

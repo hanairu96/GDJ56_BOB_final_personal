@@ -22,6 +22,7 @@ import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminQnaAll;
+import com.today.bab.admin.model.vo.AdminSearch;
 import com.today.bab.admin.model.vo.AdminSellItem;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.AdminTotalData;
@@ -278,23 +279,33 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<Member> memberSearchClass(Map<String, Object> param) {
-		return dao.memberSearchClass(session,param);
+	public List<Member> memberSearchClass(AdminSearch as) {
+		return dao.memberSearchClass(session,as);
 	}
 
 	@Override
-	public int memberSearchClassCount(Map<String, Object> param) {
-		return dao.memberSearchClassCount(session,param);
+	public int memberSearchClassCount(AdminSearch as) {
+		return dao.memberSearchClassCount(session,as);
 	}
 
 	@Override
-	public List<AdminMaster> masterSearchClass(Map<String, Object> param) {
-		return dao.masterSearchClass(session,param);
+	public List<AdminMaster> masterSearchClass(AdminSearch as) {
+		return dao.masterSearchClass(session,as);
 	}
 
 	@Override
-	public int masterSearchClassCount(Map<String, Object> param) {
-		return dao.masterSearchClassCount(session,param);
+	public int masterSearchClassCount(AdminSearch as) {
+		return dao.masterSearchClassCount(session,as);
+	}
+
+	@Override
+	public int masterSearchClassYesCount(AdminSearch as) {
+		return dao.masterSearchClassYesCount(session,as);
+	}
+
+	@Override
+	public int masterSearchClassIngCount(AdminSearch as) {
+		return dao.masterSearchClassIngCount(session,as);
 	}
 
 	
