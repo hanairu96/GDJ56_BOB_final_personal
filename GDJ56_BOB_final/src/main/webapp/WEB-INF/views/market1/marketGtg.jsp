@@ -127,27 +127,6 @@
                 		</div>
                 	
                 	<script>
-						/* const addbasketitem=(no,memberId,mainPic,itemName)=>{
-							
-							 Swal.fire({
-						            title: itemName,
-						            text: "이 상품은 이미 담겨있습니다. 더 담으시겠습니까?",
-						            imageUrl: '${path }/resources/upload/market/mainlabel/'+mainPic,
-						            showCancelButton: true,
-						            confirmButtonColor: '#3085d6',
-						            cancelButtonColor: '#d33',
-						            confirmButtonText: '장바구니 추가',
-						            cancelButtonText: '쇼핑하기'
-						        }).then((result) => {
-						        	if (result.isConfirmed) {
-						                Swal.fire(
-						                	itemName,
-						                    '상품이 장바구니에 담겼습니다.',
-						                    'success'
-						                )
-						            }
-						        })
-					    }; */
 						var arr=new Array();
 						<c:forEach var="b" items="${basket}">
 							arr.push({itemNo:${b.itemNo}});
@@ -171,11 +150,11 @@
  							            cancelButtonText: '계속 쇼핑하기'
  							        }).then((result) => {
  							        	if (result.isConfirmed) {
- 											location.assign('${path}/basket/updatebasket.do?itemNo='+no+'&memberId='+memberId); 
+ 											location.assign('${path}/basket/updatebasket.do?itemNo='+no+'&memberId='+memberId+'&add=0'); 
  							        	}
  							        })
  								}else{
- 									location.assign('${path}/basket/insertbasket.do?itemNo='+no+'&memberId='+memberId);
+ 									location.assign('${path}/basket/insertbasket.do?itemNo='+no+'&memberId='+memberId+'&add=0');
 							
 								}
 							}

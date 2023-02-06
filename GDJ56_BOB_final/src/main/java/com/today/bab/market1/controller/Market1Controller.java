@@ -147,7 +147,7 @@ public class Market1Controller {
 	
 	//상품 상세페이지로 이동
 	@RequestMapping("/marketdetail.do")
-	public ModelAndView marketdetail(ModelAndView mv,int itemNo) {
+	public ModelAndView marketdetail(ModelAndView mv,int itemNo,HttpServletRequest request) {
 		SellItem list=service.marketdetail(itemNo);
 		
 		mv.addObject("de",list);
@@ -165,7 +165,12 @@ public class Market1Controller {
 			int avg=reservice.selectAvg(itemNo);
 			mv.addObject("reavg",avg);
 		}
-		
+		HttpSession session = request.getSession();
+	    Member  loginMember= (Member) session.getAttribute("loginMember");
+		if(loginMember!=null) {
+			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
+			mv.addObject("basket",blist);
+		}
 		mv.setViewName("market1/detailMarketItem");
 		return mv;
 	}
@@ -441,7 +446,6 @@ public class Market1Controller {
 			m.addAttribute("de",service.marketdetail(itemNo));
 		}else if(check.contains("b")) {
 			page="itemReview";
-//			List<ItemReview> list=reservice.selectReviewAll(itemNo);
 			m.addAttribute("reviews",reservice.selectReviewAll(itemNo));
 			m.addAttribute("picpic",reservice.selectrReviewPic());
 			
@@ -451,6 +455,7 @@ public class Market1Controller {
 //			m.addAttribute("itemNo", itemNo);
 //			m.addAttribute("check", "b");
 //			m.addAttribute("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"choiceexplain.do"));
+		
 		}else if(check.contains("c")) {
 			page="itemExchange";
 		}else if(check.contains("d")) {

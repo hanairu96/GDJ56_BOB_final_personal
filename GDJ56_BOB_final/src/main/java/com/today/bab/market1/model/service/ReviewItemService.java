@@ -19,6 +19,6 @@ public interface ReviewItemService {
 	
 	int selectAvg(int itemNo);
 	
-	List<ItemReview> choiceReviewList(String list);
+	List<ItemReview> choiceReviewList(Map<String,Object> param);
 
 }

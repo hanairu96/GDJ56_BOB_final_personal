@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style>
 	*{
@@ -107,7 +108,7 @@
 	                        <div class="product__details__quantity">
 	                            <div class="quantity">
 	                                <div class="pro-qty">
-	                                    <input type="text" value="1">
+	                                    <input type="text" id="testtesttest" value="1">
 	                                </div>
 	                            </div>
 	                        </div>
@@ -116,7 +117,7 @@
 		                        <a href="javascript:void(0);" class="primary-btn" style="background-color: magenta;" onclick="soldoutItem();">품절되었습니다.</a>
 	                        </c:if>
 	                        <c:if test="${de.itemStock>0 }">
-		                        <a href="#" class="primary-btn" style="background-color: #07d448;">장바구니 담기</a>
+		                        <a class="primary-btn" href="javascript:void(0);" onclick="addbasketitem(${de.itemNo },'${loginMember.memberId }','${de.mainPic }','${de.itemName }')" style="background-color: #07d448;">장바구니 담기</a>
 		                        <a href="#" class="primary-btn" style="background-color: #07d448;">바로결제하기</a>
 	                        </c:if>
 	                        <br><br><br>
@@ -187,6 +188,44 @@
 							}
 						})
 	                }
+	                
+	                
+	                
+	                //장바구니
+					var arr=new Array();
+					<c:forEach var="b" items="${basket}">
+						arr.push({itemNo:${b.itemNo}});
+					</c:forEach>
+					
+					
+					const addbasketitem=(no,memberId,mainPic,itemName)=>{
+	 					if(${loginMember==null}){
+	 						alert("로그인 후 사용가능합니다.");
+						}else{
+						var test=$("#testtesttest").val();
+						const item=arr.filter(e=>e.itemNo==no);
+							console.log(item);
+								if(item.length>0){
+									Swal.fire({
+							            title: itemName,
+							            text: "이 상품은 이미 담겨있습니다. 더 담으시겠습니까?",
+							            imageUrl: '${path }/resources/upload/market/mainlabel/'+mainPic,
+							            showCancelButton: true,
+						            confirmButtonColor: '#07d448',
+							            cancelButtonColor: 'magenta',
+							            confirmButtonText: '장바구니 추가',
+							            cancelButtonText: '계속 쇼핑하기'
+							        }).then((result) => {
+							        	if (result.isConfirmed) {
+											location.assign('${path}/basket/updatebasket.do?itemNo='+no+'&memberId='+memberId+'&add='+test); 
+							        	}
+							        })
+								}else{
+									location.assign('${path}/basket/insertbasket.do?itemNo='+no+'&memberId='+memberId+'&add='+test);
+						
+							}
+						}
+					}
                 </script>
                 
                 
@@ -297,10 +336,10 @@
 	                }
 	            }
 	            $button.parent().find('input').val(newVal);
-	            console.log(oldValue);
+	            //console.log(oldValue);
 	        });
 	
 	    })(jQuery);
-    </script>
-
+	    </script>
+	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -35,7 +35,7 @@
 			        <ul class="nav nav-tabs" role="tablist">
 			            <li>
 			                <a class="nav-link active" data-toggle="tab" href="javascript:void(0);" role="tab"
-			                style="font-size: 15px;font-weight: bold;" onclick="reviewlist('high');">별점 높은 순</a>
+			                style="font-size: 15px;font-weight: bold;" onclick="reviewlist('high',);">별점 높은 순</a>
 			            </li>
 			            <li>
 			                <a class="nav-link" data-toggle="tab" href="javascript:void(0);"
@@ -54,31 +54,28 @@
 			</div>
 			
 			<script>
-				const reviewlist=(list)=>{
-					if(list == 'mem'){
+				function reviewlist(list){
+					/* if(list == 'mem'){
 						if(${loginMember==null}){
 							alert("로그인 후 사용이 가능합니다.");
 						}
-					}
-               		$.ajax({
-               			type:'get',
-               			url:'${path}/itemReview/choiceReviewList.do?',
-               			data:{"list":list},
-               			success:data=>{
-               				console.log(data);
-           //    				$("#explain").html(data);
-               			}
-               		})
-					
-				}
-			
-			
+					}else if{ */
+	               		$.ajax({
+	               			type:'get',
+	               			url:'${path}/itemReview/choiceReviewList.do?',
+	               			data:{"list":list,
+	               				"itemNo":${itemNo}},
+	               			success:data=>{
+	               				$("#reviewList").html(data);
+	               			}
+	               		})
+					};
 			</script>			
 
 
 			<!-- 리뷰 묶음-->
+			<div id="reviewList" style="margin:2%;">
 			<c:forEach var="re" items="${reviews }">
-			<div style="margin:2%;">
 			    <div style="display: flex;">
 			        <div class="col-9" style="display:flex;margin:10px;">
 			        	 <img src="${path }/resources/images/logo-icon.png" alt="" style="height:40px;width: 40px;border-radius: 50%;">
@@ -105,9 +102,9 @@
 			    <div style="padding:10px; color:rgb(207, 207, 207);">
 			        <fmt:formatDate type="date" value="${re.iqrDate }"/>
 			    </div>
+			</c:forEach>
 			</div>
             <hr/>
-			</c:forEach>
               
               
               

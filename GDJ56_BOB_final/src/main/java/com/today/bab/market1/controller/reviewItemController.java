@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -99,15 +100,21 @@ public class reviewItemController {
 	}
 	
 	@RequestMapping("/choiceReviewList.do")
-	public void choiceReviewList(String list,Model m,HttpServletRequest request) {
-//		HttpSession session = request.getSession();
-//	    Member  loginMember= (Member) session.getAttribute("loginMember");
-//	    if(list.contains("mem")) {
-//	    	m.addAttribute("choicere", service.choiceReviewList(loginMember));
-//	    }else {
-			List<ItemReview> re=service.choiceReviewList(list);
-			System.out.println(re);
-	    	m.addAttribute("choicere", service.choiceReviewList(list));
+	public String choiceReviewList(String list,int itemNo,Model m,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+	    Member  loginMember= (Member) session.getAttribute("loginMember");
+		if(list.contains("high")) {
+			m.addAttribute("reviews", service.choiceReviewList(Map.of("list",list,"itemNo",itemNo)));
+		}else if(list.contains("low")){
+			m.addAttribute("reviews", service.choiceReviewList(Map.of("list",list,"itemNo",itemNo)));
+		}else if(list.contains("mem")) {
+			if(loginMember!=null) {
+				String memberId=loginMember.getMemberId();
+				m.addAttribute("reviews", service.choiceReviewList(Map.of("list",list,"itemNo",itemNo,"memberId",memberId)));
+			}
+		}
+		m.addAttribute("picpic",service.selectrReviewPic());
+		return "market1/reviewChoice";
 	    	
 	}
 }
