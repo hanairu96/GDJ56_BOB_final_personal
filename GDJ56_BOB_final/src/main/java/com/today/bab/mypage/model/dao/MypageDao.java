@@ -61,11 +61,17 @@ public interface MypageDao {
 	
 	int updateOrderConfirm(SqlSessionTemplate session,int orderNo);
 	
-	List<OdcReserve> selectOnedayclass(SqlSessionTemplate session,String memberId);
+	List<OdcReserve> selectOnedayclass(Map<String,Integer> param,SqlSessionTemplate session,String memberId);
 	
 	List<ItemReview> selectReviewByOrderNo(SqlSessionTemplate session,int orderNo);
 	
 	String selectMemberMaster(SqlSessionTemplate session,String memberId);
 	
-	List<OneDayClass> selectOnedayclassMaster(SqlSessionTemplate session,String memberId);
+	List<OneDayClass> selectOnedayclassMaster(SqlSessionTemplate session,String memberId,Map<String,Integer> param);
+	
+	int selectOnedayclassCount(SqlSessionTemplate session,String memberId);
+	
+	int selectOnedayclassMasterCount(SqlSessionTemplate session,String memberId);
+	
+	List<OdcReserve> selectOdcReserve(SqlSessionTemplate session);
 }

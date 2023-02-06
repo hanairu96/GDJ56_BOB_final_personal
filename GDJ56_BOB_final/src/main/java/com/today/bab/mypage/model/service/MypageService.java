@@ -51,11 +51,17 @@ public interface MypageService {
 	
 	int updateOrderConfirm(int orderNo);
 	
-	List<OdcReserve> selectOnedayclass(String memberId);
+	List<OdcReserve> selectOnedayclass(Map<String,Integer> param,String memberId);
 	
 	List<ItemReview> selectReviewByOrderNo(int orderNo);
 	
 	String selectMemberMaster(String memberId);
 	
-	List<OneDayClass> selectOnedayclassMaster(String memberId);
+	List<OneDayClass> selectOnedayclassMaster(Map<String,Integer> param,String memberId);
+	
+	int selectOnedayclassCount(String memberId);
+	
+	int selectOnedayclassMasterCount(String memberId);
+	
+	List<OdcReserve> selectOdcReserve();
 }

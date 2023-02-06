@@ -137,8 +137,10 @@ public class MypageDaoImpl implements MypageDao{
 	}
 	
 	@Override
-	public List<OdcReserve> selectOnedayclass(SqlSessionTemplate session, String memberId) {
-		return session.selectList("mypage.selectOnedayclass",memberId);
+	public List<OdcReserve> selectOnedayclass(Map<String,Integer> param,SqlSessionTemplate session, String memberId) {
+		return session.selectList("mypage.selectOnedayclass",memberId
+				,new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+				param.get("numPerpage")));
 	}
 	
 	
@@ -153,7 +155,24 @@ public class MypageDaoImpl implements MypageDao{
 	}
 	
 	@Override
-	public List<OneDayClass> selectOnedayclassMaster(SqlSessionTemplate session, String memberId) {
-		return session.selectOne("mypage.selectOnedayclassMaster",memberId);
+	public List<OneDayClass> selectOnedayclassMaster(SqlSessionTemplate session, String memberId,Map<String,Integer> param) {
+		return session.selectList("mypage.selectOnedayclassMaster",memberId
+				,new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+				param.get("numPerpage")));
+	}
+	
+	@Override
+	public int selectOnedayclassCount(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectOnedayclassCount",memberId);
+	}
+	
+	@Override
+	public int selectOnedayclassMasterCount(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectOnedayclassMasterCount",memberId);
+	}
+	
+	@Override
+	public List<OdcReserve> selectOdcReserve(SqlSessionTemplate session) {
+		return session.selectList("mypage.selectOdcReserve");
 	}
 }

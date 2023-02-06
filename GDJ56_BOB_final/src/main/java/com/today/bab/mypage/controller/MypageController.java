@@ -237,23 +237,32 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/onedayclass.do")
-	public ModelAndView selectOnedayclass(ModelAndView mv,HttpServletRequest request) {
+	public ModelAndView selectOnedayclass(ModelAndView mv,HttpServletRequest request,
+			@RequestParam(value="cPage", defaultValue = "1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue = "3") int numPerpage) {
 		
 		HttpSession session = request.getSession();
 	    Member m = (Member) session.getAttribute("loginMember");
 	    
 	    String memberMaster = mypageService.selectMemberMaster(m.getMemberId());
 	    
-	    if(memberMaster.equals("Y")) {
-	    	List<OneDayClass> odc = mypageService.selectOnedayclassMaster(m.getMemberId());
-	    	mv.addObject("master",odc);
-	    	System.out.println(odc);
-	    }
+//	    if(memberMaster.equals("Y")) {
+//	    	List<OneDayClass> odc = mypageService.selectOnedayclassMaster(m.getMemberId());
+//	    	mv.addObject("master",odc);
+//	    	System.out.println(odc+"마스터");
+//	    }
 	    
-	    List<OdcReserve> odcReserve = mypageService.selectOnedayclass(m.getMemberId());
+	    List<OdcReserve> odcReserve = mypageService.selectOnedayclass(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
+	    
+	    int totalData=mypageService.selectOnedayclassCount(m.getMemberId());
+	    
+	    System.out.println("count"+totalData);
+	    
+	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "onedayclass.do"));
 	    
 	    mv.addObject("odcReserve",odcReserve);
-	    System.out.println(odcReserve);
+	    mv.addObject("memberMaster",memberMaster);
+	    System.out.println(odcReserve+"신청");
 		mv.setViewName("mypage/onedayclass");
 		
 		return mv;
@@ -419,5 +428,31 @@ public class MypageController {
 		
 		response.setContentType("text/csv;charset=utf-8");
 		response.getWriter().print(result);
+	}
+	
+	@RequestMapping("/onedayclass/master")
+	public ModelAndView selectOnedayclassMaster(ModelAndView mv,HttpServletRequest request,
+			@RequestParam(value="cPage", defaultValue = "1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue = "5") int numPerpage) {
+		
+		HttpSession session = request.getSession();
+	    Member m = (Member) session.getAttribute("loginMember");
+	    
+	    List<OneDayClass> odc = mypageService.selectOnedayclassMaster(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
+	    mv.addObject("master",odc);
+	    System.out.println(odc+"마스터");
+	    
+	    List<OdcReserve> odcReserve = mypageService.selectOdcReserve();
+	    
+	    int totalData=mypageService.selectOnedayclassMasterCount(m.getMemberId());
+	    
+	    System.out.println("count"+totalData);
+	    
+	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "onedayclass.do"));
+	    mv.addObject("odcReserve",odcReserve);
+	    mv.addObject("odc",odc);
+		mv.setViewName("mypage/master");
+		
+		return mv;
 	}
 }

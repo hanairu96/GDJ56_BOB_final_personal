@@ -389,6 +389,7 @@
                       <th class="px-4 py-3">내용</th>
                       <th class="px-4 py-3">누적적립금</th>
                     </tr>
+
                   </thead>
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"

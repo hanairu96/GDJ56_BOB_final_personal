@@ -159,8 +159,8 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
-	public List<OdcReserve> selectOnedayclass(String memberId) {
-		return mypageDao.selectOnedayclass(session,memberId);
+	public List<OdcReserve> selectOnedayclass(Map<String,Integer> param,String memberId) {
+		return mypageDao.selectOnedayclass(param,session,memberId);
 	}
 	
 	@Override
@@ -174,7 +174,22 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
-	public List<OneDayClass> selectOnedayclassMaster(String memberId) {
-		return mypageDao.selectOnedayclassMaster(session, memberId);
+	public List<OneDayClass> selectOnedayclassMaster(Map<String,Integer> param,String memberId) {
+		return mypageDao.selectOnedayclassMaster(session, memberId,param);
+	}
+		
+	@Override
+	public int selectOnedayclassCount(String memberId) {
+		return mypageDao.selectOnedayclassCount(session,memberId);
+	}
+	
+	@Override
+	public int selectOnedayclassMasterCount(String memberId) {
+		return mypageDao.selectOnedayclassMasterCount(session,memberId);
+	}
+	
+	@Override
+	public List<OdcReserve> selectOdcReserve() {
+		return mypageDao.selectOdcReserve(session);
 	}
 }

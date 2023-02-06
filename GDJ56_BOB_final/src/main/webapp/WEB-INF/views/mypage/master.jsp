@@ -377,13 +377,6 @@
             </div>
 			
             <!-- New Table -->
-            <div style="width: 1100px; margin: auto;">
-            <c:if test="${memberMaster eq 'Y' }">
-            	<button style="width: 160px; float: right; font-weight: bolder; background-color: #7072753e;"
-            	class="px-2 py-1 font leading-tight text-gray-700  rounded-full dark:text-gray-100 dark:bg-gray-700"
-            	onclick="location.assign('${path}/mypage/onedayclass/master')">내가 개설한 클래스</button>
-            </c:if>
-            </div>
             <div class=" rounded-lg shadow-xs" style="width: 1100px; margin: auto;">
               <div class="w-full">
                 <table class="w-full whitespace-no-wrap">
@@ -391,38 +384,55 @@
                     <tr
                       class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
-                      <th class="px-4 py-3" colspan="4">내가 신청한 클래스 정보</th>
+                      <th class="px-4 py-3" colspan="4">내가 개설한 클래스 정보</th>
+                    </tr>
+                    <tr
+                      class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                    >
+                      <th class="px-4 py-3">요리이름</th>
+                      <th class="px-4 py-3">진행날찌</th>
+                      <th class="px-4 py-3">시작시간</th>
+                      <th class="px-4 py-3">신청한 인원</th>
                     </tr>
                   </thead>
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-					<c:if test="${empty odcReserve }">
+					<c:if test="${empty odc }">
 						<tr class="px-4 py-3">
 							<td class="px-4 py-3" colspan="4">
-								<p>신청한 클래스가 없습니다.</p>
+								<p>개설한 클래스가 없습니다.</p>
 							</td>
 						</tr>
 					</c:if>
-					<c:if test="${not empty odcReserve }">
-						<c:forEach var="odc" items="${odcReserve }">
-							<tr class="text-gray-700 dark:text-gray-400">
-		                      <td class="px-1 py-3 text-sm">
-		                        <div style="border: 1px; width:180px; height: 140px; margin-left:20px;">
-		                        <a href="${path }/class/odcView.do?no=${odc.odcNo}">
-		                          <img style="width:100%; height: 100%;" src="" alt="">${odc.odcPic }
-		                          </a>
-		                        </div>
-		                      </td>
-		                      <td class="px-3 py-3 text-sm">
-		                        <div style="padding-left:30px; display: flex;align-items: center;border: solid #7072754a 2px; border-radius: 20px;width: 800px; height: 140px;font-weight: bolder;">
-		                          <a href="${path }/class/odcView.do?no=${odc.odcNo}">${odc.odcClassName }	<br>
-		                          강사 : ${odc.master } <br>
-		                          날짜 : <fmt:formatDate value="${odc.odcDate}" pattern="yyyy-MM-dd"/> <br>
-		                          가격 : ${odc.odcPrice }</a>
-		                      </div>
-		                      </td>
-		                    </tr>
+					<c:if test="${not empty odc }">
+						<c:forEach var="oc" items="${odc }">
+							 <tr class="text-gray-700 dark:text-gray-400">
+								 <td class="px-4 py-3 text-sm">
+			                       ${oc.odcCookName}
+			                      </td>
+			                      <td class="px-4 py-3 text-sm">
+			                       <fmt:formatDate value="${oc.odcStartDate}" pattern="yyyy-MM-dd"/> - <fmt:formatDate value="${oc.odcEndDate}" pattern="yyyy-MM-dd"/>
+			                      </td>
+			                      <td class="px-4 py-3 text-sm">
+			                       ${oc.odcStartTime}
+			                      </td>
+		                      	  <td class="px-4 py-3 text-sm">
+		                      		<c:if test="${empty odcReserve }">
+			                      		0/${oc.odcPeople }
+			                      	</c:if>
+			                      	
+			                      	<c:set var="count" value="0" />
+			                      	<c:if test="${not empty odcReserve }">
+			                      		<c:forEach var="oror" items="${odcReserve}">
+			                      			<c:if test="${oc.odcNo eq oror.odcNo}">
+			                      				<c:set var="count" value="${count+1}" />
+			                      			</c:if>
+			                      		</c:forEach>
+			                      		${count}/${oc.odcPeople }
+			                      	</c:if>
+			                      </td>
+		                    </tr>    
 						</c:forEach>
 					</c:if>
 
@@ -434,7 +444,7 @@
               >
                 <span class="col-span-1"></span>
                 <!-- Pagination -->
-                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                <span class="flex col-span-3 mt-2 sm:mt-auto sm:justify-end">
                   <nav aria-label="Table navigation">
                     ${pageBar }
                   </nav>
