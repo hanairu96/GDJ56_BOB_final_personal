@@ -8,6 +8,7 @@ import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminQnaAll;
+import com.today.bab.admin.model.vo.AdminSearch;
 import com.today.bab.admin.model.vo.AdminSellItem;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.AdminTotalData;
@@ -42,6 +43,8 @@ public interface AdminService {
 	int masterDelete2(String memberId);
 	
 	int masterTestEnd(AdminMaster m);
+	
+	int masterTestEnd2(AdminMaster m);
 	
 	List<ClientQNA> selectQnAList(Map<String,Integer> param);
 	
@@ -84,4 +87,16 @@ public interface AdminService {
 	List<AdminSellItem> adminProductList(Map<String,Integer> param);
 	
 	int adminProductCount();
+	
+	List<Member> memberSearchClass(AdminSearch as);
+	
+	int memberSearchClassCount(AdminSearch as);
+	
+	List<AdminMaster> masterSearchClass(AdminSearch as);
+	
+	int masterSearchClassCount(AdminSearch as);
+	
+	int masterSearchClassYesCount(AdminSearch as);
+	
+	int masterSearchClassIngCount(AdminSearch as);
 }

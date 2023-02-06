@@ -110,7 +110,6 @@ public class ItemQnaController {
 		//문의 답변
 		List<IqAnswer> an=service.selectIqAnswer(itemNo);
 		
-		System.out.println(an);
 		m.addAttribute("an",an);
 		m.addAttribute("qna",qq);
 		return "market1/itemQna";

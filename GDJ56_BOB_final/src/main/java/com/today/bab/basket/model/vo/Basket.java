@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Basket {
-	
-	private int basketNo;
-	private String memberId;
-	private List<SellItem> item;
-	private int itemCount;
+   
+   private int basketNo;
+   private String memberId;
+   private List<SellItem> item;
+   private int itemCount;
 }

@@ -146,7 +146,6 @@
             font-size: 35px;
         }
         .outline{
-            height: 200px;
             border-collapse: collapse;
             margin: 0 auto !important;
             margin-top: 20px !important;
@@ -168,21 +167,17 @@
         	display: none;
         }
         #input-title{
-        	width: 300px;
+        	width: 600px;
         }
         .headline{
             font-weight: bold;
         }
-        .headline>input{
-			width: 600px;
-        }        
         #secret-div{
         	width: fit-content;
         	display: none;
         }
         #input-content{
-        	margin-left: 70px;
-            margin-right: 70px;
+        	width: 87%;
             margin-top: 10px;
             margin-bottom: 20px;
             padding: 20px;
@@ -216,8 +211,7 @@
         }
         #textEnroll{
         	display: none;
-        	margin-left: 70px;
-            margin-right: 70px;
+        	width: 87%;
             margin-top: 10px;
             margin-bottom: 20px;
             padding: 20px;
@@ -318,6 +312,7 @@
 	 	let taWidth=$("#input-content").css("width").replace('px',''); //textarea 영역의 너비
 	 	let marginVal=(bdWidth-taWidth)/2;
 	 	$("#input-content").css("margin-left", marginVal).css("margin-right", marginVal);
+	 	$("#textEnroll").css("margin-left", marginVal).css("margin-right", marginVal);
 	 	//체크박스 영역의 왼쪽 margin
 	 	$("#secret-div").css("margin-left", marginVal);
 		
