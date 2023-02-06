@@ -24,4 +24,6 @@ public class ItemReview {
 	private int iqrStar;
 	private int orderNo;
 	private List<ItemrePic> itemrepic;
+	
+	private int countreivew;
 }

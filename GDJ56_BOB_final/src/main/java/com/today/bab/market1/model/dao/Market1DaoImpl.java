@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.today.bab.market1.model.vo.MarketMemberLike;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
 
@@ -66,5 +67,15 @@ public class Market1DaoImpl implements Market1Dao {
 	@Override
 	public int selectItemCount(SqlSessionTemplate session) {
 		return session.selectOne("ma.selectItemCount");
+	}
+	
+	@Override
+	public MarketMemberLike memberLike(SqlSessionTemplate session,String memberId){
+		return session.selectOne("ma.memberLike",memberId);
+	}
+	
+	@Override
+	public List<SellItem> selectMainLike(SqlSessionTemplate session,String like) {
+		return session.selectList("ma.selectMainLike",like);
 	}
 }

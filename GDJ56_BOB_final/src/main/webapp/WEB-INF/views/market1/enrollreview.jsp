@@ -5,6 +5,12 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <script src="${path }/resources/js/jquery-3.6.1.min.js"></script>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+	*{
+		font-family: 'Gowun Dodum', sans-serif;
+	}
+</style>
 	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
 	   <div class="container">
 	       <div class="row">

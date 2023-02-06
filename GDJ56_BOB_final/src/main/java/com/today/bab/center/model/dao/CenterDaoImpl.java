@@ -78,4 +78,20 @@ public class CenterDaoImpl implements CenterDao {
 	public int noticeDelete(SqlSessionTemplate session, int no) {
 		return session.delete("center.noticeDelete", no);
 	}
+
+	@Override
+	public int cqWriteEnd(SqlSessionTemplate session, Map<String, Object> param) {
+		return session.insert("center.cqWriteEnd", param);
+	}
+
+	@Override
+	public int cqUpdate(SqlSessionTemplate session, Map<String, Object> param) {
+		return session.update("center.cqUpdate", param);
+	}
+	
+	@Override
+	public int cqDelete(SqlSessionTemplate session, int no) {
+		return session.delete("center.cqDelete", no);
+	}
+	
 }

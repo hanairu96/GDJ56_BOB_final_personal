@@ -3,31 +3,48 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+	*{
+		font-family: 'Gowun Dodum', sans-serif;
+	}
+</style>
 <div id="explain">	
 	<div style="padding-bottom:20px;">
         <h6><span style="font-weight:bold;padding:10px;">${ii[1].sellitem_count }</span> 건</h6>
     </div>
 	<div class="row">
 		<c:forEach var="sell" items="${ii }">
-           	<div class="col-lg-4 col-md-6 col-sm-6">
-               	<div class="product__item">
-                   	<div class="product__item__pic set-bg" style="background-image: url('${path }/resources/upload/market/mainlabel/${sell.mainPic }')">
-                        <ul class="product__item__pic__hover">
-                        	<li><a href="#"><i class="fa fa-shopping" ><img src="${path }/resources/market/img/market-cart.png" style="width:27px;"></i></a></li>
-                        </ul>
-                       </div>
-                       <div class="product__item__text">
-                           <h6><a href="${path }/market1/marketdetail.do?itemNo=${sell.itemNo }">
-                   	    <c:if test="${sell.itemBrand!=null }">
-				       		[${sell.itemBrand }]
-				       	</c:if>
-                           <c:out value="${sell.itemName }"/></a></h6>
-                           <p><c:out value="${sell.mainContent }"/></p>
-                           <h5><c:out value="${sell.itemPrice }"/>원</h5>
-                       </div>
+  			<div class="col-lg-4 col-md-6 col-sm-6">
+            	<div class="product__item">
+                	<div class="product__item__pic set-bg"
+				style="background-image: url('${path }/resources/upload/market/mainlabel/${sell.mainPic }');${sell.itemStock==0?'filter: grayscale(100%)':''};">
+	                    <ul class="product__item__pic__hover">
+	                        <li><a href="javascript:void(0);" onclick="addbasketitem(${sell.itemNo },'${loginMember.memberId }','${sell.mainPic }','${sell.itemName }')"><i class="fa fa-shopping" ><img src="${path }/resources/market/img/market-cart.png" style="width:27px;"></i></a></li>
+	                    </ul>
+                   	</div>
+                    <div class="product__item__text">
+                        <h6><a href="${path }/market1/marketdetail.do?itemNo=${sell.itemNo }" style="font-weight:bold;">
+                	    <c:if test="${sell.itemBrand!=null }">
+							[${sell.itemBrand }]
+						</c:if>
+                        <c:out value="${sell.itemName }"/>
+                        </a></h6>
+                        <p><c:out value="${sell.mainContent }"/></p>
+                        <c:if test="${sell.itemStock==0 }">
+                        	<h5 style="color: tomato;">재입고 준비중입니다</h5>
+                        </c:if>
+                        <c:if test="${sell.itemStock>0 }">
+                        	<h5><c:out value="${sell.itemPrice }"/>원</h5>
+                        </c:if>
+                    </div>
 				</div>
 			</div>
 		</c:forEach>
+		
+		<!-- 장바구니 스크립트구문 가져오기 -->
+		
+		
 	</div>
     <!-- 페이징처리 -->
     <div class="product__pagination">

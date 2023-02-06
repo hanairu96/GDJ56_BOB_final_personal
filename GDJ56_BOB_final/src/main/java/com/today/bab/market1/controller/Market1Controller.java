@@ -7,24 +7,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.today.bab.basket.model.service.BasketService;
+import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.common.Market1Pagebar;
 import com.today.bab.market1.model.service.Market1Service;
 import com.today.bab.market1.model.service.QnaService;
 import com.today.bab.market1.model.service.ReviewItemService;
 import com.today.bab.market1.model.vo.ItemReview;
-import com.today.bab.market1.model.vo.ItemrePic;
+import com.today.bab.market1.model.vo.MarketMemberLike;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
+import com.today.bab.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/market1")
@@ -33,13 +38,15 @@ public class Market1Controller {
 	private Market1Service service;
 	private QnaService qnaservice;
 	private ReviewItemService reservice;
-
+	private BasketService bservice;
+	
 	@Autowired
-	public Market1Controller(Market1Service service,QnaService qnaservice, ReviewItemService reservice) {
+	public Market1Controller(Market1Service service,QnaService qnaservice, ReviewItemService reservice,BasketService bservice) {
 		super();
 		this.service = service;
 		this.qnaservice = qnaservice;
 		this.reservice=reservice;
+		this.bservice=bservice;
 	}
 	
 	
@@ -62,9 +69,52 @@ public class Market1Controller {
 	
 	//INDEX에서 마켓 메인 이동 
 	@RequestMapping("/matketmain.do")
-	public ModelAndView marketmain(ModelAndView mv) {
+	public ModelAndView marketmain(ModelAndView mv,HttpServletRequest request) {
 		List<SellItem> list=service.selectItemMarket();
 		mv.addObject("items",list);
+		
+		//회원 선호리스트 뽑아주기
+		HttpSession session = request.getSession();
+	    Member  loginMember= (Member) session.getAttribute("loginMember");
+	    
+		if(loginMember!=null) {
+			String memberId=loginMember.getMemberId();
+			MarketMemberLike like=service.memberLike(memberId);
+//			System.out.println(like);
+			List addlike=new ArrayList();
+			String choice="";
+			
+			//선택지가 모두 y인것만 추가
+			if(like.getFruit().equals("Y")) {
+				choice="과일";
+				addlike.add(choice);
+			}if(like.getSea().equals("Y")) {
+				choice="수산";
+				addlike.add(choice);
+			}if(like.getMeat().equals("Y")) {
+				choice="정육";
+				addlike.add(choice);
+			}if(like.getSide().equals("Y")) {
+				choice="반찬";
+				addlike.add(choice);
+			}if(like.getVege().equals("Y")) {
+				choice="채소";
+				addlike.add(choice);
+			}
+//			System.out.println(addlike);
+			mv.addObject("likectg",addlike);
+			
+			if(addlike.size()!=0) {
+				List<SellItem> likesell=new ArrayList();
+				for(int i=0;i<addlike.size();i++) {
+//					System.out.println(addlike.get(i));
+					likesell.addAll(service.selectMainLike((String) addlike.get(i)));
+//					System.out.println(likesell);
+				}
+				mv.addObject("likemenu",likesell);
+			}
+		}
+		
 		mv.setViewName("market1/marketMain");
 		return mv;
 	}
@@ -74,7 +124,8 @@ public class Market1Controller {
 	public ModelAndView marketCtg(ModelAndView mv,
 			@RequestParam(value="cPage", defaultValue="1")int cPage,
 			@RequestParam(value="numPerpage", defaultValue="15")int numPerpage
-			) {
+			,HttpServletRequest request) {
+
 		List<SellItem> list=service.selectItemCtg(Map.of("cPage",cPage,"numPerpage",numPerpage));
 //		List<SellItem> list=service.selectItemCtg();
 		
@@ -82,6 +133,13 @@ public class Market1Controller {
 		int totaldata=service.selectItemCount();
 		mv.addObject("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"marketgtg.do"));
 		
+		//회원이 장바구니 제품을 담았을때 장바구니에 있는 상품들 리스트 
+		HttpSession session = request.getSession();
+	    Member  loginMember= (Member) session.getAttribute("loginMember");
+		if(loginMember!=null) {
+			List<Basket> blist=bservice.selectBasket(loginMember.getMemberId());
+			mv.addObject("basket",blist);
+		}
 		mv.addObject("i",list);
 		mv.setViewName("market1/marketGtg");
 		return mv;
@@ -101,6 +159,13 @@ public class Market1Controller {
 		}
 		mv.addObject("picpic",file);
 		mv.addObject("qna",qnaservice.selectQnaList(itemNo));
+		List<ItemReview> review=reservice.selectReviewAll(itemNo);
+		mv.addObject("reviews",review);
+		if(!review.isEmpty()) {
+			int avg=reservice.selectAvg(itemNo);
+			mv.addObject("reavg",avg);
+		}
+		
 		mv.setViewName("market1/detailMarketItem");
 		return mv;
 	}
@@ -366,16 +431,26 @@ public class Market1Controller {
 	
 	
 	@RequestMapping("/choiceexplain.do")
-	public String choiceexplain(int itemNo,String check,Model m) {
+	public String choiceexplain(int itemNo,String check,Model m,
+			@Validated @RequestParam(value="cPage", defaultValue="1", required = true)int cPage,
+			@Validated @RequestParam(value="numPerpage", defaultValue="2", required = true)int numPerpage
+			) {
 		String page="";
 		if(check.contains("a")) {
 			page="ItemDetailInfo";
 			m.addAttribute("de",service.marketdetail(itemNo));
 		}else if(check.contains("b")) {
 			page="itemReview";
-			List<ItemReview> list=reservice.selectReviewAll(itemNo);
-			m.addAttribute("reviews",list);
+//			List<ItemReview> list=reservice.selectReviewAll(itemNo);
+			m.addAttribute("reviews",reservice.selectReviewAll(itemNo));
 			m.addAttribute("picpic",reservice.selectrReviewPic());
+			
+			//페이징처리 다시 시도해보자...
+//			List<ItemReview> list=reservice.selectReviewAll(itemNo,Map.of("cPage",cPage,"numPerpage",numPerpage));
+//			int totaldata=reservice.selectReviewCount();
+//			m.addAttribute("itemNo", itemNo);
+//			m.addAttribute("check", "b");
+//			m.addAttribute("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"choiceexplain.do"));
 		}else if(check.contains("c")) {
 			page="itemExchange";
 		}else if(check.contains("d")) {

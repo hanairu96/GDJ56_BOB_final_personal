@@ -18,6 +18,6 @@ public class Basket {
 	
 	private int basketNo;
 	private String memberId;
-	private List<SellItem> item;
+	private int itemNo;
 	private int itemCount;
 }
