@@ -340,6 +340,33 @@
 	        });
 	
 	    })(jQuery);
+	    
+	    
+	    //최근 본 상품 리스트
+	    var no = ${de.itemNo};
+	       var pic = '${de.mainPic}';
+	       var item = JSON.stringify({itemNo: ${de.itemNo}, mainPic: pic});
+	       
+	       
+	       
+	       //최근본상품
+	        if(localStorage.getItem("floatF") != null && localStorage.getItem("floatS") != null && localStorage.getItem("floatL") != null){
+	          localStorage.setItem("floatF", localStorage.getItem("floatS")); //두번째를 첫번째에
+	          localStorage.setItem("floatS", localStorage.getItem("floatL")); //라스트를 두번째에
+	          localStorage.setItem("floatL", item); //라스트에 새로운 값을
+	      }
+	        if(localStorage.getItem("floatL") == null && localStorage.getItem("floatS") != null){
+	         localStorage.setItem("floatL", item);
+	      }
+	       if(localStorage.getItem("floatS") == null && localStorage.getItem("floatF") != null){
+	          localStorage.setItem("floatS", item);
+	       }
+	         if(localStorage.getItem("floatF") == null){
+	          localStorage.setItem("floatF", item);
+	       } 
+	    
+	    
+	    
 	    </script>
 	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
