@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market2.controller.Emojis;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.today.bab.market2.model.service.MarketService;
 import com.today.bab.market2.model.vo.SellItem;
 import com.today.bab.market2.model.vo.TodayBob;
 import com.today.bab.member.model.vo.Member;
+import com.today.bab.mypage.model.service.MypageService;
 
 @Controller
 public class MarketController {
@@ -34,9 +36,13 @@ public class MarketController {
 	
 	//(회원)베스트
 	@RequestMapping("/market/best.do")
-	public ModelAndView bestItemAll(ModelAndView mv, String value) {
+	public ModelAndView bestItemAll(ModelAndView mv, String value, HttpServletRequest request) {
 		//System.out.println(value); //null
 		List<SellItem> list = service.bestItems(value); //베스트상품검색 - null
+		
+		HttpSession session = request.getSession();
+	    Member loginMember = (Member) session.getAttribute("loginMember");
+	    mv.addObject("m",loginMember==null?"":loginMember.getMemberId());
 		
 		mv.addObject("bestItems", list);
 		mv.setViewName("market2/best");
@@ -88,11 +94,13 @@ public class MarketController {
 	    
 		List<TodayBob> list = service.todayBobList();
 		int listCnt = service.todayBobListCount();
+		List<SellItem> tbAll = service.todayViewAll();
 		
 		mv.addObject("m",loginMember==null?"":loginMember.getMemberId());
 		
 		mv.addObject("relist",list);
 		mv.addObject("relistCnt",listCnt);
+		mv.addObject("tbAll",tbAll);
 		
 		mv.setViewName("market2/today");
 		System.out.println(mv);
@@ -289,6 +297,7 @@ public class MarketController {
 		System.out.println(list);
 		return list;
 	}
+	/////////////////
 	
 	//(관리자)추천 상품 수정 - 선택한 제목에 해당하는 상품
 	@RequestMapping("/market/chageItem.do")
@@ -296,6 +305,69 @@ public class MarketController {
 	public List<SellItem> selectItemByReNo(int reNo){
 		
 		List<SellItem> list = service.todayView(reNo);
+		System.out.println(list);
+		return list;
+	}
+	
+	//(관리자)추천 수정 확인
+	@RequestMapping("/market/checkTodayBobModify.do")
+	public ModelAndView checkTodayBobModify(ModelAndView mv, String itemLS, int selectTitleNext) {
+		
+		List<SellItem> list = service.sellItemByNo(itemLS);
+		
+		TodayBob tb = service.todobDetailByreNo(selectTitleNext);
+		
+		mv.addObject("list",list);
+		mv.addObject("tb", tb);
+		mv.addObject("selectTitleNext",selectTitleNext); //확인 -> 업데이트
+		mv.addObject("itemLS",itemLS); //확인 -> 업데이트
+		mv.setViewName("market2/todayBobCheckModify");
+		return mv;
+	}
+	//(관리자)추천 수정 확인하고 업데이트
+	@RequestMapping("/market/checkTodayBobModifyEnd.do")
+	public ModelAndView checkTodayBobModifyEnd(ModelAndView mv, String itemLS, int selectTitleNext) {
+		
+		Map<String, Object> param = new HashMap();
+		param.put("itemLS", itemLS);
+		param.put("selectTitleNext", selectTitleNext);
+		
+		int resultEnd = 0;
+		resultEnd = service.checkTodayBobModifyEnd(param);
+		
+		mv.addObject("msg",resultEnd>0?"수정성공":"수정실패");
+		mv.addObject("loc","/market/today.do");
+		mv.setViewName("common/msg");
+		return mv;
+		/*
+		 * mv.setViewName("market2/todayBob"); return mv;
+		 */
+	}
+	
+	//장바구니
+	@RequestMapping("/market/cart.do")
+	@ResponseBody
+	public ModelAndView cart(ModelAndView mv, HttpServletRequest request, String id, int itemNo) {
+		HttpSession session = request.getSession();
+	    Member loginMember = (Member) session.getAttribute("loginMember");
+	    mv.addObject("m",loginMember==null?"":loginMember.getMemberId());
+	    
+	    Basket b = Basket.builder().memberId(id).itemCount(itemNo).build(); //itemCount는 값 넘기기용으로 사용
+	    
+	    int result = service.cart(b);
+	    
+	    mv.addObject("msg",result>0?"장바구니에 상품을 담았습니다":"장바구니에 담기 실패");
+	    mv.addObject("loc","/mypage/basket.do");
+	    mv.setViewName("common/msg");
+		return mv;
+	}
+	//최근본상품
+	@RequestMapping("/market/floatItem.do")
+	@ResponseBody
+	public List<SellItem> floatItem(String value) {
+		//List<SellItem> list = service.bestItemsAjax(value);
+		//System.out.println(value);
+		List<SellItem> list = service.bestItems(value); //베스트상품검색 - ajax로 button value
 		System.out.println(list);
 		return list;
 	}

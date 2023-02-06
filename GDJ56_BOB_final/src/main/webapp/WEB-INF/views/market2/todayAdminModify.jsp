@@ -46,9 +46,6 @@
 		<div class="col-md-3">
 			<div class="wrap-btn-booking flex-c-m m-t-6">
 				<div style="display: flex; margin-left: 65%;">
-					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" value="update" onclick="javascript: form.action='${path}/market/updateTodayBob.do';">
-						수정하기
-					</button>
 					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-left:2%" value="delete" onclick="javascript: form.action='${path}/market/deleteTodayBob.do';">
 						삭제하기
 					</button>
@@ -134,6 +131,7 @@
 				
 				<!-- checkbox말고 로컬스토리지에 찍힌 값 -->
 				<input type="hidden" id="itemLS" name="itemLS"/>
+				<input type="hidden" id="selectTitleNext" name="selectTitleNext"/>
 
 			</div>
 			<div class="wrap-btn-booking flex-c-m m-t-6">
@@ -212,6 +210,8 @@ $(function(){//레디함수
 		
 		selectTitle = $(e.target).val();
 		console.log("추천시퀀스"+selectTitle); //추천시퀀스
+		
+		$("#selectTitleNext").attr("value",selectTitle);
 		
 		$.get("${path}/market/chageItem.do?reNo="+selectTitle
     			, data=>{

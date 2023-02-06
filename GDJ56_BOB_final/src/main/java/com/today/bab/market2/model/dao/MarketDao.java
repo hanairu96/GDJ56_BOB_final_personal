@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market2.model.vo.SellItem;
 import com.today.bab.market2.model.vo.TobobDetail;
 import com.today.bab.market2.model.vo.TodayBob;
@@ -32,10 +33,17 @@ public interface MarketDao {
 	int insertTodayBobItems(SqlSessionTemplate session, Map<String, Object> param); //전체
 	int insertTodayBobItem(SqlSessionTemplate session, Map param);	//1개씩
 	List<SellItem> todayView(SqlSessionTemplate session, int reNo);
+	List<SellItem> todayViewAll(SqlSessionTemplate session);
 	
 
 	List<SellItem> discountView(SqlSessionTemplate session);
 	int discountCount(SqlSessionTemplate session);
+	
+	TodayBob todobDetailByreNo(SqlSessionTemplate session, int selectTitleNext);
+	
+	int deleteModi(SqlSessionTemplate session, int selectTitleNext);
+	
+	int cart(SqlSessionTemplate session, Basket b);
 	
 	
 

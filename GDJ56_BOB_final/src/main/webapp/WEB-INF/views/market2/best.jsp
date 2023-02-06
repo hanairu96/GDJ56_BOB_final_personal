@@ -4,12 +4,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.6.1.min.js"></script>
 <script>console.log("${path }");</script>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <jsp:include page="/WEB-INF/views/common/marketHeader2.jsp"/>
+<jsp:include page="/WEB-INF/views/common/floatBar.jsp"/>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -55,7 +57,7 @@
 			<p><!-- 총 100건 --></p>
 			<div class="row" id="print">
 				<c:forEach var="i" items="${bestItems }">
-				<div class="col-lg-4 col-sm-6" style="padding: 3%;">
+				<div class="col-lg-4 col-sm-6" style="padding: 3%;${i.itemStock==0?'filter: grayscale(100%)':''};><!--  " -->
 					<div class="recipe-item">
 						<div class="zoom">
 							<a href="${path}/market1/marketdetail.do?itemNo=${i.itemNo }"><img src="${path }/resources/upload/market/mainlabel/${i.mainPic }" alt="" width="330" height="280"></a><!-- ! 사진경로연결해주기 -->
@@ -72,7 +74,13 @@
 									<h5><fmt:formatNumber value="${i.itemPrice }" pattern="###,###,###"/></h5><h5>원</h5>
 								</div>
 								<div class="zoom">
-									<a href=""><img src="https://img.icons8.com/pastel-glyph/512/shopping-cart.png" width="30" height="30"></a>
+									<c:if test="${i.itemStock ==0}">
+										<span style="font-size: 30px;">일시품절</span>
+									</c:if>
+									<c:if test="${i.itemStock!=0 }">
+									<a href="javascript:void(0);" onclick="addbasketitem('{i.itemNo }','{loginMemer.memberId }','{i.mainPic }','{i.itemNames }')"><img src="https://img.icons8.com/pastel-glyph/512/shopping-cart.png" width="30" height="30"></a>
+<%-- 									<a href="${path }/market/cart.do?id=${m}&itemNo=${i.itemNo}"><img src="https://img.icons8.com/pastel-glyph/512/shopping-cart.png" width="30" height="30"></a> --%>
+									</c:if>
 								</div>
 							</div>
 						</div>
@@ -98,14 +106,47 @@
 </div>
 
 
-<div class="floating">
+<!-- <div class="floating">
 	<div>챗봇위치</div>
 	<div>최근본상품위치</div>
-	<div><button type="button" onclick="toHTMLTop()">위로가기위치</button></div>
-</div>
+	<div><button type="button" onClick="javascript:window.scrollTo(0,0)">위로가기위치</button></div>
+</div> -->
 </section>
 
+<script>
+var arr=new Array();
+<c:forEach var="b" items="${basket}">
+   arr.push({itemNo:${b.itemNo}});
+</c:forEach>
 
+const addbasketitem=(no,memberId,mainPic,itemName)=>{
+    if(${loginMember==null}){
+      alert("로그인 후 사용가능합니다.");
+   }else{
+      const item=arr.filter(e=>e.itemNo==no);
+      console.log(item);
+       if(item.length>0){
+          Swal.fire({
+                title: itemName,
+                text: "이 상품은 이미 담겨있습니다. 더 담으시겠습니까?",
+                imageUrl: '${path }/resources/upload/market/mainlabel/'+mainPic,
+                showCancelButton: true,
+               confirmButtonColor: '#07d448',
+                cancelButtonColor: 'magenta',
+                confirmButtonText: '장바구니 추가',
+                cancelButtonText: '계속 쇼핑하기'
+            }).then((result) => {
+               if (result.isConfirmed) {
+                location.assign('${path}/basket/updatebasket.do?itemNo='+no+'&memberId='+memberId); 
+               }
+            })
+       }else{
+          location.assign('${path}/basket/insertbasket.do?itemNo='+no+'&memberId='+memberId);
+   
+      }
+   }
+}
+</script>
 
 
 <script>
@@ -127,12 +168,15 @@ $(function(){//.레디함수
 	} */
 	
 	
+	
+	
 	//가격대별
 	$(".changeBtn").click(e=>{
 		changeBtn = $(e.target).val();
 		$.get("${path}/market/bestAjax.do?value="+changeBtn
     			, data=>{
     					console.log(data);
+    					
     				
     					//반복문 2개 : 1//data.forEach(i=>{	console.log(i)	}); 2//for(let i=0; i<data.length; i++){ console.log(data[i]);	};
     					
@@ -162,7 +206,7 @@ $(function(){//.레디함수
 							html += "<h5>"+i.itemPrice+"</h5><h5>원</h5>";
 							html += "</div>";
 							html += "<div class='zoom'>";
-							html += "<a href=''><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>";
+							html += "<a href='${path }/market/cart.do?id=${m}&itemNo="+itemNo+"'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>";
 							html += "</div>";
 							html += "</div>";
 							html += "</div>";
@@ -212,46 +256,6 @@ $(function(){//.레디함수
     }
 
     /* 마켓헤더./ */
-    /* /.챗봇최근본상품위로가기 */
-    .floating {
-        background-color: #f9f9f9;
-        border: 2px solid #dddddd;
-        position: fixed;
-        right: 36%;
-        top: 380px;
-        margin-right: -500px;
-        text-align: center;
-        height: 350px;
-        width: 70px;
-        border-radius: 30px;
-        /* -webkit-border-radius: 8px;
-    position: absolute;
-        width: 70px;
-        height: 350px;
-        right: 50px;
-        border-radius: 70px;
-        top: 250px;
-        border: 1px solid #dddddd; */
-    }
-
-    .floating div:nth-child(1) {
-        border: 1px solid blueviolet;
-        border-radius: 100%;
-        height: 70px;
-    }
-
-    .floating div:nth-child(2) {
-        border: 1px solid blueviolet;
-        border-radius: 8px;
-        height: 278px;
-    }
-
-    .floating div:nth-child(3) button {
-        border: 1px solid blueviolet;
-        border-radius: 100%;
-        height: 70px;
-    }
-    /* 챗봇최근본상품위로가기./ */
 
 	a:hover {
 			color: yellowgreen;

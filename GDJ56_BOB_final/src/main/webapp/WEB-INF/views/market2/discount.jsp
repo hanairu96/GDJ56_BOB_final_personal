@@ -21,8 +21,9 @@
 </head>
 <body class="animsition">
 <section class="bg-title-page flex-c-m p-t-160 p-b-80 " style="display: flex;flex-direction: column;">
-	<img src="${path }/resources/images/itemdiscountbanner.png" width="1000" id="itemdiscountbanner" />
-	<img src="${path }/resources/images/itemdiscountbanner2.png" width="1000" id="itemdiscountbanner" />
+	<img src="${path }/resources/images/itemdiscountbanner3.PNG" width="100%" height="620px" id="itemdiscountbanner" />
+	<%-- <img src="${path }/resources/images/itemdiscountbanner1.png" width="1000" id="itemdiscountbanner1" /> --%>
+	<%-- <img src="${path }/resources/images/itemdiscountbanner2.png" width="1000" id="itemdiscountbanner2" /> --%>
 </section>
 
 <div style="display: flex; margin-left: 65%;">
@@ -42,13 +43,13 @@
 			<div class="col-lg-4 col-sm-6" style="padding: 3%;">
 				<div class="discount-item">
 					<div class="zoom">
-						<a href="#"><img src="${path }/resources/upload/market/mainlabel/${i.mainPic }" alt="" width="330" height="280"></a>
+						<a href="${path}/market1/marketdetail.do?itemNo=${i.itemNo}"><img src="${path }/resources/upload/market/mainlabel/${i.mainPic }" alt="" width="330" height="280"></a>
 					</div>
 					<div class="ri-text">
 						<div class="cat-name">${i.itemCategory }</div>
-						<a href="#">
-							<h4>사과${i.itemName }</h4>
-							<p>달달 꿀사과${i.mainContent }</p>
+						<a href="${path}/market1/marketdetail.do?itemNo=${i.itemNo}">
+							<h4>${i.itemName }</h4>
+							<p>${i.mainContent }</p>
 						</a>
 						<div style="display: flex; margin-top: 1%; justify-content: space-between; align-items: center;">
 							<div style="display: flex;">

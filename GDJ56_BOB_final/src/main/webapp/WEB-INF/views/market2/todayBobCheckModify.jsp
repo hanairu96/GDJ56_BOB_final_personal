@@ -21,7 +21,7 @@
 <body class="animsition">
 <div style="width:100%;display: flex;align-items: center;justify-content: center;margin-top:100px; margin-bottom: 100px;">
 	<span class="tit2 t-center" style="margin-left: 200px;color: rgb(100, 20, 175);">
-			preview
+			Update
 		</span>
 		<div class="col-lg-4">
 			<div class="dis-flex">
@@ -78,17 +78,21 @@
 					</tbody>
 				</table>
 				
-				<input type="hidden" name="reIcon" value="${tb.reIcon }"/>
-				<input type="hidden" name="reTitle" value="${tb.reTitle }"/>
-				<input type="hidden" name="reContent" value="${tb.reContent }"/>
+				<!-- 확인하고 최종 업데이트에 적용할 값 -->
+				<input type="hidden" id="itemLS" name="itemLS" value="${itemLS }"/>
+				<input type="hidden" id="selectTitleNext" name="selectTitleNext" value="${selectTitleNext }"/>
+				
+				
+				
+				
 
 			</div>
 			<div class="wrap-btn-booking flex-c-m m-t-6">
 				<div style="display: flex; margin-left: 75%; margin-bottom: 50px;">
 					<button type="submit" class="flex-c-m size36 txt11 trans-0-4"
-					value="check" onclick="javascript: form.action='${path}/market/todayBobEnd.do'">
+					value="check" onclick="javascript: form.action='${path}/market/checkTodayBobModifyEnd.do'">
 					<%-- value="check" onclick="javascript: form.action=window.open('${path}/market/checkTodayBob.do', '체크한상품확인', 'width=500, height=700, scrollbars=yes, resizable=no')"> --%>
-						생성하기
+						수정하기
 					</button>
 <%-- 					<button type="submit" class="flex-c-m size36 txt11 trans-0-4" style="margin-left:2%" 
 					value="checkFin" onclick="javascript: form.action='${path}/market/todayAdminTitle.do';">
@@ -106,6 +110,15 @@
 
 
 <script>
+let aa = "5,12,11";
+console.log(aa.split(","));
+
+
+for(var i=0; i<aa.split(",").length; i++){
+	console.log(aa.split(",")[i]);
+}//자료형을 체크해주자 혹시모름
+
+
 	const fn_eventKeyup1 = (str)=>{
 		$("#reTitlePrint").html(str);
 	}
