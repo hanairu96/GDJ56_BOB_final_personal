@@ -36,24 +36,35 @@
 	                    <td class="line-title">작성자</td>
 	                    <td class="line-content">${cq.memberId}</td>
 	                </tr>
-	                <tr id="fix-title-tr">
+	                <tr id="fix-cate-tr">
 	                    <td class="line-title">분류</td>
 	                    <td class="line-content">${cq.cqCate}</td>
 	                </tr>
-	                <tr id="input-title-tr">
+	                <tr id="input-cate-tr">
 	                    <td class="line-title">분류</td>
-	                    <td class="line-content"><input type="text" id="input-title" value="${cq.cqCate}"></td>
+	                    <td class="line-content">
+		                    <select name="category" id="input-category">
+		            	        <option value="배송문의">배송문의</option>
+		                	    <option value="신고">신고</option>
+		                    	<option value="제안하기">제안하기</option>
+		                    	<option value="시스템장애">시스템장애</option>
+		                    	<option value="기타">기타</option>
+		                    </select>
+	                    </td>	                    
 	                </tr>
 	                <tr>
 	                    <td class="line-title">작성일</td>
 	                    <td class="line-content">${cq.cqDate}</td>
 	                </tr>
 	            </table>
+	            <div id="secret-div">
+            		<input type="checkbox" id="secret" value="secret"> 비밀글 여부
+	            </div>
 	            <div class="btns">
 	            	<c:if test="${loginMember.memberId eq cq.memberId}">
 		                <button type="button" id="update-btn" class="customBtn btnStyle" onclick="updateCq();">수정하기</button>
 		                <button type="button" id="updateEnd-btn" class="customBtn btnStyle" onclick="updateCqEnd();">수정완료</button>
-		                <button type="button" id="cancel-btn" class="customBtn btnStyle" onclick="cancelCq();">취소</button>
+		                <button type="button" id="cancel-btn" class="customBtn btnStyle" onclick="cancel();">취소</button>
 	            	</c:if>
 	            	<c:if test="${(loginMember.memberId eq cq.memberId)||(loginMember.memberId eq 'admin')}">
 	                	<button type="button" id="delete-btn" class="customBtn btnStyle" onclick="deleteCq();">삭제하기</button>
@@ -135,8 +146,6 @@
             font-size: 35px;
         }
         .outline{
-            /* width: 1000px; */
-            height: 200px;
             border-collapse: collapse;
             margin: 0 auto !important;
             margin-top: 20px !important;
@@ -154,15 +163,21 @@
             width: 700px;
             padding-left: 20px;
         }
-        #input-title-tr{
+        #input-title-tr, #input-cate-tr{
         	display: none;
+        }
+        #input-title{
+        	width: 600px;
         }
         .headline{
             font-weight: bold;
         }
+        #secret-div{
+        	width: fit-content;
+        	display: none;
+        }
         #input-content{
-        	margin-left: 70px;
-            margin-right: 70px;
+        	width: 87%;
             margin-top: 10px;
             margin-bottom: 20px;
             padding: 20px;
@@ -196,8 +211,7 @@
         }
         #textEnroll{
         	display: none;
-        	margin-left: 70px;
-            margin-right: 70px;
+        	width: 87%;
             margin-top: 10px;
             margin-bottom: 20px;
             padding: 20px;
@@ -283,31 +297,58 @@
 			location.assign("${path}/center/clientQnaList");
 		})
 		
+		//비밀글이면 수정 시 체크박스에 체크 된 상태로 나옴
+		if(${cq.cqSe eq 'Y'}){
+	 		$("#secret").prop("checked", true);
+		}
+		
+		//체크박스 영역을 누르면 체크가 됨
+	 	$("#secret-div").click(e=>{
+	 		$("#secret").prop("checked", true);
+	 	})
+
+	 	//textarea 좌우 가운데 정렬
+	 	let bdWidth=$(".board").css("width").replace('px',''); //board 영역의 너비
+	 	let taWidth=$("#input-content").css("width").replace('px',''); //textarea 영역의 너비
+	 	let marginVal=(bdWidth-taWidth)/2;
+	 	$("#input-content").css("margin-left", marginVal).css("margin-right", marginVal);
+	 	$("#textEnroll").css("margin-left", marginVal).css("margin-right", marginVal);
+	 	//체크박스 영역의 왼쪽 margin
+	 	$("#secret-div").css("margin-left", marginVal);
+		
 		//수정하기 버튼 눌렀을 때
 		const updateCq=()=>{
-			//수정완료, 취소 버튼 보임
+			//수정완료, 취소 버튼, 비밀글 체크 부분이 보임
 			$("#updateEnd-btn").css("display", "inline-block");
 			$("#cancel-btn").css("display", "inline-block");
+			$("#secret-div").css("display", "inline-block");
 			
 			//수정하기, 삭제하기 버튼 사라짐
 			$("#update-btn").css("display", "none");
 			$("#delete-btn").css("display", "none");
 			
-			//기존 제목 줄이 사라지고 수정할 수 있는 제목 줄이 보임
+			//제목과 분류를 수정할 수 있게 교체함
 			$("#fix-title-tr").hide();
 			$("#input-title-tr").show();
+			$("#fix-cate-tr").hide();
+			$("#input-cate-tr").show();
 			
 			//내용 입력창이 수정할 수 있게 바뀌고 포커스가 맞춰짐
 			$("#input-content").attr("readonly", false);
 			$("#input-content").focus();
 		}
 		
+		//수정 시 분류는 저장된 값으로 선택됨
+		$("#input-category").val("${cq.cqCate}").prop("selected", true);
+		
 		//수정하기
 		const updateCqEnd=()=>{
-			let title=$("#input-title").val();
-			let content=$("#input-content").val();
-			let no=${cq.cqNo};
-			let input=[title, content, no];
+			let no=${cq.cqNo}; //번호
+			let category=$("#input-category").val(); //분류
+			let title=$("#input-title").val(); //제목
+			let content=$("#input-content").val(); //내용
+			let secret=$("#secret").is(':checked'); //비밀글 여부
+			let input=[no, category, title, content, secret];
 			//등록 성공 여부를 boolean 값으로 받음
 			$.ajax({
 				url:"${path}/center/cqUpdate",

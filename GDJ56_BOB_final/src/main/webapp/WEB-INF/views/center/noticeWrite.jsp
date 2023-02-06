@@ -74,8 +74,6 @@
             font-size: 35px;
         }
         .outline{
-            /* width: 1000px; */
-            height: 100px;
             border-collapse: collapse;
             margin: 0 auto !important;
             margin-top: 20px !important;
@@ -100,11 +98,11 @@
 			width: 600px;
         }
 		#input-content{
-        	margin-left: 70px;
-            margin-right: 70px;
+			width: 87%;
             margin-top: 10px;
             margin-bottom: 20px;
             padding: 20px;
+            resize: none;
         }
         #enroll-cancel{
         	display: flex;
@@ -186,6 +184,12 @@
 	 	let dateToday=today.toLocaleDateString();
 	 	$(".date").text(dateToday);
 		
+	 	//textarea 좌우 가운데 정렬
+	 	let bdWidth=$(".board").css("width").replace('px',''); //board 영역의 너비
+	 	let taWidth=$("#input-content").css("width").replace('px',''); //textarea 영역의 너비
+	 	let marginVal=(bdWidth-taWidth)/2;
+	 	$("#input-content").css("margin-left", marginVal).css("margin-right", marginVal);
+	 	
 		//공지사항 등록
 		const enrollEnd=()=>{
 			let title=$("#input-title").val(); //제목
