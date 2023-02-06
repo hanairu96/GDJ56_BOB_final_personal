@@ -1,47 +1,35 @@
 package com.today.bab.onedayclass;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.common.Market1Pagebar;
 import com.today.bab.common.oneclass;
-import com.today.bab.market2.model.vo.SellItem;
 import com.today.bab.member.model.vo.Member;
 import com.today.bab.onedayclass.model.service.OneDayService;
 import com.today.bab.onedayclass.model.vo.OdcQa;
@@ -71,7 +59,18 @@ public class OneDayController {
       
       List<OneDayClass> classlist = service.selectClassList(Map.of("cPage",cPage,"numPerpage",numPerpage));
       int totaldata=service.countClasslist();
-      System.out.println(classlist);
+      //System.out.println(classlist);
+      
+      Object member=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      
+      //로그인한 member가 존재할 때
+      if(!member.equals("anonymousUser")) {
+    	  System.out.println(((Member)member).getMemberId());
+    	  AdminMaster master=service.selectMastserById(((Member)member).getMemberId());
+    	  mv.addObject("master",master);
+    	  System.out.println(master);
+      }
+      
       mv.addObject("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"/bab/class/main.do"));
       mv.addObject("classlist",classlist);
       mv.setViewName("onedayclass/onedayMain");
@@ -379,8 +378,8 @@ public class OneDayController {
 			  mv.setViewName("onedayclass/onedayReviewPop");
 		  }
 	  }else {
-		  mv.addObject("msg","리뷰는 클래스를 수강한 회원만 가능합니다. "
-		  		+ "<br>*클래스를 예약하신 분들은 예약한 수업날짜가 현재 날짜 이후일 떼 리뷰쓰기가 가능해집니다.");
+		  mv.addObject("msg","리뷰작성은 클래스를 수강 완료한 회원만 가능합니다."
+		  		+"*클래스를 예약하신 분들은 예약한 수업날짜의 다음날부터 리뷰쓰기가 가능해집니다.");
 	      mv.setViewName("common/close");
 	  }
       return mv;

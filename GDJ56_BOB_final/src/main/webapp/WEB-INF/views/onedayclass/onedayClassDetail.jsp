@@ -29,12 +29,19 @@
 <script>
 	//달력 배치 및 효과 스크립트
 	$(function () {
+		//로그인한 회원 아이디
 		
 		$("#search").on("click", function() {
 				
 			const reDate=$("#testDatepicker").val();
+			const memberId=$('#memberId').val();
+			console.log(memberId)
+			if(memberId==''){
+				alert('로그인 시 이용가능한 서비스 입니다');
+				return window.location.assign("${path}/member/loginpage");
+			}
 			if(reDate==''){
-				alert('날짜를 지정해주시요')
+				alert('날짜를 지정해주시요');
 			}else{
 				$("#searchbox").slideDown("fast"); // 2초에 걸쳐서 진행
 			}
@@ -96,14 +103,6 @@
 				<span class="txt29">
 					${odc.odcClassName }
 				</span>
-				<span class="txt29 m-l-10 m-r-10">/</span>
-				<a href="${path}/class/editClass.do?no=${odc.odcNo }" class="txt27">
-					수정하기
-				</a>
-				<span class="txt29 m-l-10 m-r-10">/</span>
-				<a href="${path}/class/menu.do?type=${odc.odcCategoty }" class="txt27">
-					삭제하기
-				</a>
 			</div>
 		</div>
 
@@ -117,10 +116,18 @@
 							</div>
 
 							<div class="t-center">
-								<h4 class="">
 									<h3>${odc.odcClassName }</h3>
+									<c:set var="odcmasterId" value="${odc.memberId }"/> 
+									<c:set var="m" value="${loginMember.memberId }"/> 
+									<c:if test="${m eq odcmasterId }">
+										<div style="margin-left:79%">
+											<a href="${path}/class/editClass.do?no=${odc.odcNo }">
+												<img src="${path }/resources/images/onedayclass/edit.png" width=30 height=30>
+												<b style="color:black">글 수정하기</b>
+											</a>
+										</div>
+									</c:if>
 									<br>
-								</h4>
 								<span id="classinfo" style="color:white">───────────────────────────────────────────────────</span>
 								<div style="display: flex;">
 									<div style="border:solid black 2px;">
@@ -286,8 +293,13 @@
 									onclick="goPopup(event);">
 											리뷰작성하기
 									</button>
+									
 								</div>
 									<br>
+									<label>
+										<input type="checkbox" value="secret" name="secret" id="secret">
+										내가 쓴 글
+									</label>
 									<p style="color: rgb(195, 195, 195);">
 										* 클래스를 수강한 회원님들의 후기입니다.
 									</p>
@@ -302,6 +314,10 @@
 								<h4 class="txt33 p-b-14">
 									문의하기
 								</h4>
+								<label>
+									<input type="checkbox" value="secret" name="secret" id="secret">
+									내가 쓴 글
+								</label>
 								<div class="col-md-12" id="">
 									<div class=" size12 bo2 bo-rad-10 m-t-3 m-b-23">
 										<input type="hidden" name="memberId" value="${loginMember.memberId }" id="memberId">
