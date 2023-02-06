@@ -45,6 +45,8 @@ public interface AdminDao {
 	
 	int masterTestEnd(SqlSessionTemplate session, AdminMaster m);
 	
+	int masterTestEnd2(SqlSessionTemplate session, AdminMaster m);
+	
 	List<ClientQNA> selectQnAList(SqlSessionTemplate session,Map<String,Integer> param);
 	
 	int selectQnACount(SqlSessionTemplate session);

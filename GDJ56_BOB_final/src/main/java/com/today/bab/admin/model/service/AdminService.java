@@ -44,6 +44,8 @@ public interface AdminService {
 	
 	int masterTestEnd(AdminMaster m);
 	
+	int masterTestEnd2(AdminMaster m);
+	
 	List<ClientQNA> selectQnAList(Map<String,Integer> param);
 	
 	int selectQnACount();

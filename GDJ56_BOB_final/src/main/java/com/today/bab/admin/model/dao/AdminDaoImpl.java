@@ -90,6 +90,11 @@ public class AdminDaoImpl implements AdminDao{
 	public int masterTestEnd(SqlSessionTemplate session, AdminMaster m) {
 		return session.update("admin.masterTestEnd",m);
 	}
+	
+	@Override
+	public int masterTestEnd2(SqlSessionTemplate session, AdminMaster m) {
+		return session.update("admin.masterTestEnd2",m);
+	}
 
 	@Override
 	public List<ClientQNA> selectQnAList(SqlSessionTemplate session, Map<String, Integer> param) {
