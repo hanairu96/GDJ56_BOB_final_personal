@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.today.bab.basket.model.dao.BasketDao;
 import com.today.bab.basket.model.vo.Basket;
+import com.today.bab.market1.model.vo.MarketBasket;
 
 @Service
 public class BasketServiceImpl implements BasketService {
@@ -22,17 +23,17 @@ public class BasketServiceImpl implements BasketService {
 	}
 	
 	@Override
-	public int insertbasket(Basket b) {
+	public int insertbasket(MarketBasket b) {
 		return dao.insertbasket(session,b);
 	}
 	
 	@Override
-	public List<Basket> selectBasket(String memberId){
+	public List<MarketBasket> selectBasket(String memberId){
 		return dao.selectBasket(session, memberId);
 	}
 	
 	@Override
-	public int updateBasket(Basket b) {
+	public int updateBasket(MarketBasket b) {
 		return dao.updateBasket(session,b);
 	}
 }

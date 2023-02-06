@@ -6,21 +6,22 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.today.bab.basket.model.vo.Basket;
+import com.today.bab.market1.model.vo.MarketBasket;
 
 @Repository
 public class BasketDaoImpl implements BasketDao{
 	@Override
-	public int insertbasket(SqlSessionTemplate session,Basket b) {
+	public int insertbasket(SqlSessionTemplate session,MarketBasket b) {
 		return session.insert("ma.insertBasket",b);
 	}
 	
 	@Override
-	public List<Basket> selectBasket(SqlSessionTemplate session,String memberId){
+	public List<MarketBasket> selectBasket(SqlSessionTemplate session,String memberId){
 		return session.selectList("ma.selectBasket",memberId);
 	}
 	
 	@Override
-	public int updateBasket(SqlSessionTemplate session,Basket b) {
+	public int updateBasket(SqlSessionTemplate session,MarketBasket b) {
 		return session.update("ma.updateBasket",b);
 	}
 }

@@ -1,7 +1,5 @@
 package com.today.bab.basket.controller;
 
-import java.io.File;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.today.bab.basket.model.service.BasketService;
 import com.today.bab.basket.model.vo.Basket;
+import com.today.bab.market1.model.vo.MarketBasket;
 
 @Controller
 @RequestMapping("/basket")
@@ -24,7 +23,7 @@ public class BasketController {
 	
 	@RequestMapping("/insertbasket.do")
 	public String insertbasket(int itemNo,String memberId,Model m) {
-		Basket b=Basket.builder()
+		MarketBasket b=MarketBasket.builder()
 				.itemNo(itemNo)
 				.memberId(memberId)
 				.build();
@@ -41,7 +40,7 @@ public class BasketController {
 	
 	@RequestMapping("/updatebasket.do")
 	public String updateBasket(int itemNo,String memberId,Model m) {
-		Basket b=Basket.builder()
+		MarketBasket b=MarketBasket.builder()
 				.itemNo(itemNo)
 				.memberId(memberId)
 				.build();
