@@ -3,6 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+	*{
+		font-family: 'Gowun Dodum', sans-serif;
+	}
+</style>
 	<div style="width: 100%;">
 		<h3 style="color:purple; font-weight: bold; text-align: center;">교환 및 환불 안내</h3><br>
 		<div style="display: flex; justify-content: space-between; padding: 2rem;">

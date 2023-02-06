@@ -31,7 +31,7 @@
 	                <button type="button" id="update-btn" class="customBtn btnStyle" onclick="updateNt();">수정하기</button>
 	                <button type="button" id="delete-btn" class="customBtn btnStyle" onclick="deleteNt();">삭제하기</button>
 	                <button type="button" id="updateEnd-btn" class="customBtn btnStyle" onclick="updateNtEnd();">수정완료</button>
-	                <button type="button" id="cancel-btn" class="customBtn btnStyle" onclick="cancelNt();">취소</button>
+	                <button type="button" id="cancel-btn" class="customBtn btnStyle" onclick="cancel();">취소</button>
                 </c:if>
             </div>
             <textarea id="input-content" rows="10" cols="130" readonly>${n.noticeContent}</textarea>
@@ -83,8 +83,6 @@
             font-size: 35px;
         }
         .outline{
-            /* width: 1000px; */
-            height: 100px;
             border-collapse: collapse;
             margin: 0 auto !important;
             margin-top: 20px !important;
@@ -105,12 +103,14 @@
         #input-title-tr{
         	display: none;
         }
+        #input-title{
+        	width: 600px;
+        }
         .headline{
             font-weight: bold;
         }
         #input-content{
-        	margin-left: 70px;
-            margin-right: 70px;
+			width: 87%;
             margin-top: 10px;
             margin-bottom: 20px;
             padding: 20px;
@@ -189,6 +189,12 @@
 			location.assign("${path}/center/clientQnaList");
 		})
 		
+		//textarea 좌우 가운데 정렬
+	 	let bdWidth=$(".board").css("width").replace('px',''); //board 영역의 너비
+	 	let taWidth=$("#input-content").css("width").replace('px',''); //textarea 영역의 너비
+	 	let marginVal=(bdWidth-taWidth)/2;
+	 	$("#input-content").css("margin-left", marginVal).css("margin-right", marginVal);
+		
 		//수정하기 버튼 눌렀을 때
 		const updateNt=()=>{
 			//수정완료, 취소 버튼 보임
@@ -248,6 +254,11 @@
 					}
 				})
 			}
+		}
+		
+		//취소 시 원래 상태로 복구
+		const cancel=()=>{
+			location.reload();
 		}
 		
 		//목록으로

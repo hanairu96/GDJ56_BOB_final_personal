@@ -5,7 +5,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <script src="${path }/resources/js/jquery-3.6.1.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style>
+	*{
+		font-family: 'Gowun Dodum', sans-serif;
+	}
     #test11 img {
         transition: all 0.3s linear;
     }
@@ -30,20 +34,46 @@
 			    <div class="col-10">
 			        <ul class="nav nav-tabs" role="tablist">
 			            <li>
-			                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
-			                style="font-size: 15px;font-weight: bold;">별점 높은 순</a>
+			                <a class="nav-link active" data-toggle="tab" href="javascript:void(0);" role="tab"
+			                style="font-size: 15px;font-weight: bold;" onclick="reviewlist('high');">별점 높은 순</a>
 			            </li>
 			            <li>
-			                <a class="nav-link" data-toggle="tab" href="#tabs-3"
-			                style="font-size: 15px;font-weight: bold;">별점 낮은 순</a>
+			                <a class="nav-link" data-toggle="tab" href="javascript:void(0);"
+			                style="font-size: 15px;font-weight: bold;" onclick="reviewlist('low');">별점 낮은 순</a>
 			            </li>
-			            <li>
+			            <!-- <li>
 			                <a class="nav-link" data-toggle="tab" href="#tabs-2"
 			                aria-selected="false" style="font-size: 15px;font-weight: bold;">사진리뷰</a>
+			            </li> -->
+			            <li>
+			                <a class="nav-link" data-toggle="tab" href="javascript:void(0);"
+			               	style="font-size: 15px;font-weight: bold;" onclick="reviewlist('mem');">내가 쓴 댓글보기</a>
 			            </li>
 			        </ul>
 			    </div>
 			</div>
+			
+			<script>
+				const reviewlist=(list)=>{
+					if(list == 'mem'){
+						if(${loginMember==null}){
+							alert("로그인 후 사용이 가능합니다.");
+						}
+					}
+               		$.ajax({
+               			type:'get',
+               			url:'${path}/itemReview/choiceReviewList.do?',
+               			data:{"list":list},
+               			success:data=>{
+               				console.log(data);
+           //    				$("#explain").html(data);
+               			}
+               		})
+					
+				}
+			
+			
+			</script>			
 
 
 			<!-- 리뷰 묶음-->
@@ -54,14 +84,11 @@
 			        	 <img src="${path }/resources/images/logo-icon.png" alt="" style="height:40px;width: 40px;border-radius: 50%;">
 			            <h4 style="margin-left :10px;">${re.memberId }</h4>
 			        </div>
-			        <div>
-			            <button  class="primary-btn" type="button" name="" style="margin-left : 10px;border: none;background-color:magenta;">삭제하기</button>
-			        </div>
 			    </div>
 			    <div class="product__detailss__rating">
-			    <c:forEach var="i" begin="1" end="${re.iqrStar}">
-			    	<img src="${path }/resources/market/star1.png" style="width:25px;"/>
-			    </c:forEach>
+				    <c:forEach var="i" begin="1" end="${re.iqrStar}">
+				    	<img src="${path }/resources/market/star1.png" style="width:25px;"/>
+				    </c:forEach>
 			        <span style="margin-left:20px;">${re.iqrStar }</span>
 			    </div>
 			    <div style="margin:10px;">
@@ -84,12 +111,8 @@
               
               
               
-			<!-- 페이징처리 -->
-			<div class="product__pagination" style="text-align: center;">
-			    <a href="#"><i class="fa fa-long-arrow-left"></i></a>
-			    <a href="#">1</a>
-			    <a href="#">2</a>
-			    <a href="#">3</a>
-			    <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-			</div>
+			<!-- 페이징처리..다시.... -->
+			<%-- <div style="text-align: center;">
+				 ${pageBar }
+			</div> --%>
 		</div>

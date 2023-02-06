@@ -4,7 +4,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+	*{
+		font-family: 'Gowun Dodum', sans-serif;
+	}
+</style>
 	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
         <div class="container">
             <div class="row">
@@ -83,15 +88,17 @@
 						    </c:if>
 	                        <c:out value="${de.itemName }"/></h3>
 	                        
-<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	           <!-- 별점 디테일 필요함.... 리뷰가 있을때만 수정해야한다!!!!-->
 	                        <div class="product__details__rating">
-	                            <i class="fa fa-star"></i>
-	                            <i class="fa fa-star"></i>
-	                            <i class="fa fa-star"></i>
-	                            <i class="fa fa-star"></i>
-	                            <i class="fa fa-star-half-o"></i>
-	                            <span>(18 리뷰)</span>
+	                        <c:if test="${reavg !=null }">
+		                        <c:forEach var="i" begin="1" end="${reavg }">
+		                        	<img src="${path }/resources/market/star1.png" style="width:25px;"/>
+		                        </c:forEach>
+	                        </c:if>
+	                        <c:if test="${reavg ==null }">
+							   	<img src="${path }/resources/market/star1.png" style="width:25px;"/>
+									첫 리뷰를 등록해주세요
+						    </c:if>	
+	                            <span style="font-size">(리뷰 ${reviews.size() })</span>
 	                        </div>
 	                        
 	                        
@@ -132,7 +139,7 @@
                             <li class="nav -item">
                                 <a class="nav-link" data-toggle="tab" role="tab"
                                     aria-selected="false" style="font-size: 25px;"
-                                    href="javascript:void(0);" onclick="choiceexplain(${de.itemNo},'bb');">리뷰<span>(1)</span></a>
+                                    href="javascript:void(0);" onclick="choiceexplain(${de.itemNo},'bb');">리뷰<span>(${reviews.size() })</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" role="tab"
@@ -210,10 +217,10 @@
 						        </div>
 						        <br><br>
 						        <div>
-						            <span class="col-1" style="font-weight:bold;">용량 </span><span class="col-4" style="margin-left:2%">${de.weight }</span><br>
-						            <span class="col-1" style="font-weight:bold;">특징 </span><span class="col-4" style="margin-left:2%">${de.itemPoint }</span><br>
-						            <span class="col-1" style="font-weight:bold;">보관법</span><span class="col-4">${de.itemKeep }</span><br>
-						            <span class="col-1" style="font-weight:bold;">활용팁</span><span class="col-4">${de.itemTip }</span><br>
+						            <span class="col-1" style="font-weight:bold;">용량 </span><span style="margin-left:2%">${de.weight }</span><br>
+						            <span class="col-1" style="font-weight:bold;">특징 </span><span style="margin-left:2%">${de.itemPoint }</span><br>
+						            <span class="col-1" style="font-weight:bold;">보관법</span><span class="col-3">${de.itemKeep }</span><br>
+						            <span class="col-1" style="font-weight:bold;">활용팁</span><span class="col-3">${de.itemTip }</span><br>
 						        </div>
 						        <br>
 						        <div style="text-align: center;">

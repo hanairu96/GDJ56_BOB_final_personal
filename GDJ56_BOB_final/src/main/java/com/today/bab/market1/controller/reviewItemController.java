@@ -97,4 +97,17 @@ public class reviewItemController {
 		mv.setViewName("common/msg");
 		return mv;
 	}
+	
+	@RequestMapping("/choiceReviewList.do")
+	public void choiceReviewList(String list,Model m,HttpServletRequest request) {
+//		HttpSession session = request.getSession();
+//	    Member  loginMember= (Member) session.getAttribute("loginMember");
+//	    if(list.contains("mem")) {
+//	    	m.addAttribute("choicere", service.choiceReviewList(loginMember));
+//	    }else {
+			List<ItemReview> re=service.choiceReviewList(list);
+			System.out.println(re);
+	    	m.addAttribute("choicere", service.choiceReviewList(list));
+	    	
+	}
 }
