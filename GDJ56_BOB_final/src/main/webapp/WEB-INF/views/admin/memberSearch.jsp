@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="path" value="${pageContext.request.contextPath }"/> 
+<c:set var="path" value="${pageContext.request.contextPath }"/>   
 
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ADMIN-클래스장인관리</title>
+    <title>ADMIN-회원관리</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
@@ -24,7 +25,7 @@
     <script src="${path}/resources/assets/js/jquery-3.6.0.min.js"></script>
   </head>
   <body>
-    <div          
+    <div
       class="flex h-screen bg-gray-50 dark:bg-gray-900"
       :class="{ 'overflow-hidden': isSideMenuOpen}"
     >
@@ -63,6 +64,10 @@
         </ul>
         <ul>
           <li class="relative px-6 py-3">
+            <span
+              class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+              aria-hidden="true"
+            ></span>
             <a
               class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
               href="${path }/admin/members.do"
@@ -79,14 +84,10 @@
               >
               <img src="data:image/png;base64,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">
               </svg>
-              <span style="margin-left:12px;" class="ml-4">회원관리</span>
+              <span style="margin-left:12px;color:#1A1C23"class="ml-4">회원관리</span>
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <span
-              class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-              aria-hidden="true"
-            ></span>
             <a
               class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
               href="${path }/admin/master.do"
@@ -103,7 +104,7 @@
               >
             <img style="width:35px;height:35px;"src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFr0lEQVR4nO2X7U9TVxzHybK3bi+2qPhyD38EKrAlOJeNiTy3oECFFigVSoFh5lQysCCiFEWde6E4BZFNQGjPRagTcHM+oSa+UCNzA9tbpPcWqg5BjN/lHFco7S0UismS8Ut+ycl5+J7P/Z2H37lBQUu2ZP9Tc3ateg+7gt5yXlilcJpXlj89v2L5ok/icHS9axGJzCqSWqvAEavI/c5c4AgvkoMW0ZQoCOQdacAVkSPm4GinORjMu4KbFg2MdxjDrALheIGb4EUOs7rATTB4BxfqqTPatSpiCtAcfCZgsEfDnR9bBdI+J5Toy8m5x6PkQ3dNp3lFmtO8Uh/wElsF8hkvcCO+JrfYTag/XIyGI9tY2Vc/q8g5bY6OSE/9qrbw93ddDH97QXC8SFRWgXvpOdngYyMqNYmoVsVhb0Y0bu3IYE7LrC5Hxvp4QQpk0iqalO5zlDdHPCpvjti5oMhRQc9Jrl0/hirdZtwpUcJSoUa7OhGt2XHMjTkJsJSrWRvtQ/t6Q9IPJl+45tnTsj60sil85bz3nNSytp0uQ706HoP6bPysioVZm4TR/XkYO6BjPlqdh668JDRnxmFQr2Z92xvLpA6Qw3NPzjd6Rql9ZChKgdOgxQlFFOxVuVNgnm7fuxU/KqLwxKCF4etUL50hxwXYxI5zC4NzcKFScM11u3AmV442dQJsezQ+4Vw+sl+L+99lojFXzsa6a41N8BCfXIPNzn2ykOhxUoDVylgWkZas+DnhXE6X+okhHwZVjPTJFjjTvDOEr0vYoJGxQ0H31pifgEJVLviKHDbWx2U+7ivjSEdP5ORSQgO2NuxTxvoNNuZ2aMjWROxXxTENKW2byCXMA5DUSon0dB/Ced0mDFVqZpzasTmc36PBxfxkdOiScan3iK8sU+M/IEv23iL00i1Lj0F/aSZ+LdzsN2CPbhP+KMtkYx8NmwLfh7xALg85zHA8vQVe7Jh5B57R49b2LWjMiPYb8HR6NG5uV6CtqXyWRwX5bV6Az54/BLXXkNNCpKUS3UWbca9EiQvapDnh6IV9v0SF7sIUkNbKxQGkSzw8eglPnz8EjeSMpbAT1O3T4lDaRlwpToVJk4i/a/K9wJ7V5KMtJwHXtqWiNjUKx/dp2VifjwiBGP2PoEgO+vxSuhdt7UiN3YAHpVkY0KvRpIxBc1YcLuqSWdqj995PqliWj2mftLgoNmY2TV4kBr8BR/p3lwlW7wTv8voGPT49fBLJmdlQpqWgPjeFRc1SkcNOLC3TOpUiBUnpWxB+4DgaTs+y/14vcZxfcBN9csVknxzUxYFaSTGVNhMhPXcR0nuPeeS3pSjYuB6VGhkqt8pZObLcMNW+9pQJWTr1LHDcuN3euswvwMk+ud4F6OzXe4ldv3kCG3bvnZo8pPceQk8R5BdPA+QVZSPklztT7WuazIgsrcDV68cD33+4vWn5iz5Z0/hthdk23PzKU+ybnblYzd2YnrylF+urv0eXeTranZ0H8Xn10emP6LmL1Q0ctpdopQFF05qghRj9h3AX+tN6DvKC/KlJQxjgJSjysmkU3CPC6twB1xivIKlQxzRmwpGzQQu1wccdH9FHpUus7lgJYpPlyCzSYItChrCTRoTVtaL28A6vqNC60MbzCGvsZH3pmJhkGdNwOxji0Kjxg6BAzCp0rHM9+e8+aJpKVfTaSMtRIqGwEP0DLV6AtC6hoACKHOXUFUPHUo1/U9vLoaHGjZM3ZF8GBMggRS5D6r+ku+coigszfJ5O2kb7SByKSatA0incixvyV7gaP79/EV+RdF9ul//FSz+ffLYJRLQIXIRLd1HgXEZ/cHiRtM6eEbjZvDngPeePWR1kLX0e8QI3PieUwI3TvhaxY/UbAyo/u+4H6p71dnvrMvoS5kXuwGtgcpk6K4ukxiZy8X5niIAAW9Z9Rf2NT7RkSxb037N/ADXXSMgZW/5JAAAAAElFTkSuQmCC">
             </svg>
-              <span class="ml-4" style="color:#1A1C23">클래스 장인 관리</span>
+              <span class="ml-4">클래스 장인 관리</span>
             </a>
           </li>
           <li class="relative px-6 py-3">
@@ -240,7 +241,7 @@
               <a href="${path }">
               	<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAADC0lEQVR4nO2WXUiTURjHDzWjiy6LIi+km6CbLoqCYEQRRYSCjGYqY/ah1ObH1GxqOTdrOsu2kjQIGyzMMM2iWKskXNZmY1A6Lbecq5hufVC+73veiCDtH+9q9p3DyLrYH35X5zz8Dg+Hcx5CphEAsxiGWcFxXAml1DY2NtYbCoUyyd8Ix3FLKaUKjuMucBz3mlIKgQcDw+j3DIFhmPcKhWLZtAUA5vA8v4HneSnHcTsppRaWZUejosBwEBfb7dCWnoQ0uRRZkv1QF52MrHV3dzcKdQKUUgnDMEtilSZQSl1RicDoyHPYrD0w1jQjO7MK6SmlOFqggd2ow5tLBnjPNUyKv4dl2XG3271jSjHLsquEguO1zdiRpoFMUgFZahmMqkrcMunAdhiAa4e/wdtsxOb1xdgu1URqomRn6OAbfAyv1+smhMz7rZjn+XWCWJl1CB35MngttT+Ivodpr0bjzu2wFsrQrc6cpCBNBecdD/x+fz8hJDFmcVdJBsJtR6YUh8/XoTjnGGrUp2HSnIlg1+ZBnVn4d8UjrSZk5TQjd991FFbcimCrVMfFifFWT/tyvbf+g8v1orUGG8UqeM36mRU/Muuxbk0BnPVVMysetnwSu07MsHjCVgtrdSXeXamNPyCIP5n++O/0X/3HlNK1gjh/lwF50mIcyK7EeZ0WfoseE7afi72WOkiStdiWehAZEn2EvPQySDbthatnAENDQzGJF7As+/bpk1H03vPhbk8/zKcuQ5VzGFu3lEK7R4fLei1GzlZ/EZ9rQG6OKbL/G+77hCkTdru9gxCyiEwVp9OZ3NfX1+XxeByBQOAhwzDjQhdevXoNx+1eNNa3Ybdcj/SUMhjydTBraibHW5/P1yfURens7GxNSkraTAgRkRgz9/MpF4vF4uVNTU1FDoejIxgMBliW/SBInj97iZs33DAaWmAxX42I5XK5XKj5igWEkNmxSn+VWYSQ+VKpdE1LS4vG5XJdC4fDoejwPjg46E5ISFj5p5JYIrRvoVKp3FBeXr5LJBKt/typmPIRW0XTSiwMybkAAAAASUVORK5CYII=">
               </a>
-               </li>
+              </li>
               
                   </ul>
                 </template>
@@ -254,167 +255,157 @@
               <h2
                 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
               >
-                클래스 장인 관리
+                회원관리
               </h2>
-               <!-- 검색창 -->
-				<div id="searchbox"  class="flex justify-center flex-1 lg:mr-32" style="align-items:center;text-align:center;" >
+           
+              <!-- 검색창 -->
+		<div id="searchbox"  class="flex justify-center flex-1 lg:mr-32" style="align-items:center;text-align:center;" >
+			<form action="${path }/admin/memberSearch.do" method="post" onsubmit="return checkIt();">
+				<select name="searchlist" style="padding: 0.3%; margin: 1%;width:100px; 
+				border:1px solid purple;margin-left:-6%;color:purple;height:35px;text-align:center;"
+				class="text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input">
+					  <option value="searchNo" ${fn:contains(as.type,'searchNo')?'selected':''}>검색 ▼</option>
+                      <option value="M_NAME" ${fn:contains(as.type,'M_NAME')?'selected':''}>이름 </option>
+                      <option value="MEMBER_ID" ${fn:contains(as.type,'MEMBER_ID')?'selected':''}>아이디 </option>
+                      <option value="NICKNAME" ${fn:contains(as.type,'NICKNAME')?'selected':''}>닉네임 </option>
 						
-					<form action="${path }/admin/masterSearch.do" method="post" onsubmit="return checkIt();">
-						<select name="searchlist"
-							style="padding: 0.3%; margin: 1%;width:100px; 
-							border:1px solid purple;margin-left:-6%;color:purple;height:35px;text-align:center;"
-							class="text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input">
-							  <option value="searchNo">검색 ▼</option>
-		                      <option value="MEMBER_ID">아이디</option>
-		                      <option value="M_NAME">강사명</option>
-							<input 
-								id="searchclass" 
-								style="height:35px;width:220px;border:1px solid purple;margin-left:15px;margin-right:15px;"
-				                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-								type="text" name="search" placeholder="Search for masters"/>
-							<button class="search-btn" style="height:35px;position:absolute;margin-top:4px;">
-							 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-				                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-				             </svg>
-							</button>
-						</select>
-						<input type="hidden" name="cpage" value="1">
-						<input type="hidden" name="numPerpage" value="5">
-					</form>
-					<script>
-						const checkIt=()=>{
-							if(document.querySelector("#searchclass").value==""){
-								alert("검색할 내용을 입력하세요");
-								return false;
-							}
-								
+					<input 
+						id="searchclass" 
+						style="height:35px;width:220px;border:1px solid purple;margin-left:15px;margin-right:15px;"
+		                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+						onclick="change();"
+						type="text" name="search" placeholder="Search for members"
+						value="${as.keyword}"/>
+				<script>
+					const change=()=>{
+							document.querySelector("#searchclass").value="";
+					}
+					const checkIt=()=>{
+						if(document.querySelector("#searchclass").value==""){
+							alert("검색할 내용을 입력하세요");
+							return false;
 						}
-					</script>
+							
+					}
+				</script>
 					
-				</div>
-		
+					<button class="search-btn" style="height:35px;position:absolute;margin-top:4px;">
+					 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+		                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+		             </svg>
+					</button>
+				</select>
+				<input type="hidden" name="cpage" value="1">
+				<input type="hidden" name="numPerpage" value="5">
+			</form>
+				
+		</div>
             </div>
              <!-- New Table -->
              <div class="w-full overflow-hidden rounded-lg shadow-xs">
+             
               <div class="w-full overflow-x-auto">
 	              <div style="display:flex;justify-content:space-between;align-items:center;">
-		          	<p>총 <b>${yesData }명</b>의 장인 / <b style="color:red;">${ingData }명</b>의 심사가 필요한 회원이 있습니다.</p>
-	        	</div>
+		          	<p>총 <b>${totalData }명</b>의 회원이 있습니다.</p>
+	        	  </div>
                 <table class="w-full whitespace-no-wrap">
-               	  	<c:if test="${empty list }">
+                 
+                  	<c:if test="${empty list}">
 	                  	 <thead>
 			            	<tr>
-			            		<td colspan="5">장인등급의 회원이 없습니다 :(</td>
+			            		<td colspan="4">등록된 회원이 없습니다 :(</td>
 			            	</tr>
 			            </thead>
 		            </c:if>
 		            <c:if test="${not empty list }">
-	                  <thead>
-	                    <tr
-	                      class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-	                    >
-	                      <th class="px-4 py-3">강사명</th>
-	                      <th class="px-4 py-3">아이디</th>
-	                      <th class="px-4 py-3">신청일</th>
-	                      <th class="px-4 py-3">승인여부</th>
-	                      <th class="px-4 py-3">심사일</th>
-	                    </tr>
+			            <thead>
+		                    <tr
+		                    id="adminfixBar"
+		                      class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+		                    >
+		                      <th class="px-4 py-3">이름</th>
+		                      <th class="px-4 py-3">아이디</th>
+		                      <th class="px-4 py-3">닉네임</th>
+		                      <th class="px-4 py-3">이메일</th>
+		                    </tr>
 	                  </thead>
+                  
 	                  <tbody
 	                    class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
 	                  >
 	                  	<c:forEach var="m" items="${list }" >
-	                    <tr class="text-gray-700 dark:text-gray-400">
-	                    
-	                      <td class="px-4 py-3">
-	                        <div class="flex items-center text-sm">
-	                          <!-- Avatar with inset shadow -->
-	                          <div
-	                            class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-	                          >
-	                            <img 
-	                            	class="object-cover w-full h-full rounded-full"
-	                            	src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAADBUlEQVR4nO1WW0hUQRg+PhQUeZlxV8EUkrxEkeuc7cGnijhHLISQsAtRnrHYIM3owW4QIWJWZtlDRmZvQflSPYhREJQWGKGbuq4zayI7s3QRKo3scSdmdTGls+7qMSj64Idh5jvzffP/w5xfUaKEzRvIgT5/YYKHwcTR0SRI+W1I+Dgk/CskrAWMjCTGewPJkiO5ipUAhNdCwoKQcgEp/wIJezs9ngnC3KG1qXEQUF5jibhNnnxGPPogLGgb5NmLPz3lO2IWnw757aINxHsDyYDwiZjFCZ+Q90WxAkk+tiVWA0mUbVasBIzRgKXiEv8NrK1v+Zzyqs8DCbsFCD8FKHcByvZOBXfJOfkgpXS5vVkXW8cVq6Fq+Luqlxvz8ZCGMdKMb5YbQJoxgDTj8rw83bii6kaf5QZUzbiEdOx3Ol3LzDjrS0uXIw0zpBv1lhvYVGhkIB3/UDVca8ZBOq5DmjHp2HZwtbIUyNfxIVXHQZmNgoLSFeF5Z7FrJdJxg1yTd2BJxMNw6kYZ0vDEVBhPkIafhsa6MY60sgPKn0B+EbYjzahUNXxH1YxWVccVck75tyFEXPIQ3woIuwAp74KE+QFhkzLk2P7a2523q2os51zTacm1VBtQtg9SPmD2P7C/IWKD67zI23NC2HuonOsHJLDbml6A8keRhDNv3BOOksqQeOrznrkNycMF9wRgOJABCPOGN0vp9oics00i92SjWF9RKzburxZqYblAxUdEVl2LsLt9Zo3JIPTx9JjEoc+XAAn3/LpRxv3HQtWxWFfdIHLPXBWZ1++K9AfPhK3/XRStGRtK7PeD6NSFiIOUdczdJGxgof0hJKw9utQTdvh3GyzagAwfi/xK2j2fVgHCP0ZjILO5Tay52TaLk9bxUmTXNAube9gsC2OyvOa1p7zKzP1cA46dR4WjpGIWR4pLTlp7Z4RMsGPm6afsWrQGUl/0itTO3lkcefKQOGGRStEYof58e7QGFhqAsKKI9wAO8eOA8g9WGwCUv5clVhbTkKgRmpG/Fj8BIGdLBiqo35wAAAAASUVORK5CYII="
-	                            	alt=""
-	                              loading="lazy"
-	                              >
-	                             <div
-	                              class="absolute inset-0 rounded-full shadow-inner"
-	                              aria-hidden="true"
-	                            ></div>
-	                          </div>
-	                          <div style="display: flex;flex-direction: row;">
-	                            <p class="font-semibold">
-	                            	<c:if test="${fn:contains(m.ing,'B')||fn:contains(m.ing,'Y')}">
-	                            		<a href="${path }/admin/masterInfo.do?name=${m.name}&ing=${m.ing}"><c:out value="${m.name}"/></a></p>
-	                            	</c:if>
-	                            	<c:if test="${fn:contains(m.ing,'I')}">
-	                            		<a href="javascript:alert('심사가 필요한 회원입니다');" onfocus="this.blur()">
-	                            			<c:out value="${m.name}"/>
-	                            		</a></p>
-	                            	</c:if>
-	                            	<c:if test="${fn:contains(m.ing,'N')}">
-	                            		<a href="javascript:alert('심사에서 탈락한 회원입니다');" onfocus="this.blur()">
-	                            			<c:out value="${m.name}"/>
-	                            		</a></p>
-	                            	</c:if>
-	                          </div>
-	                        </div>
+		                    <tr class="text-gray-700 dark:text-gray-400">
+		                      <td class="px-4 py-3">
+		                        <div class="flex items-center text-sm">
+		                          <!-- Avatar with inset shadow -->
+		                          <div
+		                            class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
+		                          >
+		                           <img
+		                              class="object-cover w-full h-full rounded-full"
+		                              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAACwklEQVR4nOVVT0iUQRTfS1JR1jdr2paRaBQulc5sB885s3joZO2tdGYVL5bUuVOKpRYESSSkHQO7eUq95Kk8BRG4M6ug+81WUB001CjSiffZmuH+sdxZqB48mO+937zf7/vmzft8vr/RTrOLpSEmOgjjj8BxffMViBWEHId5FFP+CTM+j5kYXXM+j6lYICzKrZKHKG8lTKxixm/V1UV2peKwJpT3erkwj1ohPxPmRzATnzHlnZkwhIouzMTyqYbW8rwLwJT3EcbnQqG2HZkwkMNMJAgTPTYEvIbPnBPHxG3C+CsbApZq60VTLhw0IqFiMe8CCBWLW+lyTIWAW2LlCDDlfTlxjN+xcgSE8l5osGxNGIxEijAVLlxTW9dwGa5aJgxmoht6peZs02GfDatlogWGDXyNjYModK5t91r3i1XoASvkKQsx3gxjd835GKZi3Ft747j5kq8QVtsgDmDKLxMqhgjlg4SJdoj5/mkLRiJFlT1DwlG6E0k9gaTrOtJdAoc1xBylb1TefCgAm1dyFNMXykeeKRKOmsDoc4OU9vxY14DnqefA2AvjYUYmJIrr89sm9scSh5DSoymCYHuXORm9bvyxhKkYGDaERT1CWEMMcoBJ4ZHST0um5gJ/RL4vnsSOdPWGYqZs4qXBDS2muqN7nbjiwbC3hhjkALNxDxzPfqVrfou8OJ6oQtJ9/0uhH17VO2gIE6ay//F6rGLgiReDXLo9SLkfS6aSx7dEjuLxYiT1TPpC2vinEubg+OSmeGB80stl2udIPe2PfdibU4AjdX+mItt1R7l3s7+9mq1G0v1mSwDU9seSJ7II0Petkf88intpyY/Ozu50pF4ogIAF4NokoGT6DbFNnnK44psElM28K0VKfy2AgC974m/T/7iQ1NeQdFcsNuEKkvpq7iGkdCOSyUheXelGqJ2V3Pc/2ncMULTI3hg6NAAAAABJRU5ErkJggg=="
+		                              alt=""
+		                              loading="lazy"
+		                            />
+		                            <div
+		                              class="absolute inset-0 rounded-full shadow-inner"
+		                              aria-hidden="true"
+		                            ></div>
+		                          </div>
+		                          <div style="display: flex;flex-direction: row;">
+		                            <p class="font-semibold"><a href="${path }/admin/membersInfo.do?id=${m.memberId}"><c:out value="${m.mname}"/></a></p>
+		                            <p style="margin-left:10px;" class="text-xs text-gray-600 dark:text-gray-400">
+			                              <span
+			                                class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+			                              >
+			                                일반
+			                              </span>
+			                              <c:if test="${fn:contains(m.grade,'Y')}">
+				                              <span
+				                                class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
+				                              >
+				                                장인
+				                              </span>
+			                              </c:if>
+		                            </p>
+		                          </div>
+		                        </div>
 		                      </td>
 		                      <td class="px-4 py-3 text-sm">
 		                        <c:out value="${m.memberId}"/>
 		                      </td>
 		                      <td class="px-4 py-3 text-xs">
-		                        <c:out value="${m.apply}"/>
+		                        <c:out value="${m.nickname}"/>
 		                      </td>
 		                      <td class="px-4 py-3 text-sm">
-		                      	<c:if test="${fn:contains(m.ing,'I')}">
-			                       <span
-			                        class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
-			                        >
-			                        <a href="${path }/admin/masterTest.do?name=${m.name}">심사필요</a>
-			                      </span>
-			                    </c:if>
-			                    <c:if test="${fn:contains(m.ing,'N')}">
-			                       <span
-			                       class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-			                        >
-			                        <a href="javascript:alert('심사 탈락 사유 : ${m.fail }');" onfocus="this.blur()">거절</a>
-			                      </span>
-			                    </c:if>
-			                    <c:if test="${fn:contains(m.ing,'Y')}">
-			                       <span
-			                        class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-			                        >
-			                       <a href="javascript:alert('이미 승인 된 회원입니다.');" onfocus="this.blur()">승인</a>
-			                      </span>
-			                    </c:if>
-			                    <c:if test="${fn:contains(m.ing,'B')}">
-			                       <span
-			                       class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-			                        >
-			                        <a href="javascript:alert('자격 박탈 사유 : ${m.fail }');" onfocus="this.blur()">박탈</a>
-			                      </span>
-			                    </c:if>
+		                        <c:out value="${m.email }"/>
 		                      </td>
-		                      <td class="px-4 py-3 text-sm">
-		                        	<c:out value="${m.testDate}"/>
-		                      </td>
-	                     </tr>
+		                    </tr>
 	                    </c:forEach>
-                  	  </tbody>
-                  	</c:if>
+	                  </tbody>
+                  </c:if>
                 </table>
               </div>
               
-               <div
+        
+              <div
                 class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
               >
                 <span class="col-span-2"></span>
                 <!-- Pagination -->
                 <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-center">
+                
                   <nav aria-label="Table navigation">
-                    ${pageBar}
+	                  <form action="${path }/admin/memberSearch.do" method="post" name ="pageForm" method="post">
+	                    <input type="hidden" id="cpage" name="cpage" value="${as.cpage}">
+						<input type="hidden" name="numPerpage" value="${as.numPerpage}">
+						<input type="hidden" name="searchlist" value="${as.type}">
+						<input type="hidden" name="search" value="${as.keyword}">
+	                    ${pageBar}
+	                    
+	                    
+						
+					  </form>
                   </nav>
                 </span>
               </div>
@@ -425,5 +416,67 @@
         </main>
       </div>
     </div>
+
+	<script>
+	//		검색 후 페이지 처리 -> 검색타입+검색키워드+cPage+numPerpage를 계속 같이 넘겨야함
+			 function fn_paging(pageNo){
+			console.log(pageNo);
+		    // 사용자가 클릭한 페이지 번호를 form에 넣고 서브밋을 보냄
+		    const cpage=document.querySelector("#cpage");
+		    cpage.value=pageNo;
+		    
+		    document.pageForm.submit(); // 서브밋
+		  } 
+	</script>
+			
+    <style>
+      #adminfixBar{
+          position: sticky;
+          top: 0;
+        }
+    
+      .adminselectBox {
+      position: relative;
+      width: 150px;
+      height: 35px;
+      border-radius: 4px;
+      border: 1px solid purple;
+    }
+    .adminselectBox .adminSelectMember {
+      width: inherit;
+      height: inherit;
+      background: transparent;
+      border: 0 none;
+      outline: 0 none;
+      padding: 0 5px;
+      position: relative;
+      z-index: 3; 
+    }
+    .adminselectBox .adminSelectMember option {
+      background-color: rgb(190, 122, 190);
+      color: #fff;
+      font-size: 12px;
+    }
+    .adminselectBox .icoArrow {
+      position: absolute; 
+      top: 0; 
+      right: 0; 
+      z-index: 1; 
+      width: 35px; 
+      height: inherit;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .adminselectBox .icoArrow img {
+      width: 50%;
+      transition: .3s;
+    }
+    
+    .adminselectBox .adminSelectMember:focus + .icoArrow img {
+      transform: rotate(180deg);
+    }
+    </style>
   </body>
 </html>

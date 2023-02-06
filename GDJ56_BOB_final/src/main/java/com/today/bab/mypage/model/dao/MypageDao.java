@@ -12,6 +12,7 @@ import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
+import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
@@ -73,5 +74,5 @@ public interface MypageDao {
 	
 	int selectOnedayclassMasterCount(SqlSessionTemplate session,String memberId);
 	
-	List<OdcReserve> selectOdcReserve(SqlSessionTemplate session);
+	List<OnedayclassMember> selectOnedayclassMember(SqlSessionTemplate session,Map<String,Object> param);
 }

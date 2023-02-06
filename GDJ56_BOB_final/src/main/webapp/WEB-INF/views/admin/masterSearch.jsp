@@ -264,32 +264,38 @@
 							style="padding: 0.3%; margin: 1%;width:100px; 
 							border:1px solid purple;margin-left:-6%;color:purple;height:35px;text-align:center;"
 							class="text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input">
-							  <option value="searchNo">검색 ▼</option>
-		                      <option value="MEMBER_ID">아이디</option>
-		                      <option value="M_NAME">강사명</option>
+							  <option value="searchNo" ${fn:contains(as.type,'searchNo')?'selected':''}>검색 ▼</option>
+		                      <option value="MEMBER_ID" ${fn:contains(as.type,'MEMBER_ID')?'selected':''}>아이디</option>
+		                      <option value="M_NAME"${fn:contains(as.type,'M_NAME')?'selected':''}>강사명</option>	                     
 							<input 
 								id="searchclass" 
 								style="height:35px;width:220px;border:1px solid purple;margin-left:15px;margin-right:15px;"
 				                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-								type="text" name="search" placeholder="Search for masters"/>
-							<button class="search-btn" style="height:35px;position:absolute;margin-top:4px;">
-							 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-				                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-				             </svg>
-							</button>
-						</select>
-						<input type="hidden" name="cpage" value="1">
-						<input type="hidden" name="numPerpage" value="5">
-					</form>
-					<script>
-						const checkIt=()=>{
-							if(document.querySelector("#searchclass").value==""){
-								alert("검색할 내용을 입력하세요");
-								return false;
-							}
-								
+								onclick="change();"
+								type="text" name="search" placeholder="Search for masters"
+								value="${as.keyword}"/>
+				<script>
+					const change=()=>{
+							document.querySelector("#searchclass").value="";
+					}
+					const checkIt=()=>{
+						if(document.querySelector("#searchclass").value==""){
+							alert("검색할 내용을 입력하세요");
+							return false;
 						}
-					</script>
+							
+					}
+				</script>
+					
+					<button class="search-btn" style="height:35px;position:absolute;margin-top:4px;">
+					 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+		                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+		             </svg>
+					</button>
+				</select>
+				<input type="hidden" name="cpage" value="1">
+				<input type="hidden" name="numPerpage" value="5">
+			</form>
 					
 				</div>
 		
@@ -414,13 +420,32 @@
                 <!-- Pagination -->
                 <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-center">
                   <nav aria-label="Table navigation">
-                    ${pageBar}
+	                  <form action="${path }/admin/masterSearch.do" method="post" name ="pageForm" method="post">
+	                    <input type="hidden" id="cpage" name="cpage" value="${as.cpage}">
+						<input type="hidden" name="numPerpage" value="${as.numPerpage}">
+						<input type="hidden" name="searchlist" value="${as.type}">
+						<input type="hidden" name="search" value="${as.keyword}">
+	                    ${pageBar}
+	                    
+	                    
+						
+					  </form>
                   </nav>
                 </span>
               </div>
             </div>
             </div>
-
+	<script>
+	//		검색 후 페이지 처리 -> 검색타입+검색키워드+cPage+numPerpage를 계속 같이 넘겨야함
+			 function fn_paging(pageNo){
+			console.log(pageNo);
+		    // 사용자가 클릭한 페이지 번호를 form에 넣고 서브밋을 보냄
+		    const cpage=document.querySelector("#cpage");
+		    cpage.value=pageNo;
+		    
+		    document.pageForm.submit(); // 서브밋
+		  } 
+	</script>
 
         </main>
       </div>

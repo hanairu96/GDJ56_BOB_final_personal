@@ -14,6 +14,7 @@ import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
+import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
@@ -172,7 +173,7 @@ public class MypageDaoImpl implements MypageDao{
 	}
 	
 	@Override
-	public List<OdcReserve> selectOdcReserve(SqlSessionTemplate session) {
-		return session.selectList("mypage.selectOdcReserve");
+	public List<OnedayclassMember> selectOnedayclassMember(SqlSessionTemplate session, Map<String,Object> param) {
+		return session.selectList("mypage.selectOnedayclassMember",param);
 	}
 }

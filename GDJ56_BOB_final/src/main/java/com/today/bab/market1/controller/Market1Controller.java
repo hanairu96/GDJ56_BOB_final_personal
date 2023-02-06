@@ -20,12 +20,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.basket.model.service.BasketService;
-import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.common.Market1Pagebar;
 import com.today.bab.market1.model.service.Market1Service;
 import com.today.bab.market1.model.service.QnaService;
 import com.today.bab.market1.model.service.ReviewItemService;
 import com.today.bab.market1.model.vo.ItemReview;
+import com.today.bab.market1.model.vo.MarketBasket;
 import com.today.bab.market1.model.vo.MarketMemberLike;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
@@ -137,7 +137,7 @@ public class Market1Controller {
 		HttpSession session = request.getSession();
 	    Member  loginMember= (Member) session.getAttribute("loginMember");
 		if(loginMember!=null) {
-			List<Basket> blist=bservice.selectBasket(loginMember.getMemberId());
+			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
 			mv.addObject("basket",blist);
 		}
 		mv.addObject("i",list);

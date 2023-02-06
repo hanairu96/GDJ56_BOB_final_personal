@@ -28,6 +28,7 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
       defer
     ></script>
+    <script src="${path}/resources/assets/js/jquery-3.6.1.min.js"></script>
   </head>
   <body>
     <div
@@ -265,117 +266,7 @@
               <span>마켓 &RightArrow;</span>
             </a>
             <!-- Cards -->
-            <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-              <!-- Card -->
-              <div
-                class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
-              >
-                <div
-                  class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500"
-                >
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
-                    ></path>
-                  </svg>
-                </div>
-                <div>
-                  <p
-                    class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
-                  >
-                    내 정보
-                  </p>
-                  <p
-                    class="text-lg font-semibold text-gray-700 dark:text-gray-200"
-                  >
-                    회원or장인 000님
-                  </p>
-                </div>
-              </div>
-              <!-- Card -->
-              <div
-                class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
-              >
-                <div
-                  class="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500"
-                >
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      fill-rule="evenodd"
-                      d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                </div>
-                <div>
-                  <p
-                    class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
-                  >
-                    적립금
-                  </p>
-                  <p
-                    class="text-lg font-semibold text-gray-700 dark:text-gray-200"
-                  >
-                    100원
-                  </p>
-                </div>
-              </div>
-              <!-- Card -->
-              <div
-                class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
-              >
-                <div
-                  class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500"
-                >
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
-                    ></path>
-                  </svg>
-                </div>
-                <div>
-                  <p
-                    class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
-                  >
-                    장바구니
-                  </p>
-                  <p
-                    class="text-lg font-semibold text-gray-700 dark:text-gray-200"
-                  >
-                    2 (장바구니 담긴개수)
-                  </p>
-                </div>
-              </div>
-              <!-- Card -->
-              <div
-                class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
-              >
-                <div
-                  class="p-3 mr-4 text-teal-500 bg-teal-100 rounded-full dark:text-teal-100 dark:bg-teal-500"
-                >
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      fill-rule="evenodd"
-                      d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                </div>
-                <div>
-                  <p
-                    class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
-                  >
-                  1:1 문의글
-                  </p>
-                  <p
-                    class="text-lg font-semibold text-gray-700 dark:text-gray-200"
-                  >
-                    2 개 (작성글 개수)
-                  </p>
-                </div>
-              </div>
-            </div>
-			
+           
             <!-- New Table -->
             <div class=" rounded-lg shadow-xs" style="width: 1100px; margin: auto;">
               <div class="w-full">
@@ -384,71 +275,112 @@
                     <tr
                       class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
-                      <th class="px-4 py-3" colspan="4">내가 개설한 클래스 정보</th>
+                      <th class="px-4 py-3" colspan="4">날짜별 신청자</th>
                     </tr>
                     <tr
                       class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
-                      <th class="px-4 py-3">요리이름</th>
-                      <th class="px-4 py-3">진행날찌</th>
-                      <th class="px-4 py-3">시작시간</th>
-                      <th class="px-4 py-3">신청한 인원</th>
+                      <th class="px-4 py-3">날짜선택</th>
+                      <th colspan="2" class="px-4 py-3" ><input type="date" id="classDate" onchange="onedayclass_member(this.value)" min="${start}" max="${end }"></th>
                     </tr>
                   </thead>
-                  <tbody
-                    class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
-                  >
-					<c:if test="${empty odc }">
-						<tr class="px-4 py-3">
-							<td class="px-4 py-3" colspan="4">
-								<p>개설한 클래스가 없습니다.</p>
-							</td>
-						</tr>
-					</c:if>
-					<c:if test="${not empty odc }">
-						<c:forEach var="oc" items="${odc }">
-							 <tr class="text-gray-700 dark:text-gray-400">
-								 <td class="px-4 py-3 text-sm">
-									<a href="${path }/class/odcView.do?no=${oc.odcNo}">
-										${oc.odcCookName}
-			                        </a>
-			                      </td>
-			                      <td class="px-4 py-3 text-sm">
-			                       <fmt:formatDate value="${oc.odcStartDate}" pattern="yyyy-MM-dd"/> - <fmt:formatDate value="${oc.odcEndDate}" pattern="yyyy-MM-dd"/>
-			                      </td>
-			                      <td class="px-4 py-3 text-sm">
-			                       ${oc.odcStartTime}
-			                      </td>
-		                      	  <td class="px-4 py-3 text-sm">
-		                      	  		<button onclick="location.assign('${path}/mypage/onedayclass/masterdetail?odcNo=${oc.odcNo}&start=<fmt:formatDate value="${oc.odcStartDate}" pattern="yyyy-MM-dd"/>&end=<fmt:formatDate value="${oc.odcEndDate}" pattern="yyyy-MM-dd"/>');"
-				                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-				                        
-				                        >
-				                        상세보기
-				                        </button>
-			                      </td>
-		                    </tr>    
-						</c:forEach>
-					</c:if>
-
-                  </tbody>
                 </table>
               </div>
-              <div
-                class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
-              >
-                <span class="col-span-1"></span>
-                <!-- Pagination -->
-                <span class="flex col-span-3 mt-2 sm:mt-auto sm:justify-end">
-                  <nav aria-label="Table navigation">
-                    ${pageBar }
-                  </nav>
-                </span>
+            </div>
+            <br>
+            
+            <div class=" rounded-lg shadow-xs" style="width: 1100px; margin: auto;">
+              <div class="w-full">
+              <div id="memberdetail" class="w-full" style="text-align:center;"></div>
+
+                  
+                    <!-- <tr
+                      class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                    >
+                      <th class="px-4 py-3" colspan="4">날짜별 신청자</th>
+                    </tr>
+                    <tr
+                      class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                    >
+                      <th class="px-4 py-3">날짜선택</th>
+                      <th colspan="2" class="px-4 py-3" ><input type="date" id="classDate" onchange="onedayclass_member(this.value)"></th>
+                    </tr> -->
               </div>
             </div>
+            
+<br><br>
+            
           </div>
         </main>
       </div>
     </div>
   </body>
 </html>
+<script>
+	function onedayclass_member(date) {
+		  console.log(date.substring(2,10).replace('-','/').replace('-','/'));
+		  let datedate=date.substring(2,10).replace('-','/').replace('-','/');
+		  let odcNo=${odcNo};
+		  $.ajax({
+				url : "${path}/mypage/onedayclassMember",
+				type : "post",
+				data : {
+						odcNo : odcNo,
+						odcDate : datedate
+						},
+				datatype: "JSON",
+				success:function(data){
+					
+					console.log(data);
+					console.log(data[0]);
+
+					if(data==null){
+						alert(date+'날에는 신청자가 없습니다.')
+					}else{
+						const table=$("<table>");
+						const header=$("<tr>").html("<th>번호</th><th>신청자이름</th><th>전화번호</th><th>이메일</th><th>성별</th>");
+						table.append(header);
+						table.addClass('w-full whitespace-no-wrap');
+			
+					
+						for(i=0; i<data.length; i++){
+							const tr=$("<tr>");
+							tr.addClass( 'text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800' );
+							const no=$("<td>").text((i+1));
+							const name=$("<td>").text(data[i]["memberName"]);
+							const phone=$("<td>").text(data[i]["memberPhone"]);
+							const email=$("<td>").text(data[i].memberEmail);
+							const gender=$("<td>").text(data[i].memberGender=='F'?"여":"남");
+							no.addClass('px-4 py-3');
+							no.css('text-align','center');
+							name.addClass('px-4 py-3');
+							name.css('text-align','center');
+							phone.addClass('px-4 py-3');
+							phone.css('text-align','center');
+							email.addClass('px-4 py-3');
+							email.css('text-align','center');
+							gender.addClass('px-4 py-3');
+							gender.css('text-align','center');
+							tr.append(no).append(name).append(phone).append(email).append(gender);
+							table.append(tr);
+							}
+						/* let members=[];
+						data.forEach(e=>{
+								members.push(e);
+								const tr=$("<tr>");
+								const name=$("<td>").text(e["memberName"]);
+								const phone=$("<td>").text(e["memberPhone"]);
+								const email=$("<td>").text(e["memberEmail"]);
+								const gender=$("<td>").text(e["memberGender"]);
+								tr.append(name).append(phone).append(email).append(gender);
+								table.append(tr);
+						}); */
+						$("#memberdetail").html(table);
+					}
+					
+				},error : function(request, status, error) {
+				   	 alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
+			    }
+			});
+		}
+</script>

@@ -10,6 +10,7 @@ import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
+import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
@@ -63,5 +64,6 @@ public interface MypageService {
 	
 	int selectOnedayclassMasterCount(String memberId);
 	
-	List<OdcReserve> selectOdcReserve();
+	List<OnedayclassMember> selectOnedayclassMember(Map<String,Object> param);
+	
 }

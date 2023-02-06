@@ -418,7 +418,7 @@
 		                        <div style="padding-left:30px; display: flex;align-items: center;border: solid #7072754a 2px; border-radius: 20px;width: 800px; height: 140px;font-weight: bolder;">
 		                          <a href="${path }/class/odcView.do?no=${odc.odcNo}">${odc.odcClassName }	<br>
 		                          강사 : ${odc.master } <br>
-		                          날짜 : <fmt:formatDate value="${odc.odcDate}" pattern="yyyy-MM-dd"/> <br>
+		                          날짜 : <span id="odcdate"><fmt:formatDate value="${odc.odcDate}" pattern="yyyy-MM-dd"/></span> <br>
 		                          가격 : ${odc.odcPrice }</a>
 		                      </div>
 		                      </td>
@@ -447,3 +447,42 @@
     </div>
   </body>
 </html>
+<script>
+	var now = new Date();
+	
+	var odcdate = document.querySelectorAll("#odcdate");    
+	//var date=document.querySelectorAll("#orderDate");
+	
+	for(let i=0;i<date.length;i++){
+		  //console.log(date[i].innerText);
+		  var date1=date[i].innerText.substring(10, 0);
+		  //console.log(date1);
+		  var date_arr = date1.split("-");    
+		   
+		  var year = now.getFullYear();   // 연도
+		  var month = now.getMonth()+1;   // 월    
+		  var day = now.getDate();        // 일
+		   
+		  var stDate = new Date(date_arr[0], date_arr[1], date_arr[2]);
+		  var endDate = new Date(year, month, day);
+		   
+		  var btMs = endDate.getTime() - stDate.getTime() ;
+		  var btDay = btMs / (1000*60*60*24) ;
+		   
+		  console.log("일수 차이는?? " + btDay);
+		  
+		  if(btDay<2){
+			  //date[i].innerText="주문완료";
+			  const span = document.createElement("span");
+			  span.innerHTML="주문완료";
+			  span.className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100";
+			  orderStatuss[i].appendChild(span);
+			  
+			  const btn = document.createElement("button");
+			  btn.innerHTML="주문취소";
+			  btn.className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100";
+			  btn.id ="orderCancel";
+			  orderStatuss[i].appendChild(btn);
+			  
+		  }
+</script>

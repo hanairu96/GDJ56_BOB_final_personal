@@ -16,6 +16,7 @@ import com.today.bab.mypage.model.dao.MypageDao;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
+import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
@@ -189,7 +190,7 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
-	public List<OdcReserve> selectOdcReserve() {
-		return mypageDao.selectOdcReserve(session);
+	public List<OnedayclassMember> selectOnedayclassMember(Map<String,Object> param) {
+		return mypageDao.selectOnedayclassMember(session,param);
 	}
 }

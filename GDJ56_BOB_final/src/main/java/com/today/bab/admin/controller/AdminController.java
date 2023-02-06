@@ -3,6 +3,7 @@ package com.today.bab.admin.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,11 +19,14 @@ import com.today.bab.admin.model.service.AdminService;
 import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
+import com.today.bab.admin.model.vo.AdminSearch;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.AdminTotalData;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.common.AdminPageBar;
+import com.today.bab.common.AdminPageBar2;
+import com.today.bab.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/admin")
@@ -408,7 +412,7 @@ public class AdminController {
 		@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {
 
 		mv.addObject("list",service.adminProductList(Map.of("cPage",cPage,"numPerpage",numPerpage)));
-		
+		System.out.println("상품관리"+service.adminProductList(Map.of("cPage",cPage,"numPerpage",numPerpage)));
 		//페이징처리하기
 		int totalData=service.adminProductCount(); 
 		
@@ -416,6 +420,73 @@ public class AdminController {
 		mv.addObject("totalData",totalData);
 		mv.setViewName("admin/adminProduct");
 		
+		return mv;
+	}
+	
+	//회원검색
+	@RequestMapping("/memberSearch.do")
+	public ModelAndView memberSearchClass(ModelAndView mv, String search, String searchlist,
+			int cpage, int numPerpage) {	
+		
+		if(searchlist.equals("searchNo")) {
+			AdminSearch as=AdminSearch.builder().cpage(cpage).numPerpage(numPerpage).type(searchlist)
+					.keyword(search).build();
+			
+			mv.addObject("totalData",0);
+			mv.addObject("as", as);
+			mv.setViewName("admin/memberSearch");
+		}else {
+			AdminSearch as=AdminSearch.builder().cpage(cpage).numPerpage(numPerpage).type(searchlist)
+					.keyword(search).build();
+			
+	        List<Member> list = service.memberSearchClass(as);
+	        
+		    //페이징처리하기
+			int totalData=service.memberSearchClassCount(as);
+			
+			mv.addObject("pageBar",AdminPageBar2.getPage(cpage, numPerpage, totalData, "memberSearch.do"));
+			mv.addObject("totalData",totalData);
+			mv.addObject("list",list);
+		    mv.addObject("as", as);
+			mv.setViewName("admin/memberSearch");
+		}
+		return mv;
+	}
+	
+	//장인검색
+	@RequestMapping("/masterSearch.do")
+	public ModelAndView masterSearchClass(ModelAndView mv, String search, String searchlist,
+		int cpage, int numPerpage) {	
+
+		if(searchlist.equals("searchNo")) {
+			AdminSearch as=AdminSearch.builder().cpage(cpage).numPerpage(numPerpage).type(searchlist)
+					.keyword(search).build();
+			
+			mv.addObject("totalData",0);
+			mv.addObject("as", as);
+			mv.setViewName("admin/masterSearch");
+		}else {
+			AdminSearch as=AdminSearch.builder().cpage(cpage).numPerpage(numPerpage).type(searchlist)
+					.keyword(search).build();
+			
+	        List<AdminMaster> list = service.masterSearchClass(as);
+	        
+		    //페이징처리하기
+			int totalData=service.masterSearchClassCount(as);
+			
+			//페이징처리하기
+			int yesData=service.masterSearchClassYesCount(as); //장인인사람
+			int ingData=service.masterSearchClassIngCount(as); //심사필요한사람
+			
+			mv.addObject("ingData",ingData);
+			mv.addObject("yesData",yesData);
+			
+			mv.addObject("pageBar",AdminPageBar2.getPage(cpage, numPerpage, totalData, "masterSearch.do"));
+			mv.addObject("totalData",totalData);
+			mv.addObject("list",list);
+		    mv.addObject("as", as);
+			mv.setViewName("admin/masterSearch");
+		}
 		return mv;
 	}
 		

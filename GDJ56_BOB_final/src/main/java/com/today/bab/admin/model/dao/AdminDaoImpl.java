@@ -11,6 +11,7 @@ import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminQnaAll;
+import com.today.bab.admin.model.vo.AdminSearch;
 import com.today.bab.admin.model.vo.AdminSellItem;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.AdminTotalData;
@@ -195,6 +196,46 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public int adminProductCount(SqlSessionTemplate session) {
 		return session.selectOne("admin.adminProductCount");
+	}
+
+	@Override
+	public List<Member> memberSearchClass(SqlSessionTemplate session, AdminSearch as) {
+//		int cPage=(((int)(param.get("cPage")))-1);
+//		int numPerpage=((int)(param.get("numPerpage")));
+		
+		return session.selectList("admin.memberSearchClass",as, 
+				new RowBounds((as.getCpage()-1)*as.getNumPerpage(),
+						as.getNumPerpage()));
+	}
+
+	@Override
+	public int memberSearchClassCount(SqlSessionTemplate session, AdminSearch as) {
+		return session.selectOne("admin.memberSearchClassCount",as);
+	}
+
+	@Override
+	public List<AdminMaster> masterSearchClass(SqlSessionTemplate session, AdminSearch as) {
+//		int cPage=(((int)(param.get("cPage")))-1);
+//		int numPerpage=((int)(param.get("numPerpage")));
+		
+		return session.selectList("admin.masterSearchClass",as, 
+				new RowBounds((as.getCpage()-1)*as.getNumPerpage(),
+						as.getNumPerpage()));
+	}
+
+	@Override
+	public int masterSearchClassCount(SqlSessionTemplate session, AdminSearch as) {
+		return session.selectOne("admin.masterSearchClassCount",as);
+	}
+
+	@Override
+	public int masterSearchClassYesCount(SqlSessionTemplate session, AdminSearch as) {
+		return session.selectOne("admin.masterSearchClassYesCount",as);
+	}
+
+	@Override
+	public int masterSearchClassIngCount(SqlSessionTemplate session, AdminSearch as) {
+		return session.selectOne("admin.masterSearchClassIngCount",as);
 	}
 	
 }
