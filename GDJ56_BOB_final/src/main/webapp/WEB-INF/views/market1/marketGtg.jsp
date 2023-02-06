@@ -97,9 +97,11 @@
 	                            <div class="product__item">
 	                                <div class="product__item__pic set-bg"
 		style="background-image: url('${path }/resources/upload/market/mainlabel/${sell.mainPic }');${sell.itemStock==0?'filter: grayscale(100%)':''};">
+	                            	<c:if test="${sell.itemStock!=0 }">
 	                                    <ul class="product__item__pic__hover">
 	                                        <li><a href="javascript:void(0);" onclick="addbasketitem(${sell.itemNo },'${loginMember.memberId }','${sell.mainPic }','${sell.itemName }')"><i class="fa fa-shopping" ><img src="${path }/resources/market/img/market-cart.png" style="width:27px;"></i></a></li>
 	                                    </ul>
+	                                </c:if>
 	                                </div>
 	                                <div class="product__item__text">
 	                                    <h6><a href="${path }/market1/marketdetail.do?itemNo=${sell.itemNo }" style="font-weight:bold;">
