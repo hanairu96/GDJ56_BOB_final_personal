@@ -93,8 +93,6 @@
             font-size: 35px;
         }
         .outline{
-            /* width: 1000px; */
-            height: 100px;
             border-collapse: collapse;
             margin: 0 auto !important;
             margin-top: 20px !important;
