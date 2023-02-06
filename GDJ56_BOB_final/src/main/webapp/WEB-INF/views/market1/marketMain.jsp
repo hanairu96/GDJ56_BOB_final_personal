@@ -26,7 +26,6 @@
     
         <div class="container">
 			<a style="font-size:30px;" href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a><br>
-			<%-- <a style="font-size:30px;" href="${path }/itemQna/resultresult.do?itemNo=8">리뷰</a><br> --%>
 			<a style="font-size:30px;" href="${path }/itemReview/insertReviewGo.do?itemNo=8&memberId=user03&itemName=고사리&mainPic=20230127_184026868_5159.jpg">리뷰쓰기</a> 
 			<a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:900px;margin-top:30px;background-color: #07d448;" >상품등록</a>
 			
@@ -34,7 +33,14 @@
 
             <!-- 이상품 어때요? -->
             <div style="text-align: center;">
-                <h3 style="font-weight: bold;">이 상품 어때요? ></h3>
+            <c:if test="${likemenu==null }">
+                <a href="${path }/market1/marketgtg.do"><h3 style="font-weight: bold;">이 상품 어때요? ></h3></a>
+            </c:if>
+            <c:if test="${likemenu!=null }">
+                <a href="${path }/market1/memberLikeList.do?likectg=${likectg }"><h3 style="font-weight: bold;">이 상품 어때요? ></h3></a>
+            </c:if>
+            
+            
                 <br>	
             <c:if test="${loginMember!=null }">
                 <h5>${likectg }를 선호하시는 ${loginMember.nickname } 님 맞춤 상품! 둘러보세요!</h5>
