@@ -45,6 +45,12 @@
         <div class="main-logo">
             <h1>오늘의 밥</h1>
             <img src="${path}/resources/images/logo-icon.png">
+            
+            <div id="alarmBellDIV" style="display:none;margin-left:650px;width:300px;height:120px; border:2px solid purple; border-radius:30px;">
+            	${alarmtext }
+            	${loginMember }
+            </div>
+            <input type="hidden" id="alarmtext" value="${alarmtext}">
         </div>
         <header class="head-menu">
             <div>
@@ -60,7 +66,8 @@
 	                	<p><a href="${path}/mypage/orderlist.do">MYPAGE</a></p>
 	                </c:if>
 	                <img src="${path}/resources/images/shopping-basket.png" onclick="">
-	                <img src="${path}/resources/images/bell.gif" style="margin-top:10px;width:60px;height:60px;">
+	                <img src="${path}/resources/images/bell.gif" style="margin-top:10px;width:60px;height:60px;"
+	                	 id="alarmBell">
 	                <img src="${path}/resources/images/logout.png" onclick="logout();">
                 </c:if>
                 <c:if test="${loginMember==null}">
@@ -68,6 +75,15 @@
                 </c:if>
             </div>
         </header>
+        <script>
+         	$("#alarmBell").click(e=>{
+         		const alarm=document.querySelector("#alarmtext").value;
+         		console.log("${alarmtext}");
+        		$("#alarmBellDIV").text('dd');
+         		$("#alarmBellDIV").slideToggle();
+        		
+        	});
+        </script>
         <style>
 			.main-logo{
 				height: 150px; 
