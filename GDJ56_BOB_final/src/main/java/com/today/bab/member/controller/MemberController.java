@@ -283,11 +283,15 @@ public class MemberController {
 	
 	@RequestMapping("/updatePwd")
 	public String updatePwd(Member m, Model model) {
+		//패스워드 암호화
+		String encodePassword=passwordEncoder.encode(m.getPassword());
+		m.setPassword(encodePassword);
+		
 		int result=service.updatePwd(m);
 		
 		if(result>0) {
 			model.addAttribute("msg","수정이 완료됐습니다.");
-			model.addAttribute("loc","/member/login");
+			model.addAttribute("loc","/member/loginpage");
 		}else {
 			model.addAttribute("msg","수정이 실패하였습니다.");
 			model.addAttribute("loc","/member/searchPwdEnd");
