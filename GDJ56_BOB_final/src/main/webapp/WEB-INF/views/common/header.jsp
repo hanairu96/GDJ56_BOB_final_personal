@@ -47,11 +47,41 @@
             <h1>오늘의 밥</h1>
             <img src="${path}/resources/images/logo-icon.png">
             
-            <div id="alarmBellDIV" style="display:none;margin-left:650px;width:300px;height:120px; border:2px solid purple; border-radius:30px;">
-            	${alarmtext }
-            	${loginMember }
+            <div id="alarmBellDIV" style="text-align:center;display:none;margin-left:650px;width:300px;height:120px; border:2px solid purple; border-radius:30px;">
             </div>
-            <input type="hidden" id="alarmtext" value="${alarmtext}">
+            <c:if test="${not empty master }">
+	            <c:if test="${loginMember.memberId ne 'admin'}">
+		            <c:if test="${fn:contains(master.ing,'Y')}">
+		            	<input type="hidden" id="alarmtext" value="[${master.testDate}] 장인 승인 완료 ">
+		            	<input type="hidden" id="alarmtext1" value="'${master.fail}'">
+		            </c:if>
+		            <c:if test="${fn:contains(master.ing,'B')}">
+		            	<input type="hidden" id="alarmtext" value="[${master.testDate}] 장인 박탈 처리 ">
+		            	<input type="hidden" id="alarmtext1" value="'${master.fail}'">
+		            </c:if>
+		            <c:if test="${fn:contains(master.ing,'N')}">
+		            	<input type="hidden" id="alarmtext"  value="[${master.testDate}] 장인 거절 처리 ">
+		            	<input type="hidden" id="alarmtext1" value="'${master.fail}'">
+		            </c:if>
+		            <c:if test="${fn:contains(master.ing,'I')}">
+		            	<input type="hidden" id="alarmtext"  value="[장인 심사중]">
+		            	<input type="hidden" id="alarmtext1" value="'잠시만 기다려 주세요~'">
+		            </c:if>
+		         </c:if>
+	         </c:if>
+	         <c:if test="${empty master }">
+		         <c:if test="${loginMember.memberId eq 'admin'}">
+		            	<input type="hidden" id="alarmtext" value="문의 답변 필수 !!!">
+		            	<input type="hidden" id="alarmtext1" value="환불 승인 필수 !!!">
+		         </c:if>
+		         <c:if test="${loginMember.memberId ne 'admin'}">
+		            	<input type="hidden" id="alarmtext" value="최근 업데이트 된">
+		            	<input type="hidden" id="alarmtext1" value="알림메세지가 없습니다">
+		         </c:if>
+		     </c:if>
+		         
+	         
+	         
         </div>
         <header class="head-menu">
             <div>
@@ -79,10 +109,12 @@
         <script>
          	$("#alarmBell").click(e=>{
          		const alarm=document.querySelector("#alarmtext").value;
-         		console.log("${alarmtext}");
-        		$("#alarmBellDIV").text('dd');
+         		const alarm1=document.querySelector("#alarmtext1").value;
+         		
+         		const temp=document.querySelector("#alarmBellDIV");
+         		temp.innerHTML='<h5 style="padding-top:3px;padding-bottom:3px;"><b>💡 알림 💡</b></h5>-----------------------------<br>';
+         		$("#alarmBellDIV").append(temp).append(alarm+"<br>").append(alarm1);
          		$("#alarmBellDIV").slideToggle();
-        		
         	});
         </script>
         <style>
