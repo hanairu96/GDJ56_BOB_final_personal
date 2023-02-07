@@ -44,15 +44,11 @@ public class HomeController {
 		
 		//로그인한 Member 객체를 받아옴
 		Object member=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(member);
 		
 		//로그인한 member가 존재할 때
 		if(!member.equals("anonymousUser")) {
 			//Member의 아이디로 AdminMaster 객체 찾음
-			System.out.println(member);
-			System.out.println(((Member)member).getMemberId());
 			AdminMaster master=service.selectMastserById(((Member)member).getMemberId());
-			System.out.println(master);
 			model.addAttribute("master", master);
 		}
 		return "index";

@@ -48,19 +48,19 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="checkout__input">
-                                    <p><b>수령인</b><span>*</span></p>
+                                    <p><b>수령인</b><span><small>&nbsp;(*필수)</small></span></p>
                                     <input type="text" id="orderName">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="checkout__input">
-                                    <p><b>전화번호</b><span>*</span></p>
+                                    <p><b>전화번호</b><span><small>&nbsp;(*필수)</small></span></p>
                                     <input type="text" id="orderPhone" placeholder="01012345678">
                                 </div>
                             </div>
                         </div>
                         <div class="checkout__input">
-                        <span class="text-gray-700 dark:text-gray-400"><b>주소</b></span><span style="color:red;">*</span>
+                        <span class="text-gray-700 dark:text-gray-400"><b>주소</b></span><span style="color:red;"><small>&nbsp;(*필수)</small></span>
 	                  	<div style="display:flex;flex-direction:row;">
 		                	<div style="width:fit-content;">
 		                        <input type="text" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
@@ -104,7 +104,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="checkout__input">
-                                    <p>사용할 적립금<span>*</span></p>
+                                    <p>사용할 적립금<span></span></p>
                                     <div style="display: flex;">
                                         <input id="point" type="number" min="0" max="123" style="width: 200px;" value="" onkeyup="fn_eventKeyupPoint(this.value)">
                                         <button id="pointAll" type="button" class="site-btn" onclick="fn_pointAll()">전액사용</button>
@@ -297,7 +297,12 @@
 	    //console.log(orderaddr);
 	    let merchant = 'bob_'+Math.floor(Math.random() * 100000000)+1;
 	    console.log(merchant);
-      IMP.init("imp44501773");
+	    let inputname=$("#orderName").val();
+	    let inputorderPhone=$("#orderPhone").val();
+	    let inputorderAddr=$("#inputAddress_postcode").val();
+	    console.log(inputname+"d"+inputorderPhone+"D"+inputorderAddr);
+	    if(inputname!="" && inputorderPhone!="" && inputorderAddr!="" ){
+	    	IMP.init("imp44501773");
     		IMP.request_pay({
     			pg : "html5_inicis",
     			name : "장바구니 결제하기",
@@ -347,6 +352,11 @@
     					alert(rsp.error_msg);
     				}
     			});		 
+	    }else{
+	    	alert('필수입력값을 채워주세요');
+	    }
+	    
+      
     } 
 </script>
 
