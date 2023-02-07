@@ -22,9 +22,9 @@
 		    </div>
 		    <div style="margin-left: 60%;">
 		        <!-- 관리자만 -->
-		        <label><input type="checkbox" name="">답변안한 글</label>  
+		        <a href="">답변안한 글</a>
 		        <!-- 고객만 -->
-		        <label><input type="checkbox" name="">내가 쓴 글</label>
+		        <a href="">내가 쓴 글</a>
 		    </div>
 		</div>
 		
