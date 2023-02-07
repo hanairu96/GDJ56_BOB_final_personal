@@ -15,7 +15,7 @@
                 </small>
                 <div id="insert">
                     <div class="d-grid">
-                        <button class="customBtn btnStyle" type="button" onclick="location.assign('${path}/member/login');">로그인 페이지로 이동</button>
+                        <button class="customBtn btnStyle" type="button" onclick="location.assign('${path}/member/loginpage');">로그인 페이지로 이동</button>
                     </div>
                 </div>
             </form>

@@ -13,11 +13,15 @@ import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.mypage.model.dao.MypageDao;
+import com.today.bab.mypage.model.vo.ClientQaMypage;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
+import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.mypage.model.vo.Sub;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
+import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 @Service
 public class MypageServiceImpl implements MypageService {
@@ -158,12 +162,62 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
-	public List<OdcReserve> selectOnedayclass(String memberId) {
-		return mypageDao.selectOnedayclass(session,memberId);
+	public List<OdcReserve> selectOnedayclass(Map<String,Integer> param,String memberId) {
+		return mypageDao.selectOnedayclass(param,session,memberId);
 	}
 	
 	@Override
 	public List<ItemReview> selectReviewByOrderNo(int orderNo) {
 		return mypageDao.selectReviewByOrderNo(session,orderNo);
+	}
+	
+	@Override
+	public String selectMemberMaster(String memberId) {
+		return mypageDao.selectMemberMaster(session,memberId);
+	}
+	
+	@Override
+	public List<OneDayClass> selectOnedayclassMaster(Map<String,Integer> param,String memberId) {
+		return mypageDao.selectOnedayclassMaster(session, memberId,param);
+	}
+		
+	@Override
+	public int selectOnedayclassCount(String memberId) {
+		return mypageDao.selectOnedayclassCount(session,memberId);
+	}
+	
+	@Override
+	public int selectOnedayclassMasterCount(String memberId) {
+		return mypageDao.selectOnedayclassMasterCount(session,memberId);
+	}
+	
+	@Override
+	public List<OnedayclassMember> selectOnedayclassMember(Map<String,Object> param) {
+		return mypageDao.selectOnedayclassMember(session,param);
+	}
+	
+	@Override
+	public List<ClientQaMypage> selectQaList(Map<String, Integer> param, String memberId) {
+		return mypageDao.selectQaList(session,param,memberId);
+	}
+	
+	@Override
+	public int selectQaListCount(String memberId) {
+		return mypageDao.selectQaListCount(session,memberId);
+	}
+	
+	@Override
+	public List<Sub> selectSubscription(Map<String, Integer> param, String memberId) {
+		return mypageDao.selectSubscription(session,param,memberId);
+	}
+	
+	@Override
+	public int selectSubscriptionCount(String memberId) {
+		return mypageDao.selectSubscriptionCount(session,memberId);
+	}
+	
+	@Override
+	public int deleteSub(int subNo) {
+		return mypageDao.deleteSub(session,subNo);
 	}
 }

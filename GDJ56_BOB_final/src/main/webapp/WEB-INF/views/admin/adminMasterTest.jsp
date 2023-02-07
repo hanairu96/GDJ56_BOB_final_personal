@@ -588,7 +588,8 @@
 	   modal.querySelector('.modal_submit_btn').addEventListener('click',function(){
 		   bg.remove();
 		   modal.style.display = 'none';
-		   location.assign("${path }/admin/masterTestEnd.do?name=${master.name}&test='탈락'&masterTestText="+notestText);
+		   const notestText=document.querySelector('#masterTestText').value;
+		   location.assign("${path }/admin/masterTestEnd.do?name=${master.name}&test='탈락'&masterTestText="+notestText+"&masterId=${master.memberId}");
 	   })
 	   
 	}

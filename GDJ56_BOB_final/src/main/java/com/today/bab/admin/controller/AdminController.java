@@ -226,13 +226,14 @@ public class AdminController {
 		String ing="";
 		if(test.equals("'탈락'")) ing="N";
 		else ing="Y";
+		int result1=1;
 		
 		AdminMaster m=AdminMaster.builder().memberId(masterId).name(name).ing(ing).fail(masterTestText).build();
-		int result=service.masterTestEnd(m);
-		int result1=service.masterTestEnd2(m);
-		System.out.println(m);
-		System.out.println(result);
-		System.out.println(result1);
+		int result=service.masterTestEnd(m); //장인테이블 변경
+		
+		if(ing.equals("Y")) {
+			result1=service.masterTestEnd2(m); //회원등급 Y(장인)으로 변경
+		}
 		
 		if(result>0&&result1>0) {
 			mv.addObject("msg","심사 저장 완료");

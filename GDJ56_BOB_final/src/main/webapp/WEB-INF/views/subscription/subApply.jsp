@@ -45,6 +45,8 @@
             height: 600px;
             margin: 0 auto;
             text-align: center;
+        }
+        section *{
             font-family: 'Gowun Dodum';
         }
         h3{
