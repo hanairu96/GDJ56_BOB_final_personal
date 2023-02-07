@@ -43,9 +43,9 @@ public class OneDayServiceImpl implements OneDayService {
 	}
 
 	@Override
-	public List<OneDayClass> selectMenuClassList(String type) {
+	public List<OneDayClass> selectMenuClassList(Map<String, Object> param) {
 
-		return dao.selectMenuClassList(session,type);
+		return dao.selectMenuClassList(session,param);
 	}
 
 	@Override
@@ -137,6 +137,27 @@ public class OneDayServiceImpl implements OneDayService {
 	public int inputReservation(Map param) {
 		return dao.inputReservation(session, param);
 	}
+
+	@Override
+	public List<OdcReview> selectReviewById(OdcReview or) {
+		return dao.selectReviewById(session, or);
+	}
+
+	@Override
+	public List<OdcQa> selectQnaById(OdcQa oq) {
+		return dao.selectQnaById(session, oq);
+	}
+	@Override
+	public List<OdcQa> selectNoQna(int no) {
+		return dao.selectNoQna(session, no);
+	}
+
+	@Override
+	public int countMenuClassList(String type) {
+		return dao.countMenuClassList(session, type);
+	}
+	
+	
 	
 	
 	

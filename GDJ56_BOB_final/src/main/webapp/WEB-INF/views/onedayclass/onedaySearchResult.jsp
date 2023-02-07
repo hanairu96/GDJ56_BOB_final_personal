@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <script src="${path }/resources/js/jquery-3.6.1.min.js"></script>
 
@@ -85,26 +87,8 @@
 				</select>
 			</form>
 		</div>
-		
-<%-- 	<c:forEach var="m" items="${param }" begin="0" end="0">
-			<c:forEach var="s" items="${m.value }" begin="0" end="0">
-				<h2>${s }</h2>
-			</c:forEach>
-		</c:forEach> --%>
-		
-<!-- 
-		<script>
-			$(function () {
-				$("#search").on("click", function() {
-					$("#searchbox").slideToggle("fast"); // 2초에 걸쳐서 진행
-				})
-			});
-		</script>
- -->
- 
  
 		<!-- 원데이클래스 리스트 -->
-		
 		<div class="container">
 		 <c:forEach var="m" items="${param }" begin="0" end="0">
 			<c:forEach var="s" items="${m.value }" begin="0" end="0">
@@ -131,7 +115,7 @@
 								<a href="${path}/class/odcView.do?no=${c.odcNo }"><b><h4>${c.odcCookName}</h4></b></a>
 			
 								<div style="display: flex; margin-top: 1%;">
-									<img src="${path}/resources/pato/images/class/chef-hat.png" width="20" height="20"><h5>${c.mastserName}</h5>
+									<img src="${path}/resources/pato/images/class/chef-hat.png" width="20" height="20"><h5>${c.masterName}</h5>
 									&nbsp;&nbsp;&nbsp;<img src="${path}/resources/pato/images/class/place-marker.png" width="20" height="20" ><h5>${c.odcCity}</h5>
 								</div>			
 							</div>
@@ -140,27 +124,28 @@
 				</c:choose>
 			</div>
 	    </div>
-			  
 			
-			<div style="display: flex;">
-				<!-- 페이지바 -->
-				<form action="${path}/class/search.do?search=${search }&&searchlist=${searchlist }">
-				  	<div style="display: flex;margin-left:50%">
-			        	${pageBar}
-			        	<input type="hidden" name="search" value="${search }">
-			        	<input type="hidden" name="searchlist" value="${searchlist }">
-			   		</div>
-		   		</form>
-				<!-- 글등록,장인등록 -->
-				<div style="display: flex; margin-left: 61%;">
-					<button type="submit" class="btn3 flex-c-m txt11 trans-0-4" style="margin-right: 3%;">
+		<!-- 페이지바 -->
+	  	<div style="display: flex;margin-left:50%">
+        	${pageBar}
+   		</div>
+		<!-- 글등록,장인등록 -->
+		<div style="display: flex; margin-left:70%">
+			<c:if test="${!empty loginMember }">
+				<c:if test="${fn:contains(loginMember.grade, 'Y')}">
+					<form action="${path }/class/classEnroll.do">
+						<button type="submit" class="btn3 flex-c-m txt11 trans-0-4">
 						클래스 등록
-					</button>
-					<button type="submit" class="btn3 flex-c-m txt11 trans-0-4">
+						</button>
+					</form>
+				</c:if>
+				<c:if test="${fn:contains(master.ing, 'N') || (empty master.ing)}">
+					&nbsp;&nbsp;
+					<button type="submit" class="btn3 flex-c-m txt11 trans-0-4" onclick="location.assign('${path}/class/editor.do')">
 						장인 신청
 					</button>
-				</div>
-			</div>
+				</c:if>
+			</c:if>
 		</div>
 	</section>
 </body>

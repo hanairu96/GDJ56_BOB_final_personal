@@ -208,4 +208,18 @@ public class MypageDaoImpl implements MypageDao{
 		return session.delete("mypage.deleteSub",subNo);
 	}
 	
+	@Override
+	public int selectBasketAllCount(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectBasketAllCount",memberId);
+	}
+	
+	@Override
+	public int selectWriteAllCount(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectWriteAllCount",memberId);
+	}
+	
+	@Override
+	public int selectRecentPoint(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectRecentPoint",memberId);
+	}
 }

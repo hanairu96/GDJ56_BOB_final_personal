@@ -20,5 +20,6 @@ public class OdcQaRe {
 	private String oqrContetnt;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date oqrEnrollDate;
+	private String memberId;
 	
 }

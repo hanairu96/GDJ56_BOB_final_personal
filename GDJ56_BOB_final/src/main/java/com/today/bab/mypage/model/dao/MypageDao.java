@@ -87,4 +87,10 @@ public interface MypageDao {
 	int selectSubscriptionCount(SqlSessionTemplate session,String memberId);
 	
 	int deleteSub(SqlSessionTemplate session,int subNo);
+	
+	int selectBasketAllCount(SqlSessionTemplate session,String memberId);
+	
+	int selectWriteAllCount(SqlSessionTemplate session,String memberId);
+	
+	int selectRecentPoint(SqlSessionTemplate session,String memberId);
 }

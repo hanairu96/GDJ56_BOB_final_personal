@@ -96,7 +96,6 @@ public class AdminController {
 		for(int i=0;i<as.size();i++) {
 			asResult.add(as.get(i).getSubItem().getSubName());
 		}
-//		System.out.println("구독상품 : "+asResult);
 		
 		mv.addObject("memberlike",memberlike); //선호음식
 		mv.addObject("asResult",asResult); //구독상품
@@ -417,7 +416,6 @@ public class AdminController {
 		@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {
 
 		mv.addObject("list",service.adminProductList(Map.of("cPage",cPage,"numPerpage",numPerpage)));
-		System.out.println("상품관리"+service.adminProductList(Map.of("cPage",cPage,"numPerpage",numPerpage)));
 		//페이징처리하기
 		int totalData=service.adminProductCount(); 
 		

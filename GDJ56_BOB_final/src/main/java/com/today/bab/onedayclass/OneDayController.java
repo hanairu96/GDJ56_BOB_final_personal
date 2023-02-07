@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.common.Market1Pagebar;
 import com.today.bab.common.oneclass;
+import com.today.bab.common.oneclassMenuPage;
 import com.today.bab.member.model.vo.Member;
 import com.today.bab.onedayclass.model.service.OneDayService;
 import com.today.bab.onedayclass.model.vo.OdcQa;
@@ -65,10 +66,8 @@ public class OneDayController {
       
       //로그인한 member가 존재할 때
       if(!member.equals("anonymousUser")) {
-    	  System.out.println(((Member)member).getMemberId());
     	  AdminMaster master=service.selectMastserById(((Member)member).getMemberId());
     	  mv.addObject("master",master);
-    	  System.out.println(master);
       }
       
       mv.addObject("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"/bab/class/main.do"));
@@ -79,24 +78,27 @@ public class OneDayController {
   
    
    @RequestMapping("/class/menu.do")
-   public ModelAndView oneDayClassBob(ModelAndView mv,String type) {
-      
-      List<OneDayClass> classlist = service.selectMenuClassList(type);
-      mv.addObject("classlist",classlist);
-      mv.setViewName("onedayclass/onedaymenu-"+type);
-      return mv;
-      
+   public ModelAndView oneDayClassBob(ModelAndView mv,String type,
+		  @RequestParam(value="cPage", defaultValue="1")int cPage,
+		  @RequestParam(value="numPerpage", defaultValue="5")int numPerpage) {
+		  Map<String, Object> param = new HashMap();
+	      param.put("type", type);
+	      param.put("cPage", cPage);
+	      param.put("numPerpage", numPerpage);
+	      List<OneDayClass> classlist = service.selectMenuClassList(param);
+	      int totaldata=service.countMenuClassList(type);
+	      mv.addObject("param", param);
+	      mv.addObject("pageBar",oneclassMenuPage.getPage(cPage, numPerpage,totaldata,"/bab//class/menu.do", type));
+	      mv.addObject("classlist",classlist);
+	      mv.setViewName("onedayclass/onedaymenu-"+type);
+	      return mv;
    }
    
    @RequestMapping("/class/search.do")
    public ModelAndView selectSearchClass(ModelAndView mv, String search, String searchlist,
 		   @RequestParam(value="cPage", defaultValue="1")int cPage,
-		   @RequestParam(value="numPerpage", defaultValue="2")int numPerpage) {
+		   @RequestParam(value="numPerpage", defaultValue="5")int numPerpage) {
 
-	  System.out.println(search);
-	  System.out.println(searchlist);
-	  
-	   
       Map<String, Object> param = new HashMap();
       param.put("type", searchlist);
       param.put("keyword", search);
@@ -502,6 +504,37 @@ public class OneDayController {
 		mv.addObject("odc",odc);
 		mv.setViewName("onedayclass/onedayEditClass");
 		return mv;
+  	}
+  	
+  	@RequestMapping("/class/selectReviewById.do")
+  	public List<OdcReview> selectReviewById(@RequestBody OdcReview or,HttpSession session){
+  	  	//int no=Integer.valueOf(odcNo);
+  		System.out.println(or);
+  		
+  		Map param=new HashMap();
+  		param.put("odcNo", or.getOdcNo());
+        param.put("memberId", or.getMemberId());
+
+  		return service.selectReviewById(or);
+  	}
+  	
+  	@RequestMapping("/class/selectQnaById.do")
+  	public List<OdcQa> selectQnaById(@RequestBody OdcQa oq,HttpSession session){
+  		//int no=Integer.valueOf(odcNo);
+  		System.out.println("불러온값"+oq);
+  		
+  		Map param=new HashMap();
+  		param.put("odcNo", oq.getOdcNo());
+  		param.put("memberId", oq.getMemberId());
+  		
+  		return service.selectQnaById(oq);
+  	}
+  	
+  	@RequestMapping("/class/selectNoQna.do")
+  	public List<OdcQa> selectNoQna(String odcNo){
+  		System.out.println("번호"+odcNo);
+  		int no=Integer.valueOf(odcNo);
+  		return service.selectNoQna(no);
   	}
    	
 }
