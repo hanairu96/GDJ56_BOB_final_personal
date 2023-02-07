@@ -36,8 +36,17 @@ public class OneDayDaoImpl implements OneDayDao {
 	}
 
 	@Override
-	public List<OneDayClass> selectMenuClassList(SqlSessionTemplate session, String type) {
-		return session.selectList("onedayclass.selectMenuClassList",type);
+	public List<OneDayClass> selectMenuClassList(SqlSessionTemplate session, Map<String, Object> param) {
+		
+		int cPage = (int)(param.get("cPage"))-1;
+		int numPerpage = (int)(param.get("numPerpage"));
+		
+		return session.selectList("onedayclass.selectMenuClassList",param,
+				new RowBounds(
+	            		(cPage)*numPerpage,
+	            		numPerpage
+	                  )
+				);
 	}
 
 	@Override
@@ -142,6 +151,26 @@ public class OneDayDaoImpl implements OneDayDao {
 	public int inputReservation(SqlSessionTemplate session, Map param) {
 		return session.insert("onedayclass.inputReservation", param);
 	}
+
+	@Override
+	public List<OdcReview> selectReviewById(SqlSessionTemplate session, OdcReview or) {
+		return session.selectList("onedayclass.selectReviewById", or);
+	}
+
+	@Override
+	public List<OdcQa> selectQnaById(SqlSessionTemplate session, OdcQa oq) {
+		return session.selectList("onedayclass.selectQnaById", oq);
+	}
+	@Override
+	public List<OdcQa> selectNoQna(SqlSessionTemplate session, int no) {
+		return session.selectList("onedayclass.selectNoQna", no);
+	}
+
+	@Override
+	public int countMenuClassList(SqlSessionTemplate session, String type) {
+		return session.selectOne("onedayclass.countMenuClassList", type);
+	}
+	
 	
 	
 

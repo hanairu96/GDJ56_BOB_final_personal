@@ -234,13 +234,11 @@ public class CenterController {
 		String secret=input.get(3);
 		String content=input.get(4);
 		
-		System.out.println(secret);
 		if(secret.equals("true")) {
 			secret="Y";
 		}else {
 			secret="N";
 		}
-		System.out.println(secret);
 		
 		Map<String, Object> param=Map.of("title", title, "writer", writer, "category", category, "secret", secret, "content", content);
 		
@@ -268,7 +266,6 @@ public class CenterController {
 		}else {
 			secret="N";
 		}
-		System.out.println(secret);
 		
 		Map<String, Object> param=Map.of("no", no, "category", category, "title", title, "content", content, "secret", secret);
 		
