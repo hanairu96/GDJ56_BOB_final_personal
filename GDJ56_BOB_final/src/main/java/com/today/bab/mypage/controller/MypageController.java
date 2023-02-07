@@ -55,7 +55,7 @@ public class MypageController {
 			@RequestParam(value="numPerpage", defaultValue = "5") int numPerpage) {
 		HttpSession session = request.getSession();
 	    Member m = (Member) session.getAttribute("loginMember");
-	    System.out.println(m+"ddddd");
+	    //System.out.println(m+"ddddd");
 	    List<ItemOrder> orderlist=mypageService.selectItemOrderList(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
 	    int totalData=mypageService.selectItemOrderListCount(m.getMemberId());
 	    List<ItemOrderSellitem> itemlist =mypageService.selectOrderSellItem(m.getMemberId());
