@@ -287,7 +287,7 @@ public class MemberController {
 		
 		if(result>0) {
 			model.addAttribute("msg","수정이 완료됐습니다.");
-			model.addAttribute("loc","/member/login");
+			model.addAttribute("loc","/member/loginpage");
 		}else {
 			model.addAttribute("msg","수정이 실패하였습니다.");
 			model.addAttribute("loc","/member/searchPwdEnd");
