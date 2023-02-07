@@ -212,7 +212,7 @@
 							            text: "이 상품은 이미 담겨있습니다. 더 담으시겠습니까?",
 							            imageUrl: '${path }/resources/upload/market/mainlabel/'+mainPic,
 							            showCancelButton: true,
-						            confirmButtonColor: '#07d448',
+						            	confirmButtonColor: '#07d448',
 							            cancelButtonColor: 'magenta',
 							            confirmButtonText: '장바구니 추가',
 							            cancelButtonText: '계속 쇼핑하기'

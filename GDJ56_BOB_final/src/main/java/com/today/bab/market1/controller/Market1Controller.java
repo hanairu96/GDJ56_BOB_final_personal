@@ -413,7 +413,7 @@ public class Market1Controller {
 		}else {
 			if(imgFiles!=null) {
 				for(int i=0;i<imgFiles.length;i++) {
-					System.out.println(imgFiles[i]);
+//					System.out.println(imgFiles[i]);
 					File del=new File(path+imgFiles[i]);
 					if(del.exists()) del.delete();
 				}

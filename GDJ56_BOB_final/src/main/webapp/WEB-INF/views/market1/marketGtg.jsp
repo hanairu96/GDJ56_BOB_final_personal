@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<jsp:include page="/WEB-INF/views/common/marketHeader.jsp"/>
+<%-- <jsp:include page="/WEB-INF/views/common/floatBar.jsp"/> --%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -37,16 +37,26 @@
                         <div class="sidebar__item">
                             <h4>카테고리</h4>
                             <ul id="ctgcheck">
-                                <li><a href="javascript:void(0);" onclick="checkcheck('vege');">채소</a></li>
-                                <li><a href="javascript:void(0);" onclick="checkcheck('fruit');">과일 · 견과 · 쌀</a></li>
-                                <li><a href="javascript:void(0);" onclick="checkcheck('sea');">수산 · 해산 · 건어물</a></li>
-                                <li><a href="javascript:void(0);" onclick="checkcheck('meat');">정육 · 계란</a></li>
-                                <li><a href="javascript:void(0);" onclick="checkcheck('soup');">국 · 반찬 · 메인요리</a></li>
-                                <li><a href="javascript:void(0);" onclick="checkcheck('salad');">샐러드 · 간편식</a></li>
-                                <li><a href="javascript:void(0);" onclick="checkcheck('noodle');">면 · 양념 · 오일</a></li>
+                                <!-- <li><a href="javascript:void(0);" onclick="checkcheck('vege');">채소</a></li> -->
+                                <li><a href="javascript:void(0);" onclick="checkcheck('채소');">채소</a></li>
+                                <input id="vege" type="hidden" value="채소">
+                                <li><a href="javascript:void(0);" onclick="checkcheck('과일');">과일 · 견과 · 쌀</a></li>
+                                <input id="fruit" type="hidden" value="과일">
+                                <li><a href="javascript:void(0);" onclick="checkcheck('수산');">수산 · 해산 · 건어물</a></li>
+                                <input id="sea" type="hidden" value="수산">
+                                <li><a href="javascript:void(0);" onclick="checkcheck('정육');">정육 · 계란</a></li>
+                                <input id="meat" type="hidden" value="정육">
+                                <li><a href="javascript:void(0);" onclick="checkcheck('국');">국 · 반찬 · 메인요리</a></li>
+                                <input id="soup" type="hidden" value="국">
+                                <li><a href="javascript:void(0);" onclick="checkcheck('샐러드');">샐러드 · 간편식</a></li>
+                                <input id="salad" type="hidden" value="샐러드">
+                                <li><a href="javascript:void(0);" onclick="checkcheck('면');">면 · 양념 · 오일</a></li>
+                                <input id="noodle" type="hidden" value="면">
                             </ul>
                         </div>
-                        <script>
+                        
+                        <!-- 카테고리만 ajax로 구현했을경우 -->
+                     <!--    <script>
                         function checkcheck(ct){
                        		$.ajax({
                        			type:'get',
@@ -58,15 +68,14 @@
                        		})
                        	}
 
-                       	</script>
+                       	</script> -->
 
                         <div class="sidebar__item" >
                             <h4>가격</h4>
                             <div class="price-range-wrap">
 
-
                                 <div id="sss" class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                    data-min="1000" data-max="500000" >
+                                    data-min="100" data-max="600000" >
                                 </div>
 
                                 <div class="range-slider">
@@ -75,7 +84,11 @@
                                         <input type="text" id="maxamount" class="amount">
                                     </div>
                                 </div>
-
+                                
+								<!-- 가격 검색 버튼 -->
+								<button class="primary-btn" type="button" name="search" style="background-color:#07d448;border: none;color: white;"
+								onclick="pricemaxmin();">가격 검색</button>
+                            
                             </div> 
                         </div>
                     </div>
@@ -83,11 +96,42 @@
                 <div class="col-lg-9 col-md-7">
                     <div class="filter__item" style="padding-top:20px;">
 	                    <div class="filter__option" style="font-weight: bold;font-size:20px;">
-	                        <a a href="javascript:void(0);" onclick="checkcheck('noodle');" style="color: black;margin:10px;">고액순 </a>|
-	                        <a a href="javascript:void(0);" onclick="checkcheck('noodle');" style="color: black;margin:10px;"> 저가순 </a>|
-	                        <a a href="javascript:void(0);" onclick="checkcheck('noodle');" style="color: black;margin:10px;"> 인기상품순</a>
+	                        <a a href="javascript:void(0);" onclick="sortsort('고액순');" style="color: black;margin:10px;">고액순 </a>|
+	                        <input type="hidden" id="high" value="고액순" >
+	                        <a a href="javascript:void(0);" onclick="sortsort('저가순');" style="color: black;margin:10px;"> 저가순 </a>|
+	                        <input type="hidden" id="low" value="저가순" >
+	                        <a a href="javascript:void(0);" onclick="sortsort('인기상품순');" style="color: black;margin:10px;"> 인기상품순</a>
+	                        <input type="hidden" id="popular" value="인기상품순" >
 	                    </div>
                     </div>
+                    <script>
+                    	const checkcheck=(ct)=>{
+                    		totalajax(ct);
+                    	}
+                    	const sortsort=(so)=>{
+                    		totalajax(so);	
+                    	}
+                    	const pricemaxmin=()=>{
+                    		const max=$("#maxamount").val();
+                    		const min=$("#minamount").val();
+                    		console.log("최고가 : "+max+"최저가 : "+min);	
+                    		totalajax(max,min);
+                    	}
+                    
+                    	const totalajax=(ct,so,max,min)=>{
+                    		console.log(ct+so+max+min);
+                    		
+                    		
+                    		
+                    		
+                    		
+                    	} 
+                    
+                    
+                    
+                    </script>
+                    
+                    
                     <div id="explain">
 	                    <div style="padding-bottom:20px;">
                             <h6><span style="font-weight:bold;padding:10px;">${i[0].sellitem_count }</span> 건</h6>
@@ -128,6 +172,17 @@
                 		</div>
                 	
                 	<script>
+                	
+                		/* const data={
+                			cate:"",
+                			highprice:"$("#maxamount").val()",
+                			lowprice:"$("#minamount").val()",
+                			sort:""
+                		} */
+                	
+                	
+                	
+                		//장바구니 상품담기
 						var arr=new Array();
 						<c:forEach var="b" items="${basket}">
 							arr.push({itemNo:${b.itemNo}});
@@ -183,8 +238,8 @@
             slide: function (event, ui) {
                 minamount.val(ui.values[0]);
                 maxamount.val(ui.values[1]);
-                console.log(minamount.val());
-                console.log(maxamount.val());
+                //console.log(minamount.val());
+                //console.log(maxamount.val());
             }
         });
         minamount.val(rangeSlider.slider("values", 0));
