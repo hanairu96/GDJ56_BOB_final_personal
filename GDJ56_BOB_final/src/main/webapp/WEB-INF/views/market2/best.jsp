@@ -10,8 +10,8 @@
 <script>console.log("${path }");</script>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<jsp:include page="/WEB-INF/views/common/marketHeader2.jsp"/>
-<jsp:include page="/WEB-INF/views/common/floatBar.jsp"/>
+<jsp:include page="/WEB-INF/views/common/marketHeader.jsp"/>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -25,7 +25,7 @@
 <body class="animsition">
 <section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-color: #E2DDD3;">
 	<h2 class="tit6 t-center" style="font-family: ChosunSm;">
-		오 늘 의 밥&nbsp&nbsp&nbsp&nbspE&nbsp&nbsp&nbspS&nbsp&nbsp&nbsp
+		오 늘 의 밥&nbsp B&nbsp&nbsp&nbspE&nbsp&nbsp&nbspS&nbsp&nbsp&nbspT
 		<br><br><p>오늘의 밥 누적판매 TOP100</p>
 	</h2>
 </section>
