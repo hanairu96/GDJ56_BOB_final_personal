@@ -80,35 +80,37 @@ public class Market1Controller {
 		if(loginMember!=null) {
 			String memberId=loginMember.getMemberId();
 			MarketMemberLike like=service.memberLike(memberId);
+			if(like!=null) {
 //			System.out.println(like);
-			List addlike=new ArrayList();
-			String choice="";
-			
-			//선택지가 모두 y인것만 추가
-			if(like.getFruit().equals("Y")) {
-				choice="과일";
-				addlike.add(choice);
-			}if(like.getSea().equals("Y")) {
-				choice="수산";
-				addlike.add(choice);
-			}if(like.getMeat().equals("Y")) {
-				choice="정육";
-				addlike.add(choice);
-			}if(like.getSide().equals("Y")) {
-				choice="반찬";
-				addlike.add(choice);
-			}if(like.getVege().equals("Y")) {
-				choice="채소";
-				addlike.add(choice);
-			}
-			mv.addObject("likectg",addlike);
-			
-			if(addlike.size()!=0) {
-				List<SellItem> likesell=new ArrayList();
-				for(int i=0;i<addlike.size();i++) {
-					likesell.addAll(service.selectMainLike((String) addlike.get(i)));
+				List addlike=new ArrayList();
+				String choice="";
+				
+				//선택지가 모두 y인것만 추가
+				if(like.getFruit().equals("Y")) {
+					choice="과일";
+					addlike.add(choice);
+				}if(like.getSea().equals("Y")) {
+					choice="수산";
+					addlike.add(choice);
+				}if(like.getMeat().equals("Y")) {
+					choice="정육";
+					addlike.add(choice);
+				}if(like.getSide().equals("Y")) {
+					choice="반찬";
+					addlike.add(choice);
+				}if(like.getVege().equals("Y")) {
+					choice="채소";
+					addlike.add(choice);
 				}
-				mv.addObject("likemenu",likesell);
+				mv.addObject("likectg",addlike);
+				
+				if(addlike.size()!=0) {
+					List<SellItem> likesell=new ArrayList();
+					for(int i=0;i<addlike.size();i++) {
+						likesell.addAll(service.selectMainLike((String) addlike.get(i)));
+					}
+					mv.addObject("likemenu",likesell);
+				}
 			}
 		}
 		
@@ -120,7 +122,7 @@ public class Market1Controller {
 	@RequestMapping("/marketgtg.do")
 	public ModelAndView marketCtg(ModelAndView mv,
 			@RequestParam(value="cPage", defaultValue="1")int cPage,
-			@RequestParam(value="numPerpage", defaultValue="6")int numPerpage
+			@RequestParam(value="numPerpage", defaultValue="15")int numPerpage
 			,HttpServletRequest request) {
 
 		List<SellItem> list=service.selectItemCtg(Map.of("cPage",cPage,"numPerpage",numPerpage));

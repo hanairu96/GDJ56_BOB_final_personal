@@ -110,20 +110,20 @@
 	    	//카카오톡 공유하기
 	    	// init 체크
  			if (!Kakao.isInitialized()) {
-			  Kakao.init('d19fa48d55c6bbc111c90960278eb809');
+				Kakao.init('d19fa48d55c6bbc111c90960278eb809');
 			}
 			let sendKakao = function() {
-			    // 메시지 공유 함수
-			  Kakao.Link.sendScrap({
-			    requestUrl: 'http://localhost:9090/', // 페이지 url
-			    templateId: 89612, // 메시지템플릿 번호
-			    templateArgs: {
-			            //PROFILE : '프로필 이미지 주소' // 프로필 이미지 주소 ${PROFILE}
-			      		//THUMB: '썸네일 주소', // 썸네일 주소 ${THUMB}
-			      		TITLE: '요리 재료는 바로 여기! 오늘의 밥', // 제목 텍스트 ${TITLE}
-			      		DESC: '마켓과 원데이 클래스, 그리고 정기 구독까지. 요리를 위한 필수 사이트 오늘의 밥!', // 설명 텍스트 ${DESC}
-			    },
-			  });
+				// 메시지 공유 함수
+				Kakao.Link.sendScrap({
+					requestUrl: 'http://localhost:9090/', // 페이지 url
+					templateId: 89612, // 메시지템플릿 번호
+					templateArgs: {
+						//PROFILE : '프로필 이미지 주소' // 프로필 이미지 주소 ${PROFILE}
+						//THUMB: '썸네일 주소', // 썸네일 주소 ${THUMB}
+						TITLE: '요리 재료는 바로 여기! 오늘의 밥', // 제목 텍스트 ${TITLE}
+						DESC: '마켓과 원데이 클래스, 그리고 정기 구독까지. 요리를 위한 필수 사이트 오늘의 밥!' // 설명 텍스트 ${DESC}
+					},
+				});
 			};
 	    </script>
     </div>
