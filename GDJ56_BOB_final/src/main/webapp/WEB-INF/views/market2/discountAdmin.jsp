@@ -46,7 +46,7 @@
 		</div> -->
 		<!-- 5개일경우 -->
 		<div class="todaybab_title">
-			<a href="#"><h7>현재적용된상품들보여줄지??..뭐가좋을까<h7></a>
+			<img src="${path }/resources/images/itemdiscountbanner.png" width="1000" id="itemdiscountbanner1" />
 		</div>
 	</section>
 </div>

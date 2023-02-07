@@ -56,7 +56,7 @@ public class MarketController {
 		
 		mv.addObject("bestItems", list);
 		mv.setViewName("market2/best");
-		System.out.println(mv);
+		//System.out.println(mv);
 		return mv;
 	}
 	
@@ -67,7 +67,7 @@ public class MarketController {
 		//List<SellItem> list = service.bestItemsAjax(value);
 		//System.out.println(value);
 		List<SellItem> list = service.bestItems(value); //베스트상품검색 - ajax로 button value
-		System.out.println(list);
+		//System.out.println(list);
 		return list;
 	}
 	
@@ -86,7 +86,7 @@ public class MarketController {
 		mv.addObject("disCnt",listCnt);
 
 		mv.setViewName("market2/discount");
-		System.out.println(mv);
+		//System.out.println(mv);
 		return mv;
 	}
 
@@ -96,7 +96,7 @@ public class MarketController {
 		HttpSession session = request.getSession();
 	    Member loginMember = (Member) session.getAttribute("loginMember");
 	    
-	    System.out.println(loginMember);
+	    //System.out.println(loginMember);
 		/*
 		 * String loginSta; if(loginMember == null) { loginSta =
 		 * loginMember.getMemberId() }else { loginSta = loginMember.getMemberId(); }
@@ -113,7 +113,7 @@ public class MarketController {
 		mv.addObject("tbAll",tbAll);
 		
 		mv.setViewName("market2/today");
-		System.out.println(mv);
+		//System.out.println(mv);
 		return mv;
 	}
 	
@@ -125,12 +125,12 @@ public class MarketController {
 		Map<String, Object> param = new HashMap();
 		param.put("value", value);
 		
-		System.out.println("아아"+value);
+		//System.out.println("아아"+value);
 		
 		List<SellItem> list = service.sellItemAll(param); //상품검색 - null
 		mv.addObject("allItems",list);
 		mv.setViewName("market2/discountAdmin");
-		System.out.println(mv);
+		//System.out.println(mv);
 		return mv;
 	}
 
@@ -142,7 +142,7 @@ public class MarketController {
 		Map<String, Object> param = new HashMap();
 		param.put("keyword", value);
 		param.put("selectOp", selectOp);
-		System.out.println(selectOp);
+		//System.out.println(selectOp);
 		
 		List<SellItem> list = service.sellItemAll(param); //상품검색 - ajax로 키워드 검색
 		return list;
@@ -151,20 +151,20 @@ public class MarketController {
 	//(관리자)할인 등록
 	@RequestMapping("/market/discountAdminEnd.do")
 	public ModelAndView discountAdminEnd(ModelAndView mv, String yArr, String disArrNext) {
-		System.out.println("받은값"+disArrNext);
+		//System.out.println("받은값"+disArrNext);
 		//배열 두개 하나의 맵으로 저장
 		Map<String, Object> param = new HashMap();
 		param.put("yArr", yArr.split(","));//이미 할인 중이어서 update 'n' in()할 값
 		param.put("cArr", disArrNext.split(","));//사용자가 할인하려고 체크해서 update 'y' in()할 값
-		System.out.println("스플릿"+disArrNext.split(","));
+		//System.out.println("스플릿"+disArrNext.split(","));
 		/*
 		//이미 할인 중이어서 update 'n' in()할 값
-		System.out.println(yArr);
+		//System.out.println(yArr);
 		//사용자가 할인하려고 체크해서 update 'y' in()할 값
 		String cArr = "";
 		for(String c : chItems) cArr += c+",";
 		cArr = cArr.substring(0, cArr.length()-1);
-		System.out.println(cArr);
+		//System.out.println(cArr);
 		//배열 두개 하나의 맵으로 저장
 		Map<String, Object> param = new HashMap();
 		param.put("yArr", yArr);
@@ -218,7 +218,7 @@ public class MarketController {
 		
 		
 		mv.setViewName("market2/todayAdminModify");
-		System.out.println(mv);
+		//System.out.println(mv);
 		return mv;
 	}
 
@@ -231,7 +231,7 @@ public class MarketController {
 			chItemsTxt += a+",";
 		}
 		chItemsTxt = chItemsTxt.substring(0, chItemsTxt.length()-1);
-		System.out.println(chItemsTxt);*/
+		//System.out.println(chItemsTxt);*/
 		
 		List<SellItem> list = service.sellItemByNo(itemLS); //==chItemsTxt
 		
@@ -248,7 +248,7 @@ public class MarketController {
 	@RequestMapping("/market/todayBobEnd.do")
 	public ModelAndView todayBobEnd(ModelAndView mv, int[] chItems, String reTitle, String reContent, String reIcon) {
 		
-		System.out.println(chItems);
+		//System.out.println(chItems);
 		
 		
 //		//먼저타이틀생성하고
@@ -293,7 +293,7 @@ public class MarketController {
 	public ModelAndView deleteTodayBob(ModelAndView mv, int reNo) {
 		int result = service.deleteTodayBob(reNo);
 		mv.addObject("msg",result>0?"타이틀 삭제 성공":"타이틀 삭제 실패");
-		mv.addObject("loc","/market/todayAdminModify.do");
+		mv.addObject("loc","/market/today.do");
 		mv.setViewName("common/msg");
 		return mv;
 	}
@@ -304,7 +304,7 @@ public class MarketController {
 	public List<SellItem> todayView(int reNo) {
 		
 		List<SellItem> list = service.todayView(reNo); //추천상품보기
-		System.out.println(list);
+		//System.out.println(list);
 		return list;
 	}
 	/////////////////
@@ -315,7 +315,7 @@ public class MarketController {
 	public List<SellItem> selectItemByReNo(int reNo){
 		
 		List<SellItem> list = service.todayView(reNo);
-		System.out.println(list);
+		//System.out.println(list);
 		return list;
 	}
 	
@@ -378,7 +378,7 @@ public class MarketController {
 		//List<SellItem> list = service.bestItemsAjax(value);
 		//System.out.println(value);
 		List<SellItem> list = service.bestItems(value); //베스트상품검색 - ajax로 button value
-		System.out.println(list);
+		//System.out.println(list);
 		return list;
 	}
 	

@@ -40,7 +40,7 @@
 		<div class="row">
 		
 			<c:forEach var="i" items="${disList }">
-			<div class="col-lg-4 col-sm-6" style="padding: 3%;">
+			<div class="col-lg-4 col-sm-6" style="padding: 3%;${i.itemStock==0?'filter: grayscale(100%)':''};">
 				<div class="discount-item">
 					<div class="zoom">
 						<a href="${path}/market1/marketdetail.do?itemNo=${i.itemNo}"><img src="${path }/resources/upload/market/mainlabel/${i.mainPic }" alt="" width="330" height="280"></a>
@@ -61,8 +61,13 @@
 						<div style="display: flex; justify-content: space-between; margin-left: 10%; margin-top: 5%;">
 							<h5 style="color: red;">할인가 9,900원</h5>
 							<div class="zoom">
-								<a href="javascript:void(0);" onclick="addbasketitem(${i.itemNo },'${loginMember.memberId }','${i.mainPic }','${i.itemName }')"><img src="https://img.icons8.com/pastel-glyph/512/shopping-cart.png" width="30" height="30"></a>
-							</div>
+									<c:if test="${i.itemStock ==0}">
+										<span style="font-size: 30px;">일시품절</span>
+									</c:if>
+									<c:if test="${i.itemStock!=0 }">
+									<a href="javascript:void(0);" onclick="addbasketitem(${i.itemNo },'${loginMember.memberId }','${i.mainPic }','${i.itemName }')"><img src="https://img.icons8.com/pastel-glyph/512/shopping-cart.png" width="30" height="30"></a>
+									</c:if>
+								</div>
 						</div>
 					</div>
 				</div>

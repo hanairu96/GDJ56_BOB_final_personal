@@ -189,17 +189,18 @@ $(function(){//.레디함수
     						
     						
     						var itemNo = i.itemNo;
+    						var m = '${loginMember.memberId }';
     						var stock = i.itemStock==0 ? "<div class='col-lg-4 col-sm-6' style='padding: 3%;filter: grayscale(100%);'>"
     									: "<div class='col-lg-4 col-sm-6' style='padding: 3%;'>";
     						//var stock2 = i.itemStock==0 ? "<a href='${path }/market/cart.do?id=${m}&itemNo="+itemNo+"'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>"
     						var stock2 = i.itemStock==0 ? "<span style='font-size: 30px;'>일시품절</span>"
-    									: "<a href='javascript:void(0);' onclick='addbasketitem("+i.itemNo+",'${loginMember.memberId }','"+i.mainPic+"','"+i.itemName+"')'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>";
+    									: "<a href='javascript:void(0);' onclick='addbasketitem("+i.itemNo+",'"+m+"','"+i.mainPic+"','"+i.itemName+"');'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>";
     									
     						
     						html += stock
 							html += "<div class='recipe-item'>";
 							html += "<div class='zoom'>";
-							html += "<a href='${path}/market1/marketdetail.do?itemNo="+itemNo+"'><img src='${path }/resources/upload/market/mainlabel/"+i.mainPic+"' alt='' width='330' height='280'></a>";
+							html += "<a href='#'><img src='${path }/resources/upload/market/mainlabel/"+i.mainPic+"' alt='' width='330' height='280'></a>";
 							html += "</div>";
 							html += "<div class='ri-text'>";
 							html += "<div class='cat-name'>"+i.itemCategory+"</div>";
