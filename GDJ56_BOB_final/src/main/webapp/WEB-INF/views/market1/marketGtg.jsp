@@ -13,12 +13,12 @@
 		font-family: 'Gowun Dodum', sans-serif;
 	}
 </style>
-	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
+	 <div class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/mainbanner.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>채소</h2>
+                        <h2 style="color:black;">오늘의 밥 상품</h2>
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
         <div class="container">
             <div class="row">
 
-                <a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:900px;background-color: #07d448;" >상품등록</a>
+                <a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:900px;background-color:#bde28f;" >상품등록</a>
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
 
@@ -122,7 +122,7 @@
                     	//전역변수로 우선 선언해준다
 	            		var searchData={
             				min:0,
-            				max:'',
+            				max:0,
             				itemct:"",
             				itemsort:""
 	            		};

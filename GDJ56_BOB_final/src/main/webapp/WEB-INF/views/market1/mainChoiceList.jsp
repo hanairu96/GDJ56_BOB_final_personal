@@ -13,12 +13,12 @@
 		font-family: 'Gowun Dodum', sans-serif;
 	}
 </style>
-	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
+	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/mainbanner.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>오늘의 밥 마켓</h2>
+                        <h2 style="color:black;">오늘의 밥 마켓</h2>
                         </div>
                     </div>
                 </div>
