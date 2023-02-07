@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<jsp:include page="/WEB-INF/views/common/marketHeader2.jsp"/>
+<%-- <jsp:include page="/WEB-INF/views/common/marketHeader.jsp"/> --%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style>
@@ -41,8 +41,13 @@
             
             
                 <br>	
-            <c:if test="${loginMember!=null }">
-                <h5>${likectg }를 선호하시는 ${loginMember.nickname } 님 맞춤 상품! 둘러보세요!</h5>
+            <c:if test="${loginMember!=null}">
+            	<c:if test="${likemenu!=null }">
+                	<h5>${likectg }를 선호하시는 ${loginMember.nickname } 님 맞춤 상품! 둘러보세요!</h5>
+				</c:if>            	
+            	<c:if test="${likemenu==null }">
+                	<h5>${loginMember.nickname } 님 맞춤 상품! 둘러보세요!</h5>
+				</c:if>            	
             </c:if>    
             <c:if test="${loginMember==null }">
                 <h5> 오늘의 밥 인기상품 ! 둘러보세요!</h5>
@@ -118,10 +123,10 @@
 
             <!-- 매진임박상품 -->
             <div style="text-align: center;">
+	            <div>
+	            	<img src="${path }/resources/market/img/soon.gif" style="width:130px;"/>
+	            </div>
                 <h3 style="font-weight: bold;">매진임박 상품 ! ></h3><br>
-            </div>
-            <div>
-            	<img src="${path }/resources/market/img/soon.gif" style="width:150px;"/>
             </div>
             <div class="row">
                 <div class="categories__slider owl-carousel">
