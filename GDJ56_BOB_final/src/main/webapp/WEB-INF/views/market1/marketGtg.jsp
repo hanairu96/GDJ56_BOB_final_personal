@@ -38,25 +38,29 @@
                             <h4>카테고리</h4>
                             <ul id="ctgcheck">
                                 <!-- <li><a href="javascript:void(0);" onclick="checkcheck('vege');">채소</a></li> -->
-                                <li><a href="javascript:void(0);" onclick="checkcheck('채소');">채소</a></li>
-                                <input id="vege" type="hidden" value="채소">
-                                <li><a href="javascript:void(0);" onclick="checkcheck('과일');">과일 · 견과 · 쌀</a></li>
-                                <input id="fruit" type="hidden" value="과일">
-                                <li><a href="javascript:void(0);" onclick="checkcheck('수산');">수산 · 해산 · 건어물</a></li>
-                                <input id="sea" type="hidden" value="수산">
-                                <li><a href="javascript:void(0);" onclick="checkcheck('정육');">정육 · 계란</a></li>
-                                <input id="meat" type="hidden" value="정육">
-                                <li><a href="javascript:void(0);" onclick="checkcheck('국');">국 · 반찬 · 메인요리</a></li>
-                                <input id="soup" type="hidden" value="국">
-                                <li><a href="javascript:void(0);" onclick="checkcheck('샐러드');">샐러드 · 간편식</a></li>
-                                <input id="salad" type="hidden" value="샐러드">
-                                <li><a href="javascript:void(0);" onclick="checkcheck('면');">면 · 양념 · 오일</a></li>
-                                <input id="noodle" type="hidden" value="면">
+                                
+                                <!-- input에 값을 넣어서 출력하는 방식 -->
+                                <!-- <li><a href="javascript:fn_item('채소');" onclick="">채소</a></li>
+                                <li><a href="javascript:fn_item('과일');" onclick="">과일 · 견과 · 쌀</a></li>
+                                <li><a href="javascript:fn_item('수산');" onclick="">수산 · 해산 · 건어물</a></li>
+                                <li><a href="javascript:fn_item('정육');" onclick="">정육 · 계란</a></li>
+                                <li><a href="javascript:fn_item('국');" onclick="">국 · 반찬 · 메인요리</a></li>
+                                <li><a href="javascript:fn_item('샐러드');" onclick="">샐러드 · 간편식</a></li>
+                                <li><a href="javascript:fn_item('면');" onclick="">면 · 양념 · 오일</a></li> -->
+                                <!-- <input type="text" value="" id="item">-->                                 
+ 
+                                <li><a href="javascript:void(0);" onclick="totalajax('itemct',event);">채소</a></li>
+                                <li><a href="javascript:void(0);" onclick="totalajax('itemct',event);">과일 · 견과 · 쌀</a></li>
+                                <li><a href="javascript:void(0);" onclick="totalajax('itemct',event);">수산 · 해산 · 건어물</a></li>
+                                <li><a href="javascript:void(0);" onclick="totalajax('itemct',event);">정육 · 계란</a></li>
+                                <li><a href="javascript:void(0);" onclick="totalajax('itemct',event);">국 · 반찬 · 메인요리</a></li>
+                                <li><a href="javascript:void(0);" onclick="totalajax('itemct',event);">샐러드 · 간편식</a></li>
+                                <li><a href="javascript:void(0);" onclick="totalajax('itemct',event);">면 · 양념 · 오일</a></li>
                             </ul>
                         </div>
                         
-                        <!-- 카테고리만 ajax로 구현했을경우 -->
-                     <!--    <script>
+                     <!-- 카테고리만 ajax로 구현했을경우 -->
+                     <!-- <script>
                         function checkcheck(ct){
                        		$.ajax({
                        			type:'get',
@@ -67,7 +71,6 @@
                        			}
                        		})
                        	}
-
                        	</script> -->
 
                         <div class="sidebar__item" >
@@ -75,7 +78,7 @@
                             <div class="price-range-wrap">
 
                                 <div id="sss" class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                    data-min="100" data-max="600000" >
+                                    data-min="100" data-max="50000" >
                                 </div>
 
                                 <div class="range-slider">
@@ -86,8 +89,8 @@
                                 </div>
                                 
 								<!-- 가격 검색 버튼 -->
-								<button class="primary-btn" type="button" name="search" style="background-color:#07d448;border: none;color: white;"
-								onclick="pricemaxmin();">가격 검색</button>
+								<!-- <button class="primary-btn" type="button" name="search" style="background-color:#07d448;border: none;color: white;"
+								onclick="totalajax();">가격 검색</button> -->
                             
                             </div> 
                         </div>
@@ -96,36 +99,54 @@
                 <div class="col-lg-9 col-md-7">
                     <div class="filter__item" style="padding-top:20px;">
 	                    <div class="filter__option" style="font-weight: bold;font-size:20px;">
-	                        <a a href="javascript:void(0);" onclick="sortsort('고액순');" style="color: black;margin:10px;">고액순 </a>|
-	                        <input type="hidden" id="high" value="고액순" >
-	                        <a a href="javascript:void(0);" onclick="sortsort('저가순');" style="color: black;margin:10px;"> 저가순 </a>|
-	                        <input type="hidden" id="low" value="저가순" >
-	                        <a a href="javascript:void(0);" onclick="sortsort('인기상품순');" style="color: black;margin:10px;"> 인기상품순</a>
-	                        <input type="hidden" id="popular" value="인기상품순" >
+	                        <a href="javascript:void(0);" onclick="totalajax('itemsort',event);" style="color: black;margin:10px;">고액순</a>|
+	                        <a href="javascript:void(0);" onclick="totalajax('itemsort',event);" style="color: black;margin:10px;">저가순</a>|
+	                        <a href="javascript:void(0);" onclick="totalajax('itemsort',event);" style="color: black;margin:10px;">인기상품순</a>
 	                    </div>
+	                    <!-- <input type="text" value="" id="itemsort"> -->
                     </div>
                     <script>
-                    	const checkcheck=(ct)=>{
-                    		totalajax(ct);
+	            		
+	            		/* 카테고리랑 정렬을 input태그에 값을 넣어서 사용하는 방법 */
+                    	const fn_item=(i)=>{
+                    		$("#item").val(i);
+                    		//console.log(item.val());
                     	}
-                    	const sortsort=(so)=>{
-                    		totalajax(so);	
+                    	const fn_sort=(i)=>{
+                    		$("#itemsort").val(i);
                     	}
-                    	const pricemaxmin=()=>{
-                    		const max=$("#maxamount").val();
-                    		const min=$("#minamount").val();
-                    		console.log("최고가 : "+max+"최저가 : "+min);	
-                    		totalajax(max,min);
-                    	}
+                    	/*///////////////////////////// */
                     
-                    	const totalajax=(ct,so,max,min)=>{
-                    		console.log(ct+so+max+min);
-                    		
-                    		
-                    		
-                    		
-                    		
-                    	} 
+                    	
+                    	
+                    	//전역변수로 우선 선언해준다
+	            		var searchData={
+            				min:0,
+            				max:'',
+            				itemct:"",
+            				itemsort:""
+	            		};
+                    	//ajax구문
+                    	const totalajax=(type,e)=>{
+							//console.log(type,e);	
+							if(type=='minmax'){
+								searchData['min']=e[0];
+								searchData['max']=e[1];
+							}else if(type=='itemct'){
+								searchData[type]=e.target.innerText.substring(0, 1);
+							}else{
+								searchData[type]=e.target.innerText;
+							}
+							console.log(searchData);
+                     		$.ajax({
+                        			type:'get',
+                        			url:'${path}/market1/searchItemSort.do',
+                        			data:searchData,
+                        			success:data=>{
+                        				$("#explain").html(data);
+                        			}
+                        		})
+                    		} 
                     
                     
                     
@@ -172,15 +193,6 @@
                 		</div>
                 	
                 	<script>
-                	
-                		/* const data={
-                			cate:"",
-                			highprice:"$("#maxamount").val()",
-                			lowprice:"$("#minamount").val()",
-                			sort:""
-                		} */
-                	
-                	
                 	
                 		//장바구니 상품담기
 						var arr=new Array();
@@ -236,8 +248,11 @@
             max: maxPrice,
             values: [minPrice, maxPrice],
             slide: function (event, ui) {
-                minamount.val(ui.values[0]);
-                maxamount.val(ui.values[1]);
+                 minamount.val(ui.values[0]);
+                 maxamount.val(ui.values[1]);
+
+				/* 위에 선언한 ajax함수를 호출해서 값을 넣어줌 */
+                totalajax('minmax',[ui.values[0],ui.values[1]])
                 //console.log(minamount.val());
                 //console.log(maxamount.val());
             }

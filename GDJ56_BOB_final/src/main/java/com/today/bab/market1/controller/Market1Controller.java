@@ -474,29 +474,29 @@ public class Market1Controller {
 //		}
 	}
 	
-	//카테고리
-	@RequestMapping("/searchCtg.do")
-	public String searchCtg(String ct,Model m) {
-		String categ="";
-		if(ct.contains("vege")){
-			categ="채소";
-		}else if(ct.contains("fruit")){
-			categ="과일";
-		}else if(ct.contains("sea")){
-			categ="수산";
-		}else if(ct.contains("meat")){
-			categ="정육";
-		}else if(ct.contains("soup")){
-			categ="국";
-		}else if(ct.contains("salad")){
-			categ="샐러드";
-		}else if(ct.contains("noodle")){
-			categ="면";
-		}
-		List<SellItem> list=service.selectCtgAjax(categ);
-		m.addAttribute("ii", list);
-		return "market1/resultGtgselect";
-	}
+	//카테고리만 ajax처리했었음
+//	@RequestMapping("/searchCtg.do")
+//	public String searchCtg(String ct,Model m) {
+//		String categ="";
+//		if(ct.contains("vege")){
+//			categ="채소";
+//		}else if(ct.contains("fruit")){
+//			categ="과일";
+//		}else if(ct.contains("sea")){
+//			categ="수산";
+//		}else if(ct.contains("meat")){
+//			categ="정육";
+//		}else if(ct.contains("soup")){
+//			categ="국";
+//		}else if(ct.contains("salad")){
+//			categ="샐러드";
+//		}else if(ct.contains("noodle")){
+//			categ="면";
+//		}
+//		List<SellItem> list=service.selectCtgAjax(categ);
+//		m.addAttribute("ii", list);
+//		return "market1/resultGtgselect";
+//	}
 	
 	
 	@RequestMapping("/memberLikeList.do")
@@ -543,5 +543,21 @@ public class Market1Controller {
 		mv.setViewName("market1/mainChoiceList");
 		return mv;
 	}
+	
+	@RequestMapping("/searchItemSort.do")
+	public String searchItemSort(Model m,
+			int min, int max,String itemct,String itemsort
+//			Map<String,Object> param
+			) {
+//		System.out.println(min);
+//		System.out.println(max);
+//		System.out.println(itemct);
+//		System.out.println(itemsort);
+		Map<String,Object> param=Map.of("min",min,"max",max,"itemct",itemct,"itemsort",itemsort);
+		List<SellItem> list=service.searchItemSort(param);
+		m.addAttribute("ii", list);
+		return "market1/resultGtgselect";
+	}
+	
 	
 }

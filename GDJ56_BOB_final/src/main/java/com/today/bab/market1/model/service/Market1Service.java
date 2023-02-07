@@ -27,7 +27,7 @@ public interface Market1Service {
 	int updateMarketItem(SellItem s,int itemNo);
 	
 	//카테고리별출력
-	List<SellItem> selectCtgAjax(String itemCategory);
+	//List<SellItem> selectCtgAjax(String itemCategory);
 	
 	//카페고리 처음 출력할때 페이징
 	int selectItemCount();
@@ -36,4 +36,8 @@ public interface Market1Service {
 	MarketMemberLike memberLike(String memberId);
 	
 	List<SellItem> selectMainLike(String like);
+	
+	//마켓 카테고리 ajax처리
+	List<SellItem> searchItemSort(Map<String,Object> param);
+	
 }
