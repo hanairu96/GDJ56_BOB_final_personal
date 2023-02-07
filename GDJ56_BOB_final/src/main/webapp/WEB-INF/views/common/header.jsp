@@ -96,7 +96,7 @@
 	                <c:if test="${loginMember.memberId ne 'admin'}">
 	                	<p><a href="${path}/mypage/orderlist.do">MYPAGE</a></p>
 	                </c:if>
-	                <img src="${path}/resources/images/shopping-basket.png" onclick="">
+	                <img src="${path}/resources/images/shopping-basket.png" onclick="location.assign('${path}/mypage/basket.do')">
 	                <img src="${path}/resources/images/bell.gif" style="margin-top:10px;width:60px;height:60px;"
 	                	 id="alarmBell">
 	                <img src="${path}/resources/images/logout.png" onclick="logout();">
