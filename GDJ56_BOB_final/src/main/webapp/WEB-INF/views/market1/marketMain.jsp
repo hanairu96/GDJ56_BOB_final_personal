@@ -26,15 +26,20 @@
     
         <div class="container">
 			<a style="font-size:30px;" href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a><br>
-			<%-- <a style="font-size:30px;" href="${path }/itemQna/resultresult.do?itemNo=8">리뷰</a><br> --%>
-			<a style="font-size:30px;" href="${path }/itemReview/insertReviewGo.do?itemNo=8&memberId=user03&itemName=고사리&mainPic=20230127_184026868_5159.jpg">리뷰쓰기</a> 
 			<a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:900px;margin-top:30px;background-color: #07d448;" >상품등록</a>
 			
             <br><br><br>
 
             <!-- 이상품 어때요? -->
             <div style="text-align: center;">
-                <h3 style="font-weight: bold;">이 상품 어때요? ></h3>
+            <c:if test="${likemenu==null }">
+                <a href="${path }/market1/marketgtg.do"><h3 style="font-weight: bold;">이 상품 어때요? ></h3></a>
+            </c:if>
+            <c:if test="${likemenu!=null }">
+                <a href="${path }/market1/memberLikeList.do"><h3 style="font-weight: bold;">이 상품 어때요? ></h3></a>
+            </c:if>
+            
+            
                 <br>	
             <c:if test="${loginMember!=null }">
                 <h5>${likectg }를 선호하시는 ${loginMember.nickname } 님 맞춤 상품! 둘러보세요!</h5>
@@ -94,6 +99,29 @@
             <div style="text-align: center;">
                 <h3 style="font-weight: bold;">냉장고 속 단골재료 ></h3><br>
                 <h5>야채주스 님 맞춤 상품! 둘러보세요!</h5><br>
+            </div>
+            <div class="row">
+                <div class="categories__slider owl-carousel">
+                
+                	<c:forEach var="i" begin="1" end="10" >
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${items[i].mainPic }');">
+                            <h5><a href="${path}/market1/marketdetail.do?itemNo=${items[i].itemNo}">${items[i].itemName }</a></h5>
+                        </div>
+                    </div>
+                	</c:forEach>
+      
+                </div>
+            </div>
+            <br><br><br>
+
+
+            <!-- 매진임박상품 -->
+            <div style="text-align: center;">
+                <h3 style="font-weight: bold;">매진임박 상품 ! ></h3><br>
+            </div>
+            <div>
+            	<img src="${path }/resources/market/img/soon.gif" style="width:150px;"/>
             </div>
             <div class="row">
                 <div class="categories__slider owl-carousel">

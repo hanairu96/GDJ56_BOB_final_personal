@@ -1,6 +1,7 @@
 package com.today.bab.basket.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -11,8 +12,8 @@ import com.today.bab.market1.model.vo.MarketBasket;
 @Repository
 public class BasketDaoImpl implements BasketDao{
 	@Override
-	public int insertbasket(SqlSessionTemplate session,MarketBasket b) {
-		return session.insert("ma.insertBasket",b);
+	public int insertbasket(SqlSessionTemplate session,Map<String,Object> param) {
+		return session.insert("ma.insertBasket",param);
 	}
 	
 	@Override
@@ -21,7 +22,7 @@ public class BasketDaoImpl implements BasketDao{
 	}
 	
 	@Override
-	public int updateBasket(SqlSessionTemplate session,MarketBasket b) {
-		return session.update("ma.updateBasket",b);
+	public int updateBasket(SqlSessionTemplate session,Map<String,Object> param) {
+		return session.update("ma.updateBasket",param);
 	}
 }

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class OneDayClass {
-	private int odcNo;
+	private String odcNo;
 	private String odcClassName;
 	private String odcCookName;
 	private Date odcStartDate;
@@ -27,5 +27,5 @@ public class OneDayClass {
 	private String odcCategoty;
 	private String memberId;
 	private String odcStartTime;
-	private String mastserName;
+	private String masterName;
 }

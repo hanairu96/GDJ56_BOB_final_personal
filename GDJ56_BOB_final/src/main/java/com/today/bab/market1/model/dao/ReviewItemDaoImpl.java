@@ -54,8 +54,8 @@ public class ReviewItemDaoImpl implements ReviewItemDao {
 	}
 	
 	@Override
-	public List<ItemReview> choiceReviewList(SqlSessionTemplate session,String list){
-		return session.selectList("ireview.choiceReviewList",list);
+	public List<ItemReview> choiceReviewList(SqlSessionTemplate session,Map<String,Object> param){
+		return session.selectList("ireview.choiceReviewList",param);
 	}
 	
 	

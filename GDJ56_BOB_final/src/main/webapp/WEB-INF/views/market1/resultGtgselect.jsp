@@ -40,6 +40,9 @@
                     </div>
 				</div>
 			</div>
+		<c:if test="${sell eq null }">
+			<div>내가 쓴 댓글이 없습니다.</div>
+		</c:if>
 		</c:forEach>
 		
 		<!-- 장바구니 스크립트구문 가져오기 -->
