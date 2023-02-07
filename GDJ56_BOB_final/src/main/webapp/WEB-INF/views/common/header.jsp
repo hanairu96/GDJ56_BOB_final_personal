@@ -47,7 +47,7 @@
             <h1>오늘의 밥</h1>
             <img src="${path}/resources/images/logo-icon.png">
             
-            <div id="alarmBellDIV" style="text-align:center;display:none;margin-left:650px;width:300px;height:120px; border:2px solid purple; border-radius:30px;">
+            <div id="alarmBellDIV" style="position: absolute; right: 230px; text-align: center; width: 300px; height: 120px; border: 2px solid purple; border-radius: 30px; display: none;">
             </div>
             <c:if test="${not empty master }">
 	            <c:if test="${loginMember.memberId ne 'admin'}">
@@ -79,9 +79,17 @@
 		            	<input type="hidden" id="alarmtext1" value="알림메세지가 없습니다">
 		         </c:if>
 		     </c:if>
-		         
-	         
-	         
+		     
+		     <!-- 군침이 챗봇위치  -->
+			<div
+			  style="position: absolute; right: 50px;"
+			  id="kakao-talk-channel-add-button"
+			  data-channel-public-id="_xoixkxixj"
+			  data-size="large"
+			  data-support-multiple-densities="true"
+			>
+				<img src="${path }/resources/images/군침이.jpg" style="width:50px;height:50px;">
+			</div>
         </div>
         <header class="head-menu">
             <div>
@@ -195,4 +203,23 @@
 	        		alert("로그아웃이 완료되었습니다.");
         		}
         	}
-        </script>
+        	
+        	
+        	//카카오챗봇 , 군침이
+			  window.kakaoAsyncInit = function() {
+			    Kakao.Channel.createAddChannelButton({
+			      container: '#kakao-talk-channel-add-button',
+			    });
+			  };
+			
+			  (function(d, s, id) {
+			    var js, fjs = d.getElementsByTagName(s)[0];
+			    if (d.getElementById(id)) return;
+			    js = d.createElement(s); js.id = id;
+			    js.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.channel.min.js';
+			    js.integrity = 'sha384-MEvxc+j9wOPB2TZ85/N6G3bt3K1/CgHSGNSM+88GoytFuzP4C9szmANjTCNfgKep';
+			    js.crossOrigin = 'anonymous';
+			    fjs.parentNode.insertBefore(js, fjs);
+			  })(document, 'script', 'kakao-js-sdk');
+			  
+			</script>
