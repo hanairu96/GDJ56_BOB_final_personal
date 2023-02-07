@@ -397,6 +397,14 @@
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
                      <%-- ${orderlist} --%>
+                     
+                     <c:if test="${empty orderlist}">
+                     	<tr class="px-4 py-3">
+							<td class="px-4 py-3" colspan="4">
+								<p>주문내역이없습니다.</p>
+							</td>
+						</tr>
+                     </c:if>
                     <c:if test="${not empty orderlist}">
                     	<c:forEach var="order" items="${orderlist}">
                     		<tr class="text-gray-700 dark:text-gray-400">

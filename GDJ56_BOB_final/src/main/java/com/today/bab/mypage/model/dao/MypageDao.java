@@ -9,11 +9,15 @@ import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market1.model.vo.ItemReview;
+import com.today.bab.mypage.model.vo.ClientQaMypage;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
+import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.mypage.model.vo.Sub;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
+import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 public interface MypageDao {
 	List<Basket> selectBasketById(SqlSessionTemplate session,String userId);
@@ -60,7 +64,27 @@ public interface MypageDao {
 	
 	int updateOrderConfirm(SqlSessionTemplate session,int orderNo);
 	
-	List<OdcReserve> selectOnedayclass(SqlSessionTemplate session,String memberId);
+	List<OdcReserve> selectOnedayclass(Map<String,Integer> param,SqlSessionTemplate session,String memberId);
 	
 	List<ItemReview> selectReviewByOrderNo(SqlSessionTemplate session,int orderNo);
+	
+	String selectMemberMaster(SqlSessionTemplate session,String memberId);
+	
+	List<OneDayClass> selectOnedayclassMaster(SqlSessionTemplate session,String memberId,Map<String,Integer> param);
+	
+	int selectOnedayclassCount(SqlSessionTemplate session,String memberId);
+	
+	int selectOnedayclassMasterCount(SqlSessionTemplate session,String memberId);
+	
+	List<OnedayclassMember> selectOnedayclassMember(SqlSessionTemplate session,Map<String,Object> param);
+	
+	List<ClientQaMypage> selectQaList(SqlSessionTemplate session,Map<String,Integer> param,String memberId);
+	
+	int selectQaListCount(SqlSessionTemplate session,String memberId);
+	
+	List<Sub> selectSubscription(SqlSessionTemplate session,Map<String,Integer> param,String memberId);
+	
+	int selectSubscriptionCount(SqlSessionTemplate session,String memberId);
+	
+	int deleteSub(SqlSessionTemplate session,int subNo);
 }

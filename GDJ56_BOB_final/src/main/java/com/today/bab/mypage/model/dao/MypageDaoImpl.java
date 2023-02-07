@@ -11,11 +11,15 @@ import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market1.model.vo.ItemReview;
+import com.today.bab.mypage.model.vo.ClientQaMypage;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
+import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.mypage.model.vo.Sub;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
+import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 @Repository
 public class MypageDaoImpl implements MypageDao{
@@ -136,8 +140,10 @@ public class MypageDaoImpl implements MypageDao{
 	}
 	
 	@Override
-	public List<OdcReserve> selectOnedayclass(SqlSessionTemplate session, String memberId) {
-		return session.selectList("mypage.selectOnedayclass",memberId);
+	public List<OdcReserve> selectOnedayclass(Map<String,Integer> param,SqlSessionTemplate session, String memberId) {
+		return session.selectList("mypage.selectOnedayclass",memberId
+				,new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+				param.get("numPerpage")));
 	}
 	
 	
@@ -145,4 +151,61 @@ public class MypageDaoImpl implements MypageDao{
 	public List<ItemReview> selectReviewByOrderNo(SqlSessionTemplate session, int orderNo) {
 		return session.selectList("mypage.selectReviewByOrderNo",orderNo);
 	}
+	
+	@Override
+	public String selectMemberMaster(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectMemberMaster",memberId);
+	}
+	
+	@Override
+	public List<OneDayClass> selectOnedayclassMaster(SqlSessionTemplate session, String memberId,Map<String,Integer> param) {
+		return session.selectList("mypage.selectOnedayclassMaster",memberId
+				,new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+				param.get("numPerpage")));
+	}
+	
+	@Override
+	public int selectOnedayclassCount(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectOnedayclassCount",memberId);
+	}
+	
+	@Override
+	public int selectOnedayclassMasterCount(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectOnedayclassMasterCount",memberId);
+	}
+	
+	@Override
+	public List<OnedayclassMember> selectOnedayclassMember(SqlSessionTemplate session, Map<String,Object> param) {
+		return session.selectList("mypage.selectOnedayclassMember",param);
+	}
+	
+	@Override
+	public List<ClientQaMypage> selectQaList(SqlSessionTemplate session, Map<String, Integer> param, String memberId) {
+		return session.selectList("mypage.selectQaList",memberId
+				,new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+				param.get("numPerpage")));
+	}
+	
+	@Override
+	public int selectQaListCount(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectQaListCount",memberId);
+	}
+	
+	@Override
+	public List<Sub> selectSubscription(SqlSessionTemplate session, Map<String, Integer> param, String memberId) {
+		return session.selectList("mypage.selectSubscription",memberId
+				,new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+				param.get("numPerpage")));
+	}
+	
+	@Override
+	public int selectSubscriptionCount(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectSubscriptionCount",memberId);
+	}
+	
+	@Override
+	public int deleteSub(SqlSessionTemplate session, int subNo) {
+		return session.delete("mypage.deleteSub",subNo);
+	}
+	
 }
