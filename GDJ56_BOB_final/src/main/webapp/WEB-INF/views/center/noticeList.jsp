@@ -12,12 +12,12 @@
         </div>
         <div class="board">
             <h1 id="main-title">공지사항</h1>
-            <form action="" class="search-form">
-                <select name="search-option" class="form-select">
-                    <option value="notice-title">제목</option>
-                    <option value="notice-contents">내용</option>
+            <form action="${path}/center/noticeListSearch" class="search-form">
+                <select name="option" class="form-select">
+                    <option value="notice_title">제목</option>
+                    <option value="notice_content">내용</option>
                 </select>
-                <input class="search" name="search" type="text" placeholder="search">
+                <input class="search" name="optionVal" type="text" placeholder="search">
                 <button id="search-btn" class="customBtn btnStyle" type="submit">검색</button>
             </form>
             <table class="list-table" style="text-align: center;margin: 20px;">

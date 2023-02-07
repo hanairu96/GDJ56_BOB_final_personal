@@ -12,7 +12,9 @@ import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 public interface OneDayService {
 
-	List<OneDayClass> selectClassList();
+	List<OneDayClass> selectClassList(Map<String, Integer> param);
+	int countClasslist();
+	int searchCountClasslist(Map param);
 	List<OneDayClass> selectMenuClassList(String type);
 	List<OneDayClass> selectSearchClass(Map<String, Object> param);
 	int masterEndEnroll(AdminMaster m);
@@ -28,4 +30,6 @@ public interface OneDayService {
 	List<OdcReserve> selectNoReviewReserve(int no2);
 	int insertReview(OdcReview or);
 	List<OdcReview> selectReviewByodcNo(int odcNo);
+	int countPerson(Map param);
+	int inputReservation(Map param);
 }

@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/marketHeader.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -82,9 +83,9 @@
                 <div class="col-lg-9 col-md-7">
                     <div class="filter__item" style="padding-top:20px;">
 	                    <div class="filter__option" style="font-weight: bold;font-size:20px;">
-	                        <a href="" style="color: black;margin:10px;">고액순 </a>|
-	                        <a href="" style="color: black;margin:10px;"> 저가순 </a>|
-	                        <a href="" style="color: black;margin:10px;"> 판매순</a>
+	                        <a a href="javascript:void(0);" onclick="checkcheck('noodle');" style="color: black;margin:10px;">고액순 </a>|
+	                        <a a href="javascript:void(0);" onclick="checkcheck('noodle');" style="color: black;margin:10px;"> 저가순 </a>|
+	                        <a a href="javascript:void(0);" onclick="checkcheck('noodle');" style="color: black;margin:10px;"> 인기상품순</a>
 	                    </div>
                     </div>
                     <div id="explain">
@@ -127,27 +128,6 @@
                 		</div>
                 	
                 	<script>
-						/* const addbasketitem=(no,memberId,mainPic,itemName)=>{
-							
-							 Swal.fire({
-						            title: itemName,
-						            text: "이 상품은 이미 담겨있습니다. 더 담으시겠습니까?",
-						            imageUrl: '${path }/resources/upload/market/mainlabel/'+mainPic,
-						            showCancelButton: true,
-						            confirmButtonColor: '#3085d6',
-						            cancelButtonColor: '#d33',
-						            confirmButtonText: '장바구니 추가',
-						            cancelButtonText: '쇼핑하기'
-						        }).then((result) => {
-						        	if (result.isConfirmed) {
-						                Swal.fire(
-						                	itemName,
-						                    '상품이 장바구니에 담겼습니다.',
-						                    'success'
-						                )
-						            }
-						        })
-					    }; */
 						var arr=new Array();
 						<c:forEach var="b" items="${basket}">
 							arr.push({itemNo:${b.itemNo}});
@@ -171,11 +151,11 @@
  							            cancelButtonText: '계속 쇼핑하기'
  							        }).then((result) => {
  							        	if (result.isConfirmed) {
- 											location.assign('${path}/basket/updatebasket.do?itemNo='+no+'&memberId='+memberId); 
+ 											location.assign('${path}/basket/updatebasket.do?itemNo='+no+'&memberId='+memberId+'&add=0'); 
  							        	}
  							        })
  								}else{
- 									location.assign('${path}/basket/insertbasket.do?itemNo='+no+'&memberId='+memberId);
+ 									location.assign('${path}/basket/insertbasket.do?itemNo='+no+'&memberId='+memberId+'&add=0');
 							
 								}
 							}
