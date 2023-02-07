@@ -13,6 +13,7 @@ import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.mypage.model.vo.Sub;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
@@ -70,4 +71,11 @@ public interface MypageService {
 	List<ClientQaMypage> selectQaList(Map<String,Integer> param,String memberId);
 	
 	int selectQaListCount(String memberId);
+	
+	List<Sub> selectSubscription(Map<String,Integer> param,String memberId);
+	
+	int selectSubscriptionCount(String memberId);
+	
+	int deleteSub(int subNo);
+	
 }

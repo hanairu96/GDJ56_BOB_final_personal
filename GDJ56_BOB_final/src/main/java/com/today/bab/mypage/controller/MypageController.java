@@ -34,6 +34,7 @@ import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.mypage.model.vo.Sub;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
@@ -211,7 +212,7 @@ public class MypageController {
 	      mv.addObject("basket",b);
 	      mv.setViewName("mypage/basket");
 	      
-	      //System.out.println(b);
+	      System.out.println(b);
 	      
 	      return mv;
 	   }
@@ -293,7 +294,20 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/subscription.do")
-	public ModelAndView selectSubscription(ModelAndView mv) {
+	public ModelAndView selectSubscription(ModelAndView mv,HttpServletRequest request,
+			@RequestParam(value="cPage", defaultValue = "1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue = "2") int numPerpage) {
+		
+		HttpSession session = request.getSession();
+	    Member m = (Member) session.getAttribute("loginMember");
+	    
+	    List<Sub> sub = mypageService.selectSubscription(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
+		
+	    int totalData=mypageService.selectSubscriptionCount(m.getMemberId());
+	    
+	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "subscription.do"));
+	    mv.addObject("sub",sub);
+	    System.out.println(sub);
 		
 		mv.setViewName("mypage/subscription");
 		
@@ -496,5 +510,14 @@ public class MypageController {
 		//response.getWriter().print(ocm);
 		
 		return ocm;
+	}
+	
+	@RequestMapping("/deleteSub")
+	public void deleteSub(int subNo,HttpServletResponse response) throws IOException {
+		
+		int result=mypageService.deleteSub(subNo);
+		
+		response.setContentType("text/csv;charset=utf-8");
+		response.getWriter().print(result);
 	}
 }

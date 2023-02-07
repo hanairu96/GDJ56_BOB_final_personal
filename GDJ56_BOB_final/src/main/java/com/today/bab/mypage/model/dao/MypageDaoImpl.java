@@ -17,6 +17,7 @@ import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.mypage.model.vo.Sub;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
@@ -188,6 +189,23 @@ public class MypageDaoImpl implements MypageDao{
 	@Override
 	public int selectQaListCount(SqlSessionTemplate session, String memberId) {
 		return session.selectOne("mypage.selectQaListCount",memberId);
+	}
+	
+	@Override
+	public List<Sub> selectSubscription(SqlSessionTemplate session, Map<String, Integer> param, String memberId) {
+		return session.selectList("mypage.selectSubscription",memberId
+				,new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+				param.get("numPerpage")));
+	}
+	
+	@Override
+	public int selectSubscriptionCount(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectSubscriptionCount",memberId);
+	}
+	
+	@Override
+	public int deleteSub(SqlSessionTemplate session, int subNo) {
+		return session.delete("mypage.deleteSub",subNo);
 	}
 	
 }

@@ -15,6 +15,7 @@ import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.mypage.model.vo.Sub;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
@@ -80,4 +81,10 @@ public interface MypageDao {
 	List<ClientQaMypage> selectQaList(SqlSessionTemplate session,Map<String,Integer> param,String memberId);
 	
 	int selectQaListCount(SqlSessionTemplate session,String memberId);
+	
+	List<Sub> selectSubscription(SqlSessionTemplate session,Map<String,Integer> param,String memberId);
+	
+	int selectSubscriptionCount(SqlSessionTemplate session,String memberId);
+	
+	int deleteSub(SqlSessionTemplate session,int subNo);
 }

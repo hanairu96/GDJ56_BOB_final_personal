@@ -234,7 +234,7 @@
             <h2
               class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
             >
-              00님의, 마이페이지
+              님의, 마이페이지
             </h2>
             <!-- CTA -->
             <a
@@ -433,14 +433,14 @@
 			                      </td>
 			                      <td class="px-4 py-3 text-sm">	
 			                        <span id="priceResult"></span>원
-			                        <input type="text" value="${bi.itemPrice }" id="itemPrice" hidden>
+			                        <input type="text" value="${bi.itemDiscount eq 'Y' ? '9900': bi.itemPrice}" id="itemPrice" hidden >
 			                      </td>
 			                      <td>
 			                        &nbsp;&nbsp;
 			                        <button id="deleteBasket" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
 			                          삭제
 			                        </button>
-			                        <input type="text" value="${bi.itemStock}" id="itemstock">
+			                        <input type="text" value="${bi.itemStock}" id="itemstock" hidden>
 			   
 			                      </td>
                     		</tr>

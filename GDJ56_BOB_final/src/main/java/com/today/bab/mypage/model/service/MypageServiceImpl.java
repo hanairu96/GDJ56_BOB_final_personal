@@ -19,6 +19,7 @@ import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
 import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.mypage.model.vo.Sub;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
@@ -203,5 +204,20 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int selectQaListCount(String memberId) {
 		return mypageDao.selectQaListCount(session,memberId);
+	}
+	
+	@Override
+	public List<Sub> selectSubscription(Map<String, Integer> param, String memberId) {
+		return mypageDao.selectSubscription(session,param,memberId);
+	}
+	
+	@Override
+	public int selectSubscriptionCount(String memberId) {
+		return mypageDao.selectSubscriptionCount(session,memberId);
+	}
+	
+	@Override
+	public int deleteSub(int subNo) {
+		return mypageDao.deleteSub(session,subNo);
 	}
 }
