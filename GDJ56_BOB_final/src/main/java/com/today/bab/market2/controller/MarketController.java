@@ -103,7 +103,7 @@ public class MarketController {
 		 */
 	    
 		List<TodayBob> list = service.todayBobList();
-		int listCnt = service.todayBobListCount();
+		int listCnt = service.todayBobListCount();//타이틀개수
 		List<SellItem> tbAll = service.todayViewAll();
 		
 		mv.addObject("m",loginMember==null?"":loginMember.getMemberId());

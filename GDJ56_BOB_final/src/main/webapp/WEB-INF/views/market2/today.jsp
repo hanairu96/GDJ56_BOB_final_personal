@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.6.1.min.js"></script>
@@ -82,13 +83,14 @@ const callFunction = (e)=>{
 						//console.log(data);
 						
 						$("#print").html(''); //원래의 값 비워주기
-	
+						$("p#itemleng").html('');
 						
 						
 						
 						var html = "";
+						var itemNoCount = 0;
 	   					data.forEach(i=>{
-	   						//var itemNo = i.itemNo;
+	   						itemNoCount = itemNoCount+1;//개수세기
 	   						
     						var stock = i.itemStock==0 ? "<div class='col-lg-4 col-sm-6' style='padding: 3%;filter: grayscale(100%);'>"
     									: "<div class='col-lg-4 col-sm-6' style='padding: 3%;'>";
@@ -125,9 +127,11 @@ const callFunction = (e)=>{
 	   						
 	   					
 	   					})//forEach i./
+	   					
+	   					console.log(itemNoCount);
 						
 	   					$("#print").html(html);
-						
+	   					$("p#itemleng").html('총 '+itemNoCount+'건');
 						
 						
 		});//$.get./
@@ -164,7 +168,7 @@ const callFunction = (e)=>{
 		<!-- <h3 style="text-align: center; margin: 50px; padding-bottom: 10px;">1만원대 추천 상품<p style="margin-top: 20px;">놓치면 후회할 가격!</p></h3> -->
 		<div id="printTitle"></div>
 		
-		<p>총 20건</p>
+		<p id="itemleng">총 ${fn:length(tbAll)}건</p>
 		<div class="row" id="print">
 		<c:forEach var="i" items="${tbAll }">
 			<div class="col-lg-4 col-sm-6" style="padding: 3%;${i.itemStock==0?'filter: grayscale(100%)':''};">
