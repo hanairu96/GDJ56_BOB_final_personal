@@ -101,15 +101,12 @@ public class Market1Controller {
 				choice="채소";
 				addlike.add(choice);
 			}
-//			System.out.println(addlike);
 			mv.addObject("likectg",addlike);
 			
 			if(addlike.size()!=0) {
 				List<SellItem> likesell=new ArrayList();
 				for(int i=0;i<addlike.size();i++) {
-//					System.out.println(addlike.get(i));
 					likesell.addAll(service.selectMainLike((String) addlike.get(i)));
-//					System.out.println(likesell);
 				}
 				mv.addObject("likemenu",likesell);
 			}
@@ -123,7 +120,7 @@ public class Market1Controller {
 	@RequestMapping("/marketgtg.do")
 	public ModelAndView marketCtg(ModelAndView mv,
 			@RequestParam(value="cPage", defaultValue="1")int cPage,
-			@RequestParam(value="numPerpage", defaultValue="15")int numPerpage
+			@RequestParam(value="numPerpage", defaultValue="6")int numPerpage
 			,HttpServletRequest request) {
 
 		List<SellItem> list=service.selectItemCtg(Map.of("cPage",cPage,"numPerpage",numPerpage));
@@ -147,7 +144,7 @@ public class Market1Controller {
 	
 	//상품 상세페이지로 이동
 	@RequestMapping("/marketdetail.do")
-	public ModelAndView marketdetail(ModelAndView mv,int itemNo) {
+	public ModelAndView marketdetail(ModelAndView mv,int itemNo,HttpServletRequest request) {
 		SellItem list=service.marketdetail(itemNo);
 		
 		mv.addObject("de",list);
@@ -165,7 +162,12 @@ public class Market1Controller {
 			int avg=reservice.selectAvg(itemNo);
 			mv.addObject("reavg",avg);
 		}
-		
+		HttpSession session = request.getSession();
+	    Member  loginMember= (Member) session.getAttribute("loginMember");
+		if(loginMember!=null) {
+			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
+			mv.addObject("basket",blist);
+		}
 		mv.setViewName("market1/detailMarketItem");
 		return mv;
 	}
@@ -441,7 +443,6 @@ public class Market1Controller {
 			m.addAttribute("de",service.marketdetail(itemNo));
 		}else if(check.contains("b")) {
 			page="itemReview";
-//			List<ItemReview> list=reservice.selectReviewAll(itemNo);
 			m.addAttribute("reviews",reservice.selectReviewAll(itemNo));
 			m.addAttribute("picpic",reservice.selectrReviewPic());
 			
@@ -451,6 +452,7 @@ public class Market1Controller {
 //			m.addAttribute("itemNo", itemNo);
 //			m.addAttribute("check", "b");
 //			m.addAttribute("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"choiceexplain.do"));
+		
 		}else if(check.contains("c")) {
 			page="itemExchange";
 		}else if(check.contains("d")) {
@@ -492,6 +494,52 @@ public class Market1Controller {
 		List<SellItem> list=service.selectCtgAjax(categ);
 		m.addAttribute("ii", list);
 		return "market1/resultGtgselect";
+	}
+	
+	
+	@RequestMapping("/memberLikeList.do")
+	public ModelAndView memberLikeList(ModelAndView mv,HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+	    Member  loginMember= (Member) session.getAttribute("loginMember");
+	    
+		if(loginMember!=null) {
+			String memberId=loginMember.getMemberId();
+			MarketMemberLike like=service.memberLike(memberId);
+			List addlike=new ArrayList();
+			String choice="";
+			if(like.getFruit().equals("Y")) {
+				choice="과일";
+				addlike.add(choice);
+			}if(like.getSea().equals("Y")) {
+				choice="수산";
+				addlike.add(choice);
+			}if(like.getMeat().equals("Y")) {
+				choice="정육";
+				addlike.add(choice);
+			}if(like.getSide().equals("Y")) {
+				choice="반찬";
+				addlike.add(choice);
+			}if(like.getVege().equals("Y")) {
+				choice="채소";
+				addlike.add(choice);
+			}
+			mv.addObject("likectg",addlike);
+			
+			if(addlike.size()!=0) {
+				List<SellItem> likesell=new ArrayList();
+				for(int i=0;i<addlike.size();i++) {
+					likesell.addAll(service.selectMainLike((String) addlike.get(i)));
+				}
+				mv.addObject("i",likesell);
+			}
+		}
+		if(loginMember!=null) {
+			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
+			mv.addObject("basket",blist);
+		}
+		mv.setViewName("market1/mainChoiceList");
+		return mv;
 	}
 	
 }

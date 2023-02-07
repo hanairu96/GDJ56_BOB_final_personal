@@ -1,6 +1,7 @@
 package com.today.bab.basket.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class BasketServiceImpl implements BasketService {
 	}
 	
 	@Override
-	public int insertbasket(MarketBasket b) {
-		return dao.insertbasket(session,b);
+	public int insertbasket(Map<String,Object> param) {
+		return dao.insertbasket(session,param);
 	}
 	
 	@Override
@@ -33,7 +34,7 @@ public class BasketServiceImpl implements BasketService {
 	}
 	
 	@Override
-	public int updateBasket(MarketBasket b) {
-		return dao.updateBasket(session,b);
+	public int updateBasket(Map<String,Object> param) {
+		return dao.updateBasket(session,param);
 	}
 }

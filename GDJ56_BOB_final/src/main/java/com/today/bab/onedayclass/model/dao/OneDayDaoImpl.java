@@ -3,6 +3,7 @@ package com.today.bab.onedayclass.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -17,9 +18,21 @@ import com.today.bab.onedayclass.model.vo.OneDayClass;
 public class OneDayDaoImpl implements OneDayDao {
 
 	@Override
-	public List<OneDayClass> selectClassList(SqlSessionTemplate session) {
+	public List<OneDayClass> selectClassList(SqlSessionTemplate session, Map<String, Integer> param) {
 		
-		return session.selectList("onedayclass.selectClassList");
+		return session.selectList("onedayclass.selectClassList",null, 
+	            new RowBounds(
+	            		(param.get("cPage")-1)*param.get("numPerpage"),
+	                  param.get("numPerpage")
+	                  )
+	            );
+	}
+	
+	
+
+	@Override
+	public int countClasslist(SqlSessionTemplate session) {
+		return session.selectOne("onedayclass.countClasslist");
 	}
 
 	@Override
@@ -30,7 +43,21 @@ public class OneDayDaoImpl implements OneDayDao {
 	@Override
 	public List<OneDayClass> selectSearchClass(SqlSessionTemplate session, Map<String, Object> param ) {
 		
-		return session.selectList("onedayclass.selectSearchClass",param);
+		int cPage = (int)(param.get("cPage"))-1;
+		int numPerpage = (int)(param.get("numPerpage"));
+		
+		return session.selectList("onedayclass.selectSearchClass", param, 
+				new RowBounds(
+	            		(cPage)*numPerpage,
+	            		numPerpage
+	                  )
+			);
+
+	}
+	
+	@Override
+	public int searchCountClasslist(SqlSessionTemplate session, Map param) {
+		return session.selectOne("onedayclass.searchCountClasslist", param);
 	}
 
 	@Override
@@ -47,6 +74,13 @@ public class OneDayDaoImpl implements OneDayDao {
 	public int endclassEnroll(SqlSessionTemplate session, OneDayClass odc) {
 		return session.insert("onedayclass.endclassEnroll", odc);
 	}
+
+	@Override
+	public int updateClass(SqlSessionTemplate session, OneDayClass odc) {
+		return session.update("onedayclass.updateClass", odc);
+	}
+
+
 
 	@Override
 	public OneDayClass odcView(SqlSessionTemplate session, String no) {
@@ -98,9 +132,16 @@ public class OneDayDaoImpl implements OneDayDao {
 	public List<OdcReview> selectReviewByodcNo(SqlSessionTemplate session, int odcNo) {
 		return session.selectList("onedayclass.selectReviewByodcNo",odcNo);
 	}
-	
-	
-	
+
+	@Override
+	public int countPerson(SqlSessionTemplate session, Map param) {
+		return session.selectOne("onedayclass.countPerson", param);
+	}
+
+	@Override
+	public int inputReservation(SqlSessionTemplate session, Map param) {
+		return session.insert("onedayclass.inputReservation", param);
+	}
 	
 	
 

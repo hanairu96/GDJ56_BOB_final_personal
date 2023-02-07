@@ -16,6 +16,7 @@
     <title>오늘의 밥</title>
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 

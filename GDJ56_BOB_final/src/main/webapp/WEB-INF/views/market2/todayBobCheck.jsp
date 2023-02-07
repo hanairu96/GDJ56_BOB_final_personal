@@ -234,7 +234,7 @@
 	/* /.테이블스크롤 */
 	#items{
 		overflow: scroll;
-		height: 300px;
+		height: 600px;
 		width: 600px;
 	}
 	#items::-webkit-scrollbar{

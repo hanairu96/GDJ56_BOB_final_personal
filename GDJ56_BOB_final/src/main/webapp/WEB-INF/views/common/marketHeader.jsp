@@ -27,6 +27,15 @@ const fn_menu = ()=>{
     $("ul>li.menu").removeClass("active");
     $("ul>li.menu").addClass("active");
 }
+$(window).scroll(  
+		function(){  
+			//스크롤의 위치가 상단에서 450보다 크면  
+			if($(window).scrollTop() > 1500){   
+				$('#header__menu').addClass("fix2");  
+				//위의 if문에 대한 조건 만족시 fix라는 class를 부여함  
+			}
+		}
+	);
 </script>
 <style>
 @font-face {
@@ -54,6 +63,7 @@ const fn_menu = ()=>{
     top: 200px;
     background: rgba(137, 43, 226, 0.167);
 }
+
 </style>
 
 

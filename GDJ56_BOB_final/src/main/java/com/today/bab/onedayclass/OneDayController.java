@@ -1,44 +1,35 @@
 package com.today.bab.onedayclass;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.today.bab.admin.model.vo.AdminMaster;
+import com.today.bab.common.Market1Pagebar;
+import com.today.bab.common.oneclass;
 import com.today.bab.member.model.vo.Member;
 import com.today.bab.onedayclass.model.service.OneDayService;
 import com.today.bab.onedayclass.model.vo.OdcQa;
@@ -62,13 +53,30 @@ public class OneDayController {
    }
    
    @RequestMapping("/class/main.do")
-   public ModelAndView oneDayClassMain(ModelAndView mv) {
+   public ModelAndView oneDayClassMain(ModelAndView mv,
+		   @RequestParam(value="cPage", defaultValue="1")int cPage,
+		   @RequestParam(value="numPerpage", defaultValue="5")int numPerpage) {
       
-      List<OneDayClass> classlist = service.selectClassList();
+      List<OneDayClass> classlist = service.selectClassList(Map.of("cPage",cPage,"numPerpage",numPerpage));
+      int totaldata=service.countClasslist();
+      //System.out.println(classlist);
+      
+      Object member=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      
+      //로그인한 member가 존재할 때
+      if(!member.equals("anonymousUser")) {
+    	  System.out.println(((Member)member).getMemberId());
+    	  AdminMaster master=service.selectMastserById(((Member)member).getMemberId());
+    	  mv.addObject("master",master);
+    	  System.out.println(master);
+      }
+      
+      mv.addObject("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"/bab/class/main.do"));
       mv.addObject("classlist",classlist);
       mv.setViewName("onedayclass/onedayMain");
       return mv;
    }
+  
    
    @RequestMapping("/class/menu.do")
    public ModelAndView oneDayClassBob(ModelAndView mv,String type) {
@@ -77,18 +85,30 @@ public class OneDayController {
       mv.addObject("classlist",classlist);
       mv.setViewName("onedayclass/onedaymenu-"+type);
       return mv;
+      
    }
    
    @RequestMapping("/class/search.do")
-   public ModelAndView selectSearchClass(ModelAndView mv, String search, String searchlist) {
+   public ModelAndView selectSearchClass(ModelAndView mv, String search, String searchlist,
+		   @RequestParam(value="cPage", defaultValue="1")int cPage,
+		   @RequestParam(value="numPerpage", defaultValue="2")int numPerpage) {
 
+	  System.out.println(search);
+	  System.out.println(searchlist);
+	  
+	   
       Map<String, Object> param = new HashMap();
       param.put("type", searchlist);
       param.put("keyword", search);
+      param.put("cPage", cPage);
+      param.put("numPerpage", numPerpage);
       List<OneDayClass> classlist = service.selectSearchClass(param);
+      int totaldata=service.searchCountClasslist(param);
       mv.addObject("classlist",classlist);
       mv.addObject("param", param);
+      mv.addObject("pageBar",oneclass.getPage(cPage, numPerpage,totaldata,"/bab/class/search.do", searchlist, search));
       mv.setViewName("onedayclass/onedaySearchResult");
+      
       return mv;
    }
    
@@ -98,7 +118,7 @@ public class OneDayController {
    }
 
    @RequestMapping("/class/masterEndEnroll.do")
-   public ModelAndView masterEndEnroll(AdminMaster m, ModelAndView model) {
+   public ModelAndView masterEndEnroll(AdminMaster m, ModelAndView model, String history1) {
       System.out.println(m);
       int result=service.masterEndEnroll(m);
       
@@ -165,7 +185,7 @@ public class OneDayController {
    
    @RequestMapping("/class/EndclassEnroll.do")
    public String EndclassEnroll(Model model,HttpServletRequest request, HttpServletResponse response, MultipartFile odcpic,
-         String odcClassName, String memberId,String odcCookName, String startDate, String endDate, String odcTime, int odcPeople, String address
+         String odcNo,String odcClassName, String memberId,String odcCookName, String startDate, String endDate, String odcTime, int odcPeople, String address
          ,int odcPrice,String odcContent, String odcEnrollDate, String odcCategoty, String odcStartTime, String mastserName
    ) throws Exception{
       
@@ -211,7 +231,7 @@ public class OneDayController {
       String odcMainPic=renameFile;
       
       //넘어온값 객체에 빌드
-      OneDayClass odc=OneDayClass.builder().odcClassName(odcClassName).odcCookName(odcCookName).odcStartDate(odcStartDate).odcEndDate(odcEndDate).odcTime(odcTime)
+      OneDayClass odc=OneDayClass.builder().odcNo(odcNo).odcClassName(odcClassName).odcCookName(odcCookName).odcStartDate(odcStartDate).odcEndDate(odcEndDate).odcTime(odcTime)
       .odcPeople(odcPeople).odcAdd(odcAdd).odcCity(odcCity).odcPrice(odcPrice).odcMainPic(odcMainPic).odcContent(odcContent).odcStartTime(odcStartTime).odcCategoty(odcCategoty)
       .memberId(memberId).build();
       
@@ -236,15 +256,15 @@ public class OneDayController {
       OneDayClass odc = service.odcView(no);
       
       //날짜 포맷해주기
-      //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일"); 
+      SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
       
   	  //원하는 데이터 포맷 지정
       //String startDate = simpleDateFormat.format(odc.getOdcStartDate()); 
-      //String endDate = simpleDateFormat.format(odc.getOdcEndDate()); 
-      
+      String endDate = simpleDateFormat.format(odc.getOdcEndDate()); 
+  
   	  //지정한 포맷으로 변환 
       //System.out.println("포맷 지정 후 : " + startDate);
-     // System.out.println("포맷 지정 후 : " + endDate);
+      System.out.println("포맷 지정 후 : " + endDate);
       AdminMaster am= service.selectMastserById(odc.getMemberId());
       
       System.out.println(am.getHistory().split(",").length);
@@ -253,6 +273,7 @@ public class OneDayController {
       h=am.getHistory().split(",");
       
       mv.addObject("odc",odc);
+      mv.addObject("endDate",endDate);
       mv.addObject("h",h);
       //mv.addObject("startDate", startDate);
       //mv.addObject("endDate", endDate);
@@ -357,8 +378,8 @@ public class OneDayController {
 			  mv.setViewName("onedayclass/onedayReviewPop");
 		  }
 	  }else {
-		  mv.addObject("msg","리뷰는 클래스를 수강한 회원만 가능합니다. "
-		  		+ "<br>*클래스를 예약하신 분들은 예약한 수업날짜가 현재 날짜 이후일 떼 리뷰쓰기가 가능해집니다.");
+		  mv.addObject("msg","리뷰작성은 클래스를 수강 완료한 회원만 가능합니다."
+		  		+"*클래스를 예약하신 분들은 예약한 수업날짜의 다음날부터 리뷰쓰기가 가능해집니다.");
 	      mv.setViewName("common/close");
 	  }
       return mv;
@@ -424,6 +445,63 @@ public class OneDayController {
    			mv.setViewName("onedayclass/map");
    		return mv;
    	}
+  	
+  	@RequestMapping("/class/countPerson.do")
+  	public int countPerson(String reDate, int odcNo) {
+  		System.out.println(odcNo);
+  		Map param=new HashMap();
+  		param.put("reDate", reDate);
+        param.put("odcNo", odcNo);
+  		int num=service.countPerson(param);
+  		System.out.println("예약한 인원수"+num);
+  		return num;
+  	}
    	
+  	@RequestMapping("/class/inputReservation.do")
+  	public ModelAndView inputReservation(ModelAndView mv,String memberId,String odcDate, String odcNo){
+//  		 try {
+//             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//             Date odcDate = format.parse(odcDate1);
+//             System.out.println(odcDate);
+//             or.setOdcDate(odcDate);
+//         } catch(Exception e) {
+//             e.printStackTrace();
+//         }
+     
+  		
+  		Map param=new HashMap();
+  		param.put("memberId", memberId);
+        param.put("odcNo", odcNo);
+        param.put("odcDate", odcDate);
+  		
+        int result=service.inputReservation(param);
+
+        if(result>0) {
+			  mv.addObject("msg","리뷰 작성 성공:)");
+		      mv.setViewName("common/close");
+		  }else {
+			  mv.addObject("msg", "리뷰 작성 실패 :(");
+			  mv.setViewName("common/close");
+		  }
+  		//System.out.println(or);
+  		return mv;
+  	} 
+  	
+  	@RequestMapping("/class/editClass.do")
+  	public ModelAndView editClass(String no, ModelAndView mv) {
+		System.out.println("수업번호"+no);
+		OneDayClass odc=service.odcView(no);
+			 
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
+		
+		String startDate = simpleDateFormat.format(odc.getOdcStartDate()); 
+	  	String endDate = simpleDateFormat.format(odc.getOdcEndDate()); 
+		 
+	  	mv.addObject("startDate",startDate);
+	  	mv.addObject("endDate",endDate);
+		mv.addObject("odc",odc);
+		mv.setViewName("onedayclass/onedayEditClass");
+		return mv;
+  	}
    	
 }

@@ -35,9 +35,9 @@
 					</b>
 					<select  list="categorylist" placeholder="선택" width="100" name="odcCategoty">
 						<option value="choice">--선택--</option>
-						<option value="bab">🍚집밥</option>
+						<option value="bob">🍚집밥</option>
 						<option value="vegan">🥑비건</option>
-						<option value="healty">💪건강식</option>
+						<option value="healthy">💪건강식</option>
 						<option value="baking">🍰베이킹</option>
 						<option value="etc">🍽️etc</option>
 					</select>

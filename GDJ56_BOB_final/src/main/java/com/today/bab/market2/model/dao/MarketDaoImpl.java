@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market2.model.vo.SellItem;
 import com.today.bab.market2.model.vo.TobobDetail;
 import com.today.bab.market2.model.vo.TodayBob;
@@ -76,6 +77,30 @@ public class MarketDaoImpl implements MarketDao {
 	public List<SellItem> todayView(SqlSessionTemplate session, int reNo) {
 		return session.selectList("market2.todayView", reNo);
 	}
+	@Override
+	public List<SellItem> todayViewAll(SqlSessionTemplate session) {
+		return session.selectList("market2.todayViewAll");
+	}
 	
-	
+	@Override
+	public List<SellItem> discountView(SqlSessionTemplate session) {
+		return session.selectList("market2.discountView");
+	}
+	@Override
+	public int discountCount(SqlSessionTemplate session) {
+		return session.selectOne("market2.discountCount");
+	}
+	@Override
+	public TodayBob todobDetailByreNo(SqlSessionTemplate session, int selectTitleNext) {
+		return session.selectOne("market2.todobDetailByreNo", selectTitleNext);
+	}
+	@Override
+	public int deleteModi(SqlSessionTemplate session, int selectTitleNext) {
+		return session.delete("market2.deleteModi",selectTitleNext);
+	}
+	@Override
+	public int cart(SqlSessionTemplate session, Basket b) {
+		return session.insert("market2.cart", b);
+	}
+
 }

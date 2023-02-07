@@ -3,6 +3,7 @@ package com.today.bab.market2.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market2.model.vo.SellItem;
 import com.today.bab.market2.model.vo.TodayBob;
 
@@ -24,6 +25,7 @@ public interface MarketService {
 	List<TodayBob> todayBobList();
 	int todayBobListCount();
 	
+	
 //	//오늘의밥추천(추천) 타이틀 삭제
 	int deleteTodayBob(int reNo);
 	
@@ -34,6 +36,21 @@ public interface MarketService {
 	int insertTodayBobItems(Map<String, Object> param);
 	
 	List<SellItem> todayView(int reNo);
+	List<SellItem> todayViewAll();
+	
+	//할인 상품
+	List<SellItem> discountView();
+	int discountCount();
+	
+	//추천제목
+	TodayBob todobDetailByreNo(int selectTitleNext);
+	
+	//추천 수정
+	int checkTodayBobModifyEnd(Map<String, Object> param);
+	
+	//장바구니
+	int cart(Basket b);
+	
 	
 	
 	
