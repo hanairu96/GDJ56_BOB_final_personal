@@ -6,7 +6,7 @@
 
 
 <div class="floating">
-	<div>챗봇위치</div>
+	<div><img src="${path}/resources/images/logo-icon.png" width="75" height="71"></div>
 	<div>최근 본 <br>상품
 		<ul style="padding: 0;">
 			<li>
@@ -79,7 +79,7 @@ position: absolute;
 
 .floating div:nth-child(2) {
     border: 1px solid gray;
-    border-radius: 8px;
+    border-radius: 8px 8px 30px 30px;
     height: 278px;
 }
 
