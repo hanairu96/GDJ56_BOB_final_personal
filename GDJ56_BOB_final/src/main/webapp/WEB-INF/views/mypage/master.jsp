@@ -65,7 +65,7 @@
                     d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                   ></path>
                 </svg>
-                <span style="color:#707275;" class="ml-4">주문내역</span>
+                <span class="ml-4" style="color:#707275;">주문내역</span>
               </a>
             </li>
           </ul>
@@ -138,6 +138,10 @@
               </a>
             </li>
             <li class="relative px-6 py-3">
+              <span
+                class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                 href="${path}/mypage/onedayclass.do"
@@ -152,18 +156,14 @@
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path
+                  <path style="color:#1A1C23;"
                     d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
                   ></path>
                 </svg>
-                <span class="ml-4">원데이클래스</span>
+                <span class="ml-4" style="color:#1A1C23;">원데이클래스</span>
               </a>
             </li>
             <li class="relative px-6 py-3">
-              <span
-                class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                aria-hidden="true"
-              ></span>
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                 href="${path}/mypage/writelist.do"
@@ -178,9 +178,9 @@
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path style="color:#1A1C23;" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                  <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                 </svg>
-                <span class="ml-4" style="color:#1A1C23;">1:1 문의글</span>
+                <span class="ml-4">1:1 문의글</span>
               </a>
             </li>
             <li class="relative px-6 py-3">
@@ -218,19 +218,19 @@
               <!-- main menu -->
               <div style="display: contents;" class="relative ">
                 &nbsp;
-                <button style="font-weight: bolder;">
+                <button style="font-weight: bolder;" onclick="location.assign('${path}/market1/matketmain.do');">
                   MARKET
                 </button>
                 
-                <button style="font-weight: bolder;">
+                <button style="font-weight: bolder;" onclick="location.assign('${path}/class/main.do');">
                   ONEDAY-CLASS
                 </button>
 
-                <button style="font-weight: bolder;">
+                <button style="font-weight: bolder;" onclick="location.assign('${path}/subscription/subMain');">
                   SUBCRIPTE
                 </button>
 
-                <button style="font-weight: bolder;">
+                <button style="font-weight: bolder;" onclick="location.assign('${path}/center/noticeList');">
                   CUSTOMER-CENTER
                 </button>
                 &nbsp;
@@ -240,65 +240,70 @@
         </header>
         <main class="h-full overflow-y-auto">
           <div class="container px-6 mx-auto grid">
-            <!-- 회원공통부분 -->
+          <!-- 회원공통부분 -->
 	 			<jsp:include page="/WEB-INF/views/mypage/mypageCommon.jsp">
 	 				<jsp:param name="memberId" value="${memberInfoBar[0]}"/>
 	 				<jsp:param name="level" value="${memberInfoBar[1]}"/>
 	 				<jsp:param name="basket" value="${memberInfoBar[2]}"/>
 	 				<jsp:param name="write" value="${memberInfoBar[3]}"/>
 	 				<jsp:param name="point" value="${memberInfoBar[4]}"/>
-	 			</jsp:include>  
-            
-            <div style="width: 97%;" class="overflow-hidden rounded-lg">
-              <button style="width: 160px; float: right; font-weight: bolder; background-color: #7072753e;"class="px-2 py-1 font leading-tight text-gray-700  rounded-full dark:text-gray-100 dark:bg-gray-700"
-              onclick="location.assign('${path}/center/cqWrite');">1:1 글쓰기</button>
-            </div>
-            <br>
+	 			</jsp:include>   
+			
             <!-- New Table -->
-            <div class="overflow-hidden rounded-lg shadow-xs">
-              <div class="w-full overflow-x-auto">
+            <div class=" rounded-lg shadow-xs" style="width: 1100px; margin: auto;">
+              <div class="w-full">
                 <table class="w-full whitespace-no-wrap">
                   <thead>
                     <tr
                       class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
-                      <th class="px-4 py-3">분류</th>
-                      <th class="px-4 py-3">제목</th>
-                      <th class="px-4 py-3">답변여부</th>
-                      <th class="px-4 py-3">작성날짜</th>
+                      <th class="px-4 py-3" colspan="4">내가 개설한 클래스 정보</th>
+                    </tr>
+                    <tr
+                      class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                    >
+                      <th class="px-4 py-3">요리이름</th>
+                      <th class="px-4 py-3">진행날찌</th>
+                      <th class="px-4 py-3">시작시간</th>
+                      <th class="px-4 py-3">신청한 인원</th>
                     </tr>
                   </thead>
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-                   <c:if test="${empty qa}">
-                   		<tr class="text-gray-700 dark:text-gray-400">
-	                      <td class="px-4 py-3" colspan="4">
-	                       	1:1 문의내역이 없습니다.
-	                     </td>
-	                    </tr>
-                   </c:if>
-                   
-                   <c:if test="${not empty qa}">
-                   		<c:forEach var="q" items="${qa }">
-                   			<tr class="text-gray-700 dark:text-gray-400">
-		                      <td class="px-4 py-3 text-sm">
-		                        ${q.cqCate }
-		                      </td>
-		                      <td class="px-4 py-3 text-sm">
-			                      <a href="${path}/center/clientQnaView?cqNo=${q.cqNo}">
-			                      	${q.cqTitle }
-			                      </a>
-		                      </td>
-		                      <td class="px-4 py-3 text-sm">
-		                      ${q.cqCheck == "Y" ? "답변완료" : "답변대기" }
-		                      </td>
-		                      <td class="px-4 py-3 text-sm">
-		                        <fmt:formatDate value="${q.cqDate}" pattern="yyyy-MM-dd"/>
-		                      </td>
-		                    </tr>
-                   		</c:forEach>
-                   </c:if>
+					<c:if test="${empty odc }">
+						<tr class="px-4 py-3">
+							<td class="px-4 py-3" colspan="4">
+								<p>개설한 클래스가 없습니다.</p>
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${not empty odc }">
+						<c:forEach var="oc" items="${odc }">
+							 <tr class="text-gray-700 dark:text-gray-400">
+								 <td class="px-4 py-3 text-sm">
+									<a href="${path }/class/odcView.do?no=${oc.odcNo}">
+										${oc.odcCookName}
+			                        </a>
+			                      </td>
+			                      <td class="px-4 py-3 text-sm">
+			                       <fmt:formatDate value="${oc.odcStartDate}" pattern="yyyy-MM-dd"/> - <fmt:formatDate value="${oc.odcEndDate}" pattern="yyyy-MM-dd"/>
+			                      </td>
+			                      <td class="px-4 py-3 text-sm">
+			                       ${oc.odcStartTime}
+			                      </td>
+		                      	  <td class="px-4 py-3 text-sm">
+		                      	  		<button onclick="location.assign('${path}/mypage/onedayclass/masterdetail?odcNo=${oc.odcNo}&start=<fmt:formatDate value="${oc.odcStartDate}" pattern="yyyy-MM-dd"/>&end=<fmt:formatDate value="${oc.odcEndDate}" pattern="yyyy-MM-dd"/>');"
+				                          class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
+				                        
+				                        >
+				                        상세보기
+				                        </button>
+			                      </td>
+		                    </tr>    
+						</c:forEach>
+					</c:if>
+
                   </tbody>
                 </table>
               </div>
@@ -315,12 +320,6 @@
               </div>
             </div>
           </div>
-          <br><br>
-          <%-- <div style="width: 98%;" class="overflow-hidden rounded-lg">
-            <button style="width: 160px; float: right; font-weight: bolder; background-color: #7072753e;"class="px-2 py-1 font leading-tight text-gray-700  rounded-full dark:text-gray-100 dark:bg-gray-700"
-            onclick="location.assign('${path}/center/cqWrite');"
-            >1:1문의글쓰기</button>
-          </div> --%> 
         </main>
       </div>
     </div>

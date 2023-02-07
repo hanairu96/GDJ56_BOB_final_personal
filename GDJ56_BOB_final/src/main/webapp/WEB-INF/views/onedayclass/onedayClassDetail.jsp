@@ -297,7 +297,7 @@
 								</div>
 									<br>
 									<label>
-										<input type="checkbox" value="secret" name="secret" id="secret">
+										<input type="checkbox" id="myReview" onclick="getMyReview();">
 										내가 쓴 글
 									</label>
 									<p style="color: rgb(195, 195, 195);">
@@ -315,8 +315,12 @@
 									문의하기
 								</h4>
 								<label>
-									<input type="checkbox" value="secret" name="secret" id="secret">
+									<input type="checkbox" id="myQna" onclick="getMyQna();">
 									내가 쓴 글
+								</label>
+								<label>
+									<input type="checkbox" id="noQna" onclick="getNoQna();">
+									답변 안 된 글
 								</label>
 								<div class="col-md-12" id="">
 									<div class=" size12 bo2 bo-rad-10 m-t-3 m-b-23">
@@ -353,7 +357,219 @@
 	$(function(){
 	    getCommentList();
 	    getReviewList();
+	    
 	});
+	
+	$(function(){
+		if($('#myReview').is(":checked")){
+	    	console.log("체크")
+	    	//getMyReview();
+		}
+	})
+	
+	//내가 쓴 후기 글 보기
+	function getMyReview(){
+		if($('#myReview').is(":checked")){
+			console.log("후기이이");
+			const odcNo= $('#odcNo').val();
+			const memberId=$("#memberId").val();
+	
+			console.log(memberId);
+			$.ajax({
+				type:'post',
+				url : "<c:url value='/class/selectReviewById.do'/>",
+				contentType: 'application/json',
+				data:JSON.stringify({
+					"odcNo" : odcNo,
+					"memberId" : memberId
+				}), 
+				success : function(data){
+					var html = "";
+					if(data.length > 0){
+						for(i=0; i<data.length; i++){
+							html+="<div style='border-bottom:solid #898585 1px;'>";
+							html+="<br>";
+							html+="<div class='col-md-12' style='display: flex;'>";
+							html+="<span>";
+							html+="<span>"+data[i].memberId+"</span>";
+							html+="<span>│"+data[i].oreDate+"</span>";
+							html+="<span style='cursor: pointer;'>│수정</span>";
+							html+="<span style='cursor: pointer;'>│삭제</span>";
+							html+="</span>";
+							html+="</div>";
+							html+="<div class='col-md-12'style='display:flex; margin-left: -1.5%;'>";
+							if(data[i].oreGood=='Y'){
+								html+="<div style='border-radius: 10px; border: solid #898585 1px; margin: 1%;'> &nbsp;추천해요👍&nbsp; </div>";
+							}
+							if(data[i].oreSame=='Y'){
+								html+="<div style='border-radius: 10px; border: solid #898585 1px;margin: 1%'> &nbsp;실제 수업은 클래스 소개와 동일한 방식으로 진행됐어요😊 </div>";
+							}
+							html+="</div>";
+							html+="<div class='col-md-12' style='display: flex;'>";
+							html+="<img src='${path}/resources/images/onedayclass/"+data[i].orePic+"' width='100' height='100' class='rimg' style='margin: 1%; transition: all 0.3s linear;'>";
+							html+="<span>"+data[i].oreContent+"</span>";
+							html+="</div>";
+							html+="</div>";
+						}
+					}else{
+						html += '<h6><strong>회원님께서 작성한 후기가 없습니다</strong></h6>';
+					}
+					$(".reviewList").html(html);
+				}	
+			});
+		}else{
+			getReviewList();
+		}
+	};
+	
+	//답변 안된 문의글 불러오기
+	function getNoQna(){
+		if($('#noQna').is(":checked")){
+			console.log("체크크")
+			const odcNo= $('#odcNo').val();
+			$.ajax({
+				type:'get',
+				url : "<c:url value='/class/selectNoQna.do'/>",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+				data:{
+					"odcNo" : odcNo
+				},
+				success : function(data){
+		            var html = "";
+		            
+		            if(data.length > 0){
+		                
+		                for(i=0; i<data.length; i++){
+		                 
+		                   html+="<div style='border-bottom: solid 1px gray;margin:2%;'  class='col-md-12'>";
+		                   html+="<ul style='margin:1%;'>";
+		                   html+="<li>";
+		                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
+		                   html+="<span>";
+		                   html+="<span>"+data[i].memberId+"</span>";
+		                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
+		                   html+="<span style='cursor: pointer;'>│수정</span>";
+		                   html+="<span style='cursor: pointer;'>│삭제</span>";
+		                   html+="</span>";
+		                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
+		                   html+="<p style='padding:auto;'>"+data[i].oqContent+"</p>";
+		                   html+="</div>";
+		                   html+="<div class='commentView'>";
+		                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
+		                   html+="<span class='vieCommentList' style='cursor: pointer;' onclick='goView(event);'>댓글보기</span>";
+		                   if(memberId!=''){
+		                   html+="<span class='enrollCommentInput' style='cursor: pointer;' onclick='goInput(event);'>│댓글쓰기</span>";
+		                   }
+		                   html+="</div>";
+		                   html+="</div>";
+		                   html+="<div class='commentInput' style='display:none;'>";
+		                   html+="<ul style='margin:1%;'>";
+		                   html+="<li>";
+		                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
+		                   html+="<div class='replyInfo'>";
+		                   html+="</div>";
+		                   html+="<div style='display: flex;'>";
+		                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
+		                   html+="<input class='bo-rad-10 txt10 p-l-20' id='replyComment' type='text' style='border: solid gray 1px; width: 800px; height: 50px;' placeholder='강사님! 해당 문의에 대한 답글을 남겨 주세요'>";
+		                   html+="&nbsp;&nbsp;";
+		                   html+="<button style='width: 100px;cursor: pointer;' onclick='reCommentBtn(event);'>등록</button>";
+		                   html+="</div>";
+		                   html+="</div>";
+		                   html+="</li>";
+		                   html+="</ul>";
+		                   html+="</div>";
+		                   html+="<div class='reCommentList' style='display: none;'>";
+		                   html+="</div>";
+		                   html+="</li>";
+		                   html+="</ul>";
+		                   html+="</div>";
+		                }
+		            }else{
+		            	html += '<h6><strong>답변 안 된 문의 글이 없습니다</strong></h6>';
+		            }
+		            $("#commentList").html(html);
+				}
+			});
+		}else{
+			getCommentList();
+		}
+	} 
+	
+	//내가 쓴 문의글 불러오기
+	function getMyQna(){
+		if($('#myQna').is(":checked")){
+			console.log("체크크")
+			const odcNo= $('#odcNo').val();
+			const memberId= $('#memberId').val();
+			
+			$.ajax({
+				type:'post',
+				url : "<c:url value='/class/selectQnaById.do'/>",
+				contentType: 'application/json',
+				data:JSON.stringify({
+					"odcNo" : odcNo,
+					"memberId" : memberId
+				}),
+				success : function(data){
+		            var html = "";
+		            
+		            if(data.length > 0){
+		                
+		                for(i=0; i<data.length; i++){
+		                 
+		                   html+="<div style='border-bottom: solid 1px gray;margin:2%;'  class='col-md-12'>";
+		                   html+="<ul style='margin:1%;'>";
+		                   html+="<li>";
+		                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
+		                   html+="<span>";
+		                   html+="<span>"+data[i].memberId+"</span>";
+		                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
+		                   html+="<span style='cursor: pointer;'>│수정</span>";
+		                   html+="<span style='cursor: pointer;'>│삭제</span>";
+		                   html+="</span>";
+		                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
+		                   html+="<p style='padding:auto;'>"+data[i].oqContent+"</p>";
+		                   html+="</div>";
+		                   html+="<div class='commentView'>";
+		                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
+		                   html+="<span class='vieCommentList' style='cursor: pointer;' onclick='goView(event);'>댓글보기</span>";
+		                   if(memberId!=''){
+		                   html+="<span class='enrollCommentInput' style='cursor: pointer;' onclick='goInput(event);'>│댓글쓰기</span>";
+		                   }
+		                   html+="</div>";
+		                   html+="</div>";
+		                   html+="<div class='commentInput' style='display:none;'>";
+		                   html+="<ul style='margin:1%;'>";
+		                   html+="<li>";
+		                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
+		                   html+="<div class='replyInfo'>";
+		                   html+="</div>";
+		                   html+="<div style='display: flex;'>";
+		                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
+		                   html+="<input class='bo-rad-10 txt10 p-l-20' id='replyComment' type='text' style='border: solid gray 1px; width: 800px; height: 50px;' placeholder='강사님! 해당 문의에 대한 답글을 남겨 주세요'>";
+		                   html+="&nbsp;&nbsp;";
+		                   html+="<button style='width: 100px;cursor: pointer;' onclick='reCommentBtn(event);'>등록</button>";
+		                   html+="</div>";
+		                   html+="</div>";
+		                   html+="</li>";
+		                   html+="</ul>";
+		                   html+="</div>";
+		                   html+="<div class='reCommentList' style='display: none;'>";
+		                   html+="</div>";
+		                   html+="</li>";
+		                   html+="</ul>";
+		                   html+="</div>";
+		                }
+		            }else{
+		            	html += '<h6><strong>회원님께서 작성한 문의 글이 없습니다</strong></h6>';
+		            }
+		            $("#commentList").html(html);
+				}
+			});
+		}else{
+			getCommentList();
+		}
+	} 
 	
 	//후기작성 팝업창 열기
 	function goPopup(e){
@@ -367,7 +583,7 @@
 	//답댓글 보기 창 열어주기
 	function goView(e){
 		const oqno=$(e.target).prev().val();
-		const masterName= $('#masterName').val();
+		const masterId= $('#masterId').val();
 		$(e.target).parent().parent().next().next("div").slideToggle("fast");
 		console.log(oqno);
 		$.ajax({
@@ -389,7 +605,11 @@
 						html+="<li>";
 						html+="<div id='reply_area' class='bo-rad-10 sizefull txt10 p-l-20'>";
 						html+="<div id='replyInfo'>";
-						html+="<span>"+masterName+"</span>";
+						if(data[i].memberId==masterId){
+			                   	html+="<span>강사님</span>";
+			            }else{
+			                	html+="<span>운영자</span>";
+			            }
 						html+="<span>│"+data[i].oqrEnrollDate+"</span>";
 						html+="<span style='cursor: pointer;'>│수정</span>";
 						html+="<span style='cursor: pointer;'>│삭제</span>";
@@ -432,8 +652,9 @@
 		console.log(oqno);
 		console.log(masterId);
 		
-			if(memberId == ''){
+		if(memberId == ''){
 			alert('로그인 후 이용해주세요');
+			return window.location.assign("${path}/member/loginpage");
 			return;
 		}else if(oqContent == '') {
 			alert('내용을 입력하세요');
@@ -449,6 +670,7 @@
 			data:JSON.stringify({
 					"oqno":oqno,
 					"oqrContetnt":oqrContetnt,
+					"memberId":memberId
 			}), 
 			success : function(data){
 	          
@@ -564,6 +786,7 @@
 
 	//댓글가져오기
 	function getCommentList(){
+		const memberId= $('#memberId').val();
 		const odcNo= $('#odcNo').val();
 		const masterId= $('#masterId').val();
 	    $.ajax({
@@ -597,7 +820,9 @@
 	                   html+="<div class='commentView'>";
 	                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
 	                   html+="<span class='vieCommentList' style='cursor: pointer;' onclick='goView(event);'>댓글보기</span>";
+	                   if(memberId!=''){
 	                   html+="<span class='enrollCommentInput' style='cursor: pointer;' onclick='goInput(event);'>│댓글쓰기</span>";
+	                   }
 	                   html+="</div>";
 	                   html+="</div>";
 	                   html+="<div class='commentInput' style='display:none;'>";
@@ -605,7 +830,6 @@
 	                   html+="<li>";
 	                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
 	                   html+="<div class='replyInfo'>";
-	                   html+="<span>강사님</span>";
 	                   html+="</div>";
 	                   html+="<div style='display: flex;'>";
 	                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
@@ -743,6 +967,9 @@
 	}
 	/* 전체 글씨체 */
 	*{
+		font-family: 'Gowun Dodum', sans-serif;
+	}
+	div>*{
 		font-family: 'Gowun Dodum', sans-serif;
 	}
 	/* 버튼 속 글씨 정중앙 정렬 */

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,11 +28,15 @@ import com.today.bab.common.MypagePageBar;
 import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.member.model.vo.Member;
 import com.today.bab.mypage.model.service.MypageService;
+import com.today.bab.mypage.model.vo.ClientQaMypage;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
+import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.mypage.model.vo.Sub;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
+import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 @Controller
 @RequestMapping("/mypage")
@@ -50,7 +55,7 @@ public class MypageController {
 			@RequestParam(value="numPerpage", defaultValue = "5") int numPerpage) {
 		HttpSession session = request.getSession();
 	    Member m = (Member) session.getAttribute("loginMember");
-	    
+	    System.out.println(m+"ddddd");
 	    List<ItemOrder> orderlist=mypageService.selectItemOrderList(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
 	    int totalData=mypageService.selectItemOrderListCount(m.getMemberId());
 	    List<ItemOrderSellitem> itemlist =mypageService.selectOrderSellItem(m.getMemberId());
@@ -59,6 +64,15 @@ public class MypageController {
 	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "orderlist.do"));
 	    mv.addObject("orderlist",orderlist);
 	    mv.addObject("itemlist",itemlist);
+	    
+	    ArrayList memberInfoBar = new ArrayList();
+	    memberInfoBar.add(m.getMemberId());
+	    memberInfoBar.add(m.getGrade()=='Y'?"장인":"일반");
+	    memberInfoBar.add(mypageService.selectBasketAllCount(m.getMemberId()));
+	    memberInfoBar.add(mypageService.selectWriteAllCount(m.getMemberId()));
+	    memberInfoBar.add(mypageService.selectRecentPoint(m.getMemberId()));
+	    
+	    mv.addObject("memberInfoBar",memberInfoBar);
 	    
 		mv.addObject("memberId",m.getMemberId());
 		mv.setViewName("mypage/orderlist");
@@ -207,6 +221,15 @@ public class MypageController {
 	      mv.addObject("basket",b);
 	      mv.setViewName("mypage/basket");
 	      
+	      ArrayList memberInfoBar = new ArrayList();
+		    memberInfoBar.add(m.getMemberId());
+		    memberInfoBar.add(m.getGrade()=='Y'?"장인":"일반");
+		    memberInfoBar.add(mypageService.selectBasketAllCount(m.getMemberId()));
+		    memberInfoBar.add(mypageService.selectWriteAllCount(m.getMemberId()));
+		    memberInfoBar.add(mypageService.selectRecentPoint(m.getMemberId()));
+		    
+		    mv.addObject("memberInfoBar",memberInfoBar);
+	      
 	      //System.out.println(b);
 	      
 	      return mv;
@@ -222,6 +245,15 @@ public class MypageController {
 		
 	    List<Point> pointlist = mypageService.selectListPoint(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
 	    //System.out.println(pointlist);
+	    
+	    ArrayList memberInfoBar = new ArrayList();
+	    memberInfoBar.add(m.getMemberId());
+	    memberInfoBar.add(m.getGrade()=='Y'?"장인":"일반");
+	    memberInfoBar.add(mypageService.selectBasketAllCount(m.getMemberId()));
+	    memberInfoBar.add(mypageService.selectWriteAllCount(m.getMemberId()));
+	    memberInfoBar.add(mypageService.selectRecentPoint(m.getMemberId()));
+	    
+	    mv.addObject("memberInfoBar",memberInfoBar);
 	   
 	    int totalData=mypageService.selectListPointCount(m.getMemberId());
 	    //System.out.println(totalData);
@@ -236,28 +268,100 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/onedayclass.do")
-	public ModelAndView selectOnedayclass(ModelAndView mv,HttpServletRequest request) {
+	public ModelAndView selectOnedayclass(ModelAndView mv,HttpServletRequest request,
+			@RequestParam(value="cPage", defaultValue = "1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue = "3") int numPerpage) {
 		
 		HttpSession session = request.getSession();
 	    Member m = (Member) session.getAttribute("loginMember");
 	    
-	    List<OdcReserve> odcReserve = mypageService.selectOnedayclass(m.getMemberId());
-		
+	    String memberMaster = mypageService.selectMemberMaster(m.getMemberId());
+	    
+	    ArrayList memberInfoBar = new ArrayList();
+	    memberInfoBar.add(m.getMemberId());
+	    memberInfoBar.add(m.getGrade()=='Y'?"장인":"일반");
+	    memberInfoBar.add(mypageService.selectBasketAllCount(m.getMemberId()));
+	    memberInfoBar.add(mypageService.selectWriteAllCount(m.getMemberId()));
+	    memberInfoBar.add(mypageService.selectRecentPoint(m.getMemberId()));
+	    
+	    mv.addObject("memberInfoBar",memberInfoBar);
+	    
+//	    if(memberMaster.equals("Y")) {
+//	    	List<OneDayClass> odc = mypageService.selectOnedayclassMaster(m.getMemberId());
+//	    	mv.addObject("master",odc);
+//	    	System.out.println(odc+"마스터");
+//	    }
+	    
+	    List<OdcReserve> odcReserve = mypageService.selectOnedayclass(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
+	    
+	    int totalData=mypageService.selectOnedayclassCount(m.getMemberId());
+	    
+	    //System.out.println("count"+totalData);
+	    
+	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "onedayclass.do"));
+	    
+	    mv.addObject("odcReserve",odcReserve);
+	    mv.addObject("memberMaster",memberMaster);
+	    //System.out.println(odcReserve+"신청");
 		mv.setViewName("mypage/onedayclass");
 		
 		return mv;
 	}
 	
 	@RequestMapping("/writelist.do")
-	public ModelAndView selectWriteList(ModelAndView mv) {
+	public ModelAndView selectWriteList(ModelAndView mv,HttpServletRequest request,
+			@RequestParam(value="cPage", defaultValue = "1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue = "5") int numPerpage) {
 		
+		HttpSession session = request.getSession();
+	    Member m = (Member) session.getAttribute("loginMember");
+	    
+	    List<ClientQaMypage> qa = mypageService.selectQaList(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
+		
+	    int totalData=mypageService.selectQaListCount(m.getMemberId());
+	    
+	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "writelist.do"));
+	    mv.addObject("qa",qa);
+	    //System.out.println(qa);
+	    
+	    ArrayList memberInfoBar = new ArrayList();
+	    memberInfoBar.add(m.getMemberId());
+	    memberInfoBar.add(m.getGrade()=='Y'?"장인":"일반");
+	    memberInfoBar.add(mypageService.selectBasketAllCount(m.getMemberId()));
+	    memberInfoBar.add(mypageService.selectWriteAllCount(m.getMemberId()));
+	    memberInfoBar.add(mypageService.selectRecentPoint(m.getMemberId()));
+	    
+	    mv.addObject("memberInfoBar",memberInfoBar);
+	    
 		mv.setViewName("mypage/writelist");
 		
 		return mv;
 	}
 	
 	@RequestMapping("/subscription.do")
-	public ModelAndView selectSubscription(ModelAndView mv) {
+	public ModelAndView selectSubscription(ModelAndView mv,HttpServletRequest request,
+			@RequestParam(value="cPage", defaultValue = "1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue = "2") int numPerpage) {
+		
+		HttpSession session = request.getSession();
+	    Member m = (Member) session.getAttribute("loginMember");
+	    
+	    List<Sub> sub = mypageService.selectSubscription(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
+		
+	    int totalData=mypageService.selectSubscriptionCount(m.getMemberId());
+	    
+	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "subscription.do"));
+	    mv.addObject("sub",sub);
+	    //System.out.println(sub);
+	    
+	    ArrayList memberInfoBar = new ArrayList();
+	    memberInfoBar.add(m.getMemberId());
+	    memberInfoBar.add(m.getGrade()=='Y'?"장인":"일반");
+	    memberInfoBar.add(mypageService.selectBasketAllCount(m.getMemberId()));
+	    memberInfoBar.add(mypageService.selectWriteAllCount(m.getMemberId()));
+	    memberInfoBar.add(mypageService.selectRecentPoint(m.getMemberId()));
+	    
+	    mv.addObject("memberInfoBar",memberInfoBar);
 		
 		mv.setViewName("mypage/subscription");
 		
@@ -335,10 +439,10 @@ public class MypageController {
 	    String[] dbasket=basketss.substring(1,basketss.length()-1).substring(0).split(",");
 	    //String[] sellItemNoCounts=sellItemNoCount.substring(1,sellItemNoCount.length()-1).split(",");
 	    
-	    for(int i=0;i<dbasket.length;i++) {
-	    	System.out.println(dbasket[i]);
-	    	//System.out.println(sellItemNoCounts[i]);
-	    }
+		/*
+		 * for(int i=0;i<dbasket.length;i++) { //System.out.println(dbasket[i]);
+		 * //System.out.println(sellItemNoCounts[i]); }
+		 */
 	    
 	    ObjectMapper mapper = new ObjectMapper();
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
@@ -405,6 +509,76 @@ public class MypageController {
 	public void updateOrderConfirm(int orderNo,HttpServletResponse response) throws IOException {
 		
 		int result=mypageService.updateOrderConfirm(orderNo);
+		
+		response.setContentType("text/csv;charset=utf-8");
+		response.getWriter().print(result);
+	}
+	
+	@RequestMapping("/onedayclass/master")
+	public ModelAndView selectOnedayclassMaster(ModelAndView mv,HttpServletRequest request,
+			@RequestParam(value="cPage", defaultValue = "1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue = "5") int numPerpage) {
+		
+		HttpSession session = request.getSession();
+	    Member m = (Member) session.getAttribute("loginMember");
+	    
+	    List<OneDayClass> odc = mypageService.selectOnedayclassMaster(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
+	    mv.addObject("master",odc);
+	    //System.out.println(odc+"마스터");
+	    
+	    int totalData=mypageService.selectOnedayclassMasterCount(m.getMemberId());
+	    
+	    //System.out.println("count"+totalData);
+	    
+	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "onedayclass.do"));
+	    
+	    ArrayList memberInfoBar = new ArrayList();
+	    memberInfoBar.add(m.getMemberId());
+	    memberInfoBar.add(m.getGrade()=='Y'?"장인":"일반");
+	    memberInfoBar.add(mypageService.selectBasketAllCount(m.getMemberId()));
+	    memberInfoBar.add(mypageService.selectWriteAllCount(m.getMemberId()));
+	    memberInfoBar.add(mypageService.selectRecentPoint(m.getMemberId()));
+	    
+	    mv.addObject("memberInfoBar",memberInfoBar);
+
+	    mv.addObject("odc",odc);
+		mv.setViewName("mypage/master");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/onedayclass/masterdetail")
+	public ModelAndView selectOnedayclassMaster(ModelAndView mv,HttpServletRequest request,int odcNo,String start,String end) {
+		
+		HttpSession session = request.getSession();
+	    Member m = (Member) session.getAttribute("loginMember");
+	    //System.out.println(start);
+	    //System.out.println(end);
+	    mv.addObject("odcNo",odcNo);
+	    mv.addObject("start",start);
+	    mv.addObject("end",end);
+		mv.setViewName("mypage/masterdetail");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/onedayclassMember")
+	@ResponseBody
+	public List<OnedayclassMember> selectOnedayclassMember(int odcNo,String odcDate,HttpServletResponse response) throws IOException {
+		
+		List<OnedayclassMember> ocm=mypageService.selectOnedayclassMember(Map.of("odcNo",odcNo,"odcDate",odcDate));
+		//System.out.println(ocm);
+		response.setContentType("text/csv;charset=utf-8");
+		//response.setContentType("application/json;charset=utf-8");
+		//response.getWriter().print(ocm);
+		
+		return ocm;
+	}
+	
+	@RequestMapping("/deleteSub")
+	public void deleteSub(int subNo,HttpServletResponse response) throws IOException {
+		
+		int result=mypageService.deleteSub(subNo);
 		
 		response.setContentType("text/csv;charset=utf-8");
 		response.getWriter().print(result);

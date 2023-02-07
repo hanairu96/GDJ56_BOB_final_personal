@@ -1,7 +1,8 @@
-package com.today.bab.admin.model.vo;
+package com.today.bab.mypage.model.vo;
 
+import java.util.Date;
 
-import java.sql.Date;
+import com.today.bab.sub.model.vo.SubItem;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,10 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AdminSubscription {
+public class Sub {
 	private int subNo;
 	private String memberId;
+	private SubItem subitems;
 	private Date subDate;
-	
-	private AdminSubItem subItem;
 }

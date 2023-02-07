@@ -108,10 +108,6 @@ public class MemberController {
 		Gson gson=new Gson();
 		String data=gson.toJson(m);
 		
-		System.out.println(inputId);
-		System.out.println(m);		
-		System.out.println(data);
-		
 		return data;
 	}
 
@@ -133,10 +129,6 @@ public class MemberController {
 		Gson gson=new Gson();
 		String data=gson.toJson(m);
 		
-		System.out.println(email);
-		System.out.println(m);		
-		System.out.println(data);
-		
 		return data;
 	}
 	
@@ -147,8 +139,8 @@ public class MemberController {
 		Random r=new Random();
 		int checkNum=r.nextInt(888888)+111111;
 		
-		System.out.println("받을 이메일: "+email);
-		System.out.println("인증번호: "+checkNum);
+		//System.out.println("받을 이메일: "+email);
+		//System.out.println("인증번호: "+checkNum);
 		
 		String setFrom="todaysbab@naver.com";
 		String toMail=email;
@@ -179,19 +171,19 @@ public class MemberController {
 	public ModelAndView enrollMemberEnd(Member m, String year, String month, String day, 
 			String inputAddressAddress, String inputAddressDetailAddress, 
 			MemberLike ml, ModelAndView mv) throws ParseException, RuntimeException {
-		System.out.println(m);
-		System.out.println(year);
-		System.out.println(month);
-		System.out.println(day);
-		System.out.println(inputAddressAddress);
-		System.out.println(inputAddressDetailAddress);
-		System.out.println(ml);
+//		System.out.println(m);
+//		System.out.println(year);
+//		System.out.println(month);
+//		System.out.println(day);
+//		System.out.println(inputAddressAddress);
+//		System.out.println(inputAddressDetailAddress);
+//		System.out.println(ml);
 		
 		//문자열로 받아온 생년월일을 Date 타입으로 변환
 		String dateStr=year+"/"+month+"/"+day;
 		SimpleDateFormat formatter=new SimpleDateFormat("yyyy/MM/dd");
 		Date date=formatter.parse(dateStr);
-		System.out.println(date);
+		//System.out.println(date);
 		
 		//주소를 하나로 합침
 		String address=inputAddressAddress+" "+inputAddressDetailAddress;
@@ -206,7 +198,7 @@ public class MemberController {
 		if(ml.getMeat()!='Y') ml.setMeat('N');
 		if(ml.getSide()!='Y') ml.setSide('N');
 		if(ml.getVege()!='Y') ml.setVege('N');
-		System.out.println(ml);
+		//System.out.println(ml);
 
 		//패스워드 암호화
 		String encodePassword=passwordEncoder.encode(m.getPassword());
@@ -238,15 +230,9 @@ public class MemberController {
 		String searchId=inputs.get(1);
 		String searchName=inputs.get(2);
 		String searchEmail=inputs.get(3);
-		
-		System.out.println(choice);
-		System.out.println(searchId);
-		System.out.println(searchName);
-		System.out.println(searchEmail);
 
 		//이메일로 회원 찾음
 		Member member=service.selectMemberByEmail(searchEmail);
-		System.out.println(member);
 		
 		String msg="";
 		
@@ -283,11 +269,15 @@ public class MemberController {
 	
 	@RequestMapping("/updatePwd")
 	public String updatePwd(Member m, Model model) {
+		//패스워드 암호화
+		String encodePassword=passwordEncoder.encode(m.getPassword());
+		m.setPassword(encodePassword);
+		
 		int result=service.updatePwd(m);
 		
 		if(result>0) {
 			model.addAttribute("msg","수정이 완료됐습니다.");
-			model.addAttribute("loc","/member/login");
+			model.addAttribute("loc","/member/loginpage");
 		}else {
 			model.addAttribute("msg","수정이 실패하였습니다.");
 			model.addAttribute("loc","/member/searchPwdEnd");
@@ -309,9 +299,9 @@ public class MemberController {
 		//m.addAttribute("loginMember", Member.builder().memberId(((User)member).getUsername()).build());
 		m.addAttribute("loginMember", (Member)member);
 
-		System.out.println(member);
-		System.out.println(m.getAttribute("loginMember"));
-		System.out.println("시큐리티 로그인 성공");
+		//System.out.println(member);
+		//System.out.println(m.getAttribute("loginMember"));
+		//System.out.println("시큐리티 로그인 성공");
 		
 		return "redirect:/";
 	}

@@ -7,11 +7,15 @@ import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market1.model.vo.ItemReview;
+import com.today.bab.mypage.model.vo.ClientQaMypage;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
+import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
+import com.today.bab.mypage.model.vo.Sub;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
+import com.today.bab.onedayclass.model.vo.OneDayClass;
 
 public interface MypageService {
 	List<Basket> selectBasketById(String userId);
@@ -50,7 +54,33 @@ public interface MypageService {
 	
 	int updateOrderConfirm(int orderNo);
 	
-	List<OdcReserve> selectOnedayclass(String memberId);
+	List<OdcReserve> selectOnedayclass(Map<String,Integer> param,String memberId);
 	
 	List<ItemReview> selectReviewByOrderNo(int orderNo);
+	
+	String selectMemberMaster(String memberId);
+	
+	List<OneDayClass> selectOnedayclassMaster(Map<String,Integer> param,String memberId);
+	
+	int selectOnedayclassCount(String memberId);
+	
+	int selectOnedayclassMasterCount(String memberId);
+	
+	List<OnedayclassMember> selectOnedayclassMember(Map<String,Object> param);
+	
+	List<ClientQaMypage> selectQaList(Map<String,Integer> param,String memberId);
+	
+	int selectQaListCount(String memberId);
+	
+	List<Sub> selectSubscription(Map<String,Integer> param,String memberId);
+	
+	int selectSubscriptionCount(String memberId);
+	
+	int deleteSub(int subNo);
+	
+	int selectBasketAllCount(String memberId);
+	
+	int selectWriteAllCount(String memberId);
+	
+	int selectRecentPoint(String memberId);
 }

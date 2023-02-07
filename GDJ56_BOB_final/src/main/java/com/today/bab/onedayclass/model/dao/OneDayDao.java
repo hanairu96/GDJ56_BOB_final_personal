@@ -17,7 +17,7 @@ public interface OneDayDao {
 	List<OneDayClass> selectClassList(SqlSessionTemplate session, Map<String, Integer> param);
 	int countClasslist(SqlSessionTemplate session);
 	int searchCountClasslist(SqlSessionTemplate session, Map<String, Object> param);
-	List<OneDayClass> selectMenuClassList(SqlSessionTemplate session,String type);
+	List<OneDayClass> selectMenuClassList(SqlSessionTemplate session,Map<String, Object> param);
 	List<OneDayClass> selectSearchClass(SqlSessionTemplate session,Map<String, Object> param );
 	int masterEndEnroll(SqlSessionTemplate session,AdminMaster m);
 	AdminMaster selectMastserById(SqlSessionTemplate session,String memberId);
@@ -35,5 +35,8 @@ public interface OneDayDao {
 	List<OdcReview> selectReviewByodcNo(SqlSessionTemplate session, int odcNo);
 	int countPerson(SqlSessionTemplate session, Map param);
 	int inputReservation(SqlSessionTemplate session, Map param);
-	
+	List<OdcReview> selectReviewById(SqlSessionTemplate session, OdcReview or);
+	List<OdcQa> selectQnaById(SqlSessionTemplate session, OdcQa oq);
+	List<OdcQa> selectNoQna(SqlSessionTemplate session, int no);
+	int countMenuClassList(SqlSessionTemplate session, String type);
 }
