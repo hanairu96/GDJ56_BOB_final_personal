@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <script src="${path }/resources/js/jquery-3.6.1.min.js"></script>
 
@@ -108,27 +110,28 @@
 				</c:choose>
 			</div>
 	    </div>
-			  
 			
-			<div style="display: flex;">
-				<!-- 페이지바 -->
-				<div class="pagination" style="margin-right: -5%;">
-					<a href="#" class="item-pagination flex-c-m trans-0-4">prev</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4">3</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4">next</a>
-				</div>
-				<!-- 글등록,장인등록 -->
-				<div style="display: flex; margin-left: 61%;">
-					<button type="submit" class="btn3 flex-c-m txt11 trans-0-4" style="margin-right: 3%;">
+		<!-- 페이지바 -->
+	  	<div style="display: flex;margin-left:50%">
+        	${pageBar}
+   		</div>
+		<!-- 글등록,장인등록 -->
+		<div style="display: flex; margin-left:70%">
+			<c:if test="${!empty loginMember }">
+				<c:if test="${fn:contains(loginMember.grade, 'Y')}">
+					<form action="${path }/class/classEnroll.do">
+						<button type="submit" class="btn3 flex-c-m txt11 trans-0-4">
 						클래스 등록
-					</button>
-					<button type="submit" class="btn3 flex-c-m txt11 trans-0-4">
+						</button>
+					</form>
+				</c:if>
+				<c:if test="${fn:contains(master.ing, 'N') || (empty master.ing)}">
+					&nbsp;&nbsp;
+					<button type="submit" class="btn3 flex-c-m txt11 trans-0-4" onclick="location.assign('${path}/class/editor.do')">
 						장인 신청
 					</button>
-				</div>
-			</div>
+				</c:if>
+			</c:if>
 		</div>
 	</section>
 </body>
