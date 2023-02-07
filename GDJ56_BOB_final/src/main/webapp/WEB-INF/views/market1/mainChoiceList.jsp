@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/marketHeader.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -27,7 +28,7 @@
 
     <section class="product spad">
         <div class="container" >
-        	<div class="col-lg-9 col-md-7">
+        	<div class="col-lg-9 col-md-7" style="margin-left: 13%;">
             	<div class="row" style="text-align: center;">
 				<c:forEach var="sell" items="${i }">
                 	<div class="col-lg-4 col-md-6 col-sm-6" >

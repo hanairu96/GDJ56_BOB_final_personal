@@ -10,8 +10,8 @@
 <script>console.log("${path }");</script>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<jsp:include page="/WEB-INF/views/common/marketHeader2.jsp"/>
-<jsp:include page="/WEB-INF/views/common/floatBar.jsp"/>
+<jsp:include page="/WEB-INF/views/common/marketHeader.jsp"/>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -78,7 +78,7 @@
 										<span style="font-size: 30px;">일시품절</span>
 									</c:if>
 									<c:if test="${i.itemStock!=0 }">
-									<a href="javascript:void(0);" onclick="addbasketitem('{i.itemNo }','{loginMemer.memberId }','{i.mainPic }','{i.itemNames }')"><img src="https://img.icons8.com/pastel-glyph/512/shopping-cart.png" width="30" height="30"></a>
+									<a href="javascript:void(0);" onclick="addbasketitem(${i.itemNo },'${loginMember.memberId }','${i.mainPic }','${i.itemName }')"><img src="https://img.icons8.com/pastel-glyph/512/shopping-cart.png" width="30" height="30"></a>
 <%-- 									<a href="${path }/market/cart.do?id=${m}&itemNo=${i.itemNo}"><img src="https://img.icons8.com/pastel-glyph/512/shopping-cart.png" width="30" height="30"></a> --%>
 									</c:if>
 								</div>
@@ -137,11 +137,11 @@ const addbasketitem=(no,memberId,mainPic,itemName)=>{
                 cancelButtonText: '계속 쇼핑하기'
             }).then((result) => {
                if (result.isConfirmed) {
-                location.assign('${path}/basket/updatebasket.do?itemNo='+no+'&memberId='+memberId); 
+                location.assign('${path}/basket/updatebasket.do?itemNo='+no+'&memberId='+memberId+'&add=0'); 
                }
             })
        }else{
-          location.assign('${path}/basket/insertbasket.do?itemNo='+no+'&memberId='+memberId);
+          location.assign('${path}/basket/insertbasket.do?itemNo='+no+'&memberId='+memberId+'&add=0');
    
       }
    }

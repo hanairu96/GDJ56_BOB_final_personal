@@ -8,7 +8,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.today.bab.basket.model.service.BasketService;
 import com.today.bab.basket.model.vo.Basket;
+import com.today.bab.market1.model.vo.MarketBasket;
 import com.today.bab.market2.controller.Emojis;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +29,12 @@ import com.today.bab.mypage.model.service.MypageService;
 public class MarketController {
 	
 	private MarketService service;
+	private BasketService bservice;
 
 	@Autowired
-	public MarketController(MarketService service) {
+	public MarketController(MarketService service, BasketService bservice) {
 		this.service = service;
+		this.bservice = bservice;
 	}
 
 	
@@ -43,6 +47,12 @@ public class MarketController {
 		HttpSession session = request.getSession();
 	    Member loginMember = (Member) session.getAttribute("loginMember");
 	    mv.addObject("m",loginMember==null?"":loginMember.getMemberId());
+	    
+
+		if(loginMember!=null) {
+			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
+			mv.addObject("basket",blist);
+		}
 		
 		mv.addObject("bestItems", list);
 		mv.setViewName("market2/best");
