@@ -28,6 +28,7 @@ import com.today.bab.common.MypagePageBar;
 import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.member.model.vo.Member;
 import com.today.bab.mypage.model.service.MypageService;
+import com.today.bab.mypage.model.vo.ClientQaMypage;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
@@ -271,13 +272,21 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/writelist.do")
-	public ModelAndView selectWriteList(ModelAndView mv,HttpServletRequest request) {
+	public ModelAndView selectWriteList(ModelAndView mv,HttpServletRequest request,
+			@RequestParam(value="cPage", defaultValue = "1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue = "5") int numPerpage) {
 		
 		HttpSession session = request.getSession();
 	    Member m = (Member) session.getAttribute("loginMember");
 	    
-	    //List<OdcReserve> odcReserve = mypageService.selectOnedayclass(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
+	    List<ClientQaMypage> qa = mypageService.selectQaList(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
 		
+	    int totalData=mypageService.selectQaListCount(m.getMemberId());
+	    
+	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "writelist.do"));
+	    mv.addObject("qa",qa);
+	    System.out.println(qa);
+	    
 		mv.setViewName("mypage/writelist");
 		
 		return mv;

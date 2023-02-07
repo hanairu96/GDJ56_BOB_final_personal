@@ -388,6 +388,13 @@
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
+                  		<c:if test="${empty basket}">
+	                     	<tr class="px-4 py-3">
+								<td class="px-4 py-3" colspan="5">
+									<p>장바구니가 비었습니다.</p>
+								</td>
+							</tr>
+	                     </c:if>
                   		<c:if test="${not empty basket}">
                   			<c:forEach var="b" items="${basket}"> 
                   			<c:forEach var="bi" items="${b.item}"> 

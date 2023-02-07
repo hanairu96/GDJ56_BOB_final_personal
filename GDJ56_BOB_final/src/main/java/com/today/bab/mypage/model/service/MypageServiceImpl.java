@@ -13,6 +13,7 @@ import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.mypage.model.dao.MypageDao;
+import com.today.bab.mypage.model.vo.ClientQaMypage;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
@@ -192,5 +193,15 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public List<OnedayclassMember> selectOnedayclassMember(Map<String,Object> param) {
 		return mypageDao.selectOnedayclassMember(session,param);
+	}
+	
+	@Override
+	public List<ClientQaMypage> selectQaList(Map<String, Integer> param, String memberId) {
+		return mypageDao.selectQaList(session,param,memberId);
+	}
+	
+	@Override
+	public int selectQaListCount(String memberId) {
+		return mypageDao.selectQaListCount(session,memberId);
 	}
 }

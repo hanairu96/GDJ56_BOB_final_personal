@@ -3,7 +3,9 @@
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
   <head>
-   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -373,103 +375,56 @@
                 </div>
               </div>
             </div>
-            <div style="width: 98%;" class="overflow-hidden rounded-lg">
-              <button style="width: 160px; float: right; font-weight: bolder; background-color: #7072753e;"class="px-2 py-1 font leading-tight text-gray-700  rounded-full dark:text-gray-100 dark:bg-gray-700">글쓰기</button>
+            <div style="width: 97%;" class="overflow-hidden rounded-lg">
+              <button style="width: 160px; float: right; font-weight: bolder; background-color: #7072753e;"class="px-2 py-1 font leading-tight text-gray-700  rounded-full dark:text-gray-100 dark:bg-gray-700"
+              onclick="location.assign('${path}/center/cqWrite');">1:1 글쓰기</button>
             </div>
             <br>
             <!-- New Table -->
-            <div class="w-full overflow-hidden rounded-lg shadow-xs">
+            <div class="overflow-hidden rounded-lg shadow-xs">
               <div class="w-full overflow-x-auto">
                 <table class="w-full whitespace-no-wrap">
                   <thead>
                     <tr
                       class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
-                      <th class="px-4 py-3">구분</th>
+                      <th class="px-4 py-3">분류</th>
                       <th class="px-4 py-3">제목</th>
-                      <th class="px-4 py-3">내용</th>
+                      <th class="px-4 py-3">답변여부</th>
                       <th class="px-4 py-3">작성날짜</th>
-                      <th class="px-4 py-3">삭제</th>
                     </tr>
                   </thead>
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          </div>
-                          <div>
-                            <p class="font-semibold">배송</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        배송일자문의
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        배송이 언제되나여?
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                      <td>
-                        <button id="deleteBoard" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                          삭제
-                        </button>
-                     </td>
-                    </tr>
-
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          </div>
-                          <div>
-                            <p class="font-semibold">배송</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        배송일자문의
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        배송이 언제되나여?
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                      <td>
-                        <button id="deleteBoard" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                          삭제
-                        </button>
-                     </td>
-                    </tr>
-
-                    <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          </div>
-                          <div>
-                            <p class="font-semibold">배송</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        <button>배송일자문의</button>
-                      </td>
-                      <td class="px-4 py-3 text-xs">
-                        배송이 언제되나여?
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        6/10/2020
-                      </td>
-                      <td>
-                        <button id="deleteBoard" class="px-2 py-1 font leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700">
-                          삭제
-                        </button>
-                     </td>
-                    </tr>
-
+                   <c:if test="${empty qa}">
+                   		<tr class="text-gray-700 dark:text-gray-400">
+	                      <td class="px-4 py-3" colspan="4">
+	                       	1:1 문의내역이 없습니다.
+	                     </td>
+	                    </tr>
+                   </c:if>
+                   
+                   <c:if test="${not empty qa}">
+                   		<c:forEach var="q" items="${qa }">
+                   			<tr class="text-gray-700 dark:text-gray-400">
+		                      <td class="px-4 py-3 text-sm">
+		                        ${q.cqCate }
+		                      </td>
+		                      <td class="px-4 py-3 text-sm">
+			                      <a href="${path}/center/clientQnaView?cqNo=${q.cqNo}">
+			                      	${q.cqTitle }
+			                      </a>
+		                      </td>
+		                      <td class="px-4 py-3 text-sm">
+		                      ${q.cqCheck == "Y" ? "답변완료" : "답변대기" }
+		                      </td>
+		                      <td class="px-4 py-3 text-sm">
+		                        <fmt:formatDate value="${q.cqDate}" pattern="yyyy-MM-dd"/>
+		                      </td>
+		                    </tr>
+                   		</c:forEach>
+                   </c:if>
                   </tbody>
                 </table>
               </div>
@@ -478,100 +433,20 @@
               >
                 <span class="col-span-1"></span>
                 <!-- Pagination -->
-                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                <span class="flex col-span-3 mt-2 sm:mt-auto sm:justify-end">
                   <nav aria-label="Table navigation">
-                    <ul class="inline-flex items-center">
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                          aria-label="Previous"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="w-4 h-4 fill-current"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                              clip-rule="evenodd"
-                              fill-rule="evenodd"
-                            ></path>
-                          </svg>
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          1
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          2
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          3
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          4
-                        </button>
-                      </li>
-                      <li>
-                        <span class="px-3 py-1">...</span>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          8
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                        >
-                          9
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-                          aria-label="Next"
-                        >
-                          <svg
-                            class="w-4 h-4 fill-current"
-                            aria-hidden="true"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                              clip-rule="evenodd"
-                              fill-rule="evenodd"
-                            ></path>
-                          </svg>
-                        </button>
-                      </li>
-                    </ul>
+                    ${pageBar }
                   </nav>
                 </span>
               </div>
             </div>
           </div>
-          <br>
-          <div style="width: 98%;" class="overflow-hidden rounded-lg">
-            <button style="width: 160px; float: right; font-weight: bolder; background-color: #7072753e;"class="px-2 py-1 font leading-tight text-gray-700  rounded-full dark:text-gray-100 dark:bg-gray-700">글쓰기</button>
-          </div>
+          <br><br>
+          <%-- <div style="width: 98%;" class="overflow-hidden rounded-lg">
+            <button style="width: 160px; float: right; font-weight: bolder; background-color: #7072753e;"class="px-2 py-1 font leading-tight text-gray-700  rounded-full dark:text-gray-100 dark:bg-gray-700"
+            onclick="location.assign('${path}/center/cqWrite');"
+            >1:1문의글쓰기</button>
+          </div> --%> 
         </main>
       </div>
     </div>

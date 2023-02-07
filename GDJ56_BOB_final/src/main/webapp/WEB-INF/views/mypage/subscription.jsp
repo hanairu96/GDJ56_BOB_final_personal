@@ -239,12 +239,12 @@
         </header>
         <main class="h-full overflow-y-auto">
           <div class="container px-6 mx-auto grid">
-            <h2
+     <!--        <h2
               class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
             >
               00님의, 마이페이지
             </h2>
-            <!-- CTA -->
+            CTA
             <a
               class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
               href="https://github.com/estevanmaito/windmill-dashboard"
@@ -263,9 +263,9 @@
               </div>
               <span>마켓 &RightArrow;</span>
             </a>
-            <!-- Cards -->
+            Cards
             <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-              <!-- Card -->
+              Card
               <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
               >
@@ -291,7 +291,7 @@
                   </p>
                 </div>
               </div>
-              <!-- Card -->
+              Card
               <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
               >
@@ -319,7 +319,7 @@
                   </p>
                 </div>
               </div>
-              <!-- Card -->
+              Card
               <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
               >
@@ -345,7 +345,7 @@
                   </p>
                 </div>
               </div>
-              <!-- Card -->
+              Card
               <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
               >
@@ -374,7 +374,10 @@
                 </div>
               </div>
             </div>
-
+ -->
+ 			<jsp:include page="/WEB-INF/views/mypage/mypageCommon.jsp">
+ 				<jsp:param name="name" value="아이디"/>
+ 			</jsp:include>
             <!-- New Table -->
             <div class="w-full overflow-hidden rounded-lg shadow-xs" style="width: 1100px; margin: auto;">
               <div class="w-full overflow-x-auto">

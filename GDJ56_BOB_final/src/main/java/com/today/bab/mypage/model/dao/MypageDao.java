@@ -9,6 +9,7 @@ import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market1.model.vo.ItemReview;
+import com.today.bab.mypage.model.vo.ClientQaMypage;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
@@ -75,4 +76,8 @@ public interface MypageDao {
 	int selectOnedayclassMasterCount(SqlSessionTemplate session,String memberId);
 	
 	List<OnedayclassMember> selectOnedayclassMember(SqlSessionTemplate session,Map<String,Object> param);
+	
+	List<ClientQaMypage> selectQaList(SqlSessionTemplate session,Map<String,Integer> param,String memberId);
+	
+	int selectQaListCount(SqlSessionTemplate session,String memberId);
 }
