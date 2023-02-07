@@ -420,7 +420,11 @@
 		                          강사 : ${odc.master } <br>
 		                          날짜 : <span id="odcdate"><fmt:formatDate value="${odc.odcDate}" pattern="yyyy-MM-dd"/></span> <br>
 		                          가격 : ${odc.odcPrice }</a>
+		                          <div style="width: 800px;" id="btnbtn">
+		                          <input hidden value="${odc.odcNo}" id="odcNoo">
+		                      <!-- <span style="float:right;">버튼</span> --></div>
 		                      </div>
+		                      
 		                      </td>
 		                    </tr>
 						</c:forEach>
@@ -451,12 +455,12 @@
 	var now = new Date();
 	
 	var odcdate = document.querySelectorAll("#odcdate");    
-	//var date=document.querySelectorAll("#orderDate");
+	var btnbtn=document.querySelectorAll("#btnbtn");
 	
-	for(let i=0;i<date.length;i++){
-		  //console.log(date[i].innerText);
-		  var date1=date[i].innerText.substring(10, 0);
-		  //console.log(date1);
+	for(let i=0;i<odcdate.length;i++){
+
+		  var date1=odcdate[i].innerText;
+
 		  var date_arr = date1.split("-");    
 		   
 		  var year = now.getFullYear();   // 연도
@@ -471,18 +475,22 @@
 		   
 		  console.log("일수 차이는?? " + btDay);
 		  
-		  if(btDay<2){
+		  if(btDay>0){
 			  //date[i].innerText="주문완료";
-			  const span = document.createElement("span");
-			  span.innerHTML="주문완료";
-			  span.className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100";
-			  orderStatuss[i].appendChild(span);
-			  
 			  const btn = document.createElement("button");
-			  btn.innerHTML="주문취소";
+			  btn.innerHTML="리뷰쓰기";
+			  btn.style.float="right"; 
+			  btn.style.marginRight="100px";
 			  btn.className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100";
-			  btn.id ="orderCancel";
-			  orderStatuss[i].appendChild(btn);
-			  
-		  }
+			  btn.onclick=function(e){
+				  console.log(e.target.parentElement.children[0].value);
+				  let odcno=e.target.parentElement.children[0].value;
+				  location.assign('${path}/class/editClass.do?no='+odcno);
+				  
+			  };
+			  btnbtn[i].appendChild(btn);	  
+		  } 	  	  
+		  
+	}
+	
 </script>

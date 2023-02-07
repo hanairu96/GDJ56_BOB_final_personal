@@ -271,7 +271,12 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/writelist.do")
-	public ModelAndView selectWriteList(ModelAndView mv) {
+	public ModelAndView selectWriteList(ModelAndView mv,HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+	    Member m = (Member) session.getAttribute("loginMember");
+	    
+	    //List<OdcReserve> odcReserve = mypageService.selectOnedayclass(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
 		
 		mv.setViewName("mypage/writelist");
 		

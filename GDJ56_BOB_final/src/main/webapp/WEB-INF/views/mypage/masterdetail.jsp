@@ -334,15 +334,14 @@
 					console.log(data);
 					console.log(data[0]);
 
-					if(data==null){
-						alert(date+'날에는 신청자가 없습니다.')
+					if(data.length==0){
+						alert(date+'에는 신청자가 없습니다.')
 					}else{
 						const table=$("<table>");
 						const header=$("<tr>").html("<th>번호</th><th>신청자이름</th><th>전화번호</th><th>이메일</th><th>성별</th>");
 						table.append(header);
 						table.addClass('w-full whitespace-no-wrap');
 			
-					
 						for(i=0; i<data.length; i++){
 							const tr=$("<tr>");
 							tr.addClass( 'text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800' );
