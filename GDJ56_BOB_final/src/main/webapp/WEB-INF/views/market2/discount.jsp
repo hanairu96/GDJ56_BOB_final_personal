@@ -61,7 +61,7 @@
 						<div style="display: flex; justify-content: space-between; margin-left: 10%; margin-top: 5%;">
 							<h5 style="color: red;">할인가 9,900원</h5>
 							<div class="zoom">
-								<a href=""><img src="https://img.icons8.com/pastel-glyph/512/shopping-cart.png" width="30" height="30"></a>
+								<a href="javascript:void(0);" onclick="addbasketitem(${i.itemNo },'${loginMember.memberId }','${i.mainPic }','${i.itemName }')"><img src="https://img.icons8.com/pastel-glyph/512/shopping-cart.png" width="30" height="30"></a>
 							</div>
 						</div>
 					</div>
@@ -92,6 +92,40 @@
 		$(e.target).addClass("active-pagination");
 	}
 
+</script>
+<script>
+var arr=new Array();
+<c:forEach var="b" items="${basket}">
+   arr.push({itemNo:${b.itemNo}});
+</c:forEach>
+
+const addbasketitem=(no,memberId,mainPic,itemName)=>{
+    if(${loginMember==null}){
+      alert("로그인 후 사용가능합니다.");
+   }else{
+      const item=arr.filter(e=>e.itemNo==no);
+      console.log(item);
+       if(item.length>0){
+          Swal.fire({
+                title: itemName,
+                text: "이 상품은 이미 담겨있습니다. 더 담으시겠습니까?",
+                imageUrl: '${path }/resources/upload/market/mainlabel/'+mainPic,
+                showCancelButton: true,
+               	confirmButtonColor: '#07d448',
+                cancelButtonColor: 'magenta',
+                confirmButtonText: '장바구니 추가',
+                cancelButtonText: '계속 쇼핑하기'
+            }).then((result) => {
+               if (result.isConfirmed) {
+                location.assign('${path}/basket/updatebasket.do?itemNo='+no+'&memberId='+memberId+'&add=0'); 
+               }
+            })
+       }else{
+          location.assign('${path}/basket/insertbasket.do?itemNo='+no+'&memberId='+memberId+'&add=0');
+   
+      }
+   }
+}
 </script>
 
 
