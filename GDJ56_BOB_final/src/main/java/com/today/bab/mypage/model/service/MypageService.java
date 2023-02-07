@@ -78,4 +78,9 @@ public interface MypageService {
 	
 	int deleteSub(int subNo);
 	
+	int selectBasketAllCount(String memberId);
+	
+	int selectWriteAllCount(String memberId);
+	
+	int selectRecentPoint(String memberId);
 }

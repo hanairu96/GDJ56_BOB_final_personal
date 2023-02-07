@@ -6,7 +6,7 @@
        <h2
               class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
             >
-         님의 마이페이지
+         ${param.memberId }님의 마이페이지
             </h2>
             <!-- CTA -->
             <a
@@ -51,7 +51,7 @@
                   <p
                     class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                   >
-                    회원or장인 000님
+                    ${param.level } ${param.memberId }님
                   </p>
                 </div>
               </div>
@@ -79,7 +79,7 @@
                   <p
                     class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                   >
-                    100원
+                    ${param.point }원
                   </p>
                 </div>
               </div>
@@ -105,7 +105,7 @@
                   <p
                     class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                   >
-                    2 (장바구니 담긴개수)
+                    ${param.basket }개
                   </p>
                 </div>
               </div>
@@ -133,7 +133,7 @@
                   <p
                     class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                   >
-                    2 개 (작성글 개수)
+                    ${param.write }개
                   </p>
                 </div>
               </div>

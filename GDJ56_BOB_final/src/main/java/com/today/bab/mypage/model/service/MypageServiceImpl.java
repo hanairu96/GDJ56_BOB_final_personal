@@ -220,4 +220,20 @@ public class MypageServiceImpl implements MypageService {
 	public int deleteSub(int subNo) {
 		return mypageDao.deleteSub(session,subNo);
 	}
+	
+	@Override
+	public int selectBasketAllCount(String memberId) {
+		return mypageDao.selectBasketAllCount(session,memberId);
+	}
+	
+	
+	@Override
+	public int selectWriteAllCount(String memberId) {
+		return mypageDao.selectWriteAllCount(session,memberId);
+	}
+	
+	@Override
+	public int selectRecentPoint(String memberId) {
+		return mypageDao.selectRecentPoint(session,memberId);
+	}
 }

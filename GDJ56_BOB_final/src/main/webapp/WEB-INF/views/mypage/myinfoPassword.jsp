@@ -219,19 +219,19 @@
               <!-- main menu -->
               <div style="display: contents;" class="relative ">
                 &nbsp;
-                <button style="font-weight: bolder;">
+                <button style="font-weight: bolder;" onclick="location.assign('${path}/market1/matketmain.do');">
                   MARKET
                 </button>
                 
-                <button style="font-weight: bolder;">
+                <button style="font-weight: bolder;" onclick="location.assign('${path}/class/main.do');">
                   ONEDAY-CLASS
                 </button>
 
-                <button style="font-weight: bolder;">
+                <button style="font-weight: bolder;" onclick="location.assign('${path}/subscription/subMain');">
                   SUBCRIPTE
                 </button>
 
-                <button style="font-weight: bolder;">
+                <button style="font-weight: bolder;" onclick="location.assign('${path}/center/noticeList');">
                   CUSTOMER-CENTER
                 </button>
                 &nbsp;
