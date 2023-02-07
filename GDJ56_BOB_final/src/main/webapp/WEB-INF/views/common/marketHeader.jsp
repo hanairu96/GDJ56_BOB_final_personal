@@ -108,12 +108,12 @@ const fn_menu = ()=>{
 .hero__categories ul li a{
     color: gray;
 }
-.marketHeader {
+/* .marketHeader {
     position: sticky;
     z-index: 100;
     top: 150px;
     background: rgba(137, 43, 226, 0.167);
-}
+} */
 #header__menu>ul {
     padding: rever;
 }

@@ -247,15 +247,6 @@ $(function(){//.레디함수
 </body>
 
 <style>
-	/* .마켓헤더 */
-    .marketHeader {
-        position: sticky;
-        z-index: 100;
-        top: 100px;
-        background: rgba(137, 43, 226, 0.167);
-    }
-
-    /* 마켓헤더./ */
 
 	a:hover {
 			color: yellowgreen;

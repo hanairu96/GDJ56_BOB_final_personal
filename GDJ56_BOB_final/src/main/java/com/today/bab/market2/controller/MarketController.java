@@ -150,13 +150,13 @@ public class MarketController {
 	
 	//(관리자)할인 등록
 	@RequestMapping("/market/discountAdminEnd.do")
-	public ModelAndView discountAdminEnd(ModelAndView mv, String yArr, int[] chItems) {
-
+	public ModelAndView discountAdminEnd(ModelAndView mv, String yArr, String disArrNext) {
+		System.out.println("받은값"+disArrNext);
 		//배열 두개 하나의 맵으로 저장
 		Map<String, Object> param = new HashMap();
 		param.put("yArr", yArr.split(","));//이미 할인 중이어서 update 'n' in()할 값
-		param.put("cArr", chItems);//사용자가 할인하려고 체크해서 update 'y' in()할 값
-		
+		param.put("cArr", disArrNext.split(","));//사용자가 할인하려고 체크해서 update 'y' in()할 값
+		System.out.println("스플릿"+disArrNext.split(","));
 		/*
 		//이미 할인 중이어서 update 'n' in()할 값
 		System.out.println(yArr);

@@ -10,15 +10,15 @@
 	<div>최근 본 <br>상품
 		<ul style="padding: 0;">
 			<li>
-				<a id="li3" href="${path}/market1/marketdetail.do?itemNo=${i.itemNo}">
+				<a id="li3" href="">
 				<img id="li3Img" src="" alt="test" width="50" height="50" onerror="this.style.display='none'"></a>
 			</li>
 			<li>
-				<a id="li2" href="${path}/market1/marketdetail.do?itemNo=${i.itemNo}">
+				<a id="li2" href="">
 				<img id="li2Img" src="" alt="test" width="50" height="50" onerror="this.style.display='none'"></a>
 			</li>
 			<li>
-				<a id="li1" href="${path}/market1/marketdetail.do?itemNo=${i.itemNo}">
+				<a id="li1" href="">
 				<img id="li1Img" src="" alt="test" width="50" height="50" onerror="this.style.display='none'"></a>
 			</li>
 		</ul>
