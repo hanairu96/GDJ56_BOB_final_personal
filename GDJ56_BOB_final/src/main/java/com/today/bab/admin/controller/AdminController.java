@@ -20,6 +20,7 @@ import com.today.bab.admin.model.vo.AdminItemOrder;
 import com.today.bab.admin.model.vo.AdminMaster;
 import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.AdminSearch;
+import com.today.bab.admin.model.vo.AdminSellItem;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.AdminTotalData;
 import com.today.bab.admin.model.vo.ClientQNA;
@@ -489,6 +490,37 @@ public class AdminController {
 			mv.addObject("list",list);
 		    mv.addObject("as", as);
 			mv.setViewName("admin/masterSearch");
+		}
+		return mv;
+	}
+	
+	//상품검색
+	@RequestMapping("/productSearch.do")
+	public ModelAndView productSearchClass(ModelAndView mv, String search, String searchlist,
+		int cpage, int numPerpage) {	
+
+		if(searchlist.equals("searchNo")) {
+			AdminSearch as=AdminSearch.builder().cpage(cpage).numPerpage(numPerpage).type(searchlist)
+					.keyword(search).build();
+			
+			mv.addObject("totalData",0);
+			mv.addObject("as", as);
+			mv.setViewName("admin/productSearch");
+		}else {
+			AdminSearch as=AdminSearch.builder().cpage(cpage).numPerpage(numPerpage).type(searchlist)
+					.keyword(search).build();
+			
+	        List<AdminSellItem> list = service.productSearchClass(as);
+	        
+		    //페이징처리하기
+			int totalData=service.productSearchClassCount(as);
+			
+			//페이징처리하기
+			mv.addObject("pageBar",AdminPageBar2.getPage(cpage, numPerpage, totalData, "productSearch.do"));
+			mv.addObject("totalData",totalData);
+			mv.addObject("list",list);
+		    mv.addObject("as", as);
+			mv.setViewName("admin/productSearch");
 		}
 		return mv;
 	}

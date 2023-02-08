@@ -12,18 +12,18 @@
 		font-family: 'Gowun Dodum', sans-serif;
 	}
 </style>
-	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
+   <div class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/mainbanner.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2><c:out value="${de.itemCategory}"/></h2>
-                        </div>
+                       	<h2 style="color:black;"><c:out value="${de.itemCategory}"/></h2>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
     <section class="product-details spad">
     
 
@@ -118,8 +118,7 @@
 		                        <a href="javascript:void(0);" class="primary-btn" style="background-color: magenta;" onclick="soldoutItem();">품절되었습니다.</a>
 	                        </c:if>
 	                        <c:if test="${de.itemStock>0 }">
-		                        <a class="primary-btn" href="javascript:void(0);" onclick="addbasketitem(${de.itemNo },'${loginMember.memberId }','${de.mainPic }','${de.itemName }')" style="background-color: #07d448;">장바구니 담기</a>
-		                        <a href="#" class="primary-btn" style="background-color: #07d448;">바로결제하기</a>
+		                        <a class="primary-btn" href="javascript:void(0);" onclick="addbasketitem(${de.itemNo },'${loginMember.memberId }','${de.mainPic }','${de.itemName }')" style="background-color:#bde28f;">장바구니 담기</a>
 	                        </c:if>
 	                        <br><br><br>
 	                        <b>원산지</b> <span><c:out value="${de.madeIn }"/></span><br><br>

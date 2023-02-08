@@ -251,11 +251,12 @@
         <main class="h-full pb-16 overflow-y-auto">
           <div class="container px-6 mx-auto grid">
             <div style="display: flex; flex-direction: row;">
-              <h2
+              <h4
+                style="font-size: 15px; color: purple; border: 2px solid purple; border-radius:10px; padding: 10px;"
                 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
               >
                 클래스 장인 관리
-              </h2>
+              </h4>
                <!-- 검색창 -->
 				<div id="searchbox"  class="flex justify-center flex-1 lg:mr-32" style="align-items:center;text-align:center;" >
 						

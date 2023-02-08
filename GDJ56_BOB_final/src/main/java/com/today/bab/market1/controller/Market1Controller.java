@@ -114,6 +114,11 @@ public class Market1Controller {
 			}
 		}
 		
+		
+		//마감임박상품 
+		List<SellItem> soon=service.soldoutsoon();
+		mv.addObject("soon", soon);
+		
 		mv.setViewName("market1/marketMain");
 		return mv;
 	}
@@ -559,5 +564,11 @@ public class Market1Controller {
 		return "market1/resultGtgselect";
 	}
 	
-	
+	@RequestMapping("/soldoutsoon.do")
+	public ModelAndView soldoutsoon(ModelAndView mv) {
+		List<SellItem> list=service.soldoutsoon();
+		mv.addObject("i",list);
+		mv.setViewName("market1/mainChoiceList");
+		return mv;
+	}
 }
