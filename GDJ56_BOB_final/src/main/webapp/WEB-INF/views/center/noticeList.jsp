@@ -30,13 +30,13 @@
                 </thead>
                 <tbody>
                 	<c:if test="${empty list}">
-	                	<tr>
+	                	<tr class="tr">
 	                		<td colspan="3">등록된 글이 없습니다.</td>
 	                	</tr>
 	                </c:if>
                 	<c:if test="${not empty list}">
 		                <c:forEach var="nl" items="${list}">
-		                    <tr>
+		                    <tr class="tr">
 		                        <td class="nos">${nl.noticeNo}</td>
 		                        <td class="titles"><a href="${path}/center/noticeView?noticeNo=${nl.noticeNo}">${nl.noticeTitle}</a></td>
 		                        <td class="dates">${nl.noticeDate}</td>
@@ -49,7 +49,15 @@
             	<button type="button" id="write-btn" class="customBtn btnStyle" onclick="writeBoard();">글쓰기</button>
             </c:if>
             <div class="page-bar">
-                ${pageBar}
+	        	<!-- 페이지바 -->
+	            <div class="product__pagination">
+	                <a href="#"><i class="fa" style="font-weight:bold;"> &lt; </i></a>
+	                <a href="#">1</a>
+	                <a href="#">2</a>
+	                <a href="#">3</a>
+	                <a href="#"><i class="fa" style="font-weight:bold;"> > </i></a>
+	            </div>
+                <%-- ${pageBar} --%>
             </div>
         </div>
     </section>
@@ -195,6 +203,43 @@
 			width:100%;
 			transition:800ms ease all;
 		}
+		
+		
+/* 		.product__pagination,
+		.blog__pagination {
+			padding-top: 10px;
+		}
+		   
+		.product__pagination a,
+		.blog__pagination a {
+			display: inline-block;
+			width: 30px;
+			height: 30px;
+			border: 1px solid #b2b2b2;
+			font-size: 14px;
+			color: #b2b2b2;
+			font-weight: 700;
+			line-height: 28px;
+			text-align: center;
+			margin-right: 16px;
+			-webkit-transition: all, 0.3s;
+			-moz-transition: all, 0.3s;
+			-ms-transition: all, 0.3s;
+			-o-transition: all, 0.3s;
+			transition: all, 0.3s;
+		}
+		
+		.product__pagination a:hover,
+		.blog__pagination a:hover {
+			background: #7fad39;
+			border-color: #7fad39;
+			color: #ffffff;
+		}
+		
+		.product__pagination a:last-child,
+		.blog__pagination a:last-child {
+			margin-right: 0;
+		} */
     </style>
    	<script>
  	 	//사이드 메뉴 누르면 페이지 이동
@@ -203,6 +248,34 @@
    		})
    		$(".side-menu>div:eq(1)").click(e=>{
    			location.assign("${path}/center/clientQnaList");
+   		})
+   		
+   		//
+   		$(".product__pagination>a").click(e=>{
+   			let cPage=e.target.textContent;
+   			console.log(cPage);
+   			$.ajax({
+   				url:"${path}/center/noticeListPage",
+   				data:{cPage:cPage},
+   				success:data=>{
+   					console.log(data);
+   					
+   					
+   					let content="<tbody>";
+   					
+   					data.forEach(function(nt){
+		                content+="<tr class='tr'>";
+		                content+="<td class='nos' style='width: 120px;'>"+nt.noticeNo+"</td>";
+		                content+="<td class='titles' style='width: 750px;'><a href='${path}/center/noticeView?noticeNo="+nt.noticeNo+"'>"+nt.noticeTitle+"</a></td>";
+		                content+="<td class='dates' style='width: 200px;'>"+nt.noticeDate+"</td>";
+		                content+="</tr>";
+   					})
+   					content+="</tbody>";
+   					console.log(content);
+   					
+   					$("tbody").html(content);
+   				}
+   			})
    		})
    		
    		//글쓰기

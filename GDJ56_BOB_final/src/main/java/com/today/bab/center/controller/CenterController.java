@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.center.model.service.CenterService;
 import com.today.bab.center.model.vo.Notice;
@@ -44,6 +45,16 @@ public class CenterController {
 		mv.setViewName("center/noticeList");
 		
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/noticeListPage")
+	public List<Notice> noticeListPage(int cPage){
+		int numPerpage=5;
+		Map<String, Integer> page=Map.of("cPage", cPage, "numPerpage", numPerpage);
+		List<Notice> list=service.selectNoticeList(page);
+		
+		return list;
 	}
 	
 	//공지사항 리스트 검색한 것 출력
