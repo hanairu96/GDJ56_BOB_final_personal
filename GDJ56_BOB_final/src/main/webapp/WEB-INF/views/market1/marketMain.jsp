@@ -126,14 +126,12 @@
             <div class="row">
                 <div class="categories__slider owl-carousel">
                 
-                   <c:forEach var="i" begin="1" end="10" >
-                   <c:if test="${items[i].itemStock<=10 }">
+                   <c:forEach var="i" items="${soon }" >
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${items[i].mainPic }');">
-                            <h5><a href="${path}/market1/marketdetail.do?itemNo=${items[i].itemNo}">${items[i].itemName }</a></h5>
+                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${i.mainPic }');">
+                            <h5><a href="${path}/market1/marketdetail.do?itemNo=${i.itemNo}">${i.itemName }</a></h5>
                         </div>
                     </div>
-                   </c:if>
                    </c:forEach>
       
                 </div>
