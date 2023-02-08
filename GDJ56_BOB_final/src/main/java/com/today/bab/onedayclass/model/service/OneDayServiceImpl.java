@@ -191,6 +191,12 @@ public class OneDayServiceImpl implements OneDayService {
 	public void deleteReOdcQa(String oqrNo) {
 		dao.deleteReOdcQa(session, oqrNo);
 	}
+
+	@Override
+	public void insertPoint(String memberId) {
+		dao.insertPoint(session,memberId);
+		
+	}
 	
 	
 	

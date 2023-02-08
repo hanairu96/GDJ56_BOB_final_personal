@@ -216,6 +216,15 @@ public class OneDayDaoImpl implements OneDayDao {
 		session.update("onedayclass.updateOq", oq);
 		
 	}
+
+
+
+	@Override
+	public void insertPoint(SqlSessionTemplate session, String memberId) {
+		session.insert("onedayclass.insertPoint", memberId);
+		
+	}
+	
 	
 	
 

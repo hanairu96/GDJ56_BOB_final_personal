@@ -404,6 +404,7 @@ public class OneDayController {
 	 	int result = service.insertReview(or);
 	 	
 	 	if(result>0) {
+	 		service.insertPoint(or.getMemberId());
 			  mv.addObject("msg","리뷰작성 성공:)");
 		      mv.setViewName("common/close");
 		  }else {
