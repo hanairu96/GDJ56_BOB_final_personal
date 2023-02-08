@@ -24,6 +24,7 @@ public interface MarketService {
 	//오늘의밥추천(추천) 타이틀 목록 조회
 	List<TodayBob> todayBobList();
 	int todayBobListCount();
+	//int todayBobCount();
 	
 	
 //	//오늘의밥추천(추천) 타이틀 삭제

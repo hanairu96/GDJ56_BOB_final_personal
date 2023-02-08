@@ -64,6 +64,10 @@ public class MarketServiceImpl implements MarketService {
 	public int todayBobListCount() {
 		return dao.todayBobListCount(session);
 	}
+	/*
+	 * @Override public int todayBobCount() { return dao.todayBobListCount(session);
+	 * }
+	 */
 	
 	@Override
 	public int deleteTodayBob(int reNo) {

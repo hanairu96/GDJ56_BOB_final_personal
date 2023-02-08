@@ -187,14 +187,17 @@ $(function(){//.레디함수
     					data.forEach(i=>{	console.log(i)
     						//html += "<h4>"+i.itemName+"</h4>";
     						
+    						var m = '${loginMember.memberId }';
+    						var aaaaa= addbasketitem(i.itemNo,m,i.mainPic,i.itemName);
+    						
     						
     						var itemNo = i.itemNo;
-    						var m = '${loginMember.memberId }';
     						var stock = i.itemStock==0 ? "<div class='col-lg-4 col-sm-6' style='padding: 3%;filter: grayscale(100%);'>"
-    									: "<div class='col-lg-4 col-sm-6' style='padding: 3%;'>";
+    									: "<div class='col-lg-4 col-sm-6' style='=padding: 3%;'>";
     						//var stock2 = i.itemStock==0 ? "<a href='${path }/market/cart.do?id=${m}&itemNo="+itemNo+"'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>"
     						var stock2 = i.itemStock==0 ? "<span style='font-size: 30px;'>일시품절</span>"
-    									: "<a href='javascript:void(0);' onclick='addbasketitem("+i.itemNo+",'"+m+"','"+i.mainPic+"','"+i.itemName+"');'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>";
+    									: "<a href='javascript:void(0);' onclick='"+aaaaa+";'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>";
+//    									: "<a href='javascript:void(0);' onclick='addbasketitem("+i.itemNo+",'${loginMember.memberId }','"+i.mainPic+"','"+i.itemName+"');'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>";
     									
     						
     						html += stock

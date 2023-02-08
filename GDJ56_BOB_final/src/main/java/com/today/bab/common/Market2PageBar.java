@@ -16,7 +16,7 @@ public class Market2PageBar {
 		if(pageNo==1) {
 			pageBar+="<a href='#' class='item-pagination flex-c-m trans-0-4' onclick='fn_pageBtn(event)'>prev</a>";
 		}else {
-			pageBar+="<a href='#' class='item-pagination flex-c-m trans-0-4' onclick='fn_pageBtn(event)'>prev</a>";
+			pageBar+="<a class='item-pagination flex-c-m trans-0-4' onclick='fn_pageBtn(event)' href='javascript:fn_paging("+(pageNo-1)+")'>prev</a>";
 		}
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
@@ -24,16 +24,16 @@ public class Market2PageBar {
 				pageBar+="<a href='#' class='item-pagination flex-c-m trans-0-4' onclick='fn_pageBtn(event)'>"+pageNo+"</a>";
 			}else {
 				pageBar+="<a class='item-pagination flex-c-m trans-0-4' onclick='fn_pageBtn(event)' href='javascript:fn_paging("+(pageNo)+")'>"
-				+pageNo+"</a>";
+							+pageNo+"</a>";
 			}
 			
 			pageNo++;
 		}
 		
 		if(pageNo>totalPage) {
-			pageBar+="<a href='#' class='item-pagination flex-c-m trans-0-4' onclick='fn_pageBtn(event)'>prev</a>";
+			pageBar+="<a href='#' class='item-pagination flex-c-m trans-0-4' onclick='fn_pageBtn(event)'>next</a>";
 		}else {
-			pageBar+="<a href='javascript:fn_paging("+(pageNo)+")'>prev</a>";
+			pageBar+="<a class='item-pagination flex-c-m trans-0-4' onclick='fn_pageBtn(event)' href='javascript:fn_paging("+(pageNo)+")'>next</a>";
 		}
 		
 		

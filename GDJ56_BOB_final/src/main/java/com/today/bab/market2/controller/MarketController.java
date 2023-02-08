@@ -85,6 +85,11 @@ public class MarketController {
 		List<SellItem> list = service.discountView(Map.of("cPage",cPage,"numPerpage",numPerpage));
 		int listCnt = service.discountCount();
 		
+		if(loginMember!=null) {
+			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
+			mv.addObject("basket",blist);
+		}
+		
 		mv.addObject("m",loginMember==null?"":loginMember.getMemberId());
 		
 		mv.addObject("pageBar",Market2PageBar.getPage(cPage, numPerpage,listCnt,"/bab/market/discount.do"));
@@ -98,7 +103,9 @@ public class MarketController {
 
 	//(회원)추천
 	@RequestMapping("/market/today.do")
-	public ModelAndView todayItemAll(ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView todayItemAll(ModelAndView mv, HttpServletRequest request,
+				@RequestParam(value="cPage", defaultValue="1")int cPage,
+				@RequestParam(value="numPerpage", defaultValue="3")int numPerpage) {
 		HttpSession session = request.getSession();
 	    Member loginMember = (Member) session.getAttribute("loginMember");
 	    
@@ -110,10 +117,18 @@ public class MarketController {
 	    
 		List<TodayBob> list = service.todayBobList();
 		int listCnt = service.todayBobListCount();//타이틀개수
+		/* int itemCnt = service.todayBobCount();//상품개수
+		List<SellItem> tbAll = service.todayViewAll(Map.of("cPage",cPage,"numPerpage",numPerpage));*/
 		List<SellItem> tbAll = service.todayViewAll();
 		
 		mv.addObject("m",loginMember==null?"":loginMember.getMemberId());
 		
+		if(loginMember!=null) {
+			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
+			mv.addObject("basket",blist);
+		}
+		
+		//mv.addObject("pageBar",Market2PageBar.getPage(cPage, numPerpage,itemCnt,"/bab/market/today.do"));
 		mv.addObject("relist",list);
 		mv.addObject("relistCnt",listCnt);
 		mv.addObject("tbAll",tbAll);

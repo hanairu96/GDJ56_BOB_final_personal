@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.6.1.min.js"></script>
 <script>console.log("${path }");</script>
@@ -207,11 +208,9 @@ const callFunction = (e)=>{
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="pagination flex-l-m flex-w m-l--6 p-t-25">
-					<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">prev</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">1</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">2</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">3</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">next</a>
+					<div style="display: flex;margin-left:50%">
+			        	${pageBar}
+			   		</div>
 				</div>
 			</div>
 		</div>

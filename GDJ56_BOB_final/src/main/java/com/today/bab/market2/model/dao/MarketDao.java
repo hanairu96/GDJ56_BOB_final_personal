@@ -27,6 +27,7 @@ public interface MarketDao {
 	
 	List<TodayBob> todayBobList(SqlSessionTemplate session);
 	int todayBobListCount(SqlSessionTemplate session);
+	//int todayBobCount(SqlSessionTemplate session);
 	int deleteTodayBob(SqlSessionTemplate session, int reNo);
 																//	int selectTodayBobByTitle(SqlSessionTemplate session, String reTitle);
 	int insertTodayBob(SqlSessionTemplate session, TodayBob tb);
