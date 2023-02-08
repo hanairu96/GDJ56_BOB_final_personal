@@ -197,7 +197,6 @@
 	                            	</c:if>
 	                            
 	                            	
-	                            	
 	                                <div class="product__item__pic set-bg"
 		style="background-image: url('${path }/resources/upload/market/mainlabel/${sell.mainPic }');${sell.itemStock==0?'filter: grayscale(100%)':''};">
 	                            	<c:if test="${sell.itemStock!=0 }">
