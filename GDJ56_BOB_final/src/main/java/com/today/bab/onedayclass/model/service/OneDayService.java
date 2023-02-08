@@ -40,4 +40,6 @@ public interface OneDayService {
 	int countMenuClassList(String type);
 	OdcReview selectReviewByodreNo(int no);
 	OdcReserve selectReservebyodreNo(int no);
+	void deleteOdcQa(String oqno);
+	void deleteReOdcQa(String oqrNo);
 }

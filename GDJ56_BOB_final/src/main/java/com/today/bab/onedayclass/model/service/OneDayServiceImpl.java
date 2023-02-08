@@ -120,7 +120,15 @@ public class OneDayServiceImpl implements OneDayService {
 
 	@Override
 	public int insertReview(OdcReview or) {
-		return dao.insertReview(session, or);
+		
+		OdcReview r=dao.selectReviewByodreNo(session, or.getOdcreNo());
+		
+		if(r!=null) {
+			return dao.updateReview(session,or);
+		}else {			
+			return dao.insertReview(session, or);
+		}
+		
 	}
 	
 	@Override
@@ -166,11 +174,16 @@ public class OneDayServiceImpl implements OneDayService {
 	public OdcReserve selectReservebyodreNo(int no) {
 		return dao.selectReservebyodreNo(session, no);
 	}
-	
-	
-	
-	
-	
+
+	@Override
+	public void deleteOdcQa(String oqno) {
+		dao.deleteOdcQa(session, oqno);
+	}
+
+	@Override
+	public void deleteReOdcQa(String oqrNo) {
+		dao.deleteReOdcQa(session, oqrNo);
+	}
 	
 	
 	
