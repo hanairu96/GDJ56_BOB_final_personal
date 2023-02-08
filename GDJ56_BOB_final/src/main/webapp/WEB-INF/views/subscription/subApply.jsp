@@ -10,8 +10,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>구독 신청</title>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <!-- PortOne 라이브러리 -->
+	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </head>
 <body>
     <section>
@@ -169,6 +171,7 @@
 	</style>
 	<script>
 		let choice="일반 우유"; //선택한 항목
+		let price=5000; //가격
 		
 		//우유 클릭 시 바뀜
 		$("#kinds td:nth-child(1)").click(e=>{
@@ -179,6 +182,7 @@
 			$("#items>input").css("backgroundColor","lavender").css("color","black");
 			$("#items>input:nth-child(1)").css("backgroundColor","mediumpurple").css("color","white");
 			choice="일반 우유";
+			price=5000;
 			$("#items>input:nth-child(1)").val("일반 우유");
 			$("#items>input:nth-child(2)").val("저지방 우유");
 			$("#items>input:nth-child(3)").val("무유당 우유");
@@ -193,6 +197,7 @@
 			$("#items>input").css("backgroundColor","lavender").css("color","black");
 			$("#items>input:nth-child(1)").css("backgroundColor","mediumpurple").css("color","white");
 			choice="특란";
+			price=15000;
 			$("#items>input:nth-child(1)").val("특란");
 			$("#items>input:nth-child(2)").val("유정란");
 			$("#items>input:nth-child(3)").val("흰색 계란");
@@ -207,6 +212,7 @@
 			$("#items>input").css("backgroundColor","lavender").css("color","black");
 			$("#items>input:nth-child(1)").css("backgroundColor","mediumpurple").css("color","white");
 			choice="사과";
+			price=12000;
 			$("#items>input:nth-child(1)").val("사과");
 			$("#items>input:nth-child(2)").val("포도");
 			$("#items>input:nth-child(3)").val("바나나");
@@ -228,24 +234,51 @@
 				$("#character").attr("src","${path}/resources/images/subscription/banana.png");
 			}
 		})
+
+		//정기 결제 메소드
+		function requestPay() {
+			//IMP 객체 초기화
+			const IMP = window.IMP; //생략 가능
+			IMP.init("imp88451532"); //가맹점 식별코드
+			
+			IMP.request_pay({
+				pg: "kakaopay", //pg사
+				pay_method: "card",
+				merchant_uid: 'merchant_' + new Date().getTime(), // 주문번호
+				name: choice, //상품명
+				amount: price, //가격
+				customer_uid: "id" + new Date().getTime(), //빌링키 발급을 위한 id
+				buyer_email: "${loginMember.email}",
+				buyer_name: "${loginMember.mname}",
+				buyer_tel: "${loginMember.phone}",
+				buyer_addr: "${loginMember.address}",
+			}, function (rsp) { // callback
+				if (rsp.success) {
+					// 결제 성공 시 로직
+					$.ajax({
+						url:"${path}/subscription/insertSub?memberId=${loginMember.memberId}&choice="+choice,
+						success:data=>{
+							console.log(data);
+							if(data){
+								alert("결제되었습니다.");
+								window.close();
+							}
+						}
+					})
+				} else {
+					// 결제 실패 시 로직
+					alert("결제가 실패하였습니다.");
+					window.close();
+				}
+			});
+		}
 		
 		//결제하기 버튼 눌렀을 때
 		const pay=()=>{
 			console.log(choice);
 			let decide=confirm(choice+"를 정말로 정기 결제 하시겠습니까?");
 			if(decide){
-				$.ajax({
-					url:"${path}/subscription/insertSub?memberId=${loginMember.memberId}&choice="+choice,
-					success:data=>{
-						console.log(data);
-						if(data){
-							alert("결제되었습니다.");
-							window.close();
-						}else{
-							alert("결제가 실패하였습니다.");
-						}
-					}
-				})
+				requestPay();
 			}
 		}
 	</script>
