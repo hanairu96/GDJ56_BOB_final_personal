@@ -11,13 +11,12 @@
       font-family: 'Gowun Dodum', sans-serif;
    }
 </style>
-   <div class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
+   <div class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/mainbanner.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>오늘의 밥 마켓</h2>
-                        </div>
+                    	<h2 style="">오늘의 밥 마켓</h2>
                     </div>
                 </div>
             </div>
@@ -25,8 +24,8 @@
     </div>
     
         <div class="container">
-         <a style="font-size:30px;" href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a><br>
-         <a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:900px;margin-top:30px;background-color: #07d448;" >상품등록</a>
+         <%-- <a style="font-size:30px;" href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a><br> --%>
+         <a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:900px;margin-top:30px;background-color:#bde28f;" >상품등록</a>
          
             <br><br><br>
 
@@ -71,7 +70,7 @@
                  </c:if>
                 </div>
             </div>
-            <br><br><br>
+            <br><br><br><br><br><br>
 
             <!-- 1만원대 추천상품 -->
             <div style="text-align: center;">
@@ -93,7 +92,7 @@
                    
                 </div>
             </div>
-            <br><br><br>
+            <br><br><br><br><br><br>
 
             <!-- 냉장고 속 단골재료 -->
             <div style="text-align: center;">
@@ -113,7 +112,7 @@
       
                 </div>
             </div>
-            <br><br><br>
+            <br><br><br><br><br><br>
 
 
             <!-- 매진임박상품 -->
@@ -121,28 +120,27 @@
                <div>
                   <img src="${path }/resources/market/img/soon.gif" style="width:130px;"/>
                </div>
-                <h3 style="font-weight: bold;">매진임박 상품 ! ></h3><br>
+                <a href="${path }/market1/soldoutsoon.do"><h3 style="font-weight: bold;">매진임박 상품 ! ></h3></a><br>
             </div>
             
             <div class="row">
                 <div class="categories__slider owl-carousel">
                 
-                   <c:forEach var="i" begin="1" end="10" >
-                   <%-- <c:if test="${ }" --%>
+                   <c:forEach var="i" items="${soon }" >
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${items[i].mainPic }');">
-                            <h5><a href="${path}/market1/marketdetail.do?itemNo=${items[i].itemNo}">${items[i].itemName }</a></h5>
+                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${i.mainPic }');">
+                            <h5><a href="${path}/market1/marketdetail.do?itemNo=${i.itemNo}">${i.itemName }</a></h5>
                         </div>
                     </div>
                    </c:forEach>
       
                 </div>
             </div>
-            <br><br><br>
+            <br><br><br><br><br><br>
             
             <!-- 구독서비스 연결 -->
-            <img src="${path }/resources/market/img/banner/banner-2.jpg" alt="" style="width:100%; height: 300px; ">
-            <br>
+          <%--   <img src="${path }/resources/market/img/banner/banner-2.jpg" alt="" style="width:100%; height: 300px; ">
+            <br> --%>
 
 
         </div>

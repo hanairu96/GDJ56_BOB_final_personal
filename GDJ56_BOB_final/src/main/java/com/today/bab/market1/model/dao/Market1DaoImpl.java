@@ -59,10 +59,10 @@ public class Market1DaoImpl implements Market1Dao {
 		return session.delete("ma.deleteItemPic",itemNo);
 	}
 	
-	@Override
-	public List<SellItem> selectCtgAjax(SqlSessionTemplate session,String itemCategory){
-		return session.selectList("ma.selectCtgAjax",itemCategory);
-	}
+//	@Override
+//	public List<SellItem> selectCtgAjax(SqlSessionTemplate session,String itemCategory){
+//		return session.selectList("ma.selectCtgAjax",itemCategory);
+//	}
 	
 	@Override
 	public int selectItemCount(SqlSessionTemplate session) {
@@ -77,5 +77,15 @@ public class Market1DaoImpl implements Market1Dao {
 	@Override
 	public List<SellItem> selectMainLike(SqlSessionTemplate session,String like) {
 		return session.selectList("ma.selectMainLike",like);
+	}
+	
+	@Override
+	public List<SellItem> searchItemSort(SqlSessionTemplate session,Map<String,Object> param){
+		return session.selectList("ma.searchItemSort",param);
+	}
+	
+	@Override
+	public List<SellItem> soldoutsoon(SqlSessionTemplate session){
+		return session.selectList("ma.soldoutsoon");
 	}
 }

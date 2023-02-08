@@ -29,11 +29,15 @@ public interface Market1Dao {
 	
 	int deleteItemPic(SqlSessionTemplate session,int itemNo);
 	
-	List<SellItem> selectCtgAjax(SqlSessionTemplate session,String itemCategory);
+	//List<SellItem> selectCtgAjax(SqlSessionTemplate session,String itemCategory);
 	
 	int selectItemCount(SqlSessionTemplate session);
 	
 	MarketMemberLike memberLike(SqlSessionTemplate session,String memberId);
 	
 	List<SellItem> selectMainLike(SqlSessionTemplate session,String like);
+	
+	List<SellItem> searchItemSort(SqlSessionTemplate session,Map<String,Object> param);
+	
+	List<SellItem> soldoutsoon(SqlSessionTemplate session);
 }

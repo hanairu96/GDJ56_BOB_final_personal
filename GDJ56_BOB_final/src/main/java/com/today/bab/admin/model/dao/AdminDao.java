@@ -97,6 +97,9 @@ public interface AdminDao {
 	 
 	int masterSearchClassIngCount(SqlSessionTemplate session,AdminSearch as);
 	
+	List<AdminSellItem> productSearchClass(SqlSessionTemplate session,AdminSearch as);
+	
+	int productSearchClassCount(SqlSessionTemplate session,AdminSearch as);
 	
 }
 

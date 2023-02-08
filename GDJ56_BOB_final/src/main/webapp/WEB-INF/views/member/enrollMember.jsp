@@ -384,8 +384,8 @@
 				//입력한 이메일
 				let email=$("#inputEmail").val().trim();
 				//이메일 정규식
-				//영문자로 시작+영문자나 숫자가 0개 이상 반복@영문자가 1개 이상 반복.영문자 2~3개로 끝남, 대소문자 구분 안 함
-				let emailReg=/^[a-zA-Z][0-9a-zA-Z]*@[a-zA-Z]+.[a-zA-Z]{2,3}$/i;
+				//영문자나 숫자가 1개 이상 반복@영문자가 1개 이상 반복.영문자 2~3개로 끝남, 대소문자 구분 안 함
+				let emailReg=/^[0-9a-zA-Z_]+@[a-zA-Z]+.[a-zA-Z]{2,3}$/i;
 				if(email==""){
 					$("span#checkEmail>small").text("이메일을 입력해주세요.").css("color","red");
 					$("#inputEmail").focus();
