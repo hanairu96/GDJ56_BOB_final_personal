@@ -64,6 +64,10 @@ public class MarketServiceImpl implements MarketService {
 	public int todayBobListCount() {
 		return dao.todayBobListCount(session);
 	}
+	/*
+	 * @Override public int todayBobCount() { return dao.todayBobListCount(session);
+	 * }
+	 */
 	
 	@Override
 	public int deleteTodayBob(int reNo) {
@@ -121,8 +125,8 @@ public class MarketServiceImpl implements MarketService {
 	}
 	
 	@Override
-	public List<SellItem> discountView() {
-		return dao.discountView(session);
+	public List<SellItem> discountView(Map<String, Integer> param) {
+		return dao.discountView(session, param);
 	}
 	@Override
 	public int discountCount() {

@@ -61,6 +61,7 @@ if(localStorage.getItem("floatF") != null){
     height: 350px;
     width: 70px;
     border-radius: 30px;
+    
     /* -webkit-border-radius: 8px;
 position: absolute;
     width: 70px;
@@ -95,6 +96,10 @@ position: absolute;
 }
 .floating div:nth-child(2) li {
     margin:9px;
+}
+.floating ul, li {
+	margin: 0px;
+	list-style-type: none;
 }
 /* 챗봇최근본상품위로가기./ */
 </style>
