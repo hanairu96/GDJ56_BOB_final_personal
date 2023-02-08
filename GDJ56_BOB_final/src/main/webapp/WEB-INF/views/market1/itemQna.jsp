@@ -65,16 +65,23 @@
 				    </div>
 				    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
 				</div>
-				<c:if test="${q.iqSecret eq 'N' or loginMember.memberId eq q.memberId or loginMember.memberId eq 'admin'}">
+				<c:if test="${q.iqSecret eq 'N' or loginMember.memberId eq 'admin'}">
 				<div style="margin-left:20px;">
 				    <h5>${q.iqContent }</h5>
 				</div>
 				</c:if>
+				<c:if test="${q.iqSecret eq 'Y' and loginMember.memberId eq q.memberId }">
+					<div style="margin-left:20px;display:flex;">
+						<img src='${path}/resources/images/onedayclass/secret.png' width='27' height='27'>
+					    <h5 style="margin-left:5px;">${q.iqContent }</h5>
+					</div>
+				</c:if>
 				
 				<c:if test="${q.iqSecret eq 'Y'}">
 					<c:if test="${loginMember.memberId != q.memberId and loginMember.memberId != 'admin'}">
-						<div style="margin-left:20px;">
-						    <h5 style="color:gray;">비밀글입니다.</h5>
+						<div style="margin-left:20px;display:flex;">
+							<img src='${path}/resources/images/onedayclass/secret.png' width='27' height='27'>
+						    <h5 style="color:gray;margin-left:5px;">비밀글입니다.</h5>
 						</div>
 					</c:if>
 				</c:if>
@@ -89,7 +96,7 @@
 						
 				    </div>
 				    <div>
-				    	<c:if test="${q.memberId eq loginMember.memberId and loginMember.memberId eq 'admin'}">
+				    	<c:if test="${q.memberId eq loginMember.memberId or loginMember.memberId eq 'admin'}">
 					        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;"
 					         onclick="deleteQna(${q.iqNo},${itemNo });">삭제</button>
 				    	</c:if>
@@ -140,7 +147,7 @@
 											${aa.iqaContent }
 								        </div>
 								        <div>
-								        <c:if test="${loginMember eq 'admin' }">
+								        <c:if test="${loginMember.memberId eq 'admin' }">
 							       			<button id="" class="primary-btn" type="button" 
 							       			style="background-color:magenta;border: none;color: white;margin-left:50px;"
 							       			 onclick="deleteAnswer(${aa.iqaNo },${itemNo });">삭제</button>
