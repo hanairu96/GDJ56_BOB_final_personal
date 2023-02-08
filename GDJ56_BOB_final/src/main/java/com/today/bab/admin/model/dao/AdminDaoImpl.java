@@ -242,5 +242,17 @@ public class AdminDaoImpl implements AdminDao{
 	public int masterSearchClassIngCount(SqlSessionTemplate session, AdminSearch as) {
 		return session.selectOne("admin.masterSearchClassIngCount",as);
 	}
+
+	@Override
+	public List<AdminSellItem> productSearchClass(SqlSessionTemplate session, AdminSearch as) {
+		return session.selectList("admin.productSearchClass",as, 
+				new RowBounds((as.getCpage()-1)*as.getNumPerpage(),
+						as.getNumPerpage()));
+	}
+
+	@Override
+	public int productSearchClassCount(SqlSessionTemplate session, AdminSearch as) {
+		return session.selectOne("admin.productSearchClassCount",as);
+	}
 	
 }

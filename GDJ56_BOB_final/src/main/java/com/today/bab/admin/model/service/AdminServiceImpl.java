@@ -313,6 +313,16 @@ public class AdminServiceImpl implements AdminService{
 		return dao.masterSearchClassIngCount(session,as);
 	}
 
+	@Override
+	public List<AdminSellItem> productSearchClass(AdminSearch as) {
+		return dao.productSearchClass(session,as);
+	}
+
+	@Override
+	public int productSearchClassCount(AdminSearch as) {
+		return dao.productSearchClassCount(session,as);
+	}
+
 	
 	
 	
