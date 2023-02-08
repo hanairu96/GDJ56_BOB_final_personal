@@ -76,6 +76,43 @@
                 </div>
             </div>
             <br><br><br><br><br><br>
+   <!--여기!!  -->
+            <div style="text-align: center;">
+                <a href="${path }/market/today.do"><h3 style="font-weight: bold;">${relist.get(0).reIcon }${relist.get(0).reTitle } ></h3></a>
+                <h5>${relist.get(0).reContent }</h5><br>
+            </div>
+             <div class="row">
+                <div class="categories__slider owl-carousel">
+                
+                  <c:forEach var="i" begin="1" end="10" >
+                    <div class="col-lg-3">
+                    	<div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${relistbyno0[i].mainPic }');">
+                            <h5><a href="${path}/market1/marketdetail.do?itemNo=${relistbyno0[i].itemNo}">${relistbyno0[i].itemName }</a></h5>
+                        </div>
+                    </div>
+                   </c:forEach>
+                   
+                </div>
+            </div>
+            <br><br><br><br><br><br>
+            <div style="text-align: center;">
+                <a href="${path }/market/today.do"><h3 style="font-weight: bold;">${relist.get(1).reIcon }${relist.get(1).reTitle } ></h3></a>
+                <h5>${relist.get(1).reContent }</h5><br>
+            </div>
+             <div class="row">
+                <div class="categories__slider owl-carousel">
+                
+                  <c:forEach var="i" begin="1" end="10" >
+                    <div class="col-lg-3">
+                    	<div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${relistbyno1[i].mainPic }');">
+                            <h5><a href="${path}/market1/marketdetail.do?itemNo=${relistbyno1[i].itemNo}">${relistbyno1[i].itemName }</a></h5>
+                        </div>
+                    </div>
+                   </c:forEach>
+                   
+                </div>
+            </div>
+            <br><br><br><br><br><br>
 
             <!-- 1만원대 추천상품 -->
             <div style="text-align: center;">

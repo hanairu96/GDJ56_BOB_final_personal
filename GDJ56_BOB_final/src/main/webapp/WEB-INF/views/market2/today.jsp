@@ -147,7 +147,7 @@ const callFunction = (e)=>{
 		
 		///////
 		var title = "";
-		title += "<h1 style='text-align: center; margin: 50px; padding-bottom: 10px;font-weight: bold;color: darkorange;'>"+clickTitle+"<h3 style='margin-top: 10px;text-align: center; margin: 50px; padding-bottom: 10px;color: limegreen;'>"+clickContent+"</h3></h1>";
+		title += "<h1 style='text-align: center; margin: 50px; padding-bottom: 10px;font-weight: bold;color: darkorange;'>"+clickTitle+"<h3 style='margin-top: 10px;text-align: center; margin: 50px; padding-bottom: 10px;color: lime;'>"+clickContent+"</h3></h1>";
 	
 		$("#printTitle").html(title);
 		
