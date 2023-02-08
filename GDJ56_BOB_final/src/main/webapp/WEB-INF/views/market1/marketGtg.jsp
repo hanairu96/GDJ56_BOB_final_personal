@@ -161,17 +161,24 @@
                     		} 
                     
                     	//초기화 ajax
-                    	function reset(){
+                    	/* function reset(){
                     		$.ajax({
                     			type:'get',
                     			url:'${path}/market1/resetSearch.do',
                     			success:data=>{
-	                    			console.log(data);
 	                    			$("#explain").html(data);
 	                    		}
                     		})
-                    	};
-                    
+                    	}; */
+                    	//초기화 버튼 get방식으로 
+                    	function reset(){
+					    	$.get('${path}/market1/resetSearch.do',
+					    	data=>{
+					    		console.log(data);
+                    			$("#explain").html(data);
+				    		})
+				    	};
+                    	
                     
                     </script>
                     

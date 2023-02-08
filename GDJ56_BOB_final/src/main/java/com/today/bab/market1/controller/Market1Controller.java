@@ -27,8 +27,10 @@ import com.today.bab.market1.model.service.ReviewItemService;
 import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.market1.model.vo.MarketBasket;
 import com.today.bab.market1.model.vo.MarketMemberLike;
+import com.today.bab.market2.model.service.MarketService;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
+import com.today.bab.market2.model.vo.TodayBob;
 import com.today.bab.member.model.vo.Member;
 
 @Controller
@@ -39,14 +41,16 @@ public class Market1Controller {
 	private QnaService qnaservice;
 	private ReviewItemService reservice;
 	private BasketService bservice;
+	private MarketService market2service;
 	
 	@Autowired
-	public Market1Controller(Market1Service service,QnaService qnaservice, ReviewItemService reservice,BasketService bservice) {
+	public Market1Controller(Market1Service service,QnaService qnaservice, ReviewItemService reservice,BasketService bservice,MarketService market2service) {
 		super();
 		this.service = service;
 		this.qnaservice = qnaservice;
 		this.reservice=reservice;
 		this.bservice=bservice;
+		this.market2service=market2service;
 	}
 	
 	
@@ -113,6 +117,15 @@ public class Market1Controller {
 				}
 			}
 		}
+		
+		  //메인에추천
+		  List<TodayBob> relist = market2service.todayBobList();
+		  mv.addObject("relist",relist);
+		  List<SellItem> relistbyno0 = market2service.todayView(relist.get(0).getReNo());
+		  List<SellItem> relistbyno1 = market2service.todayView(relist.get(1).getReNo());
+		  mv.addObject("relistbyno0",relistbyno0);
+		  mv.addObject("relistbyno1",relistbyno1);
+		
 		
 		
 		//마감임박상품 
