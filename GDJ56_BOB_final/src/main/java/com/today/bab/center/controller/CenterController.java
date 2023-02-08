@@ -47,6 +47,7 @@ public class CenterController {
 		return mv;
 	}
 	
+	//공지사항 ajax 페이징 처리용
 	@ResponseBody
 	@RequestMapping("/noticeListPage")
 	public List<Notice> noticeListPage(int cPage){

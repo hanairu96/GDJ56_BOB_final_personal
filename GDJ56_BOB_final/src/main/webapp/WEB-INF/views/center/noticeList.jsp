@@ -51,11 +51,11 @@
             <div class="page-bar">
 	        	<!-- 페이지바 -->
 	            <div class="product__pagination">
-	                <a href="#"><i class="fa" style="font-weight:bold;"> &lt; </i></a>
-	                <a href="#">1</a>
-	                <a href="#">2</a>
-	                <a href="#">3</a>
-	                <a href="#"><i class="fa" style="font-weight:bold;"> > </i></a>
+	                <a><i class="fa" style="font-weight:bold;"> &lt; </i></a>
+	                <a>1</a>
+	                <a>2</a>
+	                <a>3</a>
+	                <a><i class="fa" style="font-weight:bold;"> > </i></a>
 	            </div>
                 <%-- ${pageBar} --%>
             </div>
@@ -149,6 +149,9 @@
         }
         .page-bar{
             text-align: center;
+        }
+        .product__pagination>a{
+        	cursor: pointer;
         }
 
         .customBtn {
@@ -250,30 +253,34 @@
    			location.assign("${path}/center/clientQnaList");
    		})
    		
-   		//
-   		$(".product__pagination>a").click(e=>{
+   		//ajax를 이용한 페이징 처리
+   		$(".product__pagination>*").click(e=>{
    			let cPage=e.target.textContent;
    			console.log(cPage);
    			$.ajax({
    				url:"${path}/center/noticeListPage",
    				data:{cPage:cPage},
    				success:data=>{
-   					console.log(data);
-   					
-   					
-   					let content="<tbody>";
-   					
+					//테이블을 새로 생성
+					let content="<thead>";
+					content+="<tr>";
+					content+="<th class='nos'>번호</th>";
+					content+="<th class='titles'>제목</th>";
+					content+="<th class='dates'>작성일</th>";
+					content+="</tr>";
+					content+="</thead>";
+					content+="<tbody>";
+   					//출력할 내용
    					data.forEach(function(nt){
 		                content+="<tr class='tr'>";
-		                content+="<td class='nos' style='width: 120px;'>"+nt.noticeNo+"</td>";
-		                content+="<td class='titles' style='width: 750px;'><a href='${path}/center/noticeView?noticeNo="+nt.noticeNo+"'>"+nt.noticeTitle+"</a></td>";
-		                content+="<td class='dates' style='width: 200px;'>"+nt.noticeDate+"</td>";
+		                content+="<td class='nos' style='width: 120px !important;'>"+nt.noticeNo+"</td>";
+		                content+="<td class='titles' style='width: 750px !important;'><a href='${path}/center/noticeView?noticeNo="+nt.noticeNo+"'>"+nt.noticeTitle+"</a></td>";
+		                content+="<td class='dates' style='width: 200px !important;'>"+nt.noticeDate+"</td>";
 		                content+="</tr>";
    					})
    					content+="</tbody>";
-   					console.log(content);
-   					
-   					$("tbody").html(content);
+   					//생성한 테이블로 교체함
+   					$(".list-table").html(content);
    				}
    			})
    		})
