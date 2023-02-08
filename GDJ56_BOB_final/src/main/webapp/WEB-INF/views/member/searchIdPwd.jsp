@@ -246,7 +246,7 @@
 			//이메일 형식 검증
 			$("#exampleInputEmail").keyup(e=>{
 				let inputEmail=e.target.value;
-				const emailReg=/^[0-9a-zA-Z]+@[a-zA-Z]+.[a-zA-Z]{2,3}$/i;
+				const emailReg=/^[0-9a-zA-Z_]+@[a-zA-Z]+.[a-zA-Z]{2,3}$/i;
 				if(inputEmail==""){ //입력을 안 했으면
 					$("span#checkEmail>small").text("이메일을 입력해주세요.").css("color","red");
 					emailOk=false;
