@@ -121,8 +121,8 @@ public class MarketServiceImpl implements MarketService {
 	}
 	
 	@Override
-	public List<SellItem> discountView() {
-		return dao.discountView(session);
+	public List<SellItem> discountView(Map<String, Integer> param) {
+		return dao.discountView(session, param);
 	}
 	@Override
 	public int discountCount() {

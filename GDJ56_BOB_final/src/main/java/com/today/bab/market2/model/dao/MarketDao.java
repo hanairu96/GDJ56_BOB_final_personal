@@ -36,7 +36,7 @@ public interface MarketDao {
 	List<SellItem> todayViewAll(SqlSessionTemplate session);
 	
 
-	List<SellItem> discountView(SqlSessionTemplate session);
+	List<SellItem> discountView(SqlSessionTemplate session, Map<String, Integer> param);
 	int discountCount(SqlSessionTemplate session);
 	
 	TodayBob todobDetailByreNo(SqlSessionTemplate session, int selectTitleNext);

@@ -79,11 +79,9 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="pagination flex-l-m flex-w m-l--6 p-t-25">
-					<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">prev</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">1</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">2</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">3</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">next</a>
+					<div style="display: flex;margin-left:50%">
+			        	${pageBar}
+			   		</div>
 				</div>
 			</div>
 		</div>

@@ -10,12 +10,15 @@ import javax.servlet.http.HttpSession;
 
 import com.today.bab.basket.model.service.BasketService;
 import com.today.bab.basket.model.vo.Basket;
+import com.today.bab.common.Market1Pagebar;
+import com.today.bab.common.Market2PageBar;
 import com.today.bab.market1.model.vo.MarketBasket;
 import com.today.bab.market2.controller.Emojis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -73,15 +76,18 @@ public class MarketController {
 	
 	//(회원)할인
 	@RequestMapping("/market/discount.do")
-	public ModelAndView discountItemAll(ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView discountItemAll(ModelAndView mv, HttpServletRequest request,
+				@RequestParam(value="cPage", defaultValue="1")int cPage,
+				@RequestParam(value="numPerpage", defaultValue="3")int numPerpage) {
 		HttpSession session = request.getSession();
 	    Member loginMember = (Member) session.getAttribute("loginMember");
 		
-		List<SellItem> list = service.discountView();
+		List<SellItem> list = service.discountView(Map.of("cPage",cPage,"numPerpage",numPerpage));
 		int listCnt = service.discountCount();
 		
 		mv.addObject("m",loginMember==null?"":loginMember.getMemberId());
 		
+		mv.addObject("pageBar",Market2PageBar.getPage(cPage, numPerpage,listCnt,"/bab/market/discount.do"));
 		mv.addObject("disList",list);
 		mv.addObject("disCnt",listCnt);
 

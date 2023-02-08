@@ -39,7 +39,7 @@ public interface MarketService {
 	List<SellItem> todayViewAll();
 	
 	//할인 상품
-	List<SellItem> discountView();
+	List<SellItem> discountView(Map<String, Integer> param);
 	int discountCount();
 	
 	//추천제목
