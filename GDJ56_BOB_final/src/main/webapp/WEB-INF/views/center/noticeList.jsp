@@ -49,15 +49,7 @@
             	<button type="button" id="write-btn" class="customBtn btnStyle" onclick="writeBoard();">글쓰기</button>
             </c:if>
             <div class="page-bar">
-	        	<!-- 페이지바 -->
-	            <div class="product__pagination">
-	                <a><i class="fa" style="font-weight:bold;"> &lt; </i></a>
-	                <a>1</a>
-	                <a>2</a>
-	                <a>3</a>
-	                <a><i class="fa" style="font-weight:bold;"> > </i></a>
-	            </div>
-                <%-- ${pageBar} --%>
+	        	${pageBar}
             </div>
         </div>
     </section>
@@ -206,43 +198,6 @@
 			width:100%;
 			transition:800ms ease all;
 		}
-		
-		
-/* 		.product__pagination,
-		.blog__pagination {
-			padding-top: 10px;
-		}
-		   
-		.product__pagination a,
-		.blog__pagination a {
-			display: inline-block;
-			width: 30px;
-			height: 30px;
-			border: 1px solid #b2b2b2;
-			font-size: 14px;
-			color: #b2b2b2;
-			font-weight: 700;
-			line-height: 28px;
-			text-align: center;
-			margin-right: 16px;
-			-webkit-transition: all, 0.3s;
-			-moz-transition: all, 0.3s;
-			-ms-transition: all, 0.3s;
-			-o-transition: all, 0.3s;
-			transition: all, 0.3s;
-		}
-		
-		.product__pagination a:hover,
-		.blog__pagination a:hover {
-			background: #7fad39;
-			border-color: #7fad39;
-			color: #ffffff;
-		}
-		
-		.product__pagination a:last-child,
-		.blog__pagination a:last-child {
-			margin-right: 0;
-		} */
     </style>
    	<script>
  	 	//사이드 메뉴 누르면 페이지 이동
@@ -254,8 +209,19 @@
    		})
    		
    		//ajax를 이용한 페이징 처리
-   		$(".product__pagination>*").click(e=>{
-   			let cPage=e.target.textContent;
+   		//$(".product__pagination>*").click(e=>{
+   		//위의 방식을 쓰면 동적 페이지로 바뀐 후에 안 먹히므로 아래의 방식을 써야 함
+   		$(document).on("click", ".product__pagination>*", function(e){
+   			let cPage=0;
+   			if(e.target.textContent.trim()=='<'){
+	   			cPage=Number(document.querySelector(".product__pagination>*:nth-child(2)").textContent)-1;
+	   			numChange(cPage);
+		   	}else if(e.target.textContent.trim()=='>'){
+	   			cPage=Number(document.querySelector(".product__pagination>*:nth-child(4)").textContent)+1;
+	   			numChange(cPage);
+		   	}else{
+   				cPage=e.target.textContent;
+		   	}
    			console.log(cPage);
    			$.ajax({
    				url:"${path}/center/noticeListPage",
@@ -284,6 +250,17 @@
    				}
    			})
    		})
+		
+   		//<>를 누르면 페이지바가 바뀌게 함
+   		const numChange=(cPage)=>{
+   			$.ajax({
+   				url:"${path}/center/numChange",
+   				data:{cPage:cPage},
+   				success:data=>{
+   					$(".page-bar").html(data);
+   				}
+   			})
+   		}
    		
    		//글쓰기
    		const writeBoard=()=>{

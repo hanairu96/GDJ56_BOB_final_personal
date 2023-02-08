@@ -35,8 +35,14 @@
     <section class="product spad">
         <div class="container">
             <div class="row">
-
+            <c:if test="${loginMember.memberId eq 'admin'  }">
                 <a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:900px;background-color:#bde28f;" >상품등록</a>
+            </c:if>
+            <div>
+                <a href="javascript:void(0);" onclick="reset();" style="width:100px;text-decoration-line: none;color:black;"> 
+				<img src="${path }/resources/images/reset.gif" style="width:40px;margin-left:1000px;">
+                <span style="font-weight:bold;font-size:20px;margin:10px;">초기화</span></a>
+            </div>
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
 
@@ -143,7 +149,7 @@
 							}else{
 								searchData[type]=e.target.innerText;
 							}
-							console.log(searchData);
+							//console.log(searchData);
                      		$.ajax({
                         			type:'get',
                         			url:'${path}/market1/searchItemSort.do',
@@ -154,7 +160,25 @@
                         		})
                     		} 
                     
-                    
+                    	//초기화 ajax
+                    	/* function reset(){
+                    		$.ajax({
+                    			type:'get',
+                    			url:'${path}/market1/resetSearch.do',
+                    			success:data=>{
+	                    			$("#explain").html(data);
+	                    		}
+                    		})
+                    	}; */
+                    	//초기화 버튼 get방식으로 
+                    	function reset(){
+					    	$.get('${path}/market1/resetSearch.do',
+					    	data=>{
+					    		console.log(data);
+                    			$("#explain").html(data);
+				    		})
+				    	};
+                    	
                     
                     </script>
                     

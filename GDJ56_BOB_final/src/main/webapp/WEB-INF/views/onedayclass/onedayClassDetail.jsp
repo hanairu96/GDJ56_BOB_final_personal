@@ -403,7 +403,8 @@
 							html+="<span>"+data[i].memberId+"</span>";
 							html+="<span>│"+data[i].oreDate+"</span>";
 							html+="<span style='cursor: pointer;'>│수정</span>";
-							html+="<span style='cursor: pointer;'>│삭제</span>";
+							html+="<input type='hidden' value='"+data[i].oqno+"'>";
+			                html+="<span style='cursor: pointer;' onclick='goDeleteComment(event);'>│삭제</span>";
 							html+="</span>";
 							html+="</div>";
 							html+="<div class='col-md-12'style='display:flex; margin-left: -1.5%;'>";
@@ -460,7 +461,8 @@
 		                   html+="<span>"+data[i].memberId+"</span>";
 		                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
 		                   html+="<span style='cursor: pointer;'>│수정</span>";
-		                   html+="<span style='cursor: pointer;'>│삭제</span>";
+		                   html+="<input type='hidden' value='"+data[i].oqno+"'>";
+		                   html+="<span style='cursor: pointer;' onclick='goDeleteComment(event);'>│삭제</span>";
 		                   html+="</span>";
 		                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
 		                   html+="<p style='padding:auto;'>"+data[i].oqContent+"</p>";
@@ -540,7 +542,8 @@
 		                   html+="<span>"+data[i].memberId+"</span>";
 		                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
 		                   html+="<span style='cursor: pointer;'>│수정</span>";
-		                   html+="<span style='cursor: pointer;'>│삭제</span>";
+		                   html+="<input type='hidden' value='"+data[i].oqno+"'>";
+		                   html+="<span style='cursor: pointer;' onclick='goDeleteComment(event);'>│삭제</span>";
 		                   html+="</span>";
 		                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
 		                   html+="<p style='padding:auto;'>"+data[i].oqContent+"</p>";
@@ -625,15 +628,18 @@
 			                   	html+="<span>운영자</span>";
 		                   	if(data[i].memberId==memberId){
 								html+="<span style='cursor: pointer;'>│수정</span>";
-								html+="<span style='cursor: pointer;'>│삭제</span>";
+								html+="<input type='hidden' value='"+data[i].oqrNo+"'>";
+				                html+="<span style='cursor: pointer;' onclick='goDeleteReComment(event);'>│삭제</span>";
 								}
 			            }else{
 			                	html+="<span>강사님</span>";
 			                	if(data[i].memberId==memberId){
 									html+="<span style='cursor: pointer;'>│수정</span>";
-									html+="<span style='cursor: pointer;'>│삭제</span>";
+									html+="<input type='hidden' value='"+data[i].oqrNo+"'>";
+					                html+="<span style='cursor: pointer;' onclick='goDeleteReComment(event);'>│삭제</span>";
 								}else if(memberId=='admin'){
-									html+="<span style='cursor: pointer;'>│삭제</span>";
+									html+="<input type='hidden' value='"+data[i].oqrNo+"'>";
+					                html+="<span style='cursor: pointer;' onclick='goDeleteReComment(event);'>│삭제</span>";
 								}
 			            }
 						html+="<span>│"+data[i].oqrEnrollDate+"</span>";
@@ -731,6 +737,7 @@
 		
 		if(memberId == ''){
 			alert('로그인 후 이용해주세요');
+			return window.location.assign("${path}/member/loginpage");
 			return;
 		}else if(oqContent == '') {
 			alert('내용을 입력하세요');
@@ -764,6 +771,7 @@
 	//리뷰가져오기
 	function getReviewList(){
 		const odcNo= $('#odcNo').val();
+		const memberId=$('#memberId').val();
 		$.ajax({
 			type:'get',
 			url : "<c:url value='/class/selectReview.do'/>",
@@ -783,7 +791,9 @@
 						html+="<span>"+data[i].memberId+"</span>";
 						html+="<span>│"+data[i].oreDate+"</span>";
 						html+="<input type='hidden' value="+data[i].odcreNo+" id='odcreNo'>"
-						html+="<span style='cursor: pointer;' onclick='goModifyReview(event);'>│수정</span>";
+						if(memberId==data[i].memberId||memberId=='admin'){
+							html+="<span style='cursor: pointer;' onclick='goModifyReview(event);'>│수정</span>";
+						}
 						html+="</div>";
 						html+="<div class='col-md-12'style='display:flex; margin-left: -1.5%;'>";
 						if(data[i].oreGood=='Y'){
@@ -817,10 +827,46 @@
 		frm.target="winName";
         frm.submit();
 	} */
+	//리뷰 수정하는 팝업창 만들기
 	function goModifyReview(e){
 		var no = $(e.target).prev().val();
 		console.log(no);
 		var gsWin=window.open("${path}/class/goModifyReview.do?no="+no,"winName","width=520,height=730"); //open("주소",띄우는방식,크기)
+	}
+	
+	//댓글 삭제
+	function goDeleteComment(e){
+		var oqno = $(e.target).prev().val();
+		console.log(oqno);
+		$.ajax({
+	        type:'get',
+	        url : "<c:url value='/class/deleteOdcQa.do'/>",
+	        data:{
+	        	"oqno" : oqno
+			}, 
+	        contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+	        success : function(data){
+	        	alert('삭제됐습니다');
+	        	getCommentList();
+	        }
+		});
+	}
+	//답댓글 삭제
+	function goDeleteReComment(e){
+		var oqrNo = $(e.target).prev().val();
+		console.log(oqrNo);
+		$.ajax({
+	        type:'get',
+	        url : "<c:url value='/class/deleteReOdcQa.do'/>",
+	        data:{
+	        	"oqrNo" : oqrNo
+			}, 
+	        contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+	        success : function(data){
+	        	alert('삭제됐습니다');
+	        	getCommentList();
+	        }
+		});
 	}
 	
 	//댓글가져오기
@@ -855,8 +901,15 @@
 			                   html+="<span>│</span>";
 			                   html+="<span>"+data[i].memberId+"</span>";
 			                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
+			                   if(memberId==data[i].memberId){
 			                   html+="<span style='cursor: pointer;'>│수정</span>";
-			                   html+="<span style='cursor: pointer;'>│삭제</span>";
+			                   html+="<input type='hidden' value='"+data[i].oqno+"'>";
+			                   html+="<span style='cursor: pointer;' onclick='goDeleteComment(event);'>│삭제</span>";
+			                   }
+			                   if(memberId=='admin'){
+			                	   html+="<input type='hidden' value='"+data[i].oqno+"'>";
+				                   html+="<span style='cursor: pointer;' onclick='goDeleteComment(event);'>│삭제</span>";
+			                   }
 			                   html+="</span>";
 			                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
 			                   html+="<p style='padding:auto;'>"+data[i].oqContent+"</p>";
@@ -908,8 +961,15 @@
 	                   html+="<span>";
 	                   html+="<span>"+data[i].memberId+"</span>";
 	                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
-	                   html+="<span style='cursor: pointer;'>│수정</span>";
-	                   html+="<span style='cursor: pointer;'>│삭제</span>";
+	                   if(memberId==data[i].memberId){
+		                   html+="<span style='cursor: pointer;'>│수정</span>";
+		                   html+="<input type='hidden' value='"+data[i].oqno+"'>"
+		                   html+="<span style='cursor: pointer;' onclick='goDeleteComment(event);'>│삭제</span>";
+	                   }
+	                   if(memberId=='admin'){
+	                	   html+="<input type='hidden' value='"+data[i].oqno+"'>"
+		                   html+="<span style='cursor: pointer;' onclick='goDeleteComment(event);'>│삭제</span>";
+	                   }
 	                   html+="</span>";
 	                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
 	                   html+="<p style='padding:auto;'>"+data[i].oqContent+"</p>";

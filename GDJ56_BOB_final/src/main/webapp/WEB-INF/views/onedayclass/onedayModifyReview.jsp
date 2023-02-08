@@ -22,7 +22,6 @@
 			</h3>
 			<form class="size22 m-l-r-auto" action="${path }/class/reviewEndEnroll.do" method="post" enctype="multipart/form-data">
 				<div style="display: flex; padding: 5%;">
-					<c:forEach var="r" items="${reserveList2 }" begin="0" end="0"> 
 						<img src="${path}/resources/images/onedayclass/${odVe.odcPic}" width="150" height="150">
 						<div style="display: inline; padding: 2%;">
 							<input type="hidden" value="${odVe.odcreNo }" name="odcreNo">
@@ -31,9 +30,8 @@
 							<br>
 							<p>강사명 : ${odVe.master }</p>
 							<p>금액 : ${odVe.odcPrice }원</p>
-					</c:forEach>
 							<div style="display:flex">
-								<p>수강날짜 : ${odVe.odcDate}</p>
+								<p>수강날짜 : ${odcDate}</p>
 								
 							 </div>
 						</div>
@@ -49,25 +47,17 @@
 
 				<div id="wrap">
 				<c:choose>
-					<c:when test="${odc.odcCategoty=='bob'}">
-				<c:set var="select1" value="selected"/>
-				</c:when>
-				<c:when test="${odc.odcCategoty=='vegan'}">
-				<c:set var="select2" value="selected"/>
-				</c:when>
-				<c:when test="${odc.odcCategoty=='healthy'}">
-				<c:set var="select3" value="selected"/>
-				</c:when>
-				<c:when test="${odc.odcCategoty=='baking'}">
-				<c:set var="select4" value="selected"/>
-				</c:when>
-				<c:when test="${odc.odcCategoty=='etc'}">
-				<c:set var="select5" value="selected"/>
-				</c:when>
+					<c:when test="${odRe.oreSame eq 'Y'}">
+						<c:set var="select1" value="checked"/>
+					</c:when>
+					
+					<c:when test="${odRe.oreSame eq 'N'}">
+						<c:set var="select2" value="checked"/>
+					</c:when>
 				</c:choose>
 					<div id="tabs">
-						<button type="button" name="" value="Y" class="selected" id="good">이 강의를 추천해요👍</button>
-						<button type="button" name="" value="N" class="" id="bad">이 강의를 추천하지 않습니다👎</button>
+						<button type="button" name="" value="Y" class="selected" id="good" >이 강의를 추천해요👍</button>
+						<button type="button" name="" value="N" class="" id="bad" >이 강의를 추천하지 않습니다👎</button>
 						<input type="hidden" value="N" name="oreGood" id="gb">
 					</div>	
 					<br>
@@ -77,12 +67,12 @@
 							<h4 class="tit7 t-center" style="margin: 3%;">
 								실제 수업은 클래스 소개와 동일한 방식으로 진행됐나요?
 							</h4>
-							<input type="radio" name="oreSame" value="Y" />
+							<input type="radio" name="oreSame" value="Y" ${select1}/>
 							<span>예😊</span>
 						</label>
 						<label>
 							&nbsp;
-							<input type="radio" name="oreSame" value="N" />
+							<input type="radio" name="oreSame" value="N" ${select2} />
 							<span>아니오😓</span>
 						</label>
 					</div>
