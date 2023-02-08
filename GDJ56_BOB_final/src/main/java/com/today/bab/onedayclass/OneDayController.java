@@ -373,7 +373,6 @@ public class OneDayController {
    	@RequestMapping("/class/reviewEndEnroll.do")
 	public ModelAndView reviewEndEnroll(HttpServletRequest request, HttpServletResponse response, MultipartFile orePic1,OdcReview or
 		)throws Exception{
-		
    		
    		response.setCharacterEncoding("utf-8");
    		response.setContentType("text/html;charset=utf-8");
@@ -514,11 +513,30 @@ public class OneDayController {
   		OdcReview odRe=service.selectReviewByodreNo(no);
   		//예약정보 불러오기
   		OdcReserve odVe=service.selectReservebyodreNo(no);
+  		
+  		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
+		String odcDate = simpleDateFormat.format(odVe.getOdcDate()); 
+  		
+		mv.addObject("odcDate",odcDate);
   		mv.addObject("odRe", odRe);
   		mv.addObject("odVe", odVe);
   		mv.setViewName("onedayclass/onedayModifyReview");
   		return mv;
   	}
+  	
+  	@RequestMapping("/class/deleteOdcQa.do")
+  	public void deleteOdcQa(String oqno) {
+  		service.deleteOdcQa(oqno);
+  	}
+  	
+  	@RequestMapping("/class/deleteReOdcQa.do")
+  	public void deleteReOdcQa(String oqrNo) {
+  		service.deleteReOdcQa(oqrNo);
+  	}
+  	
+  	
+  	
+  	
   	
    	
 }
