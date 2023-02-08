@@ -138,7 +138,7 @@
 				<div style="display: flex; margin-left: 75%; margin-bottom: 50px;">
 					<button type="submit" class="flex-c-m size36 txt11 trans-0-4"
 					value="check" onclick="javascript: form.action='${path}/market/checkTodayBobModify.do'">
-						확인하기
+						수정하기
 					</button>
 				</div>
 			</div>
