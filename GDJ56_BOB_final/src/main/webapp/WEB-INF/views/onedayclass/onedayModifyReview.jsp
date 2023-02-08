@@ -18,29 +18,23 @@
 	<section>
 		<div>
 			<h3 class="tit7 t-center" style="margin: 3%;">
-				REVIEW
+				REVIEW 수정
 			</h3>
-			<h5 class="t-center">리뷰 작성 시 마켓에서 사용할 수 있는 적립금 100원이 지급됩니다</h5>
 			<form class="size22 m-l-r-auto" action="${path }/class/reviewEndEnroll.do" method="post" enctype="multipart/form-data">
 				<div style="display: flex; padding: 5%;">
 					<c:forEach var="r" items="${reserveList2 }" begin="0" end="0"> 
-						<img src="${path}/resources/images/onedayclass/${r.odcPic}" width="150" height="150">
+						<img src="${path}/resources/images/onedayclass/${odVe.odcPic}" width="150" height="150">
 						<div style="display: inline; padding: 2%;">
-							<input type="hidden" value="${r.odcreNo }" name="odcreNo">
-							<input type="hidden" value="${r.odcNo }" name="odcNo">
-							<h3>[클래스명] ${r.odcClassName }</h3>
+							<input type="hidden" value="${odVe.odcreNo }" name="odcreNo">
+							<input type="hidden" value="${odVe.odcNo }" name="odcNo">
+							<h3>[클래스명] ${odVe.odcClassName }</h3>
 							<br>
-							<p>강사명 : ${r.master }</p>
-							<p>금액 : ${r.odcPrice }원</p>
+							<p>강사명 : ${odVe.master }</p>
+							<p>금액 : ${odVe.odcPrice }원</p>
 					</c:forEach>
 							<div style="display:flex">
-								<p>수강날짜</p>
-								&nbsp;
-								<select name='dateList'> 
-									<c:forEach var="r" items="${reserveList2 }">
-										<option value="${r.odcNo }" name="odcNo"><p><fmt:formatDate value="${r.odcDate}" pattern="yyyy-MM-dd"/></p></option>
-									</c:forEach>
-								</select>
+								<p>수강날짜 : ${odVe.odcDate}</p>
+								
 							 </div>
 						</div>
 				</div>
@@ -54,12 +48,30 @@
 				
 
 				<div id="wrap">
+				<c:choose>
+					<c:when test="${odc.odcCategoty=='bob'}">
+				<c:set var="select1" value="selected"/>
+				</c:when>
+				<c:when test="${odc.odcCategoty=='vegan'}">
+				<c:set var="select2" value="selected"/>
+				</c:when>
+				<c:when test="${odc.odcCategoty=='healthy'}">
+				<c:set var="select3" value="selected"/>
+				</c:when>
+				<c:when test="${odc.odcCategoty=='baking'}">
+				<c:set var="select4" value="selected"/>
+				</c:when>
+				<c:when test="${odc.odcCategoty=='etc'}">
+				<c:set var="select5" value="selected"/>
+				</c:when>
+				</c:choose>
 					<div id="tabs">
 						<button type="button" name="" value="Y" class="selected" id="good">이 강의를 추천해요👍</button>
 						<button type="button" name="" value="N" class="" id="bad">이 강의를 추천하지 않습니다👎</button>
 						<input type="hidden" value="N" name="oreGood" id="gb">
 					</div>	
-					<br>	
+					<br>
+						
 					<div class="t-center">
 						<label>
 							<h4 class="tit7 t-center" style="margin: 3%;">
@@ -81,9 +93,11 @@
 				</h3>
 				<div id="wrap" style="">
 					<p>사진첨부(한 장만 가능합니다)</p>
-					<input type="file" name="orePic1">
+					<input type="file" name="orePic1" value="${odRe.orePic }">
 					<br><br>
-					<textarea style="width: 100%; height: 10em;" name="oreContent" placeholder="과도한 욕설과 비방은 통보없이 삭제됩니다. 오늘도 소중한 리뷰를 남겨주셔서 감사합니다 :)"></textarea>
+					<textarea style="width: 100%; height: 10em;" name="oreContent" placeholder="과도한 욕설과 비방은 통보없이 삭제됩니다. 오늘도 소중한 리뷰를 남겨주셔서 감사합니다 :)">
+					 ${odRe.oreContent}
+					</textarea>
 				</div>
 				<input type="submit" class="btn3 t-center" style="margin-left: 40%; margin-right: 50%;" value="저장하기">
 				<input type="hidden" name="memberId" value="${loginMember.memberId }">

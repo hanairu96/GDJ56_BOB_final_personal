@@ -23,7 +23,10 @@
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
 	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 	<!-- datepicker 한국어로 -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script> -->
+	<link type="text/css" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"rel="stylesheet">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 </head>
 
 <script>
@@ -296,10 +299,12 @@
 									
 								</div>
 									<br>
-									<label>
-										<input type="checkbox" id="myReview" onclick="getMyReview();">
-										내가 쓴 글
-									</label>
+									<c:if test="${loginMember.memberId ne null}">
+										<label>
+											<input type="checkbox" id="myReview" onclick="getMyReview();">
+											내가 쓴 글
+										</label>
+									</c:if>
 									<p style="color: rgb(195, 195, 195);">
 										* 클래스를 수강한 회원님들의 후기입니다.
 									</p>
@@ -314,14 +319,18 @@
 								<h4 class="txt33 p-b-14">
 									문의하기
 								</h4>
-								<label>
-									<input type="checkbox" id="myQna" onclick="getMyQna();">
-									내가 쓴 글
-								</label>
-								<label>
-									<input type="checkbox" id="noQna" onclick="getNoQna();">
-									답변 안 된 글
-								</label>
+								<c:if test="${loginMember.memberId ne null}">
+									<label>
+										<input type="checkbox" id="myQna" onclick="getMyQna();">
+										내가 쓴 글
+									</label>
+								</c:if>
+								<c:if test="${loginMember.memberId eq 'admin' || loginMember.memberId eq odcmasterId}">
+									<label>
+										<input type="checkbox" id="noQna" onclick="getNoQna();">
+										답변 안 된 글
+									</label>
+								</c:if>
 								<div class="col-md-12" id="">
 									<div class=" size12 bo2 bo-rad-10 m-t-3 m-b-23">
 										<input type="hidden" name="memberId" value="${loginMember.memberId }" id="memberId">
@@ -427,6 +436,8 @@
 		if($('#noQna').is(":checked")){
 			console.log("체크크")
 			const odcNo= $('#odcNo').val();
+			const memberId= $('#memberId').val();
+			console.log(memberId);
 			$.ajax({
 				type:'get',
 				url : "<c:url value='/class/selectNoQna.do'/>",
@@ -470,7 +481,11 @@
 		                   html+="</div>";
 		                   html+="<div style='display: flex;'>";
 		                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
-		                   html+="<input class='bo-rad-10 txt10 p-l-20' id='replyComment' type='text' style='border: solid gray 1px; width: 800px; height: 50px;' placeholder='강사님! 해당 문의에 대한 답글을 남겨 주세요'>";
+		                   if(memberId=='admin'){
+		                   	html+="<input class='bo-rad-10 txt10 p-l-20' id='replyComment' type='text' style='border: solid gray 1px; width: 800px; height: 50px;' placeholder='관리자님! 해당 문의에 대한 답글을 남겨 주세요'>";
+		                   }else{
+		                	html+="<input class='bo-rad-10 txt10 p-l-20' id='replyComment' type='text' style='border: solid gray 1px; width: 800px; height: 50px;' placeholder='강사님! 해당 문의에 대한 답글을 남겨 주세요'>";
+		                   }
 		                   html+="&nbsp;&nbsp;";
 		                   html+="<button style='width: 100px;cursor: pointer;' onclick='reCommentBtn(event);'>등록</button>";
 		                   html+="</div>";
@@ -584,6 +599,7 @@
 	function goView(e){
 		const oqno=$(e.target).prev().val();
 		const masterId= $('#masterId').val();
+		const memberId= $('#memberId').val();
 		$(e.target).parent().parent().next().next("div").slideToggle("fast");
 		console.log(oqno);
 		$.ajax({
@@ -605,14 +621,22 @@
 						html+="<li>";
 						html+="<div id='reply_area' class='bo-rad-10 sizefull txt10 p-l-20'>";
 						html+="<div id='replyInfo'>";
-						if(data[i].memberId==masterId){
-			                   	html+="<span>강사님</span>";
+						if(data[i].memberId=='admin'){
+			                   	html+="<span>운영자</span>";
+		                   	if(data[i].memberId==memberId){
+								html+="<span style='cursor: pointer;'>│수정</span>";
+								html+="<span style='cursor: pointer;'>│삭제</span>";
+								}
 			            }else{
-			                	html+="<span>운영자</span>";
+			                	html+="<span>강사님</span>";
+			                	if(data[i].memberId==memberId){
+									html+="<span style='cursor: pointer;'>│수정</span>";
+									html+="<span style='cursor: pointer;'>│삭제</span>";
+								}else if(memberId=='admin'){
+									html+="<span style='cursor: pointer;'>│삭제</span>";
+								}
 			            }
 						html+="<span>│"+data[i].oqrEnrollDate+"</span>";
-						html+="<span style='cursor: pointer;'>│수정</span>";
-						html+="<span style='cursor: pointer;'>│삭제</span>";
 						html+="</div>";
 						html+="<div id='txt_area' class='wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23' style='border: solid gray 1px;'>";
 						html+="<p>"+data[i].oqrContetnt+"</p>";
@@ -735,7 +759,7 @@
 		
 		})
 	});
-	
+
 
 	//리뷰가져오기
 	function getReviewList(){
@@ -758,9 +782,8 @@
 						html+="<span>";
 						html+="<span>"+data[i].memberId+"</span>";
 						html+="<span>│"+data[i].oreDate+"</span>";
-						html+="<span style='cursor: pointer;'>│수정</span>";
-						html+="<span style='cursor: pointer;'>│삭제</span>";
-						html+="</span>";
+						html+="<input type='hidden' value="+data[i].odcreNo+" id='odcreNo'>"
+						html+="<span style='cursor: pointer;' onclick='goModifyReview(event);'>│수정</span>";
 						html+="</div>";
 						html+="<div class='col-md-12'style='display:flex; margin-left: -1.5%;'>";
 						if(data[i].oreGood=='Y'){
@@ -784,6 +807,22 @@
 		});
 	}
 
+	//리뷰수정하기
+/* 	function goModifyReview(e){
+		var gsWin=window.open("","winName","width=520,height=730"); //open("주소",띄우는방식,크기)
+		var frm=$(e.target).prev()[0];
+		var no = $("#odcreNo").val();
+		console.log(no);
+		frm.action="${path}/class/goModifyReview.do?no="+no;
+		frm.target="winName";
+        frm.submit();
+	} */
+	function goModifyReview(e){
+		var no = $(e.target).prev().val();
+		console.log(no);
+		var gsWin=window.open("${path}/class/goModifyReview.do?no="+no,"winName","width=520,height=730"); //open("주소",띄우는방식,크기)
+	}
+	
 	//댓글가져오기
 	function getCommentList(){
 		const memberId= $('#memberId').val();
@@ -806,6 +845,64 @@
 	                 
 	                   html+="<div style='border-bottom: solid 1px gray;margin:2%;'  class='col-md-12'>";
 	                   html+="<ul style='margin:1%;'>";
+	                   if(data[i].oqSecretYn=='Y'){
+	                  
+	                	 if(memberId=='admin'||memberId==masterId||memberId==data[i].memberId){
+		                	   html+="<li>";
+			                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
+			                   html+="<span>";
+			                   html+="<img src='${path}/resources/images/onedayclass/secret.png' width='27' height='27'>";
+			                   html+="<span>│</span>";
+			                   html+="<span>"+data[i].memberId+"</span>";
+			                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
+			                   html+="<span style='cursor: pointer;'>│수정</span>";
+			                   html+="<span style='cursor: pointer;'>│삭제</span>";
+			                   html+="</span>";
+			                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
+			                   html+="<p style='padding:auto;'>"+data[i].oqContent+"</p>";
+			                   html+="</div>";
+			                   html+="<div class='commentView'>";
+			                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
+			                   html+="<span class='vieCommentList' style='cursor: pointer;' onclick='goView(event);'>댓글보기</span>";
+			                   if(memberId!=''){
+			                   html+="<span class='enrollCommentInput' style='cursor: pointer;' onclick='goInput(event);'>│댓글쓰기</span>";
+			                   }
+			                   html+="</div>";
+			                   html+="</div>";
+			                   html+="<div class='commentInput' style='display:none;'>";
+			                   html+="<ul style='margin:1%;'>";
+			                   html+="<li>";
+			                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
+			                   html+="<div class='replyInfo'>";
+			                   html+="</div>";
+			                   html+="<div style='display: flex;'>";
+			                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
+			                   if(memberId=='admin'){
+				                   	html+="<input class='bo-rad-10 txt10 p-l-20' id='replyComment' type='text' style='border: solid gray 1px; width: 800px; height: 50px;' placeholder='관리자님! 해당 문의에 대한 답글을 남겨 주세요'>";
+				                   }else{
+				                	html+="<input class='bo-rad-10 txt10 p-l-20' id='replyComment' type='text' style='border: solid gray 1px; width: 800px; height: 50px;' placeholder='강사님! 해당 문의에 대한 답글을 남겨 주세요'>";
+				                   }
+			                   html+="&nbsp;&nbsp;";
+			                   html+="<button style='width: 100px;cursor: pointer;' onclick='reCommentBtn(event);'>등록</button>";
+			                   html+="</div>";
+			                   html+="</div>";
+			                   html+="</li>";
+			                   html+="</ul>";
+			                   html+="</div>";
+			                   html+="<div class='reCommentList' style='display: none;'>";
+			                   html+="</div>";
+			                   html+="</li>";
+			           
+	                	 }else{
+			                	   html+="<li>";
+				                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
+				                   html+="<b>비밀글입니다</b>"
+				                   html+="</div>";
+				                   html+="</li>";
+			              }
+			                   html+="</ul>";
+			                   html+="</div>";
+	                   }else{
 	                   html+="<li>";
 	                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
 	                   html+="<span>";
@@ -833,7 +930,11 @@
 	                   html+="</div>";
 	                   html+="<div style='display: flex;'>";
 	                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
-	                   html+="<input class='bo-rad-10 txt10 p-l-20' id='replyComment' type='text' style='border: solid gray 1px; width: 800px; height: 50px;' placeholder='강사님! 해당 문의에 대한 답글을 남겨 주세요'>";
+	                   if(memberId=='admin'){
+		                   	html+="<input class='bo-rad-10 txt10 p-l-20' id='replyComment' type='text' style='border: solid gray 1px; width: 800px; height: 50px;' placeholder='관리자님! 해당 문의에 대한 답글을 남겨 주세요'>";
+		                   }else{
+		                	html+="<input class='bo-rad-10 txt10 p-l-20' id='replyComment' type='text' style='border: solid gray 1px; width: 800px; height: 50px;' placeholder='강사님! 해당 문의에 대한 답글을 남겨 주세요'>";
+		                   }
 	                   html+="&nbsp;&nbsp;";
 	                   html+="<button style='width: 100px;cursor: pointer;' onclick='reCommentBtn(event);'>등록</button>";
 	                   html+="</div>";
@@ -844,6 +945,7 @@
 	                   html+="<div class='reCommentList' style='display: none;'>";
 	                   html+="</div>";
 	                   html+="</li>";
+	                   }
 	                   html+="</ul>";
 	                   html+="</div>";
 	                }
