@@ -44,4 +44,6 @@ public interface OneDayDao {
 	OdcReserve selectReservebyodreNo(SqlSessionTemplate session, int no);
 	void deleteOdcQa(SqlSessionTemplate session, String oqno);
 	void deleteReOdcQa(SqlSessionTemplate session, String oqrNo);
+	OdcQa selectOqbyOqNo(SqlSessionTemplate session,int oqno);
+	void updateOq(SqlSessionTemplate session, OdcQa oq);
 }

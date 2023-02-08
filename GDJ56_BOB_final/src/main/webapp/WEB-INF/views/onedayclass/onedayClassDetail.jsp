@@ -51,6 +51,8 @@
 			
 		});
 		
+		
+		
 		$(window).scroll(  
 			function(){  
 				console.log('test');
@@ -666,6 +668,12 @@
 		$(e.target).parent().parent().next("div").slideToggle("fast");
 			//$("#commentInput") // 2초에 걸쳐서 진행
 	};
+	
+	//댓글 수정 창 열어주기
+	function goCommentEdit(e){
+		$(e.target).parent().next().next("div").slideToggle("fast");
+	}
+	
 
 	//답댓글 데이터 넣어주기
 	function reCommentBtn(e){
@@ -962,7 +970,7 @@
 	                   html+="<span>"+data[i].memberId+"</span>";
 	                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
 	                   if(memberId==data[i].memberId){
-		                   html+="<span style='cursor: pointer;'>│수정</span>";
+		                   html+="<span style='cursor: pointer;' onclick='goCommentEdit(event);'>│수정</span>";
 		                   html+="<input type='hidden' value='"+data[i].oqno+"'>"
 		                   html+="<span style='cursor: pointer;' onclick='goDeleteComment(event);'>│삭제</span>";
 	                   }
@@ -974,6 +982,15 @@
 	                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
 	                   html+="<p style='padding:auto;'>"+data[i].oqContent+"</p>";
 	                   html+="</div>";
+	                   //댓글수정
+	                   html+="<div style='display:none' id='commentEdit'>";
+	                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
+	                   html+="<input class='bo-rad-10 sizefull txt10 p-l-20' type='text' value='"+data[i].oqContent+"'>";
+	                   html+="<input type='hidden' value='"+data[i].oqno+"'>"
+	                   html+="</div>";
+	                   html+="<button type='button' class='btn3 flex-c-m' style='margin-bottom:1%;' onclick='endCommentEdit(event)'>수정완료</button>";
+	                   html+="</div>";
+	                   //
 	                   html+="<div class='commentView'>";
 	                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
 	                   html+="<span class='vieCommentList' style='cursor: pointer;' onclick='goView(event);'>댓글보기</span>";
@@ -1025,6 +1042,30 @@
 	       }
 	        
 	    });
+	}
+	
+	function endCommentEdit(e){
+		const oqContent=$(e.target).prev().children().first().val();
+		console.log(oqContent);
+		const oqno=$(e.target).prev().children().last().val();
+		console.log(oqno);
+		$.ajax({
+			type:'post',
+			url:'<c:url value="/class/inputOdcQa.do"/>',
+			contentType: 'application/json',
+			data:JSON.stringify({
+					"oqno":oqno,
+					"oqContent":oqContent
+			}), 
+			success : function(data){
+				getCommentList();
+	               $("#oqContent").val("");
+	    	},
+			error:function(){
+				alert('통신실패');
+			}
+		});
+
 	}
 </script>
 

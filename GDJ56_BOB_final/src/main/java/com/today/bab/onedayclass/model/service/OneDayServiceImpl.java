@@ -85,7 +85,14 @@ public class OneDayServiceImpl implements OneDayService {
 
 	@Override
 	public void inputOdcQa(OdcQa oq) {
+		int oqno=oq.getOqno();
+		System.out.println("번호"+oqno);
+		if(dao.selectOqbyOqNo(session,oqno)!=null) {
+			dao.updateOq(session,oq);
+		}
+		else {
 		dao.inputOdcQa(session,oq);
+		}
 	}
 
 	@Override
