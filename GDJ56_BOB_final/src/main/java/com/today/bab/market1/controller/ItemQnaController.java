@@ -70,9 +70,11 @@ public class ItemQnaController {
 	}
 	
 	//문의글에 관리자의 답변
-	@RequestMapping(value="/qnaAnswerAdmin.do",produces="application/text; charset=UTF-8"
-			,method=RequestMethod.POST)
-	@ResponseBody
+	//@ResponseBody(value="/qnaAnswerAdmin.do",produces="application/text; charset=UTF-8"
+	//		,method=RequestMethod.POST)
+	//@ResponseBody
+
+	@RequestMapping("/qnaAnswerAdmin.do")
 	public String qnaAnswerAdmin(int iqNo,int itemNo,String iqaContent,Model m) {
 		
 		IqAnswer iq=IqAnswer.builder()
