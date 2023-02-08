@@ -11,6 +11,9 @@ import com.today.bab.mypage.model.vo.ClientQaMypage;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
+import com.today.bab.mypage.model.vo.MarketRe;
+import com.today.bab.mypage.model.vo.MypageQnaAll;
+import com.today.bab.mypage.model.vo.OnedayRe;
 import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
 import com.today.bab.mypage.model.vo.Sub;
@@ -83,4 +86,12 @@ public interface MypageService {
 	int selectWriteAllCount(String memberId);
 	
 	int selectRecentPoint(String memberId);
+	
+	List<MypageQnaAll> selectMypageQnaAll(Map<String,Integer> param,String memberId);
+    
+    int selectMypageQnaAllCount(String memberId);
+    
+    List<MarketRe> selectMarketRe(int qnaNo);
+    
+    List<OnedayRe> selectOnedayRe(int qnaNo);
 }

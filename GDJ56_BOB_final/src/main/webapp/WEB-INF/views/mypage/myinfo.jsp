@@ -186,6 +186,26 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                href="${path}/mypage/onedayItemWrite.do"
+              >
+                <svg
+                  class="w-5 h-5"
+                  aria-hidden="true"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                </svg>
+                <span class="ml-4">원데이클래스/상품 문의글</span>
+              </a>
+            </li>
+            <li class="relative px-6 py-3">
+              <a
+                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                 href="${path}/mypage/subscription.do"
               >
                 <svg
@@ -546,18 +566,56 @@
 	                <p>추천 상품 목록이 나올 때 반영됩니다.</p>
 	            </div>
 	            <br>
-	            <div style="width: 150px; margin: auto;">
+	            <div style="display:flex; margin-left:35%;">
+	            <div style="width: 150px; ">
 	              <button type="submit" class="px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
 	                회원수정
 	              </button>
+	              
 	              <br><br><br>
 	          </div>
 	         </form>
-          
           </div>
+          <div style="width: 150px;">
+	              <button onclick="passwordCh();" class="px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"> <!-- class="px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" -->>
+	                비밀변호 변경
+	              </button>
+	              
+	              <br><br><br>
+	          </div>
         </main>
+        
       </div>
     </div>
+    
+    <form action="${path}/" method="post">
+		<div
+		id="passwordChange" style="width:500px;height:auto; display: none;background-color: white;border-radius: 15px 15px;text-align: left;"
+		  class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+		 <h1 style="text-align: center;"><b>변경할 비밀번호를 입력해주세요</b></h1>
+			<div style="text-align:center;">
+				비밀번호 : <input type="passwrod" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"><br>
+				비밀번호 확인 : <input type="passwrod" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input">
+			</div>
+
+		  <div style="margin-top:16px;text-align: center;">
+		    <button
+		       type="reset"
+		       style="display :inline-block;background-color: white; border: 1.5px solid red; color: red;"
+		       class="modal_close_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+		     >
+		     취소
+		     </button>
+		     <button
+		       type="submit"
+		       style="display :inline-block;background-color: white; border: 1.5px solid purple; color: purple;"
+		       class="modal_submit_btn px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+		     >
+		     변경
+		     </button>
+		     </div>
+		</div>
+	</form>
     
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
@@ -586,3 +644,75 @@
     </script>
   </body>
 </html>
+<script>
+function modal(id) {
+	   var zIndex = 9999;
+	   var modal = document.getElementById(id);
+	
+	   // 모달 div 뒤에 희끄무레한 레이어
+	   var bg = document.createElement('div');
+	   /* bg.setStyle({
+	       position: 'fixed',
+	       zIndex: zIndex,
+	       left: '0px',
+	       top: '0px',
+	       width: '100%',
+	       height: '100%',
+	       overflow: 'auto',
+	       // 레이어 색깔은 여기서 바꾸면 됨
+	       backgroundColor: 'rgba(0,0,0,0.4)'
+	   }); */
+	   bg.style.position='fixed';
+	   bg.style.zIndex='zIndex';
+	   bg.style.left='0px';
+	   bg.style.top='0px';
+	   bg.style.width='100%';
+	   //bg.style.height='100%';
+	   //bg.style.overflow='auto';
+	   //bg.style.backgroundColor='rgba(0,0,0,0.4)'; 
+	   
+	   document.body.append(bg);
+	
+	   // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+	   modal.querySelector('.modal_close_btn').addEventListener('click', function() {
+	       bg.remove();
+	       modal.style.display = 'none';
+	   });
+	
+	   /* modal.setStyle({
+	       position: 'fixed',
+	       display: 'block',
+	       boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+	
+	       // 시꺼먼 레이어 보다 한칸 위에 보이기
+	       zIndex: zIndex + 1,
+	
+	       // div center 정렬
+	       top: '50%',
+	       left: '50%',
+	       transform: 'translate(-50%, -50%)',
+	       msTransform: 'translate(-50%, -50%)',
+	       webkitTransform: 'translate(-50%, -50%)'
+	   }); */
+	   modal.style.position='fixed';
+	   modal.style.display='block';
+	   modal.style.boxShadow='0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)';
+	   modal.style.zIndex='zIndex + 1';
+	   modal.style.top='50%';
+	   modal.style.left='50%';
+	   modal.style.transform='translate(-50%, -50%)';
+	   modal.style.msTransform='translate(-50%, -50%)';
+	   modal.style.webkitTransform='translate(-50%, -50%)';
+	   
+	   //확인 버튼 처리, 회원탈퇴, 레이어와 모달 div 지우기
+	   /* modal.querySelector('.modal_submit_btn').addEventListener('click',function(){
+		   bg.remove();
+		   modal.style.display = 'none';
+	   }) */
+	}
+	
+	const passwordCh=()=>{
+		/* alert("d"); */
+		modal('passwordChange');
+	}
+</script>

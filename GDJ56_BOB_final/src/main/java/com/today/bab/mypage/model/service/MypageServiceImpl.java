@@ -17,6 +17,9 @@ import com.today.bab.mypage.model.vo.ClientQaMypage;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
+import com.today.bab.mypage.model.vo.MarketRe;
+import com.today.bab.mypage.model.vo.MypageQnaAll;
+import com.today.bab.mypage.model.vo.OnedayRe;
 import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
 import com.today.bab.mypage.model.vo.Sub;
@@ -235,5 +238,25 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int selectRecentPoint(String memberId) {
 		return mypageDao.selectRecentPoint(session,memberId);
+	}
+	
+	@Override
+	public List<MypageQnaAll> selectMypageQnaAll(Map<String, Integer> param, String memberId) {
+		return mypageDao.selectMypageQnaAll(session,param,memberId);
+	}
+	
+	@Override
+	public int selectMypageQnaAllCount(String memberId) {
+		return mypageDao.selectMypageQnaAllCount(session,memberId);
+	}
+	
+	@Override
+	public List<MarketRe> selectMarketRe(int qnaNo) {
+		return mypageDao.selectMarketRe(session,qnaNo);
+	}
+	
+	@Override
+	public List<OnedayRe> selectOnedayRe(int qnaNo) {
+		return mypageDao.selectOnedayRe(session,qnaNo);
 	}
 }
