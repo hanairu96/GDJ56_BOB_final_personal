@@ -21,10 +21,10 @@
 		        <span> 총 <span style="color:orange; font-weight: bold;"><c:out value="${qna.size()}"/></span>개</span>
 		    </div>
 		    <div style="margin-left: 60%;">
-		        <!-- 관리자만 -->
-		        <a href="">답변안한 글</a>
-		        <!-- 고객만 -->
-		        <a href="">내가 쓴 글</a>
+				<a href="javascript:void(0);"
+			    		style="font-size: 15px;font-weight: bold;margin-right:20px;" onclick="selectItemQna('my');">내가 쓴 글 보기</a>
+				<a href="javascript:void(0);"
+			   			style="font-size: 15px;font-weight: bold;" onclick="selectItemQna('nono');">답변 안된 글 보기</a>
 		    </div>
 		</div>
 		
@@ -54,7 +54,10 @@
 			</div>
 		</form>
 		<hr/> 
-		<c:forEach var="q" items="${qna }">
+		
+		<!-- 문의 리스트 -->
+		<div id="qnaList">
+			<c:forEach var="q" items="${qna }">
 				<div style="display: flex; height:40px;margin-bottom: 7px;">
 				    <img src="${path }/resources/images/logo-icon.png" alt="" style="height:40px;width: 40px;border-radius: 50%;">
 				    <div>
@@ -86,7 +89,7 @@
 						
 				    </div>
 				    <div>
-				    	<c:if test="${q.memberId eq loginMember.memberId }">
+				    	<c:if test="${q.memberId eq loginMember.memberId and loginMember.memberId eq 'admin'}">
 					        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;"
 					         onclick="deleteQna(${q.iqNo},${itemNo });">삭제</button>
 				    	</c:if>
@@ -161,18 +164,37 @@
 				</div>
 			</c:forEach>
 		</div>
-			
+		
+		
 		<!-- 페이징처리 -->
-		<div class="product__pagination" style="text-align: center;">
+		<!-- <div class="product__pagination" style="text-align: center;">
 		    <a href="#"><i class="fa fa-long-arrow-left"></i></a>
 		    <a href="#">1</a>
 		    <a href="#">2</a>
 		    <a href="#">3</a>
 		    <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-		</div>
+		</div> -->
+		
+		
+		
+		
 	</div>
 	
 		<script>
+			//내가쓴글 문의하기	
+			function selectItemQna(check){
+		 		$.ajax({
+		 		    type:'get',
+		 			url:'${path}/itemQna/qnaCheckbox.do',
+		 			data:{"data":check,
+		 				"itemNo":${itemNo}},
+		        		 success:data=>{
+		       				$("#qnaList").html(data);
+	       		 	}
+	 			})
+	 		};
+		
+		
 			//문의 답변css
 		 	function togglererere(e){
 		 		$(e.target).parent().parent().next().next().find("div.ttt").slideToggle(1000);
@@ -210,5 +232,7 @@
 		    		}
 		    	}) ; 
 		    }   */ 
+		    
+		   
 		    
 		</script>

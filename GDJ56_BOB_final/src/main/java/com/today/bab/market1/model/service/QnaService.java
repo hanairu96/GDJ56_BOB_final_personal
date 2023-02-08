@@ -1,6 +1,7 @@
 package com.today.bab.market1.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.today.bab.market1.model.vo.IqAnswer;
 import com.today.bab.market1.model.vo.ItemQna;
@@ -18,4 +19,6 @@ public interface QnaService {
 	List<IqAnswer> selectIqAnswer(int itemNo);
 
 	int deleteQnaAnswer(int iqaNo);
+	
+	List<ItemQna> qnaCheckbox(Map<String,Object> param);
 }

@@ -1,22 +1,20 @@
 package com.today.bab.market1.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.today.bab.market1.model.service.Market1Service;
 import com.today.bab.market1.model.service.QnaService;
 import com.today.bab.market1.model.vo.IqAnswer;
 import com.today.bab.market1.model.vo.ItemQna;
-import com.today.bab.market2.model.vo.ItemPic;
-import com.today.bab.market2.model.vo.SellItem;
 import com.today.bab.member.model.vo.Member;
 
 @Controller
@@ -100,6 +98,30 @@ public class ItemQnaController {
 		m.addAttribute("loc", "/market1/marketdetail.do?itemNo="+itemNo);
 		return "common/msg";
 	}
+	
+	//내가쓴글, 답변 안한글확인
+	@RequestMapping("/qnaCheckbox")
+	public String qnaCheckbox(Model m,String data, int itemNo,HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+	    Member  loginMember= (Member) session.getAttribute("loginMember");
+	    
+	    if(loginMember!=null) {
+	    	m.addAttribute("qna",service.qnaCheckbox(Map.of("itemNo",itemNo,"data",data,"memberId",loginMember.getMemberId())));
+	    }else {
+	    	m.addAttribute("qna",service.qnaCheckbox(Map.of("itemNo",itemNo,"data",data)));
+	    }
+	    
+		m.addAttribute("an",service.selectIqAnswer(itemNo));
+		return "market1/qnaCheckBox";
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

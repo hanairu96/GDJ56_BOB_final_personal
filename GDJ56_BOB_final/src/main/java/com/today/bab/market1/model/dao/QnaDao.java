@@ -1,6 +1,7 @@
 package com.today.bab.market1.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -20,4 +21,6 @@ public interface QnaDao {
 	List<IqAnswer> selectIqAnswer(SqlSessionTemplate session, int itemNo);
 
 	int deleteQnaAnswer(SqlSessionTemplate session,int iqaNo);
+	
+	List<ItemQna> qnaCheckbox(SqlSessionTemplate session,Map<String,Object> param);
 }

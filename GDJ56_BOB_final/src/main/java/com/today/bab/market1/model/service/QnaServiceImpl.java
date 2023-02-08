@@ -1,6 +1,7 @@
 package com.today.bab.market1.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,10 @@ public class QnaServiceImpl implements QnaService {
 	@Override 
 	public int deleteQnaAnswer(int iqaNo) {
 		return dao.deleteQnaAnswer(session,iqaNo);
+	}
+	
+	@Override
+	public List<ItemQna> qnaCheckbox(Map<String,Object> param){
+		return dao.qnaCheckbox(session,param);
 	}
 }

@@ -19,11 +19,11 @@
                     <div class="breadcrumb__text">
                        	<h2 style="color:black;"><c:out value="${de.itemCategory}"/></h2>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </section>
     <section class="product-details spad">
     
 
@@ -34,7 +34,9 @@
 	                <div class="col-lg-6 col-md-6">
                     <div>
 				   		<button class="primary-btn" type="button" onclick="updateItem(${de.itemNo})" style="background-color:blue;border: none;">수정</button>
+				    	<c:if test="${loginMember.memberId eq 'admin' }">
 				    	<button class="primary-btn" type="button" onclick="deleteItemFile(${de.itemNo},'${picpic}','${de.mainPic}','${de.itemLabel}')" style="background-color:red;border: none;" >삭제</button>
+				   		</c:if>	
 				    </div>	
 	                    <div class="product__details__pic">
 	                        <div class="product__details__pic__item">
@@ -104,7 +106,15 @@
 	                        </div>
 	                        
 	                        
-	                        <div class="product__details__price"><c:out value="${de.itemPrice }"/>원</div>
+	                        <div class="product__details__price">
+	                        <c:if test="${de.itemDiscount eq 'Y' }">
+                        		<h5 style="text-decoration:line-through;">${de.itemPrice }원</h5>
+                        		<h5 style="color:magenta; margin:10px;">할인가 9900원</h5>
+                        	</c:if>
+                        	<c:if test="${de.itemDiscount eq 'N' }">
+                        		<h5><c:out value="${de.itemPrice }"/>원</h5>
+                        	</c:if>
+	                        </div>
 	                        <p><c:out value="${de.mainContent}"/></p>
 	                        <div class="product__details__quantity">
 	                            <div class="quantity">
