@@ -22,7 +22,7 @@
 			        </h3>
 			        <br>
 			        <div style="text-align: center;"> 
-			            <p>
+			            <p style="font-size:20px;">
 							${de.itemContent }
 			            </p>
 			        </div>
@@ -30,12 +30,12 @@
 			        <div  style="text-align: center;flex-wrap: wrap;width:510px;margin:0 auto;">
 			        <c:if test="${not empty de.ipic }">
 	                       <c:forEach var="file" items="${de.ipic }">
-								 <img src="${path }/resources/upload/market/detail/${file.picName}" style="width:500px;height: 500px;margin:15px;">
+								 <img src="${path }/resources/upload/market/detail/${file.picName}" style="margin:15px;">
 						</c:forEach>                         
 	                     	</c:if>
 			        </div>
 			        <br><br>
-			        <div>
+			        <div style="font-size:20px;">
 			            <span class="col-1" style="font-weight:bold;">용량 </span><span style="margin-left:2%">${de.weight }</span><br>
 			            <span class="col-1" style="font-weight:bold;">특징 </span><span style="margin-left:2%">${de.itemPoint }</span><br>
 			            <span class="col-1" style="font-weight:bold;">보관법</span><span class="col-3">${de.itemKeep }</span><br>

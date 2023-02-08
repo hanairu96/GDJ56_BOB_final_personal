@@ -251,7 +251,7 @@
 						        ${de.itemName }
 						        </h3>
 						        <br>
-						            <p>
+						            <p style="font-size:20px;">
 										${de.itemContent }
 						            </p>
 						        </div>
@@ -264,10 +264,10 @@
 	                        	</c:if>
 						        </div>
 						        <br><br>
-						        <div>
-						            <span class="col-1" style="font-weight:bold;">용량 </span><span style="margin-left:2%">${de.weight }</span><br>
-						            <span class="col-1" style="font-weight:bold;">특징 </span><span style="margin-left:2%">${de.itemPoint }</span><br>
-						            <span class="col-1" style="font-weight:bold;">보관법</span><span class="col-3">${de.itemKeep }</span><br>
+						        <div style="font-size:20px;">
+						            <span class="col-1" style="font-weight:bold;">용량 </span><span style="margin-left:2%;">${de.weight }</span><br>
+						            <span class="col-1" style="font-weight:bold;">특징 </span><span style="margin-left:2%;">${de.itemPoint }</span><br>
+						            <span class="col-1" style="font-weight:bold;">보관법</span><span class="col-3" >${de.itemKeep }</span><br>
 						            <span class="col-1" style="font-weight:bold;">활용팁</span><span class="col-3">${de.itemTip }</span><br>
 						        </div>
 						        <br>
