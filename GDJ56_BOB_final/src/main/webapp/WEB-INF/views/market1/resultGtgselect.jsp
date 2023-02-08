@@ -49,7 +49,7 @@
                         <c:if test="${sell.itemStock>0 }">
                          	<c:if test="${sell.itemDiscount eq 'Y' }">
                         		<h5 style="text-decoration:line-through;"><c:out value="${sell.itemPrice }"/>원</h5>
-                        		<h5 style="color:magenta;margin-top:5px;">할인가 9900원</h5>
+                        		<h5 style="color:tomato;margin-top:5px;">할인가 9900원</h5>
                         	</c:if>
                         	<c:if test="${sell.itemDiscount eq 'N' }">
                         		<h5><c:out value="${sell.itemPrice }"/>원</h5>

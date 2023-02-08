@@ -36,8 +36,8 @@
 		<br>
 		
 		
-		<form class="wrap-form-reservation size22 m-l-r-auto" method="post"
-			action="${path }/itemQna/insertQna.do">
+		<form  class="wrap-form-reservation size22 m-l-r-auto" method="post"
+			action="${path }/itemQna/insertQna.do" onsubmit="return insertqna(this);">
 		    <input type="hidden" name="itemNo" value="${itemNo }"/>
 			<label><input type="checkbox" name="iqSecret" value="Y">비밀글</label>
 				<input type="hidden" name="iqSecret1" value="N"/>
@@ -188,6 +188,16 @@
 	</div>
 	
 		<script>
+			//질문하기 로그인유무
+			function insertqna(e){
+				if(${loginMember==null}){
+					alert('로그인이 필요한 기능입니다.');
+					return false;
+				}else{
+					return true;
+				}
+			}
+		
 			//내가쓴글 문의하기	
 			function selectItemQna(check){
 		 		$.ajax({
