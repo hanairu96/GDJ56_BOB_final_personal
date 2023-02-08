@@ -429,7 +429,7 @@ public class Market1Controller {
 		int result=service.updateMarketItem(s,itemNo);
 		if(result>0) {
 			mv.addObject("msg", "상품 수정 성공");
-			mv.addObject("loc", "/market1/marketgtg.do");
+			mv.addObject("loc", "/market1/marketdetail.do?itemNo="+itemNo);
 		}else {
 			mv.addObject("msg", "상품 수정 실패");
 			mv.addObject("loc", "/market1/updateItemGo.do");

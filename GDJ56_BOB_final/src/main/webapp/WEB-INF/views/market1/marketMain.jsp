@@ -31,7 +31,7 @@
 
             <!-- 이상품 어때요? -->
             <div style="text-align: center;">
-            <c:if test="${likemenu==null }">
+            <c:if test="${likemenu==null or likectg ==null}">
                 <a href="${path }/market1/marketgtg.do"><h3 style="font-weight: bold;">이 상품 어때요? ></h3></a>
             </c:if>
             <c:if test="${likemenu!=null }">
@@ -41,7 +41,12 @@
             
                 <br>   
             <c:if test="${loginMember!=null }">
-                <h5>${likectg }를 선호하시는 ${loginMember.nickname } 님 맞춤 상품! 둘러보세요!</h5>
+            	<c:if test="${likectg !=null }">
+                	<h5>${likectg }를 선호하시는 ${loginMember.nickname } 님 맞춤 상품! 둘러보세요!</h5>
+                </c:if>
+            	<c:if test="${likectg ==null }">
+               		<h5>${loginMember.nickname } 님 맞춤 상품! 둘러보세요!</h5>
+            	</c:if>
             </c:if>    
             <c:if test="${loginMember==null }">
                 <h5> 오늘의 밥 인기상품 ! 둘러보세요!</h5>

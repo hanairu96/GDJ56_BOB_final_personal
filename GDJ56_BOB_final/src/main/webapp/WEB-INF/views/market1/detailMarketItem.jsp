@@ -19,11 +19,11 @@
                     <div class="breadcrumb__text">
                        	<h2 style="color:black;"><c:out value="${de.itemCategory}"/></h2>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </section>
     <section class="product-details spad">
     
 
@@ -34,7 +34,9 @@
 	                <div class="col-lg-6 col-md-6">
                     <div>
 				   		<button class="primary-btn" type="button" onclick="updateItem(${de.itemNo})" style="background-color:blue;border: none;">수정</button>
+				    	<c:if test="${loginMember.memberId eq 'admin' }">
 				    	<button class="primary-btn" type="button" onclick="deleteItemFile(${de.itemNo},'${picpic}','${de.mainPic}','${de.itemLabel}')" style="background-color:red;border: none;" >삭제</button>
+				   		</c:if>	
 				    </div>	
 	                    <div class="product__details__pic">
 	                        <div class="product__details__pic__item">
@@ -104,7 +106,15 @@
 	                        </div>
 	                        
 	                        
-	                        <div class="product__details__price"><c:out value="${de.itemPrice }"/>원</div>
+	                        <div class="product__details__price">
+	                        <c:if test="${de.itemDiscount eq 'Y' }">
+                        		<h5 style="text-decoration:line-through;">${de.itemPrice }원</h5>
+                        		<h5 style="color:magenta; margin:10px;">할인가 9900원</h5>
+                        	</c:if>
+                        	<c:if test="${de.itemDiscount eq 'N' }">
+                        		<h5><c:out value="${de.itemPrice }"/>원</h5>
+                        	</c:if>
+	                        </div>
 	                        <p><c:out value="${de.mainContent}"/></p>
 	                        <div class="product__details__quantity">
 	                            <div class="quantity">
@@ -241,8 +251,7 @@
 						        ${de.itemName }
 						        </h3>
 						        <br>
-						        <div style="text-align: center;"> 
-						            <p>
+						            <p style="font-size:20px;">
 										${de.itemContent }
 						            </p>
 						        </div>
@@ -250,15 +259,15 @@
 						        <div  style="text-align: center;flex-wrap: wrap;width:510px;margin:0 auto;">
 						        <c:if test="${not empty de.ipic }">
 			                        <c:forEach var="file" items="${de.ipic }">
-											 <img src="${path }/resources/upload/market/detail/${file.picName}" style="width:500px;height: 500px;margin:15px;">
+											 <img src="${path }/resources/upload/market/detail/${file.picName}" style="margin:15px;">
 									</c:forEach>                         
 	                        	</c:if>
 						        </div>
 						        <br><br>
-						        <div>
-						            <span class="col-1" style="font-weight:bold;">용량 </span><span style="margin-left:2%">${de.weight }</span><br>
-						            <span class="col-1" style="font-weight:bold;">특징 </span><span style="margin-left:2%">${de.itemPoint }</span><br>
-						            <span class="col-1" style="font-weight:bold;">보관법</span><span class="col-3">${de.itemKeep }</span><br>
+						        <div style="font-size:20px;">
+						            <span class="col-1" style="font-weight:bold;">용량 </span><span style="margin-left:2%;">${de.weight }</span><br>
+						            <span class="col-1" style="font-weight:bold;">특징 </span><span style="margin-left:2%;">${de.itemPoint }</span><br>
+						            <span class="col-1" style="font-weight:bold;">보관법</span><span class="col-3" >${de.itemKeep }</span><br>
 						            <span class="col-1" style="font-weight:bold;">활용팁</span><span class="col-3">${de.itemTip }</span><br>
 						        </div>
 						        <br>

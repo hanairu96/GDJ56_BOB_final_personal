@@ -3,6 +3,7 @@ package com.today.bab.market2.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -53,6 +54,11 @@ public class MarketDaoImpl implements MarketDao {
 	public int todayBobListCount(SqlSessionTemplate session) {
 		return session.selectOne("market2.todayBobListCount");
 	}
+
+	/*
+	 * @Override public int todayBobCount(SqlSessionTemplate session) { return
+	 * session.selectOne("market2.todayBobCount"); }
+	 */
 	@Override
 	public int deleteTodayBob(SqlSessionTemplate session, int reNo) {
 		return session.delete("market2.deleteTodayBob", reNo);
@@ -77,14 +83,21 @@ public class MarketDaoImpl implements MarketDao {
 	public List<SellItem> todayView(SqlSessionTemplate session, int reNo) {
 		return session.selectList("market2.todayView", reNo);
 	}
+
+	/*
+	 * @Override public List<SellItem> todayViewAll(SqlSessionTemplate session,
+	 * Map<String, Integer> param) { return
+	 * session.selectList("market2.todayViewAll", null, new RowBounds(
+	 * (param.get("cPage")-1)*param.get("numPerpage"), param.get("numPerpage")) ); }
+	 */
 	@Override
 	public List<SellItem> todayViewAll(SqlSessionTemplate session) {
 		return session.selectList("market2.todayViewAll");
 	}
 	
 	@Override
-	public List<SellItem> discountView(SqlSessionTemplate session) {
-		return session.selectList("market2.discountView");
+	public List<SellItem> discountView(SqlSessionTemplate session, Map<String, Integer> param) {
+		return session.selectList("market2.discountView", null, new RowBounds(			(param.get("cPage")-1)*param.get("numPerpage"), 		param.get("numPerpage"))			);
 	}
 	@Override
 	public int discountCount(SqlSessionTemplate session) {

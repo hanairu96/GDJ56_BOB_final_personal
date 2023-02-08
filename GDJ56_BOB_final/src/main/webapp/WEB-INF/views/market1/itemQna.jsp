@@ -21,10 +21,10 @@
 		        <span> 총 <span style="color:orange; font-weight: bold;"><c:out value="${qna.size()}"/></span>개</span>
 		    </div>
 		    <div style="margin-left: 60%;">
-		        <!-- 관리자만 -->
-		        <a href="">답변안한 글</a>
-		        <!-- 고객만 -->
-		        <a href="">내가 쓴 글</a>
+				<a href="javascript:void(0);"
+			    		style="font-size: 15px;font-weight: bold;margin-right:20px;" onclick="selectItemQna('my');">내가 쓴 글 보기</a>
+				<a href="javascript:void(0);"
+			   			style="font-size: 15px;font-weight: bold;" onclick="selectItemQna('nono');">답변 안된 글 보기</a>
 		    </div>
 		</div>
 		
@@ -36,8 +36,8 @@
 		<br>
 		
 		
-		<form class="wrap-form-reservation size22 m-l-r-auto" method="post"
-			action="${path }/itemQna/insertQna.do">
+		<form  class="wrap-form-reservation size22 m-l-r-auto" method="post"
+			action="${path }/itemQna/insertQna.do" onsubmit="return insertqna(this);">
 		    <input type="hidden" name="itemNo" value="${itemNo }"/>
 			<label><input type="checkbox" name="iqSecret" value="Y">비밀글</label>
 				<input type="hidden" name="iqSecret1" value="N"/>
@@ -54,7 +54,10 @@
 			</div>
 		</form>
 		<hr/> 
-		<c:forEach var="q" items="${qna }">
+		
+		<!-- 문의 리스트 -->
+		<div id="qnaList">
+			<c:forEach var="q" items="${qna }">
 				<div style="display: flex; height:40px;margin-bottom: 7px;">
 				    <img src="${path }/resources/images/logo-icon.png" alt="" style="height:40px;width: 40px;border-radius: 50%;">
 				    <div>
@@ -62,15 +65,25 @@
 				    </div>
 				    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
 				</div>
-				<c:if test="${q.iqSecret eq 'N' }">
+				<c:if test="${q.iqSecret eq 'N' or loginMember.memberId eq 'admin'}">
 				<div style="margin-left:20px;">
 				    <h5>${q.iqContent }</h5>
 				</div>
 				</c:if>
-				<c:if test="${q.iqSecret eq 'Y' }">
-				<div style="margin-left:20px;">
-				    <h5 style="color:gray;">비밀글입니다.</h5>
-				</div>
+				<c:if test="${q.iqSecret eq 'Y' and loginMember.memberId eq q.memberId }">
+					<div style="margin-left:20px;display:flex;">
+						<img src='${path}/resources/images/onedayclass/secret.png' width='27' height='27'>
+					    <h5 style="margin-left:5px;">${q.iqContent }</h5>
+					</div>
+				</c:if>
+				
+				<c:if test="${q.iqSecret eq 'Y'}">
+					<c:if test="${loginMember.memberId != q.memberId and loginMember.memberId != 'admin'}">
+						<div style="margin-left:20px;display:flex;">
+							<img src='${path}/resources/images/onedayclass/secret.png' width='27' height='27'>
+						    <h5 style="color:gray;margin-left:5px;">비밀글입니다.</h5>
+						</div>
+					</c:if>
 				</c:if>
 				<br>
 				<div style="display: flex;">
@@ -79,11 +92,11 @@
 				    </div>
 				    <div>
 				        <button id="togglereply" class="primary-btn" type="button" name="reply" style="background-color:#07d448;border: none;color: white;"
-				        onclick="togglererere(event)">답글</button>
+				        onclick="togglererere(event)">답글 보기</button>
 						
 				    </div>
 				    <div>
-				    	<c:if test="${q.memberId eq loginMember.memberId }">
+				    	<c:if test="${q.memberId eq loginMember.memberId or loginMember.memberId eq 'admin'}">
 					        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;"
 					         onclick="deleteQna(${q.iqNo},${itemNo });">삭제</button>
 				    	</c:if>
@@ -97,8 +110,8 @@
 					
 					
 					<!-- <form method="post"> -->
-					<c:if test="${loginMember eq 'admin' }">
-					<form method="post" action="${path }/itemQna/qnaAnswerAdmin.do">
+					<c:if test="${loginMember.memberId eq 'admin' }">
+					<form method="post"  action="${path }/itemQna/qnaAnswerAdmin.do">
 					    <div style="display:flex;margin-bottom: 7px;">
 					        <img src="${path }/resources/images/logo-icon.png" alt="" style="width:40px; height: 40px;border-radius: 50%;">
 					        <h5 style="margin:10px;">오늘의 밥</h5>
@@ -123,24 +136,34 @@
 			        <c:if test="${an!=null }">
 				        <c:forEach var="aa" items="${an }">
 					        <c:if test="${q.iqNo == aa.iqNo }">
-					        <div style="display:flex;margin-bottom: 7px;">
-					        	<img src="${path }/resources/images/logo-icon.png" alt="" style="width:40px; height: 40px;border-radius: 50%;">
-					        	<h5 style="margin:10px;">오늘의 밥</h5>
-								<span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${aa.iqaDate }"/></span>
-					        </div>
-					    	<div style="display:flex;">
-						        <div style="margin-left:20px;">
-									${aa.iqaContent }
-						        </div>
-						        <div>
-						        <c:if test="${loginMember eq 'admin' }">
-					       			<button id="" class="primary-btn" type="button" 
-					       			style="background-color:magenta;border: none;color: white;margin-left:50px;"
-					       			 onclick="deleteAnswer(${aa.iqaNo },${itemNo });">삭제</button>
-					       		</c:if>
-					    		</div>
-					    	</div>
-							<hr/>
+					        	<c:if test="${q.iqSecret eq 'N' or loginMember.memberId eq q.memberId or loginMember.memberId eq 'admin'}">
+							        <div style="display:flex;margin-bottom: 7px;">
+							        	<img src="${path }/resources/images/logo-icon.png" alt="" style="width:40px; height: 40px;border-radius: 50%;">
+							        	<h5 style="margin:10px;">오늘의 밥</h5>
+										<span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${aa.iqaDate }"/></span>
+							        </div>
+							    	<div style="display:flex;">
+								        <div style="margin-left:20px;">
+											${aa.iqaContent }
+								        </div>
+								        <div>
+								        <c:if test="${loginMember.memberId eq 'admin' }">
+							       			<button id="" class="primary-btn" type="button" 
+							       			style="background-color:magenta;border: none;color: white;margin-left:50px;"
+							       			 onclick="deleteAnswer(${aa.iqaNo },${itemNo });">삭제</button>
+							       		</c:if>
+							    		</div>
+							    	</div>
+									<hr/>
+								</c:if>
+								<c:if test="${q.iqSecret eq 'Y' }">
+									<c:if test="${loginMember.memberId != q.memberId and loginMember.memberId != 'admin'}">
+										<div style="margin:20px;">
+										    <h5 style="color:gray;">비밀답변입니다.</h5>
+										</div>
+										<hr/>
+									</c:if>
+								</c:if>
 					        </c:if>
 						</c:forEach>
 					</c:if>
@@ -148,18 +171,47 @@
 				</div>
 			</c:forEach>
 		</div>
-			
+		
+		
 		<!-- 페이징처리 -->
-		<div class="product__pagination" style="text-align: center;">
+		<!-- <div class="product__pagination" style="text-align: center;">
 		    <a href="#"><i class="fa fa-long-arrow-left"></i></a>
 		    <a href="#">1</a>
 		    <a href="#">2</a>
 		    <a href="#">3</a>
 		    <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-		</div>
+		</div> -->
+		
+		
+		
+		
 	</div>
 	
 		<script>
+			//질문하기 로그인유무
+			function insertqna(e){
+				if(${loginMember==null}){
+					alert('로그인이 필요한 기능입니다.');
+					return false;
+				}else{
+					return true;
+				}
+			}
+		
+			//내가쓴글 문의하기	
+			function selectItemQna(check){
+		 		$.ajax({
+		 		    type:'get',
+		 			url:'${path}/itemQna/qnaCheckbox.do',
+		 			data:{"data":check,
+		 				"itemNo":${itemNo}},
+		        		 success:data=>{
+		       				$("#qnaList").html(data);
+	       		 	}
+	 			})
+	 		};
+		
+		
 			//문의 답변css
 		 	function togglererere(e){
 		 		$(e.target).parent().parent().next().next().find("div.ttt").slideToggle(1000);
@@ -197,5 +249,7 @@
 		    		}
 		    	}) ; 
 		    }   */ 
+		    
+		   
 		    
 		</script>
