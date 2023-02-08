@@ -507,5 +507,18 @@ public class OneDayController {
   		int no=Integer.valueOf(odcNo);
   		return service.selectNoQna(no);
   	}
+  	
+  	@RequestMapping("/class/goModifyReview.do")
+  	public ModelAndView goModifyReview(int no, ModelAndView mv) {
+  		//리뷰 불러오기
+  		OdcReview odRe=service.selectReviewByodreNo(no);
+  		//예약정보 불러오기
+  		OdcReserve odVe=service.selectReservebyodreNo(no);
+  		mv.addObject("odRe", odRe);
+  		mv.addObject("odVe", odVe);
+  		mv.setViewName("onedayclass/onedayModifyReview");
+  		return mv;
+  	}
+  	
    	
 }

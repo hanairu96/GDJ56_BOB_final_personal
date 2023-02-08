@@ -170,6 +170,19 @@ public class OneDayDaoImpl implements OneDayDao {
 	public int countMenuClassList(SqlSessionTemplate session, String type) {
 		return session.selectOne("onedayclass.countMenuClassList", type);
 	}
+
+
+
+	@Override
+	public OdcReview selectReviewByodreNo(SqlSessionTemplate session, int no) {
+		return session.selectOne("onedayclass.selectReviewByodreNo", no);
+	}
+
+	@Override
+	public OdcReserve selectReservebyodreNo(SqlSessionTemplate session, int no) {
+		return session.selectOne("onedayclass.selectReservebyodreNo", no);
+	}
+	
 	
 	
 	

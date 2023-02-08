@@ -39,4 +39,6 @@ public interface OneDayDao {
 	List<OdcQa> selectQnaById(SqlSessionTemplate session, OdcQa oq);
 	List<OdcQa> selectNoQna(SqlSessionTemplate session, int no);
 	int countMenuClassList(SqlSessionTemplate session, String type);
+	OdcReview selectReviewByodreNo(SqlSessionTemplate session, int no);
+	OdcReserve selectReservebyodreNo(SqlSessionTemplate session, int no);
 }
