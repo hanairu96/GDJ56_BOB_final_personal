@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.center.model.service.CenterService;
 import com.today.bab.center.model.vo.Notice;
+import com.today.bab.common.AjaxPageBar;
 import com.today.bab.common.Market2PageBar;
 
 @Controller
@@ -38,9 +38,14 @@ public class CenterController {
 		List<Notice> list=service.selectNoticeList(page);
 		mv.addObject("list", list);
 		
+//		int totalData=service.selectNoticeCount();
+//		mv.addObject("pageBar", Market2PageBar.getPage(cPage, numPerpage, totalData, "noticeList"));
+//		mv.addObject("totalContents", totalData);
+		
 		int totalData=service.selectNoticeCount();
-		mv.addObject("pageBar", Market2PageBar.getPage(cPage, numPerpage, totalData, "noticeList"));
-		mv.addObject("totalContents", totalData);
+		String pageBar=AjaxPageBar.getPage(cPage, numPerpage, totalData, "noticeList");
+		//mv.addObject("totalContents", totalData);
+		mv.addObject("pageBar", pageBar);
 		
 		mv.setViewName("center/noticeList");
 		
@@ -56,6 +61,16 @@ public class CenterController {
 		List<Notice> list=service.selectNoticeList(page);
 		
 		return list;
+	}
+	
+	//페이지바 교체
+	@ResponseBody
+	@RequestMapping("/numChange")
+	public String numChange(int cPage){
+		int numPerpage=5;
+		int totalData=service.selectNoticeCount();
+		String pageBar=AjaxPageBar.getPage(cPage, numPerpage, totalData, "noticeList");
+		return pageBar;
 	}
 	
 	//공지사항 리스트 검색한 것 출력
