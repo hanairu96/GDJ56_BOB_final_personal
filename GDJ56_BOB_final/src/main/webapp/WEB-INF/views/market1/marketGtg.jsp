@@ -12,6 +12,13 @@
 	*{
 		font-family: 'Gowun Dodum', sans-serif;
 	}
+	.top-left {
+      position: absolute;
+      top: -20px;
+      width: 90px;
+      left: -10px;
+      z-index: 1;
+   }
 </style>
 	 <div class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/mainbanner.jpg');">
         <div class="container">
@@ -161,6 +168,12 @@
 
 	                        <div class="col-lg-4 col-md-6 col-sm-6">
 	                            <div class="product__item">
+	                            	<c:if test="${sell.itemDiscount eq 'Y' }">
+	                            		<img class="top-left" src="${path }/resources/images/iconsale.gif"/>
+	                            	</c:if>
+	                            
+	                            	
+	                            	
 	                                <div class="product__item__pic set-bg"
 		style="background-image: url('${path }/resources/upload/market/mainlabel/${sell.mainPic }');${sell.itemStock==0?'filter: grayscale(100%)':''};">
 	                            	<c:if test="${sell.itemStock!=0 }">

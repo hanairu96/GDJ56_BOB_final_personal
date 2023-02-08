@@ -251,7 +251,6 @@
 						        ${de.itemName }
 						        </h3>
 						        <br>
-						        <div style="text-align: center;"> 
 						            <p>
 										${de.itemContent }
 						            </p>
@@ -260,7 +259,7 @@
 						        <div  style="text-align: center;flex-wrap: wrap;width:510px;margin:0 auto;">
 						        <c:if test="${not empty de.ipic }">
 			                        <c:forEach var="file" items="${de.ipic }">
-											 <img src="${path }/resources/upload/market/detail/${file.picName}" style="width:500px;height: 500px;margin:15px;">
+											 <img src="${path }/resources/upload/market/detail/${file.picName}" style="margin:15px;">
 									</c:forEach>                         
 	                        	</c:if>
 						        </div>
