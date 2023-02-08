@@ -46,7 +46,7 @@
 		</div> -->
 		<!-- 5개일경우 -->
 		<div class="todaybab_title">
-			<a href="#"><h7>현재적용된상품들보여줄지??..뭐가좋을까<h7></a>
+			<img src="${path }/resources/images/itemdiscountbanner.png" width="1000" id="itemdiscountbanner1" />
 		</div>
 	</section>
 </div>
@@ -121,12 +121,13 @@
 			</div>
 			<div class="wrap-btn-booking flex-c-m m-t-6">
 				<div style="display: flex; margin-left: 75%; margin-bottom: 50px;">
-					<button type="submit" class="flex-c-m size36 txt11 trans-0-4">
+					<button type="button" onclick="fn_disBtn();" class="flex-c-m size36 txt11 trans-0-4">
 						등록하기
 					</button>
 				</div>
 			</div>
-						<input type="hidden" name="yArr" value="">
+						<input type="hidden" name="yArr" value=""/>
+						<input type="hidden" id="disArrNext" name="disArrNext" value=""/>
 		</div>
 		</form>
 		
@@ -160,23 +161,23 @@
 	frontArr.push(...yArrFront); */
 	
 	//chArrFront
-	var chArrFront = new Array(); //체크한 상품번호를 저장할 배열
+/* 	var chArrFront = new Array(); //체크한 상품번호를 저장할 배열 */
 	
 	//chArrFront.push(...yArrFront);
 	
-	const makeItemArr = (target)=>{
+/* 	const makeItemArr = (target)=>{
 			var checkVal = target.value;
 			var confirmCheck = target.checked;
 			if(confirmCheck == true){	chArrFront.push(checkVal);	}
 			else{	chArrFront.splice(	chArrFront.indexOf(checkVal), 1);	}
 			console.log("체크한상품 : "+chArrFront);
-			console.log(chArrFront);
+			console.log(chArrFront); */
 			
 			
 			
 			/* frontArr.push(...chArrFront);
 			console.log(frontArr); */
-	}
+//	}
 	
 	
 	
@@ -202,13 +203,36 @@ $(function(){
 	})
 	console.log(yArrFront);
 
-  /* 	checkboxShowGPSInfo.change(function() {
-		showGPSInfo = !!checkboxShowGPSInfo.is(":checked")
-		localStorage["showGPSInfo"] = showGPSInfo
-	}) */
+	localStorage.removeItem('dis');
+	var dis = JSON.stringify({dis:yArrFront});
+	localStorage.setItem("dis",dis);
 	
 
 })//레디함수./
+
+	
+	const makeItemArr = (target)=>{
+			var dising = JSON.parse(localStorage.getItem("dis")).dis;
+			var checkVal = target.value;
+			var confirmCheck = target.checked;
+			if(confirmCheck == true){	dising.push(checkVal);	}
+			else{	dising.splice(	dising.indexOf(checkVal), 1);	}
+			localStorage.removeItem('dis');//지우고
+			dising = JSON.stringify({dis:dising});
+			localStorage.setItem("dis",dising);//조합한거다시올림 //최종db에서사용할값
+	}
+	
+	fn_disBtn = ()=>{
+		
+		var disBack=JSON.parse(localStorage.getItem("dis")).dis;console.log(disBack); //백으로 넘기기
+		console.log(disBack.toString());
+		$("#disArrNext").attr('value', disBack.toString());
+		console.log(typeof disBack.toString());
+		console.log($("#disArrNext").val());//-->string으로 들어감
+		
+		disFrm.submit();
+	}
+
 </script>
 <script>
 	$(function(){//레디함수
@@ -237,7 +261,15 @@ $(function(){
 	    					
 		    				let tr = $("<tr>");
 	    					let itemNo = $("<td>").text(i.itemNo);
-	    					let checkbox = $("<td>").append(input);
+	    					let checkbox = $("<td>").append(
+	    							
+	    							JSON.parse(localStorage.getItem("dis")).dis.includes(String(itemInfo)) ? 
+	    							
+	    							input.prop('checked', true) : input
+	    							
+	    							
+	    							
+	    							);
 	    					let itemCategory = $("<td>").text(i.itemCategory);
 	    					let itemName = $("<td>").text(i.itemName);
 	    					let itemBrand = $("<td>").text(i.itemBrand);
@@ -319,6 +351,16 @@ $(function(){
 	border: none;
 	}
 	button[type=submit]:hover {
+		background: rgb(92, 121, 34);
+		cursor: pointer;
+	}
+	form button[type=button] {
+	background: rgb(176, 206, 117);
+	border-radius: 10px;
+	outline: none !important;
+	border: none;
+	}
+	form button[type=button]:hover {
 		background: rgb(92, 121, 34);
 		cursor: pointer;
 	}

@@ -57,7 +57,7 @@
 			<p><!-- 총 100건 --></p>
 			<div class="row" id="print">
 				<c:forEach var="i" items="${bestItems }">
-				<div class="col-lg-4 col-sm-6" style="padding: 3%;${i.itemStock==0?'filter: grayscale(100%)':''};><!--  " -->
+				<div class="col-lg-4 col-sm-6" style="padding: 3%;${i.itemStock==0?'filter: grayscale(100%)':''};">
 					<div class="recipe-item">
 						<div class="zoom">
 							<a href="${path}/market1/marketdetail.do?itemNo=${i.itemNo }"><img src="${path }/resources/upload/market/mainlabel/${i.mainPic }" alt="" width="330" height="280"></a><!-- ! 사진경로연결해주기 -->
@@ -131,7 +131,7 @@ const addbasketitem=(no,memberId,mainPic,itemName)=>{
                 text: "이 상품은 이미 담겨있습니다. 더 담으시겠습니까?",
                 imageUrl: '${path }/resources/upload/market/mainlabel/'+mainPic,
                 showCancelButton: true,
-               confirmButtonColor: '#07d448',
+               	confirmButtonColor: '#07d448',
                 cancelButtonColor: 'magenta',
                 confirmButtonText: '장바구니 추가',
                 cancelButtonText: '계속 쇼핑하기'
@@ -187,9 +187,17 @@ $(function(){//.레디함수
     					data.forEach(i=>{	console.log(i)
     						//html += "<h4>"+i.itemName+"</h4>";
     						
-    						var itemNo = i.itemNo;
     						
-    						html += "<div class='col-lg-4 col-sm-6' style='padding: 3%;'>";
+    						var itemNo = i.itemNo;
+    						var m = '${loginMember.memberId }';
+    						var stock = i.itemStock==0 ? "<div class='col-lg-4 col-sm-6' style='padding: 3%;filter: grayscale(100%);'>"
+    									: "<div class='col-lg-4 col-sm-6' style='padding: 3%;'>";
+    						//var stock2 = i.itemStock==0 ? "<a href='${path }/market/cart.do?id=${m}&itemNo="+itemNo+"'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>"
+    						var stock2 = i.itemStock==0 ? "<span style='font-size: 30px;'>일시품절</span>"
+    									: "<a href='javascript:void(0);' onclick='addbasketitem("+i.itemNo+",'"+m+"','"+i.mainPic+"','"+i.itemName+"');'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>";
+    									
+    						
+    						html += stock
 							html += "<div class='recipe-item'>";
 							html += "<div class='zoom'>";
 							html += "<a href='#'><img src='${path }/resources/upload/market/mainlabel/"+i.mainPic+"' alt='' width='330' height='280'></a>";
@@ -206,7 +214,7 @@ $(function(){//.레디함수
 							html += "<h5>"+i.itemPrice+"</h5><h5>원</h5>";
 							html += "</div>";
 							html += "<div class='zoom'>";
-							html += "<a href='${path }/market/cart.do?id=${m}&itemNo="+itemNo+"'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>";
+							html += stock2
 							html += "</div>";
 							html += "</div>";
 							html += "</div>";
@@ -225,7 +233,14 @@ $(function(){//.레디함수
 	
 	})//e./click./
 	
-	
+/* <c:if test="${i.itemStock ==0}">
+		<span style="font-size: 30px;">일시품절</span>
+	</c:if>
+	<c:if test="${i.itemStock!=0 }">
+	<a href='javascript:void(0);' onclick="addbasketitem(${i.itemNo },'${loginMember.memberId }','${i.mainPic }','${i.itemName }')"><img src="https://img.icons8.com/pastel-glyph/512/shopping-cart.png" width="30" height="30"></a>
+										<a href="${path }/market/cart.do?id=${m}&itemNo=${i.itemNo}"><img src="https://img.icons8.com/pastel-glyph/512/shopping-cart.png" width="30" height="30"></a>
+	</c:if> */
+//	"<a href='javascript:void(0);' onclick='addbasketitem(${i.itemNo },'${loginMember.memberId }','${i.mainPic }','${i.itemName }')'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>"
 	
 	
 	
@@ -247,15 +262,6 @@ $(function(){//.레디함수
 </body>
 
 <style>
-	/* .마켓헤더 */
-    .marketHeader {
-        position: sticky;
-        z-index: 100;
-        top: 100px;
-        background: rgba(137, 43, 226, 0.167);
-    }
-
-    /* 마켓헤더./ */
 
 	a:hover {
 			color: yellowgreen;
