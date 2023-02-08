@@ -26,24 +26,33 @@
 	<div><button type="button" onClick="javascript:window.scrollTo(0,0)"><img src="${path }/resources/images/up.png"></button></div>
 </div>
 <script>
-var l = JSON.parse(localStorage.getItem("floatL"));
-var s = JSON.parse(localStorage.getItem("floatS"));
-var f = JSON.parse(localStorage.getItem("floatF"));
+
+if(${loginMember == null}) {
+	$("#li2").html('로그인하세요');
+	$("#li2").attr("href",'${path}/member/loginpage');
+}else{
+	var l = JSON.parse(localStorage.getItem("floatL"));
+	var s = JSON.parse(localStorage.getItem("floatS"));
+	var f = JSON.parse(localStorage.getItem("floatF"));
 
 
-if(localStorage.getItem("floatL") != null){
-	$("#li3Img").attr("src",'${path }/resources/upload/market/mainlabel/'+l.mainPic);
-	$("#li3").attr("href",'${path}/market1/marketdetail.do?itemNo='+l.itemNo);
+	if(localStorage.getItem("floatL") != null){
+		$("#li3Img").attr("src",'${path }/resources/upload/market/mainlabel/'+l.mainPic);
+		$("#li3").attr("href",'${path}/market1/marketdetail.do?itemNo='+l.itemNo);
+	}
+	if(localStorage.getItem("floatS") != null){
+		$("#li2Img").attr("src",'${path }/resources/upload/market/mainlabel/'+s.mainPic);
+		$("#li2").attr("href",'${path}/market1/marketdetail.do?itemNo='+s.itemNo);
+	}
+	if(localStorage.getItem("floatF") != null){
+		$("#li1Img").attr("src",'${path }/resources/upload/market/mainlabel/'+f.mainPic);
+		$("#li1").attr("href",'${path}/market1/marketdetail.do?itemNo='+f.itemNo);
+		
+	}
 }
-if(localStorage.getItem("floatS") != null){
-	$("#li2Img").attr("src",'${path }/resources/upload/market/mainlabel/'+s.mainPic);
-	$("#li2").attr("href",'${path}/market1/marketdetail.do?itemNo='+s.itemNo);
-}
-if(localStorage.getItem("floatF") != null){
-	$("#li1Img").attr("src",'${path }/resources/upload/market/mainlabel/'+f.mainPic);
-	$("#li1").attr("href",'${path}/market1/marketdetail.do?itemNo='+f.itemNo);
-	
-}
+
+
+
 
 
 
