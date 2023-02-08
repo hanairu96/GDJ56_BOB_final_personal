@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<%-- <jsp:include page="/WEB-INF/views/common/floatBar.jsp"/> --%>
+<jsp:include page="/WEB-INF/views/common/marketHeader.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -18,13 +18,12 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2 style="color:black;">오늘의 밥 상품</h2>
-                        </div>
+                    	<h2 style="color:black;">오늘의 밥 상품</h2>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <section class="product spad">
         <div class="container">
