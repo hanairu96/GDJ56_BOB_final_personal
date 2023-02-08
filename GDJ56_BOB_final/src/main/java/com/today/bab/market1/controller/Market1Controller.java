@@ -438,7 +438,7 @@ public class Market1Controller {
 		return mv;
 	}
 	
-	
+	//상품 상세페이지 ajax
 	@RequestMapping("/choiceexplain.do")
 	public String choiceexplain(int itemNo,String check,Model m,
 			@Validated @RequestParam(value="cPage", defaultValue="1", required = true)int cPage,
@@ -503,7 +503,7 @@ public class Market1Controller {
 //		return "market1/resultGtgselect";
 //	}
 	
-	
+	//선호상품
 	@RequestMapping("/memberLikeList.do")
 	public ModelAndView memberLikeList(ModelAndView mv,HttpServletRequest request) {
 		
@@ -549,6 +549,7 @@ public class Market1Controller {
 		return mv;
 	}
 	
+	//상품 정렬
 	@RequestMapping("/searchItemSort.do")
 	public String searchItemSort(Model m,
 			int min, int max,String itemct,String itemsort
@@ -564,11 +565,38 @@ public class Market1Controller {
 		return "market1/resultGtgselect";
 	}
 	
+	//마감임박 아이템
 	@RequestMapping("/soldoutsoon.do")
-	public ModelAndView soldoutsoon(ModelAndView mv) {
+	public ModelAndView soldoutsoon(ModelAndView mv,HttpServletRequest request) {
 		List<SellItem> list=service.soldoutsoon();
 		mv.addObject("i",list);
+		
+		
+		HttpSession session = request.getSession();
+	    Member  loginMember= (Member) session.getAttribute("loginMember");
+		if(loginMember!=null) {
+			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
+			mv.addObject("basket",blist);
+		}
 		mv.setViewName("market1/mainChoiceList");
 		return mv;
 	}
+	
+	@RequestMapping("/resetSearch.do")
+	public String resetSearch(Model m,HttpServletRequest request){
+		List<SellItem> list=service.selectItemMarket();
+		m.addAttribute("ii",list);
+		
+		HttpSession session = request.getSession();
+	    Member  loginMember= (Member) session.getAttribute("loginMember");
+		if(loginMember!=null) {
+			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
+			m.addAttribute("basket",blist);
+		}
+		
+		
+		return "market1/resultGtgselect";
+	}
+	
+	
 }
