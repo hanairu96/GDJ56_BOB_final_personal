@@ -282,7 +282,7 @@ public class Market1Controller {
 		int result=service.insertItem( s);
 		if(result>0) {
 			mv.addObject("msg", "게시판 작성 완료");
-			mv.addObject("loc", "/market1/matketmain.do");
+			mv.addObject("loc", "/market1/marketgtg.do");
 		}else {
 			mv.addObject("msg", "게시판 작성 실패");
 			mv.addObject("loc", "/market1/insertmarket.do");

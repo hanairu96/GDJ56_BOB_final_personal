@@ -35,12 +35,12 @@
     <section class="product spad">
         <div class="container">
             <div class="row">
-            <c:if test="${loginMember.memberId eq 'admin'  }">
-                <a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:900px;background-color:#bde28f;" >상품등록</a>
-            </c:if>
-            <div>
+            <%-- <c:if test="${loginMember.memberId eq 'admin'  }"> --%>
+                <a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:85%;background-color:#bde28f;" >상품등록</a>
+            <%-- </c:if> --%>
+            <div style="margin-left:80%;">
                 <a href="javascript:void(0);" onclick="reset();" style="width:100px;text-decoration-line: none;color:black;"> 
-				<img src="${path }/resources/images/reset.gif" style="width:40px;margin-left:1000px;">
+				<img src="${path }/resources/images/reset.gif" style="width:40px;">
                 <span style="font-weight:bold;font-size:20px;margin:10px;">초기화</span></a>
             </div>
                 <div class="col-lg-3 col-md-5">
