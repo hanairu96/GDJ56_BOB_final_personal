@@ -288,7 +288,7 @@
                   	<div style="display:flex;justify-content:space-between;align-items:center;">
 			          	<p style="color:red;margin-left:50px;"> >>> 답변해야 할 문의가 총 <b>${totalData }개</b> 있습니다.</p>
 		        	</div>
-                    <table class="w-full whitespace-no-wrap"style="text-align:center;">
+                    <table class="w-full whitespace-no-wrap"style="text-align:center;table-layout:fixed;">
 	                     <c:if test="${empty list }">
 		                  	 <thead>
 				            	<tr>
@@ -343,7 +343,8 @@
 		                        <td class="px-4 py-3 text-sm font-semibold">
 		                          ${m.itemName }
 		                        </td>
-		                        <td class="px-4 py-3 text-sm font-semibold">
+		                        <td class="px-4 py-3 text-sm font-semibold"
+		                        	 style="width:10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
 		                          <a class="nav-link" data-toggle="tab" role="tab"
                                      href="${path}/market1/marketdetail.do?itemNo=${m.itemNo}">${m.iqContent }</a>
 		                        </td>
@@ -387,7 +388,7 @@
 		                        <td class="px-4 py-3 text-sm font-semibold">
 		                          ${m.itemName }
 		                        </td>
-		                        <td class="px-4 py-3 text-sm font-semibold">
+		                        <td class="px-4 py-3 text-sm font-semibold"style="width:10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
 		                           <a href="${path }/class/odcView.do?no=${m.itemNo }#qna">${m.iqContent }</a>
 		                        </td>
 		                        <td class="px-4 py-3 text-xs font-semibold">
@@ -441,7 +442,7 @@
 		                        <td class="px-4 py-3 text-sm font-semibold">
 		                          ${m.itemName }
 		                        </td>
-		                        <td class="px-4 py-3 text-sm font-semibold">
+		                        <td class="px-4 py-3 text-sm font-semibold" style="width:10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
 		                        	<c:if test="${fn:contains(m.cate,'원데이')}">
 		                        		<a href="${path }/class/odcView.do?no=${m.itemNo}#qna">${m.iqContent }</a>
 		                        	</c:if>

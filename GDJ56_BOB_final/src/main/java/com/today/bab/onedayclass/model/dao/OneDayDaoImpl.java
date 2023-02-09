@@ -203,6 +203,28 @@ public class OneDayDaoImpl implements OneDayDao {
 	public void deleteReOdcQa(SqlSessionTemplate session, String oqrNo) {
 		session.delete("onedayclass.deleteReOdcQa", oqrNo);
 	}
+
+
+
+	@Override
+	public OdcQa selectOqbyOqNo(SqlSessionTemplate session, int oqno) {
+		return session.selectOne("onedayclass.selectOqbyOqNo", oqno);
+	}
+
+	@Override
+	public void updateOq(SqlSessionTemplate session, OdcQa oq) {
+		session.update("onedayclass.updateOq", oq);
+		
+	}
+
+
+
+	@Override
+	public void insertPoint(SqlSessionTemplate session, String memberId) {
+		session.insert("onedayclass.insertPoint", memberId);
+		
+	}
+	
 	
 	
 
