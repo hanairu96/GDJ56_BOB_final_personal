@@ -356,7 +356,7 @@
 			                      <td class="px-4 py-3">
 			                      </td>
 			                      <td class="px-4 py-3">
-			                        <span id="priceResult">+30</span>원
+			                        <span id="priceResult">+2000</span>원
 			                      </td>
                     		</tr>
                     		<tr class="text-gray-700 dark:text-gray-400">
