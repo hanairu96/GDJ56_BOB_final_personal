@@ -562,6 +562,7 @@ public class Market1Controller {
 			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
 			mv.addObject("basket",blist);
 		}
+		mv.addObject("content","맞춤 추천 상품");
 		mv.setViewName("market1/mainChoiceList");
 		return mv;
 	}
@@ -597,6 +598,7 @@ public class Market1Controller {
 			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
 			mv.addObject("basket",blist);
 		}
+		mv.addObject("content","마감임박 추천상품");
 		mv.setViewName("market1/mainChoiceList");
 		return mv;
 	}
@@ -612,15 +614,13 @@ public class Market1Controller {
 		List<SellItem> list=service.recommendman(Map.of("cPage",cPage,"numPerpage",numPerpage));
 		mv.addObject("i",list);
 		
-		int totaldata=service.selectItemCount();
-		mv.addObject("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"soldoutsoon.do"));
-		
 		HttpSession session = request.getSession();
 		Member  loginMember= (Member) session.getAttribute("loginMember");
 		if(loginMember!=null) {
 			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
 			mv.addObject("basket",blist);
 		}
+		mv.addObject("content","1만원대 추천상품");
 		mv.setViewName("market1/mainChoiceList");
 		return mv;
 	}

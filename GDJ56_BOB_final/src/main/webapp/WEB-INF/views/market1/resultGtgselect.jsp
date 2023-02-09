@@ -63,16 +63,5 @@
 			</c:if>
 		</c:forEach>
 		
-		<!-- 장바구니 스크립트구문 가져오기 -->
-		
-		
 	</div>
-    <!-- 페이징처리 -->
-    <div class="product__pagination">
-        <a href="#"><i class="fa" style="font-weight:bold;"> &lt; </i></a>
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#"><i class="fa" style="font-weight:bold;"> > </i></a>
-    </div>
 </div>
