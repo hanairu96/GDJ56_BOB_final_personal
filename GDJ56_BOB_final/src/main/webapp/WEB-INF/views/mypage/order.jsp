@@ -30,7 +30,7 @@
                                     	<span  style="color:black; margin-left:600px;" >수량 : ${io.itemCount }</span> 
                                     	가격 :<span color:black; id="resultPrice" > </span>원</h6>
                                     	<input id="itemcount" value="${io.itemCount }" hidden>
-                                    	<input id="itemprice" value="${ios.itemPrice }" hidden>
+                                    	<input id="itemprice" value="${ios.itemDiscount eq 'Y' ? '9900': ios.itemPrice}" hidden>
                                     </div>
                                     <br>
                                 </div>

@@ -15,6 +15,7 @@ import com.today.bab.admin.model.vo.AdminSearch;
 import com.today.bab.admin.model.vo.AdminSellItem;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.AdminTotalData;
+import com.today.bab.admin.model.vo.AdminTotalProduct;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.member.model.vo.Member;
@@ -191,6 +192,11 @@ public class AdminDaoImpl implements AdminDao{
 		return session.selectList("admin.adminTotalData");
 	}
 
+	@Override
+	public List<AdminTotalProduct> adminTotalProduct(SqlSessionTemplate session) {
+		return session.selectList("admin.adminTotalProduct");
+	}
+	
 	@Override
 	public List<AdminSellItem> adminProductList(SqlSessionTemplate session, Map<String, Integer> param) {
 		return session.selectList("admin.adminProductList",null, 

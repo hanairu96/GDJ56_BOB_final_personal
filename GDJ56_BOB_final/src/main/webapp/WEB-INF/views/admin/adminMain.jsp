@@ -476,13 +476,13 @@
 					  type: 'doughnut',
 					  data: {
 					  labels: [
-						    '채소',
-						    '정육',
-						    '간편식'
+						    '${num1.data}',
+						    '${num2.data}',
+						    '${num3.data}'
 						  ],
 						  datasets: [{
 						    label: '판매수량',
-						    data: [250, 70, 130],
+						    data: [${num1.total}, ${num2.total}, ${num3.total}],
 						    backgroundColor: [
 						      'rgb(255, 99, 132)',
 						      'rgb(54, 162, 235)',

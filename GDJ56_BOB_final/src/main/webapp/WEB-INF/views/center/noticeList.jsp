@@ -211,7 +211,7 @@
    		//ajax를 이용한 페이징 처리
    		//$(".product__pagination>*").click(e=>{
    		//위의 방식을 쓰면 동적 페이지로 바뀐 후에 안 먹히므로 아래의 방식을 써야 함
-   		$(document).on("click", ".product__pagination>*", function(e){
+   		$(document).on("click", ".product__pagination>*", function(e){ //페이지 버튼을 누르면
    			let cPage=0; //페이지 번호
    			if(e.target.textContent.trim()=='<'){
    				cPage=Number(document.querySelector(".product__pagination>*:nth-child(2)").textContent)-1;
@@ -228,8 +228,8 @@
    			
    			let option='N'; //검색 항목
    			let optionVal='N'; //검색 내용
-   			if("${option}"!='N') option="${option}";
-   			if("${optionVal}"!='N') optionVal="${optionVal}";
+   			if("${option}"!="") option="${option}";
+   			if("${optionVal}"!="") optionVal="${optionVal}";
    			
    			let args=[cPage, option, optionVal];
    			$.ajax({

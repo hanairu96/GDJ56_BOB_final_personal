@@ -2,6 +2,8 @@ package com.today.bab.admin.model.vo;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +18,7 @@ public class ClientQNA {
 	private String cqCate;
 	private String cqTitle;
 	private String cqContent;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date cqDate;
 	private String cqCheck;
 	private String memberId;

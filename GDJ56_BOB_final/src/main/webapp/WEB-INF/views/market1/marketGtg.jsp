@@ -174,9 +174,14 @@
                     	function reset(){
 					    	$.get('${path}/market1/resetSearch.do',
 					    	data=>{
-					    		console.log(data);
                     			$("#explain").html(data);
-				    		})
+                    			location.reload();
+                    			/* $("#minamount").val(0);
+                    			$("#maxamount").val(50000);
+                    			$(".ui-slider-range").trigger("click");
+                    			$(".ui-slider-range").trigger("slide"); */
+				    		});
+					    	
 				    	};
                     	
                     
@@ -279,7 +284,7 @@
 		Price Range Slider
 	------------------------ */
     (function ($) {
-        var rangeSlider = $(".price-range"),
+       var rangeSlider = $(".price-range"),
             minamount = $("#minamount"),
             maxamount = $("#maxamount"),
             minPrice = rangeSlider.data('min'),
@@ -301,6 +306,7 @@
         });
         minamount.val(rangeSlider.slider("values", 0));
         maxamount.val(rangeSlider.slider("values", 1));
+        
     })(jQuery);
 
     </script>

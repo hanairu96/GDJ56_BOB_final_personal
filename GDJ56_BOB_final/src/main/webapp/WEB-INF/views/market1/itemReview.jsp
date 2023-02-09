@@ -47,7 +47,7 @@
 			            </li> -->
 			            <li>
 			                <a class="nav-link" data-toggle="tab" href="javascript:void(0);"
-			               	style="font-size: 15px;font-weight: bold;" onclick="reviewlist('mem');">내가 쓴 댓글보기</a>
+			               	style="font-size: 15px;font-weight: bold;" onclick="reviewlist('mem');">내가 쓴 리뷰보기</a>
 			            </li>
 			        </ul>
 			    </div>

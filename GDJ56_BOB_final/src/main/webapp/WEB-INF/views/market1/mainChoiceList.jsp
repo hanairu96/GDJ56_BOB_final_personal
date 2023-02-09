@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2 style="color:black;">오늘의 밥 마켓</h2>
+                        <h2 style="color:black;">${content }</h2>
                         </div>
                     </div>
                 </div>
