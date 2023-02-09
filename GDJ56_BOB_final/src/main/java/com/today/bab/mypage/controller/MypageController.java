@@ -120,12 +120,12 @@ public class MypageController {
 	    
 		AdminMember member=AdminMember.builder().memberId(loginMember.getMemberId()).password(myinfoPassword).build();
 		
-		System.out.println(loginMember+"??");
+		//System.out.println(loginMember+"??");
 		
 		AdminMember m=mypageService.selectMyInfo(member);//비밀번호 맞는지 확인
 		
 		boolean result=passwordEncoder.matches(myinfoPassword, loginMember.getPassword());
-		System.out.println(result);
+		//System.out.println(result);
 		
 		if(!result) { //비밀번호가 틀린 경우
 			mv.addObject("msg", "비밀번호가 틀렸습니다.");
@@ -622,7 +622,7 @@ public class MypageController {
 	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "onedayItemWrite.do"));
 	    
 	    mv.addObject("mqa",mqa);
-	    System.out.println(mqa);
+	    //System.out.println(mqa);
 	    
 	    ArrayList memberInfoBar = new ArrayList();
 	    memberInfoBar.add(m.getMemberId());
@@ -654,7 +654,7 @@ public class MypageController {
 	public List<OnedayRe> selectOnedayRe(int qnaNo,HttpServletResponse response) throws IOException {
 		
 		List<OnedayRe> reply = mypageService.selectOnedayRe(qnaNo);
-		System.out.println(reply);
+		//System.out.println(reply);
 		response.setContentType("text/csv;charset=utf-8");
 		
 		return reply;
