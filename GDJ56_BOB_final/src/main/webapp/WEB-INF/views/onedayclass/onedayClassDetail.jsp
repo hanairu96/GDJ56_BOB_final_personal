@@ -27,6 +27,9 @@
 	<link type="text/css" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"rel="stylesheet">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	
+	<!-- 결제 라이브러리 -->
+	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </head>
 
 <script>
@@ -1091,6 +1094,7 @@
 										  maxDate: endDate
 										});	
 								})
+								
 								function onchanged(){
 									const odcNo= $('#odcNo').val();
 									const reDate=$("#testDatepicker").val();
@@ -1126,7 +1130,6 @@
 							
 							
 							<div style="border: solid black; width: 100; height: 300; display: none; text-align: center;" id="searchbox">
-								<form action="${path }/class/inputReservation.do">
 									<h4>예약 정보</h4>
 									<p id="datepic"></p>
 									<input type="hidden" name="odcDate" value="">
@@ -1146,10 +1149,54 @@
 									</label>
 									
 									<br>
-									<button type="submit" class="btn3" >
+									<button type="button" class="btn3" onclick="requestPay();">
 										예약하기
 									</button>
-								</form>	
+								
+								<script type="text/javascript">
+								function requestPay() {
+									console.log("결제실행");
+									
+									//IMP 객체 초기화
+									const IMP = window.IMP; //생략 가능
+									IMP.init("imp88451532"); //가맹점 식별코드
+									
+									IMP.request_pay({
+										 	pg : 'tosspay',
+										    pay_method : 'card',
+										    merchant_uid: "order_no_0001", //상점에서 생성한 고유 주문번호
+										    name : '주문명:결제테스트',   //필수 파라미터 입니다.
+										    amount : 1004,
+										    buyer_email : "${loginMember.email}",
+										    buyer_name : "${loginMember.mname}",
+										    buyer_tel : "${loginMember.phone}",
+										    buyer_addr : "${loginMember.address}",
+									}, function (rsp) { // callback
+										if (rsp.success) {
+											// 결제 성공 시 로직
+											const odcNo= $('#odcNo').val();
+											const odcDate= $('#odcDate').val();
+											const memberId= $('#memberId').val();
+											
+												$.ajax({
+													type:'get',
+													url:"${path}/class/inputReservation.do",
+													 data:{
+												        	"odcDate" : odcDate,
+												        	"memberId" : memberId,
+												        	"odcNo":odcNo
+														}, 
+												    contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+													success:data=>{
+															alert('결제되었습니다.');
+													}
+												})
+											} 
+										});
+								};
+								
+								</script>
+								
 							</div>
 						</div>	
 					</div>

@@ -437,7 +437,7 @@ public class OneDayController {
   	}
    	
   	@RequestMapping("/class/inputReservation.do")
-  	public ModelAndView inputReservation(ModelAndView mv,String memberId,String odcDate, String odcNo){
+  	public void inputReservation(ModelAndView mv,String memberId,String odcDate, String odcNo){
 //  		 try {
 //             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 //             Date odcDate = format.parse(odcDate1);
@@ -446,7 +446,8 @@ public class OneDayController {
 //         } catch(Exception e) {
 //             e.printStackTrace();
 //         }
-     
+  		
+  		System.out.println(memberId);
   		
   		Map param=new HashMap();
   		param.put("memberId", memberId);
@@ -454,16 +455,7 @@ public class OneDayController {
         param.put("odcDate", odcDate);
   		
         int result=service.inputReservation(param);
-
-        if(result>0) {
-			  mv.addObject("msg","예약 성공:)");
-		      mv.setViewName("common/close");
-		  }else {
-			  mv.addObject("msg", "예약 실패 :(");
-			  mv.setViewName("common/close");
-		  }
-  		//System.out.println(or);
-  		return mv;
+  		
   	} 
   	
   	@RequestMapping("/class/editClass.do")
