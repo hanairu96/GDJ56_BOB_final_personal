@@ -517,6 +517,8 @@
 				  <canvas id="chart2" style="display:inline;" width="300" height="200"></canvas>
 				</div>
 				<script>
+				const numberCount2=document.querySelector(".numberCount2").innerHTML;
+				var numberCount2Result = numberCount2.substr(0, 2);
 				const chart2 = document.getElementById('chart2');
 				 new Chart(chart2, {
 		                type: 'line', // 차트의 형태
@@ -530,7 +532,7 @@
 		                            label: '목표', //차트 제목
 		                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
 		                            data: [
-		                                100,120,180,220,280,320,360,400,450,520,600,780 //x축 label에 대응되는 데이터 값
+		                                100,120,180,220,280,320,360,380,400,420,480,500 //x축 label에 대응되는 데이터 값
 		                            ],
 		                            backgroundColor: [
 		                                //색상
@@ -556,7 +558,7 @@
 		                            label: '현재', //차트 제목
 		                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
 		                            data: [
-		                            	25,43 //x축 label에 대응되는 데이터 값
+		                            	25,numberCount2Result //x축 label에 대응되는 데이터 값
 		                            ],
 		                            backgroundColor: [
 		                                //색상
@@ -586,7 +588,7 @@
 		                            {
 		                                ticks: {
 		                                    beginAtZero: true,
-		                                    max:800
+		                                    max:500
 		                                }
 		                            }
 		                        ]
