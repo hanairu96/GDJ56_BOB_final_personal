@@ -1155,7 +1155,7 @@
 									IMP.request_pay({
 										 	pg : 'tosspay',
 										    pay_method : 'card',
-										    merchant_uid: "order_no_0009", //상점에서 생성한 고유 주문번호
+										    merchant_uid: 'merchant_' + new Date().getTime(), //상점에서 생성한 고유 주문번호
 										    name : '주문명:결제테스트',   //필수 파라미터 입니다.
 										    amount : 1004,
 										    buyer_email : "${loginMember.email}",
