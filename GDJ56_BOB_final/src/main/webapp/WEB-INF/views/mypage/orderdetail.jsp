@@ -316,7 +316,7 @@
 			                        		</a>
 			                        	</div>
 			                      </td>
-			                      <input type="text" value="${item.orderitem.itemPrice }" id="itemPrice" hidden>
+			                      <input type="text" value="${item.orderitem.itemDiscount eq 'Y' ? '9900': item.orderitem.itemPrice}" id="itemPrice" hidden>
 			                      <td class="px-4 py-3">
 			                        <div class="flex items-center text-sm" id="stockinfo">
 			                        	<a href="${path}/market1/marketdetail.do?itemNo=${item.orderitem.itemNo}">
@@ -356,7 +356,7 @@
 			                      <td class="px-4 py-3">
 			                      </td>
 			                      <td class="px-4 py-3">
-			                        <span id="priceResult">+30</span>원
+			                        <span id="priceResult">+2000</span>원
 			                      </td>
                     		</tr>
                     		<tr class="text-gray-700 dark:text-gray-400">

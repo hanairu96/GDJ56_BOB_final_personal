@@ -517,11 +517,16 @@ function checkAll() {
 	  
 	  let basketarray=new Array();
 	  let ckdata=$("input:checkbox[id=productCheck_]:checked");
-	  for(let i=0;i<ckdata.length;i++){
-		  basketarray.push(ckdata[i].value);
+	  if(ckdata.length>0){
+		  for(let i=0;i<ckdata.length;i++){
+			  basketarray.push(ckdata[i].value);
+		  }
+		  //console.log(basketarray);
+		  location.assign("${path}/mypage/basket/order.do?basketss="+basketarray);
+	  }else{
+		  alert('제품을 선택해주세요');
 	  }
-	  //console.log(basketarray);
-	  location.assign("${path}/mypage/basket/order.do?basketss="+basketarray);
+	  
 	  
   }
 </script>

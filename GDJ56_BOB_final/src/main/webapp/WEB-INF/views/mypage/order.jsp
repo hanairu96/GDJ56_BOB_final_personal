@@ -30,7 +30,7 @@
                                     	<span  style="color:black; margin-left:600px;" >수량 : ${io.itemCount }</span> 
                                     	가격 :<span color:black; id="resultPrice" > </span>원</h6>
                                     	<input id="itemcount" value="${io.itemCount }" hidden>
-                                    	<input id="itemprice" value="${ios.itemPrice }" hidden>
+                                    	<input id="itemprice" value="${ios.itemDiscount eq 'Y' ? '9900': ios.itemPrice}" hidden>
                                     </div>
                                     <br>
                                 </div>
@@ -39,7 +39,7 @@
                  </c:forEach>            
                 </c:forEach>
                         
-
+				<br>
                 <h4>배송지</h4>
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
@@ -127,21 +127,30 @@
                             <div class="checkout__order__subtotal">적립금 사용 <span id="finalpoint">0</span></div>
                             <div class="checkout__order__total">최종결제금액 <span id="totaltotal"></span></div>
                             <button onclick="basketpay()" class="site-btn" id="payBtn" disabled style="background-color: gray;">결제하기</button>
+                            <br>
                             <p id="payTxt">결제 진행을 위해 아래의<br>결제 진행 필수 동의를 해 주세요</p>
                         </div>
+                        <div class="row">
+				            <div class="col-lg-12">
+				                <h6 id="checkline"><span class="icon_tag_alt"></span> 개인정보 수집/제공 | 결제 진행 필수 전체 동의  
+				                    <a href="#" onclick="fn_confirm()" style="color: red;">(필수)동의하기</a>
+				                    <a href="#" onclick="fn_alert()">상세보기</a>
+				                </h6>
+				            </div>
+				        </div>
                     </div>
                 </div>
             <!-- </form> -->
         </div>
-        <br><br><br><br><br>
-        <div class="row">
+       
+        <!-- <div class="row">
             <div class="col-lg-12">
                 <h6 id="checkline"><span class="icon_tag_alt"></span> 개인정보 수집/제공 | 결제 진행 필수 전체 동의  
                     <a href="#" onclick="fn_confirm()" style="color: red;">(필수)동의하기</a>
                     <a href="#" onclick="fn_alert()">상세보기</a>
                 </h6>
             </div>
-        </div>
+        </div> -->
     </div>
 </section>
 <!-- Checkout Section End -->
@@ -164,38 +173,51 @@
 	} 
 	
 	document.querySelector("#totalPrice").innerHTML=totalresult;
-	document.querySelector("#totaltotal").innerHTML=parseInt(totalresult)+parseInt(30);
+	document.querySelector("#totaltotal").innerHTML=parseInt(totalresult)+parseInt(2000);
 	
 	
 	
 
     //사용할적립금
     const fn_eventKeyupPoint = (str)=>{
-    	if(str==""){
-    		str=0;
-    		$("#finalpoint").text(str);
-    	}else{
-    		$("#finalpoint").text(str);
-    	}
     	
-        
-        //해야하는것!max 넘기면 값입력못하게 or 사용가능적립금으로변경되게
-		
-        let totaltotal=parseInt(totalresult)+
-    	parseInt(document.querySelector("#delprice").innerText)-
-    	parseInt(document.querySelector("#finalpoint").innerHTML); 
-        
-        if(totaltotal<100){
-        	alert("결제 최소금액은 100원입니다.");
-        	$("#point").val(0);
-        	document.querySelector("#finalpoint").innerHTML=0;
-        	totaltotal=parseInt(totalresult)+
+    	if(str>0){
+    		let mypointtext = $("#mypoint").text();
+            let mypoint = mypointtext.substring(0, mypointtext.length -1);
+            
+        	if(str==""){
+        		str=0;
+        		$("#finalpoint").text(str);
+        	}else{
+        		$("#finalpoint").text(str);
+        	}
+        	
+        	if(parseInt(str)>parseInt(mypoint)){
+        		alert('사용적립금을 초과하였습니다.');
+        		str=0;
+        		$("#finalpoint").text(str);
+        	}
+        	
+            
+            //해야하는것!max 넘기면 값입력못하게 or 사용가능적립금으로변경되게
+    		//console.log(document.querySelector("#delprice").innerText);
+            let totaltotal=parseInt(totalresult)+
         	parseInt(document.querySelector("#delprice").innerText)-
         	parseInt(document.querySelector("#finalpoint").innerHTML); 
-        }
-    	
-        document.querySelector("#totaltotal").innerHTML=totaltotal;
-        
+            
+            if(totaltotal<100){
+            	alert("결제 최소금액은 100원입니다.");
+            	$("#point").val(0);
+            	document.querySelector("#finalpoint").innerHTML=0;
+            	totaltotal=parseInt(totalresult)+
+            	parseInt(document.querySelector("#delprice").innerText)-
+            	parseInt(document.querySelector("#finalpoint").innerHTML); 
+            }
+        	
+            document.querySelector("#totaltotal").innerHTML=totaltotal;
+    	}else{
+    		alert('음수는 입력이 안됩니다.');
+    	}
         
          
     }
@@ -211,6 +233,8 @@
         let pointover=parseInt(document.querySelector("#totalPrice").innerText)+2000-100;
         console.log(pointover);
         console.log(mypoint);
+        
+        
         
         if(parseInt(mypoint)>parseInt(pointover)){
         	alert("결제 최소금액은 100원입니다.");
