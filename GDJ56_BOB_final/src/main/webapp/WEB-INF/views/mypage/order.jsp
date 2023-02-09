@@ -181,40 +181,43 @@
     //사용할적립금
     const fn_eventKeyupPoint = (str)=>{
     	
-    	let mypointtext = $("#mypoint").text();
-        let mypoint = mypointtext.substring(0, mypointtext.length -1);
-        
-    	if(str==""){
-    		str=0;
-    		$("#finalpoint").text(str);
-    	}else{
-    		$("#finalpoint").text(str);
-    	}
-    	
-    	if(parseInt(str)>parseInt(mypoint)){
-    		alert('사용적립금을 초과하였습니다.');
-    		str=0;
-    		$("#finalpoint").text(str);
-    	}
-    	
-        
-        //해야하는것!max 넘기면 값입력못하게 or 사용가능적립금으로변경되게
-		//console.log(document.querySelector("#delprice").innerText);
-        let totaltotal=parseInt(totalresult)+
-    	parseInt(document.querySelector("#delprice").innerText)-
-    	parseInt(document.querySelector("#finalpoint").innerHTML); 
-        
-        if(totaltotal<100){
-        	alert("결제 최소금액은 100원입니다.");
-        	$("#point").val(0);
-        	document.querySelector("#finalpoint").innerHTML=0;
-        	totaltotal=parseInt(totalresult)+
+    	if(str>0){
+    		let mypointtext = $("#mypoint").text();
+            let mypoint = mypointtext.substring(0, mypointtext.length -1);
+            
+        	if(str==""){
+        		str=0;
+        		$("#finalpoint").text(str);
+        	}else{
+        		$("#finalpoint").text(str);
+        	}
+        	
+        	if(parseInt(str)>parseInt(mypoint)){
+        		alert('사용적립금을 초과하였습니다.');
+        		str=0;
+        		$("#finalpoint").text(str);
+        	}
+        	
+            
+            //해야하는것!max 넘기면 값입력못하게 or 사용가능적립금으로변경되게
+    		//console.log(document.querySelector("#delprice").innerText);
+            let totaltotal=parseInt(totalresult)+
         	parseInt(document.querySelector("#delprice").innerText)-
         	parseInt(document.querySelector("#finalpoint").innerHTML); 
-        }
-    	
-        document.querySelector("#totaltotal").innerHTML=totaltotal;
-        
+            
+            if(totaltotal<100){
+            	alert("결제 최소금액은 100원입니다.");
+            	$("#point").val(0);
+            	document.querySelector("#finalpoint").innerHTML=0;
+            	totaltotal=parseInt(totalresult)+
+            	parseInt(document.querySelector("#delprice").innerText)-
+            	parseInt(document.querySelector("#finalpoint").innerHTML); 
+            }
+        	
+            document.querySelector("#totaltotal").innerHTML=totaltotal;
+    	}else{
+    		alert('음수는 입력이 안됩니다.');
+    	}
         
          
     }
