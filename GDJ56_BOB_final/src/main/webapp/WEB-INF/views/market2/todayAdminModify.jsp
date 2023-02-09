@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.6.1.min.js"></script>
@@ -46,9 +47,14 @@
 		<div class="col-md-3">
 			<div class="wrap-btn-booking flex-c-m m-t-6">
 				<div style="display: flex; margin-left: 65%;">
+				  <c:if test="${fn:length(relist) > 2 }">
 					<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" style="margin-left:2%" value="delete" onclick="javascript: form.action='${path}/market/deleteTodayBob.do';">
 						삭제하기
 					</button>
+				  </c:if>
+				  <c:if test="${fn:length(relist) <= 2 }">
+					<p>추천은 2개 이상 있어야 합니다</p>
+				  </c:if>
 				</div>
 			</div>
 		</div>
@@ -138,7 +144,7 @@
 				<div style="display: flex; margin-left: 75%; margin-bottom: 50px;">
 					<button type="submit" class="flex-c-m size36 txt11 trans-0-4"
 					value="check" onclick="javascript: form.action='${path}/market/checkTodayBobModify.do'">
-						수정하기
+						확인하기
 					</button>
 				</div>
 			</div>
@@ -149,6 +155,7 @@
 	</div>
 
 </section>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
 
 <script>

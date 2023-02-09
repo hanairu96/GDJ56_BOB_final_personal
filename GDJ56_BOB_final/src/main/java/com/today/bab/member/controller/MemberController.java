@@ -132,8 +132,8 @@ public class MemberController {
 		return data;
 	}
 	
-	@RequestMapping(value="/emailCheck", method=RequestMethod.GET)
 	@ResponseBody
+	@RequestMapping(value="/emailCheck", method=RequestMethod.GET)
 	public String emailCheck(String email) throws Exception {
 				
 		Random r=new Random();

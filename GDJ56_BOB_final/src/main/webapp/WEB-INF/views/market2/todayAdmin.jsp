@@ -107,6 +107,7 @@
 
 
 
+
 <form class="size22 m-l-r-auto">
 	<div class="row flex-c-m" style="margin-top: 100px;">
 		<div class="col-md-2">
@@ -194,6 +195,7 @@
 	</div>
 
 </section>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
 
 <script>
