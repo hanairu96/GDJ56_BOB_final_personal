@@ -26,6 +26,7 @@ import com.today.bab.admin.model.vo.AdminSearch;
 import com.today.bab.admin.model.vo.AdminSellItem;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.AdminTotalData;
+import com.today.bab.admin.model.vo.AdminTotalProduct;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.member.model.vo.Member;
@@ -271,6 +272,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<AdminTotalData> adminTotalData() {
 		return dao.adminTotalData(session);
+	}
+	
+	@Override
+	public List<AdminTotalProduct> adminTotalProduct() {
+		return dao.adminTotalProduct(session);
 	}
 
 	@Override

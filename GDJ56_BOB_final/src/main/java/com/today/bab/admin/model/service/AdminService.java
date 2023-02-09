@@ -12,6 +12,7 @@ import com.today.bab.admin.model.vo.AdminSearch;
 import com.today.bab.admin.model.vo.AdminSellItem;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.AdminTotalData;
+import com.today.bab.admin.model.vo.AdminTotalProduct;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.member.model.vo.Member;
@@ -83,6 +84,8 @@ public interface AdminService {
 	int insertPoint(AdminItemOrder updatePoint);
 	
 	List<AdminTotalData> adminTotalData();
+	
+	List<AdminTotalProduct> adminTotalProduct();
 	
 	List<AdminSellItem> adminProductList(Map<String,Integer> param);
 	

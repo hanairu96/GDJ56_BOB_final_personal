@@ -3,7 +3,6 @@ package com.today.bab.admin.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +22,7 @@ import com.today.bab.admin.model.vo.AdminSearch;
 import com.today.bab.admin.model.vo.AdminSellItem;
 import com.today.bab.admin.model.vo.AdminSubscription;
 import com.today.bab.admin.model.vo.AdminTotalData;
+import com.today.bab.admin.model.vo.AdminTotalProduct;
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.admin.model.vo.CqAnswer;
 import com.today.bab.common.AdminPageBar;
@@ -45,7 +45,13 @@ public class AdminController {
 	@RequestMapping("/main.do")
 	public ModelAndView adminMain(ModelAndView mv) {
 		List<AdminTotalData> atd=service.adminTotalData();
+		List<AdminTotalProduct> atp=service.adminTotalProduct();
 		
+		mv.addObject("num1",atp.get(0));
+		mv.addObject("num2",atp.get(1));
+		mv.addObject("num3",atp.get(2));
+		
+		mv.addObject("sales",atd.get(1).getTotal());
 		mv.addObject("profit",atd.get(0).getTotal());
 		mv.addObject("sales",atd.get(1).getTotal());
 		mv.addObject("members",atd.get(2).getTotal());
