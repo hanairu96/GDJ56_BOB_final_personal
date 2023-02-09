@@ -118,6 +118,7 @@
 	<div><button type="button" onClick="javascript:window.scrollTo(0,0)">위로가기위치</button></div>
 </div> -->
 </section>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
 <script>
 var arr=new Array();
@@ -274,6 +275,7 @@ $(function(){//.레디함수
 </script>
 
 </body>
+
 
 <style>
 
