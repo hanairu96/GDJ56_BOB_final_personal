@@ -208,7 +208,7 @@
         console.log(mypoint);
         
         
-        let pointover=parseInt(document.querySelector("#totalPrice").innerText)+30-100;
+        let pointover=parseInt(document.querySelector("#totalPrice").innerText)+2000-100;
         console.log(pointover);
         console.log(mypoint);
         
