@@ -283,10 +283,10 @@ public class Market1Controller {
 
 		int result=service.insertItem( s);
 		if(result>0) {
-			mv.addObject("msg", "게시판 작성 완료");
-			mv.addObject("loc", "/market1/marketgtg.do");
+			mv.addObject("msg", "상품 등록 완료");
+			mv.addObject("loc", "/market1/marketdetail.do?itemNo="+s.getItemNo());
 		}else {
-			mv.addObject("msg", "게시판 작성 실패");
+			mv.addObject("msg", "상품 등록 실패");
 			mv.addObject("loc", "/market1/insertmarket.do");
 		}
 		mv.setViewName("common/msg");

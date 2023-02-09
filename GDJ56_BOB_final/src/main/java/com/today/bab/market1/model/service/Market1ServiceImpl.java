@@ -68,6 +68,7 @@ public class Market1ServiceImpl implements Market1Service{
 			for(ItemPic pic : s.getIpic()) {
 				pic.setSellitem(s);
 				result+=dao.insertItemPic(session,pic);
+				result+=s.getItemNo();
 			}
 		}
 //			if(result>0) {
