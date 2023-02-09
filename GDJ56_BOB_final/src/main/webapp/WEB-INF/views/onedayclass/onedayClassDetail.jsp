@@ -17,13 +17,7 @@
 	<script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
 	<script src="${path }/resources/js/jquery-3.6.1.min.js"></script>
 	
-	<!-- 다음 api 지도 -->
-	
-	<!--datepicker -->
-	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
-	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-	<!-- datepicker 한국어로 -->
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script> -->
+	<!-- datepicker -->
 	<link type="text/css" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"rel="stylesheet">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -1132,7 +1126,7 @@
 							<div style="border: solid black; width: 100; height: 300; display: none; text-align: center;" id="searchbox">
 									<h4>예약 정보</h4>
 									<p id="datepic"></p>
-									<input type="hidden" name="odcDate" value="">
+									<input type="hidden" name="odcDate" id="odcDate" value="">
 									<input type="hidden" name="memberId" value="${loginMember.memberId }">
 									<input type="hidden" name="odcNo" value="${odc.odcNo} ">
 									<p>${odc.odcStartTime }</p>
@@ -1157,14 +1151,11 @@
 								function requestPay() {
 									console.log("결제실행");
 									
-									//IMP 객체 초기화
-									const IMP = window.IMP; //생략 가능
-									IMP.init("imp88451532"); //가맹점 식별코드
-									
+									IMP.init("imp47717061"); //가맹점 식별코드
 									IMP.request_pay({
 										 	pg : 'tosspay',
 										    pay_method : 'card',
-										    merchant_uid: "order_no_0001", //상점에서 생성한 고유 주문번호
+										    merchant_uid: "order_no_0009", //상점에서 생성한 고유 주문번호
 										    name : '주문명:결제테스트',   //필수 파라미터 입니다.
 										    amount : 1004,
 										    buyer_email : "${loginMember.email}",
@@ -1175,14 +1166,14 @@
 										if (rsp.success) {
 											// 결제 성공 시 로직
 											const odcNo= $('#odcNo').val();
-											const odcDate= $('#odcDate').val();
+											const odcDate1= $('#odcDate').val();
 											const memberId= $('#memberId').val();
 											
 												$.ajax({
 													type:'get',
 													url:"${path}/class/inputReservation.do",
-													 data:{
-												        	"odcDate" : odcDate,
+													data:{
+												        	"odcDate1" : odcDate1,
 												        	"memberId" : memberId,
 												        	"odcNo":odcNo
 														}, 
