@@ -122,14 +122,13 @@ public class OneDayController {
    @RequestMapping("/class/masterEndEnroll.do")
    public ModelAndView masterEndEnroll(AdminMaster m, ModelAndView model, String history1) {
       int result=service.masterEndEnroll(m);
-      
       if(result<0) {
-         model.addObject("msg","클래스 등록에 실패했습니다");
+         model.addObject("msg","장인 등록에 실패했습니다");
          model.addObject("loc","/class/masterEndEnroll.do");
          model.setViewName("common/msg");
          return model;
       }else {
-         model.addObject("msg","클래스 등록이 완료됐습니다");
+         model.addObject("msg","클래스 장인등록이 완료됐습니다");
          model.addObject("loc","/class/main.do");
          model.setViewName("common/msg");
          return model;

@@ -47,4 +47,5 @@ public interface OneDayDao {
 	OdcQa selectOqbyOqNo(SqlSessionTemplate session,int oqno);
 	void updateOq(SqlSessionTemplate session, OdcQa oq);
 	void insertPoint(SqlSessionTemplate session, String memberId);
+	int masterEndEnrollUpdate(SqlSessionTemplate session, AdminMaster m);
 }
