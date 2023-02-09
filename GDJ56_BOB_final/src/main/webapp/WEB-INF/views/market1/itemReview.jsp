@@ -104,11 +104,11 @@
 			    </div>
             <hr/>
 			</c:forEach>
-			</div> 
-              
 			<c:if test="${empty reviews }">
 				<div>상품 후기가 없습니다.</div>
 			</c:if>
+			</div> 
+              
               
               
 			<!-- 페이징처리..다시.... -->

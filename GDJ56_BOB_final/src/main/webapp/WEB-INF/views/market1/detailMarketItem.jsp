@@ -283,7 +283,7 @@
 				
             </div>
             <br><br><br>
-			<div>
+			<div style="margin-left:30%;">
 			    <span class="col-5" style="background-color: rgb(232, 247, 242);font-weight: bold;">판매자 정보 : </span>
 			    <span class="col-6" style="background-color: rgb(242, 253, 250);font-weight: bold;">오늘의 밥</span>
 			</div>

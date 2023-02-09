@@ -68,6 +68,7 @@ public class Market1ServiceImpl implements Market1Service{
 			for(ItemPic pic : s.getIpic()) {
 				pic.setSellitem(s);
 				result+=dao.insertItemPic(session,pic);
+				result+=s.getItemNo();
 			}
 		}
 //			if(result>0) {
@@ -111,5 +112,10 @@ public class Market1ServiceImpl implements Market1Service{
 	@Override
 	public List<SellItem> soldoutsoon(Map<String, Integer> param){
 		return dao.soldoutsoon(session,param);
+	}
+
+	@Override
+	public List<SellItem> recommendman(Map<String, Integer> param){
+		return dao.recommendman(session,param);
 	}
 }

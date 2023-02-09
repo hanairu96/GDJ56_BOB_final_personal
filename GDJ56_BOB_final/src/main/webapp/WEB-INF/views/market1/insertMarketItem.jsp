@@ -81,7 +81,7 @@
 					</div>
 
 					<div class="col-md-12">
-						<span class="txt9" style="font-weight: bold;">중량(필수, 숫자만 입력)</span>
+						<span class="txt9" style="font-weight: bold;">중량(필수)</span>
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
 							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="weight" placeholder="10" value="" required>
 						</div>
