@@ -9,6 +9,7 @@ import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market1.model.vo.ItemReview;
+import com.today.bab.member.model.vo.Member;
 import com.today.bab.mypage.model.vo.ClientQaMypage;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
@@ -104,4 +105,6 @@ public interface MypageDao {
     List<MarketRe> selectMarketRe(SqlSessionTemplate session,int qnaNo);
     
     List<OnedayRe> selectOnedayRe(SqlSessionTemplate session,int qnaNo);
+    
+    int updatePassword(SqlSessionTemplate session,Member m);
 }

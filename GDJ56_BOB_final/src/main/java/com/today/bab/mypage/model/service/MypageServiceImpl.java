@@ -12,6 +12,7 @@ import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market1.model.vo.ItemReview;
+import com.today.bab.member.model.vo.Member;
 import com.today.bab.mypage.model.dao.MypageDao;
 import com.today.bab.mypage.model.vo.ClientQaMypage;
 import com.today.bab.mypage.model.vo.ItemDetail;
@@ -258,5 +259,10 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public List<OnedayRe> selectOnedayRe(int qnaNo) {
 		return mypageDao.selectOnedayRe(session,qnaNo);
+	}
+	
+	@Override
+	public int updatePassword(Member m) {
+		return mypageDao.updatePassword(session,m);
 	}
 }

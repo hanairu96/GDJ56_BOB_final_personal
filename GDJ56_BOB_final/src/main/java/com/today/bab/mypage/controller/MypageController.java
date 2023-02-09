@@ -104,8 +104,19 @@ public class MypageController {
 	@RequestMapping("/myinfo.do")
 	public ModelAndView selectMyInfo(ModelAndView mv,HttpServletRequest request,String myinfoPassword) {
 		
+		
 		HttpSession session = request.getSession();
 	    Member loginMember = (Member) session.getAttribute("loginMember");
+	    
+	    ArrayList memberInfoBar = new ArrayList();
+	    memberInfoBar.add(loginMember.getMemberId());
+	    memberInfoBar.add(loginMember.getGrade()=='Y'?"장인":"일반");
+	    memberInfoBar.add(mypageService.selectBasketAllCount(loginMember.getMemberId()));
+	    memberInfoBar.add(mypageService.selectWriteAllCount(loginMember.getMemberId()));
+	    memberInfoBar.add(mypageService.selectRecentPoint(loginMember.getMemberId()));
+	    
+	    mv.addObject("memberInfoBar",memberInfoBar);
+	    
 	    
 		AdminMember member=AdminMember.builder().memberId(loginMember.getMemberId()).password(myinfoPassword).build();
 		
@@ -647,5 +658,22 @@ public class MypageController {
 		response.setContentType("text/csv;charset=utf-8");
 		
 		return reply;
+	}
+	
+	@RequestMapping("/updatePassword")
+	public void updatePassword(String pw,HttpServletResponse response,HttpServletRequest request) throws IOException {
+		
+		String encodePassword=passwordEncoder.encode(pw);
+		//System.out.println(encodePassword);
+		
+		HttpSession session = request.getSession();
+	    Member m = (Member)session.getAttribute("loginMember");
+	    
+	    m.setPassword(encodePassword);
+		
+		int result=mypageService.updatePassword(m);
+		
+		response.setContentType("text/csv;charset=utf-8");
+		response.getWriter().print(result);
 	}
 }
