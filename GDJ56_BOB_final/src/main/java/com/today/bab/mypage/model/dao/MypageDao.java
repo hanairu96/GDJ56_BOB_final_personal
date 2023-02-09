@@ -9,10 +9,14 @@ import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market1.model.vo.ItemReview;
+import com.today.bab.member.model.vo.Member;
 import com.today.bab.mypage.model.vo.ClientQaMypage;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
+import com.today.bab.mypage.model.vo.MarketRe;
+import com.today.bab.mypage.model.vo.MypageQnaAll;
+import com.today.bab.mypage.model.vo.OnedayRe;
 import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
 import com.today.bab.mypage.model.vo.Sub;
@@ -93,4 +97,14 @@ public interface MypageDao {
 	int selectWriteAllCount(SqlSessionTemplate session,String memberId);
 	
 	int selectRecentPoint(SqlSessionTemplate session,String memberId);
+	
+	List<MypageQnaAll> selectMypageQnaAll(SqlSessionTemplate session,Map<String,Integer> param,String memberId);
+    
+    int selectMypageQnaAllCount(SqlSessionTemplate session,String memberId);
+    
+    List<MarketRe> selectMarketRe(SqlSessionTemplate session,int qnaNo);
+    
+    List<OnedayRe> selectOnedayRe(SqlSessionTemplate session,int qnaNo);
+    
+    int updatePassword(SqlSessionTemplate session,Member m);
 }
