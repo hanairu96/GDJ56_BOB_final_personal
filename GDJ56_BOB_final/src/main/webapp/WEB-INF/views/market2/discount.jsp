@@ -10,7 +10,6 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <jsp:include page="/WEB-INF/views/common/marketHeader.jsp"/>
-<jsp:include page="/WEB-INF/views/common/floatBar.jsp"/>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -28,7 +27,7 @@
 </section>
 
 <div style="display: flex; margin-left: 65%;">
-	<c:if test="${m == 'admin' }">
+	<c:if test="${loginMember.memberId == 'admin' }">
 	<button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4" onclick="location.replace('${path }/market/discountAdmin.do')">
 		등록하기
 	</button>
@@ -89,6 +88,7 @@
 	</div>
 
 </section>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
 <script>
 	const fn_pageBtn = (e)=>{

@@ -109,7 +109,7 @@ public class Market1ServiceImpl implements Market1Service{
 	}
 	
 	@Override
-	public List<SellItem> soldoutsoon(){
-		return dao.soldoutsoon(session);
+	public List<SellItem> soldoutsoon(Map<String, Integer> param){
+		return dao.soldoutsoon(session,param);
 	}
 }

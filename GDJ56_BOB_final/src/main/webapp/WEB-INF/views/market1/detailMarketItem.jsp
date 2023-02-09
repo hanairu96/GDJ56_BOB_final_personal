@@ -109,7 +109,7 @@
 	                        <div class="product__details__price">
 	                        <c:if test="${de.itemDiscount eq 'Y' }">
                         		<h5 style="text-decoration:line-through;">${de.itemPrice }원</h5>
-                        		<h5 style="color:magenta; margin:10px;">할인가 9900원</h5>
+                        		<h5 style="color:tomato; margin:10px;">할인가 9900원</h5>
                         	</c:if>
                         	<c:if test="${de.itemDiscount eq 'N' }">
                         		<h5><c:out value="${de.itemPrice }"/>원</h5>

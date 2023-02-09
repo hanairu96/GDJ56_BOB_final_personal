@@ -78,6 +78,9 @@
                      </div>
 				</c:forEach>
 				</div>
+				<div style="text-align:center;">
+					${pageBar }
+				</div>
          	</div>
         </div>
                	<script>

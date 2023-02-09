@@ -302,7 +302,7 @@
 		                      <td class="px-1 py-3 text-sm">
 		                        <div style="border: 1px; width:180px; height: 140px; margin-left:20px;">
 		                        <a href="${path }/class/odcView.do?no=${odc.odcNo}">
-		                          <img style="width:100%; height: 100%;" src="" alt="">${odc.odcPic }
+		                          <img style="width:100%; height: 100%;" src="${path}/resources/images/onedayclass/${odc.odcPic }" alt="">
 		                          </a>
 		                        </div>
 		                      </td>
@@ -377,8 +377,12 @@
 			  btn.onclick=function(e){
 				  console.log(e.target.parentElement.children[0].value);
 				  let odcno=e.target.parentElement.children[0].value;
-				  location.assign('${path}/class/editClass.do?no='+odcno);
-				  
+				  //location.assign('${path}/class/editClass.do?no='+odcno);
+				  //location.assign('${path}/class/pop.do?id=${memberInfoBar[0]}&&no='+odcno);
+				  //location.assign('${path}/class/odcView.do?no='+odcno+'#reviewlist');
+				  let url='${path}/class/pop.do?id=${memberInfoBar[0]}&&no='+odcno;
+				  window.open(url, '원데이클래스리뷰', 'width=700,height=700');
+
 			  };
 			  btnbtn[i].appendChild(btn);	  
 		  } 	  	  
