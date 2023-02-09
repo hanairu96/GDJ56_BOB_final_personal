@@ -76,6 +76,7 @@
                 </div>
             </div>
             <br><br><br><br><br><br>
+
    <!--여기!!  -->
             <div style="text-align: center;">
                 <a href="${path }/market/today.do"><h3 style="font-weight: bold;">${relist.get(0).reIcon }${relist.get(0).reTitle } ></h3></a>
@@ -83,8 +84,7 @@
             </div>
              <div class="row">
                 <div class="categories__slider owl-carousel">
-                
-                  <c:forEach var="i" begin="1" end="10" >
+                  <c:forEach var="i" begin="0" end="${fn:length(relistbyno0) -1 }" >
                     <div class="col-lg-3">
                     	<div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${relistbyno0[i].mainPic }');">
                             <h5><a href="${path}/market1/marketdetail.do?itemNo=${relistbyno0[i].itemNo}">${relistbyno0[i].itemName }</a></h5>
@@ -102,7 +102,7 @@
              <div class="row">
                 <div class="categories__slider owl-carousel">
                 
-                  <c:forEach var="i" begin="1" end="10" >
+                  <c:forEach var="i" begin="0" end="${fn:length(relistbyno1) -1 }" >
                     <div class="col-lg-3">
                     	<div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${relistbyno1[i].mainPic }');">
                             <h5><a href="${path}/market1/marketdetail.do?itemNo=${relistbyno1[i].itemNo}">${relistbyno1[i].itemName }</a></h5>
@@ -132,26 +132,6 @@
                     </div>
                    </c:forEach>
                    
-                </div>
-            </div>
-            <br><br><br><br><br><br>
-
-            <!-- 냉장고 속 단골재료 -->
-            <div style="text-align: center;">
-                <h3 style="font-weight: bold;">냉장고 속 단골재료 ></h3><br>
-                <h5>야채주스 님 맞춤 상품! 둘러보세요!</h5><br>
-            </div>
-            <div class="row">
-                <div class="categories__slider owl-carousel">
-                
-                   <c:forEach var="i" begin="1" end="10" >
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${items[i].mainPic }');">
-                            <h5><a href="${path}/market1/marketdetail.do?itemNo=${items[i].itemNo}">${items[i].itemName }</a></h5>
-                        </div>
-                    </div>
-                   </c:forEach>
-      
                 </div>
             </div>
             <br><br><br><br><br><br>
