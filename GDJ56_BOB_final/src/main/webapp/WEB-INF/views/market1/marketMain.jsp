@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                    	<h2 style="">오늘의 밥 마켓</h2>
+                    	<h2 style="color:black;">오늘의 밥 마켓</h2>
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
     
         <div class="container">
          <%-- <a style="font-size:30px;" href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a><br> --%>
-         <a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:900px;margin-top:30px;background-color:#bde28f;" >상품등록</a>
+         <a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:85%;margin-top:30px;background-color:#bde28f;" >상품등록</a>
          
             <br><br><br>
 

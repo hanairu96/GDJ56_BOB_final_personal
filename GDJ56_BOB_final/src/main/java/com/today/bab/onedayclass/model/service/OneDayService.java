@@ -42,4 +42,5 @@ public interface OneDayService {
 	OdcReserve selectReservebyodreNo(int no);
 	void deleteOdcQa(String oqno);
 	void deleteReOdcQa(String oqrNo);
+	void insertPoint(String memberId);
 }

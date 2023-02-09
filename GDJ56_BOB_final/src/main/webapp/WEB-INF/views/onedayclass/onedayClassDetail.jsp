@@ -27,6 +27,9 @@
 	<link type="text/css" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"rel="stylesheet">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	
+	<!-- 결제 라이브러리 -->
+	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </head>
 
 <script>
@@ -50,6 +53,8 @@
 			}
 			
 		});
+		
+		
 		
 		$(window).scroll(  
 			function(){  
@@ -666,6 +671,12 @@
 		$(e.target).parent().parent().next("div").slideToggle("fast");
 			//$("#commentInput") // 2초에 걸쳐서 진행
 	};
+	
+	//댓글 수정 창 열어주기
+	function goCommentEdit(e){
+		$(e.target).parent().next().next("div").slideToggle("fast");
+	}
+	
 
 	//답댓글 데이터 넣어주기
 	function reCommentBtn(e){
@@ -962,7 +973,7 @@
 	                   html+="<span>"+data[i].memberId+"</span>";
 	                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
 	                   if(memberId==data[i].memberId){
-		                   html+="<span style='cursor: pointer;'>│수정</span>";
+		                   html+="<span style='cursor: pointer;' onclick='goCommentEdit(event);'>│수정</span>";
 		                   html+="<input type='hidden' value='"+data[i].oqno+"'>"
 		                   html+="<span style='cursor: pointer;' onclick='goDeleteComment(event);'>│삭제</span>";
 	                   }
@@ -974,6 +985,15 @@
 	                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
 	                   html+="<p style='padding:auto;'>"+data[i].oqContent+"</p>";
 	                   html+="</div>";
+	                   //댓글수정
+	                   html+="<div style='display:none' id='commentEdit'>";
+	                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
+	                   html+="<input class='bo-rad-10 sizefull txt10 p-l-20' type='text' value='"+data[i].oqContent+"'>";
+	                   html+="<input type='hidden' value='"+data[i].oqno+"'>"
+	                   html+="</div>";
+	                   html+="<button type='button' class='btn3 flex-c-m' style='margin-bottom:1%;' onclick='endCommentEdit(event)'>수정완료</button>";
+	                   html+="</div>";
+	                   //
 	                   html+="<div class='commentView'>";
 	                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
 	                   html+="<span class='vieCommentList' style='cursor: pointer;' onclick='goView(event);'>댓글보기</span>";
@@ -1026,6 +1046,30 @@
 	        
 	    });
 	}
+	
+	function endCommentEdit(e){
+		const oqContent=$(e.target).prev().children().first().val();
+		console.log(oqContent);
+		const oqno=$(e.target).prev().children().last().val();
+		console.log(oqno);
+		$.ajax({
+			type:'post',
+			url:'<c:url value="/class/inputOdcQa.do"/>',
+			contentType: 'application/json',
+			data:JSON.stringify({
+					"oqno":oqno,
+					"oqContent":oqContent
+			}), 
+			success : function(data){
+				getCommentList();
+	               $("#oqContent").val("");
+	    	},
+			error:function(){
+				alert('통신실패');
+			}
+		});
+
+	}
 </script>
 
 				<!-- 사이드 달력 -->
@@ -1050,6 +1094,7 @@
 										  maxDate: endDate
 										});	
 								})
+								
 								function onchanged(){
 									const odcNo= $('#odcNo').val();
 									const reDate=$("#testDatepicker").val();
@@ -1085,7 +1130,6 @@
 							
 							
 							<div style="border: solid black; width: 100; height: 300; display: none; text-align: center;" id="searchbox">
-								<form action="${path }/class/inputReservation.do">
 									<h4>예약 정보</h4>
 									<p id="datepic"></p>
 									<input type="hidden" name="odcDate" value="">
@@ -1105,10 +1149,54 @@
 									</label>
 									
 									<br>
-									<button type="submit" class="btn3" >
+									<button type="button" class="btn3" onclick="requestPay();">
 										예약하기
 									</button>
-								</form>	
+								
+								<script type="text/javascript">
+								function requestPay() {
+									console.log("결제실행");
+									
+									//IMP 객체 초기화
+									const IMP = window.IMP; //생략 가능
+									IMP.init("imp88451532"); //가맹점 식별코드
+									
+									IMP.request_pay({
+										 	pg : 'tosspay',
+										    pay_method : 'card',
+										    merchant_uid: "order_no_0001", //상점에서 생성한 고유 주문번호
+										    name : '주문명:결제테스트',   //필수 파라미터 입니다.
+										    amount : 1004,
+										    buyer_email : "${loginMember.email}",
+										    buyer_name : "${loginMember.mname}",
+										    buyer_tel : "${loginMember.phone}",
+										    buyer_addr : "${loginMember.address}",
+									}, function (rsp) { // callback
+										if (rsp.success) {
+											// 결제 성공 시 로직
+											const odcNo= $('#odcNo').val();
+											const odcDate= $('#odcDate').val();
+											const memberId= $('#memberId').val();
+											
+												$.ajax({
+													type:'get',
+													url:"${path}/class/inputReservation.do",
+													 data:{
+												        	"odcDate" : odcDate,
+												        	"memberId" : memberId,
+												        	"odcNo":odcNo
+														}, 
+												    contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+													success:data=>{
+															alert('결제되었습니다.');
+													}
+												})
+											} 
+										});
+								};
+								
+								</script>
+								
 							</div>
 						</div>	
 					</div>

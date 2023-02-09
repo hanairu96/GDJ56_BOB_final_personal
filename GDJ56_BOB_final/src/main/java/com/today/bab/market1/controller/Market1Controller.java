@@ -73,7 +73,10 @@ public class Market1Controller {
 	
 	//INDEX에서 마켓 메인 이동 
 	@RequestMapping("/matketmain.do")
-	public ModelAndView marketmain(ModelAndView mv,HttpServletRequest request) {
+	public ModelAndView marketmain(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1")int cPage,
+			@RequestParam(value="numPerpage", defaultValue="12")int numPerpage
+			,HttpServletRequest request) {
 		List<SellItem> list=service.selectItemMarket();
 		mv.addObject("items",list);
 		
@@ -118,18 +121,17 @@ public class Market1Controller {
 			}
 		}
 		
-		  //메인에추천
-		  List<TodayBob> relist = market2service.todayBobList();
-		  mv.addObject("relist",relist);
-		  List<SellItem> relistbyno0 = market2service.todayView(relist.get(0).getReNo());
-		  List<SellItem> relistbyno1 = market2service.todayView(relist.get(1).getReNo());
-		  mv.addObject("relistbyno0",relistbyno0);
-		  mv.addObject("relistbyno1",relistbyno1);
-		
+		//메인에추천
+		List<TodayBob> relist = market2service.todayBobList();
+		mv.addObject("relist",relist);
+		List<SellItem> relistbyno0 = market2service.todayView(relist.get(0).getReNo());
+		List<SellItem> relistbyno1 = market2service.todayView(relist.get(1).getReNo());
+		mv.addObject("relistbyno0",relistbyno0);
+		mv.addObject("relistbyno1",relistbyno1);
 		
 		
 		//마감임박상품 
-		List<SellItem> soon=service.soldoutsoon();
+		List<SellItem> soon=service.soldoutsoon(Map.of("cPage",cPage,"numPerpage",numPerpage));
 		mv.addObject("soon", soon);
 		
 		mv.setViewName("market1/marketMain");
@@ -282,7 +284,7 @@ public class Market1Controller {
 		int result=service.insertItem( s);
 		if(result>0) {
 			mv.addObject("msg", "게시판 작성 완료");
-			mv.addObject("loc", "/market1/matketmain.do");
+			mv.addObject("loc", "/market1/marketgtg.do");
 		}else {
 			mv.addObject("msg", "게시판 작성 실패");
 			mv.addObject("loc", "/market1/insertmarket.do");
@@ -568,10 +570,6 @@ public class Market1Controller {
 			int min, int max,String itemct,String itemsort
 //			Map<String,Object> param
 			) {
-//		System.out.println(min);
-//		System.out.println(max);
-//		System.out.println(itemct);
-//		System.out.println(itemsort);
 		Map<String,Object> param=Map.of("min",min,"max",max,"itemct",itemct,"itemsort",itemsort);
 		List<SellItem> list=service.searchItemSort(param);
 		m.addAttribute("ii", list);
@@ -580,10 +578,15 @@ public class Market1Controller {
 	
 	//마감임박 아이템
 	@RequestMapping("/soldoutsoon.do")
-	public ModelAndView soldoutsoon(ModelAndView mv,HttpServletRequest request) {
-		List<SellItem> list=service.soldoutsoon();
+	public ModelAndView soldoutsoon(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1")int cPage,
+			@RequestParam(value="numPerpage", defaultValue="12")int numPerpage
+			,HttpServletRequest request) {
+		List<SellItem> list=service.soldoutsoon(Map.of("cPage",cPage,"numPerpage",numPerpage));
 		mv.addObject("i",list);
 		
+		int totaldata=service.selectItemCount();
+		mv.addObject("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"soldoutsoon.do"));
 		
 		HttpSession session = request.getSession();
 	    Member  loginMember= (Member) session.getAttribute("loginMember");
@@ -595,6 +598,7 @@ public class Market1Controller {
 		return mv;
 	}
 	
+	//마켓 카테고리 초기화버튼
 	@RequestMapping("/resetSearch.do")
 	public String resetSearch(Model m,HttpServletRequest request){
 		List<SellItem> list=service.selectItemMarket();

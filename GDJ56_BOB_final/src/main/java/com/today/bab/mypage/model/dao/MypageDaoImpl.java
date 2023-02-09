@@ -11,10 +11,14 @@ import com.today.bab.admin.model.vo.AdminMember;
 import com.today.bab.admin.model.vo.MemberLike;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market1.model.vo.ItemReview;
+import com.today.bab.member.model.vo.Member;
 import com.today.bab.mypage.model.vo.ClientQaMypage;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
+import com.today.bab.mypage.model.vo.MarketRe;
+import com.today.bab.mypage.model.vo.MypageQnaAll;
+import com.today.bab.mypage.model.vo.OnedayRe;
 import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
 import com.today.bab.mypage.model.vo.Sub;
@@ -221,5 +225,33 @@ public class MypageDaoImpl implements MypageDao{
 	@Override
 	public int selectRecentPoint(SqlSessionTemplate session, String memberId) {
 		return session.selectOne("mypage.selectRecentPoint",memberId);
+	}
+	
+	@Override
+	public List<MypageQnaAll> selectMypageQnaAll(SqlSessionTemplate session, Map<String, Integer> param,
+			String memberId) {
+		return session.selectList("mypage.selectMypageQnaAll",memberId
+				,new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),
+				param.get("numPerpage")));
+	}
+	
+	@Override
+	public int selectMypageQnaAllCount(SqlSessionTemplate session, String memberId) {
+		return session.selectOne("mypage.selectMypageQnaAllCount",memberId);
+	}
+	
+	@Override
+	public List<MarketRe> selectMarketRe(SqlSessionTemplate session, int qnaNo) {
+		return session.selectList("mypage.selectMarketRe",qnaNo);
+	}
+	
+	@Override
+	public List<OnedayRe> selectOnedayRe(SqlSessionTemplate session, int qnaNo) {
+		return session.selectList("mypage.selectOnedayRe",qnaNo);
+	}
+	
+	@Override
+	public int updatePassword(SqlSessionTemplate session, Member m) {
+		return session.update("mypage.updatePassword",m);
 	}
 }
