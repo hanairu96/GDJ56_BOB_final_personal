@@ -102,11 +102,11 @@
 			    <div style="padding:10px; color:rgb(207, 207, 207);">
 			        <fmt:formatDate type="date" value="${re.iqrDate }"/>
 			    </div>
-			</div>
             <hr/>
-              
 			</c:forEach>
-			<c:if test="${review==null }">
+			</div> 
+              
+			<c:if test="${empty reviews }">
 				<div>상품 후기가 없습니다.</div>
 			</c:if>
               
