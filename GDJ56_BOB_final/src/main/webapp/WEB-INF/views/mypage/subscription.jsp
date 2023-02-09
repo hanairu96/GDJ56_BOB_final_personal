@@ -302,10 +302,10 @@
 			                      		<img style="width:100%; height: 100%;" src="${path}/resources/images/subscription/%EC%9A%B0%EC%9C%A0.png" alt="">
 			                      	</c:if>
 			                        <c:if test="${s.subitems.subKind eq '계란'}">
-			                      		<img style="width:100%; height: 100%;" src="http://localhost:9090/bab/resources/images/subscription/%EA%B3%84%EB%9E%80.png" alt="">
+			                      		<img style="width:100%; height: 100%;" src="${path}/resources/images/subscription/%EA%B3%84%EB%9E%80.png" alt="">
 			                      	</c:if>
 			                      	<c:if test="${s.subitems.subKind eq '과일'}">
-			                      		<img style="width:100%; height: 100%;" src="http://localhost:9090/bab/resources/images/subscription/%EC%82%AC%EA%B3%BC.png" alt="">
+			                      		<img style="width:100%; height: 100%;" src="${path}/resources/images/subscription/%EC%82%AC%EA%B3%BC.png" alt="">
 			                      	</c:if>
 			                      </a>
 			                      </div>
