@@ -164,7 +164,7 @@
 	} 
 	
 	document.querySelector("#totalPrice").innerHTML=totalresult;
-	document.querySelector("#totaltotal").innerHTML=parseInt(totalresult)+parseInt(30);
+	document.querySelector("#totaltotal").innerHTML=parseInt(totalresult)+parseInt(2000);
 	
 	
 	
@@ -180,7 +180,7 @@
     	
         
         //해야하는것!max 넘기면 값입력못하게 or 사용가능적립금으로변경되게
-		
+		//console.log(document.querySelector("#delprice").innerText);
         let totaltotal=parseInt(totalresult)+
     	parseInt(document.querySelector("#delprice").innerText)-
     	parseInt(document.querySelector("#finalpoint").innerHTML); 
