@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +34,9 @@ import com.today.bab.mypage.model.vo.ClientQaMypage;
 import com.today.bab.mypage.model.vo.ItemDetail;
 import com.today.bab.mypage.model.vo.ItemOrder;
 import com.today.bab.mypage.model.vo.ItemOrderSellitem;
+import com.today.bab.mypage.model.vo.MarketRe;
+import com.today.bab.mypage.model.vo.MypageQnaAll;
+import com.today.bab.mypage.model.vo.OnedayRe;
 import com.today.bab.mypage.model.vo.OnedayclassMember;
 import com.today.bab.mypage.model.vo.Point;
 import com.today.bab.mypage.model.vo.Sub;
@@ -43,10 +48,12 @@ import com.today.bab.onedayclass.model.vo.OneDayClass;
 public class MypageController {
 
 	private MypageService mypageService;
+	private BCryptPasswordEncoder passwordEncoder;
 	
-	//@Autowired
-	public MypageController(MypageService mypageService) {
+	@Autowired
+	public MypageController(MypageService mypageService,BCryptPasswordEncoder passwordEncoder) {
 		this.mypageService=mypageService;
+		this.passwordEncoder=passwordEncoder;
 	}
 	
 	@RequestMapping("/orderlist.do")
@@ -97,14 +104,30 @@ public class MypageController {
 	@RequestMapping("/myinfo.do")
 	public ModelAndView selectMyInfo(ModelAndView mv,HttpServletRequest request,String myinfoPassword) {
 		
+		
 		HttpSession session = request.getSession();
 	    Member loginMember = (Member) session.getAttribute("loginMember");
 	    
+	    ArrayList memberInfoBar = new ArrayList();
+	    memberInfoBar.add(loginMember.getMemberId());
+	    memberInfoBar.add(loginMember.getGrade()=='Y'?"장인":"일반");
+	    memberInfoBar.add(mypageService.selectBasketAllCount(loginMember.getMemberId()));
+	    memberInfoBar.add(mypageService.selectWriteAllCount(loginMember.getMemberId()));
+	    memberInfoBar.add(mypageService.selectRecentPoint(loginMember.getMemberId()));
+	    
+	    mv.addObject("memberInfoBar",memberInfoBar);
+	    
+	    
 		AdminMember member=AdminMember.builder().memberId(loginMember.getMemberId()).password(myinfoPassword).build();
+		
+		System.out.println(loginMember+"??");
 		
 		AdminMember m=mypageService.selectMyInfo(member);//비밀번호 맞는지 확인
 		
-		if(m==null) { //비밀번호가 틀린 경우
+		boolean result=passwordEncoder.matches(myinfoPassword, loginMember.getPassword());
+		System.out.println(result);
+		
+		if(!result) { //비밀번호가 틀린 경우
 			mv.addObject("msg", "비밀번호가 틀렸습니다.");
 			mv.addObject("loc","/mypage/myinfoPassword.do");
 			mv.setViewName("common/msg");
@@ -113,9 +136,9 @@ public class MypageController {
 			
 		}else { //비밀번호가 맞는 경우
 			ArrayList address=new ArrayList();
-			address.add(m.getAddress().subSequence(1, 6)); //우편번호
-			address.add(m.getAddress().substring(8, m.getAddress().indexOf(","))); //주소
-			address.add(m.getAddress().substring(m.getAddress().indexOf(",")+1)); //상세주소
+			address.add(loginMember.getAddress().subSequence(1, 6)); //우편번호
+			address.add(loginMember.getAddress().substring(8, loginMember.getAddress().indexOf(","))); //주소
+			address.add(loginMember.getAddress().substring(loginMember.getAddress().indexOf(",")+1)); //상세주소
 			
 			mv.addObject("address",address); //전체주소
 			mv.addObject("m", m); //회원정보+선호식품
@@ -579,6 +602,76 @@ public class MypageController {
 	public void deleteSub(int subNo,HttpServletResponse response) throws IOException {
 		
 		int result=mypageService.deleteSub(subNo);
+		
+		response.setContentType("text/csv;charset=utf-8");
+		response.getWriter().print(result);
+	}
+	
+	@RequestMapping("/onedayItemWrite.do")
+	public ModelAndView selectMypageQnaAll(ModelAndView mv,HttpServletRequest request,
+			@RequestParam(value="cPage", defaultValue = "1") int cPage,
+			@RequestParam(value="numPerpage", defaultValue = "5") int numPerpage) {
+
+		HttpSession session = request.getSession();
+	    Member m = (Member)session.getAttribute("loginMember");
+
+	    List<MypageQnaAll> mqa = mypageService.selectMypageQnaAll(Map.of("cPage",cPage,"numPerpage",numPerpage),m.getMemberId());
+	    
+	    int totalData=mypageService.selectMypageQnaAllCount(m.getMemberId());
+	    
+	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "onedayItemWrite.do"));
+	    
+	    mv.addObject("mqa",mqa);
+	    System.out.println(mqa);
+	    
+	    ArrayList memberInfoBar = new ArrayList();
+	    memberInfoBar.add(m.getMemberId());
+	    memberInfoBar.add(m.getGrade()=='Y'?"장인":"일반");
+	    memberInfoBar.add(mypageService.selectBasketAllCount(m.getMemberId()));
+	    memberInfoBar.add(mypageService.selectWriteAllCount(m.getMemberId()));
+	    memberInfoBar.add(mypageService.selectRecentPoint(m.getMemberId()));
+	    
+	    mv.addObject("memberInfoBar",memberInfoBar);
+	    
+		mv.setViewName("mypage/onedayItemWrite");
+		
+		return mv;
+	}		
+	
+	@RequestMapping("/itemReply")
+	@ResponseBody
+	public List<MarketRe> selectMarketRe(int qnaNo,HttpServletResponse response) throws IOException {
+		
+		List<MarketRe> reply = mypageService.selectMarketRe(qnaNo);
+			
+		response.setContentType("text/csv;charset=utf-8");
+		
+		return reply;
+	}
+
+	@RequestMapping("/onedayReply")
+	@ResponseBody
+	public List<OnedayRe> selectOnedayRe(int qnaNo,HttpServletResponse response) throws IOException {
+		
+		List<OnedayRe> reply = mypageService.selectOnedayRe(qnaNo);
+		System.out.println(reply);
+		response.setContentType("text/csv;charset=utf-8");
+		
+		return reply;
+	}
+	
+	@RequestMapping("/updatePassword")
+	public void updatePassword(String pw,HttpServletResponse response,HttpServletRequest request) throws IOException {
+		
+		String encodePassword=passwordEncoder.encode(pw);
+		//System.out.println(encodePassword);
+		
+		HttpSession session = request.getSession();
+	    Member m = (Member)session.getAttribute("loginMember");
+	    
+	    m.setPassword(encodePassword);
+		
+		int result=mypageService.updatePassword(m);
 		
 		response.setContentType("text/csv;charset=utf-8");
 		response.getWriter().print(result);
