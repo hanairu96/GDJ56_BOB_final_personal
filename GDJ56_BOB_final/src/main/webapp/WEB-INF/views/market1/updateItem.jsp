@@ -174,12 +174,12 @@
 </style>
 	
 	
-	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
+   <div class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/mainbanner.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>오늘의 밥 마켓 상품 수정</h2>
+                        <h2 style="color:black;">오늘의 밥 마켓 상품 수정</h2>
                         </div>
                     </div>
                 </div>
@@ -279,12 +279,14 @@
 						<br>
 						<input class="" type="file" name="imgFile" id="imgFile3" value=""> 
 					</div>
-					<%-- <c:if test="${not empty file }">
+					
+					<c:if test="${not empty file }">
 						<c:forEach var="ff" items="${file }">
 							<input type="hidden" name="imgFiles" value="${ff}"/>
-							<c:out value="${ff}"/>
+							<%-- <c:out value="${ff}"/> --%>
 						</c:forEach>
-					</c:if> --%>
+					</c:if>
+
 					<br>
 
 					<div class="col-md-12">

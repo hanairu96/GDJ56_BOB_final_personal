@@ -38,4 +38,8 @@ public interface OneDayService {
 	List<OdcQa> selectQnaById(OdcQa oq);
 	List<OdcQa> selectNoQna(int no);
 	int countMenuClassList(String type);
+	OdcReview selectReviewByodreNo(int no);
+	OdcReserve selectReservebyodreNo(int no);
+	void deleteOdcQa(String oqno);
+	void deleteReOdcQa(String oqrNo);
 }

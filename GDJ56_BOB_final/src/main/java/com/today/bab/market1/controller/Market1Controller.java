@@ -27,8 +27,10 @@ import com.today.bab.market1.model.service.ReviewItemService;
 import com.today.bab.market1.model.vo.ItemReview;
 import com.today.bab.market1.model.vo.MarketBasket;
 import com.today.bab.market1.model.vo.MarketMemberLike;
+import com.today.bab.market2.model.service.MarketService;
 import com.today.bab.market2.model.vo.ItemPic;
 import com.today.bab.market2.model.vo.SellItem;
+import com.today.bab.market2.model.vo.TodayBob;
 import com.today.bab.member.model.vo.Member;
 
 @Controller
@@ -39,14 +41,16 @@ public class Market1Controller {
 	private QnaService qnaservice;
 	private ReviewItemService reservice;
 	private BasketService bservice;
+	private MarketService market2service;
 	
 	@Autowired
-	public Market1Controller(Market1Service service,QnaService qnaservice, ReviewItemService reservice,BasketService bservice) {
+	public Market1Controller(Market1Service service,QnaService qnaservice, ReviewItemService reservice,BasketService bservice,MarketService market2service) {
 		super();
 		this.service = service;
 		this.qnaservice = qnaservice;
 		this.reservice=reservice;
 		this.bservice=bservice;
+		this.market2service=market2service;
 	}
 	
 	
@@ -113,6 +117,20 @@ public class Market1Controller {
 				}
 			}
 		}
+		
+		  //메인에추천
+		  List<TodayBob> relist = market2service.todayBobList();
+		  mv.addObject("relist",relist);
+		  List<SellItem> relistbyno0 = market2service.todayView(relist.get(0).getReNo());
+		  List<SellItem> relistbyno1 = market2service.todayView(relist.get(1).getReNo());
+		  mv.addObject("relistbyno0",relistbyno0);
+		  mv.addObject("relistbyno1",relistbyno1);
+		
+		
+		
+		//마감임박상품 
+		List<SellItem> soon=service.soldoutsoon();
+		mv.addObject("soon", soon);
 		
 		mv.setViewName("market1/marketMain");
 		return mv;
@@ -424,7 +442,7 @@ public class Market1Controller {
 		int result=service.updateMarketItem(s,itemNo);
 		if(result>0) {
 			mv.addObject("msg", "상품 수정 성공");
-			mv.addObject("loc", "/market1/marketgtg.do");
+			mv.addObject("loc", "/market1/marketdetail.do?itemNo="+itemNo);
 		}else {
 			mv.addObject("msg", "상품 수정 실패");
 			mv.addObject("loc", "/market1/updateItemGo.do");
@@ -433,7 +451,7 @@ public class Market1Controller {
 		return mv;
 	}
 	
-	
+	//상품 상세페이지 ajax
 	@RequestMapping("/choiceexplain.do")
 	public String choiceexplain(int itemNo,String check,Model m,
 			@Validated @RequestParam(value="cPage", defaultValue="1", required = true)int cPage,
@@ -498,7 +516,7 @@ public class Market1Controller {
 //		return "market1/resultGtgselect";
 //	}
 	
-	
+	//선호상품
 	@RequestMapping("/memberLikeList.do")
 	public ModelAndView memberLikeList(ModelAndView mv,HttpServletRequest request) {
 		
@@ -544,6 +562,7 @@ public class Market1Controller {
 		return mv;
 	}
 	
+	//상품 정렬
 	@RequestMapping("/searchItemSort.do")
 	public String searchItemSort(Model m,
 			int min, int max,String itemct,String itemsort
@@ -556,6 +575,39 @@ public class Market1Controller {
 		Map<String,Object> param=Map.of("min",min,"max",max,"itemct",itemct,"itemsort",itemsort);
 		List<SellItem> list=service.searchItemSort(param);
 		m.addAttribute("ii", list);
+		return "market1/resultGtgselect";
+	}
+	
+	//마감임박 아이템
+	@RequestMapping("/soldoutsoon.do")
+	public ModelAndView soldoutsoon(ModelAndView mv,HttpServletRequest request) {
+		List<SellItem> list=service.soldoutsoon();
+		mv.addObject("i",list);
+		
+		
+		HttpSession session = request.getSession();
+	    Member  loginMember= (Member) session.getAttribute("loginMember");
+		if(loginMember!=null) {
+			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
+			mv.addObject("basket",blist);
+		}
+		mv.setViewName("market1/mainChoiceList");
+		return mv;
+	}
+	
+	@RequestMapping("/resetSearch.do")
+	public String resetSearch(Model m,HttpServletRequest request){
+		List<SellItem> list=service.selectItemMarket();
+		m.addAttribute("ii",list);
+		
+		HttpSession session = request.getSession();
+	    Member  loginMember= (Member) session.getAttribute("loginMember");
+		if(loginMember!=null) {
+			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
+			m.addAttribute("basket",blist);
+		}
+		
+		
 		return "market1/resultGtgselect";
 	}
 	

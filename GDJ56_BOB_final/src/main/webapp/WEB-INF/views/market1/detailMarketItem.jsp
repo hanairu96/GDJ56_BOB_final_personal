@@ -12,18 +12,18 @@
 		font-family: 'Gowun Dodum', sans-serif;
 	}
 </style>
-	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
+   <div class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/mainbanner.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2><c:out value="${de.itemCategory}"/></h2>
-                        </div>
+                       	<h2 style="color:black;"><c:out value="${de.itemCategory}"/></h2>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </section>
     <section class="product-details spad">
     
 
@@ -34,7 +34,9 @@
 	                <div class="col-lg-6 col-md-6">
                     <div>
 				   		<button class="primary-btn" type="button" onclick="updateItem(${de.itemNo})" style="background-color:blue;border: none;">수정</button>
+				    	<c:if test="${loginMember.memberId eq 'admin' }">
 				    	<button class="primary-btn" type="button" onclick="deleteItemFile(${de.itemNo},'${picpic}','${de.mainPic}','${de.itemLabel}')" style="background-color:red;border: none;" >삭제</button>
+				   		</c:if>	
 				    </div>	
 	                    <div class="product__details__pic">
 	                        <div class="product__details__pic__item">
@@ -104,7 +106,15 @@
 	                        </div>
 	                        
 	                        
-	                        <div class="product__details__price"><c:out value="${de.itemPrice }"/>원</div>
+	                        <div class="product__details__price">
+	                        <c:if test="${de.itemDiscount eq 'Y' }">
+                        		<h5 style="text-decoration:line-through;">${de.itemPrice }원</h5>
+                        		<h5 style="color:magenta; margin:10px;">할인가 9900원</h5>
+                        	</c:if>
+                        	<c:if test="${de.itemDiscount eq 'N' }">
+                        		<h5><c:out value="${de.itemPrice }"/>원</h5>
+                        	</c:if>
+	                        </div>
 	                        <p><c:out value="${de.mainContent}"/></p>
 	                        <div class="product__details__quantity">
 	                            <div class="quantity">
@@ -118,8 +128,7 @@
 		                        <a href="javascript:void(0);" class="primary-btn" style="background-color: magenta;" onclick="soldoutItem();">품절되었습니다.</a>
 	                        </c:if>
 	                        <c:if test="${de.itemStock>0 }">
-		                        <a class="primary-btn" href="javascript:void(0);" onclick="addbasketitem(${de.itemNo },'${loginMember.memberId }','${de.mainPic }','${de.itemName }')" style="background-color: #07d448;">장바구니 담기</a>
-		                        <a href="#" class="primary-btn" style="background-color: #07d448;">바로결제하기</a>
+		                        <a class="primary-btn" href="javascript:void(0);" onclick="addbasketitem(${de.itemNo },'${loginMember.memberId }','${de.mainPic }','${de.itemName }')" style="background-color:#bde28f;">장바구니 담기</a>
 	                        </c:if>
 	                        <br><br><br>
 	                        <b>원산지</b> <span><c:out value="${de.madeIn }"/></span><br><br>
@@ -242,8 +251,7 @@
 						        ${de.itemName }
 						        </h3>
 						        <br>
-						        <div style="text-align: center;"> 
-						            <p>
+						            <p style="font-size:20px;">
 										${de.itemContent }
 						            </p>
 						        </div>
@@ -251,15 +259,15 @@
 						        <div  style="text-align: center;flex-wrap: wrap;width:510px;margin:0 auto;">
 						        <c:if test="${not empty de.ipic }">
 			                        <c:forEach var="file" items="${de.ipic }">
-											 <img src="${path }/resources/upload/market/detail/${file.picName}" style="width:500px;height: 500px;margin:15px;">
+											 <img src="${path }/resources/upload/market/detail/${file.picName}" style="margin:15px;">
 									</c:forEach>                         
 	                        	</c:if>
 						        </div>
 						        <br><br>
-						        <div>
-						            <span class="col-1" style="font-weight:bold;">용량 </span><span style="margin-left:2%">${de.weight }</span><br>
-						            <span class="col-1" style="font-weight:bold;">특징 </span><span style="margin-left:2%">${de.itemPoint }</span><br>
-						            <span class="col-1" style="font-weight:bold;">보관법</span><span class="col-3">${de.itemKeep }</span><br>
+						        <div style="font-size:20px;">
+						            <span class="col-1" style="font-weight:bold;">용량 </span><span style="margin-left:2%;">${de.weight }</span><br>
+						            <span class="col-1" style="font-weight:bold;">특징 </span><span style="margin-left:2%;">${de.itemPoint }</span><br>
+						            <span class="col-1" style="font-weight:bold;">보관법</span><span class="col-3" >${de.itemKeep }</span><br>
 						            <span class="col-1" style="font-weight:bold;">활용팁</span><span class="col-3">${de.itemTip }</span><br>
 						        </div>
 						        <br>

@@ -24,6 +24,7 @@ public interface MarketService {
 	//오늘의밥추천(추천) 타이틀 목록 조회
 	List<TodayBob> todayBobList();
 	int todayBobListCount();
+	//int todayBobCount();
 	
 	
 //	//오늘의밥추천(추천) 타이틀 삭제
@@ -39,7 +40,7 @@ public interface MarketService {
 	List<SellItem> todayViewAll();
 	
 	//할인 상품
-	List<SellItem> discountView();
+	List<SellItem> discountView(Map<String, Integer> param);
 	int discountCount();
 	
 	//추천제목

@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.6.1.min.js"></script>
 <script>console.log("${path }");</script>
@@ -54,96 +56,7 @@
 		</div>
 	</c:if>
 </section>
-<script>
-const callFunction = (e)=>{
 
-	
-		clickTag = $(e.target).parent().attr("id"); //reNo가져옴
-		console.log(clickTag);
-		
-		clickContent = $(e.target).parent().attr("class");
-		console.log(clickContent);
-		
-		clickTitle = $(e.target).parent().children().text();
-		console.log(clickTitle);
-		
-		///////
-		var title = "";
-		title += "<h3 style='text-align: center; margin: 50px; padding-bottom: 10px;'>"+clickTitle+"<p style='margin-top: 20px;'>"+clickContent+"</p></h3>";
-	
-		$("#printTitle").html(title);
-		
-		
-		
-		
-		///////
-		$.get("${path }/market/todayView.do?reNo="+clickTag
-				,data=>{
-						//console.log(data);
-						
-						$("#print").html(''); //원래의 값 비워주기
-	
-						
-						
-						
-						var html = "";
-	   					data.forEach(i=>{
-	   						//var itemNo = i.itemNo;
-	   						
-    						var stock = i.itemStock==0 ? "<div class='col-lg-4 col-sm-6' style='padding: 3%;filter: grayscale(100%);'>"
-    									: "<div class='col-lg-4 col-sm-6' style='padding: 3%;'>";
-    						//var stock2 = i.itemStock==0 ? "<a href='${path }/market/cart.do?id=${m}&itemNo="+itemNo+"'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>"
-    						var stock2 = i.itemStock==0 ? "<span style='font-size: 30px;'>일시품절</span>"
-    									: "<a href='javascript:void(0);' onclick='addbasketitem("+i.itemNo+",'${loginMember.memberId }','"+i.mainPic+"','"+i.itemName+"')'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>";
-    						
-	   						
-	
-	
-	   						html += stock;
-							html += "<div class='recipe-item'>";
-							html += "<div class='zoom'>";
-							html += "<a href='${path}/market1/marketdetail.do?itemNo="+i.itemNo+"'><img src='${path }/resources/upload/market/mainlabel/"+i.mainPic+"' alt='' width='330' height='280'></a>";
-							html += "</div>";
-							html += "<div class='ri-text'>";
-							html += "<div class='cat-name'>"+i.itemCategory+"</div>";
-							html += "<a href='${path}/market1/marketdetail.do?itemNo="+i.itemNo+"'>";
-							html += "<h4>"+i.itemName+"</h4>";
-							html += "<p>"+i.mainContent+"</p>";
-							html += "</a>";
-							html += "<div style='display: flex; margin-top: 1%; justify-content: space-between; align-items: center;'>";
-							html += "<div style='display: flex;'>";
-							html += "<img src='https://img.icons8.com/ios/512/money-bag.png' width='20' height='20'>";
-							html += "<h5>"+i.itemPrice+"</h5><h5>원</h5>";
-							html += "</div>";
-							html += "<div class='zoom'>";
-							html += stock2;
-							html += "</div>";
-							html += "</div>";
-							html += "</div>";
-							html += "</div>";
-							html += "</div>";
-	   						
-	   					
-	   					})//forEach i./
-						
-	   					$("#print").html(html);
-						
-						
-						
-		});//$.get./
-	
-//		e.stopPropagation();
-	
-//	};//클릭이벤트./
-	
-	
-	
-	
-}
-
-
-</script>
-	<%-- <c:if test="${loginMember==null and loginMember.memberId eq 'admin' }"> --%>
 
 <div style="display: flex; margin-left: 65%; margin-bottom: 30px;">
 
@@ -164,7 +77,7 @@ const callFunction = (e)=>{
 		<!-- <h3 style="text-align: center; margin: 50px; padding-bottom: 10px;">1만원대 추천 상품<p style="margin-top: 20px;">놓치면 후회할 가격!</p></h3> -->
 		<div id="printTitle"></div>
 		
-		<p>총 20건</p>
+		<p id="itemleng">총 ${fn:length(tbAll)}건</p>
 		<div class="row" id="print">
 		<c:forEach var="i" items="${tbAll }">
 			<div class="col-lg-4 col-sm-6" style="padding: 3%;${i.itemStock==0?'filter: grayscale(100%)':''};">
@@ -180,8 +93,14 @@ const callFunction = (e)=>{
 						</a>
 						<div style="display: flex; margin-top: 1%; justify-content: space-between; align-items: center;">
 							<div style="display: flex;">
+								<c:if test="${i.itemDiscount eq 'Y'}">
+									<div class="top-left"><img src="${path }/resources/images/iconsale.gif" width="100px" height="100px"/></div>
+								</c:if>
 								<img src="https://img.icons8.com/ios/512/money-bag.png" width="20" height="20">
 								<h5>${i.itemPrice }</h5><h5>원</h5>
+								<c:if test="${i.itemDiscount eq 'Y'}">
+									<h5 style="color: orange; font-weight: bold;">─▶ 할인가 9,900원</h5>
+								</c:if>
 							</div>
 							<div class="zoom">
 									<c:if test="${i.itemStock ==0}">
@@ -203,17 +122,112 @@ const callFunction = (e)=>{
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="pagination flex-l-m flex-w m-l--6 p-t-25">
-					<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">prev</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">1</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">2</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">3</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">next</a>
+					<div style="display: flex;margin-left:50%">
+			        	${pageBar}
+			   		</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
 </section>
+
+<script>
+const callFunction = (e)=>{
+
+	
+		clickTag = $(e.target).parent().attr("id"); //reNo가져옴
+		console.log(clickTag);
+		
+		clickContent = $(e.target).parent().attr("class");
+		console.log(clickContent);
+		
+		clickTitle = $(e.target).parent().children().text();
+		console.log(clickTitle);
+		
+		///////
+		var title = "";
+		title += "<h1 style='text-align: center; margin: 50px; padding-bottom: 10px;font-weight: bold;color: darkorange;'>"+clickTitle+"<h3 style='margin-top: 10px;text-align: center; margin: 50px; padding-bottom: 10px;color: lime;'>"+clickContent+"</h3></h1>";
+	
+		$("#printTitle").html(title);
+		
+		
+		
+		
+		///////
+		$.get("${path }/market/todayView.do?reNo="+clickTag
+				,data=>{
+						//console.log(data);
+						
+						$("#print").html(''); //원래의 값 비워주기
+						$("p#itemleng").html('');
+						
+						
+						
+						var html = "";
+						var itemNoCount = 0;
+	   					data.forEach(i=>{
+	   						itemNoCount = itemNoCount+1;//개수세기
+	   						
+    						var stock = i.itemStock==0 ? "<div class='col-lg-4 col-sm-6' style='padding: 3%;filter: grayscale(100%);'>"
+    									: "<div class='col-lg-4 col-sm-6' style='padding: 3%;'>";
+    						//var stock2 = i.itemStock==0 ? "<a href='${path }/market/cart.do?id=${m}&itemNo="+itemNo+"'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>"
+    						var stock2 = i.itemStock==0 ? "<span style='font-size: 30px;'>일시품절</span>"
+    									: '<a href="javascript:void(0);" onclick="addbasketitem('+i.itemNo+',\'${loginMember.memberId }\',\''+i.mainPic+'\',\''+i.itemName+'\')"><img src="https://img.icons8.com/pastel-glyph/512/shopping-cart.png" width="3" height="30"></a>';
+    						var sale = i.itemDiscount == 'Y' ? "<div class='top-left'><img src='${path }/resources/images/iconsale.gif' width='100px' height='100px'/></div>" : "";
+    						var sale2 = i.itemDiscount == 'Y' ? "<h5 style='color: orange; font-weight: bold;'>─▶ 할인가 9,900원</h5>" : "";
+	
+	
+	   						html += stock;
+							html += "<div class='recipe-item'>";
+							html += "<div class='zoom'>";
+							html += "<a href='${path}/market1/marketdetail.do?itemNo="+i.itemNo+"'><img src='${path }/resources/upload/market/mainlabel/"+i.mainPic+"' alt='' width='330' height='280'></a>";
+							html += "</div>";
+							html += "<div class='ri-text'>";
+							html += "<div class='cat-name'>"+i.itemCategory+"</div>";
+							html += "<a href='${path}/market1/marketdetail.do?itemNo="+i.itemNo+"'>";
+							html += "<h4>"+i.itemName+"</h4>";
+							html += "<p>"+i.mainContent+"</p>";
+							html += "</a>";
+							html += "<div style='display: flex; margin-top: 1%; justify-content: space-between; align-items: center;'>";
+							html += "<div style='display: flex;'>";
+							html += sale;
+							html += "<img src='https://img.icons8.com/ios/512/money-bag.png' width='20' height='20'>";
+							html += "<h5>"+i.itemPrice+"</h5><h5>원</h5>";
+							html += sale2;
+							html += "</div>";
+							html += "<div class='zoom'>";
+							html += stock2;
+							html += "</div>";
+							html += "</div>";
+							html += "</div>";
+							html += "</div>";
+							html += "</div>";
+	   						
+	   					
+	   					})//forEach i./
+	   					
+	   					console.log(itemNoCount);
+						
+	   					$("#print").html(html);
+	   					$("p#itemleng").html('총 '+itemNoCount+'건');
+						
+						
+		});//$.get./
+	
+//		e.stopPropagation();
+	
+//	};//클릭이벤트./
+	
+	
+	
+	
+}
+
+
+</script>
+	<%-- <c:if test="${loginMember==null and loginMember.memberId eq 'admin' }"> --%>
+
 <script>
 	const fn_pageBtn = (e)=>{
 		$(".item-pagination").removeClass("active-pagination");
@@ -264,6 +278,11 @@ const addbasketitem=(no,memberId,mainPic,itemName)=>{
 
 </body>
 <style>
+	.top-left {
+		position: absolute;
+	  	top: 1%;
+    	left: 1%;
+	}
 	/* 전체 글씨체 */
 	*{
 		font-family: 'Gowun Dodum', sans-serif;

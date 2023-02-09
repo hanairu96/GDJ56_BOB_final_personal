@@ -11,44 +11,31 @@ public class Market2PageBar {
 		int pageEnd=pageNo+pageBarSize-1;
 		
 		
-		pageBar="<ul class='pagination justify-content-center pagination-sm'>";
+		pageBar="<div class='pagination flex-l-m flex-w m-l--6 p-t-25'>";
 		
 		if(pageNo==1) {
-			pageBar+="<li class='page-item disabled'>";
-			pageBar+="<a class='page-link' href='#'>이전</a>";
-			pageBar+="</li>";
+			pageBar+="<a href='#' class='item-pagination flex-c-m trans-0-4' onclick='fn_pageBtn(event)'>prev</a>";
 		}else {
-			pageBar+="<li class='page-item'>";
-			pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo-1)+")'>이전</a>";
-			pageBar+="</li>";
+			pageBar+="<a class='item-pagination flex-c-m trans-0-4' onclick='fn_pageBtn(event)' href='javascript:fn_paging("+(pageNo-1)+")'>prev</a>";
 		}
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(cPage==pageNo) {
-				pageBar+="<li class='page-item disabled'>";
-				pageBar+="<a class='page-link' href='#'>"+pageNo+"</a>";
-				pageBar+="</li>";
+				pageBar+="<a href='#' class='item-pagination flex-c-m trans-0-4' onclick='fn_pageBtn(event)'>"+pageNo+"</a>";
 			}else {
-				pageBar+="<li class='page-item'>";
-				pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo)+")'>"
-				+pageNo+"</a>";
-				pageBar+="</li>";
+				pageBar+="<a class='item-pagination flex-c-m trans-0-4' onclick='fn_pageBtn(event)' href='javascript:fn_paging("+(pageNo)+")'>"
+							+pageNo+"</a>";
 			}
 			
 			pageNo++;
 		}
 		
 		if(pageNo>totalPage) {
-			pageBar+="<li class='page-item disabled'>";
-			pageBar+="<a class='page-link' href='#'>다음</a>";
-			pageBar+="</li>";
+			pageBar+="<a href='#' class='item-pagination flex-c-m trans-0-4' onclick='fn_pageBtn(event)'>next</a>";
 		}else {
-			pageBar+="<li class='page-item'>";
-			pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo)+")'>다음</a>";
-			pageBar+="</li>";
+			pageBar+="<a class='item-pagination flex-c-m trans-0-4' onclick='fn_pageBtn(event)' href='javascript:fn_paging("+(pageNo)+")'>next</a>";
 		}
 		
-		pageBar+="</ul>";
 		
 		pageBar+="<script>";
 		pageBar+="function fn_paging(pageNo){";

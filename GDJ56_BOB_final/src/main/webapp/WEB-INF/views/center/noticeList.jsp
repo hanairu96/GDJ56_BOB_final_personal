@@ -30,13 +30,13 @@
                 </thead>
                 <tbody>
                 	<c:if test="${empty list}">
-	                	<tr>
+	                	<tr class="tr">
 	                		<td colspan="3">등록된 글이 없습니다.</td>
 	                	</tr>
 	                </c:if>
                 	<c:if test="${not empty list}">
 		                <c:forEach var="nl" items="${list}">
-		                    <tr>
+		                    <tr class="tr">
 		                        <td class="nos">${nl.noticeNo}</td>
 		                        <td class="titles"><a href="${path}/center/noticeView?noticeNo=${nl.noticeNo}">${nl.noticeTitle}</a></td>
 		                        <td class="dates">${nl.noticeDate}</td>
@@ -49,7 +49,7 @@
             	<button type="button" id="write-btn" class="customBtn btnStyle" onclick="writeBoard();">글쓰기</button>
             </c:if>
             <div class="page-bar">
-                ${pageBar}
+	        	${pageBar}
             </div>
         </div>
     </section>
@@ -142,6 +142,9 @@
         .page-bar{
             text-align: center;
         }
+        .product__pagination>a{
+        	cursor: pointer;
+        }
 
         .customBtn {
 			color: #fff;
@@ -204,6 +207,60 @@
    		$(".side-menu>div:eq(1)").click(e=>{
    			location.assign("${path}/center/clientQnaList");
    		})
+   		
+   		//ajax를 이용한 페이징 처리
+   		//$(".product__pagination>*").click(e=>{
+   		//위의 방식을 쓰면 동적 페이지로 바뀐 후에 안 먹히므로 아래의 방식을 써야 함
+   		$(document).on("click", ".product__pagination>*", function(e){
+   			let cPage=0;
+   			if(e.target.textContent.trim()=='<'){
+	   			cPage=Number(document.querySelector(".product__pagination>*:nth-child(2)").textContent)-1;
+	   			numChange(cPage);
+		   	}else if(e.target.textContent.trim()=='>'){
+	   			cPage=Number(document.querySelector(".product__pagination>*:nth-child(4)").textContent)+1;
+	   			numChange(cPage);
+		   	}else{
+   				cPage=e.target.textContent;
+		   	}
+   			console.log(cPage);
+   			$.ajax({
+   				url:"${path}/center/noticeListPage",
+   				data:{cPage:cPage},
+   				success:data=>{
+					//테이블을 새로 생성
+					let content="<thead>";
+					content+="<tr>";
+					content+="<th class='nos'>번호</th>";
+					content+="<th class='titles'>제목</th>";
+					content+="<th class='dates'>작성일</th>";
+					content+="</tr>";
+					content+="</thead>";
+					content+="<tbody>";
+   					//출력할 내용
+   					data.forEach(function(nt){
+		                content+="<tr class='tr'>";
+		                content+="<td class='nos' style='width: 120px !important;'>"+nt.noticeNo+"</td>";
+		                content+="<td class='titles' style='width: 750px !important;'><a href='${path}/center/noticeView?noticeNo="+nt.noticeNo+"'>"+nt.noticeTitle+"</a></td>";
+		                content+="<td class='dates' style='width: 200px !important;'>"+nt.noticeDate+"</td>";
+		                content+="</tr>";
+   					})
+   					content+="</tbody>";
+   					//생성한 테이블로 교체함
+   					$(".list-table").html(content);
+   				}
+   			})
+   		})
+		
+   		//<>를 누르면 페이지바가 바뀌게 함
+   		const numChange=(cPage)=>{
+   			$.ajax({
+   				url:"${path}/center/numChange",
+   				data:{cPage:cPage},
+   				success:data=>{
+   					$(".page-bar").html(data);
+   				}
+   			})
+   		}
    		
    		//글쓰기
    		const writeBoard=()=>{

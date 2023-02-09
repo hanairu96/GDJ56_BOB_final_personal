@@ -138,7 +138,7 @@
 				<div style="display: flex; margin-left: 75%; margin-bottom: 50px;">
 					<button type="submit" class="flex-c-m size36 txt11 trans-0-4"
 					value="check" onclick="javascript: form.action='${path}/market/checkTodayBobModify.do'">
-						수정하기
+						확인하기
 					</button>
 				</div>
 			</div>
@@ -152,22 +152,55 @@
 
 
 <script>
-
+var cbArr = new Array(); //체크한 상품번호를 저장할 배열
 const makeItemArr = (target)=>{
-	var todaying = JSON.parse(localStorage.getItem("today")).today;
 	var checkVal = target.value;
 	var confirmCheck = target.checked;
-	if(confirmCheck == true){	todaying.push(checkVal);	}
-	else{	todaying.splice(	todaying.indexOf(checkVal), 1);	}
-	localStorage.removeItem('todaying');//지우고
-	todaying = JSON.stringify({today:todaying});
-	localStorage.setItem("today",todaying);//조합한거다시올림 //최종db에서사용할값
+	if(confirmCheck == true){	cbArr.push(checkVal);	}
+	else{	cbArr.splice(cbArr.indexOf(checkVal), 1);	}
+	//console.log("체크한상품 : "+cbArr);
+	//console.log(cbArr);
 	
-	var next = JSON.parse(localStorage.getItem("today")).today;
+	
+	///.로컬스토리지
+	// 배열을 문자열 형태로 변환해주는 메소드
+	// JSON : 자바스크립트 객체 표현법을 객체화한 것으로, 관련 기능 제공
+	const cbArrString = JSON.stringify(cbArr);
+	//console.log(cbArrString);
+	localStorage.setItem("items", checkVal+",");
+	
+	/* var aa = localStorage.getItem("itemString").split(",");
+	console.log(aa); */
+	
+	
+	
+	
+	
+	////////////////////////////////////////////////////////
+	
+/* 	//string으로 출력하려고 ["6","8","9"] ==>> 6,8,9 문자열로 바꾸기
+/* 	let next = cbArrString.replace(/"/g,'');
+	//console.log(next);
+	next=next.substring(1).slice(0, -1);
+	console.log(next); 
+	
+	var a = localStorage.getItem("itemString");
+	var b = localStorage.getItem("items");
+	//b = b.replace(/"/g,'').substring(1).slice(0, -1)+",";
+	localStorage.removeItem('items');
+	localStorage.removeItem('itemString');
+	localStorage.setItem("itemString", a+b);
+	
+	let next = localStorage.getItem("itemString").slice(0, -1);
+	console.log(next);
 	
 	$("#itemLS").attr("value", next);
-	console.log(typeof $("#itemLS").val());
-}
+	console.log($("#itemLS").val()); */
+	
+	
+
+
+}//makeItemArr./
 
 
 
@@ -192,46 +225,69 @@ $(function(){//레디함수
 		
 		$.get("${path}/market/chageItem.do?reNo="+selectTitle
     			, data=>{
-    				//해당 추천상품 먼저 checked
-    				let itemNo = new Array();
+    				
+    				
+    				var itemNo ="";
     				data.forEach(i=>{
-    					itemNo.push(i.itemNo.toString());
-    				});//console.log(itemNo);
+    					itemNo += i.itemNo+",";
+    				});var itemString = itemNo; console.log(itemString);
     				
-    				var today = JSON.stringify({today:itemNo});
-    				localStorage.setItem("today",today);//올림
-    				var todaying = JSON.parse(localStorage.getItem("today")).today;
-    				//console.log(todaying);
-    				//console.log(typeof todaying);
     				
-     				$("input[name=chItems]").each((i,v)=>{ //상품의 checkbox를 모두 가져와서 //includes()로 로컬스토리지에 포함되어 있다면 checked로 변경
+    				localStorage.setItem("itemString", itemString);
+    				
+    				
+    				
+    				console.log("슬라이스전"+localStorage.getItem("itemString"));
+    		    	
+    		    	//상품이무조건있으니까널값처리안해줘도됨
+    		    	let getItems = localStorage.getItem("itemString").slice(0, -1).split(",");
+    				console.log("get스토리지"+getItems);
+    		    	
+    				
+    				
+    				$("input[name=chItems]").each((i,v)=>{ //상품의 checkbox를 모두 가져와서 //includes()로 로컬스토리지에 포함되어 있다면 checked로 변경
     					
     					//checked되어있으면 모든 checked풀고
     					if($("input:checkbox[name=chItems]:checked").length == 0){}
     					else{
     						$(v).prop("checked", false);
+    						
     					}
     					
-    					const no = $(v).val();
     					
-    					if(todaying.toString().includes(no)) $(v).prop("checked", true); //해당상품은 checked
+    					const no = $(v).val();
+    					//console.log(no);
+    					
+    					
+    					if(getItems.includes(no)) $(v).prop("checked", true); //해당상품은 checked
     					
 
     				});
     				
-
+    				
+    				
+    				
     				
     				
     	});//$.get./
     	
     	
-
+    	
+    	
+    	
+    	
+    	
+    	
     	
     	
 
 	});//selectTitle.change./
 	
-
+	
+	
+	
+	
+	
 	
 	
 	//검색
@@ -243,7 +299,7 @@ $(function(){//레디함수
     $("#search").keyup(e=>{
     	//console.log($(e.target).val());
     	
-    	var todaying = JSON.parse(localStorage.getItem("today")).today;
+    	let getItems = localStorage.getItem("itemString").slice(0, -1).split(",");
     	
     	$.get("${path}/market/discountAdminAjax.do?value="+$(e.target).val()+"&selectOp="+selectOp
     			, data=>{
@@ -256,8 +312,8 @@ $(function(){//레디함수
     					let input = "";
     					//input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);'>").val(itemInfo);
     					
-    					
-    					if(todaying.toString().includes(itemInfo.toString())) { //자료형에 맞추기 - getItems눈 문자, itemInfo는 숫자
+    					console.log(itemInfo, getItems);
+    					if(getItems.includes(itemInfo.toString())) { //자료형에 맞추기 - getItems눈 문자, itemInfo는 숫자
     						input = $("<input type='checkbox' name='chItems' onchange='makeItemArr(this);' checked>").val(itemInfo);
     						console.log("있"+input);
     					}else{

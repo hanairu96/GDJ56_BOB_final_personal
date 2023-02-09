@@ -99,4 +99,8 @@ public interface AdminService {
 	int masterSearchClassYesCount(AdminSearch as);
 	
 	int masterSearchClassIngCount(AdminSearch as);
+	
+	List<AdminSellItem> productSearchClass(AdminSearch as);
+	
+	int productSearchClassCount(AdminSearch as);
 }

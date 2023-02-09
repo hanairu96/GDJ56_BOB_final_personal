@@ -13,7 +13,7 @@ class UploadAdapter {
 
     _initRequest() {
         const xhr = this.xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:9094/bab/class/imageUpload.do', true);
+        xhr.open('POST', 'https://gd1class.iptime.org:8844/GDJ56_BOB_final/class/imageUpload.do', true);
         
         xhr.responseType = 'json';
     }

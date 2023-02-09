@@ -32,6 +32,7 @@ public interface OneDayDao {
 	List<OdcReview> selectReview(SqlSessionTemplate session, int no);
 	List<OdcReserve> selectNoReviewReserve(SqlSessionTemplate session, int no2);
 	int insertReview(SqlSessionTemplate session, OdcReview or);
+	int updateReview(SqlSessionTemplate session, OdcReview or);
 	List<OdcReview> selectReviewByodcNo(SqlSessionTemplate session, int odcNo);
 	int countPerson(SqlSessionTemplate session, Map param);
 	int inputReservation(SqlSessionTemplate session, Map param);
@@ -39,4 +40,8 @@ public interface OneDayDao {
 	List<OdcQa> selectQnaById(SqlSessionTemplate session, OdcQa oq);
 	List<OdcQa> selectNoQna(SqlSessionTemplate session, int no);
 	int countMenuClassList(SqlSessionTemplate session, String type);
+	OdcReview selectReviewByodreNo(SqlSessionTemplate session, int no);
+	OdcReserve selectReservebyodreNo(SqlSessionTemplate session, int no);
+	void deleteOdcQa(SqlSessionTemplate session, String oqno);
+	void deleteReOdcQa(SqlSessionTemplate session, String oqrNo);
 }

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<%-- <jsp:include page="/WEB-INF/views/common/marketHeader.jsp"/> --%>
+<jsp:include page="/WEB-INF/views/common/marketHeader.jsp"/>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -12,13 +12,20 @@
 	*{
 		font-family: 'Gowun Dodum', sans-serif;
 	}
+	.top-left {
+      position: absolute;
+      top: -20px;
+      width: 90px;
+      left: -10px;
+      z-index: 1;
+   }
 </style>
-	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/breadcrumb.jpg');">
+	<section class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/mainbanner.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>오늘의 밥 마켓</h2>
+                        <h2 style="color:black;">오늘의 밥 마켓</h2>
                         </div>
                     </div>
                 </div>
@@ -33,6 +40,11 @@
 				<c:forEach var="sell" items="${i }">
                 	<div class="col-lg-4 col-md-6 col-sm-6" >
                     	<div class="product__item">
+                    	
+	                    	<c:if test="${sell.itemDiscount eq 'Y' }">
+	                      		<img class="top-left" src="${path }/resources/images/iconsale.gif"/>
+	                      	</c:if>
+                    	
                         	<div class="product__item__pic set-bg"
 	style="background-image: url('${path }/resources/upload/market/mainlabel/${sell.mainPic }');${sell.itemStock==0?'filter: grayscale(100%)':''};">
                            	<c:if test="${sell.itemStock!=0 }">
@@ -53,7 +65,13 @@
                                 	<h5 style="color: tomato;">재입고 준비중입니다</h5>
                                 </c:if>
                                 <c:if test="${sell.itemStock>0 }">
-                                	<h5><c:out value="${sell.itemPrice }"/>원</h5>
+                               		<c:if test="${sell.itemDiscount eq 'Y' }">
+		                        		<h5 style="text-decoration:line-through;"><c:out value="${sell.itemPrice }"/>원</h5>
+		                        		<h5 style="color:tomato;margin-top:5px;">할인가 9900원</h5>
+		                        	</c:if>
+		                        	<c:if test="${sell.itemDiscount eq 'N' }">
+		                        		<h5><c:out value="${sell.itemPrice }"/>원</h5>
+		                        	</c:if>
                                 </c:if>
                              </div>
                          </div>

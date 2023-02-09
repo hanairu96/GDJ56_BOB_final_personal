@@ -107,4 +107,9 @@ public class Market1ServiceImpl implements Market1Service{
 	public List<SellItem> searchItemSort(Map<String,Object> param){
 		return dao.searchItemSort(session,param);
 	}
+	
+	@Override
+	public List<SellItem> soldoutsoon(){
+		return dao.soldoutsoon(session);
+	}
 }

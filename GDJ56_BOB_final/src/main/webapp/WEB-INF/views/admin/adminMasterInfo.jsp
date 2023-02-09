@@ -253,10 +253,11 @@
         </header>
         <main class="h-full pb-16 overflow-y-auto" >
           <div class="container px-6 mx-auto grid" style="text-align: center;">
-            <h2
-                class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
-              >  '${master.name }' 님의 원데이클래스
-            </h2>
+             <h4
+                    style="font-size: 20px; color: purple; border: 2px solid purple; border-radius:10px; padding: 10px;"
+                    class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+                  >
+                   '${master.name }' 님의 원데이클래스 </h4>
           </div>
           
           <div 

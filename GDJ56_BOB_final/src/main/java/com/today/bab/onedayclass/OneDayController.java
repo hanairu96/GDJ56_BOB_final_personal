@@ -64,7 +64,7 @@ public class OneDayController {
       
       Object member=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
       
-      //·Î±×ÀÎÇÑ member°¡ Á¸ÀçÇÒ ¶§
+      //ë“±ë¡ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤
       if(!member.equals("anonymousUser")) {
     	  AdminMaster master=service.selectMastserById(((Member)member).getMemberId());
     	  mv.addObject("master",master);
@@ -121,30 +121,29 @@ public class OneDayController {
 
    @RequestMapping("/class/masterEndEnroll.do")
    public ModelAndView masterEndEnroll(AdminMaster m, ModelAndView model, String history1) {
-      System.out.println(m);
       int result=service.masterEndEnroll(m);
       
       if(result<0) {
-         model.addObject("msg","µî·Ï¿¡ ½ÇÆĞÇß½À´Ï´Ù");
+         model.addObject("msg","í´ë˜ìŠ¤ ë“±ë¡ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤");
          model.addObject("loc","/class/masterEndEnroll.do");
          model.setViewName("common/msg");
          return model;
       }else {
-         model.addObject("msg","ÀåÀÎ½ÅÃ» µî·ÏÀÌ ¿Ï·áµÆ½À´Ï´Ù");
+         model.addObject("msg","í´ë˜ìŠ¤ ë“±ë¡ì´ ì™„ë£ŒëìŠµë‹ˆë‹¤");
          model.addObject("loc","/class/main.do");
          model.setViewName("common/msg");
          return model;
       }
    }
    
-   //ÀåÀÎ½ÅÃ» ÆäÀÌÁö·Î ³Ñ¾î°¡´Â ¸Ş¼Òµå
+ 
    @RequestMapping("/class/editor.do")
    public ModelAndView editor(AdminMaster m, ModelAndView mv) {
 	  mv.setViewName("onedayclass/editor");
       return mv;
    }
    
-   //ckEditor »çÁø ¾÷·Îµå½Ã ÆÄÀÏÀúÀå½ÃÅ°´Â ¸Ş¼Òµå
+   //ckEditor ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Ş¼Òµï¿½
    @RequestMapping("/class/imageUpload.do")
    @ResponseBody
    public void imageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) throws Exception {
@@ -168,7 +167,7 @@ public class OneDayController {
        PrintWriter out=response.getWriter();
        String fileUrl=request.getContextPath()+"/resources/images/onedayclass/"+fileName;
    
-       //out.println("<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'"+fileUrl+"','ÀÌ¹ÌÁö°¡ ¾÷·ÎµåµÇ¾ú½À´Ï´Ù.')"+"</script>");
+       //out.println("<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'"+fileUrl+"','ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.')"+"</script>");
        out.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
        
        out.flush();
@@ -191,61 +190,57 @@ public class OneDayController {
          ,int odcPrice,String odcContent, String odcEnrollDate, String odcCategoty, String odcStartTime, String mastserName
    ) throws Exception{
       
-      System.out.println(startDate);
-      System.out.println(endDate);
        
 	   SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	   Date odcStartDate = format1.parse(startDate);
-	   System.out.println(odcStartDate);
 	   
 	   SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
 	   Date odcEndDate = format2.parse(endDate);
-	   System.out.println(odcEndDate);
       
        response.setCharacterEncoding("utf-8");
        response.setContentType("text/html;charset=utf-8");
        String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/onedayclass/");
 
-      //Àü¼ÛµÈ ÆÄÀÏÀÌ ÀÖ´Ù¸é...
-      //ÆÄÀÏ ¸®³×ÀÓ Ã³¸® Á÷Á¢ ÇÏ±â
+      //ï¿½ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½...
+      //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½
       String orignalFileName=odcpic.getOriginalFilename();
       String ext=orignalFileName.substring(orignalFileName.lastIndexOf("."));
-      //Áßº¹µÇÁö ¾Ê´Â ÀÌ¸§ ¼³Á¤ÇÏ´Â °ª ÁöÁ¤ÇÏ±â
+      //ï¿½ßºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
       SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
       int rnd=(int)(Math.random()*10000)+1;
       String renameFile = sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
       
-      //ÆÄÀÏ ¾÷·ÎµåÇÏ±â
+      //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ï¿½Ï±ï¿½
       try {
-         //MultipartFile Å¬·¡½º°¡ Á¦°øÇØÁÖ´Â ¸Ş¼Òµå ÀÌ¿ëÇØ¼­ ÀúÀåÃ³¸®
+         //MultipartFile Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Ş¼Òµï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
          odcpic.transferTo(new File(uploadPath+renameFile));
       }catch(IOException e) {
          e.printStackTrace();
       }
       
-      //ÁÖ¼Ò ºĞ±âÃ³¸®
+      //ï¿½Ö¼ï¿½ ï¿½Ğ±ï¿½Ã³ï¿½ï¿½
       String[] add=address.split(",");
       String odcAdd=add[0]+" "+add[2];
       String[] city=add[1].split(" ");
       String odcCity=city[0]+" "+city[1];
       
-      //ÆÄÀÏ¸í
+      //ï¿½ï¿½ï¿½Ï¸ï¿½
       String odcMainPic=renameFile;
       
-      //³Ñ¾î¿Â°ª °´Ã¼¿¡ ºôµå
+      //ï¿½Ñ¾ï¿½Â°ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
       OneDayClass odc=OneDayClass.builder().odcNo(odcNo).odcClassName(odcClassName).odcCookName(odcCookName).odcStartDate(odcStartDate).odcEndDate(odcEndDate).odcTime(odcTime)
       .odcPeople(odcPeople).odcAdd(odcAdd).odcCity(odcCity).odcPrice(odcPrice).odcMainPic(odcMainPic).odcContent(odcContent).odcStartTime(odcStartTime).odcCategoty(odcCategoty)
       .memberId(memberId).build();
       
-      //°´Ã¼ º¸³»¼­ insert
+      //ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ insert
       int result=service.endclassEnroll(odc);
       
       if(result<0) {
-         model.addAttribute("msg","Å¬·¡½º µî·Ï¿¡ ½ÇÆĞÇß½À´Ï´Ù");
+         model.addAttribute("msg","ì¥ì¸ì‹ ì²­ì´ ì™„ë£ŒëìŠµë‹ˆë‹¤");
          model.addAttribute("loc","/class/masterEndEnroll.do");
          return "common/msg";
       }else {
-         model.addAttribute("msg","Å¬·¡½º µî·ÏÀÌ ¿Ï·áµÆ½À´Ï´Ù");
+         model.addAttribute("msg","ì¥ì¸ì‹ ì²­ ì‹¤íŒ¨!");
          model.addAttribute("loc","/class/main.do");
          return "common/msg";
       }
@@ -257,19 +252,17 @@ public class OneDayController {
 	   
       OneDayClass odc = service.odcView(no);
       
-      //³¯Â¥ Æ÷¸ËÇØÁÖ±â
+      //ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
       SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
       
-  	  //¿øÇÏ´Â µ¥ÀÌÅÍ Æ÷¸Ë ÁöÁ¤
+  	  //ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
       //String startDate = simpleDateFormat.format(odc.getOdcStartDate()); 
       String endDate = simpleDateFormat.format(odc.getOdcEndDate()); 
   
-  	  //ÁöÁ¤ÇÑ Æ÷¸ËÀ¸·Î º¯È¯ 
-      //System.out.println("Æ÷¸Ë ÁöÁ¤ ÈÄ : " + startDate);
-      System.out.println("Æ÷¸Ë ÁöÁ¤ ÈÄ : " + endDate);
+  	  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ 
+      //System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ : " + startDate);
       AdminMaster am= service.selectMastserById(odc.getMemberId());
       
-      System.out.println(am.getHistory().split(",").length);
       
       String[] h = new String[am.getHistory().split(",").length];
       h=am.getHistory().split(",");
@@ -290,7 +283,6 @@ public class OneDayController {
       //System.out.println(odcNo);
       //System.out.println(memberId);
       //OdcQa oq=OdcQa.builder().oqContent(oqContent).oqSecretYn(oqSecretYn).odcNo(odcNo).memberId(memberId).build();
-      System.out.println(oq);
       service.inputOdcQa(oq);
    }
    
@@ -298,59 +290,54 @@ public class OneDayController {
    
    @RequestMapping("/class/selectOdcQaAll.do")
    public List<OdcQa> selectOdcQaAll(int odcNo){
-	   System.out.println(service.selectOdcQaAll(odcNo));
       return service.selectOdcQaAll(odcNo);
       
    }
    
    @RequestMapping("/class/selectReOdcQaAll.do")
    public List<OdcQaRe> selectReOdcQaAll(int oqno){
-	   System.out.println(oqno);
-	   System.out.println("´ä±Û"+service.selectReOdcQaAll(oqno));
 	   return service.selectReOdcQaAll(oqno);
 	   
    }
    
    @RequestMapping("/class/inputReplayOdcQa.do")
    public void inputReplayOdcQa(@RequestBody OdcQaRe oqr,HttpSession session){
-	   System.out.println(oqr);
 	   service.inputReplayOdcQa(oqr);
    }
    
    @RequestMapping("/class/pop.do")
    public ModelAndView classEnroll(ModelAndView mv, String id, String no) {
 	   
-	  //¿¹¾àÇÑ ¸®½ºÆ® °¡Á®¿À±â
+	  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	  Map<String, Object> param = new HashMap();
       param.put("id", id);
       param.put("no", no);
 	  List<OdcReserve> reserveList =service.selectReserve(param);
-	  System.out.println("¿¹¾àÇÑ ¸®½ºÆ®"+reserveList);
 	  
-	  //¿¹¾à³¯Â¥ ÀúÀå
+	  //ï¿½ï¿½ï¿½à³¯Â¥ ï¿½ï¿½ï¿½ï¿½
 	  String[] arr = new String[reserveList.size()];
-	  //¿¹¾à½ÃÄö½º ¹øÈ£ ±âÁØÀ¸·ÎÀÇ ¸®ºä¸®½ºÆ®
+	  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½Æ®
 	  List<OdcReview> OdcReviewList=new ArrayList();
-	  //¸®ºä¾ø´Â ¿¹¾à½ÃÄö½º¹øÈ£ ÀúÀå
+	  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 	  List nums = new ArrayList();
 	  
-	  //¿¹¾àÇÑ ¼ö¾÷ Á¤º¸ °¡Á®¿À±â
+	  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	  //Listservice.odcView(no);	  
 	  
-	  //¿¹¾à¸®½ºÆ® Á¸Àç¿©ºÎ
+	  //ï¿½ï¿½ï¿½à¸®ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ç¿©ï¿½ï¿½
 	  if(!reserveList.isEmpty()) {
 		  for(int i=0;i<reserveList.size();i++) {
 			  
 			  int odcreNo =reserveList.get(i).getOdcreNo();
 			  
-			 //¿¹¾à½ÃÄö½º¹øÈ£ ±âÁØÀ¸·Î ¸®ºä °¡Á®¿À±â
+			 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			 OdcReviewList=service.selectReview(odcreNo);
-			 //¸®ºä¾ø´Â ¿¹¾à½ÃÄö½º ¹øÈ£ ÀúÀåÇÏ±â
+			 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 			 if(OdcReviewList.isEmpty()){
 				 nums.add(odcreNo);
 			 }
 			
-			  //ÇÑ Å¬·¡½ºÀÇ ¿¹¾àÇÑ ³¯Â¥¸¦ °¡Á®¿À±â
+			  //ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			  //DateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
 			  //Date nowDate = new Date();
 			  //nowDate=reserveList.get(i).getOdcDate();
@@ -358,11 +345,9 @@ public class OneDayController {
 			  //arr[i]=today;
 			  
 		  }
-		  System.out.println("¸®ºä¾ø´Â ¿¹¾à½ÃÄö½º¹øÈ£"+nums);
-		 //System.out.println("ÀÌ Å¬·¡½ºÀÇ ¿¹¾àÇÑ È½¼ö:"+arr.length);
-		 //System.out.println("ÀÌ Å¬·¡½ºÀÇ ¸®ºäÇÑ È½¼ö:");
+		 //System.out.println("ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½:"+arr.length);
+		 //System.out.println("ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½:");
 		 
-		  //¸®ºä°¡ ¾ø´Â ¿¹¾à ½ÃÄö½º ¹øÈ£ÀÇ ¿¹¾à¸®½ºÆ® °¡Á®¿À±â
 		  List<OdcReserve> reserveList2=new ArrayList();
 		  for(int i=0;i<nums.size();i++) {
 			  String reserNo = nums.get(i).toString();
@@ -370,18 +355,16 @@ public class OneDayController {
 			  int no2=Integer.parseInt(reserNo);
 			  reserveList2.addAll(service.selectNoReviewReserve(no2));
 		  }
-		  System.out.println("¸®ºä¾ø´Â ¿¹¾à ¸®½ºÆ®"+reserveList2);
 		  
 		  if(nums.size()<1) {
-			  mv.addObject("msg","ÀÌ¹Ì ½ÅÃ»ÇÑ Å¬·¡½ºÀÇ ¸®ºä ÀÛ¼ºÀ» ¿Ï·áÇÏ¼Ì½À´Ï´Ù.");
+			  mv.addObject("msg","í›„ê¸°ë“±ë¡ì„ ëª¨ë‘ ì™„ë£Œí•˜ì…¨ìŠµë‹ˆë‹¤.");
 		      mv.setViewName("common/close");
 		  }else {
 			  mv.addObject("reserveList2", reserveList2);
 			  mv.setViewName("onedayclass/onedayReviewPop");
 		  }
 	  }else {
-		  mv.addObject("msg","¸®ºäÀÛ¼ºÀº Å¬·¡½º¸¦ ¼ö°­ ¿Ï·áÇÑ È¸¿ø¸¸ °¡´ÉÇÕ´Ï´Ù."
-		  		+"*Å¬·¡½º¸¦ ¿¹¾àÇÏ½Å ºĞµéÀº ¿¹¾àÇÑ ¼ö¾÷³¯Â¥ÀÇ ´ÙÀ½³¯ºÎÅÍ ¸®ºä¾²±â°¡ °¡´ÉÇØÁı´Ï´Ù.");
+		  mv.addObject("msg","í›„ê¸°ë“±ë¡ì€ ìˆ˜ê°•ì„ ì™„ë£Œí•œ íšŒì›ë§Œ ë“±ë¡ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 	      mv.setViewName("common/close");
 	  }
       return mv;
@@ -390,8 +373,6 @@ public class OneDayController {
    	@RequestMapping("/class/reviewEndEnroll.do")
 	public ModelAndView reviewEndEnroll(HttpServletRequest request, HttpServletResponse response, MultipartFile orePic1,OdcReview or
 		)throws Exception{
-		
-   		System.out.println("ÆÄÀÏÀÌ¸§"+orePic1);
    		
    		response.setCharacterEncoding("utf-8");
    		response.setContentType("text/html;charset=utf-8");
@@ -400,15 +381,14 @@ public class OneDayController {
 	 	if(orePic1!=null) {
 	 	String orignalFileName=orePic1.getOriginalFilename();
 	 	String ext=orignalFileName.substring(orignalFileName.lastIndexOf("."));
-	 	//Áßº¹µÇÁö ¾Ê´Â ÀÌ¸§ ¼³Á¤ÇÏ´Â °ª ÁöÁ¤ÇÏ±â
 	 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
 	 	int rnd=(int)(Math.random()*10000)+1;
 	 	String renameFile = sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
 	 	or.setOrePic(renameFile);
 	   
-	 	//ÆÄÀÏ ¾÷·ÎµåÇÏ±â
+	 	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ï¿½Ï±ï¿½
 	 	try {
-	 		//MultipartFile Å¬·¡½º°¡ Á¦°øÇØÁÖ´Â ¸Ş¼Òµå ÀÌ¿ëÇØ¼­ ÀúÀåÃ³¸®
+	 		//MultipartFile Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Ş¼Òµï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 	 		orePic1.transferTo(new File(uploadPath+renameFile));
 	 	}catch(IOException e) {
 	 		e.printStackTrace();
@@ -420,14 +400,14 @@ public class OneDayController {
 	 	//or.builder().odcreNo(odcreNo).odcNo(odcNo).oreContent(oreContent).memberId(memberId).oreGood(oreGood).oreSame(oreSame).orePic(renameFile);
 	 	
 	 	ModelAndView mv = new ModelAndView();
-	 	//µğºñ¿¡ Àü¼Û...
+	 	//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½...
 	 	int result = service.insertReview(or);
 	 	
 	 	if(result>0) {
-			  mv.addObject("msg","¸®ºä ÀÛ¼º ¼º°ø:)");
+			  mv.addObject("msg","ë¦¬ë·°ì‘ì„± ì„±ê³µ:)");
 		      mv.setViewName("common/close");
 		  }else {
-			  mv.addObject("msg", "¸®ºä ÀÛ¼º ½ÇÆĞ :(");
+			  mv.addObject("msg", "ë¦¬ë·°ì‘ì„± ì‹¤íŒ¨:(");
 			  mv.setViewName("common/close");
 		  }
    		
@@ -436,8 +416,6 @@ public class OneDayController {
    	
    	@RequestMapping("/class/selectReview.do")
    	public List<OdcReview> selectReview(int odcNo) {
-   		System.out.println("Å¬·¡½º ¹øÈ£"+odcNo);
-   		System.out.println(service.selectReviewByodcNo(odcNo));
    		return service.selectReviewByodcNo(odcNo);
    	}
    	
@@ -450,12 +428,10 @@ public class OneDayController {
   	
   	@RequestMapping("/class/countPerson.do")
   	public int countPerson(String reDate, int odcNo) {
-  		System.out.println(odcNo);
   		Map param=new HashMap();
   		param.put("reDate", reDate);
         param.put("odcNo", odcNo);
   		int num=service.countPerson(param);
-  		System.out.println("¿¹¾àÇÑ ÀÎ¿ø¼ö"+num);
   		return num;
   	}
    	
@@ -479,10 +455,10 @@ public class OneDayController {
         int result=service.inputReservation(param);
 
         if(result>0) {
-			  mv.addObject("msg","¸®ºä ÀÛ¼º ¼º°ø:)");
+			  mv.addObject("msg","ì˜ˆì•½ ì„±ê³µ:)");
 		      mv.setViewName("common/close");
 		  }else {
-			  mv.addObject("msg", "¸®ºä ÀÛ¼º ½ÇÆĞ :(");
+			  mv.addObject("msg", "ì˜ˆì•½ ì‹¤íŒ¨ :(");
 			  mv.setViewName("common/close");
 		  }
   		//System.out.println(or);
@@ -491,7 +467,6 @@ public class OneDayController {
   	
   	@RequestMapping("/class/editClass.do")
   	public ModelAndView editClass(String no, ModelAndView mv) {
-		System.out.println("¼ö¾÷¹øÈ£"+no);
 		OneDayClass odc=service.odcView(no);
 			 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
@@ -508,8 +483,6 @@ public class OneDayController {
   	
   	@RequestMapping("/class/selectReviewById.do")
   	public List<OdcReview> selectReviewById(@RequestBody OdcReview or,HttpSession session){
-  	  	//int no=Integer.valueOf(odcNo);
-  		System.out.println(or);
   		
   		Map param=new HashMap();
   		param.put("odcNo", or.getOdcNo());
@@ -520,8 +493,6 @@ public class OneDayController {
   	
   	@RequestMapping("/class/selectQnaById.do")
   	public List<OdcQa> selectQnaById(@RequestBody OdcQa oq,HttpSession session){
-  		//int no=Integer.valueOf(odcNo);
-  		System.out.println("ºÒ·¯¿Â°ª"+oq);
   		
   		Map param=new HashMap();
   		param.put("odcNo", oq.getOdcNo());
@@ -532,9 +503,40 @@ public class OneDayController {
   	
   	@RequestMapping("/class/selectNoQna.do")
   	public List<OdcQa> selectNoQna(String odcNo){
-  		System.out.println("¹øÈ£"+odcNo);
   		int no=Integer.valueOf(odcNo);
   		return service.selectNoQna(no);
   	}
+  	
+  	@RequestMapping("/class/goModifyReview.do")
+  	public ModelAndView goModifyReview(int no, ModelAndView mv) {
+  		//ë¦¬ë·° ë¶ˆëŸ¬ì˜¤ê¸°
+  		OdcReview odRe=service.selectReviewByodreNo(no);
+  		//ì˜ˆì•½ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸°
+  		OdcReserve odVe=service.selectReservebyodreNo(no);
+  		
+  		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
+		String odcDate = simpleDateFormat.format(odVe.getOdcDate()); 
+  		
+		mv.addObject("odcDate",odcDate);
+  		mv.addObject("odRe", odRe);
+  		mv.addObject("odVe", odVe);
+  		mv.setViewName("onedayclass/onedayModifyReview");
+  		return mv;
+  	}
+  	
+  	@RequestMapping("/class/deleteOdcQa.do")
+  	public void deleteOdcQa(String oqno) {
+  		service.deleteOdcQa(oqno);
+  	}
+  	
+  	@RequestMapping("/class/deleteReOdcQa.do")
+  	public void deleteReOdcQa(String oqrNo) {
+  		service.deleteReOdcQa(oqrNo);
+  	}
+  	
+  	
+  	
+  	
+  	
    	
 }

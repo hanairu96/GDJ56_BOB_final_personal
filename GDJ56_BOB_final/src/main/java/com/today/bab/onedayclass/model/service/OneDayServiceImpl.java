@@ -65,15 +65,15 @@ public class OneDayServiceImpl implements OneDayService {
 
 	@Override
 	public int endclassEnroll(OneDayClass odc) {
-		System.out.println("¼ö¾÷¹øÈ£"+odc.getOdcNo());
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£"+odc.getOdcNo());
 		String no=String.valueOf(odc.getOdcNo());
 		OneDayClass e = dao.odcView(session,no);
 		if(e!=null){
-			System.out.println("¼ö¾÷Á¸¹è¿©ºÎ");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è¿©ï¿½ï¿½");
 			System.out.println(odc);
 			return dao.updateClass(session,odc);
 		}else{
-			System.out.println("¼ö¾÷Á¸¹è¿©¿©ºÎ");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è¿©ï¿½ï¿½ï¿½ï¿½");
 			return dao.endclassEnroll(session, odc);
 		}
 	}
@@ -120,7 +120,15 @@ public class OneDayServiceImpl implements OneDayService {
 
 	@Override
 	public int insertReview(OdcReview or) {
-		return dao.insertReview(session, or);
+		
+		OdcReview r=dao.selectReviewByodreNo(session, or.getOdcreNo());
+		
+		if(r!=null) {
+			return dao.updateReview(session,or);
+		}else {			
+			return dao.insertReview(session, or);
+		}
+		
 	}
 	
 	@Override
@@ -156,14 +164,26 @@ public class OneDayServiceImpl implements OneDayService {
 	public int countMenuClassList(String type) {
 		return dao.countMenuClassList(session, type);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public OdcReview selectReviewByodreNo(int no) {
+		return dao.selectReviewByodreNo(session, no);
+	}
+
+	@Override
+	public OdcReserve selectReservebyodreNo(int no) {
+		return dao.selectReservebyodreNo(session, no);
+	}
+
+	@Override
+	public void deleteOdcQa(String oqno) {
+		dao.deleteOdcQa(session, oqno);
+	}
+
+	@Override
+	public void deleteReOdcQa(String oqrNo) {
+		dao.deleteReOdcQa(session, oqrNo);
+	}
 	
 	
 	
