@@ -92,27 +92,16 @@ public class CenterController {
 
 		List<Notice> list=new ArrayList();
 		//전체 리스트일 경우
-		if(option.equals("")||optionVal.equals("")) {
+		if(option.equals("N")||optionVal.equals("N")) {
 			list=service.selectNoticeList(page);
 		//검색한 리스트일 경우
 		}else {
 			Map<String, String> param=Map.of("option", option, "optionVal", optionVal);
-			list=service.selectNoticeListSearch(page, param);	
+			list=service.selectNoticeListSearch(page, param);
 		}
 		
 		return list;
 	}
-
-	//페이지바 교체
-	@ResponseBody
-	@RequestMapping("/numChange")
-	public String numChange(int cPage){
-		int numPerpage=5;
-		int totalData=service.selectNoticeCount();
-		String pageBar=AjaxPageBar.getPage(cPage, numPerpage, totalData, "noticeList");
-		return pageBar;
-	}
-	
 	
 	//1:1 문의 리스트 출력
 	@RequestMapping("/clientQnaList")
@@ -126,7 +115,9 @@ public class CenterController {
 		
 		int totalData=service.selectCqCount();
 		mv.addObject("pageBar", AjaxPageBar.getPage(cPage, numPerpage, totalData, "clientQnaList"));
-		mv.addObject("totalContents", totalData);
+		
+		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
+		mv.addObject("totalPage", totalPage);
 		
 		mv.setViewName("center/clientQnaList");
 		
@@ -147,11 +138,50 @@ public class CenterController {
 		
 		int totalData=service.selectCqCount(param);
 		mv.addObject("pageBar", AjaxPageBar.getPage(cPage, numPerpage, totalData, "clientQnaList"));
-		mv.addObject("totalContents", totalData);
+
+		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
+		mv.addObject("totalPage", totalPage);
+		
+		mv.addObject("option", option);
+		mv.addObject("optionVal", optionVal);
 		
 		mv.setViewName("center/clientQnaList");
 		
 		return mv;
+	}
+
+	//1:1 문의 ajax 페이징 처리용
+	@ResponseBody
+	@RequestMapping("/clientQnaListPage")
+	public List<ClientQNA> clientQnaListPage(@RequestParam(value="args[]") List<String> args){
+		int cPage=Integer.valueOf(args.get(0));
+		String option=args.get(1);
+		String optionVal=args.get(2);
+
+		int numPerpage=5;
+		Map<String, Integer> page=Map.of("cPage", cPage, "numPerpage", numPerpage);
+
+		List<ClientQNA> list=new ArrayList();
+		//전체 리스트일 경우
+		if(option.equals("N")||optionVal.equals("N")) {
+			list=service.selectCqList(page);
+		//검색한 리스트일 경우
+		}else {
+			Map<String, String> param=Map.of("option", option, "optionVal", optionVal);
+			list=service.selectCqListSearch(page, param);
+		}
+		
+		return list;
+	}
+	
+	//페이지바 교체
+	@ResponseBody
+	@RequestMapping("/numChange")
+	public String numChange(int cPage){
+		int numPerpage=5;
+		int totalData=service.selectNoticeCount();
+		String pageBar=AjaxPageBar.getPage(cPage, numPerpage, totalData, "noticeList");
+		return pageBar;
 	}
 
 	//공지사항 상세화면 출력

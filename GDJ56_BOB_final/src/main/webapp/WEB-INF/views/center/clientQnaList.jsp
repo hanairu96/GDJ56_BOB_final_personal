@@ -59,14 +59,12 @@
 		    	                    <td class="writers">${ql.memberId}</td>
 			                    </c:if>
 		                        <td class="dates">${ql.cqDate}</td>
-		                        <td class="answers">
-			                        <c:if test="${ql.cqCheck eq 'Y'}">
-			                        	답변완료
-			                        </c:if>
-			                        <c:if test="${ql.cqCheck ne 'Y'}">
-			                        	답변대기
-			                        </c:if>	
-		                        </td>
+			                    <c:if test="${ql.cqCheck eq 'Y'}">
+		                        	<td class="answers finish">답변완료</td>
+			                    </c:if>
+			                    <c:if test="${ql.cqCheck ne 'Y'}">
+		                        	<td class="answers">답변대기</td>
+			                    </c:if>	
 		                    </tr>
 		                </c:forEach>
 		            </c:if>
@@ -168,6 +166,10 @@
         .answers{
             width: 100px;
         }
+        .finish{
+        	color: purple;
+        	font-weight: bolder;
+        }
         a{
             text-decoration: none;
             color: black;
@@ -182,6 +184,9 @@
         }
         .page-bar{
             text-align: center;
+        }
+        .product__pagination>a{
+        	cursor: pointer;
         }
 
         .customBtn {
@@ -245,13 +250,88 @@
    		$(".side-menu>div:eq(1)").click(e=>{
    			location.assign("${path}/center/clientQnaList");
    		})
-   		
-		//답변완료면 보라색으로 표시  		
-        for(let i=0;i<6;i++){
-            if(document.querySelectorAll(".answers")[i].textContent.trim()=="답변완료"){
-                $(".answers:eq("+i+")").css("color", "purple").css("font-weight", "bolder");
-            }
-        }
+    	
+   		//ajax를 이용한 페이징 처리
+   		$(document).on("click", ".product__pagination>*", function(e){ //페이지 버튼을 누르면
+   			let cPage=0; //페이지 번호
+   			if(e.target.textContent.trim()=='<'){
+   				cPage=Number(document.querySelector(".product__pagination>*:nth-child(2)").textContent)-1;
+   				if(cPage==0) return false; //0페이지면 아무것도 실행되지 않음
+	   			numChange(cPage);
+		   	}else if(e.target.textContent.trim()=='>'){
+	   			cPage=Number(document.querySelector(".product__pagination>*:nth-last-child(2)").textContent)+1;
+	   			if(cPage>${totalPage}) return false; //총 페이지 수보다 큰 수의 페이지는 넘어갈 수 없음
+	   			numChange(cPage);
+		   	}else{
+   				cPage=e.target.textContent; //클릭한 버튼의 숫자
+		   	}
+   			console.log(cPage);
+   			
+   			let option='N'; //검색 항목
+   			let optionVal='N'; //검색 내용
+   			if("${option}"!="") option="${option}";
+   			if("${optionVal}"!="") optionVal="${optionVal}";
+   			
+   			let args=[cPage, option, optionVal];
+   			$.ajax({
+   				url:"${path}/center/clientQnaListPage",
+   				data:{args:args},
+   				success:data=>{
+					//테이블을 새로 생성
+					let content="<thead>";
+					content+="<tr>";
+					content+="<th class='categorys'>분류</th>";
+					content+="<th class='titles'>제목</th>";
+					content+="<th class='writers'>작성자</th>";
+					content+="<th class='dates'>작성일</th>";
+					content+="<th class='answers'>답변상태</th>";
+					content+="</tr>";
+					content+="</thead>";
+					content+="<tbody>";
+   					//출력할 내용
+   					data.forEach(function(ql){
+		                content+="<tr class='tr'>";
+		                content+="<td class='categorys'>"+ql.cqCate+"</td>";
+	                    if(ql.cqSe=='Y'){
+                        	if(("${loginMember.memberId}"!=ql.memberId)&&("${loginMember.memberId}"!='admin')){
+		                		content+="<td class='titles'><img src='${path}/resources/images/lock.png'>비밀글입니다.</td>";
+		                		content+="<td class='writers'>"+ql.memberId.substring(0,1)+"*****</td>";
+                        	}else{
+			                	content+="<td class='titles'><a href='${path}/center/clientQnaView?cqNo="+ql.cqNo+"'><img src='${path}/resources/images/lock.png'>"+ql.cqTitle+"</a></td>";
+			                	content+="<td class='writers'>"+ql.memberId+"</td>";
+                        	}
+   						}else{
+			                content+="<td class='titles'><a href='${path}/center/clientQnaView?cqNo="+ql.cqNo+"'>"+ql.cqTitle+"</a></td>";
+			                content+="<td class='writers'>"+ql.memberId+"</td>";
+   						}
+	                	content+="<td class='dates'>"+ql.cqDate+"</td>";
+	                	if(ql.cqCheck=='Y'){
+		                	content+="<td class='answers finish'>";
+	                		content+="답변완료";
+	                	}else{
+		                	content+="<td class='answers'>";
+		                	content+="답변대기";
+	                	}
+	                	content+="</td>";
+		                content+="</tr>";
+   					})
+   					content+="</tbody>";
+   					//생성한 테이블로 교체함
+   					$(".list-table").html(content);
+   				}
+   			})
+   		})
+		
+   		//'<' 또는 '>'를 누르면 페이지바가 바뀌게 함
+   		const numChange=(cPage)=>{
+   			$.ajax({
+   				url:"${path}/center/numChange",
+   				data:{cPage:cPage},
+   				success:data=>{
+   					$(".page-bar").html(data);
+   				}
+   			})
+   		}
     	
    		//글쓰기
    		const writeBoard=()=>{
