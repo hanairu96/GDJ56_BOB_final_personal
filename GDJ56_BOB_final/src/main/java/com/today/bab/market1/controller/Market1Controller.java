@@ -130,9 +130,11 @@ public class Market1Controller {
 		mv.addObject("relistbyno1",relistbyno1);
 		
 		
-		//마감임박상품 
+//		마감임박상품 
 		List<SellItem> soon=service.soldoutsoon(Map.of("cPage",cPage,"numPerpage",numPerpage));
+		List<SellItem> reco=service.recommendman(Map.of("cPage",cPage,"numPerpage",numPerpage));
 		mv.addObject("soon", soon);
+		mv.addObject("reco", reco);
 		
 		mv.setViewName("market1/marketMain");
 		return mv;
@@ -582,6 +584,7 @@ public class Market1Controller {
 			@RequestParam(value="cPage", defaultValue="1")int cPage,
 			@RequestParam(value="numPerpage", defaultValue="12")int numPerpage
 			,HttpServletRequest request) {
+		
 		List<SellItem> list=service.soldoutsoon(Map.of("cPage",cPage,"numPerpage",numPerpage));
 		mv.addObject("i",list);
 		
@@ -590,6 +593,30 @@ public class Market1Controller {
 		
 		HttpSession session = request.getSession();
 	    Member  loginMember= (Member) session.getAttribute("loginMember");
+		if(loginMember!=null) {
+			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
+			mv.addObject("basket",blist);
+		}
+		mv.setViewName("market1/mainChoiceList");
+		return mv;
+	}
+	
+	//1만원대 상품
+	@RequestMapping("/recommendman.do")
+	public ModelAndView recommendman(ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1")int cPage,
+			@RequestParam(value="numPerpage", defaultValue="12")int numPerpage
+			,HttpServletRequest request) {
+		
+		
+		List<SellItem> list=service.recommendman(Map.of("cPage",cPage,"numPerpage",numPerpage));
+		mv.addObject("i",list);
+		
+		int totaldata=service.selectItemCount();
+		mv.addObject("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"soldoutsoon.do"));
+		
+		HttpSession session = request.getSession();
+		Member  loginMember= (Member) session.getAttribute("loginMember");
 		if(loginMember!=null) {
 			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
 			mv.addObject("basket",blist);

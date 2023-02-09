@@ -40,4 +40,6 @@ public interface Market1Dao {
 	List<SellItem> searchItemSort(SqlSessionTemplate session,Map<String,Object> param);
 	
 	List<SellItem> soldoutsoon(SqlSessionTemplate session,Map<String, Integer> param);
+
+	List<SellItem> recommendman(SqlSessionTemplate session,Map<String, Integer> param);
 }

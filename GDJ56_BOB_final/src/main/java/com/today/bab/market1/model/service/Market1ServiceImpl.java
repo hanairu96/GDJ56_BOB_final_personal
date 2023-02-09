@@ -113,4 +113,9 @@ public class Market1ServiceImpl implements Market1Service{
 	public List<SellItem> soldoutsoon(Map<String, Integer> param){
 		return dao.soldoutsoon(session,param);
 	}
+
+	@Override
+	public List<SellItem> recommendman(Map<String, Integer> param){
+		return dao.recommendman(session,param);
+	}
 }

@@ -86,7 +86,13 @@ public class Market1DaoImpl implements Market1Dao {
 	
 	@Override
 	public List<SellItem> soldoutsoon(SqlSessionTemplate session,Map<String, Integer> param){
-		return session.selectList("ma.soldoutsoon",param,
+		return session.selectList("ma.soldoutsoon",null,
+				new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),param.get("numPerpage")));
+	}
+
+	@Override
+	public List<SellItem> recommendman(SqlSessionTemplate session,Map<String, Integer> param){
+		return session.selectList("ma.recommendman",null,
 				new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),param.get("numPerpage")));
 	}
 }

@@ -41,10 +41,10 @@
             
                 <br>   
             <c:if test="${loginMember!=null }">
-            	<c:if test="${likectg !=null }">
+            	<c:if test="${likemenu !=null }">
                 	<h5>${likectg }를 선호하시는 ${loginMember.nickname } 님 맞춤 상품! 둘러보세요!</h5>
                 </c:if>
-            	<c:if test="${likectg ==null }">
+            	<c:if test="${likemenu ==null }">
                		<h5>${loginMember.nickname } 님 맞춤 상품! 둘러보세요!</h5>
             	</c:if>
             </c:if>    
@@ -116,7 +116,7 @@
 
             <!-- 1만원대 추천상품 -->
             <div style="text-align: center;">
-                <h3 style="font-weight: bold;">1만원대 추천상품 ></h3><br>
+                <a href="${path }/market1/recommendman.do?"><h3 style="font-weight: bold;">1만원대 추천상품 ></h3></a><br>
                 <h5>야채주스 님 맞춤 상품! 둘러보세요!</h5><br>
             </div>
              <div class="row">

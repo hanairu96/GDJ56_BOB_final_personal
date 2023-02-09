@@ -40,7 +40,11 @@ public interface Market1Service {
 	//마켓 카테고리 ajax처리
 	List<SellItem> searchItemSort(Map<String,Object> param);
 
+	//마감임박
 	List<SellItem> soldoutsoon(Map<String, Integer> param);
 
+	//1만원추천
+	List<SellItem> recommendman(Map<String, Integer> param);
+	
 	
 }
