@@ -437,17 +437,16 @@ public class OneDayController {
   	}
    	
   	@RequestMapping("/class/inputReservation.do")
-  	public void inputReservation(ModelAndView mv,String memberId,String odcDate, String odcNo){
-//  		 try {
-//             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//             Date odcDate = format.parse(odcDate1);
-//             System.out.println(odcDate);
-//             or.setOdcDate(odcDate);
-//         } catch(Exception e) {
-//             e.printStackTrace();
-//         }
+  	public void inputReservation(ModelAndView mv,String memberId, String odcDate1, String odcNo){
   		
-  		System.out.println(memberId);
+  		Date odcDate= new Date();
+  		
+  		 try {
+             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+             odcDate = format.parse(odcDate1);
+         } catch(Exception e) {
+             e.printStackTrace();
+         }
   		
   		Map param=new HashMap();
   		param.put("memberId", memberId);
