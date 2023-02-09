@@ -310,7 +310,7 @@
 			                            <a href="${path}/mypage/orderdetail?orderNo=${order.orderNo}">
 				                            <c:forEach var="i"  items="${itemlist}" varStatus="status">
 				                            	<c:if test="${i.orderNo eq order.orderNo}">
-				                            	 [${i.orderitem.itemBrand}]${i.orderitem.itemName}
+				                            	 ${i.orderitem.itemName}
 				                            	</c:if>
 				                            </c:forEach>
 			                            </a>

@@ -122,7 +122,7 @@
                             <h4>결제상세</h4>
                             <div class="checkout__order__products">주문금액<span id="totalPrice">Total</span></div>
                             <ul>
-                                <li>배송비 <span id="delprice">30</span></li>
+                                <li>배송비 <span id="delprice">2000</span></li>
                             </ul>
                             <div class="checkout__order__subtotal">적립금 사용 <span id="finalpoint">0</span></div>
                             <div class="checkout__order__total">최종결제금액 <span id="totaltotal"></span></div>
@@ -208,7 +208,7 @@
         console.log(mypoint);
         
         
-        let pointover=parseInt(document.querySelector("#totalPrice").innerText)+30-100;
+        let pointover=parseInt(document.querySelector("#totalPrice").innerText)+2000-100;
         console.log(pointover);
         console.log(mypoint);
         
