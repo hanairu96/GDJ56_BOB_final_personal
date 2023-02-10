@@ -82,37 +82,37 @@
                 </div>
             </div>
         </div>
-      
-        <div class="site-section-main">
-            <div class="container-main">
-                <div class="rows">
-                    <div class="col-md-5">
-                        <h3 class="text-black con">Bring joy for your table from Subscription</h3>
-                        <p class="con"><span>바쁜 일상 생활, 우리에게 까먹는 것들이 점점 많아집니다. 당신의 식탁에 까먹는 것이 없도록 바랍니다. 구독하기를 통해 당신의 테이블이 가득하기를 바랍니다.</span></p>
-                        <button class="btn-main" onclick="location.assign('${path}/subscription/subMain')">More About Subscription</button>
-                    </div>
-                    <div>
-                        <img src="${path}/resources/images/food3.jpg" class="img-fluid">
-                    </div>
-                </div>
-            </div>
-        </div>
         
         <div class="site-section-main">
             <div class="container-main">
                 <div class="rows">
-                    <div>
-                        <img src="${path}/resources/images/food5.jpg" class="img-fluid">
-                    </div>
                     <div class="col-md-5">
                         <h3 class="text-black con">Bring joy for your table from One-Day Class</h3>
                         <p class="con"><span>코로나 시대에 우리는 어떤 걸 할 수 있을가요? 이제 저희는 바깥에서 무엇을 경험할 수 있나요? 푸드에 관한 원데이 클래스를 통해 색다른 경험과 소중한 레시피를 쌓아보세요.</span></p>
                         <button class="btn-main" onclick="location.assign('${path}/class/main.do')">More About One-Day Class</button>
                     </div>
+                    <div>
+                        <img src="${path}/resources/images/food5.jpg" class="img-fluid">
+                    </div>
                 </div>
             </div>
         </div>
-
+      
+        <div class="site-section-main">
+            <div class="container-main">
+                <div class="rows">
+                    <div>
+                        <img src="${path}/resources/images/food3.jpg" class="img-fluid">
+                    </div>
+                    <div class="col-md-5">
+                        <h3 class="text-black con">Bring joy for your table from Subscription</h3>
+                        <p class="con"><span>바쁜 일상 생활, 우리에게 까먹는 것들이 점점 많아집니다. 당신의 식탁에 까먹는 것이 없도록 바랍니다. 구독하기를 통해 당신의 테이블이 가득하기를 바랍니다.</span></p>
+                        <button class="btn-main" onclick="location.assign('${path}/subscription/subMain')">More About Subscription</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <style>
             .container-main{
              	text-align: center;
