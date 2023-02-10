@@ -257,6 +257,7 @@
 					// 결제 성공 시 로직
 					$.ajax({
 						url:"${path}/subscription/insertSub?memberId=${loginMember.memberId}&choice="+choice,
+						contentType:'application/x-www-form-urlencoded; charset=utf-8', //서버로 전송 시 한글 깨짐 방지
 						success:data=>{
 							console.log(data);
 							if(data){
