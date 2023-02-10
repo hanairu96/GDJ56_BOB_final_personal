@@ -113,16 +113,19 @@
             <!-- 양파 -->
             <c:forEach var="ii" items="${items }">
             <c:if test="${ii.itemNo==105 }">
+            <a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
               <div
                 class="featured__item__pic set-bg"
                 style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
               </div>
+           	</a>
               <div class="featured__item__text">
                 <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
                    	<c:if test="${ii.itemBrand!=null }">
 		        		[${ii.itemBrand }]
 		        	</c:if>
                     <c:out value="${ii.itemName }"/>
+                </a>
                 </h6>
                 <h5>${ii.itemPrice } 원</h5>
               </div>
@@ -135,16 +138,19 @@
             <!-- 대파 -->
           	<c:forEach var="ii" items="${items }">
             <c:if test="${ii.itemNo==250 }">
+            <a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
               <div
                 class="featured__item__pic set-bg"
                 style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
               </div>
+           	</a>
               <div class="featured__item__text">
                 <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
                    	<c:if test="${ii.itemBrand!=null }">
 		        		[${ii.itemBrand }]
 		        	</c:if>
                     <c:out value="${ii.itemName }"/>
+                </a>
                 </h6>
                 <h5>${ii.itemPrice } 원</h5>
               </div>
@@ -157,16 +163,19 @@
             <!-- 알룰로스 -->
             <c:forEach var="ii" items="${items }">
             <c:if test="${ii.itemNo==201 }">
+            <a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
               <div
                 class="featured__item__pic set-bg"
                 style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
               </div>
+           	</a>
               <div class="featured__item__text">
                 <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
                    	<c:if test="${ii.itemBrand!=null }">
 		        		[${ii.itemBrand }]
 		        	</c:if>
                     <c:out value="${ii.itemName }"/>
+                </a>
                 </h6>
                 <h5>${ii.itemPrice } 원</h5>
               </div>
@@ -179,16 +188,19 @@
             <!-- 양송이 버섯 -->
             <c:forEach var="ii" items="${items }">
             <c:if test="${ii.itemNo==254 }">
+            <a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
               <div
                 class="featured__item__pic set-bg"
                 style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
               </div>
+           	</a>
               <div class="featured__item__text">
                 <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
                    	<c:if test="${ii.itemBrand!=null }">
 		        		[${ii.itemBrand }]
 		        	</c:if>
                     <c:out value="${ii.itemName }"/>
+                </a>
                 </h6>
                 <h5>${ii.itemPrice } 원</h5>
               </div>
@@ -201,16 +213,19 @@
             <!-- 파스타면 -->
             <c:forEach var="ii" items="${items }">
             <c:if test="${ii.itemNo==13 }">
+            <a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
               <div
                 class="featured__item__pic set-bg"
                 style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
               </div>
+           	</a>
               <div class="featured__item__text">
                 <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
                    	<c:if test="${ii.itemBrand!=null }">
 		        		[${ii.itemBrand }]
 		        	</c:if>
                     <c:out value="${ii.itemName }"/>
+                </a>
                 </h6>
                 <h5>${ii.itemPrice } 원</h5>
               </div>
@@ -223,16 +238,19 @@
             <!-- 아보카도 오일 -->
             <c:forEach var="ii" items="${items }">
             <c:if test="${ii.itemNo==257 }">
+            <a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
               <div
                 class="featured__item__pic set-bg"
                 style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
               </div>
+           	</a>
               <div class="featured__item__text">
                 <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
                    	<c:if test="${ii.itemBrand!=null }">
 		        		[${ii.itemBrand }]
 		        	</c:if>
                     <c:out value="${ii.itemName }"/>
+                </a>
                 </h6>
                 <h5>${ii.itemPrice } 원</h5>
               </div>
@@ -245,16 +263,19 @@
             <!-- 새우살 -->
             <c:forEach var="ii" items="${items }">
             <c:if test="${ii.itemNo==247 }">
+            <a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
               <div
                 class="featured__item__pic set-bg"
                 style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
               </div>
+           	</a>
               <div class="featured__item__text">
                 <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
                    	<c:if test="${ii.itemBrand!=null }">
 		        		[${ii.itemBrand }]
 		        	</c:if>
                     <c:out value="${ii.itemName }"/>
+                </a>
                 </h6>
                 <h5>${ii.itemPrice } 원</h5>
               </div>
@@ -267,16 +288,19 @@
             <!-- 계란 -->
             <c:forEach var="ii" items="${items }">
             <c:if test="${ii.itemNo==224 }">
+             <a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
               <div
                 class="featured__item__pic set-bg"
                 style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
               </div>
+           	</a>
               <div class="featured__item__text">
                 <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
                    	<c:if test="${ii.itemBrand!=null }">
 		        		[${ii.itemBrand }]
 		        	</c:if>
                     <c:out value="${ii.itemName }"/>
+                </a>
                 </h6>
                 <h5>${ii.itemPrice } 원</h5>
               </div>
