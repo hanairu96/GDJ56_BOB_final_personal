@@ -164,32 +164,32 @@
             <div>
                 <div>
                     <h4>최유리</h4>
-                    <p>조장</p>
+                    <p>조장, 원데이 클래스</p>
 					<img src="${path}/resources/images/최유리.png" style="width: 150px;height: 200px;">
                 </div>
                 <div>
                     <h4>구예지</h4>
-                    <p>구예지</p>
+                    <p>마켓, DB 관리</p>
                     <img src="${path}/resources/images/구예지.png" style="width: 150px;height: 200px;">
                 </div>
                 <div>
                     <h4>김은진</h4>
-                    <p>김김</p>
+                    <p>마이 페이지</p>
                     <img src="${path}/resources/images/김은진.png" style="width: 150px;height: 200px;">
                 </div>
                 <div>
                     <h4>문지희</h4>
-                    <p>문문</p>
+                    <p>관리자 페이지</p>
                     <img src="${path}/resources/images/문지희.png" style="width: 150px;height: 200px;">
                 </div>
                 <div>
                     <h4>이동민</h4>
-                    <p>민동</p>
+                    <p>메인, 로그인, 구독, 고객센터</p>
 					<img src="${path}/resources/images/이동민.png" style="width: 150px;height: 200px;">
                 </div>
                 <div>
                     <h4>유승경</h4>
-                    <p>유유</p>
+                    <p>마켓</p>
                     <img src="${path}/resources/images/유승경.png" style="width: 150px;height: 200px;">
                 </div>
             </div>
