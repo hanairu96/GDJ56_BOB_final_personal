@@ -48,4 +48,6 @@ public interface OneDayDao {
 	void updateOq(SqlSessionTemplate session, OdcQa oq);
 	void insertPoint(SqlSessionTemplate session, String memberId);
 	int masterEndEnrollUpdate(SqlSessionTemplate session, AdminMaster m);
+	AdminMaster selectMasterBymname(SqlSessionTemplate session, String name);
+	OneDayClass selectMasterByclassName(SqlSessionTemplate session, String name);
 }

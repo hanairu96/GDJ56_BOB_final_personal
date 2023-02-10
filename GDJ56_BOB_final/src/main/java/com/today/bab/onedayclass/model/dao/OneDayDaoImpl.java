@@ -228,6 +228,21 @@ public class OneDayDaoImpl implements OneDayDao {
 	public int masterEndEnrollUpdate(SqlSessionTemplate session, AdminMaster m) {
 		return session.update("onedayclass.masterEndEnrollUpdate", m);
 	}
+
+
+
+	@Override
+	public AdminMaster selectMasterBymname(SqlSessionTemplate session, String name) {
+		return session.selectOne("onedayclass.selectMasterBymname", name);
+	}
+
+
+
+	@Override
+	public OneDayClass selectMasterByclassName(SqlSessionTemplate session, String name) {
+		return session.selectOne("onedayclass.selectMasterByclassName", name);
+	}
+	
 	
 	
 	

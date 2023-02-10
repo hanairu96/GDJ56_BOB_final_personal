@@ -199,6 +199,20 @@ public class OneDayServiceImpl implements OneDayService {
 		dao.insertPoint(session,memberId);
 		
 	}
+
+	@Override
+	public AdminMaster selectMasterBymname(String name) {
+		return dao.selectMasterBymname(session, name);
+	}
+
+	@Override
+	public OneDayClass selectMasterByclassName(String name) {
+		return dao.selectMasterByclassName(session, name);
+	}
+	
+	
+	
+	
 	
 	
 	
