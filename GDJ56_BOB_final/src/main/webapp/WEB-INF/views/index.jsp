@@ -170,7 +170,7 @@
                 <div>
                     <h4>구예지</h4>
                     <p>마켓, DB 관리</p>
-                    <img src="${path}/resources/images/구예지.png" style="width: 150px;height: 200px;">
+                    <img src="${path}/resources/images/gugu.gif" style="width: 150px;height: 200px;">
                 </div>
                 <div>
                     <h4>김은진</h4>
