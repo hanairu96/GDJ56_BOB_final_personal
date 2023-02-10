@@ -78,6 +78,9 @@
                     <c:forEach var="like" items="${likemenu }">
                        <div class="col-lg-3">
                            <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${like.mainPic }');">
+                            <c:if test="${like.itemDiscount eq 'Y' }">
+                      			<img class="top-left" src="${path }/resources/images/iconsale.gif" style="width:100px;"/>
+							</c:if>
                               <h5><a href="${path}/market1/marketdetail.do?itemNo=${like.itemNo}">${like.itemName }</a></h5>
                            </div>
                        </div>
@@ -88,7 +91,6 @@
             <br><br><br><br><br><br>
             
             
-<!-- 테스트!!!!!! -->
     <!-- Featured Section Begin -->
     <section class="featured spad">
       <div class="container">
@@ -330,7 +332,7 @@
                   <c:forEach var="i" begin="0" end="${fn:length(relistbyno0) -1 }" >
                     <div class="col-lg-3">
                     	<div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${relistbyno0[i].mainPic }');">
-                        <c:if test="${items[i].itemDiscount eq 'Y' }">
+                        <c:if test="${relistbyno0[i].itemDiscount eq 'Y' }">
                       		<img class="top-left" src="${path }/resources/images/iconsale.gif" style="width:100px;"/>
                       	</c:if>    
                             <h5><a href="${path}/market1/marketdetail.do?itemNo=${relistbyno0[i].itemNo}">${relistbyno0[i].itemName }</a></h5>
@@ -351,7 +353,7 @@
                   <c:forEach var="i" begin="0" end="${fn:length(relistbyno1) -1 }" >
                     <div class="col-lg-3">
                     	<div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${relistbyno1[i].mainPic }');">
-                        <c:if test="${items[i].itemDiscount eq 'Y' }">
+                        <c:if test="${relistbyno1[i].itemDiscount eq 'Y' }">
                       		<img class="top-left" src="${path }/resources/images/iconsale.gif" style="width:100px;"/>
                       	</c:if>    
                             <h5><a href="${path}/market1/marketdetail.do?itemNo=${relistbyno1[i].itemNo}">${relistbyno1[i].itemName }</a></h5>
@@ -401,7 +403,7 @@
                    <c:forEach var="i" items="${soon }" >
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${i.mainPic }');">
-                        <c:if test="${i.itemDiscount eq 'Y' }">
+                        <c:if test="${i.itemDiscount == 'Y' }">
                       		<img class="top-left" src="${path }/resources/images/iconsale.gif" style="width:100px;"/>
                       	</c:if> 
                             <h5><a href="${path}/market1/marketdetail.do?itemNo=${i.itemNo}">${i.itemName }</a></h5>
