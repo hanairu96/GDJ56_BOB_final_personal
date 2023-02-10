@@ -8,16 +8,36 @@
 </jsp:include>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
-        <div class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15 banner">
+        <div class="banner bn1">
             <div class="tit6">
                 <p>M A R K E T</p>
             </div>
         </div>
+        <div class="banner bn2">
+            <div class="tit6">
+                <p>O N E - D A Y - C L A S S</p>
+            </div>
+        </div>
+        <div class="banner bn3">
+            <div class="tit6">
+                <p>S U B S C R I P T I O N</p>
+            </div>
+        </div>
         <style>
             .banner{
-                background-image: url(${path}/resources/images/banner-market.jpg);
                 height: 545px; 
                 width: 100%;
+            }
+            .bn1{
+            	background-image: url(${path}/resources/images/banner-market.jpg);
+            }
+            .bn2{
+            	background-image: url(${path}/resources/images/banner-class.jpg);
+            	display: none;
+            }
+            .bn3{
+            	background-image: url(${path}/resources/images/banner-sub.jpg);
+            	display: none;
             }
             .tit6{
                 padding: 250px;
@@ -31,6 +51,9 @@
                 font-size: 50px;
                 cursor: pointer;
             }
+            .bn3>.tit6>p{
+                color: black;
+            }
         </style>
         <script>
         	//배너 클릭 시 이동할 페이지 이름
@@ -40,21 +63,27 @@
             let count=0;
             setInterval(function(){
                 if(count==0){
-                    $(".banner").css({"background-image":"url(${path}/resources/images/banner-class.jpg)"});
-                    $(".tit6>p").text("O N E - D A Y - C L A S S");
-                    page="class";
+                	$(".bn1").fadeOut(500);
+                	setTimeout(function(){
+	                	$(".bn2").show();
+                	},500);
+					page="class";
                 }else if(count==1) {
-                    $(".banner").css({"background-image":"url(${path}/resources/images/banner-sub.jpg)"});
-                    $(".tit6>p").text("S U B S C R I P T I O N").css("color","black");
-                    page="sub";
+                	$(".bn2").fadeOut(500);
+                	setTimeout(function(){
+	                	$(".bn3").show();
+                	},500);
+					page="sub";
                 }else if(count==2) {
-                    $(".banner").css({"background-image":"url(${path}/resources/images/banner-market.jpg)"});
-                    $(".tit6>p").text("M A R K E T").css("color","white");
-                    page="market";
+                	$(".bn3").fadeOut(500);
+                	setTimeout(function(){
+	                	$(".bn1").show();
+                	},500);
+                	page="market";
                 }
                 count++;
                 if(count>2) count=0;
-            },3000)
+            },3000);
             
             //배너의 문자 클릭 시 그 페이지로 감
             $(".tit6>p").click(e=>{
