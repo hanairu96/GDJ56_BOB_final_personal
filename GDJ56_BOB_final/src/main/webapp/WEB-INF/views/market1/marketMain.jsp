@@ -31,8 +31,9 @@
     
         <div class="container">
          <%-- <a style="font-size:30px;" href="${path }/market1/marketgtg.do">마켓 카테고리 이동</a><br> --%>
+         <c:if test="${loginMember.memberId eq 'admin' }">
          <a href="${path}/market1/insertmarket.do" class="primary-btn" style="margin-left:85%;margin-top:30px;background-color:#bde28f;" >상품등록</a>
-         
+         </c:if>
             <br><br><br>
 
             <!-- 이상품 어때요? -->
