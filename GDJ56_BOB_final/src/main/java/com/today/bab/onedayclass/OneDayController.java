@@ -94,6 +94,7 @@ public class OneDayController {
 	      return mv;
    }
    
+   
    @RequestMapping("/class/search.do")
    public ModelAndView selectSearchClass(ModelAndView mv, String search, String searchlist,
 		   @RequestParam(value="cPage", defaultValue="1")int cPage,
