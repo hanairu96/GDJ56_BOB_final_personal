@@ -54,7 +54,6 @@
 						카테고리
 					</b>
 					<select  list="categorylist" placeholder="선택" width="100" name="odcCategoty">
-						<option value="choice" >--선택--</option>
 						<option value="bob" ${select1}>🍚집밥</option>
 						<option value="vegan" ${select2}>🥑비건</option>
 						<option value="healthy" ${select3}>💪건강식</option>
@@ -142,9 +141,8 @@
 						<input type="text" id="sample4_roadAddress" style="border-bottom:solid black 1px; width: 100% ;" placeholder="도로명주소" name="address"
 						value="${odc.odcAdd }">
 						<span>─────────────────────────────────────</span>
-						<input  type="text" id="sample4_jibunAddress" style="border-bottom:solid black 1px; width: 100%;" placeholder="지번주소" name="address">
-						<span>─────────────────────────────────────</span>
-						<input  type="text" id="sample4_detailAddress" style="border-bottom:solid black 1px; width: 100%;" placeholder="상세주소를 입력해주세요" name="address">
+						<input  type="text" id="sample4_detailAddress" style="border-bottom:solid black 1px; 
+						width: 100%;" placeholder="상세주소를 입력해주세요" name="address" VALUE="${odc.odcCity }">
 						<span>─────────────────────────────────────</span>
 				</div>
 				

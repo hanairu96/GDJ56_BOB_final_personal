@@ -33,8 +33,7 @@
 					<b>
 						카테고리
 					</b>
-					<select  list="categorylist" placeholder="선택" width="100" name="odcCategoty">
-						<option value="choice">--선택--</option>
+					<select  list="categorylist" placeholder="선택" width="100" name="odcCategoty" required>
 						<option value="bob">🍚집밥</option>
 						<option value="vegan">🥑비건</option>
 						<option value="healthy">💪건강식</option>
@@ -48,15 +47,46 @@
 				</b>
 
 				<div class="size12 bo2 bo-rad-10 m-b-23">
-					<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="odcClassName" placeholder="상세화면 상단에 등록됩니다">
+					<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="odcClassName" id="odcClassName" onchange="checkClassName();"
+					placeholder="상세화면 상단에 등록됩니다(20자 이내 입력)" required>
+					<b id="check"></b>
 				</div>
+				<script>
+					function checkClassName(){
+						const name=$("#odcClassName").val();
+						if(name.length>20){
+							$("#check").text('20자 이내로 작성해주세요').css('color','red');
+							$("#odcClassName").val('');
+						}else{
+							$.ajax({
+								 type:'get',
+							     url : "<c:url value='/class/checkClassname.do'/>",
+							     data: {
+										"name" : name
+									},
+							     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+							     success : function(data){
+							    	 if(data==""){
+							    		 
+										$("#check").text('좋은 클래스 이름이네요!').css('color','purple');
+										
+							    	 }else{
+							    		 $("#check").text('중복된 수업명입니다. 다시 입력해주세요').css('color','red');
+										 $("#odcClassName").val('');
+							    	 }
+							     }
+							     
+							})
+						}
+					}
+				</script>
 				
 				<b>
 					요리 이름
 				</b>
 
 				<div class="size12 bo2 bo-rad-10 m-b-23">
-					<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="odcCookName" placeholder="상세화면 상단에 등록됩니다">
+					<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="odcCookName" placeholder="상세화면 상단에 등록됩니다" required>
 				</div>
 					
 				<b>
@@ -73,19 +103,33 @@
 				</b>
 				<div style="display: flex;">
 					<div class="size12 bo2 bo-rad-10 m-b-23">
-						<input class="bo-rad-10 sizefull txt10 p-l-20" type="date" name="startDate">
+						<input class="bo-rad-10 sizefull txt10 p-l-20" type="date" name="startDate" id="startDate" onchange="settleDate()" required>
 					</div>
 					<h2> &nbsp;~&nbsp; </h2>
 					<div class="size12 bo2 bo-rad-10 m-b-23">
-						<input class="bo-rad-10 sizefull txt10 p-l-20" type="date" name="endDate">
+						<input class="bo-rad-10 sizefull txt10 p-l-20" type="date" id="endDate" name="endDate" required>
 					</div>
+
+				<script>
+					let dateElement = document.getElementById('startDate');
+					dateElement.setAttribute("min", new Date().toISOString().substring(0, 10));
+					
+					
+					function settleDate(){
+						let startDate= document.getElementById('startDate').value;
+						console.log(startDate);
+						let endDate= document.getElementById('endDate');
+						endDate.setAttribute("min",startDate);
+					}
+				</script>
+					
 				</div>
 			
 				<b>
 					클래스 시작시간
 				</b>
 				<div class="size12 bo2 bo-rad-10 m-b-23">
-					<input class="bo-rad-10 sizefull txt10 p-l-20" type="time" name="odcStartTime">
+					<input class="bo-rad-10 sizefull txt10 p-l-20" type="time" name="odcStartTime" required>
 				</div>
 			
 
@@ -93,14 +137,14 @@
 					클래스 소요시간(분 단위)
 				</b>
 				<div class="size12 bo2 bo-rad-10 m-b-23">
-					<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="odcTime" min="1" >
+					<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="odcTime" min="1" required>
 				</div>
 			
 				<b>
 					클래스 수강인원
 				</b>
 				<div class="size12 bo2 bo-rad-10 m-b-23" style="display: flex;">
-					<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="odcPeople" placeholder="1명이상 입력해주세요" min="1" >
+					<input class="bo-rad-10 sizefull txt10 p-l-20" type="number" name="odcPeople" placeholder="1명이상 입력해주세요" min="1" required>
 					<h4>명</h4>
 				</div>
 
@@ -114,9 +158,9 @@
 						<button type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">우편번호찾기</button>
 					</div>
 						
-						<input type="text" id="sample4_roadAddress" style="border-bottom:solid black 1px; width: 100% ;" placeholder="도로명주소" name="address">
+						<input type="text" id="sample4_roadAddress" style="border-bottom:solid black 1px; width: 100% ;" placeholder="도로명주소" name="address" required>
 						<span>─────────────────────────────────────</span>
-						<input  type="text" id="sample4_jibunAddress" style="border-bottom:solid black 1px; width: 100%;" placeholder="지번주소" name="address">
+						<input  type="text" id="sample4_jibunAddress" style="border-bottom:solid black 1px; width: 100%;" placeholder="지번주소" name="address" required>
 						<span>─────────────────────────────────────</span>
 						<input  type="text" id="sample4_detailAddress" style="border-bottom:solid black 1px; width: 100%;" placeholder="상세주소를 입력해주세요" name="address">
 						<span>─────────────────────────────────────</span>

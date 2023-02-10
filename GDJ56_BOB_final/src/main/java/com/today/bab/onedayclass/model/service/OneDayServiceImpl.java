@@ -55,7 +55,15 @@ public class OneDayServiceImpl implements OneDayService {
 
 	@Override
 	public int masterEndEnroll(AdminMaster m) {
-		return dao.masterEndEnroll(session, m);
+		AdminMaster master=dao.selectMastserById(session, m.getMemberId());
+		int result=0;
+		if(master!=null) {
+			result= dao.masterEndEnrollUpdate(session, m);
+			
+		}else {
+			 result=dao.masterEndEnroll(session, m);
+		}
+		return result;
 	}
 
 	@Override
@@ -65,15 +73,9 @@ public class OneDayServiceImpl implements OneDayService {
 
 	@Override
 	public int endclassEnroll(OneDayClass odc) {
-		System.out.println("������ȣ"+odc.getOdcNo());
-		String no=String.valueOf(odc.getOdcNo());
-		OneDayClass e = dao.odcView(session,no);
-		if(e!=null){
-			System.out.println("�������迩��");
-			System.out.println(odc);
+		if(odc.getOdcNo()!=null){
 			return dao.updateClass(session,odc);
 		}else{
-			System.out.println("�������迩����");
 			return dao.endclassEnroll(session, odc);
 		}
 	}
@@ -197,6 +199,20 @@ public class OneDayServiceImpl implements OneDayService {
 		dao.insertPoint(session,memberId);
 		
 	}
+
+	@Override
+	public AdminMaster selectMasterBymname(String name) {
+		return dao.selectMasterBymname(session, name);
+	}
+
+	@Override
+	public OneDayClass selectMasterByclassName(String name) {
+		return dao.selectMasterByclassName(session, name);
+	}
+	
+	
+	
+	
 	
 	
 	

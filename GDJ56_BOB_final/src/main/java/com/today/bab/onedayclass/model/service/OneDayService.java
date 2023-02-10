@@ -43,4 +43,6 @@ public interface OneDayService {
 	void deleteOdcQa(String oqno);
 	void deleteReOdcQa(String oqrNo);
 	void insertPoint(String memberId);
+	AdminMaster selectMasterBymname(String name);
+	OneDayClass selectMasterByclassName(String name);
 }
