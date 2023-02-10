@@ -81,7 +81,7 @@
 								</div>
 								<div class="zoom">
 									<c:if test="${i.itemStock ==0}">
-										<span style="font-size: 30px;">일시품절</span>
+										<span style="font-size: 15px;">일시품절</span>
 									</c:if>
 									<c:if test="${i.itemStock!=0 }">
 									<a href="javascript:void(0);" onclick="addbasketitem(${i.itemNo },'${loginMember.memberId }','${i.mainPic }','${i.itemName }')"><img src="https://img.icons8.com/pastel-glyph/512/shopping-cart.png" width="30" height="30"></a>
@@ -96,7 +96,7 @@
 				
 			</div>
 
-			<div class="row">
+<!-- 			<div class="row">
 				<div class="col-lg-12">
 					<div class="pagination flex-l-m flex-w m-l--6 p-t-25">
 						<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">prev</a>
@@ -106,7 +106,7 @@
 						<a href="#" class="item-pagination flex-c-m trans-0-4" onclick="fn_pageBtn(event)">next</a>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</section>
 </div>
@@ -202,7 +202,7 @@ $(function(){//.레디함수
     						var stock = i.itemStock==0 ? "<div class='col-lg-4 col-sm-6' style='padding: 3%;filter: grayscale(100%);'>"
     									: "<div class='col-lg-4 col-sm-6' style='padding: 3%;'>";
     						//var stock2 = i.itemStock==0 ? "<a href='${path }/market/cart.do?id=${m}&itemNo="+itemNo+"'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>"
-    						var stock2 = i.itemStock==0 ? "<span style='font-size: 30px;'>일시품절</span>"
+    						var stock2 = i.itemStock==0 ? "<span style='font-size: 15px;'>일시품절</span>"
     									: '<a href="javascript:void(0);" onclick="addbasketitem('+i.itemNo+',\'${loginMember.memberId }\',\''+i.mainPic+'\',\''+i.itemName+'\')"><img src="https://img.icons8.com/pastel-glyph/512/shopping-cart.png" width="3" height="30"></a>';
 //    									: "<a href='javascript:void(0);' onclick='addbasketitem("+aaaaa+"');'><img src='https://img.icons8.com/pastel-glyph/512/shopping-cart.png' width='30' height='30'></a>";
     						var sale = i.itemDiscount == 'Y' ? "<div class='top-left'><img src='${path }/resources/images/iconsale.gif' width='100px' height='100px'/></div>" : "";

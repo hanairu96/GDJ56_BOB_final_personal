@@ -53,7 +53,7 @@
 					<img src="${path}/resources/pato/images/class/mac2.jpg" height="400">
 					<div style="margin-top: 7%;">
 						<h3>2.검토후승인</h3>
-						<b>승인결과는 가입 시 등록했던 이메일로 보내드려요</b>
+						<b>승인결과는 로그인시 알람 메세지로 뜹니다</b>
 					</div>
 				</div>
 
@@ -84,7 +84,7 @@
 							강사명
 						</h4>
 						<div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull p-l-20" type="text" name="name" placeholder="장인신청 승인 후 활동명으로 쓰입니다">
+							<input class="bo-rad-10 sizefull p-l-20" type="text" name="name" placeholder="장인신청 승인 후 활동명으로 쓰입니다" required>
 						</div>
 					</div>
 					
@@ -95,7 +95,7 @@
 	                      <div id="bobmaster">
 	                      	<div>
 			                     <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
-			                          <input class="bo-rad-10 sizefull p-l-20" type="text" name="history" placeholder="예) 파리바게트 근무 10년">
+			                          <input class="bo-rad-10 sizefull p-l-20" type="text" name="history" placeholder="경력없으면 '경력없음'으로 기재해주세요" required>
 			                     </div>
 		                  		<button onclick="plus();" type="button">추가</button>
                                 <button onclick="del(event);" type="button">삭제</button>
@@ -131,7 +131,7 @@
 						</textarea>
 					</div>
 					
-					<span>신청결과는 일주일 이내에 이메일로 전송됩니다. </span>
+					<span>신청결과는 일주일 이내에 나옵니다. 로그인 후 알람메세지를 확인하세요! </span>
 					
 					<button type="submit" class="btn3 flex-c-m trans-0-4 m-l-r-auto">
 						Submit
