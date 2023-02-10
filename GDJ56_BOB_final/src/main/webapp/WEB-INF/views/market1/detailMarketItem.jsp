@@ -132,7 +132,7 @@
 	                        </c:if>
 	                        <br><br><br>
 	                        <b>원산지</b> <span><c:out value="${de.madeIn }"/></span><br><br>
-	                        <b>배송비</b> <span><c:out value="${de.delPrice }"/>원</span>
+	                        <b>배송비</b> <span>2000원</span>
 	                    </div>
 	                </div>
 				</div>
