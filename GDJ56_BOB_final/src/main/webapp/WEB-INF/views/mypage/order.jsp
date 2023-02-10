@@ -326,7 +326,7 @@
 	    let inputorderAddr=$("#inputAddress_postcode").val();
 	    console.log(inputname+"d"+inputorderPhone+"D"+inputorderAddr);
 	    if(inputname!="" && inputorderPhone!="" && inputorderAddr!="" ){
-	    	IMP.init("imp44501773");
+	     IMP.init("imp44501773");
     		IMP.request_pay({
     			pg : "html5_inicis",
     			name : "장바구니 결제하기",
@@ -340,7 +340,7 @@
     		}, function(rsp){	
     				if(rsp.success){
     					 /* console.log(rsp.imp_uid+"uid");
-    					alert("결제가 완료되었습니다."); */ 
+    					alert("결제가 완료되었습니다."); */
     					$.ajax({
     						url : "${path}/mypage/pay.do",
     						type : "post",
@@ -354,7 +354,8 @@
     								merchant : rsp.imp_uid,
     								use_point : Number($("#finalpoint").html()),
     								basketss : JSON.stringify(${basketss}),
-    								sellItemNoCount : JSON.stringify(${sellItemNoCount})
+    								sellItemNoCount : JSON.stringify(${sellItemNoCount}),
+    								saleInfo : JSON.stringify(${saleInfo})
     								},
     						success:data=>{
     							if(data>0){
@@ -372,10 +373,10 @@
     					    }
     					}); 
     					
-    				 }else{	
+    				  }else{	
     					alert(rsp.error_msg);
-    				}
-    			});		 
+    				} 
+    			 });	  
 	    }else{
 	    	alert('필수입력값을 채워주세요');
 	    }

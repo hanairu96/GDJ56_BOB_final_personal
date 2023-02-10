@@ -316,7 +316,7 @@
 			                        		</a>
 			                        	</div>
 			                      </td>
-			                      <input type="text" value="${item.orderitem.itemDiscount eq 'Y' ? '9900': item.orderitem.itemPrice}" id="itemPrice" hidden>
+			                      <input type="text" value="${item.saleInfo eq 'Y' ? '9900': item.orderitem.itemPrice}" id="itemPrice" hidden>
 			                      <td class="px-4 py-3">
 			                        <div class="flex items-center text-sm" id="stockinfo">
 			                        	<a href="${path}/market1/marketdetail.do?itemNo=${item.orderitem.itemNo}">
