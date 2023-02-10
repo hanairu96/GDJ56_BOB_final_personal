@@ -45,7 +45,7 @@
 
 <section class="todaybab-section">
 	<div class="container">
-		<span style="margin-left: 100px;">선택한 상품(20개)</span>
+		<span style="margin-left: 100px;">선택한 상품</span>
 		<form name="todaybobFrm" method="get" name="form">
 		<div class="row flex-c-m">
 			<div id="items"  class="col-lg-10 col-sm-10" style="margin-top: 30px; margin-bottom: 70px;">
