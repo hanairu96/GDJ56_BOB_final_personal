@@ -208,7 +208,7 @@
                 </div>
                 <div>
                     <h4>문지희</h4>
-                    <p>관리자 페이지</p>
+                    <p>관리자 페이지, 군침이</p>
                     <img src="${path}/resources/images/문지희.png" style="width: 150px;height: 200px;">
                 </div>
                 <div>
