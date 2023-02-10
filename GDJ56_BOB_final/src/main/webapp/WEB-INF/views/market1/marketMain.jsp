@@ -85,6 +85,215 @@
                 </div>
             </div>
             <br><br><br><br><br><br>
+            
+            
+<!-- 테스트!!!!!! -->
+    <!-- Featured Section Begin -->
+    <section class="featured spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-title">
+              <h2>같이 사면 좋은 상품!</h2>
+            </div>
+            <div class="featured__controls">
+              <ul>
+                <li class="active" data-filter="*">전체</li>
+                <li data-filter=".rice">떡볶이</li>
+                <li data-filter=".pasta">파스타</li>
+                <li data-filter=".fried">볶음밥</li>
+                <li data-filter=".pan">부침개</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row featured__filter">
+          <div class="col-lg-3 col-md-4 col-sm-6 mix rice pasta fried pan">
+            <div class="featured__item">
+            <!-- 양파 -->
+            <c:forEach var="ii" items="${items }">
+            <c:if test="${ii.itemNo==105 }">
+              <div
+                class="featured__item__pic set-bg"
+                style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
+              </div>
+              <div class="featured__item__text">
+                <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
+                   	<c:if test="${ii.itemBrand!=null }">
+		        		[${ii.itemBrand }]
+		        	</c:if>
+                    <c:out value="${ii.itemName }"/>
+                </h6>
+                <h5>${ii.itemPrice } 원</h5>
+              </div>
+              </c:if>
+              </c:forEach>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mix rice fried pan">
+            <div class="featured__item">
+            <!-- 대파 -->
+          	<c:forEach var="ii" items="${items }">
+            <c:if test="${ii.itemNo==250 }">
+              <div
+                class="featured__item__pic set-bg"
+                style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
+              </div>
+              <div class="featured__item__text">
+                <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
+                   	<c:if test="${ii.itemBrand!=null }">
+		        		[${ii.itemBrand }]
+		        	</c:if>
+                    <c:out value="${ii.itemName }"/>
+                </h6>
+                <h5>${ii.itemPrice } 원</h5>
+              </div>
+              </c:if>
+              </c:forEach>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mix rice fried">
+            <div class="featured__item">
+            <!-- 알룰로스 -->
+            <c:forEach var="ii" items="${items }">
+            <c:if test="${ii.itemNo==201 }">
+              <div
+                class="featured__item__pic set-bg"
+                style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
+              </div>
+              <div class="featured__item__text">
+                <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
+                   	<c:if test="${ii.itemBrand!=null }">
+		        		[${ii.itemBrand }]
+		        	</c:if>
+                    <c:out value="${ii.itemName }"/>
+                </h6>
+                <h5>${ii.itemPrice } 원</h5>
+              </div>
+              </c:if>
+              </c:forEach>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mix fruit pasta">
+            <div class="featured__item">
+            <!-- 양송이 버섯 -->
+            <c:forEach var="ii" items="${items }">
+            <c:if test="${ii.itemNo==254 }">
+              <div
+                class="featured__item__pic set-bg"
+                style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
+              </div>
+              <div class="featured__item__text">
+                <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
+                   	<c:if test="${ii.itemBrand!=null }">
+		        		[${ii.itemBrand }]
+		        	</c:if>
+                    <c:out value="${ii.itemName }"/>
+                </h6>
+                <h5>${ii.itemPrice } 원</h5>
+              </div>
+              </c:if>
+              </c:forEach>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mix pasta">
+            <div class="featured__item">
+            <!-- 파스타면 -->
+            <c:forEach var="ii" items="${items }">
+            <c:if test="${ii.itemNo==13 }">
+              <div
+                class="featured__item__pic set-bg"
+                style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
+              </div>
+              <div class="featured__item__text">
+                <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
+                   	<c:if test="${ii.itemBrand!=null }">
+		        		[${ii.itemBrand }]
+		        	</c:if>
+                    <c:out value="${ii.itemName }"/>
+                </h6>
+                <h5>${ii.itemPrice } 원</h5>
+              </div>
+              </c:if>
+              </c:forEach>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mix pasta pan">
+            <div class="featured__item">
+            <!-- 아보카도 오일 -->
+            <c:forEach var="ii" items="${items }">
+            <c:if test="${ii.itemNo==257 }">
+              <div
+                class="featured__item__pic set-bg"
+                style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
+              </div>
+              <div class="featured__item__text">
+                <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
+                   	<c:if test="${ii.itemBrand!=null }">
+		        		[${ii.itemBrand }]
+		        	</c:if>
+                    <c:out value="${ii.itemName }"/>
+                </h6>
+                <h5>${ii.itemPrice } 원</h5>
+              </div>
+              </c:if>
+              </c:forEach>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mix pasta fried pan">
+            <div class="featured__item">
+            <!-- 새우살 -->
+            <c:forEach var="ii" items="${items }">
+            <c:if test="${ii.itemNo==247 }">
+              <div
+                class="featured__item__pic set-bg"
+                style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
+              </div>
+              <div class="featured__item__text">
+                <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
+                   	<c:if test="${ii.itemBrand!=null }">
+		        		[${ii.itemBrand }]
+		        	</c:if>
+                    <c:out value="${ii.itemName }"/>
+                </h6>
+                <h5>${ii.itemPrice } 원</h5>
+              </div>
+              </c:if>
+              </c:forEach>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mix rice fried">
+            <div class="featured__item">
+            <!-- 계란 -->
+            <c:forEach var="ii" items="${items }">
+            <c:if test="${ii.itemNo==224 }">
+              <div
+                class="featured__item__pic set-bg"
+                style="background-image: url('${path }/resources/upload/market/mainlabel/${ii.mainPic }');">
+              </div>
+              <div class="featured__item__text">
+                <h6><a href="${path }/market1/marketdetail.do?itemNo=${ii.itemNo }" >
+                   	<c:if test="${ii.itemBrand!=null }">
+		        		[${ii.itemBrand }]
+		        	</c:if>
+                    <c:out value="${ii.itemName }"/>
+                </h6>
+                <h5>${ii.itemPrice } 원</h5>
+              </div>
+              </c:if>
+              </c:forEach>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+            
+            
+            
+            
+            
+            
+            
 
    <!--여기!!  -->
             <div style="text-align: center;">
@@ -114,8 +323,7 @@
              <div class="row">
                 <div class="categories__slider owl-carousel">
                 
-                  <c:forEach var="
- " begin="0" end="${fn:length(relistbyno1) -1 }" >
+                  <c:forEach var="i" begin="0" end="${fn:length(relistbyno1) -1 }" >
                     <div class="col-lg-3">
                     	<div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${relistbyno1[i].mainPic }');">
                         <c:if test="${items[i].itemDiscount eq 'Y' }">
@@ -180,10 +388,6 @@
             </div>
             <br><br><br><br><br><br>
             
-            <!-- 구독서비스 연결 -->
-          <%--   <img src="${path }/resources/market/img/banner/banner-2.jpg" alt="" style="width:100%; height: 300px; ">
-            <br> --%>
-
 
         </div>
    <script>
