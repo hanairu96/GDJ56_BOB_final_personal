@@ -291,8 +291,8 @@
                   >
                    <c:if test="${empty mqa}">
                    		<tr class="text-gray-700 dark:text-gray-400">
-	                      <td class="px-4 py-3" colspan="4">
-	                       	1문의내역이 없습니다.
+	                      <td class="px-4 py-3" colspan="5">
+	                       	문의내역이 없습니다.
 	                     </td>
 	                    </tr>
                    </c:if>
