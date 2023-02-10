@@ -92,7 +92,7 @@ public class MarketController {
 		
 		mv.addObject("m",loginMember==null?"":loginMember.getMemberId());
 		
-		mv.addObject("pageBar",Market2PageBar.getPage(cPage, numPerpage,listCnt,"/bab/market/discount.do"));
+		mv.addObject("pageBar",Market2PageBar.getPage(cPage, numPerpage,listCnt,"discount.do"));
 		mv.addObject("disList",list);
 		mv.addObject("disCnt",listCnt);
 

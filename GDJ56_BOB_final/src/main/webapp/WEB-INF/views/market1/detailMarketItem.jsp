@@ -33,8 +33,8 @@
 	                <!-- 슬라이더 사진 4개까지 넣을 수 있다 (사진을 4개 미만으로 넣으면 같은 사진 반복) -->
 	                <div class="col-lg-6 col-md-6">
                     <div>
-				   		<button class="primary-btn" type="button" onclick="updateItem(${de.itemNo})" style="background-color:blue;border: none;">수정</button>
 				    	<c:if test="${loginMember.memberId eq 'admin' }">
+				   		<button class="primary-btn" type="button" onclick="updateItem(${de.itemNo})" style="background-color:blue;border: none;">수정</button>
 				    	<button class="primary-btn" type="button" onclick="deleteItemFile(${de.itemNo},'${picpic}','${de.mainPic}','${de.itemLabel}')" style="background-color:red;border: none;" >삭제</button>
 				   		</c:if>	
 				    </div>	
@@ -132,7 +132,7 @@
 	                        </c:if>
 	                        <br><br><br>
 	                        <b>원산지</b> <span><c:out value="${de.madeIn }"/></span><br><br>
-	                        <b>배송비</b> <span><c:out value="${de.delPrice }"/>원</span>
+	                        <b>배송비</b> <span>2000원</span>
 	                    </div>
 	                </div>
 				</div>
