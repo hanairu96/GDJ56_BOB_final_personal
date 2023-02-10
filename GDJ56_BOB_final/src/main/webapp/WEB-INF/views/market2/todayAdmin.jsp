@@ -56,7 +56,7 @@
 
 			<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23 t-center">
 				<input id="reTitle" onkeyup="fn_eventKeyup1(this.value)" 
-				class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="reTitle" placeholder="예시)1만원대 추천 상품">
+				class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="reTitle" placeholder="예시)1만원대 추천 상품" required>
 			</div>
 
 			<!-- 한줄설명 -->
@@ -66,7 +66,7 @@
 
 			<div class="wrap-inputphone size12 bo2 bo-rad-10 m-t-3 m-b-23">
 				<input id="reContent" onkeyup="fn_eventKeyup2(this.value)"
-				class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="reContent" placeholder="예시)놓치면 후회할 가격!">
+				class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="reContent" placeholder="예시)놓치면 후회할 가격!" required>
 			</div>
 
 			<!-- 아이콘이모지 -->
