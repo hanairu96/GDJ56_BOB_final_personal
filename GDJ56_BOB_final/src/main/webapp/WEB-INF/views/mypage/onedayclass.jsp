@@ -330,13 +330,14 @@
               >
                 <span class="col-span-1"></span>
                 <!-- Pagination -->
-                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                <span class="flex col-span-3 mt-2 sm:mt-auto sm:justify-end">
                   <nav aria-label="Table navigation">
                     ${pageBar }
                   </nav>
                 </span>
               </div>
             </div>
+            <br>
           </div>
         </main>
       </div>
