@@ -64,13 +64,13 @@ public class OneDayController {
       
       Object member=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
       
-      //등록에 실패했습니다
+    
       if(!member.equals("anonymousUser")) {
     	  AdminMaster master=service.selectMastserById(((Member)member).getMemberId());
     	  mv.addObject("master",master);
       }
       
-      mv.addObject("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"/bab/class/main.do"));
+      mv.addObject("pageBar",Market1Pagebar.getPage(cPage, numPerpage,totaldata,"/GDJ56_BOB_final/class/main.do"));
       mv.addObject("classlist",classlist);
       mv.setViewName("onedayclass/onedayMain");
       return mv;
@@ -88,7 +88,7 @@ public class OneDayController {
 	      List<OneDayClass> classlist = service.selectMenuClassList(param);
 	      int totaldata=service.countMenuClassList(type);
 	      mv.addObject("param", param);
-	      mv.addObject("pageBar",oneclassMenuPage.getPage(cPage, numPerpage,totaldata,"/bab//class/menu.do", type));
+	      mv.addObject("pageBar",oneclassMenuPage.getPage(cPage, numPerpage,totaldata,"/GDJ56_BOB_final/class/menu.do", type));
 	      mv.addObject("classlist",classlist);
 	      mv.setViewName("onedayclass/onedaymenu-"+type);
 	      return mv;
@@ -108,7 +108,7 @@ public class OneDayController {
       int totaldata=service.searchCountClasslist(param);
       mv.addObject("classlist",classlist);
       mv.addObject("param", param);
-      mv.addObject("pageBar",oneclass.getPage(cPage, numPerpage,totaldata,"/bab/class/search.do", searchlist, search));
+      mv.addObject("pageBar",oneclass.getPage(cPage, numPerpage,totaldata,"/GDJ56_BOB_final/class/search.do", searchlist, search));
       mv.setViewName("onedayclass/onedaySearchResult");
       
       return mv;
@@ -122,14 +122,13 @@ public class OneDayController {
    @RequestMapping("/class/masterEndEnroll.do")
    public ModelAndView masterEndEnroll(AdminMaster m, ModelAndView model, String history1) {
       int result=service.masterEndEnroll(m);
-      
       if(result<0) {
-         model.addObject("msg","클래스 등록에 실패했습니다");
+         model.addObject("msg","장인 등록에 실패했습니다");
          model.addObject("loc","/class/masterEndEnroll.do");
          model.setViewName("common/msg");
          return model;
       }else {
-         model.addObject("msg","클래스 등록이 완료됐습니다");
+         model.addObject("msg","클래스 장인등록이 완료됐습니다");
          model.addObject("loc","/class/main.do");
          model.setViewName("common/msg");
          return model;
@@ -175,10 +174,14 @@ public class OneDayController {
    }
    
    @RequestMapping("/class/classEnroll.do")
-   public ModelAndView classEnroll(String memberId, ModelAndView mv) {
-      AdminMaster master = service.selectMastserById(memberId);
-   
-      mv.addObject("master",master);
+   public ModelAndView classEnroll(String id, ModelAndView mv) {
+	   
+     Object member=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      if(!member.equals("anonymousUser")) {
+    	  AdminMaster master=service.selectMastserById(((Member)member).getMemberId());
+    	  mv.addObject("master",master);
+      }
+      
       mv.setViewName("onedayclass/onedayClassEnroll");
       return mv;
       
@@ -190,51 +193,47 @@ public class OneDayController {
          ,int odcPrice,String odcContent, String odcEnrollDate, String odcCategoty, String odcStartTime, String mastserName
    ) throws Exception{
       
-       
+       //날짜 포멧해주기
 	   SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 	   Date odcStartDate = format1.parse(startDate);
 	   
 	   SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
 	   Date odcEndDate = format2.parse(endDate);
       
+	   //파일
        response.setCharacterEncoding("utf-8");
        response.setContentType("text/html;charset=utf-8");
        String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/onedayclass/");
 
-      //���۵� ������ �ִٸ�...
-      //���� ������ ó�� ���� �ϱ�
-      String orignalFileName=odcpic.getOriginalFilename();
-      String ext=orignalFileName.substring(orignalFileName.lastIndexOf("."));
-      //�ߺ����� �ʴ� �̸� �����ϴ� �� �����ϱ�
-      SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-      int rnd=(int)(Math.random()*10000)+1;
-      String renameFile = sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+       String orignalFileName=odcpic.getOriginalFilename();
+       String ext=orignalFileName.substring(orignalFileName.lastIndexOf("."));
       
-      //���� ���ε��ϱ�
-      try {
-         //MultipartFile Ŭ������ �������ִ� �޼ҵ� �̿��ؼ� ����ó��
-         odcpic.transferTo(new File(uploadPath+renameFile));
-      }catch(IOException e) {
-         e.printStackTrace();
-      }
+       SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+       int rnd=(int)(Math.random()*10000)+1;
+       String renameFile = sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
       
-      //�ּ� �б�ó��
-      String[] add=address.split(",");
-      String odcAdd=add[0]+" "+add[2];
-      String[] city=add[1].split(" ");
-      String odcCity=city[0]+" "+city[1];
+       try {
+    	   odcpic.transferTo(new File(uploadPath+renameFile));
+       }catch(IOException e) {
+    	   e.printStackTrace();
+       }
+       String odcMainPic=renameFile;
       
-      //���ϸ�
-      String odcMainPic=renameFile;
+      //주소분기처리
+       	String[] add=address.split(",");
+        String odcAdd=address;
+        String[] city=add[0].split(" ");
+        String odcCity=city[0]+" "+city[1];
       
-      //�Ѿ�°� ��ü�� ����
+      //객체만들기
       OneDayClass odc=OneDayClass.builder().odcNo(odcNo).odcClassName(odcClassName).odcCookName(odcCookName).odcStartDate(odcStartDate).odcEndDate(odcEndDate).odcTime(odcTime)
       .odcPeople(odcPeople).odcAdd(odcAdd).odcCity(odcCity).odcPrice(odcPrice).odcMainPic(odcMainPic).odcContent(odcContent).odcStartTime(odcStartTime).odcCategoty(odcCategoty)
       .memberId(memberId).build();
       
-      //��ü ������ insert
+      //db에 등록
       int result=service.endclassEnroll(odc);
       
+      //메세지 출력
       if(result<0) {
          model.addAttribute("msg","장인신청이 완료됐습니다");
          model.addAttribute("loc","/class/masterEndEnroll.do");
@@ -244,7 +243,7 @@ public class OneDayController {
          model.addAttribute("loc","/class/main.do");
          return "common/msg";
       }
-      
+    
    }
    
    @RequestMapping("/class/odcView.do")
@@ -524,6 +523,20 @@ public class OneDayController {
   	@RequestMapping("/class/deleteReOdcQa.do")
   	public void deleteReOdcQa(String oqrNo) {
   		service.deleteReOdcQa(oqrNo);
+  	}
+  	
+  	@RequestMapping("/class/checkMname.do")
+  	public AdminMaster checkMname(String rename) {
+  		String name=rename;
+  		AdminMaster am = service.selectMasterBymname(name);
+  		return am;
+  	}
+  	
+  	@RequestMapping("/class/checkClassname.do")
+  	public OneDayClass checkClassname(String name) {
+  		OneDayClass am = service.selectMasterByclassName(name);
+  		System.out.println(am);
+  		return am;
   	}
   	
   	

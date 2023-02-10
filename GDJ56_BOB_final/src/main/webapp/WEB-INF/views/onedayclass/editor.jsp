@@ -52,7 +52,7 @@
 					<img src="${path}/resources/pato/images/class/mac2.jpg" height="400">
 					<div style="margin-top: 7%;">
 						<h3>2.검토후승인</h3>
-						<b>승인결과는 가입 시 등록했던 이메일로 보내드려요</b>
+						<b>승인결과는 일주일이내 알람창으로 결과를 보내드려요</b>
 					</div>
 				</div>
 
@@ -79,13 +79,50 @@
 					</div>
 
 					<div>
+						
 						<h4>
 							강사명
 						</h4>
 						<div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull p-l-20" type="text" name="name" placeholder="장인신청 승인 후 활동명으로 쓰입니다">
+							<input class="bo-rad-10 sizefull p-l-20" type="text" id="name" name="name" onchange="checkMname();" placeholder="장인신청 승인 후 활동명으로 쓰입니다" required>
+						<b id="Mname"></b>
 						</div>
+						<script>
+						function checkMname(){
+							const name = $("#name").val();
+							const rename = name.replace(/\s/gi, "");
+							//const length=$.trim(name).length;
+							console.log(name);
+							console.log(rename);
+							console.log(rename.length);
+							if(rename.length>5){
+								$("#Mname").text('5자 이내로 작성해주세요').css('color','red');
+								 $("#name").val('');
+							}else{
+								$.ajax({
+									 type:'get',
+								     url : "<c:url value='/class/checkMname.do'/>",
+								     data: {
+											"rename" : rename
+										},
+								     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+								     success : function(data){
+								    	 if(data==""){
+								    		 
+											$("#Mname").text('사용가능한 강사명입니다').css('color','purple');
+											 $("#name").val(rename);
+								    	 }else{
+								    		 $("#Mname").text('중복된 강사명입니다. 다시 입력해주세요').css('color','red');
+											 $("#name").val('');
+								    	 }
+								     }
+								     
+								})
+							}
+						}
+						</script>
 					</div>
+					
 					
 					<div id="box">
 						  <h3>
@@ -94,7 +131,7 @@
 	                      <div id="bobmaster">
 	                      	<div>
 			                     <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
-			                          <input class="bo-rad-10 sizefull p-l-20" type="text" name="history" placeholder="예) 파리바게트 근무 10년">
+			                          <input class="bo-rad-10 sizefull p-l-20" type="text" name="history" placeholder="경력이 없다면 '경력없음'으로 기재해주세요" required>
 			                     </div>
 		                  		<button onclick="plus();" type="button">추가</button>
                                 <button onclick="del(event);" type="button">삭제</button>
@@ -122,13 +159,30 @@
 							자기소개
 						</h4>
 						<textarea rows="5" name="info" id="editor">
-						-원데이클래스 장인 신청한 동기 또는 자기소개를 간략히 적어주세요<br>
-						<br><br><br><br>
+						<b>-원데이클래스 장인 신청한 동기 또는 자기소개를 간략히 적어주세요<br>
+						<br><br><br>
 						-향후 수업 계획을 간략히 적어주세요<br>
-						<br><br><br><br>
+						<br><br><br>
 						*자격증은 사진으로 첨부해주세요(필수x)
+						</b>
 						</textarea>
 					</div>
+					
+					<script>
+
+					$(document).ready(function() {
+						var textCountLimit = 2000;
+					    $('textarea[name=info]').keyup(function() {
+					        // 텍스트영역의 길이를 체크
+					        var textLength = $(this).val().length;
+					 		console.log(textLength);
+					        // 입력된 텍스트 길이를 #textCount 에 업데이트 해줌
+					        //$('#textCount').text(textLength);
+					         
+					      
+					    });
+					});
+					</script>
 					
 					<span>신청결과는 일주일 이내에 이메일로 전송됩니다. </span>
 					
