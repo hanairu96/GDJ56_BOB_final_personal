@@ -9,7 +9,13 @@
 <style>
    *{
       font-family: 'Gowun Dodum', sans-serif;
-   }
+     }
+	.top-left {
+      position: absolute;
+      top: 0px;
+      left: -10px;
+      z-index: 1;
+   	}
 </style>
    <div class="breadcrumb-section set-bg" style="height: 350px;background-image: url('${path }/resources/market/img/mainbanner.jpg');">
         <div class="container">
@@ -59,6 +65,9 @@
                    <c:forEach var="i" begin="1" end="10" >
                        <div class="col-lg-3">
                            <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${items[i].mainPic }');">
+                       	<c:if test="${items[i].itemDiscount eq 'Y' }">
+                      		<img class="top-left" src="${path }/resources/images/iconsale.gif" style="width:100px;"/>
+                      	</c:if>
                                <h5><a href="${path}/market1/marketdetail.do?itemNo=${items[i].itemNo}">${items[i].itemName }</a></h5>
                            </div>
                        </div>
@@ -87,6 +96,9 @@
                   <c:forEach var="i" begin="0" end="${fn:length(relistbyno0) -1 }" >
                     <div class="col-lg-3">
                     	<div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${relistbyno0[i].mainPic }');">
+                        <c:if test="${items[i].itemDiscount eq 'Y' }">
+                      		<img class="top-left" src="${path }/resources/images/iconsale.gif" style="width:100px;"/>
+                      	</c:if>    
                             <h5><a href="${path}/market1/marketdetail.do?itemNo=${relistbyno0[i].itemNo}">${relistbyno0[i].itemName }</a></h5>
                         </div>
                     </div>
@@ -102,9 +114,13 @@
              <div class="row">
                 <div class="categories__slider owl-carousel">
                 
-                  <c:forEach var="i" begin="0" end="${fn:length(relistbyno1) -1 }" >
+                  <c:forEach var="
+ " begin="0" end="${fn:length(relistbyno1) -1 }" >
                     <div class="col-lg-3">
                     	<div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${relistbyno1[i].mainPic }');">
+                        <c:if test="${items[i].itemDiscount eq 'Y' }">
+                      		<img class="top-left" src="${path }/resources/images/iconsale.gif" style="width:100px;"/>
+                      	</c:if>    
                             <h5><a href="${path}/market1/marketdetail.do?itemNo=${relistbyno1[i].itemNo}">${relistbyno1[i].itemName }</a></h5>
                         </div>
                     </div>
@@ -117,18 +133,19 @@
             <!-- 1만원대 추천상품 -->
             <div style="text-align: center;">
                 <a href="${path }/market1/recommendman.do?"><h3 style="font-weight: bold;">1만원대 추천상품 ></h3></a><br>
-                <h5>야채주스 님 맞춤 상품! 둘러보세요!</h5><br>
+                <h5>베스트 상품! 둘러보세요!</h5><br>
             </div>
              <div class="row">
                 <div class="categories__slider owl-carousel">
                 
-                  <c:forEach var="i" begin="1" end="10" >
+                  <c:forEach var="i" items="${reco }" >
                     <div class="col-lg-3">
-                    <c:if test="${items[i].itemPrice<20000}">
-                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${items[i].mainPic }');">
-                            <h5><a href="${path}/market1/marketdetail.do?itemNo=${items[i].itemNo}">${items[i].itemName }</a></h5>
+                        <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${i.mainPic }');">
+                        <c:if test="${i.itemDiscount eq 'Y' }">
+                      		<img class="top-left" src="${path }/resources/images/iconsale.gif" style="width:100px;"/>
+                      	</c:if>    
+                            <h5><a href="${path}/market1/marketdetail.do?itemNo=${i.itemNo}">${i.itemName }</a></h5>
                         </div>
-                    </c:if>    
                     </div>
                    </c:forEach>
                    
@@ -151,6 +168,9 @@
                    <c:forEach var="i" items="${soon }" >
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" style="background-image:url('${path }/resources/upload/market/mainlabel/${i.mainPic }');">
+                        <c:if test="${i.itemDiscount eq 'Y' }">
+                      		<img class="top-left" src="${path }/resources/images/iconsale.gif" style="width:100px;"/>
+                      	</c:if> 
                             <h5><a href="${path}/market1/marketdetail.do?itemNo=${i.itemNo}">${i.itemName }</a></h5>
                         </div>
                     </div>
