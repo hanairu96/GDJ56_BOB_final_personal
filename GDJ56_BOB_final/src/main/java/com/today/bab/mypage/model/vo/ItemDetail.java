@@ -16,5 +16,5 @@ public class ItemDetail {
 	private int orderNo;
 	private int itemNo;
 	private int count;
-
+	private String saleInfo;
 }

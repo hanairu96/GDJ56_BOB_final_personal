@@ -431,13 +431,20 @@ public class MypageController {
 		   sellItemNoCount.put(orderitemlist.get(i).getItem().get(0).getItemNo(),orderitemlist.get(i).getItemCount());
 	   }
 	   
-	   //System.out.println(sellItemNo)
+	   HashMap<Integer, String> saleInfo = new HashMap<Integer, String>();
+	   for(int i=0;i<orderitemlist.size();i++) {
+		   //System.out.println(orderitemlist.get(i).getItem().get(0).getItemNo());
+		   saleInfo.put(orderitemlist.get(i).getItem().get(0).getItemNo(),orderitemlist.get(i).getItem().get(0).getItemDiscount());
+	   }
+	   
+	   //System.out.println();
 	   
 	   ObjectMapper mapper=new ObjectMapper();
 	   mv.addObject("orderitemlist",orderitemlist);
 	   mv.addObject("basketss",Arrays.toString(basketss));
 	   mv.addObject("sellItemNoCount",mapper.writeValueAsString(sellItemNoCount));
 	   mv.addObject("pointAll",mypageService.selectpointAll(loginMember.getMemberId()));
+	   mv.addObject("saleInfo",mapper.writeValueAsString(saleInfo));
 	    mv.setViewName("mypage/order");
 	    return mv;
 	}
@@ -445,11 +452,20 @@ public class MypageController {
 	
 	@RequestMapping("/pay.do")
 	public void insertItemOrder(String orderComment,int price,String buyer_addr,String buyer_name,String buyer_tel,String merchant,
-			int use_point, String basketss, String sellItemNoCount, 
+			int use_point, String basketss, String sellItemNoCount, String saleInfo,
 			HttpServletRequest request,HttpServletResponse response) throws IOException {
 
 		HttpSession session = request.getSession();
 	    Member loginMember = (Member) session.getAttribute("loginMember");
+	    
+	    //System.out.println(saleInfo);
+	    //saleinfo
+	    ObjectMapper salemapper = new ObjectMapper();
+        HashMap<Integer, String> salemap = new HashMap<Integer, String>();
+        
+        salemap = salemapper.readValue(saleInfo, 
+                new TypeReference<HashMap<Integer, String>>() {}); 
+	    //saleinfo
 
 	    ItemOrder io=ItemOrder.builder().price(price)
 		.memberId(loginMember.getMemberId()).orderName(buyer_name)
@@ -461,11 +477,6 @@ public class MypageController {
 
 	    String[] dbasket=basketss.substring(1,basketss.length()-1).substring(0).split(",");
 	    //String[] sellItemNoCounts=sellItemNoCount.substring(1,sellItemNoCount.length()-1).split(",");
-	    
-		/*
-		 * for(int i=0;i<dbasket.length;i++) { //System.out.println(dbasket[i]);
-		 * //System.out.println(sellItemNoCounts[i]); }
-		 */
 	    
 	    ObjectMapper mapper = new ObjectMapper();
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
@@ -485,7 +496,15 @@ public class MypageController {
 	        ids.add(id);
 	    }
 	    
-	    //System.out.println(ids);
+	    for(int i=0;i<ids.size();i++) {
+	    	for ( int key : salemap.keySet() ) {
+	    		if(ids.get(i).getItemNo()==key){
+	    			ids.get(i).setSaleInfo(salemap.get(key));
+	    		}
+	    	}	
+	    }
+	    
+	   // System.out.println(ids);
 	    //System.out.println(use_point+"d");
 	    Point usepoint=Point.builder().memberId(loginMember.getMemberId()).pointChange(use_point).build();
 	    

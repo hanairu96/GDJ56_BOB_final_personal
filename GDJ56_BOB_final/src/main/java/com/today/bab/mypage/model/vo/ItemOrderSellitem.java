@@ -19,5 +19,5 @@ public class ItemOrderSellitem {
 	private int orderNo;
 	private int count;
 	private SellItem orderitem;
-	
+	private String saleInfo;
 }
