@@ -464,7 +464,7 @@
                 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.min.js"></script>
                 <script src="path/to/chartjs/dist/chart.umd.js"></script>
                 <div style="text-align:center;">
-				  <canvas id="chart1" style="display:inline;" width="300" height="300"></canvas>
+				  <canvas id="chart1" style="display:inline;" width="350" height="350"></canvas>
 				</div>
 				
 				<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -478,15 +478,24 @@
 					  labels: [
 						    '${num1.data}',
 						    '${num2.data}',
-						    '${num3.data}'
+						    '${num3.data}',
+						    '${num4.data}',
+						    '${num5.data}',
+						    '${num6.data}',
+						    '${num7.data}',
 						  ],
 						  datasets: [{
 						    label: '판매수량',
-						    data: [${num1.total}, ${num2.total}, ${num3.total}],
+						    data: [${num1.total}, ${num2.total}, ${num3.total}, ${num4.total}, ${num5.total},${num6.total},${num7.total}],
 						    backgroundColor: [
 						      'rgb(255, 99, 132)',
 						      'rgb(54, 162, 235)',
-						      'rgb(255, 205, 86)'
+						      'rgb(255, 205, 86)',
+						      'rgb(189, 189, 189)',
+						      'rgb(29, 219, 22)',
+						      'rgb(95, 0, 255)',
+						      'rgb(150, 112, 7)'
+					
 						    ],
 						   
 						  }]

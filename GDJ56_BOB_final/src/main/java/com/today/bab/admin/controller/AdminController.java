@@ -50,8 +50,11 @@ public class AdminController {
 		mv.addObject("num1",atp.get(0));
 		mv.addObject("num2",atp.get(1));
 		mv.addObject("num3",atp.get(2));
+		mv.addObject("num4",atp.get(3));
+		mv.addObject("num5",atp.get(4));
+		mv.addObject("num6",atp.get(5));
+		mv.addObject("num7",atp.get(6));
 		
-		mv.addObject("sales",atd.get(1).getTotal());
 		mv.addObject("profit",atd.get(0).getTotal());
 		mv.addObject("sales",atd.get(1).getTotal());
 		mv.addObject("members",atd.get(2).getTotal());

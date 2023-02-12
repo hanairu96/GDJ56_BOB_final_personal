@@ -329,7 +329,10 @@
 	                  	<c:forEach var="m" items="${list }" >
 		                    <tr class="text-gray-700 dark:text-gray-400">
 	                      <td class="px-4 py-3 text-xs">
-	                      <img style="width:120px;height:120px;" src="${path }/resources/upload/market/mainlabel/${m.mainPic}">
+	                      <img 
+	                        id="imgClick"
+	                      	onclick="location.assign('${path}/market1/marketdetail.do?itemNo=${m.itemNo }');"
+	                      	style="width:120px;height:120px;" src="${path }/resources/upload/market/mainlabel/${m.mainPic}">
 	                      </td>
 	                      <td class="px-4 py-3 text-xs" style="width:10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
 	                        ${m.itemBrand}
@@ -384,7 +387,11 @@
               </div>
             </div>
             </div>
-
+		<style>
+			#imgClick{
+				cursor:pointer;
+			}
+		</style>
 
         </main>
       </div>
