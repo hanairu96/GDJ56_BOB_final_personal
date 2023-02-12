@@ -209,6 +209,11 @@ public class OneDayServiceImpl implements OneDayService {
 	public OneDayClass selectMasterByclassName(String name) {
 		return dao.selectMasterByclassName(session, name);
 	}
+
+	@Override
+	public void deleteClass(int odcNo) {
+		dao.deleteClass(session, odcNo);
+	}
 	
 	
 	
