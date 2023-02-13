@@ -445,6 +445,7 @@ public class MypageController {
 	   mv.addObject("sellItemNoCount",mapper.writeValueAsString(sellItemNoCount));
 	   mv.addObject("pointAll",mypageService.selectpointAll(loginMember.getMemberId()));
 	   mv.addObject("saleInfo",mapper.writeValueAsString(saleInfo));
+	   mv.addObject("memberEmail",loginMember.getEmail());
 	    mv.setViewName("mypage/order");
 	    return mv;
 	}
