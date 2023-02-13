@@ -66,8 +66,8 @@
 			
 		$(window).scroll(  
 			function(){  
-				//스크롤의 위치가 상단에서 450보다 크면  
-				if($(window).scrollTop() > 1500){   
+				if($(window).scrollTop() > 1500){
+					console.log($(window).scrollTop());
 					$('#datailmenubar').addClass("fix2");  
 					//위의 if문에 대한 조건 만족시 fix라는 class를 부여함  
 				}
@@ -159,67 +159,63 @@
 									</script>
 									
 									<br>
-								<span id="classinfo" style="color:white">───────────────────────────────────────────────────</span>
-								<div style="display: flex;">
-									<div style="border:solid black 2px;">
+								<span id="classinfo" style="color:white;">───────────────────────────────────────────────────</span>
+								<div style="display: flex;width: 100%; margin-bottom: 4%;align-items: center;justify-content: center;">
+									<div style="border-bottom:solid gray 1px;height:33px" class="flex-c-m">
 									<span>
-										<img src="${path}/resources/pato/images/class/cook-male.png" width="30" height="30">
+										<img src="${path}/resources/images/onedayclass/chef.png" width="30" height="30">
 										${odc.masterName}
 										<input type="hidden" name="masterId" value="${odc.memberId }" id="masterId">
 										<input type="hidden" name="masterName" value="${odc.masterName}" id="masterName">
 									</span>
 									</div>
 									&nbsp;&nbsp;
-									<div style="border:solid black 2px;padding:0.3%">
+									<div style="border-bottom:solid gray 1px;padding:0.3%;height:33px" class="flex-c-m">
 										<span>
-											<img src="${path}/resources/pato/images/class/time1.png" width="30" height="30">
+											<img src="${path}/resources/images/onedayclass/timer.png" width="30" height="30">
 											수업 소요 : 약 ${odc.odcTime }분
 										</span>
 									</div>
 									&nbsp;&nbsp;
-									<div style="border:solid black 2px;padding:0.3%">
+									<div style="border-bottom:solid gray 1px;padding:0.3%;;height:33px" class="flex-c-m">
 									<span>
-										<img src="${path}/resources/pato/images/class/time2.gif" width="30" height="30">
+										<img src="${path}/resources/images/onedayclass/time.gif" width="30" height="30">
 										수업시작 : ${odc.odcStartTime }
 									</span>
 									</div>
 									&nbsp;&nbsp;
-									<div style="border:solid black 2px; width:230px; padding:0.3%">
+									<div style="border-bottom:solid gray 1px; ;height:33px; padding:0.3%" class="flex-c-m">
 									<span>
-										<img src="${path}/resources/pato/images/class/place.png" width="30" height="30">
+										<img src="${path}/resources/images/onedayclass/map.png" width="30" height="30">
 										${odc.odcCity }
 									</span>
 									</div>
 									&nbsp;&nbsp;
-									<div style="border:solid black 2px;width:100px; padding:0.3%">
+									<div style="border-bottom:solid gray 1px; ;height:33px;padding:0.3%" class="flex-c-m">
 									<span>
-										<img src="${path}/resources/pato/images/class/person.png" width="30" height="30">
+										<img src="${path}/resources/images/onedayclass/team.png" width="33" height="33">
 										1~${odc.odcPeople }명
 									</span>
 									</div>
 								</div>
 
 								<!-- 상세페이지 메뉴바 -->
-								<div class="multab" style="display: flex; padding: 5%; text-align: center;box-shadow: 0px 5px 5px -5px gray;" id="datailmenubar">
-									<div style="margin-left: 3%;margin-right: 3%; display: flex;">
-										<a href="#classinfo"><h3>클래스 소개</h3></a>
-									</div>
+								<div class="multab" style="align-items: center;justify-content: center;display: flex;padding:3%;text-align: center;box-shadow: 8px 6px 9px -6px grey; height:50px" id="datailmenubar">
+									<a href="#classinfo">
+										<h4>클래스 소개</h4>
+									</a>
 									<h3>│</h3>
-									<div style="margin-left: 3%;margin-right: 3%; display: flex;">
-										<a href="#masterinfo"><h3>강사 소개</h3></a>
-									</div>
+									<a href="#masterinfo"><h4>강사 소개</h4></a>
 									<h3>│</h3>
-									<div style="margin-left: 3%;margin-right: 3%; display: flex;">
-										<a href="#reviewlist"><h3>수강 후기</h3></a>
-									</div>
+									<a href="#reviewlist"><h4>수강 후기</h4></a>
 									<h3>│</h3>
-									<div style="margin-left: 3%;margin-right: 3%; display: flex;">
-										<a href="#qna"><h3>문의글</h3></a>
-									</div>
+									<a href="#qna"><h4>문의글</h4></a>
 								</div>
+								
+								
 								<br>
 								<!-- 상세페이지 내용 -->
-								<div  width="100" height="100">
+								<div width="100" height="100">
 								${odc.odcContent}
 								</div>
 								
@@ -228,8 +224,9 @@
 								<div style="margin-bottom: 5%;">
 									<span id="masterinfo">───────────────────────────────────────────────────</span>
 								</div>
-
-								<h4 class="txt33 p-b-14">강사님 소개</h4><br>
+								
+								<img src="${path}/resources/images/onedayclass/chef.png" width="30" height="30">
+								<h4 class="txt33 p-b-14">${odc.masterName} 강사님 소개</h4><br>
 								
 								 <c:choose>
 		              				 <c:when test="${empty h}">
@@ -249,13 +246,14 @@
 									<span>───────────────────────────────────────────────────</span>
 								</div>
 								
+								<img src="${path}/resources/images/onedayclass/map.png" width="30" height="30">
 								<h4 class="txt33 p-b-14" style="padding : 2%">
-									클래스 위치
+									수업은 어디서 듣나요?
 								</h4>
 								
-								<h4 class="txt33 p-b-14" style="padding : 2%">
+								<h5 class="txt33 p-b-14" style="padding : 2%">
 									${odc.odcAdd }
-								</h4>
+								</h5>
 								<input type="hidden" value="${odc.odcAdd }" id="classPlace">
 								<!-- 다음 지도api-->
 								<div id="all" style="align-items: center;">
@@ -305,17 +303,18 @@
 								});    
 								</script>
 								 
-							</div>
+							
 
-							<div style="margin-bottom: 3%; margin-top: 3%;">
-								<span id="reviewlist">───────────────────────────────────────────────────</span>
+							<div style="margin-bottom: 7%; margin-top: 3%;">
+								<span id="reviewlist" style="color:white">───────────────────────────────────────────────────</span>
 							</div>
 	
 							<!-- 후기영역-->
 							<div>
-								<div style="display:flex;">
+									<div style="text-align: left;">
+									<h2 style="font-style: italic;">Review</h2>
 									<h4 class="txt33">
-									수강후기
+									<mark>수강후기</mark>
 									</h4>
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<input type="hidden" name="odcNo" value="${odc.odcNo}" id="odcNo">
@@ -325,8 +324,8 @@
 											리뷰작성하기
 									</button>
 									
-								</div>
 									<br>
+									
 									<c:if test="${loginMember.memberId ne null}">
 										<label>
 											<input type="checkbox" id="myReview" onclick="getMyReview();">
@@ -336,6 +335,7 @@
 									<p style="color: rgb(195, 195, 195);">
 										* 클래스를 수강한 회원님들의 후기입니다.
 									</p>
+									</div>
 									<div class="reviewList"></div>
 							</div>
 
@@ -343,9 +343,10 @@
 								<span id="qna" style="color:white">───────────────────────────────────────────────────</span>
 							</div>
 		
-							<div>
+							<div style="text-align: left;">
+							<h2 style="font-style: italic;">Q&N</h2>
 								<h4 class="txt33 p-b-14">
-									문의하기
+									<mark>문의하기</mark>
 								</h4>
 								<c:if test="${loginMember.memberId ne null}">
 									<label>
@@ -382,7 +383,7 @@
 								
 								<!-- 댓글리스트 -->
 								<div id="commentList" style="margin-top:10%"></div>
-								
+								</div>
 							</div>
 						</div>
 					</div>
@@ -481,7 +482,7 @@
 		                
 		                for(i=0; i<data.length; i++){
 		                 
-		                   html+="<div style='border-bottom: solid 1px gray;margin:2%;'  class='col-md-12'>";
+		                   html+="<div style='border-bottom: solid 1px gray;margin:2%; width:90%; text-align: left'  class='col-md-12'>";
 		                   html+="<ul style='margin:1%;'>";
 		                   html+="<li>";
 		                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
@@ -523,7 +524,7 @@
 		                   html+="</li>";
 		                   html+="</ul>";
 		                   html+="</div>";
-		                   html+="<div class='reCommentList' style='display: none;'>";
+		                   html+="<div class='reCommentList"+data[i].oqno+"'style='display: none;'>";
 		                   html+="</div>";
 		                   html+="</li>";
 		                   html+="</ul>";
@@ -562,26 +563,35 @@
 		                
 		                for(i=0; i<data.length; i++){
 		                 
-		                   html+="<div style='border-bottom: solid 1px gray;margin:2%;'  class='col-md-12'>";
+		                   html+="<div style='border-bottom: solid 1px gray;margin:2%; width:90%; text-align: left'  class='col-md-12'>";
 		                   html+="<ul style='margin:1%;'>";
 		                   html+="<li>";
 		                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
 		                   html+="<span>";
+		                   if(data[i].oqSecretYn=='Y'){
+		                	html+="<img src='${path}/resources/images/onedayclass/secret.png' width='27' height='27'>";
+		                   }
 		                   html+="<span>"+data[i].memberId+"</span>";
 		                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
-		                   html+="<span style='cursor: pointer;'>│수정</span>";
+		                   html+="<span style='cursor: pointer;' onclick='goCommentEdit(event);'>│수정</span>";
 		                   html+="<input type='hidden' value='"+data[i].oqno+"'>";
 		                   html+="<span style='cursor: pointer;' onclick='goDeleteComment(event);'>│삭제</span>";
 		                   html+="</span>";
 		                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
-		                   html+="<p style='padding:auto;'>"+data[i].oqContent+"</p>";
+		                   html+="<span style='padding:auto;'>"+data[i].oqContent+"</span>";
 		                   html+="</div>";
+		                   //댓글수정
+		                   html+="<div style='display:none' id='commentEdit'>";
+		                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
+		                   html+="<input class='bo-rad-10 sizefull txt10 p-l-20' type='text' value='"+data[i].oqContent+"'>";
+		                   html+="<input type='hidden' value='"+data[i].oqno+"'>"
+		                   html+="</div>";
+		                   html+="<button type='button' class='btn3 flex-c-m' style='margin-bottom:1%;' onclick='endCommentEdit(event)'>수정완료</button>";
+		                   html+="</div>";
+		                   //
 		                   html+="<div class='commentView'>";
 		                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
 		                   html+="<span class='vieCommentList' style='cursor: pointer;' onclick='goView(event);'>댓글보기</span>";
-		                   if(memberId!=''){
-		                   html+="<span class='enrollCommentInput' style='cursor: pointer;' onclick='goInput(event);'>│댓글쓰기</span>";
-		                   }
 		                   html+="</div>";
 		                   html+="</div>";
 		                   html+="<div class='commentInput' style='display:none;'>";
@@ -600,7 +610,7 @@
 		                   html+="</li>";
 		                   html+="</ul>";
 		                   html+="</div>";
-		                   html+="<div class='reCommentList' style='display: none;'>";
+		                   html+="<div class='reCommentList"+data[i].oqno+"'style='display: none;'>";
 		                   html+="</div>";
 		                   html+="</li>";
 		                   html+="</ul>";
@@ -655,14 +665,12 @@
 						if(data[i].memberId=='admin'){
 			                   	html+="<span>운영자</span>";
 		                   	if(data[i].memberId==memberId){
-								html+="<span style='cursor: pointer;'>│수정</span>";
 								html+="<input type='hidden' value='"+data[i].oqrNo+"'>";
 				                html+="<span style='cursor: pointer;' onclick='goDeleteReComment(event);'>│삭제</span>";
 								}
 			            }else{
 			                	html+="<span>강사님</span>";
 			                	if(data[i].memberId==memberId){
-									html+="<span style='cursor: pointer;'>│수정</span>";
 									html+="<input type='hidden' value='"+data[i].oqrNo+"'>";
 					                html+="<span style='cursor: pointer;' onclick='goDeleteReComment(event);'>│삭제</span>";
 								}else if(memberId=='admin'){
@@ -683,7 +691,7 @@
 				}else{
 					html += '<h6><strong>등록된 댓글이 없습니다</strong></h6>';
 				}
-					$(".reCommentList").html(html);
+					$(".reCommentList"+oqno).html(html);
 			}
 		});
 		
@@ -820,7 +828,7 @@
 				var html = "";
 				if(data.length > 0){
 					for(i=0; i<data.length; i++){
-						html+="<div style='border-bottom:solid #898585 1px;'>";
+						html+="<div style='border-bottom:solid #D3D3D3 1px;'>";
 						html+="<br>";
 						html+="<div class='col-md-12' style='display: flex;'>";
 						html+="<span>";
@@ -924,11 +932,12 @@
 	            if(data.length > 0){
 	                
 	                for(i=0; i<data.length; i++){
-	                 
-	                   html+="<div style='border-bottom: solid 1px gray;margin:2%;'  class='col-md-12'>";
+	                    // 댓글 div
+	                   html+="<div style='border-bottom: solid 1px gray;margin:2%; width:90%; text-align: left'  class='col-md-12'>";
 	                   html+="<ul style='margin:1%;'>";
+	                   
+	                   //비밀글 일때
 	                   if(data[i].oqSecretYn=='Y'){
-	                  
 	                	 if(memberId=='admin'||memberId==masterId||memberId==data[i].memberId){
 		                	   html+="<li>";
 			                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
@@ -948,7 +957,7 @@
 			                   }
 			                   html+="</span>";
 			                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
-			                   html+="<p style='padding:auto;'>"+data[i].oqContent+"</p>";
+			                   html+="<span style='padding:auto;'>"+data[i].oqContent+"</span>";
 			                   html+="</div>";
 			                   html+="<div class='commentView'>";
 			                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
@@ -978,7 +987,7 @@
 			                   html+="</li>";
 			                   html+="</ul>";
 			                   html+="</div>";
-			                   html+="<div class='reCommentList' style='display: none;'>";
+			                   html+="<div class='reCommentList"+data[i].oqno+"'style='display: none;'>";
 			                   html+="</div>";
 			                   html+="</li>";
 			           
@@ -991,6 +1000,7 @@
 			              }
 			                   html+="</ul>";
 			                   html+="</div>";
+			            //비밀글이 아닐때
 	                   }else{
 	                   html+="<li>";
 	                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
@@ -1008,7 +1018,7 @@
 	                   }
 	                   html+="</span>";
 	                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
-	                   html+="<p style='padding:auto;'>"+data[i].oqContent+"</p>";
+	                   html+="<span style='padding:auto;'>"+data[i].oqContent+"</span>";
 	                   html+="</div>";
 	                   //댓글수정
 	                   html+="<div style='display:none' id='commentEdit'>";
@@ -1047,14 +1057,16 @@
 	                   html+="</li>";
 	                   html+="</ul>";
 	                   html+="</div>";
-	                   html+="<div class='reCommentList' style='display: none;'>";
+	                   //답댑글
+	                   html+="<div class='reCommentList"+data[i].oqno+"'style='display: none;'>";
+	                   
 	                   html+="</div>";
 	                   html+="</li>";
 	                   }
 	                   html+="</ul>";
 	                   html+="</div>";
 	                }
-	                
+	             // 댓글이 없을때
 	            }else {
 	            
 	                html += '<h6><strong>등록된 댓글이 없습니다</strong></h6>';
@@ -1154,65 +1166,73 @@
 							</script> 
 							
 							
-							<div style="border: solid black; width: 100; height: 300; display: none; text-align: center;" id="searchbox">
-									<h4>예약 정보</h4>
-									<p id="datepic"></p>
+							<div style=" width: 310px; height: 350px; display: none; text-align: left;color:black; background-image: url('${path}/resources/images/onedayclass/bk2.jpg')" id="searchbox">
+									<br>
+									<br>
+									<br>
+									<br>
+									<h4 id="datepic"></h4>
 									<input type="hidden" name="odcDate" id="odcDate" value="">
 									<input type="hidden" name="memberId" value="${loginMember.memberId }">
 									<input type="hidden" name="odcNo" value="${odc.odcNo} ">
-									<p>${odc.odcStartTime }</p>
-									<p>예약 금액(1인) : ${odc.odcPrice}</p>
-									<p>해당 클래스는 ${odc.odcPeople }명까지 신청이 가능합니다.</p>
-									<p>현재 <b id="person" style="color:purple"></b>명이 신청했습니다</p>
-									<p>
-									예약 후 재료준비로 인해 취소 및 환불이 불가능 합니다.</p>
+									
+									<b style="color:black">하루에 ${odc.odcPeople }명까지 신청이 가능한 수업입니다.</b><br>
+									<b>현재 <b id="person" style="color:purple"></b> 명이 신청했습니다 </b><br><br>
+									<b>수업 시작 시간 : ${odc.odcStartTime }</b><br>
+									<b>예약 금액(1인) : ${odc.odcPrice} 원</b><br>
+									<br>
+									<b>예약 후 재료준비로 인해 취소 및 환불이 불가능 합니다.</p><br>
 									<label>
-									<input type="checkbox">
+									<input type="checkbox" id="agree">
 									동의
 									</label>
 									
 									<br>
 									<button type="button" class="btn3" onclick="requestPay();">
-										예약하기
+										결제하기
 									</button>
-								
 								<script type="text/javascript">
 								function requestPay() {
-									console.log("결제실행");
-									
-									IMP.init("imp47717061"); //가맹점 식별코드
-									IMP.request_pay({
-										 	pg : 'tosspay',
-										    pay_method : 'card',
-										    merchant_uid: 'merchant_' + new Date().getTime(), //상점에서 생성한 고유 주문번호
-										    name : '주문명:결제테스트',   //필수 파라미터 입니다.
-										    amount : 1004,
-										    buyer_email : "${loginMember.email}",
-										    buyer_name : "${loginMember.mname}",
-										    buyer_tel : "${loginMember.phone}",
-										    buyer_addr : "${loginMember.address}",
-									}, function (rsp) { // callback
-										if (rsp.success) {
-											// 결제 성공 시 로직
-											const odcNo= $('#odcNo').val();
-											const odcDate1= $('#odcDate').val();
-											const memberId= $('#memberId').val();
-											
-												$.ajax({
-													type:'get',
-													url:"${path}/class/inputReservation.do",
-													data:{
-												        	"odcDate1" : odcDate1,
-												        	"memberId" : memberId,
-												        	"odcNo":odcNo
-														}, 
-												    contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
-													success:data=>{
-															alert('결제되었습니다.');
-													}
-												})
-											} 
-										});
+									const cnk=$("#agree");
+									if($('#agree').is(":checked")){
+										IMP.init("imp47717061"); //가맹점 식별코드
+										IMP.request_pay({
+											 	pg : 'tosspay',
+											    pay_method : 'card',
+											    merchant_uid: 'merchant_' + new Date().getTime(), //상점에서 생성한 고유 주문번호
+											    name : '주문명:결제테스트',   //필수 파라미터 입니다.
+											    amount : 1004,
+											    buyer_email : "${loginMember.email}",
+											    buyer_name : "${loginMember.mname}",
+											    buyer_tel : "${loginMember.phone}",
+											    buyer_addr : "${loginMember.address}",
+										}, function (rsp) { // callback
+											if (rsp.success) {
+												// 결제 성공 시 로직
+												const odcNo= $('#odcNo').val();
+												const odcDate1= $('#odcDate').val();
+												const memberId= $('#memberId').val();
+												
+													$.ajax({
+														type:'get',
+														url:"${path}/class/inputReservation.do",
+														data:{
+													        	"odcDate1" : odcDate1,
+													        	"memberId" : memberId,
+													        	"odcNo":odcNo
+															}, 
+													    contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+														success:data=>{
+																alert('결제되었습니다.');
+														}
+													})
+												} 
+											});
+										
+									}else{
+										alert('동의에 체크해야 결제가 진행됩니다');
+										return;
+									}
 								};
 								
 								</script>
@@ -1229,6 +1249,12 @@
 	<jsp:param name="title" value="MainPage"/>
 </jsp:include>
 <style>
+	mark{
+	  display: inline-block;
+	  line-height: 0em;
+	  padding-bottom: 0.5em;
+	  background-color:#EBCDFF;
+	}
 	/* 전체 배치 */
 	* {
 		margin: 0px; 
@@ -1385,15 +1411,15 @@
 		z-index: 0;
 		right: -1;
 		-webkit-transform: translateY(0%);
-		transform: translateY(-175%);
+		transform: translateY(-165%);
 	}
 	.fix2{		
-			position: sticky;
-			top:80px;
-			height: 80px; 
-			width: 100%;
-			background-color: white;
-			z-index: 400;
+			position: sticky !important;
+			top:80px !important;
+			height: 80px !important; 
+			width: 100% !important;
+			background-color: white !important;
+			z-index: 400 !important;
 			box-shadow: 0px 5px 5px -5px gray;
 	}
 	li {
@@ -1403,7 +1429,8 @@
 		transform: scale(2.5);
 	}
 	a{
-		text-decoration: none;
+		text-decoration: none !important;
+		color : purple;
 	}
 </style>
 </html>

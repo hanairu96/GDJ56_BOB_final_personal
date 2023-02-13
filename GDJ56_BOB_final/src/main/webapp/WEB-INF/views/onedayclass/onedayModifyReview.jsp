@@ -83,7 +83,7 @@
 				</h3>
 				<div id="wrap" style="">
 					<p>사진첨부(한 장만 가능합니다)</p>
-					<input type="file" name="orePic1" required>
+					<input type="file" name="orePic1">
 					<input type="hidden" name="orePic" value="${odRe.orePic }">
 					<br><br>
 					<textarea style="width: 100%; height: 10em;" name="oreContent" placeholder="과도한 욕설과 비방은 통보없이 삭제됩니다. 오늘도 소중한 리뷰를 남겨주셔서 감사합니다 :)" required>

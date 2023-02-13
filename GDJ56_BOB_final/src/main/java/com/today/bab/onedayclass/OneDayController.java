@@ -384,7 +384,7 @@ public class OneDayController {
    		response.setContentType("text/html;charset=utf-8");
 	 	String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/onedayclass/");
 
-	 	if(orePic1!=null) {
+	 	if(!orePic1.isEmpty()) {
 	 	String orignalFileName=orePic1.getOriginalFilename();
 	 	String ext=orignalFileName.substring(orignalFileName.lastIndexOf("."));
 	 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
@@ -412,7 +412,7 @@ public class OneDayController {
 	 	if(result>0) {
 	 		service.insertPoint(or.getMemberId());
 			  mv.addObject("msg","리뷰작성 성공:)");
-		      mv.setViewName("common/close");
+		      mv.setViewName("onedayclass/close");
 		  }else {
 			  mv.addObject("msg", "리뷰작성 실패:(");
 			  mv.setViewName("common/close");
