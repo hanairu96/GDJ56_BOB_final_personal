@@ -316,6 +316,9 @@
 	-o-transform: scale(1.1);
 	transform: scale(1.1);
 	}
+	a{
+		text-decoration: none;
+	}
 
 </style>
 

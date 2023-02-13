@@ -284,7 +284,9 @@
 	background-color: #bde28f;
 	color: white;
 	}
-
+	a{
+		text-decoration: none;
+	}
 	/* a태그 효과*/ 
 	a * {
 	color: #666666;
