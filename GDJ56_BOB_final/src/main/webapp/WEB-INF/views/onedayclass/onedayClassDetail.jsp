@@ -78,7 +78,7 @@
 </script>
 
 <body>
-<input >
+<input>
 	<!-- 배너 -->
 	<div class="bg-title-page flex-c-m" style="background-image: url(${path}/resources/pato/images/class/class3.gif);">
 		<h2 class="tit6 t-center" >
@@ -113,22 +113,51 @@
 				<div class="col-md-8 col-lg-9">
 					<div class=" bo5-r">
 						<div class="blo4 p-b-63">
-							<div class="zoom bo-rad-10" style="margin: 3%;">
-								<img src="${path}/resources/images/onedayclass/${odc.odcMainPic }" height="450">
+							<div class="zoom" style="margin: 3%;margin-left:10%">
+								<img class="bo-rad-10" src="${path}/resources/images/onedayclass/${odc.odcMainPic }" height="550">
 							</div>
 
 							<div class="t-center">
 									<h3>${odc.odcClassName }</h3>
 									<c:set var="odcmasterId" value="${odc.memberId }"/> 
 									<c:set var="m" value="${loginMember.memberId }"/> 
-									<c:if test="${m eq odcmasterId }">
-										<div style="margin-left:79%">
+									<c:if test="${m eq odcmasterId or m eq 'admin'}">
+										<div style="margin-left:70%">
 											<a href="${path}/class/editClass.do?no=${odc.odcNo }">
 												<img src="${path }/resources/images/onedayclass/edit.png" width=30 height=30>
 												<b style="color:black">글 수정하기</b>
 											</a>
+											<a href='javascript:void(0);' onclick='deleteClass();'>
+												<img src="${path }/resources/images/onedayclass/delete.png" width=30 height=30>
+												<b style="color:black">글 삭제하기</b>
+											</a>
 										</div>
 									</c:if>
+									
+									<script type="text/javascript">
+										function deleteClass() {
+											const odcNo= $('#odcNo').val();
+											 if(confirm("정말 삭제하시겠습니까?") == true){
+												
+												  $.ajax({
+													type:'get',
+													   url : "<c:url value='/class/deleteClass.do'/>",
+													   data: {
+														"odcNo" : odcNo
+														},
+													   contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+													   success : function(data){
+													  		alert('삭제되었습니다');
+													  		return window.location.assign("${path}/class/main.do");
+													   }
+												}) 
+												 
+											 }else{
+											      return;
+											 }
+										};
+									</script>
+									
 									<br>
 								<span id="classinfo" style="color:white">───────────────────────────────────────────────────</span>
 								<div style="display: flex;">
@@ -721,6 +750,8 @@
 	
 	};
 
+	
+	
 
 	//댓글데이터넣어주기
 	$('#Comment_regist').click(function(){
@@ -1134,9 +1165,7 @@
 									<p>해당 클래스는 ${odc.odcPeople }명까지 신청이 가능합니다.</p>
 									<p>현재 <b id="person" style="color:purple"></b>명이 신청했습니다</p>
 									<p>
-										클래스 특성상 예약 후 재료준비로 인해</p>
-									<p>	취소 및 환불이 불가능 합니다.
-									</p>	
+									예약 후 재료준비로 인해 취소 및 환불이 불가능 합니다.</p>
 									<label>
 									<input type="checkbox">
 									동의
@@ -1261,11 +1290,11 @@
 	/* (사진)확대 효과 */
 	.zoom {
 		display: block;
-		overflow: hidden;
+		
 	}
 
 	.zoom img{
-		width: 100%;
+		width: 90%;
 		-webkit-transition: all 0.6s;
 		-o-transition: all 0.6s;
 		-moz-transition: all 0.6s;
@@ -1355,9 +1384,8 @@
 		position: fixed;	
 		z-index: 0;
 		right: -1;
-		-webkit-transform: translateY(-80%);
-		-ms-transform: translateY(-99%);
-		transform: translateY(-99%);
+		-webkit-transform: translateY(0%);
+		transform: translateY(-145%);
 	}
 	.fix2{		
 			position: sticky;

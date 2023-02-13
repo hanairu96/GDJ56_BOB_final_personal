@@ -65,12 +65,12 @@
 							<h4 class="tit7 t-center" style="margin: 3%;">
 								실제 수업은 클래스 소개와 동일한 방식으로 진행됐나요?
 							</h4>
-							<input type="radio" name="oreSame" value="Y" />
+							<input type="radio" name="oreSame" value="Y" required/>
 							<span>예😊</span>
 						</label>
 						<label>
 							&nbsp;
-							<input type="radio" name="oreSame" value="N" />
+							<input type="radio" name="oreSame" value="N" required/>
 							<span>아니오😓</span>
 						</label>
 					</div>
@@ -81,9 +81,9 @@
 				</h3>
 				<div id="wrap" style="">
 					<p>사진첨부(한 장만 가능합니다)</p>
-					<input type="file" name="orePic1">
+					<input type="file" name="orePic1" required>
 					<br><br>
-					<textarea style="width: 100%; height: 10em;" name="oreContent" placeholder="과도한 욕설과 비방은 통보없이 삭제됩니다. 오늘도 소중한 리뷰를 남겨주셔서 감사합니다 :)"></textarea>
+					<textarea style="width: 100%; height: 10em;" name="oreContent" placeholder="과도한 욕설과 비방은 통보없이 규제됩니다. 오늘도 소중한 리뷰를 남겨주셔서 감사합니다 :)" required></textarea>
 				</div>
 				<input type="submit" class="btn3 t-center" style="margin-left: 40%; margin-right: 50%;" value="저장하기">
 				<input type="hidden" name="memberId" value="${loginMember.memberId }">
