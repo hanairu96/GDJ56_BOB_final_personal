@@ -111,11 +111,15 @@
 			</div>
 	    </div>
 			  
+		<!-- 페이지바 -->
+	  	<div style="display: flex;margin-left:50%">
+        	${pageBar}
+   		</div>
 		<!-- 글등록,장인등록 -->
 		<div style="display: flex; margin-left:70%">
 			<c:if test="${!empty loginMember }">
 				<c:if test="${fn:contains(loginMember.grade, 'Y')}">
-					<form action="${path }/class/classEnroll.do">
+					<form action="${path }/class/classEnroll.do?id="+${loginMember.memberId }>
 						<button type="submit" class="btn3 flex-c-m txt11 trans-0-4">
 						클래스 등록
 						</button>
@@ -280,7 +284,9 @@
 	background-color: #bde28f;
 	color: white;
 	}
-
+	a{
+		text-decoration: none;
+	}
 	/* a태그 효과*/ 
 	a * {
 	color: #666666;

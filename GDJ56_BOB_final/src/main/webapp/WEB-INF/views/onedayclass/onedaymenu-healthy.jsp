@@ -118,7 +118,7 @@
 		<div style="display: flex; margin-left:70%">
 			<c:if test="${!empty loginMember }">
 				<c:if test="${fn:contains(loginMember.grade, 'Y')}">
-					<form action="${path }/class/classEnroll.do">
+					<form action="${path }/class/classEnroll.do?id="+${loginMember.memberId }>
 						<button type="submit" class="btn3 flex-c-m txt11 trans-0-4">
 						클래스 등록
 						</button>
@@ -131,7 +131,7 @@
 					</button>
 				</c:if>
 			</c:if>
-		</div>			  
+		</div>		  
 	</section>
 </body>
 <jsp:include page="/WEB-INF/views/common/footer.jsp">
@@ -315,6 +315,9 @@
 	-ms-transform: scale(1.1);
 	-o-transform: scale(1.1);
 	transform: scale(1.1);
+	}
+	a{
+		text-decoration: none;
 	}
 
 </style>
