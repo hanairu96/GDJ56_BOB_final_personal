@@ -573,7 +573,7 @@ public class MypageController {
 	    
 	    //System.out.println("count"+totalData);
 	    
-	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "onedayclass.do"));
+	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "master"));
 	    
 	    ArrayList memberInfoBar = new ArrayList();
 	    memberInfoBar.add(m.getMemberId());
