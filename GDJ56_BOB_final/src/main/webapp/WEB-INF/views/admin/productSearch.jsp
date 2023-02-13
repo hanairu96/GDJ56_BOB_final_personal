@@ -259,7 +259,9 @@
               <!-- 검색창 -->
 				<div id="searchbox"  class="flex justify-center flex-1 lg:mr-32" style="align-items:center;text-align:center;" >
 					<form action="${path }/admin/productSearch.do" method="post" onsubmit="return checkIt();">
-						<select name="searchlist" style="padding: 0.3%; margin: 1%;width:100px; 
+						<select 
+						id="searchselect"
+						name="searchlist" style="padding: 0.3%; margin: 1%;width:100px; 
 						border:1px solid purple;margin-left:-6%;color:purple;height:35px;text-align:center;"
 						class="text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input">
 							  <option value="searchNo" ${fn:contains(as.type,'searchNo')?'selected':''}>검색 ▼</option>
@@ -271,7 +273,7 @@
 								style="height:35px;width:220px;border:1px solid purple;margin-left:15px;margin-right:15px;"
 				                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
 								onclick="change();"
-								type="text" name="search" placeholder="Search for members"
+								type="text" name="search" placeholder="Search for product"
 								value="${as.keyword}"/>
 						<script>
 							const change=()=>{
@@ -279,12 +281,22 @@
 							}
 							const checkIt=()=>{
 								if(document.querySelector("#searchclass").value==""){
-									alert("검색할 내용을 입력하세요");
+									alert("검색할 내용을 입력하세요 :(");
 									return false;
 								}
+								
+								if(document.querySelector("#searchselect").value=="ITEM_STOCK"){
+									const notNumber = /^[0-9]+$/;
 									
+							        if (!notNumber.test(document.querySelector("#searchclass").value)) {
+							        	alert("숫자만 입력해주세요 :(");
+							        	return false;
+							        } 
+								} 	
 							}
 						</script>
+						
+						
 							
 							<button class="search-btn" style="height:35px;margin-top:4px;">
 							 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">

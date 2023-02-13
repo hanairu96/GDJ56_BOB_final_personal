@@ -261,6 +261,7 @@
 						
 					<form action="${path }/admin/productSearch.do" method="post" onsubmit="return checkIt();">
 						<select name="searchlist"
+							id="searchselect"
 							style="padding: 0.3%; margin: 1%;width:100px; 
 							border:1px solid purple;margin-left:-6%;color:purple;height:35px;text-align:center;"
 							class="text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input">
@@ -284,10 +285,18 @@
 					<script>
 						const checkIt=()=>{
 							if(document.querySelector("#searchclass").value==""){
-								alert("검색할 내용을 입력하세요");
+								alert("검색할 내용을 입력하세요 :(");
 								return false;
 							}
+							
+							if(document.querySelector("#searchselect").value=="ITEM_STOCK"){
+								const notNumber = /^[0-9]+$/;
 								
+						        if (!notNumber.test(document.querySelector("#searchclass").value)) {
+						        	alert("숫자만 입력해주세요 :(");
+						        	return false;
+						        } 
+							} 	
 						}
 					</script>
 					
