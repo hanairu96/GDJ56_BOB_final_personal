@@ -1385,7 +1385,7 @@
 		z-index: 0;
 		right: -1;
 		-webkit-transform: translateY(0%);
-		transform: translateY(-145%);
+		transform: translateY(-175%);
 	}
 	.fix2{		
 			position: sticky;
@@ -1393,7 +1393,7 @@
 			height: 80px; 
 			width: 100%;
 			background-color: white;
-			z-index: 0;
+			z-index: 400;
 			box-shadow: 0px 5px 5px -5px gray;
 	}
 	li {
