@@ -148,7 +148,6 @@ public class Market1Controller {
 			,HttpServletRequest request) {
 
 		List<SellItem> list=service.selectItemCtg(Map.of("cPage",cPage,"numPerpage",numPerpage));
-//		List<SellItem> list=service.selectItemCtg();
 		
 		//페이징 처리하기 
 		int totaldata=service.selectItemCount();
@@ -570,10 +569,10 @@ public class Market1Controller {
 	//상품 정렬
 	@RequestMapping("/searchItemSort.do")
 	public String searchItemSort(Model m,
-			int min, int max,String itemct,String itemsort
-//			Map<String,Object> param
+//			int min, int max,String itemct,String itemsort,
+			@RequestParam Map<String,Object> param
 			) {
-		Map<String,Object> param=Map.of("min",min,"max",max,"itemct",itemct,"itemsort",itemsort);
+//		Map<String,Object> param=Map.of("min",min,"max",max,"itemct",itemct,"itemsort",itemsort);
 		List<SellItem> list=service.searchItemSort(param);
 		m.addAttribute("ii", list);
 		return "market1/resultGtgselect";
