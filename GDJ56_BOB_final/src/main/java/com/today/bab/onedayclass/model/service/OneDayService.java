@@ -46,4 +46,5 @@ public interface OneDayService {
 	AdminMaster selectMasterBymname(String name);
 	OneDayClass selectMasterByclassName(String name);
 	void deleteClass(int odcNo);
+	OneDayClass selectClassByName(OneDayClass odc);
 }

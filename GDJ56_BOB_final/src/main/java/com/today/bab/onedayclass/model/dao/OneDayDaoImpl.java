@@ -249,6 +249,15 @@ public class OneDayDaoImpl implements OneDayDao {
 	public void deleteClass(SqlSessionTemplate session, int odcNo) {
 		session.delete("onedayclass.deleteClass", odcNo);
 	}
+
+
+
+	@Override
+	public OneDayClass selectClassByName(SqlSessionTemplate session, OneDayClass odc) {
+		return session.selectOne("onedayclass.selectClassByName", odc);
+	}
+	
+	
 	
 	
 	

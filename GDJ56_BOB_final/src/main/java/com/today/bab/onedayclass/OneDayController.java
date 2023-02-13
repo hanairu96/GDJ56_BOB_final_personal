@@ -189,7 +189,7 @@ public class OneDayController {
    }
    
    @RequestMapping("/class/EndclassEnroll.do")
-   public String EndclassEnroll(Model model,HttpServletRequest request, HttpServletResponse response, MultipartFile odcpic,String odcpic1,
+   public ModelAndView EndclassEnroll(ModelAndView model,HttpServletRequest request, HttpServletResponse response, MultipartFile odcpic,String odcpic1,
          String odcNo,String odcClassName, String memberId,String odcCookName, String startDate, String endDate, String odcTime, int odcPeople, String address
          ,int odcPrice,String odcContent, String odcEnrollDate, String odcCategoty, String odcStartTime, String mastserName
    ) throws Exception{
@@ -241,16 +241,21 @@ public class OneDayController {
       int result=service.endclassEnroll(odc);
       
       //메세지 출력
-      if(result<0) {
-         model.addAttribute("msg","클래스 등록 완료됐습니다");
-         model.addAttribute("loc","/class/masterEndEnroll.do");
-         return "common/msg";
+      if(result>0) {
+         model.addObject("msg","클래스 등록 성공!");
+         if(odc.getOdcNo()==null) {
+         OneDayClass o = service.selectClassByName(odc);
+         model.addObject("loc","/class/odcView.do?no="+o.getOdcNo());
+         }else {
+        	 model.addObject("loc","/class/odcView.do?no="+odc.getOdcNo());
+         }
+         model.setViewName("common/msg");
       }else {
-         model.addAttribute("msg","클래스 등록 실패!");
-         model.addAttribute("loc","/class/main.do");
-         return "common/msg";
+         model.addObject("msg","클래스 등록 실패!");
+         model.addObject("loc","/class/main.do");
+         model.setViewName("common/msg");
       }
-    
+      return model;
    }
    
    @RequestMapping("/class/odcView.do")

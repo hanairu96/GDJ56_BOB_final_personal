@@ -77,7 +77,13 @@ public class OneDayServiceImpl implements OneDayService {
 			return dao.updateClass(session,odc);
 		}else{
 			return dao.endclassEnroll(session, odc);
+			
 		}
+	}
+	
+	@Override
+	public OneDayClass selectClassByName(OneDayClass odc) {
+		return dao.selectClassByName(session, odc);
 	}
 
 	@Override
