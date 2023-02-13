@@ -169,7 +169,7 @@ public class MemberController {
 	
 	@RequestMapping("/enrollMemberEnd")
 	public ModelAndView enrollMemberEnd(Member m, String year, String month, String day, 
-			String inputAddressAddress, String inputAddressDetailAddress, 
+			String inputAddressPostcode, String inputAddressAddress, String inputAddressDetailAddress, 
 			MemberLike ml, ModelAndView mv) throws ParseException, RuntimeException {
 //		System.out.println(m);
 //		System.out.println(year);
@@ -186,7 +186,7 @@ public class MemberController {
 		//System.out.println(date);
 		
 		//주소를 하나로 합침
-		String address=inputAddressAddress+" "+inputAddressDetailAddress;
+		String address="("+inputAddressPostcode+") "+inputAddressAddress+" "+inputAddressDetailAddress;
 		
 		//Member m에 생년월일과 주소를 set
 		m.setBirth(date);
