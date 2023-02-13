@@ -24,5 +24,7 @@ public class ItemQna {
 	private int itemNo;
 	private String iqSecret;
 	private int answer_count;
+	
+	private String nickname; //닉네임
 
 }
