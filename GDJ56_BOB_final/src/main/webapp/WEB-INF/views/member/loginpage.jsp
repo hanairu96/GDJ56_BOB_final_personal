@@ -34,7 +34,7 @@
             color: black;
             text-decoration: none;
         }
-        a:hover{
+        #login>a:hover{
             color: gray;
             font-style: italic;
             transition: 0.3s;
