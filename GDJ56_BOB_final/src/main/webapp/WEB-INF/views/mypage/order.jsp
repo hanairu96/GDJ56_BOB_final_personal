@@ -181,7 +181,7 @@
     //사용할적립금
     const fn_eventKeyupPoint = (str)=>{
     	
-    	if(str>0){
+    	if(str>=0){
     		let mypointtext = $("#mypoint").text();
             let mypoint = mypointtext.substring(0, mypointtext.length -1);
             
