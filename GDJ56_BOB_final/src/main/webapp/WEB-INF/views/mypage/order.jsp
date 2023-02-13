@@ -31,6 +31,7 @@
                                     	가격 :<span color:black; id="resultPrice" > </span>원</h6>
                                     	<input id="itemcount" value="${io.itemCount }" hidden>
                                     	<input id="itemprice" value="${ios.itemDiscount eq 'Y' ? '9900': ios.itemPrice}" hidden>
+                                    	<input id="email" value="${memberEmail}" hidden>
                                     </div>
                                     <br>
                                 </div>
@@ -43,7 +44,6 @@
                 <h4>배송지</h4>
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
-                        
                         
                         <div class="row">
                             <div class="col-lg-6">
@@ -324,6 +324,7 @@
 	    let inputname=$("#orderName").val();
 	    let inputorderPhone=$("#orderPhone").val();
 	    let inputorderAddr=$("#inputAddress_postcode").val();
+	    //let email=${memberEmail};
 	    console.log(inputname+"d"+inputorderPhone+"D"+inputorderAddr);
 	    if(inputname!="" && inputorderPhone!="" && inputorderAddr!="" ){
 	     IMP.init("imp44501773");
@@ -334,7 +335,7 @@
     			amount : $("#totaltotal").html(),
     			merchant_uid : merchant,
     			buyer_name : $("#orderName").val(),
-    			buyer_email : "email@email",
+    			buyer_email : $("#email").val(),
     			buyer_tel : $("#orderPhone").val(),
     			buyer_addr: orderaddr
     		}, function(rsp){	
