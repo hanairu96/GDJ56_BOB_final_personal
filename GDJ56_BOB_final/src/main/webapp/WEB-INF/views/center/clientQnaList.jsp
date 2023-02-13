@@ -256,17 +256,20 @@
 			location.assign("${path}/center/clientQnaList");
 		})
 		
+		//처음에는 1페이지 버튼 색이 칠해져 있음
+		$(".product__pagination>*:nth-child(2)").css("background", "#7fad39").css("color", "#ffffff");
+		
 		//ajax를 이용한 페이징 처리
 		$(document).on("click", ".product__pagination>*", function(e){ //페이지 버튼을 누르면
 			let cPage=0; //페이지 번호
 			if(e.target.textContent.trim()=='<'){
 				cPage=Number(document.querySelector(".product__pagination>*:nth-child(2)").textContent)-1;
 				if(cPage==0) return false; //0페이지면 아무것도 실행되지 않음
-				numChange(cPage);
+				numChange(cPage, 1);
 			}else if(e.target.textContent.trim()=='>'){
 				cPage=Number(document.querySelector(".product__pagination>*:nth-last-child(2)").textContent)+1;
 				if(cPage>${totalPage}) return false; //총 페이지 수보다 큰 수의 페이지는 넘어갈 수 없음
-				numChange(cPage);
+				numChange(cPage, 2);
 			}else{
 				cPage=e.target.textContent; //클릭한 버튼의 숫자
 			}
@@ -274,7 +277,7 @@
 			
 			//버튼의 숫자가 현재 페이지면 색깔 칠해짐
 			$(".product__pagination>*").css("background", "initial").css("color", "#b2b2b2"); //버튼 색깔 초기화
-			$(e.target).css("background", "#7fad39").css("color", "#ffffff"); //클릭한 버튼만 색칠함   			
+			$(e.target).css("background", "#7fad39").css("color", "#ffffff"); //클릭한 버튼만 색칠함
 			
 			let option='N'; //검색 항목
 			let optionVal='N'; //검색 내용
@@ -332,12 +335,17 @@
 		})
 		
 		//'<' 또는 '>'를 누르면 페이지바가 바뀌게 함
-		const numChange=(cPage)=>{
+		const numChange=(cPage, arrow)=>{
 			$.ajax({
 				url:"${path}/center/numChange",
 				data:{cPage:cPage},
 				success:data=>{
 					$(".page-bar").html(data);
+					if(arrow==1){ //'<' 버튼이면 맨 뒷 번호 버튼이 색칠됨
+						$(".product__pagination>*:nth-child(4)").css("background", "#7fad39").css("color", "#ffffff");
+					}else if(arrow==2){ //'>' 버튼이면 맨 앞 번호 버튼이 색칠됨
+						$(".product__pagination>*:nth-child(2)").css("background", "#7fad39").css("color", "#ffffff");
+					}
 				}
 			})
 		}
