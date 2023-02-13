@@ -22,6 +22,13 @@
                     <option value="member_id">작성자</option>
                 </select>
                 <input class="search" name="optionVal" type="text" placeholder="search">
+                <select id="cateVal" name="optionValNone" class="form-select" style="display:none;width:172px;">
+           	        <option value="배송문의" selected="selected">배송문의</option>
+               	    <option value="신고">신고</option>
+                   	<option value="제안하기">제안하기</option>
+                   	<option value="시스템장애">시스템장애</option>
+                   	<option value="기타">기타</option>
+                </select>
                 <button id="search-btn" class="customBtn btnStyle" type="submit">검색</button>
             </form>
             <table class="list-table" style="text-align: center;margin: 20px;">
@@ -254,6 +261,17 @@
 		})
 		$(".side-menu>div:eq(1)").click(e=>{
 			location.assign("${path}/center/clientQnaList");
+		})
+		
+		//검색 항목을 분류로 할 경우 input 입력 칸이 아닌 select 선택 칸이 나옴
+		$(document).on("click", "[name=option]", function(e){
+			if(e.target.value=='cq_cate'){ //항목이 분류면
+				$(".search").css("display","none").attr("name", "optionValNone");
+				$("#cateVal").css("display","initial").attr("name", "optionVal");
+			}else{ //항목이 분류가 아니면
+				$(".search").css("display","initial").attr("name", "optionVal");
+				$("#cateVal").css("display","none").attr("name", "optionValNone");
+			}
 		})
 		
 		//처음에는 1페이지 버튼 색이 칠해져 있음
