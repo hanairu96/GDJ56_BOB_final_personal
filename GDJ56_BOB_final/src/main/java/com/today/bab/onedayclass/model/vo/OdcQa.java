@@ -23,4 +23,6 @@ public class OdcQa {
 	private int odcNo;
 	private String memberId;
 	
+	private String nickname;
+	
 }

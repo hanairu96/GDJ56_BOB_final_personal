@@ -26,4 +26,6 @@ public class ItemReview {
 	private List<ItemrePic> itemrepic;
 	
 	private int countreivew;
+	
+	private String nickname; //닉네임
 }

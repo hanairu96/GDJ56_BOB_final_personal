@@ -24,5 +24,7 @@ public class OdcReview {
 	private String oreGood;
 	private String oreSame;
 	private String orePic;
+	
+	private String nickname;
 
 }

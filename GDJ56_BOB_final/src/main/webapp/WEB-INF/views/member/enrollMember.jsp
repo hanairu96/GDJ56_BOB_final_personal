@@ -539,7 +539,7 @@
 			}
 			//이메일 입력
 			const inputEmail=$("#inputEmail").val().trim();
-			let emailReg=/^[a-zA-Z][0-9a-zA-Z]*@[a-zA-Z]+.[a-zA-Z]{2,3}$/i;
+			let emailReg=/^[0-9a-zA-Z_]+@[a-zA-Z]+.[a-zA-Z]{2,3}$/i;
 			if(inputEmail==""){
 				alert("이메일을 적어주세요.");
 				$("span#checkEmail>small").text("이메일을 입력해주세요.").css("color","red");
