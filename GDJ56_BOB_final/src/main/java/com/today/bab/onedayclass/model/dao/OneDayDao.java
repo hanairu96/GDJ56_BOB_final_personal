@@ -50,4 +50,5 @@ public interface OneDayDao {
 	int masterEndEnrollUpdate(SqlSessionTemplate session, AdminMaster m);
 	AdminMaster selectMasterBymname(SqlSessionTemplate session, String name);
 	OneDayClass selectMasterByclassName(SqlSessionTemplate session, String name);
+	void deleteClass(SqlSessionTemplate session, int odcNo);
 }

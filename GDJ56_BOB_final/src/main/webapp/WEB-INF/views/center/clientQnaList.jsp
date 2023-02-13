@@ -22,6 +22,13 @@
                     <option value="member_id">작성자</option>
                 </select>
                 <input class="search" name="optionVal" type="text" placeholder="search">
+                <select id="cateVal" name="optionValNone" class="form-select" style="display:none;width:172px;">
+           	        <option value="배송문의" selected="selected">배송문의</option>
+               	    <option value="신고">신고</option>
+                   	<option value="제안하기">제안하기</option>
+                   	<option value="시스템장애">시스템장애</option>
+                   	<option value="기타">기타</option>
+                </select>
                 <button id="search-btn" class="customBtn btnStyle" type="submit">검색</button>
             </form>
             <table class="list-table" style="text-align: center;margin: 20px;">
@@ -241,42 +248,65 @@
 			width:100%;
 			transition:800ms ease all;
 		}
-    </style>
-    <script>
-    	//사이드 메뉴 누르면 페이지 이동
+		.product__pagination a:hover {
+			background: #7fad39;
+			border-color: #7fad39;
+			color: #ffffff;
+		}
+	</style>
+	<script>
+		//사이드 메뉴 누르면 페이지 이동
 		$(".side-menu>div:eq(0)").click(e=>{
-   			location.assign("${path}/center/noticeList");
-   		})
-   		$(".side-menu>div:eq(1)").click(e=>{
-   			location.assign("${path}/center/clientQnaList");
-   		})
-    	
-   		//ajax를 이용한 페이징 처리
-   		$(document).on("click", ".product__pagination>*", function(e){ //페이지 버튼을 누르면
-   			let cPage=0; //페이지 번호
-   			if(e.target.textContent.trim()=='<'){
-   				cPage=Number(document.querySelector(".product__pagination>*:nth-child(2)").textContent)-1;
-   				if(cPage==0) return false; //0페이지면 아무것도 실행되지 않음
-	   			numChange(cPage);
-		   	}else if(e.target.textContent.trim()=='>'){
-	   			cPage=Number(document.querySelector(".product__pagination>*:nth-last-child(2)").textContent)+1;
-	   			if(cPage>${totalPage}) return false; //총 페이지 수보다 큰 수의 페이지는 넘어갈 수 없음
-	   			numChange(cPage);
-		   	}else{
-   				cPage=e.target.textContent; //클릭한 버튼의 숫자
-		   	}
-   			console.log(cPage);
-   			
-   			let option='N'; //검색 항목
-   			let optionVal='N'; //검색 내용
-   			if("${option}"!="") option="${option}";
-   			if("${optionVal}"!="") optionVal="${optionVal}";
-   			
-   			let args=[cPage, option, optionVal];
-   			$.ajax({
-   				url:"${path}/center/clientQnaListPage",
-   				data:{args:args},
-   				success:data=>{
+			location.assign("${path}/center/noticeList");
+		})
+		$(".side-menu>div:eq(1)").click(e=>{
+			location.assign("${path}/center/clientQnaList");
+		})
+		
+		//검색 항목을 분류로 할 경우 input 입력 칸이 아닌 select 선택 칸이 나옴
+		$(document).on("click", "[name=option]", function(e){
+			if(e.target.value=='cq_cate'){ //항목이 분류면
+				$(".search").css("display","none").attr("name", "optionValNone");
+				$("#cateVal").css("display","initial").attr("name", "optionVal");
+			}else{ //항목이 분류가 아니면
+				$(".search").css("display","initial").attr("name", "optionVal");
+				$("#cateVal").css("display","none").attr("name", "optionValNone");
+			}
+		})
+		
+		//처음에는 1페이지 버튼 색이 칠해져 있음
+		$(".product__pagination>*:nth-child(2)").css("background", "#7fad39").css("color", "#ffffff");
+		
+		//ajax를 이용한 페이징 처리
+		$(document).on("click", ".product__pagination>*", function(e){ //페이지 버튼을 누르면
+			let cPage=0; //페이지 번호
+			if(e.target.textContent.trim()=='<'){
+				cPage=Number(document.querySelector(".product__pagination>*:nth-child(2)").textContent)-1;
+				if(cPage==0) return false; //0페이지면 아무것도 실행되지 않음
+				numChange(cPage, 1);
+			}else if(e.target.textContent.trim()=='>'){
+				cPage=Number(document.querySelector(".product__pagination>*:nth-last-child(2)").textContent)+1;
+				if(cPage>${totalPage}) return false; //총 페이지 수보다 큰 수의 페이지는 넘어갈 수 없음
+				numChange(cPage, 2);
+			}else{
+				cPage=e.target.textContent; //클릭한 버튼의 숫자
+			}
+			console.log(cPage);
+			
+			//버튼의 숫자가 현재 페이지면 색깔 칠해짐
+			$(".product__pagination>*").css("background", "initial").css("color", "#b2b2b2"); //버튼 색깔 초기화
+			$(e.target).css("background", "#7fad39").css("color", "#ffffff"); //클릭한 버튼만 색칠함
+			
+			let option='N'; //검색 항목
+			let optionVal='N'; //검색 내용
+			if("${option}"!="") option="${option}";
+			if("${optionVal}"!="") optionVal="${optionVal}";
+			
+			let args=[cPage, option, optionVal];
+			$.ajax({
+				url:"${path}/center/clientQnaListPage",
+				data:{args:args},
+				success:data=>{
 					//테이블을 새로 생성
 					let content="<thead>";
 					content+="<tr>";
@@ -288,54 +318,59 @@
 					content+="</tr>";
 					content+="</thead>";
 					content+="<tbody>";
-   					//출력할 내용
-   					data.forEach(function(ql){
-		                content+="<tr class='tr'>";
-		                content+="<td class='categorys'>"+ql.cqCate+"</td>";
-	                    if(ql.cqSe=='Y'){
-                        	if(("${loginMember.memberId}"!=ql.memberId)&&("${loginMember.memberId}"!='admin')){
-		                		content+="<td class='titles'><img src='${path}/resources/images/lock.png'>비밀글입니다.</td>";
-		                		content+="<td class='writers'>"+ql.memberId.substring(0,1)+"*****</td>";
-                        	}else{
-			                	content+="<td class='titles'><a href='${path}/center/clientQnaView?cqNo="+ql.cqNo+"'><img src='${path}/resources/images/lock.png'>"+ql.cqTitle+"</a></td>";
-			                	content+="<td class='writers'>"+ql.memberId+"</td>";
-                        	}
-   						}else{
-			                content+="<td class='titles'><a href='${path}/center/clientQnaView?cqNo="+ql.cqNo+"'>"+ql.cqTitle+"</a></td>";
-			                content+="<td class='writers'>"+ql.memberId+"</td>";
-   						}
-	                	content+="<td class='dates'>"+ql.cqDate+"</td>";
-	                	if(ql.cqCheck=='Y'){
-		                	content+="<td class='answers finish'>";
-	                		content+="답변완료";
-	                	}else{
-		                	content+="<td class='answers'>";
-		                	content+="답변대기";
-	                	}
-	                	content+="</td>";
-		                content+="</tr>";
-   					})
-   					content+="</tbody>";
-   					//생성한 테이블로 교체함
-   					$(".list-table").html(content);
-   				}
-   			})
-   		})
+					//출력할 내용
+					data.forEach(function(ql){
+						content+="<tr class='tr'>";
+						content+="<td class='categorys'>"+ql.cqCate+"</td>";
+						if(ql.cqSe=='Y'){
+							if(("${loginMember.memberId}"!=ql.memberId)&&("${loginMember.memberId}"!='admin')){
+								content+="<td class='titles'><img src='${path}/resources/images/lock.png'>비밀글입니다.</td>";
+								content+="<td class='writers'>"+ql.memberId.substring(0,1)+"*****</td>";
+							}else{
+								content+="<td class='titles'><a href='${path}/center/clientQnaView?cqNo="+ql.cqNo+"'><img src='${path}/resources/images/lock.png'>"+ql.cqTitle+"</a></td>";
+								content+="<td class='writers'>"+ql.memberId+"</td>";
+							}
+						}else{
+							content+="<td class='titles'><a href='${path}/center/clientQnaView?cqNo="+ql.cqNo+"'>"+ql.cqTitle+"</a></td>";
+							content+="<td class='writers'>"+ql.memberId+"</td>";
+						}
+						content+="<td class='dates'>"+ql.cqDate+"</td>";
+						if(ql.cqCheck=='Y'){
+							content+="<td class='answers finish'>";
+							content+="답변완료";
+						}else{
+							content+="<td class='answers'>";
+							content+="답변대기";
+						}
+						content+="</td>";
+						content+="</tr>";
+					})
+					content+="</tbody>";
+					//생성한 테이블로 교체함
+					$(".list-table").html(content);
+				}
+			})
+		})
 		
-   		//'<' 또는 '>'를 누르면 페이지바가 바뀌게 함
-   		const numChange=(cPage)=>{
-   			$.ajax({
-   				url:"${path}/center/numChange",
-   				data:{cPage:cPage},
-   				success:data=>{
-   					$(".page-bar").html(data);
-   				}
-   			})
-   		}
-    	
-   		//글쓰기
-   		const writeBoard=()=>{
-   			location.assign("${path}/center/cqWrite");
-   		}
-    </script>
+		//'<' 또는 '>'를 누르면 페이지바가 바뀌게 함
+		const numChange=(cPage, arrow)=>{
+			$.ajax({
+				url:"${path}/center/numChange",
+				data:{cPage:cPage},
+				success:data=>{
+					$(".page-bar").html(data);
+					if(arrow==1){ //'<' 버튼이면 맨 뒷 번호 버튼이 색칠됨
+						$(".product__pagination>*:nth-child(4)").css("background", "#7fad39").css("color", "#ffffff");
+					}else if(arrow==2){ //'>' 버튼이면 맨 앞 번호 버튼이 색칠됨
+						$(".product__pagination>*:nth-child(2)").css("background", "#7fad39").css("color", "#ffffff");
+					}
+				}
+			})
+		}
+		
+		//글쓰기
+		const writeBoard=()=>{
+			location.assign("${path}/center/cqWrite");
+		}
+	</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
