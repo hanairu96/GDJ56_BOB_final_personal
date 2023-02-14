@@ -101,7 +101,7 @@
             <div class="container-main">
                 <div class="rows">
                     <div>
-                        <img src="${path}/resources/images/food.jpg" class="img-fluid">
+                        <img src="${path}/resources/images/food5.jpg" class="img-fluid">
                     </div>
                     <div class="col-md-5">
                         <h3 class="text-black con">Bring joy for your table from Market</h3>
@@ -121,7 +121,7 @@
                         <button class="btn-main" onclick="location.assign('${path}/class/main.do')">More About One-Day Class</button>
                     </div>
                     <div>
-                        <img src="${path}/resources/images/food5.jpg" class="img-fluid">
+                        <img src="${path}/resources/images/food.jpg" class="img-fluid">
                     </div>
                 </div>
             </div>

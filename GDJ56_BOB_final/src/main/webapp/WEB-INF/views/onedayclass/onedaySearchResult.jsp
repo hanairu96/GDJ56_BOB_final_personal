@@ -127,7 +127,7 @@
 			
 		<!-- 페이지바 -->
 	  	<div style="display: flex;margin-left:50%">
-        	${pageBar}
+        	
    		</div>
 		<!-- 글등록,장인등록 -->
 		<div style="display: flex; margin-left:70%">

@@ -213,7 +213,7 @@ $(function(){//.레디함수
     						html += stock
 							html += "<div class='recipe-item'>";
 							html += "<div class='zoom'>";
-							html += "<a href='#'><img src='${path }/resources/upload/market/mainlabel/"+i.mainPic+"' alt='' width='330' height='280'></a>";
+							html += "<a href='${path}/market1/marketdetail.do?itemNo="+i.itemNo+"'><img src='${path }/resources/upload/market/mainlabel/"+i.mainPic+"' alt='' width='330' height='280'></a>";
 							html += "</div>";
 							html += "<div class='ri-text'>";
 							html += "<div class='cat-name'>"+i.itemCategory+"</div>";
