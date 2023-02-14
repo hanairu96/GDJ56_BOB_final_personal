@@ -80,7 +80,7 @@
 		                <p>(아직 등록된 답변이 없습니다.)</p>
 	            	</c:if>
 	            </div>
-	            <textarea id="textEnroll" rows="5" cols="130"></textarea>
+	            <textarea id="textEnroll" rows="5" cols="130">${cq.cqanswer.cqaContent}</textarea>
 	            <c:if test="${loginMember.memberId eq 'admin'}">
 	            	<c:if test="${empty cq.cqanswer.cqaContent}">
 			            <button type="button" id="enroll-as-btn" class="customBtn btnStyle" onclick="answerEnroll();">답변 등록</button><br>
