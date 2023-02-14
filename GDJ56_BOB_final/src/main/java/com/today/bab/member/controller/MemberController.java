@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.CookieGenerator;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -292,7 +294,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/loginSuccess")
-	public String loginSuccess(Model m){
+	public String loginSuccess(Model m, HttpServletRequest request){
 		//로그인 성공 시
 		Object member=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
@@ -303,7 +305,35 @@ public class MemberController {
 		//System.out.println(m.getAttribute("loginMember"));
 		//System.out.println("시큐리티 로그인 성공");
 		
-		return "redirect:/";
-	}
+		String refer="";
+		Cookie[] cookies = request.getCookies();
+		//System.out.println("모든 쿠키: "+cookies);
+		for(Cookie c: cookies) {
+			if(c.getName().equals("refer")) {
+				refer=c.getValue();
+			}
+		}
+		//System.out.println("나온 쿠키: "+refer);
 		
+		//이전 주소가 쿠키로 저장돼있을 경우 그 주소로 리다이렉트
+		if(refer!=null) {
+			return "redirect:"+refer;
+		}else {
+			return "redirect:/";
+		}
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping("/referrerSet")
+	public boolean referrerSet(HttpServletResponse response, String refer){
+		//로그인 페이지 이전 주소를 쿠키로 저장
+		CookieGenerator cg = new CookieGenerator();
+		
+		cg.setCookieName("refer");
+		cg.addCookie(response, refer);
+		
+		return true;
+	}
+	
 }

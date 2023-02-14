@@ -99,4 +99,16 @@
             transition:800ms ease all;
         }
     </style>
+    <script>
+    	//이전 주소
+		let refer=document.referrer;
+    	//이전 주소를 서버에 보내 저장
+		$.ajax({
+			url:"${path}/member/referrerSet",
+			data:{refer:refer},
+			success:data=>{
+				console.log("이전 주소: "+refer);
+			}
+		})
+    </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
