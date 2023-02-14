@@ -453,6 +453,26 @@
 				}
 			})
 		}
+
+		//답변 삭제하기
+		const answerDelete=()=>{
+			let check=confirm("정말로 삭제하시겠습니까?");
+			if(check){
+				$.ajax({
+					url:"${path}/center/answerDelete",
+					data:{no:${cq.cqNo}},
+					success:data=>{
+						if(data){
+							alert("삭제되었습니다.");
+							//삭제 성공했으면 새로고침
+							location.reload();
+						}else{
+							alert("삭제에 실패하였습니다.");
+						}
+					}
+				})
+			}
+		}
 		
 		//취소 시 원래 상태로 복구
 		const cancel=()=>{

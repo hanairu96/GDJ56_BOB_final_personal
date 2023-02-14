@@ -89,6 +89,11 @@ public class CenterServiceImpl implements CenterService {
 	}
 
 	@Override
+	public int answerDelete(int no) {
+		return dao.answerDelete(session, no);
+	}
+
+	@Override
 	public int noticeWriteEnd(Map<String, Object> param) {
 		return dao.noticeWriteEnd(session, param);
 	}
