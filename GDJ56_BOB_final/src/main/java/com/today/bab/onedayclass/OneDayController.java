@@ -63,8 +63,6 @@ public class OneDayController {
       //System.out.println(classlist);
       
       Object member=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-      
-    
       if(!member.equals("anonymousUser")) {
     	  AdminMaster master=service.selectMastserById(((Member)member).getMemberId());
     	  mv.addObject("master",master);
@@ -87,6 +85,13 @@ public class OneDayController {
 	      param.put("numPerpage", numPerpage);
 	      List<OneDayClass> classlist = service.selectMenuClassList(param);
 	      int totaldata=service.countMenuClassList(type);
+	      
+	      Object member=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	      if(!member.equals("anonymousUser")) {
+	    	  AdminMaster master=service.selectMastserById(((Member)member).getMemberId());
+	    	  mv.addObject("master",master);
+	      }
+	      
 	      mv.addObject("param", param);
 	      mv.addObject("pageBar",oneclassMenuPage.getPage(cPage, numPerpage,totaldata,"/GDJ56_BOB_final/class/menu.do", type));
 	      mv.addObject("classlist",classlist);
@@ -107,6 +112,13 @@ public class OneDayController {
       param.put("numPerpage", numPerpage);
       List<OneDayClass> classlist = service.selectSearchClass(param);
       int totaldata=service.searchCountClasslist(param);
+      
+      Object member=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      if(!member.equals("anonymousUser")) {
+    	  AdminMaster master=service.selectMastserById(((Member)member).getMemberId());
+    	  mv.addObject("master",master);
+      }
+      
       mv.addObject("classlist",classlist);
       mv.addObject("param", param);
       mv.addObject("pageBar",oneclass.getPage(cPage, numPerpage,totaldata,"/GDJ56_BOB_final/class/search.do", searchlist, search));

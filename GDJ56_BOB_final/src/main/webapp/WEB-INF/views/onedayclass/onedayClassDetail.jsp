@@ -487,6 +487,9 @@
 		                   html+="<li>";
 		                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
 		                   html+="<span>";
+		                   if(data[i].oqSecretYn=='Y'){
+			                	html+="<img src='${path}/resources/images/onedayclass/secret.png' width='27' height='27'>";
+			                   }
 		                   html+="<span>"+data[i].memberId+"</span>";
 		                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
 		                   html+="<span style='cursor: pointer;'>│수정</span>";
@@ -1253,7 +1256,7 @@
 	  display: inline-block;
 	  line-height: 0em;
 	  padding-bottom: 0.5em;
-	  background-color:#EBCDFF;
+	  background-color:#B1DD9e;
 	}
 	/* 전체 배치 */
 	* {
@@ -1345,18 +1348,19 @@
 		height: 40px;
 	}
 	.btn3:hover {
-		background-color: #6A0dad;
+		background-color: #2E8B57;
 		color: white;
 		width: 120px;
 		height: 40px;
+		border: none;
 	}
 	textarea:focus, input:focus {
 		border-color: transparent !important;
-		box-shadow: 0 0 0px 2px #ec1d25;
-		-moz-box-shadow: 0 0 0px 2px #ec1d25;
-		-webkit-box-shadow: 0 0 0px 2px #ec1d25;
-		-o-box-shadow: 0 0 0px 2px #ec1d25;
-		-ms-box-shadow: 0 0 0px 2px #ec1d25;
+		box-shadow: 0 0 0px 2px #2E8B57;
+		-moz-box-shadow: 0 0 0px 2px #2E8B57;
+		-webkit-box-shadow: 0 0 0px 2px #2E8B57;
+		-o-box-shadow: 0 0 0px 2px #2E8B57;
+		-ms-box-shadow: 0 0 0px 2px #2E8B57;
 	}
 	.bg-title-page {
 		width: 100%;
@@ -1430,7 +1434,7 @@
 	}
 	a{
 		text-decoration: none !important;
-		color : purple;
+		color : #2E8B57;
 	}
 </style>
 </html>
