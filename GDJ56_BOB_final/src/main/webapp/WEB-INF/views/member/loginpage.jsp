@@ -5,22 +5,33 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value="MainPage"/>
 </jsp:include>
-	<section>
-        <div class="wrapper">
-            <div id="login">
-                <br>
-                <img src="${path}/resources/images/logo-icon.png" style="width: 120px;height: 100px;">
-                <form id="loginForm" action="${path}/login" method="post">
-                    <input class="loginform" name="id" type="text" id="logInId" placeholder="아이디를 입력해주세요." style="width: 200px;"><br>
-                    <input class="loginform" name="password" type="password" id="logInPwd" placeholder="비밀번호를 입력해주세요." style="width: 200px;"><br>
-                    <span id="pwdCheck"><small></small></span>
-                    <button type="submit" id="loginBtn" class="customBtn btnStyle">로그인</button>
-                </form>
-                <a href="${path}/member/enrollAgree">회원가입</a>&nbsp;
-                <a href="${path}/member/searchIdPwd">아이디/비밀번호 찾기</a>
-            </div>
-        </div>
-    </section>
+	<!-- 로그인한 사용자는 로그인 페이지 접근 불가 -->
+	<c:if test="${not empty loginMember}">
+		<script>
+			console.log("실패");
+			alert("잘못된 접근입니다.");
+			location.assign("${path}");
+		</script>
+	</c:if>
+	<!-- 로그인 안 해야만 로그인 페이지 접근 가능 -->
+	<c:if test="${empty loginMember}">
+		<section>
+	        <div class="wrapper">
+	            <div id="login">
+	                <br>
+	                <img src="${path}/resources/images/logo-icon.png" style="width: 120px;height: 100px;">
+	                <form id="loginForm" action="${path}/login" method="post">
+	                    <input class="loginform" name="id" type="text" id="logInId" placeholder="아이디를 입력해주세요." style="width: 200px;"><br>
+	                    <input class="loginform" name="password" type="password" id="logInPwd" placeholder="비밀번호를 입력해주세요." style="width: 200px;"><br>
+	                    <span id="pwdCheck"><small></small></span>
+	                    <button type="submit" id="loginBtn" class="customBtn btnStyle">로그인</button>
+	                </form>
+	                <a href="${path}/member/enrollAgree">회원가입</a>&nbsp;
+	                <a href="${path}/member/searchIdPwd">아이디/비밀번호 찾기</a>
+	            </div>
+	        </div>
+	    </section>
+	</c:if>
     <style>
         .wrapper{
             margin: 50px;
