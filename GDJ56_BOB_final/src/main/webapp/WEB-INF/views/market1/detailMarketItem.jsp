@@ -128,7 +128,7 @@
 		                        <a href="javascript:void(0);" class="primary-btn" style="background-color: magenta;" onclick="soldoutItem();">품절되었습니다.</a>
 	                        </c:if>
 	                        <c:if test="${de.itemStock>0 }">
-		                        <a class="primary-btn" href="javascript:void(0);" onclick="addbasketitem(${de.itemNo },'${loginMember.memberId }','${de.mainPic }','${de.itemName }')" style="background-color:#bde28f;">장바구니 담기</a>
+		                        <a class="primary-btn" href="javascript:void(0);" onclick="addbasketitem(${de.itemNo },'${loginMember.memberId }','${de.mainPic }','${de.itemLabel }','${de.itemName }')" style="background-color:#bde28f;">장바구니 담기</a>
 	                        </c:if>
 	                        <br><br><br>
 	                        <b>원산지</b> <span><c:out value="${de.madeIn }"/></span><br><br>
@@ -173,14 +173,29 @@
                 		alert("품절되었습니다! 재입고를 기다려주세요!");
                 	}
                 
-	            	const deleteItemFile=(no,pic,main,label)=>{
-	            		const pp=pic.split(",");
-	            		var addpath="";
-	            		for(let i=0;i<pp.length;i++){
-	            			addpath+="&picName="+pp[i];
-	            		}
-	        			location.assign("${path}/market1/deleteItem.do?itemNo="+no+"&mainPic="+main+"&itemLabel="+label+addpath);    	
+	            	const deleteItemFile=(no,pic,main,label,itemName)=>{
+	            		Swal.fire({
+				            title: itemName,
+				            text: "이 상품을 삭제하시겠습니까?",
+				            imageUrl: '${path }/resources/upload/market/mainlabel/'+main,
+				            showCancelButton: true,
+			            	confirmButtonColor: '#07d448',
+				            cancelButtonColor: 'magenta',
+				            confirmButtonText: '삭제',
+				            cancelButtonText: '돌아가기'
+				        }).then((result) => {
+				        	if (result.isConfirmed) {
+			            		const pp=pic.split(",");
+			            		var addpath="";
+			            		for(let i=0;i<pp.length;i++){
+			            			addpath+="&picName="+pp[i];
+			            		}
+			        			location.assign("${path}/market1/deleteItem.do?itemNo="+no+"&mainPic="+main+"&itemLabel="+label+addpath);    	
+				        	}
+			        	})
 	            	}
+	            	
+	            	
 	            	
 	            	const updateItem=(no)=>{
 	        			location.assign("${path}/market1/updateItemGo.do?itemNo="+no); 
