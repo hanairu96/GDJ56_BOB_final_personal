@@ -139,6 +139,7 @@ public class AdminController {
 		
 		int ingData=service.selectMasterIngListCount(); //심사필요한사람
 		
+		System.out.println(service.adminMaster(Map.of("cPage",cPage,"numPerpage",numPerpage)));
 		
 		mv.addObject("list",service.adminMaster(Map.of("cPage",cPage,"numPerpage",numPerpage)));
 		//페이징처리하기
