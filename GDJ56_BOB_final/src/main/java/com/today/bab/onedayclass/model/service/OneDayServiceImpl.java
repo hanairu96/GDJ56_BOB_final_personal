@@ -140,7 +140,8 @@ public class OneDayServiceImpl implements OneDayService {
 		
 		if(r!=null) {
 			return dao.updateReview(session,or);
-		}else {			
+		}else {		
+			dao.insertPoint(session, or.getMemberId());
 			return dao.insertReview(session, or);
 		}
 		
