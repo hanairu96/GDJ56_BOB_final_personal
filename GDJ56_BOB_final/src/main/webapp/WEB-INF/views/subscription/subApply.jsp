@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -261,14 +262,29 @@
 						success:data=>{
 							console.log(data);
 							if(data){
-								alert("결제되었습니다.");
-								window.close();
+								Swal.fire({
+									title: "결제 성공",
+									text: "결제되었습니다.",
+									icon: 'success',
+									confirmButtonColor: 'purple',	
+									confirmButtonText: '확인',
+								}).then((result) => {
+									if (result.isConfirmed) {
+										window.close();
+									}
+								})
 							}
 						}
 					})
 				} else {
 					// 결제 실패 시 로직
-					alert("결제가 실패하였습니다.");
+					Swal.fire({
+						title: "결제 실패",
+						text: "결제가 실패하였습니다.",
+						icon: 'error',
+						confirmButtonColor: 'purple',	
+						confirmButtonText: '확인',
+					})
 				}
 			});
 		}
@@ -276,10 +292,20 @@
 		//결제하기 버튼 눌렀을 때
 		const pay=()=>{
 			console.log(choice);
-			let decide=confirm(choice+"를 정말로 정기 결제 하시겠습니까?");
-			if(decide){
-				requestPay();
-			}
+			Swal.fire({
+				title: "정기 구독",
+				text: choice+"를 정말로 정기 결제 하시겠습니까?",
+				icon: 'question',
+				showCancelButton: true,
+				confirmButtonColor: 'mediumpurple',	
+				cancelButtonColor: 'plum',
+				confirmButtonText: '결제하기',
+				cancelButtonText: '취소'
+			}).then((result) => {
+				if(result.isConfirmed) {
+					requestPay();
+				}
+			})
 		}
 	</script>
 </body>
