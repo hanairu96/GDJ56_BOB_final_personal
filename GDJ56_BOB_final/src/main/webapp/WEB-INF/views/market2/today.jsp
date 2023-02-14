@@ -278,13 +278,13 @@ const addbasketitem=(no,memberId,mainPic,itemName)=>{
 		let maintype = '${param.type}';
 		console.log(maintype);
 		
-		if (a == 'f') {
+		if (maintype == 'f') {
 			console.log('dd');
  			const targetId=$(".todaybab_title a")[0].id;
  			const targetClass=$(".todaybab_title a")[0].className;
 			$(".todaybab_title a").children()[0].click();
 		}
-		if (a == 's') {
+		if (maintype == 's') {
 			console.log('dd');
  			const targetId=$(".todaybab_title a")[1].id;
  			const targetClass=$(".todaybab_title a")[1].className;
