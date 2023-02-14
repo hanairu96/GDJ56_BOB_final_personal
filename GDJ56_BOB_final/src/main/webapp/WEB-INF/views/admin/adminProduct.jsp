@@ -340,7 +340,7 @@
 	                      <td class="px-4 py-3 text-xs">
 	                      <img 
 	                        id="imgClick"
-	                      	onclick="location.replace('${path}/market1/marketdetail.do?itemNo=${m.itemNo }');"
+	                      	onclick="location.assign('${path}/market1/marketdetail.do?itemNo=${m.itemNo }');"
 	                      	style="width:120px;height:120px;" src="${path }/resources/upload/market/mainlabel/${m.mainPic}">
 	                      </td>
 	                      <td class="px-4 py-3 text-xs" style="width:10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
