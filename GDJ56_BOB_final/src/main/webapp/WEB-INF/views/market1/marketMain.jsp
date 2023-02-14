@@ -39,7 +39,7 @@
             <!-- 이상품 어때요? -->
             <div style="text-align: center;">
             <c:if test="${likemenu==null or likectg ==null}">
-                <a href="${path }/market1/marketgtg.do"><h3 style="font-weight: bold;">이 상품 어때요? ></h3></a>
+                <a href="${path }/market1/marketgtg.do"><h2 style="font-weight: bold;">이 상품 어때요? ></h2></a>
             </c:if>
             <c:if test="${likemenu!=null }">
                 <a href="${path }/market1/memberLikeList.do"><h3 style="font-weight: bold;">이 상품 어때요? ></h3></a>
@@ -88,7 +88,7 @@
                  </c:if>
                 </div>
             </div>
-            <br><br><br><br><br><br>
+            <br>
             
             
     <!-- Featured Section Begin -->
@@ -324,7 +324,7 @@
 
    <!--여기!!  -->
             <div style="text-align: center;">
-                <a href="${path }/market/today.do?type=f"><h3 style="font-weight: bold;">${relist.get(0).reIcon }${relist.get(0).reTitle } ></h3></a>
+                <a href="${path }/market/today.do?type=f"><h2 style="font-weight: bold;">${relist.get(0).reIcon }${relist.get(0).reTitle } ></h2></a>
                 <h5>${relist.get(0).reContent }</h5><br>
             </div>
              <div class="row">
@@ -342,9 +342,9 @@
                    
                 </div>
             </div>
-            <br><br><br><br><br><br>
+            <br><br><br><br><br>
             <div style="text-align: center;">
-                <a href="${path }/market/today.do?type=s"><h3 style="font-weight: bold;">${relist.get(1).reIcon }${relist.get(1).reTitle } ></h3></a>
+                <a href="${path }/market/today.do?type=s"><h2 style="font-weight: bold;">${relist.get(1).reIcon }${relist.get(1).reTitle } ></h2></a><br>
                 <h5>${relist.get(1).reContent }</h5><br>
             </div>
              <div class="row">
@@ -363,11 +363,11 @@
                    
                 </div>
             </div>
-            <br><br><br><br><br><br>
+            <br><br><br><br><br>
 
             <!-- 1만원대 추천상품 -->
             <div style="text-align: center;">
-                <a href="${path }/market1/recommendman.do?"><h3 style="font-weight: bold;">1만원대 추천상품 ></h3></a><br>
+                <a href="${path }/market1/recommendman.do?"><h2 style="font-weight: bold;">1만원대 추천상품 ></h2></a><br>
                 <h5>베스트 상품! 둘러보세요!</h5><br>
             </div>
              <div class="row">
@@ -386,7 +386,7 @@
                    
                 </div>
             </div>
-            <br><br><br><br><br><br>
+            <br><br><br>
 
 
             <!-- 매진임박상품 -->
@@ -394,7 +394,7 @@
                <div>
                   <img src="${path }/resources/market/img/soon.gif" style="width:130px;"/>
                </div>
-                <a href="${path }/market1/soldoutsoon.do"><h3 style="font-weight: bold;">매진임박 상품 ! ></h3></a><br>
+                <a href="${path }/market1/soldoutsoon.do"><h2 style="font-weight: bold;">매진임박 상품 ! ></h2></a><br>
             </div>
             
             <div class="row">
