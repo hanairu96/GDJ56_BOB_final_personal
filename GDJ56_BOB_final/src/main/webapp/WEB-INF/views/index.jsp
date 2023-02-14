@@ -105,7 +105,7 @@
                     </div>
                     <div class="col-md-5">
                         <h3 class="text-black con">Bring joy for your table from Market</h3>
-                        <p class="con"><span>당신의 식탁 위에 즐거움을 선사합니다. 저희는 오로지 당신의 식탁을 체울 만한 상품들을 마켓에 가져왔습니다. 특가와 추천상품이 당신을 기다리고있어요!</span></p>
+                        <p class="con"><span>당신의 식탁 위에 즐거움을 선사합니다. 저희는 오로지 당신의 식탁을 체울 만한 상품들을 마켓에 가져왔습니다. 특가와 추천상품이 당신을 기다리고 있어요!</span></p>
                         <button class="btn-main" onclick="location.assign('${path}/market1/matketmain.do')">More About Market</button>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                 <div class="rows">
                     <div class="col-md-5">
                         <h3 class="text-black con">Bring joy for your table from One-Day Class</h3>
-                        <p class="con"><span>코로나 시대에 우리는 어떤 걸 할 수 있을가요? 이제 저희는 바깥에서 무엇을 경험할 수 있나요? 푸드에 관한 원데이 클래스를 통해 색다른 경험과 소중한 레시피를 쌓아보세요.</span></p>
+                        <p class="con"><span>코로나 시대에 우리는 어떤 걸 할 수 있을가요? 이제 저희는 바깥에서 무엇을 경험할 수 있나요? 푸드에 관한 원데이 클래스를 통해 색다른 경험과 소중한 레시피를 얻어보세요.</span></p>
                         <button class="btn-main" onclick="location.assign('${path}/class/main.do')">More About One-Day Class</button>
                     </div>
                     <div>
@@ -135,7 +135,7 @@
                     </div>
                     <div class="col-md-5">
                         <h3 class="text-black con">Bring joy for your table from Subscription</h3>
-                        <p class="con"><span>바쁜 일상 생활, 우리에게 까먹는 것들이 점점 많아집니다. 당신의 식탁에 까먹는 것이 없도록 바랍니다. 구독하기를 통해 당신의 테이블이 가득하기를 바랍니다.</span></p>
+                        <p class="con"><span>바쁜 일상 생활, 우리가 잊어버리는 일들이 점점 많아집니다. 당신의 식탁에 잊는 것이 없길 바랍니다. 구독하기를 통해 당신의 테이블이 가득하기를 기원합니다.</span></p>
                         <button class="btn-main" onclick="location.assign('${path}/subscription/subMain')">More About Subscription</button>
                     </div>
                 </div>
