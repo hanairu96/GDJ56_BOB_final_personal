@@ -322,7 +322,7 @@
 
    <!--여기!!  -->
             <div style="text-align: center;">
-                <a href="${path }/market/today.do"><h3 style="font-weight: bold;">${relist.get(0).reIcon }${relist.get(0).reTitle } ></h3></a>
+                <a href="${path }/market/today.do?type=f"><h3 style="font-weight: bold;">${relist.get(0).reIcon }${relist.get(0).reTitle } ></h3></a>
                 <h5>${relist.get(0).reContent }</h5><br>
             </div>
              <div class="row">
@@ -342,7 +342,7 @@
             </div>
             <br><br><br><br><br><br>
             <div style="text-align: center;">
-                <a href="${path }/market/today.do"><h3 style="font-weight: bold;">${relist.get(1).reIcon }${relist.get(1).reTitle } ></h3></a>
+                <a href="${path }/market/today.do?type=s"><h3 style="font-weight: bold;">${relist.get(1).reIcon }${relist.get(1).reTitle } ></h3></a>
                 <h5>${relist.get(1).reContent }</h5><br>
             </div>
              <div class="row">

@@ -135,16 +135,14 @@
 
 <script>
 const callFunction = (e)=>{
+		console.log(e.target);
 
 	
 		clickTag = $(e.target).parent().attr("id"); //reNo가져옴
-		console.log(clickTag);
 		
 		clickContent = $(e.target).parent().attr("class");
-		console.log(clickContent);
 		
 		clickTitle = $(e.target).parent().children().text();
-		console.log(clickTitle);
 		
 		///////
 		var title = "";
@@ -271,6 +269,28 @@ const addbasketitem=(no,memberId,mainPic,itemName)=>{
       }
    }
 }
+</script>
+<script>
+	$(()=>{
+		
+		//console.log(window.location.search);
+		//console.log(window.location.search.substr(1));
+		let maintype = '${param.type}';
+		console.log(maintype);
+		
+		if (a == 'f') {
+			console.log('dd');
+ 			const targetId=$(".todaybab_title a")[0].id;
+ 			const targetClass=$(".todaybab_title a")[0].className;
+			$(".todaybab_title a").children()[0].click();
+		}
+		if (a == 's') {
+			console.log('dd');
+ 			const targetId=$(".todaybab_title a")[1].id;
+ 			const targetClass=$(".todaybab_title a")[1].className;
+			$(".todaybab_title a").children()[1].click();
+		}
+	})
 </script>
 
 
