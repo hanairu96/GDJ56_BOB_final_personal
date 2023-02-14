@@ -65,16 +65,16 @@
         </nav>
     </div>
 
-    <!-- <div class="col-lg-3" style="margin-top: 25px;">
+    <div class="col-lg-3" style="margin-top: 25px;">
 
             <div class="blog__sidebar__search">
-                <form action="#">
-                    <input type="text" placeholder="What do yo u need?">
+                <form action="${path }/market1/searchNeed.do" type="post">
+                    <input type="text" name="search" placeholder="What do yo u need?">
                     <button type="submit" class="site-btn">SEARCH</button>
                 </form>
             </div>
 
-    </div> -->
+    </div>
 </div>
 <script>
 
