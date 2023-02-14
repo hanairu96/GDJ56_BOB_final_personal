@@ -188,7 +188,7 @@ public class MemberController {
 		//System.out.println(date);
 		
 		//주소를 하나로 합침
-		String address="("+inputAddressPostcode+") "+inputAddressAddress+" "+inputAddressDetailAddress;
+		String address="("+inputAddressPostcode+") "+inputAddressAddress+", "+inputAddressDetailAddress;
 		
 		//Member m에 생년월일과 주소를 set
 		m.setBirth(date);
