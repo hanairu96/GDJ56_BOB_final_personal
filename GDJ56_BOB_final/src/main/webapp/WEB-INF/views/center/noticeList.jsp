@@ -73,12 +73,12 @@
             border-radius: 20px;
             height: 70px;
             text-align: center;
+            color: white;
             font-size: 20px;
-            font-weight: bold;
             line-height: 70px;
             margin: 10px;
             cursor: pointer;
-            background-color: lavender;
+            background-color: #C290DE;
 			box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
 			7px 7px 20px 0px rgba(0,0,0,.1),
 			4px 4px 5px 0px rgba(0,0,0,.1);
@@ -166,11 +166,11 @@
 			line-height: 40px;
 			padding: 0;
 			border: none;
-			background: royalblue;
-			background: linear-gradient(0deg, royalblue 0%, royalblue 100%);
+			background: #7B52AE;
+			background: linear-gradient(0deg, #7B52AE 0%, #7B52AE 100%);
 		}
 		.btnStyle:hover {
-			color: royalblue;
+			color: #7B52AE;
 			background: transparent;
 			box-shadow:none;
 		}
@@ -181,7 +181,7 @@
 			right:0;
 			height:2px;
 			width:0;
-			background: royalblue;
+			background: #7B52AE;
 			box-shadow:
 			-1px -1px 5px 0px #fff,
 			7px 7px 20px 0px #0003,
@@ -198,44 +198,56 @@
 			width:100%;
 			transition:800ms ease all;
 		}
+		.product__pagination a:hover {
+		   background: #7B52AE;
+		   border-color: #7B52AE;
+		   color: #ffffff;
+		}
     </style>
    	<script>
- 	 	//사이드 메뉴 누르면 페이지 이동
-   		$(".side-menu>div:eq(0)").click(e=>{
-   			location.assign("${path}/center/noticeList");
-   		})
-   		$(".side-menu>div:eq(1)").click(e=>{
-   			location.assign("${path}/center/clientQnaList");
-   		})
+		//사이드 메뉴 누르면 페이지 이동
+		$(".side-menu>div:eq(0)").click(e=>{
+			location.assign("${path}/center/noticeList");
+		})
+		$(".side-menu>div:eq(1)").click(e=>{
+			location.assign("${path}/center/clientQnaList");
+		})
+		
+		//처음에는 1페이지 버튼 색이 칠해져 있음
+		$(".product__pagination>*:nth-child(2)").css("background", "#7B52AE").css("color", "#ffffff");
    		
-   		//ajax를 이용한 페이징 처리
-   		//$(".product__pagination>*").click(e=>{
-   		//위의 방식을 쓰면 동적 페이지로 바뀐 후에 안 먹히므로 아래의 방식을 써야 함
-   		$(document).on("click", ".product__pagination>*", function(e){ //페이지 버튼을 누르면
-   			let cPage=0; //페이지 번호
-   			if(e.target.textContent.trim()=='<'){
-   				cPage=Number(document.querySelector(".product__pagination>*:nth-child(2)").textContent)-1;
-   				if(cPage==0) return false; //0페이지면 아무것도 실행되지 않음
-	   			numChange(cPage);
-		   	}else if(e.target.textContent.trim()=='>'){
-	   			cPage=Number(document.querySelector(".product__pagination>*:nth-last-child(2)").textContent)+1;
-	   			if(cPage>${totalPage}) return false; //총 페이지 수보다 큰 수의 페이지는 넘어갈 수 없음
-	   			numChange(cPage);
-		   	}else{
-   				cPage=e.target.textContent; //클릭한 버튼의 숫자
-		   	}
-   			console.log(cPage);
-   			
-   			let option='N'; //검색 항목
-   			let optionVal='N'; //검색 내용
-   			if("${option}"!="") option="${option}";
-   			if("${optionVal}"!="") optionVal="${optionVal}";
-   			
-   			let args=[cPage, option, optionVal];
-   			$.ajax({
-   				url:"${path}/center/noticeListPage",
-   				data:{args:args},
-   				success:data=>{
+		//ajax를 이용한 페이징 처리
+		//$(".product__pagination>*").click(e=>{
+		//위의 방식을 쓰면 동적 페이지로 바뀐 후에 안 먹히므로 아래의 방식을 써야 함
+		$(document).on("click", ".product__pagination>*", function(e){ //페이지 버튼을 누르면
+			let cPage=0; //페이지 번호
+			if(e.target.textContent.trim()=='<'){
+				cPage=Number(document.querySelector(".product__pagination>*:nth-child(2)").textContent)-1;
+				if(cPage==0) return false; //0페이지면 아무것도 실행되지 않음
+				numChange(cPage, 1);
+			}else if(e.target.textContent.trim()=='>'){
+				cPage=Number(document.querySelector(".product__pagination>*:nth-last-child(2)").textContent)+1;
+				if(cPage>${totalPage}) return false; //총 페이지 수보다 큰 수의 페이지는 넘어갈 수 없음
+				numChange(cPage, 2);
+			}else{
+				cPage=e.target.textContent; //클릭한 버튼의 숫자
+			}
+			console.log(cPage);
+			
+			//버튼의 숫자가 현재 페이지면 색깔 칠해짐
+			$(".product__pagination>*").css("background", "initial").css("color", "#b2b2b2"); //버튼 색깔 초기화
+			$(e.target).css("background", "#7B52AE").css("color", "#ffffff"); //클릭한 버튼만 색칠함
+			
+			let option='N'; //검색 항목
+			let optionVal='N'; //검색 내용
+			if("${option}"!="") option="${option}";
+			if("${optionVal}"!="") optionVal="${optionVal}";
+			
+			let args=[cPage, option, optionVal];
+			$.ajax({
+				url:"${path}/center/noticeListPage",
+				data:{args:args},
+				success:data=>{
 					//테이블을 새로 생성
 					let content="<thead>";
 					content+="<tr>";
@@ -245,35 +257,40 @@
 					content+="</tr>";
 					content+="</thead>";
 					content+="<tbody>";
-   					//출력할 내용
-   					data.forEach(function(nt){
-		                content+="<tr class='tr'>";
-		                content+="<td class='nos' style='width: 120px !important;'>"+nt.noticeNo+"</td>";
-		                content+="<td class='titles' style='width: 750px !important;'><a href='${path}/center/noticeView?noticeNo="+nt.noticeNo+"'>"+nt.noticeTitle+"</a></td>";
-		                content+="<td class='dates' style='width: 200px !important;'>"+nt.noticeDate+"</td>";
-		                content+="</tr>";
-   					})
-   					content+="</tbody>";
-   					//생성한 테이블로 교체함
-   					$(".list-table").html(content);
-   				}
-   			})
-   		})
+					//출력할 내용
+					data.forEach(function(nt){
+						content+="<tr class='tr'>";
+						content+="<td class='nos' style='width: 120px !important;'>"+nt.noticeNo+"</td>";
+						content+="<td class='titles' style='width: 750px !important;'><a href='${path}/center/noticeView?noticeNo="+nt.noticeNo+"'>"+nt.noticeTitle+"</a></td>";
+						content+="<td class='dates' style='width: 200px !important;'>"+nt.noticeDate+"</td>";
+						content+="</tr>";
+					})
+					content+="</tbody>";
+					//생성한 테이블로 교체함
+					$(".list-table").html(content);
+				}
+			})
+		})
 		
-   		//'<' 또는 '>'를 누르면 페이지바가 바뀌게 함
-   		const numChange=(cPage)=>{
-   			$.ajax({
-   				url:"${path}/center/numChange",
-   				data:{cPage:cPage},
-   				success:data=>{
-   					$(".page-bar").html(data);
-   				}
-   			})
-   		}
-   		
-   		//글쓰기
-   		const writeBoard=()=>{
-   			location.assign("${path}/center/noticeWrite");	
-   		}
-   	</script>
+		//'<' 또는 '>'를 누르면 페이지바가 바뀌게 함
+		const numChange=(cPage, arrow)=>{
+			$.ajax({
+				url:"${path}/center/numChange",
+				data:{cPage:cPage},
+				success:data=>{
+					$(".page-bar").html(data);
+					if(arrow==1){ //'<' 버튼이면 맨 뒷 번호 버튼이 색칠됨
+						$(".product__pagination>*:nth-child(4)").css("background", "#7B52AE").css("color", "#ffffff");
+					}else if(arrow==2){ //'>' 버튼이면 맨 앞 번호 버튼이 색칠됨
+						$(".product__pagination>*:nth-child(2)").css("background", "#7B52AE").css("color", "#ffffff");
+					}
+				}
+			})
+		}
+		
+		//글쓰기
+		const writeBoard=()=>{
+			location.assign("${path}/center/noticeWrite");	
+		}
+	</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

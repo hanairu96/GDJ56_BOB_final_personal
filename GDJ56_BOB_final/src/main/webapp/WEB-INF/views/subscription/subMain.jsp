@@ -101,7 +101,7 @@
 			color:black;
 		}
 		#red *{
-			color:red !important;
+			color : #2E8B57 !important;
 		}
 		#adList{
 			text-align: center;
@@ -173,11 +173,11 @@
 			line-height: 40px;
 			padding: 0;
 			border: none;
-			background: royalblue;
-			background: linear-gradient(0deg, royalblue 0%, royalblue 100%);
+			background: #2E8B57;
+			background: linear-gradient(0deg, #B1DD9e 0%, #B1DD9e 100%);
 		}
 		.btnStyle:hover {
-			color: royalblue;
+			color: #2E8B57;
 			background: transparent;
 			box-shadow:none;
 		}
@@ -188,7 +188,7 @@
 			right:0;
 			height:2px;
 			width:0;
-			background: royalblue;
+			background: #B1DD9e;
 			box-shadow:
 			-1px -1px 5px 0px #fff,
 			7px 7px 20px 0px #0003,

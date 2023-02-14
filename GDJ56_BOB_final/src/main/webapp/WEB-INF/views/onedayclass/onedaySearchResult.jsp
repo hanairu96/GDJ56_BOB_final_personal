@@ -107,7 +107,7 @@
 	               		<c:forEach var="c" items="${classlist}">
 							<div class="col-lg-4" style="padding: 3%;">
 								<div class="zoom">
-									<a href="${path}/class/odcView.do?no=${c.odcNo }"><img src="${path}/resources/pato/images/class/${c.odcMainPic}" width="350" height="300"></a>
+									<a href="${path}/class/odcView.do?no=${c.odcNo }"><img src="${path}/resources/images/onedayclass/${c.odcMainPic}" width="350" height="300"></a>
 								</div>
 									
 								<div class="category-name" >${c.odcCategoty}</div>
@@ -127,13 +127,13 @@
 			
 		<!-- 페이지바 -->
 	  	<div style="display: flex;margin-left:50%">
-        	${pageBar}
+        	
    		</div>
 		<!-- 글등록,장인등록 -->
 		<div style="display: flex; margin-left:70%">
 			<c:if test="${!empty loginMember }">
-				<c:if test="${fn:contains(loginMember.grade, 'Y')}">
-					<form action="${path }/class/classEnroll.do">
+				<c:if test="${fn:contains(loginMember.grade, 'Y') || loginMember.memberId eq 'admin'}">
+					<form action="${path }/class/classEnroll.do?id="+${loginMember.memberId }>
 						<button type="submit" class="btn3 flex-c-m txt11 trans-0-4">
 						클래스 등록
 						</button>
@@ -329,6 +329,9 @@
 	-ms-transform: scale(1.1);
 	-o-transform: scale(1.1);
 	transform: scale(1.1);
+	}
+	a{
+		text-decoration: none;
 	}
 
 </style>

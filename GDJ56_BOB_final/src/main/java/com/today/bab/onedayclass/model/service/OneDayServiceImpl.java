@@ -77,7 +77,13 @@ public class OneDayServiceImpl implements OneDayService {
 			return dao.updateClass(session,odc);
 		}else{
 			return dao.endclassEnroll(session, odc);
+			
 		}
+	}
+	
+	@Override
+	public OneDayClass selectClassByName(OneDayClass odc) {
+		return dao.selectClassByName(session, odc);
 	}
 
 	@Override
@@ -134,7 +140,8 @@ public class OneDayServiceImpl implements OneDayService {
 		
 		if(r!=null) {
 			return dao.updateReview(session,or);
-		}else {			
+		}else {		
+			dao.insertPoint(session, or.getMemberId());
 			return dao.insertReview(session, or);
 		}
 		
@@ -208,6 +215,11 @@ public class OneDayServiceImpl implements OneDayService {
 	@Override
 	public OneDayClass selectMasterByclassName(String name) {
 		return dao.selectMasterByclassName(session, name);
+	}
+
+	@Override
+	public void deleteClass(int odcNo) {
+		dao.deleteClass(session, odcNo);
 	}
 	
 	

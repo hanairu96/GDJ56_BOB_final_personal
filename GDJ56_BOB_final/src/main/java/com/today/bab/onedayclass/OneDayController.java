@@ -63,8 +63,6 @@ public class OneDayController {
       //System.out.println(classlist);
       
       Object member=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-      
-    
       if(!member.equals("anonymousUser")) {
     	  AdminMaster master=service.selectMastserById(((Member)member).getMemberId());
     	  mv.addObject("master",master);
@@ -87,6 +85,13 @@ public class OneDayController {
 	      param.put("numPerpage", numPerpage);
 	      List<OneDayClass> classlist = service.selectMenuClassList(param);
 	      int totaldata=service.countMenuClassList(type);
+	      
+	      Object member=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	      if(!member.equals("anonymousUser")) {
+	    	  AdminMaster master=service.selectMastserById(((Member)member).getMemberId());
+	    	  mv.addObject("master",master);
+	      }
+	      
 	      mv.addObject("param", param);
 	      mv.addObject("pageBar",oneclassMenuPage.getPage(cPage, numPerpage,totaldata,"/GDJ56_BOB_final/class/menu.do", type));
 	      mv.addObject("classlist",classlist);
@@ -107,6 +112,13 @@ public class OneDayController {
       param.put("numPerpage", numPerpage);
       List<OneDayClass> classlist = service.selectSearchClass(param);
       int totaldata=service.searchCountClasslist(param);
+      
+      Object member=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      if(!member.equals("anonymousUser")) {
+    	  AdminMaster master=service.selectMastserById(((Member)member).getMemberId());
+    	  mv.addObject("master",master);
+      }
+      
       mv.addObject("classlist",classlist);
       mv.addObject("param", param);
       mv.addObject("pageBar",oneclass.getPage(cPage, numPerpage,totaldata,"/GDJ56_BOB_final/class/search.do", searchlist, search));
@@ -189,7 +201,7 @@ public class OneDayController {
    }
    
    @RequestMapping("/class/EndclassEnroll.do")
-   public String EndclassEnroll(Model model,HttpServletRequest request, HttpServletResponse response, MultipartFile odcpic,
+   public ModelAndView EndclassEnroll(ModelAndView model,HttpServletRequest request, HttpServletResponse response, MultipartFile odcpic,String odcpic1,
          String odcNo,String odcClassName, String memberId,String odcCookName, String startDate, String endDate, String odcTime, int odcPeople, String address
          ,int odcPrice,String odcContent, String odcEnrollDate, String odcCategoty, String odcStartTime, String mastserName
    ) throws Exception{
@@ -202,10 +214,14 @@ public class OneDayController {
 	   Date odcEndDate = format2.parse(endDate);
       
 	   //파일
-       response.setCharacterEncoding("utf-8");
+	   String odcMainPic="";
+	   if(odcpic.isEmpty()) {
+		   odcMainPic=odcpic1;
+	   }else {
+	   response.setCharacterEncoding("utf-8");
        response.setContentType("text/html;charset=utf-8");
        String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/onedayclass/");
-
+       System.out.println("받은 파일"+odcpic);
        String orignalFileName=odcpic.getOriginalFilename();
        String ext=orignalFileName.substring(orignalFileName.lastIndexOf("."));
       
@@ -218,11 +234,13 @@ public class OneDayController {
        }catch(IOException e) {
     	   e.printStackTrace();
        }
-       String odcMainPic=renameFile;
+       	odcMainPic=renameFile;
+	   }
       
       //주소분기처리
+	   System.out.println(address);
+	   	String odcAdd=address;
        	String[] add=address.split(",");
-        String odcAdd=address;
         String[] city=add[0].split(" ");
         String odcCity=city[0]+" "+city[1];
       
@@ -235,16 +253,21 @@ public class OneDayController {
       int result=service.endclassEnroll(odc);
       
       //메세지 출력
-      if(result<0) {
-         model.addAttribute("msg","장인신청이 완료됐습니다");
-         model.addAttribute("loc","/class/masterEndEnroll.do");
-         return "common/msg";
+      if(result>0) {
+         model.addObject("msg","클래스 등록 성공!");
+         if(odc.getOdcNo()==null) {
+         OneDayClass o = service.selectClassByName(odc);
+         model.addObject("loc","/class/odcView.do?no="+o.getOdcNo());
+         }else {
+        	 model.addObject("loc","/class/odcView.do?no="+odc.getOdcNo());
+         }
+         model.setViewName("common/msg");
       }else {
-         model.addAttribute("msg","장인신청 실패!");
-         model.addAttribute("loc","/class/main.do");
-         return "common/msg";
+         model.addObject("msg","클래스 등록 실패!");
+         model.addObject("loc","/class/main.do");
+         model.setViewName("common/msg");
       }
-    
+      return model;
    }
    
    @RequestMapping("/class/odcView.do")
@@ -378,7 +401,7 @@ public class OneDayController {
    		response.setContentType("text/html;charset=utf-8");
 	 	String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/onedayclass/");
 
-	 	if(orePic1!=null) {
+	 	if(!orePic1.isEmpty()) {
 	 	String orignalFileName=orePic1.getOriginalFilename();
 	 	String ext=orignalFileName.substring(orignalFileName.lastIndexOf("."));
 	 	SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
@@ -404,9 +427,8 @@ public class OneDayController {
 	 	int result = service.insertReview(or);
 	 	
 	 	if(result>0) {
-	 		service.insertPoint(or.getMemberId());
 			  mv.addObject("msg","리뷰작성 성공:)");
-		      mv.setViewName("common/close");
+		      mv.setViewName("onedayclass/close");
 		  }else {
 			  mv.addObject("msg", "리뷰작성 실패:(");
 			  mv.setViewName("common/close");
@@ -465,7 +487,13 @@ public class OneDayController {
 		
 		String startDate = simpleDateFormat.format(odc.getOdcStartDate()); 
 	  	String endDate = simpleDateFormat.format(odc.getOdcEndDate()); 
-		 
+		
+	  	String[] address = odc.getOdcAdd().split(",");
+	  	String add1 = address[0];
+	  	String add2 = address[1];
+	  	
+	  	mv.addObject("add1",add1);
+	  	mv.addObject("add2",add2);
 	  	mv.addObject("startDate",startDate);
 	  	mv.addObject("endDate",endDate);
 		mv.addObject("odc",odc);
@@ -540,7 +568,11 @@ public class OneDayController {
   		return am;
   	}
   	
-  	
+  	@RequestMapping("/class/deleteClass.do")
+  	public void deleteClass(int odcNo) {
+  		System.out.println(odcNo);
+  		service.deleteClass(odcNo);
+  	}
   	
   	
   	

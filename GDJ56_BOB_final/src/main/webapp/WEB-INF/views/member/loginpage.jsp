@@ -5,22 +5,33 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value="MainPage"/>
 </jsp:include>
-	<section>
-        <div class="wrapper">
-            <div id="login">
-                <br>
-                <img src="${path}/resources/images/logo-icon.png" style="width: 120px;height: 100px;">
-                <form id="loginForm" action="${path}/login" method="post">
-                    <input class="loginform" name="id" type="text" id="logInId" placeholder="아이디를 입력해주세요." style="width: 200px;"><br>
-                    <input class="loginform" name="password" type="password" id="logInPwd" placeholder="비밀번호를 입력해주세요." style="width: 200px;"><br>
-                    <span id="pwdCheck"><small></small></span>
-                    <button type="submit" id="loginBtn" class="customBtn btnStyle">로그인</button>
-                </form>
-                <a href="${path}/member/enrollAgree">회원가입</a>&nbsp;
-                <a href="${path}/member/searchIdPwd">아이디/비밀번호 찾기</a>
-            </div>
-        </div>
-    </section>
+	<!-- 로그인한 사용자는 로그인 페이지 접근 불가 -->
+	<c:if test="${not empty loginMember}">
+		<script>
+			console.log("실패");
+			alert("잘못된 접근입니다.");
+			location.assign("${path}");
+		</script>
+	</c:if>
+	<!-- 로그인 안 해야만 로그인 페이지 접근 가능 -->
+	<c:if test="${empty loginMember}">
+		<section>
+	        <div class="wrapper">
+	            <div id="login">
+	                <br>
+	                <img src="${path}/resources/images/logo-icon.png" style="width: 120px;height: 100px;">
+	                <form id="loginForm" action="${path}/login" method="post">
+	                    <input class="loginform" name="id" type="text" id="logInId" placeholder="아이디를 입력해주세요." style="width: 200px;"><br>
+	                    <input class="loginform" name="password" type="password" id="logInPwd" placeholder="비밀번호를 입력해주세요." style="width: 200px;"><br>
+	                    <span id="pwdCheck"><small></small></span>
+	                    <button type="submit" id="loginBtn" class="customBtn btnStyle">로그인</button>
+	                </form>
+	                <a href="${path}/member/enrollAgree">회원가입</a>&nbsp;
+	                <a href="${path}/member/searchIdPwd">아이디/비밀번호 찾기</a>
+	            </div>
+	        </div>
+	    </section>
+	</c:if>
     <style>
         .wrapper{
             margin: 50px;
@@ -34,7 +45,7 @@
             color: black;
             text-decoration: none;
         }
-        a:hover{
+        #login>a:hover{
             color: gray;
             font-style: italic;
             transition: 0.3s;
@@ -66,11 +77,11 @@
             line-height: 30px;
             padding: 0;
             border: none;
-            background: royalblue;
-            background: linear-gradient(0deg, royalblue 0%, royalblue 100%);
+            background: #7B52AE;
+            background: linear-gradient(0deg, #7B52AE 0%, #7B52AE 100%);
         }
         .btnStyle:hover {
-            color: royalblue;
+            color: #7B52AE;
             background: transparent;
             box-shadow:none;
         }
@@ -81,7 +92,7 @@
             right:0;
             height:2px;
             width:0;
-            background: royalblue;
+            background: #7B52AE;
             box-shadow:
             -1px -1px 5px 0px #fff,
             7px 7px 20px 0px #0003,
@@ -99,4 +110,16 @@
             transition:800ms ease all;
         }
     </style>
+    <script>
+    	//이전 주소
+		let refer=document.referrer;
+    	//이전 주소를 서버에 보내 저장
+		$.ajax({
+			url:"${path}/member/referrerSet",
+			data:{refer:refer},
+			success:data=>{
+				console.log("이전 주소: "+refer);
+			}
+		})
+    </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

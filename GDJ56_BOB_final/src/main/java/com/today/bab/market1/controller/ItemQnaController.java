@@ -112,6 +112,7 @@ public class ItemQnaController {
 	    	m.addAttribute("qna",service.qnaCheckbox(Map.of("itemNo",itemNo,"data",data)));
 	    }
 	    
+	    m.addAttribute("itemNo",itemNo);
 		m.addAttribute("an",service.selectIqAnswer(itemNo));
 		return "market1/qnaCheckBox";
 	}

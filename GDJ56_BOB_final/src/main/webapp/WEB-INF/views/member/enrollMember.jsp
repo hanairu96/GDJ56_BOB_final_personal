@@ -237,11 +237,11 @@
             line-height: 40px;
             padding: 0;
             border: none;
-            background: royalblue;
-            background: linear-gradient(0deg, royalblue 0%, royalblue 100%);
+            background: #7B52AE;
+            background: linear-gradient(0deg, #7B52AE 0%, #7B52AE 100%);
         }
         .btnStyle:hover {
-            color: royalblue;
+            color: #7B52AE;
             background: transparent;
             box-shadow:none;
         }
@@ -252,7 +252,7 @@
             right:0;
             height:2px;
             width:0;
-            background: royalblue;
+            background: #7B52AE;
             box-shadow:
             -1px -1px 5px 0px #fff,
             7px 7px 20px 0px #0003,
@@ -539,7 +539,7 @@
 			}
 			//이메일 입력
 			const inputEmail=$("#inputEmail").val().trim();
-			let emailReg=/^[a-zA-Z][0-9a-zA-Z]*@[a-zA-Z]+.[a-zA-Z]{2,3}$/i;
+			let emailReg=/^[0-9a-zA-Z_]+@[a-zA-Z]+.[a-zA-Z]{2,3}$/i;
 			if(inputEmail==""){
 				alert("이메일을 적어주세요.");
 				$("span#checkEmail>small").text("이메일을 입력해주세요.").css("color","red");

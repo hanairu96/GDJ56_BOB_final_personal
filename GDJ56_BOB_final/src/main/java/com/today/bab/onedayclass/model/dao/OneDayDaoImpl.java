@@ -242,6 +242,22 @@ public class OneDayDaoImpl implements OneDayDao {
 	public OneDayClass selectMasterByclassName(SqlSessionTemplate session, String name) {
 		return session.selectOne("onedayclass.selectMasterByclassName", name);
 	}
+
+
+
+	@Override
+	public void deleteClass(SqlSessionTemplate session, int odcNo) {
+		session.delete("onedayclass.deleteClass", odcNo);
+	}
+
+
+
+	@Override
+	public OneDayClass selectClassByName(SqlSessionTemplate session, OneDayClass odc) {
+		return session.selectOne("onedayclass.selectClassByName", odc);
+	}
+	
+	
 	
 	
 	

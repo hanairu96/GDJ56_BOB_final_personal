@@ -61,7 +61,7 @@
 				<div style="display: flex; height:40px;margin-bottom: 7px;">
 				    <img src="${path }/resources/images/logo-icon.png" alt="" style="height:40px;width: 40px;border-radius: 50%;">
 				    <div>
-				    	<h5 style="margin-left:10px; margin-top: 10px;">${q.memberId }</h5>
+				    	<h5 style="margin-left:10px; margin-top: 10px;">${q.nickname }(${q.memberId })</h5>
 				    </div>
 				    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
 				</div>

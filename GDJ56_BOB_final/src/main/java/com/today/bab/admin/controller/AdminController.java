@@ -55,7 +55,6 @@ public class AdminController {
 		mv.addObject("num6",atp.get(5));
 		mv.addObject("num7",atp.get(6));
 		
-		mv.addObject("sales",atd.get(1).getTotal());
 		mv.addObject("profit",atd.get(0).getTotal());
 		mv.addObject("sales",atd.get(1).getTotal());
 		mv.addObject("members",atd.get(2).getTotal());
@@ -139,7 +138,6 @@ public class AdminController {
 			@RequestParam(value="numPerpage", defaultValue="5") int numPerpage) {
 		
 		int ingData=service.selectMasterIngListCount(); //심사필요한사람
-		
 		
 		mv.addObject("list",service.adminMaster(Map.of("cPage",cPage,"numPerpage",numPerpage)));
 		//페이징처리하기

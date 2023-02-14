@@ -445,6 +445,7 @@ public class MypageController {
 	   mv.addObject("sellItemNoCount",mapper.writeValueAsString(sellItemNoCount));
 	   mv.addObject("pointAll",mypageService.selectpointAll(loginMember.getMemberId()));
 	   mv.addObject("saleInfo",mapper.writeValueAsString(saleInfo));
+	   mv.addObject("memberEmail",loginMember.getEmail());
 	    mv.setViewName("mypage/order");
 	    return mv;
 	}
@@ -572,7 +573,7 @@ public class MypageController {
 	    
 	    //System.out.println("count"+totalData);
 	    
-	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "onedayclass.do"));
+	    mv.addObject("pageBar",MypagePageBar.getPage(cPage, numPerpage, totalData, "master"));
 	    
 	    ArrayList memberInfoBar = new ArrayList();
 	    memberInfoBar.add(m.getMemberId());

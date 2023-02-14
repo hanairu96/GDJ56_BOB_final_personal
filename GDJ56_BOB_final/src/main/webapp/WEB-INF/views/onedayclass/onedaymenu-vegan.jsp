@@ -109,11 +109,15 @@
 				</c:choose>
 			</div>
 	    </div>
+	    <!-- 페이지바 -->
+	  	<div style="display: flex;margin-left:50%">
+        	${pageBar}
+   		</div>
 		<!-- 글등록,장인등록 -->
 		<div style="display: flex; margin-left:70%">
 			<c:if test="${!empty loginMember }">
-				<c:if test="${fn:contains(loginMember.grade, 'Y')}">
-					<form action="${path }/class/classEnroll.do">
+				<c:if test="${fn:contains(loginMember.grade, 'Y') || loginMember.memberId eq 'admin'}">
+					<form action="${path }/class/classEnroll.do?id="+${loginMember.memberId }>
 						<button type="submit" class="btn3 flex-c-m txt11 trans-0-4">
 						클래스 등록
 						</button>
@@ -310,6 +314,9 @@
 	-ms-transform: scale(1.1);
 	-o-transform: scale(1.1);
 	transform: scale(1.1);
+	}
+	a{
+		text-decoration: none;
 	}
 
 </style>
