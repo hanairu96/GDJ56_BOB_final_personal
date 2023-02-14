@@ -110,7 +110,7 @@
             line-height: 70px;
             margin: 10px;
             cursor: pointer;
-            background-color: lavender;
+            background-color: #C290DE;
 			box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
 			7px 7px 20px 0px rgba(0,0,0,.1),
 			4px 4px 5px 0px rgba(0,0,0,.1);
@@ -216,11 +216,11 @@
 			line-height: 40px;
 			padding: 0;
 			border: none;
-			background: royalblue;
-			background: linear-gradient(0deg, royalblue 0%, royalblue 100%);
+			background: #7B52AE;
+			background: linear-gradient(0deg, #7B52AE 0%, #7B52AE 100%);
 		}
 		.btnStyle:hover {
-			color: royalblue;
+			color: #7B52AE;
 			background: transparent;
 			box-shadow:none;
 		}
@@ -231,7 +231,7 @@
 			right:0;
 			height:2px;
 			width:0;
-			background: royalblue;
+			background: #7B52AE;
 			box-shadow:
 			-1px -1px 5px 0px #fff,
 			7px 7px 20px 0px #0003,
@@ -249,8 +249,8 @@
 			transition:800ms ease all;
 		}
 		.product__pagination a:hover {
-			background: #7fad39;
-			border-color: #7fad39;
+			background: #7B52AE;
+			border-color: #7B52AE;
 			color: #ffffff;
 		}
 	</style>
@@ -275,7 +275,7 @@
 		})
 		
 		//처음에는 1페이지 버튼 색이 칠해져 있음
-		$(".product__pagination>*:nth-child(2)").css("background", "#7fad39").css("color", "#ffffff");
+		$(".product__pagination>*:nth-child(2)").css("background", "#7B52AE").css("color", "#ffffff");
 		
 		//ajax를 이용한 페이징 처리
 		$(document).on("click", ".product__pagination>*", function(e){ //페이지 버튼을 누르면
@@ -295,7 +295,7 @@
 			
 			//버튼의 숫자가 현재 페이지면 색깔 칠해짐
 			$(".product__pagination>*").css("background", "initial").css("color", "#b2b2b2"); //버튼 색깔 초기화
-			$(e.target).css("background", "#7fad39").css("color", "#ffffff"); //클릭한 버튼만 색칠함
+			$(e.target).css("background", "#7B52AE").css("color", "#ffffff"); //클릭한 버튼만 색칠함
 			
 			let option='N'; //검색 항목
 			let optionVal='N'; //검색 내용
@@ -360,9 +360,9 @@
 				success:data=>{
 					$(".page-bar").html(data);
 					if(arrow==1){ //'<' 버튼이면 맨 뒷 번호 버튼이 색칠됨
-						$(".product__pagination>*:nth-child(4)").css("background", "#7fad39").css("color", "#ffffff");
+						$(".product__pagination>*:nth-child(4)").css("background", "#7B52AE").css("color", "#ffffff");
 					}else if(arrow==2){ //'>' 버튼이면 맨 앞 번호 버튼이 색칠됨
-						$(".product__pagination>*:nth-child(2)").css("background", "#7fad39").css("color", "#ffffff");
+						$(".product__pagination>*:nth-child(2)").css("background", "#7B52AE").css("color", "#ffffff");
 					}
 				}
 			})
