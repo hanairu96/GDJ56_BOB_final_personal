@@ -80,11 +80,11 @@
             line-height: 40px;
             padding: 0;
             border: none;
-            background: royalblue;
-            background: linear-gradient(0deg, royalblue 0%, royalblue 100%);
+            background: #7B52AE;
+            background: linear-gradient(0deg, #7B52AE 0%, #7B52AE 100%);
         }
         .btnStyle:hover {
-            color: royalblue;
+            color: #7B52AE;
             background: transparent;
             box-shadow:none;
         }
@@ -95,7 +95,7 @@
             right:0;
             height:2px;
             width:0;
-            background: royalblue;
+            background: #7B52AE;
             box-shadow:
             -1px -1px 5px 0px #fff,
             7px 7px 20px 0px #0003,
