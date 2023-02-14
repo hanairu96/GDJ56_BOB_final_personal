@@ -71,7 +71,7 @@
 							<div style="display: flex; margin-top: 1%; justify-content: space-between; align-items: center;">
 								<div style="display: flex;">
 									<c:if test="${i.itemDiscount eq 'Y'}">
-										<div class="top-left"><img src="${path }/resources/images/salee.gif" width="100px" height="100px"/></div>
+										<div class="top-left"><img src="${path }/resources/images/iconsale.gif" width="100px" height="100px"/></div>
 									</c:if>
 									<img src="https://img.icons8.com/ios/512/money-bag.png" width="20" height="20">
 									<h5><fmt:formatNumber value="${i.itemPrice }" pattern="###,###,###"/></h5><h5>원</h5>
