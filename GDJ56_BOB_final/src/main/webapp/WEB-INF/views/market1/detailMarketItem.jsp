@@ -226,7 +226,7 @@
 	 					if(${loginMember==null}){
 	 						alert("로그인 후 사용가능합니다.");
 						}else if($("#testtesttest").val()==0){
-							alert("0개 이상 선택해주세요");
+							alert("1개 이상 선택해주세요");
 						}else{
 						var test=$("#testtesttest").val();
 						const item=arr.filter(e=>e.itemNo==no);

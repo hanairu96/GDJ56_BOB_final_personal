@@ -242,7 +242,7 @@
 		    				for(let i=0;i<data.length;i++){
 		    					html+="<div id='answerAdnim'>";
 					            html+="<textarea name='IqaContent' id='IqaContent' cols='100' rows='2'>"+data[i].IqaContent+"</textarea>";
-						        html+="</div>";
+						        html+="</div>";...
 		    				}
 		    			}
 		    			$("#answerAdnim").html(html);
