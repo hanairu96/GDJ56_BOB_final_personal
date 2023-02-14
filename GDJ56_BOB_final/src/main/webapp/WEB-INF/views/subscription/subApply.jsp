@@ -294,7 +294,7 @@
 			console.log(choice);
 			Swal.fire({
 				title: "정기 구독",
-				text: choice+"를 정말로 정기 결제 하시겠습니까?",
+				text: choice+(choice.indexOf('란')==-1?"를":"을")+" 정말로 정기 결제 하시겠습니까?", //'을/를' 구별
 				icon: 'question',
 				showCancelButton: true,
 				confirmButtonColor: 'mediumpurple',	
