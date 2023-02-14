@@ -15,7 +15,7 @@
 		    <div style="display: flex;">
 		        <div class="col-9" style="display:flex;margin:10px;">
 		        	 <img src="${path }/resources/images/logo-icon.png" alt="" style="height:40px;width: 40px;border-radius: 50%;">
-		            <h4 style="margin-left :10px;">${re.memberId }</h4>
+		            <h4 style="margin-left :10px;">${re.nickname}(${re.memberId })</h4>
 		        </div>
 		    </div>
 		    <div class="product__detailss__rating">

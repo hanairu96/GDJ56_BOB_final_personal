@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style>
@@ -13,7 +14,7 @@
 		<div style="display: flex; height:40px;margin-bottom: 7px;">
 		    <img src="${path }/resources/images/logo-icon.png" alt="" style="height:40px;width: 40px;border-radius: 50%;">
 		    <div>
-		    	<h5 style="margin-left:10px; margin-top: 10px;">${q.memberId }</h5>
+		    	<h5 style="margin-left:10px; margin-top: 10px;">${q.nickname }(${q.memberId })</h5>
 		    </div>
 		    <span style="margin-left:10px;color:rgb(207, 207, 207);margin-top: 8px;"><fmt:formatDate type="date" value="${q.iqDate }"/></span>
 		</div>
@@ -48,7 +49,7 @@
 				
 		    </div>
 		    <div>
-		    	<c:if test="${q.memberId eq loginMember.memberId }">
+		    	<c:if test="${q.memberId eq loginMember.memberId or loginMember.memberId eq 'admin'}">
 			        <button id="" class="primary-btn" type="button" style="background-color:magenta;border: none;color: white;margin-left:10px;"
 			         onclick="deleteQna(${q.iqNo},${itemNo });">삭제</button>
 		    	</c:if>
@@ -99,7 +100,7 @@
 									${aa.iqaContent }
 						        </div>
 						        <div>
-						        <c:if test="${loginMember eq 'admin' }">
+						        <c:if test="${loginMember.memberId eq 'admin' }">
 					       			<button id="" class="primary-btn" type="button" 
 					       			style="background-color:magenta;border: none;color: white;margin-left:50px;"
 					       			 onclick="deleteAnswer(${aa.iqaNo },${itemNo });">삭제</button>
@@ -122,3 +123,22 @@
 			</div>
 		</div>
 	</c:forEach>
+	<script>
+		//문의 답변css
+	 	function togglererere(e){
+	 		$(e.target).parent().parent().next().next().find("div.ttt").slideToggle(1000);
+	 	} 
+	    //문의글 삭제
+	    const deleteQna=(no,itemNo)=>{
+	    	location.assign('${path}/itemQna/delectQna.do?itemNo='+itemNo+'&iqNo='+no);
+	    }
+	    
+	    //질문 답변 삭제하기
+	    const deleteAnswer=(iqaNo,itemNo)=>{
+	    	location.assign('${path}/itemQna/deleteAnswer.do?itemNo='+itemNo+'&iqaNo='+iqaNo);
+	    }
+	
+	
+	
+	
+	</script>
