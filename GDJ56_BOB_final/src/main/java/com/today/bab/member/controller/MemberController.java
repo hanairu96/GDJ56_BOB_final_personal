@@ -316,7 +316,7 @@ public class MemberController {
 		//System.out.println("나온 쿠키: "+refer);
 		
 		//로그인 실패 후 로그인 했을 때는 전 주소가 로그인 매핑주소이므로 메인 화면으로 리다이렉트
-		if(refer.equals("http://localhost:9090/bab/login")) {
+		if(refer.contains("/bab/login")||refer.contains("/GDJ56_BOB_final/login")) {
 			return "redirect:/";
 		//이전 주소가 쿠키로 저장돼있을 경우 그 주소로 리다이렉트
 		}else{
