@@ -121,18 +121,20 @@
 									<h3>${odc.odcClassName }</h3>
 									<c:set var="odcmasterId" value="${odc.memberId }"/> 
 									<c:set var="m" value="${loginMember.memberId }"/> 
-									<c:if test="${m eq odcmasterId or m eq 'admin'}">
 										<div style="margin-left:70%">
+									<c:if test="${m eq odcmasterId}">
 											<a href="${path}/class/editClass.do?no=${odc.odcNo }">
 												<img src="${path }/resources/images/onedayclass/edit.png" width=30 height=30>
 												<b style="color:black">글 수정하기</b>
 											</a>
+									</c:if>
+									<c:if test="${m eq odcmasterId or m eq 'admin'}">
 											<a href='javascript:void(0);' onclick='deleteClass();'>
 												<img src="${path }/resources/images/onedayclass/delete.png" width=30 height=30>
 												<b style="color:black">글 삭제하기</b>
 											</a>
-										</div>
 									</c:if>
+										</div>
 									
 									<script type="text/javascript">
 										function deleteClass() {
@@ -429,7 +431,7 @@
 							html+="<br>";
 							html+="<div class='col-md-12' style='display: flex;'>";
 							html+="<span>";
-							html+="<span>"+data[i].memberId+"</span>";
+							html+="<span>"+data[i].nickname+"("+data[i].memberId+")</span>";
 							html+="<span>│"+data[i].oreDate+"</span>";
 							html+="<span style='cursor: pointer;'>│수정</span>";
 							html+="<input type='hidden' value='"+data[i].oqno+"'>";
@@ -490,7 +492,7 @@
 		                   if(data[i].oqSecretYn=='Y'){
 			                	html+="<img src='${path}/resources/images/onedayclass/secret.png' width='27' height='27'>";
 			                   }
-		                   html+="<span>"+data[i].memberId+"</span>";
+		                   html+="<span>"+data[i].nickname+"("+data[i].memberId+")</span>";
 		                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
 		                   html+="<span style='cursor: pointer;'>│수정</span>";
 		                   html+="<input type='hidden' value='"+data[i].oqno+"'>";
@@ -574,7 +576,7 @@
 		                   if(data[i].oqSecretYn=='Y'){
 		                	html+="<img src='${path}/resources/images/onedayclass/secret.png' width='27' height='27'>";
 		                   }
-		                   html+="<span>"+data[i].memberId+"</span>";
+		                   html+="<span>"+data[i].nickname+"("+data[i].memberId+")</span>";
 		                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
 		                   html+="<span style='cursor: pointer;' onclick='goCommentEdit(event);'>│수정</span>";
 		                   html+="<input type='hidden' value='"+data[i].oqno+"'>";
@@ -835,7 +837,7 @@
 						html+="<br>";
 						html+="<div class='col-md-12' style='display: flex;'>";
 						html+="<span>";
-						html+="<span>"+data[i].memberId+"</span>";
+						html+="<span>"+data[i].nickname+"("+data[i].memberId+")</span>";
 						html+="<span>│"+data[i].oreDate+"</span>";
 						html+="<input type='hidden' value="+data[i].odcreNo+" id='odcreNo'>"
 						if(memberId==data[i].memberId||memberId=='admin'){
@@ -947,7 +949,7 @@
 			                   html+="<span>";
 			                   html+="<img src='${path}/resources/images/onedayclass/secret.png' width='27' height='27'>";
 			                   html+="<span>│</span>";
-			                   html+="<span>"+data[i].memberId+"</span>";
+			                   html+="<span>"+data[i].nickname+"("+data[i].memberId+")</span>";
 			                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
 			                   if(memberId==data[i].memberId){
 			                   html+="<span style='cursor: pointer;'>│수정</span>";
@@ -1008,7 +1010,7 @@
 	                   html+="<li>";
 	                   html+="<div class='bo-rad-10 sizefull txt10 p-l-20'>";
 	                   html+="<span>";
-	                   html+="<span>"+data[i].memberId+"</span>";
+	                   html+="<span>"+data[i].nickname+"("+data[i].memberId+")</span>";
 	                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
 	                   if(memberId==data[i].memberId){
 		                   html+="<span style='cursor: pointer;' onclick='goCommentEdit(event);'>│수정</span>";
