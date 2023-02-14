@@ -73,6 +73,9 @@
 			#infos>ul{
 				width: 450px;
 			}
+			#infos *{
+				font-weight: lighter !important;
+			}
 			footer li{
 				list-style: none;
 			}
