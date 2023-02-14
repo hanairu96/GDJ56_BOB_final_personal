@@ -73,8 +73,8 @@
             border-radius: 20px;
             height: 70px;
             text-align: center;
+            color: white;
             font-size: 20px;
-            font-weight: bold;
             line-height: 70px;
             margin: 10px;
             cursor: pointer;
