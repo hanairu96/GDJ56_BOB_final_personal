@@ -315,11 +315,12 @@ public class MemberController {
 		}
 		//System.out.println("나온 쿠키: "+refer);
 		
-		//이전 주소가 쿠키로 저장돼있을 경우 그 주소로 리다이렉트
-		if(refer!=null) {
-			return "redirect:"+refer;
-		}else {
+		//로그인 실패 후 로그인 했을 때는 전 주소가 로그인 매핑주소이므로 메인 화면으로 리다이렉트
+		if(refer.equals("http://localhost:9090/bab/login")) {
 			return "redirect:/";
+		//이전 주소가 쿠키로 저장돼있을 경우 그 주소로 리다이렉트
+		}else{
+			return "redirect:"+refer;
 		}
 		
 	}
