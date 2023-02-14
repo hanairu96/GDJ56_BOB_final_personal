@@ -34,7 +34,7 @@
     
 </head>
 <body>
-<div class="marketHeader" style="width: 89%; display: flex; margin-left: 100px;">
+<div class="marketHeader">
     <!-- /.카테고리 -->
     <!-- <section class="hero hero-normal col-lg-3" style="margin-top: 25px;">
         <div class="hero__categories">
@@ -54,7 +54,7 @@
         </div>
     </section> -->
     <!-- 카테고리./ -->
-    <div class="col-lg-9">
+    <div style="display: flex;justify-content: center;">
         <nav class="header__menu" id="header__menu" style="margin-top: 5px; display: flex;"><!-- 부트입히고 display빼기 -->
             <ul>
                 <li class="menu"><a href="${path }/market1/marketgtg.do" onclick="fn_menu();">카테고리     </a></li><!--체크시class="active"적용-->
@@ -65,7 +65,7 @@
         </nav>
     </div>
 
-    <div class="col-lg-3" style="margin-top: 25px;">
+    <!-- <div class="col-lg-3" style="margin-top: 25px;">
 
             <div class="blog__sidebar__search">
                 <form action="#">
@@ -74,7 +74,7 @@
                 </form>
             </div>
 
-    </div>
+    </div> -->
 </div>
 <script>
 
