@@ -494,9 +494,10 @@
 			                   }
 		                   html+="<span>"+data[i].nickname+"("+data[i].memberId+")</span>";
 		                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
-		                   html+="<span style='cursor: pointer;'>│수정</span>";
 		                   html+="<input type='hidden' value='"+data[i].oqno+"'>";
+		                   if(memberId=='admin'){
 		                   html+="<span style='cursor: pointer;' onclick='goDeleteComment(event);'>│삭제</span>";
+		                   }
 		                   html+="</span>";
 		                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
 		                   html+="<p style='padding:auto;'>"+data[i].oqContent+"</p>";
@@ -952,7 +953,7 @@
 			                   html+="<span>"+data[i].nickname+"("+data[i].memberId+")</span>";
 			                   html+="<span>│"+data[i].oqEnrollDate+"</span>";
 			                   if(memberId==data[i].memberId){
-			                   html+="<span style='cursor: pointer;'>│수정</span>";
+			                   html+="<span style='cursor: pointer;' onclick='goCommentEdit(event);'>│수정</span>";
 			                   html+="<input type='hidden' value='"+data[i].oqno+"'>";
 			                   html+="<span style='cursor: pointer;' onclick='goDeleteComment(event);'>│삭제</span>";
 			                   }
@@ -964,6 +965,15 @@
 			                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
 			                   html+="<span style='padding:auto;'>"+data[i].oqContent+"</span>";
 			                   html+="</div>";
+			                   //댓글수정
+			                   html+="<div style='display:none' id='commentEdit'>";
+			                   html+="<div class='size12 bo-rad-10 m-b-23' style='border: solid gray 1px; margin-top: 1%;'>";
+			                   html+="<input class='bo-rad-10 sizefull txt10 p-l-20' type='text' value='"+data[i].oqContent+"'>";
+			                   html+="<input type='hidden' value='"+data[i].oqno+"'>"
+			                   html+="</div>";
+			                   html+="<button type='button' class='btn3 flex-c-m' style='margin-bottom:1%;' onclick='endCommentEdit(event)'>수정완료</button>";
+			                   html+="</div>";
+			                   //
 			                   html+="<div class='commentView'>";
 			                   html+="<input type='hidden' value="+data[i].oqno+" id='oqNo'>"
 			                   html+="<span class='vieCommentList' style='cursor: pointer;' onclick='goView(event);'>댓글보기</span>";
