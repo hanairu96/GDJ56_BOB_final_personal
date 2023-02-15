@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.today.bab.admin.model.vo.ClientQNA;
 import com.today.bab.center.model.dao.CenterDao;
@@ -89,8 +90,19 @@ public class CenterServiceImpl implements CenterService {
 	}
 
 	@Override
-	public int answerDelete(int no) {
-		return dao.answerDelete(session, no);
+	@Transactional(rollbackFor = {Exception.class})
+	public int answerDelete(int no) throws RuntimeException{
+		int result=0;
+		try {
+			int delResult=dao.answerDelete(session, no);
+			int cheResult=dao.updateCheck2(session, no);
+			if(delResult>0&&cheResult>0) {
+				result=1;
+			}
+		}catch(RuntimeException e) {
+			throw new RuntimeException();
+		}
+		return result;
 	}
 
 	@Override
