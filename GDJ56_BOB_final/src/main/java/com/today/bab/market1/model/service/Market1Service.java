@@ -46,5 +46,7 @@ public interface Market1Service {
 	//1만원추천
 	List<SellItem> recommendman(Map<String, Integer> param);
 	
+	//마켓 상품 검색
+	List<SellItem> searchNeed(String search);
 	
 }

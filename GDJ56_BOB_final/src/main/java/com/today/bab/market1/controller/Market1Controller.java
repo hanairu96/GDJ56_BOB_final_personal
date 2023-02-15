@@ -641,5 +641,22 @@ public class Market1Controller {
 		return "market1/resultGtgselect";
 	}
 	
+	//마켓 헤더 상품 검색
+	@RequestMapping("/searchNeed.do")
+	public ModelAndView searchNeed(ModelAndView mv, String search,HttpServletRequest request) {
+		mv.addObject("i",service.searchNeed(search));
+		
+		
+		HttpSession session = request.getSession();
+		Member  loginMember= (Member) session.getAttribute("loginMember");
+		if(loginMember!=null) {
+			List<MarketBasket> blist=bservice.selectBasket(loginMember.getMemberId());
+			mv.addObject("basket",blist);
+		}
+		mv.addObject("content","상품검색결과");
+		mv.setViewName("market1/mainChoiceList");
+		return mv;
+	}
+	
 	
 }

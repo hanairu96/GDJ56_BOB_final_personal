@@ -34,7 +34,7 @@
     
 </head>
 <body>
-<div class="marketHeader">
+<div class="marketHeader" style="display:flex;">
     <!-- /.카테고리 -->
     <!-- <section class="hero hero-normal col-lg-3" style="margin-top: 25px;">
         <div class="hero__categories">
@@ -54,8 +54,8 @@
         </div>
     </section> -->
     <!-- 카테고리./ -->
-    <div style="display: flex;justify-content: center;">
-        <nav class="header__menu" id="header__menu" style="margin-top: 5px; display: flex;"><!-- 부트입히고 display빼기 -->
+    <div style="margin-left:10%;">
+        <nav class="header__menu" id="header__menu"><!-- 부트입히고 display빼기 -->
             <ul>
                 <li class="menu"><a href="${path }/market1/marketgtg.do" onclick="fn_menu();">카테고리     </a></li><!--체크시class="active"적용-->
                 <li class="menu"><a href="${path }/market/best.do" onclick="fn_menu();">베스트     </a></li><!--체크시class="active"적용-->
@@ -65,16 +65,14 @@
         </nav>
     </div>
 
-    <!-- <div class="col-lg-3" style="margin-top: 25px;">
-
-            <div class="blog__sidebar__search">
-                <form action="#">
-                    <input type="text" placeholder="What do yo u need?">
-                    <button type="submit" class="site-btn">SEARCH</button>
-                </form>
-            </div>
-
-    </div> -->
+    <div class="col-lg-3" style="margin-top: 25px;margin-left:10%;">
+		<div class="blog__sidebar__search">
+		    <form action="${path }/market1/searchNeed.do" type="post">
+		        <input type="text" name="search" placeholder="What do yo u need?">
+		        <button type="submit" class="site-btn">SEARCH</button>
+		    </form>
+		</div>
+    </div>
 </div>
 <script>
 

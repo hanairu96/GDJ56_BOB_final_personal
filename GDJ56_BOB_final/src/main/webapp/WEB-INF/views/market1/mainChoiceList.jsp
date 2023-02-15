@@ -77,6 +77,9 @@
                          </div>
                      </div>
 				</c:forEach>
+				<c:if test="${empty i}">
+					검색결과가 없습니다. 다시 검색해주세요
+				</c:if>
 				</div>
 				<div style="text-align:center;">
 					${pageBar }

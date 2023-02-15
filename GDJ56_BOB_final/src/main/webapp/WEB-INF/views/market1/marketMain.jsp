@@ -12,8 +12,8 @@
      }
 	.top-left {
       position: absolute;
-      top: 0px;
-      left: -10px;
+      top: -10px;
+      left: -15px;
       z-index: 1;
    	}
 </style>

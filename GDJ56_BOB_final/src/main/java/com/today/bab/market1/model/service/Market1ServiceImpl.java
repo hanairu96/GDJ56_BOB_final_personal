@@ -118,4 +118,9 @@ public class Market1ServiceImpl implements Market1Service{
 	public List<SellItem> recommendman(Map<String, Integer> param){
 		return dao.recommendman(session,param);
 	}
+	
+	@Override
+	public List<SellItem> searchNeed(String search){
+		return dao.searchNeed(session,search);
+	}
 }

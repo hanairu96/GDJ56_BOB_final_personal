@@ -95,4 +95,9 @@ public class Market1DaoImpl implements Market1Dao {
 		return session.selectList("ma.recommendman",null,
 				new RowBounds((param.get("cPage")-1)*param.get("numPerpage"),param.get("numPerpage")));
 	}
+	
+	@Override
+	public List<SellItem> searchNeed(SqlSessionTemplate session,String search){
+		return session.selectList("ma.searchNeed",search);
+	}
 }

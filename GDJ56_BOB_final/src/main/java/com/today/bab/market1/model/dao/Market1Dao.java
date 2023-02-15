@@ -42,4 +42,6 @@ public interface Market1Dao {
 	List<SellItem> soldoutsoon(SqlSessionTemplate session,Map<String, Integer> param);
 
 	List<SellItem> recommendman(SqlSessionTemplate session,Map<String, Integer> param);
+
+	List<SellItem> searchNeed(SqlSessionTemplate session,String search);
 }
