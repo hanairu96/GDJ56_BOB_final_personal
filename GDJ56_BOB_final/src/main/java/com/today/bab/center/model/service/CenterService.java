@@ -22,6 +22,7 @@ public interface CenterService {
 
 	int answerEnroll(Map<String, Object> param);
 	int answerUpdate(Map<String, Object> param);
+	int answerDelete(int no);
 
 	int noticeWriteEnd(Map<String, Object> param);
 	int noticeUpdate(Map<String, Object> param);

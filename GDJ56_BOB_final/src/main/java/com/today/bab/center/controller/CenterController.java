@@ -240,6 +240,20 @@ public class CenterController {
 		return data;
 	}
 	
+	//1:1 문의 답변 삭제
+	@ResponseBody
+	@RequestMapping("/answerDelete")
+	public boolean answerDelete(int no) {
+		
+		int result=service.answerDelete(no);
+		
+		boolean data=false;
+		if(result>0) {
+			data=true;
+		}
+		return data;
+	}
+	
 	//공지사항 작성 페이지로 이동
 	@RequestMapping("/noticeWrite")
 	public String noticeWrite() {

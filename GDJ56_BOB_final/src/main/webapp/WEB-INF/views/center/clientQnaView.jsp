@@ -86,7 +86,10 @@
 			            <button type="button" id="enroll-as-btn" class="customBtn btnStyle" onclick="answerEnroll();">답변 등록</button><br>
 	            	</c:if>
 	            	<c:if test="${not empty cq.cqanswer.cqaContent}">
-			            <button type="button" id="update-as-btn" class="customBtn btnStyle" onclick="answerUpdate();">답변 수정</button><br>
+			            <div id="answer-up-de">
+				            <button type="button" id="update-as-btn" class="customBtn btnStyle" onclick="answerUpdate();">답변 수정</button>
+				            <button type="button" id="delete-as-btn" class="customBtn btnStyle" onclick="answerDelete();">답변 삭제</button><br>
+			            </div>
 	            	</c:if>
 		            <div id="enroll-cancel">
 			            <button type="button" id="enroll-as-end" class="customBtn btnStyle" onclick="answerEnrollEnd();">등록</button><br>
@@ -217,8 +220,12 @@
             padding: 20px;
             resize: none;
         }
-        #enroll-as-btn, #update-as-btn{
+        #enroll-as-btn{
             margin-left: 82%;
+            margin-bottom: 30px;
+        }
+        #answer-up-de{
+            margin-left: 74%;
             margin-bottom: 30px;
         }
         #enroll-cancel, #update-cancel{
@@ -421,7 +428,7 @@
 			$("#answer").hide();
 			$("#textEnroll").show();
 			$("#textEnroll").focus();
-			$("#update-as-btn").hide();
+			$("#answer-up-de").hide();
 			$("#update-cancel").css("display","flex");
 			$("#update-cancel").show();
 		}
@@ -445,6 +452,26 @@
 					}
 				}
 			})
+		}
+
+		//답변 삭제하기
+		const answerDelete=()=>{
+			let check=confirm("정말로 삭제하시겠습니까?");
+			if(check){
+				$.ajax({
+					url:"${path}/center/answerDelete",
+					data:{no:${cq.cqNo}},
+					success:data=>{
+						if(data){
+							alert("삭제되었습니다.");
+							//삭제 성공했으면 새로고침
+							location.reload();
+						}else{
+							alert("삭제에 실패하였습니다.");
+						}
+					}
+				})
+			}
 		}
 		
 		//취소 시 원래 상태로 복구

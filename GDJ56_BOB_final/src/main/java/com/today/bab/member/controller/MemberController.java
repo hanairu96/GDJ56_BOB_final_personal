@@ -313,10 +313,12 @@ public class MemberController {
 				refer=c.getValue();
 			}
 		}
-		//System.out.println("나온 쿠키: "+refer);
+		System.out.println("나온 쿠키: "+refer);
 		
 		//로그인 실패 후 로그인 했을 때는 전 주소가 로그인 매핑주소이므로 메인 화면으로 리다이렉트
-		if(refer.contains("/bab/login")||refer.contains("/GDJ56_BOB_final/login")) {
+		//비밀번호 찾기로 비밀번호 수정 후에는 전 주소가 수정 매핑주소이므로 메인 화면으로 리다이렉트
+		//주소 입력으로 로그인페이지 들어오면 전 주소가 존재하지 않으므로 메인 화면으로 리다이렉트
+		if(refer.contains("/bab/login")||refer.contains("/GDJ56_BOB_final/login")||refer.contains("/member/updatePwd")||refer.equals("")) {
 			return "redirect:/";
 		//이전 주소가 쿠키로 저장돼있을 경우 그 주소로 리다이렉트
 		}else{
