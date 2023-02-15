@@ -79,11 +79,6 @@ public class CenterDaoImpl implements CenterDao {
 	public int answerEnroll(SqlSessionTemplate session, Map<String, Object> param) {
 		return session.insert("center.answerEnroll", param);
 	}
-	
-	@Override
-	public int answerDelete(SqlSessionTemplate session, int no) {
-		return session.delete("center.answerDelete", no);
-	}
 
 	@Override
 	public int updateCheck(SqlSessionTemplate session, int no) {
@@ -95,6 +90,16 @@ public class CenterDaoImpl implements CenterDao {
 		return session.update("center.answerUpdate", param);
 	}
 
+	@Override
+	public int answerDelete(SqlSessionTemplate session, int no) {
+		return session.delete("center.answerDelete", no);
+	}
+	
+	@Override
+	public int updateCheck2(SqlSessionTemplate session, int no) {
+		return session.update("center.updateCheck2", no);
+	}
+	
 	@Override
 	public int noticeWriteEnd(SqlSessionTemplate session, Map<String, Object> param) {
 		return session.insert("center.noticeWriteEnd", param);
