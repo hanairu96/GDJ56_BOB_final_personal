@@ -48,7 +48,9 @@ public class MemberServiceImpl implements MemberService {
 			int memberResult=dao.enrollMember(session, m);
 			int likeResult=dao.enrollMemberLike(session, ml);
 			int pointResult=dao.insertPoint(session, m.getMemberId());
-			result=1;
+			if(memberResult>0&&likeResult>0&&pointResult>0) {
+				result=1;
+			}
 		}catch(RuntimeException e) {
 			throw new RuntimeException();
 		}
