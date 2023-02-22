@@ -21,6 +21,10 @@
 - 버전 관리: GitHub
 
 ## 3. ERD 설계
+<img src="https://user-images.githubusercontent.com/118409554/220550124-79701d7b-fb57-40e0-9935-7c58aa2eac21.png"/>
+
+- ERD는 ERDCloud 사이트를 사용했습니다.
+- 주소: https://www.erdcloud.com/d/v53NYk65djAi8wC8L
 
 ## 4. 구현한 기능 설명
 #### 1. 스프링 시큐리티
