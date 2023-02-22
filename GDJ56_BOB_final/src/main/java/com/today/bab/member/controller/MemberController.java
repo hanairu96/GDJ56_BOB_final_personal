@@ -160,6 +160,7 @@ public class MemberController {
             helper.setText(content,true);
             mailSender.send(message);
         }catch(Exception e) {
+        	checkNum=0;
             e.printStackTrace();
         }
 		
