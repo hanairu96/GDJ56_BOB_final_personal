@@ -11,15 +11,14 @@
 
 ## 2. 개발 환경
 - 언어: Java 11, JavaScript, HTML, CSS, SQL
-- 라이브러리: jQuery, Lombok, JSTL, Gson, JavaMail
 - 프레임워크: Spring Framework 5.2.0, MyBatis, Bootstrap
-- IDE: STS3, SQL Developer
+- 라이브러리: jQuery, Lombok, JSTL, Gson, JavaMail
+- IDE: Spring Tool Suite 3, SQL Developer
 - 빌드 도구: Maven
-- 버전 관리: GitHub
 - DBMS: Oracle Database
 - WAS: Apache Tomcat v9.0
-- 기술: Ajax
-JSP
+- 기술: JSP, Ajax
+- 버전 관리: GitHub
 
 ## 3. ERD 설계
 
