@@ -17,10 +17,10 @@
     -->
 
    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-      <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-      <property name="url" value="jdbc:oracle:thin:@gd1class.iptime.org:8877:xe"/>
-      <property name="username" value="BOB"/>
-      <property name="password" value="BOB"/>
+      <property name="driverClassName" value="${spring.datasource.driverClassName}"/>
+      <property name="url" value="${spring.datasource.url}"/>
+      <property name="username" value="${spring.datasource.username}"/>
+      <property name="password" value="${spring.datasource.password}"/>
    </bean>
       <bean id="logdataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
       <constructor-arg ref="dataSource"/>
@@ -45,8 +45,8 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
 		<property name="host" value="smtp.naver.com"/> <!-- 메일서버 호스트 -->
 		<property name="port" value="587"/> <!-- 메일서버 포트번호 -->
-		<property name="username" value="todaysbab@naver.com"/> <!-- 자신의 이메일 -->
-		<property name="password" value="todaysbab23~"/> <!-- 자신의 비밀번호 -->
+		<property name="username" value="${spring.datasource.usernameMail}"/> <!-- 자신의 이메일 -->
+		<property name="password" value="${spring.datasource.passwordMail}"/> <!-- 자신의 비밀번호 -->
 		<!-- 보안연결 SSL과 관련된 설정 -->
 		<property name="javaMailProperties">
 			<props>
