@@ -435,7 +435,7 @@
 				type:"GET",
 				url:"${path}/member/emailCheck?email="+email,
 				success: function(data){
-					if(data==null){
+					if(data=="0"){
 						alert("인증번호 전송에 실패하였습니다.");
 						return false;
 					}else{

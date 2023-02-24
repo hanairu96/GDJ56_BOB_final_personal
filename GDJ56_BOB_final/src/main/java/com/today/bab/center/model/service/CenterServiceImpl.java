@@ -73,13 +73,17 @@ public class CenterServiceImpl implements CenterService {
 	}
 
 	@Override
-	public int answerEnroll(Map<String, Object> param) {
-		int resultEnroll=dao.answerEnroll(session, param);
-		int resultUpdate=dao.updateCheck(session, (int)param.get("no"));
-		
+	@Transactional(rollbackFor = {Exception.class})
+	public int answerEnroll(Map<String, Object> param) throws RuntimeException{
 		int result=0;
-		if(resultEnroll>0&&resultUpdate>0) {
-			result=1;
+		try {
+			int resultEnroll=dao.answerEnroll(session, param);
+			int resultUpdate=dao.updateCheck(session, (int)param.get("no"));
+			if(resultEnroll>0&&resultUpdate>0) {
+				result=1;
+			}
+		}catch(RuntimeException e) {
+			throw new RuntimeException();
 		}
 		return result;
 	}
