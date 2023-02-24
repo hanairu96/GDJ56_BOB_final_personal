@@ -91,7 +91,7 @@ hs_err_pid*
 replay_pid*
 
 Users/
-src/main/webapp/WEB-INF/spring/
+src/main/webapp/WEB-INF/spring/root-context.xml
 src/main/webapp/resources/upload/
 src/main/resources/
 target/

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- 단방향 암호화처리를 하는 클래스를 bean으로 등록
+		BCryptPasswordEncoder클래스를 이용
+	 --> 
+	 <bean id="bcryptPassword" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	
+	<!-- 로그인 시큐리티 적용 -->
+	<security:http auto-config="true">
+		<security:form-login
+			login-page="/member/loginpage"
+			username-parameter="id"
+			password-parameter="password"
+			default-target-url="/"
+			authentication-failure-forward-url="/member/loginFail"
+			authentication-success-forward-url="/member/loginSuccess"
+		/>
+		<security:csrf disabled="true"/>
+		
+		<!-- 인증 받는 주소 -->
+		<security:intercept-url pattern="/" access="permitAll()"/>
+		<security:intercept-url pattern="/resources/**" access="permitAll()"/>
+		<security:intercept-url pattern="/member/*" access="permitAll()"/>
+		<security:intercept-url pattern="/market/*" access="permitAll()"/>
+		<security:intercept-url pattern="/market1/*" access="permitAll()"/>
+		<security:intercept-url pattern="/itemQna/*" access="permitAll()"/>
+		<security:intercept-url pattern="/class/*" access="permitAll()"/>
+		<security:intercept-url pattern="/subscription/*" access="permitAll()"/>
+ 		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/mypage/*" access="hasRole('ROLE_USER')"/>
+
+		<!-- 로그아웃 -->
+		<security:logout logout-url="/member/logout" logout-success-url="/"/>
+		
+		<!-- 권한에 맞지 않는 주소에 접근했을 때 -->
+		<security:access-denied-handler error-page="/WEB-INF/views/common/error/authError.jsp"/>
+
+	</security:http>
+		
+	<!-- 인증 받는 방법 설정 -->
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="loginService">
+			<security:password-encoder ref="bcryptPassword"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<bean id="loginService" class="com.today.bab.security.SecurityService"/>
+	<context:component-scan base-package="com.today.bab"/>
+	
+</beans>
