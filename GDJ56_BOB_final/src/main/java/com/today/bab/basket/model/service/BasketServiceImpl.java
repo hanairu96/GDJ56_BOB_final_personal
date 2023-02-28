@@ -11,7 +11,7 @@ import com.today.bab.basket.model.dao.BasketDao;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market1.model.vo.MarketBasket;
 
-@Service
+@Service("com.today.bab.basket.model.service.BasketServiceImpl")
 public class BasketServiceImpl implements BasketService {
 	private BasketDao dao;
 	private SqlSessionTemplate session;

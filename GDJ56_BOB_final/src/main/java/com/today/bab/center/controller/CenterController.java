@@ -38,10 +38,6 @@ public class CenterController {
 		List<Notice> list=service.selectNoticeList(page);
 		mv.addObject("list", list);
 		
-//		int totalData=service.selectNoticeCount();
-//		mv.addObject("pageBar", Market2PageBar.getPage(cPage, numPerpage, totalData, "noticeList"));
-//		mv.addObject("totalContents", totalData);
-		
 		int totalData=service.selectNoticeCount();
 		mv.addObject("pageBar", AjaxPageBar.getPage(cPage, numPerpage, totalData, "noticeList"));
 		

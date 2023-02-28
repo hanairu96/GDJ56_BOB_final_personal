@@ -25,7 +25,7 @@ import com.today.bab.mypage.model.vo.Sub;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
-@Repository
+@Repository("com.today.bab.mypage.model.dao.MypageDaoImpl")
 public class MypageDaoImpl implements MypageDao{
 	
 	@Override
