@@ -57,32 +57,33 @@ public class MemberController {
 		return "member/loginpage";
 	}
 	
-//	@RequestMapping("login")
-//	public String loginEnd(String id, String password, Model model) {
-//		
-//		System.out.println(id);
-//		System.out.println(password);
-//		Member m=Member.builder().memberId(id).password(password).build();
-//		System.out.println(m);
-//		
-//		Member loginMember=service.selectMemberById(m);
-//		System.out.println(loginMember);
-//		
-//		if(loginMember!=null&&
-//				//임시로 원래 비번과 암호화된 비번 확인 둘 다 하게 함
-//				//입력한 비번과 암호화된 비번이 일치하는지 확인
-//				(loginMember.getPassword().equals(m.getPassword())||
-//				passwordEncoder.matches(m.getPassword(), loginMember.getPassword()))){
-//			model.addAttribute("loginMember", loginMember);
-//			System.out.println("성공");
-//			return "redirect:/";
-//		}else {
-//			System.out.println("실패");
-//			model.addAttribute("msg","입력이 잘못됐습니다.");
-//			model.addAttribute("loc","/member/login");
-//			return "common/msg";
-//		}
-//	}
+	//스프링 시큐리티 적용 안 했을 때의 로그인 로직
+/*	@RequestMapping("login")
+	public String loginEnd(String id, String password, Model model) {
+		
+		System.out.println(id);
+		System.out.println(password);
+		Member m=Member.builder().memberId(id).password(password).build();
+		System.out.println(m);
+		
+		Member loginMember=service.selectMemberById(m);
+		System.out.println(loginMember);
+		
+		if(loginMember!=null&&
+				//임시로 원래 비번과 암호화된 비번 확인 둘 다 하게 함
+				//입력한 비번과 암호화된 비번이 일치하는지 확인
+				(loginMember.getPassword().equals(m.getPassword())||
+				passwordEncoder.matches(m.getPassword(), loginMember.getPassword()))){
+			model.addAttribute("loginMember", loginMember);
+			System.out.println("성공");
+			return "redirect:/";
+		}else {
+			System.out.println("실패");
+			model.addAttribute("msg","입력이 잘못됐습니다.");
+			model.addAttribute("loc","/member/login");
+			return "common/msg";
+		}
+	} */
 	
 	@RequestMapping("/logout")
 	public String logout(SessionStatus session) {
@@ -120,7 +121,6 @@ public class MemberController {
 		
 		response.setContentType("application/json;charset=utf-8");
 		new Gson().toJson(m, response.getWriter());
-
 	}
 
 	@ResponseBody
@@ -137,13 +137,11 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value="/emailCheck", method=RequestMethod.GET)
 	public String emailCheck(String email) throws Exception {
-				
+		
+		//숫자 6자리로 구성된 인증번호 생성
 		Random r=new Random();
 		int checkNum=r.nextInt(888888)+111111;
-		
-		//System.out.println("받을 이메일: "+email);
-		//System.out.println("인증번호: "+checkNum);
-		
+				
 		String setFrom="todaysbab@naver.com";
 		String toMail=email;
 		String title="오늘의 밥 가입 인증번호입니다.";
@@ -174,19 +172,11 @@ public class MemberController {
 	public ModelAndView enrollMemberEnd(Member m, String year, String month, String day, 
 			String inputAddressPostcode, String inputAddressAddress, String inputAddressDetailAddress, 
 			MemberLike ml, ModelAndView mv) throws ParseException, RuntimeException {
-//		System.out.println(m);
-//		System.out.println(year);
-//		System.out.println(month);
-//		System.out.println(day);
-//		System.out.println(inputAddressAddress);
-//		System.out.println(inputAddressDetailAddress);
-//		System.out.println(ml);
 		
 		//문자열로 받아온 생년월일을 Date 타입으로 변환
 		String dateStr=year+"/"+month+"/"+day;
 		SimpleDateFormat formatter=new SimpleDateFormat("yyyy/MM/dd");
 		Date date=formatter.parse(dateStr);
-		//System.out.println(date);
 		
 		//주소를 하나로 합침
 		String address="("+inputAddressPostcode+") "+inputAddressAddress+", "+inputAddressDetailAddress;
@@ -201,7 +191,6 @@ public class MemberController {
 		if(ml.getMeat()!='Y') ml.setMeat('N');
 		if(ml.getSide()!='Y') ml.setSide('N');
 		if(ml.getVege()!='Y') ml.setVege('N');
-		//System.out.println(ml);
 
 		//패스워드 암호화
 		String encodePassword=passwordEncoder.encode(m.getPassword());
@@ -250,8 +239,6 @@ public class MemberController {
 			msg="성공";
 		}
 		
-		//Gson gson=new Gson();
-		//String data=gson.toJson(msg);
 		String data=msg;
 		
 		return data;
@@ -301,43 +288,37 @@ public class MemberController {
 		
 		//m.addAttribute("loginMember", Member.builder().memberId(((User)member).getUsername()).build());
 		m.addAttribute("loginMember", (Member)member);
-
-		//System.out.println(member);
-		//System.out.println(m.getAttribute("loginMember"));
-		//System.out.println("시큐리티 로그인 성공");
 		
-		String refer="";
+		String refer="/";
+		//모든 쿠키 목록을 불러옴
 		Cookie[] cookies = request.getCookies();
-		//System.out.println("모든 쿠키: "+cookies);
+		//저장된 이전 주소를 찾음
 		for(Cookie c: cookies) {
 			if(c.getName().equals("refer")) {
 				refer=c.getValue();
 			}
 		}
-		System.out.println("나온 쿠키: "+refer);
 		
-		//로그인 실패 후 로그인 했을 때는 전 주소가 로그인 매핑주소이므로 메인 화면으로 리다이렉트
-		//비밀번호 찾기로 비밀번호 수정 후에는 전 주소가 수정 매핑주소이므로 메인 화면으로 리다이렉트
-		//주소 입력으로 로그인페이지 들어오면 전 주소가 존재하지 않으므로 메인 화면으로 리다이렉트
-		if(refer.contains("/bab/login")||refer.contains("/GDJ56_BOB_final/login")||refer.contains("/member/updatePwd")||refer.equals("")) {
-			return "redirect:/";
-		//이전 주소가 쿠키로 저장돼있을 경우 그 주소로 리다이렉트
-		}else{
-			return "redirect:"+refer;
-		}
-		
+		//쿠키로 저장된 이전 주소로 리다이렉트
+		return "redirect:"+refer;
 	}
 	
 	@ResponseBody
 	@RequestMapping("/referrerSet")
 	public boolean referrerSet(HttpServletResponse response, String refer){
-		//로그인 페이지 이전 주소를 쿠키로 저장
-		CookieGenerator cg = new CookieGenerator();
-		
-		cg.setCookieName("refer");
-		cg.addCookie(response, refer);
-		
-		return true;
+		//로그인 실패 후 로그인 했을 때는 전 주소가 로그인 매핑주소이므로 주소 저장 안 함
+		//비밀번호 찾기로 비밀번호 수정 후에는 전 주소가 수정 매핑주소이므로 주소 저장 안 함
+		//주소 입력으로 로그인페이지 들어오면 전 주소가 존재하지 않으므로 주소 저장 안 함
+		if(refer.contains("/bab/login")||refer.contains("/GDJ56_BOB_final/login")||refer.contains("/member/updatePwd")||refer.equals("")) {
+			return false;
+		}else {
+			//로그인 페이지 이전 주소를 쿠키로 저장
+			CookieGenerator cg = new CookieGenerator();
+			cg.setCookieName("refer");
+			cg.addCookie(response, refer);
+			
+			return true;
+		}
 	}
 	
 }

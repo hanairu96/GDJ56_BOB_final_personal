@@ -118,7 +118,9 @@
 			url:"${path}/member/referrerSet",
 			data:{refer:refer},
 			success:data=>{
-				console.log("이전 주소: "+refer);
+				if(data==true){
+					console.log("이전 주소: "+refer);
+				}
 			}
 		})
     </script>
