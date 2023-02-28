@@ -29,7 +29,7 @@ import com.today.bab.common.AdminPageBar;
 import com.today.bab.common.AdminPageBar2;
 import com.today.bab.member.model.vo.Member;
 
-@Controller
+@Controller("com.today.bab.admin.controller.AdminController")
 @RequestMapping("/admin")
 //@SessionAttributes({"loginMember"})
 public class AdminController {

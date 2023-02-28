@@ -43,7 +43,7 @@ import com.today.bab.mypage.model.vo.Sub;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
-@Controller
+@Controller("com.today.bab.mypage.controller.MypageController")
 @RequestMapping("/mypage")
 public class MypageController {
 
