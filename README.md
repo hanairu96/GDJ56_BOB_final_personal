@@ -61,7 +61,7 @@
   - 로그인 실패하면 매핑주소가 "/member/loginFail"인 메소드로 가서 커스텀 예외인 LoginAccessException 예외 발생시킴
   - 로그인 성공하면 매핑주소가 "/member/loginSuccess"인 메소드로 감
     - SecurityContextHolder.getContext().getAuthentication().getPrincipal();으로 member를 생성
-    - member 객체를 Model 객체에 loginMember라는 이름으로 Attribute함
+    - Model 객체의 속성에 member 객체를 loginMember라는 이름으로 추가함
     - 최종적으로 return에 적혀진 주소로 이동함
 
 ## 6. 트러블 슈팅
