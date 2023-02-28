@@ -37,9 +37,7 @@
 - 공지사항/1:1문의 게시판(Ajax 페이징 처리 적용)
 
 ## 5. 구현한 기능 설명
-시큐리티 로그인, 정기 구독 신청, ajax 페이징 처리
 #### 1. 스프링 시큐리티 로그인
-- 기능 설명, Controller/Service/dao 코드 보여주기(깃 주소 링크), Mapper 이미지
 - pom.xml에 시큐리티 의존성 등록
 - [security-context.xml](https://github.com/hanairu96/GDJ56_BOB_final_personal/blob/main/GDJ56_BOB_final/src/main/webapp/WEB-INF/spring/security-context.xml)
   - <security:http> 태그의 하위 태그인 <security:form-login>에 로그인 페이지, username과 password의 파라미터, 로그인 성공/실패 시 이동할 주소 설정
@@ -62,7 +60,11 @@
   - 로그인 성공하면 매핑주소가 "/member/loginSuccess"인 메소드로 감
     - SecurityContextHolder.getContext().getAuthentication().getPrincipal();으로 member를 생성
     - Model 객체의 속성에 member 객체를 loginMember라는 이름으로 추가함
-    - 최종적으로 return에 적혀진 주소로 이동함
+    - @SessionAttributes({"loginMember"}) 어노테이션을 추가해 리다이렉트 되더라도 loginMember를 키로 가지는 세션이 살아있게 함
+    - 최종적으로 return에 적혀진 주소로 리다이렉트
+#### 2. 로그인 시 로그인페이지 이전에 접속했던 페이지로 이동하기
+#### 3. 정기 구독 신청
+#### 4. Ajax 페이징 처리
 
 ## 6. 트러블 슈팅
 - 문제 종류, 원인, 해결 방법(코드)
