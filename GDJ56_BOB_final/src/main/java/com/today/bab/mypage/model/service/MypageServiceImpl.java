@@ -27,7 +27,7 @@ import com.today.bab.mypage.model.vo.Sub;
 import com.today.bab.onedayclass.model.vo.OdcReserve;
 import com.today.bab.onedayclass.model.vo.OneDayClass;
 
-@Service
+@Service("com.today.bab.mypage.model.dao.MypageServiceImpl")
 public class MypageServiceImpl implements MypageService {
 	
 	private MypageDao mypageDao;

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.today.bab.basket.model.vo.Basket;
 import com.today.bab.market1.model.vo.MarketBasket;
 
-@Repository
+@Repository("com.today.bab.basket.model.dao.BasketDaoImpl")
 public class BasketDaoImpl implements BasketDao{
 	@Override
 	public int insertbasket(SqlSessionTemplate session,Map<String,Object> param) {

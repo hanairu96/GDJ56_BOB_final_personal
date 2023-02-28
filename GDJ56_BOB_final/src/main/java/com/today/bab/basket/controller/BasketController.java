@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.today.bab.basket.model.service.BasketService;
 
-@Controller
+@Controller("com.today.bab.basket.controller.BasketController")
 @RequestMapping("/basket")
 public class BasketController {
 	
