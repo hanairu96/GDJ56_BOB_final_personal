@@ -71,9 +71,24 @@
   - 로그인 성공 시 request.getCookies()로 모든 쿠키를 불러온 후 저장한 쿠키명과 일치하는 쿠키를 찾음
   - 해당 쿠키에 저장된 주소로 리다이렉트시킴
 #### 3. 정기 구독 신청
-
+- [subApply.jsp](https://github.com/hanairu96/GDJ56_BOB_final_personal/blob/main/GDJ56_BOB_final/src/main/webapp/WEB-INF/views/subscription/subApply.jsp)
+  - PortOne(舊 아임포트) 라이브러리를 CDN 방식으로 불러옴
+  - 결제하기 버튼을 누르면 requestPay() 메소드가 실행되고 카카오페이로 정기 결제가 진행됨
+  - 정기 결제가 성공하면 ajax로 회원 아이디와 결제 항목을 서버로 전송 후 결제 성공 메시지 뜸
+  - 정기 결제가 실패하면 결제 실패 메시지가 뜸
+- [SubController 클래스](https://github.com/hanairu96/GDJ56_BOB_final_personal/blob/main/GDJ56_BOB_final/src/main/java/com/today/bab/sub/controller/SubController.java)
+  - HashMap으로 생성한 param 객체에 회원 아이디와 결제 항목을 put함
+  - param 객체를 Service와 Dao로 보내고 mapper의 INSERT문으로 SUBSCRIPTION 테이블에 값을 추가함
+  - SQL문이 정상적으로 완료되면 true를, 아니면 false를 리턴
 #### 4. Ajax 페이징 처리
-
+- 현재 페이지, 페이지당 데이터수, 전체 데이터수를 매개변수로 받아 페이지바를 생성하는 getPage() 메소드를 작성
+- 리스트 출력 시 페이지바도 나오게 함
+- 페이지바의 버튼을 누르면 버튼의 숫자를 ajax로 서버에 보냄
+- 받은 데이터를 Service와 Dao로 보내고 mapper로 전체 데이터를 받아옴
+- Dao에서 RowBounds 객체를 생성해 특정 페이지의 데이터만 가져오게 함
+- 가져온 데이터를 List로 받고 해당 리스트를 리턴
+- jsp의 ajax에서 받아온 리스트를 이용해 출력할 테이블을 새로 생성하고 html() 메소드로 테이블을 교체함
+  <> 및 파일명 추가 예정
 ## 6. 트러블 슈팅
 - 문제 종류, 원인, 해결 방법(코드)
 
