@@ -63,7 +63,15 @@
     - @SessionAttributes({"loginMember"}) 어노테이션을 추가해 리다이렉트 되더라도 loginMember를 키로 가지는 세션이 살아있게 함
     - 최종적으로 return에 적혀진 주소로 리다이렉트
 #### 2. 로그인 시 로그인페이지 이전에 접속했던 페이지로 이동하기
+- [loginpage.jsp](https://github.com/hanairu96/GDJ56_BOB_final_personal/blob/main/GDJ56_BOB_final/src/main/webapp/WEB-INF/views/member/loginpage.jsp)
+  - 로그인 페이지 접속 시 document.referrer로 이전 주소를 받아옴
+  - ajax로 이전 주소 값을 서버에 보냄
+- [MemberController 클래스](https://github.com/hanairu96/GDJ56_BOB_final_personal/blob/main/GDJ56_BOB_final/src/main/java/com/today/bab/member/controller/MemberController.java)
+  - 로그인페이지에서 보내 온 주소 값을 CookieGenerator 객체를 이용해 쿠키로 저장함
+  - 로그인 성공 시 request.getCookies()로 모든 쿠키를 불러온 후 저장한 쿠키명과 일치하는 쿠키를 찾음
+  - 해당 쿠키에 저장된 주소로 리다이렉트시킴
 #### 3. 정기 구독 신청
+
 #### 4. Ajax 페이징 처리
 
 ## 6. 트러블 슈팅
