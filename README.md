@@ -115,7 +115,93 @@
 </details>
   
 ## 6. 트러블 슈팅
-- 문제 종류, 원인, 해결 방법(코드)
+<details>
+  <summary><b>Session 관련</b></summary>
+
+#### 문제
+- 로그인 성공 시 MemberController에서 Model 객체에 loginMember라는 이름의 세션 값을 넣고 메인 페이지로 redirect하도록 함
+- 하지만 메인 페이지에서는 세션 값이 살아 있지 않는 현상 발생
+#### 해결
+- MemberController에 아래와 같은 어노테이션을 적으니 해결됨
+- @SessionAttributes({"loginMember"})
+</details>
+
+<details>
+  <summary><b>Date 값 관련</b></summary>
+
+#### 문제
+- Date 타입의 값이 브라우저 화면에서 날짜형이 아니라 숫자로 나옴
+#### 해결
+- @JsonFormat 어노테이션을 사용하니 해결됨
+
+<div markdown="1">
+
+```java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Notice {
+	private int noticeNo;
+	private String noticeTitle;
+	private String noticeContent;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	private Date noticeDate;
+}
+```
+
+</div>
+
+</details>
+
+<details>
+  <summary><b>한글 깨짐 관련</b></summary>
+
+#### 문제
+- ajax로 반환 받은 한글 데이터가 브라우저 화면에서 ?로 나옴
+#### 해결
+- ajax에 contentType을 추가하고, Controller의 메소드 어노테이션에 produces 속성을 추가하니 해결
+
+<div markdown="1">
+
+```javascript
+$.ajax({
+  url:"${path}/member/emailExist",
+  type:"post",
+  data:{inputs:searchs},
+  contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+  success:data=>{
+    //생략
+  }
+});
+```
+
+</div>
+<div markdown="1">
+
+```java
+@ResponseBody
+@RequestMapping(value="/emailExist", produces = "application/text; charset=UTF-8")
+public String emailExist(@RequestParam(value="inputs[]") List<String> inputs) {
+  //생략
+  return data;
+}
+```
+
+</div>
+
+</details>
+
+<details>
+  <summary><b>jQuery 이벤트 관련</b></summary>
+
+#### 문제
+- 버튼을 누르면 테이블만 바뀌게 구현하려고 ajax 페이징 처리를 시도함
+- 그런데 $("").click(e=>{ }) 구문을 사용하니 jQuery click 이벤트가 안 먹히는 문제가 발생
+#### 해결
+- ajax로 화면을 바꾸면 동적 페이지로 바뀌어서 작동이 안 되는 것이었음
+- $(document).on("click", "", function(e){ }) 구문을 사용하니 정상 작동이 됨
+</details>
 
 ## 7. 회고/느낀 점
 #### 만족한 점
