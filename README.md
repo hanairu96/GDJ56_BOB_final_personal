@@ -81,14 +81,19 @@
   - param 객체를 Service와 Dao로 보내고 mapper의 INSERT문으로 SUBSCRIPTION 테이블에 값을 추가함
   - SQL문이 정상적으로 완료되면 true를, 아니면 false를 리턴
 #### 4. Ajax 페이징 처리
-- 현재 페이지, 페이지당 데이터수, 전체 데이터수를 매개변수로 받아 페이지바를 생성하는 getPage() 메소드를 작성
-- 리스트 출력 시 페이지바도 나오게 함
-- 페이지바의 버튼을 누르면 버튼의 숫자를 ajax로 서버에 보냄
-- 받은 데이터를 Service와 Dao로 보내고 mapper로 전체 데이터를 받아옴
-- Dao에서 RowBounds 객체를 생성해 특정 페이지의 데이터만 가져오게 함
-- 가져온 데이터를 List로 받고 해당 리스트를 리턴
-- jsp의 ajax에서 받아온 리스트를 이용해 출력할 테이블을 새로 생성하고 html() 메소드로 테이블을 교체함
-  <> 및 파일명 추가 예정
+- [AjaxPageBar 클래스](https://github.com/hanairu96/GDJ56_BOB_final_personal/blob/main/GDJ56_BOB_final/src/main/java/com/today/bab/common/AjaxPageBar.java)
+  - 현재 페이지, 페이지당 데이터수, 전체 데이터수를 매개변수로 받아 페이지바를 생성하는 getPage() 메소드를 작성
+- [CenterController 클래스](https://github.com/hanairu96/GDJ56_BOB_final_personal/blob/main/GDJ56_BOB_final/src/main/java/com/today/bab/center/controller/CenterController.java)
+  - 전체 페이지 데이터를 보낼 때
+    - ModelAndView 객체에 리스트와 페이지바를 add하고 return
+  - 리스트만 교체 시
+    - ajax로 받은 받은 데이터를 Service와 Dao로 보내고 mapper로 전체 데이터를 받아옴
+    - [Dao](https://github.com/hanairu96/GDJ56_BOB_final_personal/blob/main/GDJ56_BOB_final/src/main/java/com/today/bab/center/model/dao/CenterDaoImpl.java)에서 RowBounds 객체를 생성해 특정 페이지의 데이터만 가져오게 함
+  - 가져온 데이터를 List로 받고 해당 리스트를 리턴
+- [noticeList.jsp](https://github.com/hanairu96/GDJ56_BOB_final_personal/blob/main/GDJ56_BOB_final/src/main/webapp/WEB-INF/views/center/noticeList.jsp)/[clientQnaList.jsp](https://github.com/hanairu96/GDJ56_BOB_final_personal/blob/main/GDJ56_BOB_final/src/main/webapp/WEB-INF/views/center/clientQnaList.jsp)
+  - 페이지바의 버튼을 누르면 버튼에 적힌 페이지 번호를 ajax로 서버에 보냄
+    - 검색 후의 리스트라면 검색 항목과 검색 내용도 서버에 보냄
+  - jsp의 ajax에서 받아온 리스트를 이용해 출력할 테이블을 새로 생성하고 html() 메소드로 테이블을 교체함
 ## 6. 트러블 슈팅
 - 문제 종류, 원인, 해결 방법(코드)
 
