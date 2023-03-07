@@ -169,7 +169,7 @@ $.ajax({
   url:"${path}/member/emailExist",
   type:"post",
   data:{inputs:searchs},
-  contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+  contentType:'application/x-www-form-urlencoded; charset=utf-8',
   success:data=>{
     //생략
   }
@@ -203,6 +203,14 @@ public String emailExist(@RequestParam(value="inputs[]") List<String> inputs) {
 - $(document).on("click", "", function(e){ }) 구문을 사용하니 정상 작동이 됨
 </details>
 
-## 7. 회고/느낀 점
+## 7. 회고
 #### 만족한 점
+- 처음으로 Spring을 이용하여 Spring에 대한 이해도가 높아진 점
+- Ajax를 많이 사용하여 Ajax의 사용법에 대해 많이 알게 된 점
+- Ajax로 페이징 처리를 구현한 점
+- 로그인 후 이전 페이지로 가는 기능을 스스로 구상하여 구현한 점
+
 #### 아쉬운 점
+- Spring Boot가 아닌 Spring Legacy를 이용해 개발한 점
+- 정기 구독 신청 시 실제 날짜에 맞춰서 결제되도록 구현하지 않은 점
+- 구현한 게시판이 커뮤니티 성격이 아니어서 대댓글을 구현하지 못한 점
