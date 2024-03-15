@@ -20,12 +20,16 @@
 - 기술: JSP, Ajax
 - 버전 관리: GitHub
 
-## 3. ERD 설계
+## 3. 화면
+<img src="https://github.com/hanairu96/GDJ56_BOB_final_personal/assets/118409554/95494f33-88c3-4607-9e4c-b309f4dcb31a"/>
+<img src="https://github.com/hanairu96/GDJ56_BOB_final_personal/assets/118409554/0dcec582-4096-4ce9-852c-b025817fd2e5"/>
+
+## 4. ERD 설계
 <img src="https://user-images.githubusercontent.com/118409554/220550124-79701d7b-fb57-40e0-9935-7c58aa2eac21.png"/>
 
 - ERD는 ERDCloud 사이트를 사용했습니다.
 
-## 4. 담당한 기능
+## 5. 담당한 기능
 - 메인 화면 디자인
 - SNS 공유 기능
 - 회원가입(SMTP / 다음 주소 API 사용)
@@ -35,7 +39,7 @@
 - 정기 구독 신청(PortOne API 사용)
 - 공지사항/1:1문의 게시판(Ajax 페이징 처리 적용)
 
-## 5. 구현한 기능 설명
+## 6. 구현한 기능 설명
 <details>
   <summary><b>1. 스프링 시큐리티 로그인</b></summary>
 
@@ -113,7 +117,7 @@
   - jsp의 ajax에서 받아온 리스트를 이용해 출력할 테이블을 새로 생성하고 html() 메소드로 테이블을 교체한다.
 </details>
   
-## 6. 트러블 슈팅
+## 7. 트러블 슈팅
 <details>
   <summary><b>Session 관련</b></summary>
 
@@ -202,7 +206,7 @@ public String emailExist(@RequestParam(value="inputs[]") List<String> inputs) {
 - $(document).on("click", "", function(e){ }) 구문을 사용하니 정상 작동이 됨
 </details>
 
-## 7. 회고
+## 8. 회고
 #### 만족한 점
 - 처음으로 Spring을 이용하여 Spring에 대한 이해도가 높아진 점
 - Ajax를 많이 사용하여 Ajax의 사용법에 대해 많이 알게 된 점
