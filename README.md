@@ -10,14 +10,14 @@
 - 인원: 6명
 
 ## 2. 개발 환경
-- 언어: Java 11, JavaScript, HTML, CSS, SQL
+- 프로그래밍 언어: Java 11, JavaScript
 - 프레임워크: Spring Framework 5.2.0, MyBatis, Bootstrap
 - 라이브러리: jQuery, Lombok, JSTL, Gson, JavaMail
 - IDE: Spring Tool Suite 3, SQL Developer
 - 빌드 도구: Maven
 - DBMS: Oracle Database
 - WAS: Apache Tomcat v9.0
-- 기술: JSP, Ajax
+- 기타 웹 기술: JSP, Ajax
 - 버전 관리: GitHub
 
 ## 3. 화면
@@ -32,12 +32,12 @@
 ## 5. 담당한 기능
 - 메인 화면 디자인
 - SNS 공유 기능
-- 회원가입(SMTP / 다음 주소 API 사용)
+- 회원가입( JavaMailSender / 다음 주소 API 사용 )
 - 로그인
 - 스프링 시큐리티 적용
 - 아이디/비밀번호 찾기
-- 정기 구독 신청(PortOne API 사용)
-- 공지사항/1:1문의 게시판(Ajax 페이징 처리 적용)
+- 정기 구독 신청( PortOne API 사용 )
+- 공지사항/1:1문의 게시판( Ajax 페이징 처리 적용 )
 
 ## 6. 구현한 기능 설명
 <details>
@@ -88,7 +88,7 @@
 
 ####
 - [subApply.jsp](https://github.com/hanairu96/GDJ56_BOB_final_personal/blob/main/GDJ56_BOB_final/src/main/webapp/WEB-INF/views/subscription/subApply.jsp)
-  - PortOne(舊 아임포트) 라이브러리를 CDN 방식으로 불러온다.
+  - PortOne(구 아임포트) 라이브러리를 CDN 방식으로 불러온다.
   - 결제하기 버튼을 누르면 requestPay() 메소드가 실행되고 카카오페이로 정기 결제가 진행된다.
   - 정기 결제가 성공하면 ajax로 회원 아이디와 결제 항목을 서버로 전송한 후 결제 성공 메시지가 뜬다.
   - 정기 결제가 실패하면 결제 실패 메시지가 뜬다.
@@ -200,10 +200,10 @@ public String emailExist(@RequestParam(value="inputs[]") List<String> inputs) {
 
 #### 문제
 - 버튼을 누르면 테이블만 바뀌게 구현하려고 ajax 페이징 처리를 시도함
-- 그런데 $("").click(e=>{ }) 구문을 사용하니 jQuery click 이벤트가 안 먹히는 문제가 발생
+- 그런데 $("선택자").click(e=>{ }) 구문을 사용하니 jQuery click 이벤트가 안 먹히는 문제가 발생
 #### 해결
 - ajax로 화면을 바꾸면 동적 페이지로 바뀌어서 작동이 안 되는 것이었음
-- $(document).on("click", "", function(e){ }) 구문을 사용하니 정상 작동이 됨
+- $(document).on("click", "선택자", function(e){ }) 구문을 사용하니 정상 작동이 됨
 </details>
 
 ## 8. 회고
